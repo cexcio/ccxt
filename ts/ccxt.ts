@@ -33,19 +33,20 @@ import { Exchange }  from './src/base/Exchange.js'
 import { Precise }   from './src/base/Precise.js'
 import * as functions from './src/base/functions.js'
 import * as errors   from './src/base/errors.js'
-import type { Int, int, Str, Strings, Num, Bool, IndexType, OrderSide, OrderType, MarketType, SubType, Dict, NullableDict, List, NullableList, Fee, OHLCV, OHLCVC, implicitReturnType, Market, Currency, Dictionary, MinMax, FeeInterface, TradingFeeInterface, MarketInterface, Trade, Order, OrderBook, Ticker, Transaction, Tickers, CurrencyInterface, Balance, BalanceAccount, Account, PartialBalances, Balances, DepositAddress, WithdrawalResponse, FundingRate, FundingRates, Position, BorrowInterest, LeverageTier, LedgerEntry, DepositWithdrawFeeNetwork, DepositWithdrawFee, TransferEntry, CrossBorrowRate, IsolatedBorrowRate, FundingRateHistory, OpenInterest, Liquidation, OrderRequest, CancellationRequest, FundingHistory, MarketMarginModes, MarginMode, Greeks, Conversion, Option, LastPrice, Leverage, MarginModification, Leverages, LastPrices, Currencies, TradingFees, MarginModes, OptionChain, IsolatedBorrowRates, CrossBorrowRates, LeverageTiers, LongShortRatio, OrderBooks, OpenInterests, ConstructorArgs } from './src/base/types.js'
+import type { Int, int, Str, Strings, Num, Bool, IndexType, OrderSide, OrderType, MarketType, SubType, Dict, NullableDict, List, NullableList, Fee, OHLCV, OHLCVC, implicitReturnType, Market, Currency, Dictionary, MinMax, FeeInterface, TradingFeeInterface, MarketInterface, Trade, Order, OrderBook, Ticker, Transaction, Tickers, CurrencyInterface, Balance, BalanceAccount, Account, PartialBalances, Balances, DepositAddress, WithdrawalResponse, FundingRate, FundingRates, Position, BorrowInterest, LeverageTier, LedgerEntry, DepositWithdrawFeeNetwork, DepositWithdrawFee, TransferEntry, CrossBorrowRate, IsolatedBorrowRate, FundingRateHistory, OpenInterest, Liquidation, OrderRequest, CancellationRequest, FundingHistory, MarketMarginModes, MarginMode, Greeks, Conversion, Option, LastPrice, Leverage, MarginModification, Leverages, LastPrices, Currencies, TradingFees, MarginModes, OptionChain, IsolatedBorrowRates, CrossBorrowRates, LeverageTiers, LongShortRatio, OrderBooks, OpenInterests, ConstructorArgs, ADL } from './src/base/types.js'
 import {BaseError, ExchangeError, AuthenticationError, PermissionDenied, AccountNotEnabled, AccountSuspended, ArgumentsRequired, BadRequest, BadSymbol, OperationRejected, NoChange, MarginModeAlreadySet, MarketClosed, ManualInteractionNeeded, RestrictedLocation, InsufficientFunds, InvalidAddress, AddressPending, InvalidOrder, OrderNotFound, OrderNotCached, OrderImmediatelyFillable, OrderNotFillable, DuplicateOrderId, ContractUnavailable, NotSupported, InvalidProxySettings, ExchangeClosedByUser, OperationFailed, NetworkError, DDoSProtection, RateLimitExceeded, ExchangeNotAvailable, OnMaintenance, InvalidNonce, ChecksumError, RequestTimeout, BadResponse, NullResponse, CancelPending, UnsubscribeError}  from './src/base/errors.js'
 
 
 //-----------------------------------------------------------------------------
 // this is updated by vss.js when building
 
-const version = '4.5.32';
+const version = '4.5.40';
 
 (Exchange as any).ccxtVersion = version
 
 //-----------------------------------------------------------------------------
 
+import alp from  './src/alp.js'
 import alpaca from  './src/alpaca.js'
 import apex from  './src/apex.js'
 import arkham from  './src/arkham.js'
@@ -77,7 +78,6 @@ import bittrade from  './src/bittrade.js'
 import bitvavo from  './src/bitvavo.js'
 import blockchaincom from  './src/blockchaincom.js'
 import blofin from  './src/blofin.js'
-import btcalpha from  './src/btcalpha.js'
 import btcbox from  './src/btcbox.js'
 import btcmarkets from  './src/btcmarkets.js'
 import btcturk from  './src/btcturk.js'
@@ -144,7 +144,6 @@ import paradex from  './src/paradex.js'
 import paymium from  './src/paymium.js'
 import phemex from  './src/phemex.js'
 import poloniex from  './src/poloniex.js'
-import probit from  './src/probit.js'
 import timex from  './src/timex.js'
 import tokocrypto from  './src/tokocrypto.js'
 import toobit from  './src/toobit.js'
@@ -233,7 +232,6 @@ import p2bPro from  './src/pro/p2b.js'
 import paradexPro from  './src/pro/paradex.js'
 import phemexPro from  './src/pro/phemex.js'
 import poloniexPro from  './src/pro/poloniex.js'
-import probitPro from  './src/pro/probit.js'
 import toobitPro from  './src/pro/toobit.js'
 import upbitPro from  './src/pro/upbit.js'
 import whitebitPro from  './src/pro/whitebit.js'
@@ -242,6 +240,7 @@ import woofiproPro from  './src/pro/woofipro.js'
 import xtPro from  './src/pro/xt.js'
 
 const exchanges = {
+    'alp':                    alp,
     'alpaca':                 alpaca,
     'apex':                   apex,
     'arkham':                 arkham,
@@ -273,7 +272,6 @@ const exchanges = {
     'bitvavo':                bitvavo,
     'blockchaincom':          blockchaincom,
     'blofin':                 blofin,
-    'btcalpha':               btcalpha,
     'btcbox':                 btcbox,
     'btcmarkets':             btcmarkets,
     'btcturk':                btcturk,
@@ -340,7 +338,6 @@ const exchanges = {
     'paymium':                paymium,
     'phemex':                 phemex,
     'poloniex':               poloniex,
-    'probit':                 probit,
     'timex':                  timex,
     'tokocrypto':             tokocrypto,
     'toobit':                 toobit,
@@ -429,7 +426,6 @@ const pro = {
     'paradex':                paradexPro,
     'phemex':                 phemexPro,
     'poloniex':               poloniexPro,
-    'probit':                 probitPro,
     'toobit':                 toobitPro,
     'upbit':                  upbitPro,
     'whitebit':               whitebitPro,
@@ -570,6 +566,7 @@ export {
     LastPrice,
     Leverage,
     LongShortRatio,
+    ADL,
     MarginModification,
     Leverages,
     LastPrices,
@@ -580,6 +577,7 @@ export {
     IsolatedBorrowRates,
     CrossBorrowRates,
     LeverageTiers,
+    alp,
     alpaca,
     apex,
     arkham,
@@ -611,7 +609,6 @@ export {
     bitvavo,
     blockchaincom,
     blofin,
-    btcalpha,
     btcbox,
     btcmarkets,
     btcturk,
@@ -678,7 +675,6 @@ export {
     paymium,
     phemex,
     poloniex,
-    probit,
     timex,
     tokocrypto,
     toobit,

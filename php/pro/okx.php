@@ -373,17 +373,20 @@ class okx extends \ccxt\async\okx {
         }) ();
     }
 
-    public function watch_funding_rates(array $symbols, $params = array ()): PromiseInterface {
+    public function watch_funding_rates(?array $symbols = null, $params = array ()): PromiseInterface {
         return Async\async(function () use ($symbols, $params) {
             /**
              * watch the funding rate for multiple markets
              *
              * @see https://www.okx.com/docs-v5/en/#public-data-websocket-funding-rate-$channel
              *
-             * @param {string[]} $symbols list of unified market $symbols
+             * @param {string[]} $symbols a list of unified market $symbols
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
-             * @return {array} a dictionary of ~@link https://docs.ccxt.com/?id=funding-rates-structure funding rates structures~, indexe by market $symbols
+             * @return {array} a dictionary of ~@link https://docs.ccxt.com/?id=funding-rate-structure funding rates structures~, indexed by market $symbols
              */
+            if ($symbols === null) {
+                throw new ArgumentsRequired($this->id . ' watchFundingRates() requires an array of symbols');
+            }
             Async\await($this->load_markets());
             $symbols = $this->market_symbols($symbols);
             $channel = 'funding-rate';
@@ -812,13 +815,12 @@ class okx extends \ccxt\async\okx {
             $rawLiquidation = $rawLiquidations[$i];
             $liquidation = $this->parse_ws_liquidation($rawLiquidation);
             $symbol = $this->safe_string($liquidation, 'symbol');
-            $liquidations = $this->safe_value($this->liquidations, $symbol);
-            if ($liquidations === null) {
+            if ($this->liquidations === null) {
                 $limit = $this->safe_integer($this->options, 'liquidationsLimit', 1000);
-                $liquidations = new ArrayCache ($limit);
+                $this->liquidations = new ArrayCache ($limit);
             }
-            $liquidations->append ($liquidation);
-            $this->liquidations[$symbol] = $liquidations;
+            $cache = $this->liquidations;
+            $cache->append ($liquidation);
             $client->resolve (array( $liquidation ), 'liquidations');
             $client->resolve (array( $liquidation ), 'liquidations::' . $symbol);
         }
@@ -914,13 +916,12 @@ class okx extends \ccxt\async\okx {
             }
             $liquidation = $this->parse_ws_my_liquidation($rawLiquidation);
             $symbol = $this->safe_string($liquidation, 'symbol');
-            $liquidations = $this->safe_value($this->liquidations, $symbol);
-            if ($liquidations === null) {
-                $limit = $this->safe_integer($this->options, 'myLiquidationsLimit', 1000);
-                $liquidations = new ArrayCache ($limit);
+            if ($this->liquidations === null) {
+                $limit = $this->safe_integer($this->options, 'liquidationsLimit', 1000);
+                $this->liquidations = new ArrayCache ($limit);
             }
-            $liquidations->append ($liquidation);
-            $this->liquidations[$symbol] = $liquidations;
+            $cache = $this->liquidations;
+            $cache->append ($liquidation);
             $client->resolve (array( $liquidation ), 'myLiquidations');
             $client->resolve (array( $liquidation ), 'myLiquidations::' . $symbol);
         }
@@ -1883,7 +1884,7 @@ class okx extends \ccxt\async\okx {
         for ($i = 0; $i < count($data); $i++) {
             $rawPosition = $data[$i];
             $position = $this->parse_position($rawPosition);
-            if ($position['contracts'] === 0) {
+            if ($position['contracts'] === 0 && $rawPosition['posSide'] === 'net') {
                 $position['side'] = 'long';
                 $shortPosition = $this->clone($position);
                 $shortPosition['side'] = 'short';
@@ -1952,7 +1953,7 @@ class okx extends \ccxt\async\okx {
         }) ();
     }
 
-    public function handle_orders(Client $client, $message, $subscription = null) {
+    public function handle_orders(Client $client, $message) {
         //
         //     {
         //         "arg":array(
@@ -2144,11 +2145,11 @@ class okx extends \ccxt\async\okx {
              * @see https://www.okx.com/docs-v5/en/#websocket-api-trade-place-order
              *
              * create a trade order
-             * @param {string} $symbol unified $symbol of the market to create an order in
+             * @param {string} $symbol unified $symbol of the $market to create an order in
              * @param {string} $type 'market' or 'limit'
              * @param {string} $side 'buy' or 'sell'
              * @param {float} $amount how much of currency you want to trade in units of base currency
-             * @param {float|null} [$price] the $price at which the order is to be fulfilled, in units of the quote currency, ignored in market orders
+             * @param {float|null} [$price] the $price at which the order is to be fulfilled, in units of the quote currency, ignored in $market orders
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @param {boolean} $params->test test order, default false
              * @return {array} an ~@link https://docs.ccxt.com/?id=order-structure order structure~
@@ -2160,6 +2161,12 @@ class okx extends \ccxt\async\okx {
             $op = null;
             list($op, $params) = $this->handle_option_and_params($params, 'createOrderWs', 'op', 'batch-orders');
             $args = $this->create_order_request($symbol, $type, $side, $amount, $price, $params);
+            $market = $this->market($symbol);
+            $instIdCode = $this->safe_integer($market, 'instIdCode');
+            if ($instIdCode !== null) {
+                unset($args['instId']);
+                $args['instIdCode'] = $instIdCode;
+            }
             $ordType = $this->safe_string($args, 'ordType');
             if (($ordType === 'trigger') || ($ordType === 'conditional') || ($type === 'oco') || ($type === 'move_order_stop') || ($type === 'iceberg') || ($type === 'twap')) {
                 throw new BadRequest($this->id . ' createOrderWs() does not support algo trading. $this->options["createOrderWs"]["op"] must be either order or batch-order');
@@ -2219,11 +2226,11 @@ class okx extends \ccxt\async\okx {
              * @see https://www.okx.com/docs-v5/en/#order-book-trading-trade-ws-amend-multiple-orders
              *
              * @param {string} $id order $id
-             * @param {string} $symbol unified $symbol of the market to create an order in
+             * @param {string} $symbol unified $symbol of the $market to create an order in
              * @param {string} $type 'market' or 'limit'
              * @param {string} $side 'buy' or 'sell'
              * @param {float} $amount how much of the currency you want to trade in units of the base currency
-             * @param {float|null} [$price] the $price at which the order is to be fulfilled, in units of the quote currency, ignored in market orders
+             * @param {float|null} [$price] the $price at which the order is to be fulfilled, in units of the quote currency, ignored in $market orders
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @return {array} an ~@link https://docs.ccxt.com/?$id=order-structure order structure~
              */
@@ -2234,6 +2241,12 @@ class okx extends \ccxt\async\okx {
             $op = null;
             list($op, $params) = $this->handle_option_and_params($params, 'editOrderWs', 'op', 'amend-order');
             $args = $this->edit_order_request($id, $symbol, $type, $side, $amount, $price, $params);
+            $market = $this->market($symbol);
+            $instIdCode = $this->safe_integer($market, 'instIdCode');
+            if ($instIdCode !== null) {
+                unset($args['instId']);
+                $args['instIdCode'] = $instIdCode;
+            }
             $request = array(
                 'id' => $messageHash,
                 'op' => $op,
@@ -2251,7 +2264,7 @@ class okx extends \ccxt\async\okx {
              *
              * cancel multiple orders
              * @param {string} $id order $id
-             * @param {string} $symbol unified market $symbol, default is null
+             * @param {string} $symbol unified $market $symbol, default is null
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @param {string} [$params->clOrdId] client order $id
              * @return {array} an list of ~@link https://docs.ccxt.com/?$id=order-structure order structures~
@@ -2265,8 +2278,10 @@ class okx extends \ccxt\async\okx {
             $messageHash = $this->request_id();
             $clientOrderId = $this->safe_string_2($params, 'clOrdId', 'clientOrderId');
             $params = $this->omit($params, array( 'clientOrderId', 'clOrdId' ));
+            $market = $this->market($symbol);
+            $instIdCode = $this->safe_integer($market, 'instIdCode');
             $arg = array(
-                'instId' => $this->market_id($symbol),
+                'instIdCode' => $instIdCode,
             );
             if ($clientOrderId !== null) {
                 $arg['clOrdId'] = $clientOrderId;
@@ -2290,7 +2305,7 @@ class okx extends \ccxt\async\okx {
              *
              * cancel multiple orders
              * @param {string[]} $ids order $ids
-             * @param {string} $symbol unified market $symbol, default is null
+             * @param {string} $symbol unified $market $symbol, default is null
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @return {array} an list of ~@link https://docs.ccxt.com/?id=order-structure order structures~
              */
@@ -2306,11 +2321,15 @@ class okx extends \ccxt\async\okx {
             $url = $this->get_url('private', 'private');
             $messageHash = $this->request_id();
             $args = array();
+            $market = $this->market($symbol);
+            $instIdCode = $this->safe_integer($market, 'instIdCode');
+            $instParams = array(
+                'instIdCode' => $instIdCode,
+            );
             for ($i = 0; $i < $idsLength; $i++) {
-                $arg = array(
-                    'instId' => $this->market_id($symbol),
+                $arg = $this->extend($instParams, array(
                     'ordId' => $ids[$i],
-                );
+                ));
                 $args[] = $arg;
             }
             $request = array(

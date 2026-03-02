@@ -58,6 +58,7 @@ class gate extends Exchange {
                         'earn' => 'https://api.gateio.ws/api/v4',
                         'account' => 'https://api.gateio.ws/api/v4',
                         'loan' => 'https://api.gateio.ws/api/v4',
+                        'otc' => 'https://api.gateio.ws/api/v4',
                     ),
                 ),
                 'test' => array(
@@ -482,6 +483,7 @@ class gate extends Exchange {
                             '{settle}/account_book' => 1,
                             '{settle}/positions' => 1,
                             '{settle}/positions/{contract}' => 1,
+                            '{settle}/get_leverage/{contract}' => 1,
                             '{settle}/dual_comp/positions/{contract}' => 1,
                             '{settle}/orders' => 1,
                             '{settle}/orders_timerange' => 1,
@@ -499,10 +501,12 @@ class gate extends Exchange {
                         'post' => array(
                             '{settle}/positions/{contract}/margin' => 1,
                             '{settle}/positions/{contract}/leverage' => 1,
+                            '{settle}/positions/{contract}/set_leverage' => 1,
                             '{settle}/positions/{contract}/risk_limit' => 1,
                             '{settle}/positions/cross_mode' => 1,
                             '{settle}/dual_comp/positions/cross_mode' => 1,
                             '{settle}/dual_mode' => 1,
+                            '{settle}/set_position_mode' => 1,
                             '{settle}/dual_comp/positions/{contract}/margin' => 1,
                             '{settle}/dual_comp/positions/{contract}/leverage' => 1,
                             '{settle}/dual_comp/positions/{contract}/risk_limit' => 1,
@@ -589,6 +593,7 @@ class gate extends Exchange {
                             'uni/rate' => 20 / 15,
                             'staking/eth2/rate_records' => 20 / 15,
                             'dual/orders' => 20 / 15,
+                            'dual/balance' => 20 / 15,
                             'structured/orders' => 20 / 15,
                             'staking/coins' => 20 / 15,
                             'staking/order_list' => 20 / 15,
@@ -669,6 +674,21 @@ class gate extends Exchange {
                             'broker/transaction_history' => 20 / 15,
                             'user/info' => 20 / 15,
                             'user/sub_relation' => 20 / 15,
+                        ),
+                    ),
+                    'otc' => array(
+                        'get' => array(
+                            'get_user_def_bank' => 1,
+                            'order/list' => 1,
+                            'stable_coin/order/list' => 1,
+                            'order/detail' => 1,
+                        ),
+                        'post' => array(
+                            'quote' => 1,
+                            'order/create' => 1,
+                            'stable_coin/order/create' => 1,
+                            'order/paid' => 1,
+                            'order/cancel' => 1,
                         ),
                     ),
                 ),
@@ -1046,7 +1066,7 @@ class gate extends Exchange {
             // https://www.gate.com/docs/developers/apiv4/en/#label-list
             'exceptions' => array(
                 'exact' => array(
-                    'INVALID_PARAM_VALUE' => '\\ccxt\\InvalidOrder', // array("label":"INVALID_PARAM_VALUE","message":"Your order size 0.003749448 USDT is too small. The minimum is 3 USDT")
+                    'INVALID_PARAM_VALUE' => '\\ccxt\\BadRequest', // array("label":"INVALID_PARAM_VALUE","message":"Your order size 0.003749448 USDT is too small. The minimum is 3 USDT") or array("label":"INVALID_PARAM_VALUE","message":"Candlestick too long ago. Maximum 10000 points ago are allowed")
                     'INVALID_PROTOCOL' => '\\ccxt\\BadRequest',
                     'INVALID_ARGUMENT' => '\\ccxt\\BadRequest',
                     'INVALID_REQUEST_BODY' => '\\ccxt\\BadRequest',
@@ -1144,7 +1164,9 @@ class gate extends Exchange {
                     'NO_CHANGE' => '\\ccxt\\InvalidOrder', // array("label":"NO_CHANGE","message":"No change is made")
                     'PRICE_THRESHOLD_EXCEEDED' => '\\ccxt\\InvalidOrder', // array("label":"PRICE_THRESHOLD_EXCEEDED","message":" => 0.45288")
                 ),
-                'broad' => array(),
+                'broad' => array(
+                    'Your order size' => '\\ccxt\\InvalidOrder', // array("label":"INVALID_PARAM_VALUE","message":"Your order size 0.003749448 USDT is too small. The minimum is 3 USDT")
+                ),
             ),
         ));
     }
@@ -6988,6 +7010,7 @@ class gate extends Exchange {
         } else {
             $this->check_required_credentials();
             $queryString = '';
+            $rawQueryString = '';
             $requiresURLEncoding = false;
             if ((($type === 'futures') || ($type === 'delivery')) && $method === 'POST') {
                 $pathParts = explode('/', $path);
@@ -6996,6 +7019,8 @@ class gate extends Exchange {
             }
             if (($method === 'GET') || ($method === 'DELETE') || $requiresURLEncoding || ($method === 'PATCH')) {
                 if ($query) {
+                    // https://github.com/ccxt/ccxt/issues/27663
+                    $rawQueryString = $this->rawencode($query);
                     $queryString = $this->urlencode($query);
                     // https://github.com/ccxt/ccxt/issues/25570
                     if (mb_strpos($queryString, 'currencies=') !== false && mb_strpos($queryString, '%2C') !== false) {
@@ -7021,7 +7046,7 @@ class gate extends Exchange {
             $timestamp = $this->parse_to_int($nonce / 1000);
             $timestampString = (string) $timestamp;
             $signaturePath = '/api/' . $this->version . $entirePath;
-            $payloadArray = array( strtoupper($method), $signaturePath, $queryString, $bodySignature, $timestampString );
+            $payloadArray = array( strtoupper($method), $signaturePath, $rawQueryString, $bodySignature, $timestampString );
             // eslint-disable-next-line quotes
             $payload = implode("\n", $payloadArray);
             $signature = $this->hmac($this->encode($payload), $this->encode($this->secret), 'sha512');
@@ -7109,7 +7134,7 @@ class gate extends Exchange {
              * @param {string} $symbol unified market $symbol
              * @param {float} $amount the $amount of margin to remove
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
-             * @return {array} a ~@link https://docs.ccxt.com/?id=reduce-margin-structure margin structure~
+             * @return {array} a ~@link https://docs.ccxt.com/?id=margin-structure margin structure~
              */
             return Async\await($this->modify_margin_helper($symbol, -$amount, $params));
         }) ();
@@ -7126,7 +7151,7 @@ class gate extends Exchange {
              * @param {string} $symbol unified market $symbol
              * @param {float} $amount amount of margin to add
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
-             * @return {array} a ~@link https://docs.ccxt.com/?id=add-margin-structure margin structure~
+             * @return {array} a ~@link https://docs.ccxt.com/?id=margin-structure margin structure~
              */
             return Async\await($this->modify_margin_helper($symbol, $amount, $params));
         }) ();
@@ -7429,7 +7454,7 @@ class gate extends Exchange {
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @param {int} [$params->until] end time in ms
              * @param {boolean} [$params->paginate] default false, when true will automatically $paginate by calling this endpoint multiple times. See in the docs all the [available parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-$params)
-             * @return {array} a ~@link https://docs.ccxt.com/?id=ledger ledger structure~
+             * @return {array} a ~@link https://docs.ccxt.com/?id=ledger-entry-structure ledger structure~
              */
             Async\await($this->load_markets());
             $paginate = false;

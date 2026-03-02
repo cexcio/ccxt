@@ -11,6 +11,7 @@
 - [Changelog](CHANGELOG.md)
 - [Awesome](Awesome.md)
 - API Spec by Exchange
+	- [alp](exchanges/alp.md)
 	- [alpaca](exchanges/alpaca.md)
 	- [apex](exchanges/apex.md)
 	- [arkham](exchanges/arkham.md)
@@ -38,7 +39,6 @@
 	- [bitvavo](exchanges/bitvavo.md)
 	- [blockchaincom](exchanges/blockchaincom.md)
 	- [blofin](exchanges/blofin.md)
-	- [btcalpha](exchanges/btcalpha.md)
 	- [btcbox](exchanges/btcbox.md)
 	- [btcmarkets](exchanges/btcmarkets.md)
 	- [btcturk](exchanges/btcturk.md)
@@ -99,7 +99,6 @@
 	- [paymium](exchanges/paymium.md)
 	- [phemex](exchanges/phemex.md)
 	- [poloniex](exchanges/poloniex.md)
-	- [probit](exchanges/probit.md)
 	- [timex](exchanges/timex.md)
 	- [tokocrypto](exchanges/tokocrypto.md)
 	- [toobit](exchanges/toobit.md)

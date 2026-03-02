@@ -72,10 +72,15 @@ Full public and private HTTP REST APIs for all exchanges are implemented. WebSoc
 - [Instantiation](#instantiation)
 - [Exchange Structure](#exchange-structure)
 - [Rate Limit](#rate-limit)
+<<<<<<< HEAD
 <!--- init list -->The CCXT library currently supports the following 109 cryptocurrency exchange markets and trading APIs:
+=======
+<!--- init list -->The CCXT library currently supports the following 107 cryptocurrency exchange markets and trading APIs:
+>>>>>>> master
 
 |logo                                                                                                                                                                                           |id                     |name                                                                                     |ver                                                                                                                                               |type                                                                                                    |certified                                                                                                                    |pro                                                                           |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|-----------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------:|--------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| [![alp](https://github.com/user-attachments/assets/dce49f3a-61e5-4ba0-a2fe-41d192fd0e5d)](https://alp.com/?r=123788)                                                                          | alp                   | [Alp](https://alp.com/?r=123788)                                                        | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://alpcomdev.github.io/alp-api-docs/)                                          | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             |                                                                              |
 | [![alpaca](https://github.com/user-attachments/assets/e9476df8-a450-4c3e-ab9a-1a7794219e1b)](https://alpaca.markets)                                                                          | alpaca                | [Alpaca](https://alpaca.markets)                                                        | [![API Version *](https://img.shields.io/badge/*-lightgray)](https://alpaca.markets/docs/)                                                       | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
 | [![apex](https://github.com/user-attachments/assets/fef8f2f7-4265-46aa-965e-33a91881cb00)](https://omni.apex.exchange/trade)                                                                  | apex                  | [Apex](https://omni.apex.exchange/trade)                                                | [![API Version 3](https://img.shields.io/badge/3-lightgray)](https://api-docs.pro.apex.exchange)                                                 | ![DEX - Distributed EXchange](https://img.shields.io/badge/DEX-blue.svg "DEX - Distributed EXchange")  |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
 | [![arkham](https://github.com/user-attachments/assets/5cefdcfb-2c10-445b-835c-fa21317bf5ac)](https://arkm.com/register?ref=ccxt)                                                              | arkham                | [ARKHAM](https://arkm.com/register?ref=ccxt)                                            | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://arkm.com/limits-api)                                                        | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
@@ -107,7 +112,6 @@ Full public and private HTTP REST APIs for all exchanges are implemented. WebSoc
 | [![bitvavo](https://github.com/user-attachments/assets/d213155c-8c71-4701-9bd5-45351febc2a8)](https://bitvavo.com/?a=24F34952F7)                                                              | bitvavo               | [Bitvavo](https://bitvavo.com/?a=24F34952F7)                                            | [![API Version 2](https://img.shields.io/badge/2-lightgray)](https://docs.bitvavo.com/)                                                          | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
 | [![blockchaincom](https://github.com/user-attachments/assets/975e3054-3399-4363-bcee-ec3c6d63d4e8)](https://blockchain.com)                                                                   | blockchaincom         | [Blockchain.com](https://blockchain.com)                                                | [![API Version 3](https://img.shields.io/badge/3-lightgray)](https://api.blockchain.com/v3)                                                      | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
 | [![blofin](https://github.com/user-attachments/assets/518cdf80-f05d-4821-a3e3-d48ceb41d73b)](https://blofin.com/register?referral_code=f79EsS)                                                | blofin                | [BloFin](https://blofin.com/register?referral_code=f79EsS)                              | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://blofin.com/docs)                                                            | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
-| [![btcalpha](https://github.com/user-attachments/assets/dce49f3a-61e5-4ba0-a2fe-41d192fd0e5d)](https://btc-alpha.com/?r=123788)                                                               | btcalpha              | [BTC-Alpha](https://btc-alpha.com/?r=123788)                                            | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://btc-alpha.github.io/api-docs)                                               | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             |                                                                              |
 | [![btcbox](https://github.com/user-attachments/assets/1e2cb499-8d0f-4f8f-9464-3c015cfbc76b)](https://www.btcbox.co.jp/)                                                                       | btcbox                | [BtcBox](https://www.btcbox.co.jp/)                                                     | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://blog.btcbox.jp/en/archives/8762)                                            | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             |                                                                              |
 | [![btcmarkets](https://github.com/user-attachments/assets/8c8d6907-3873-4cc4-ad20-e22fba28247e)](https://btcmarkets.net)                                                                      | btcmarkets            | [BTC Markets](https://btcmarkets.net)                                                   | [![API Version 3](https://img.shields.io/badge/3-lightgray)](https://api.btcmarkets.net/doc/v3)                                                  | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             |                                                                              |
 | [![btcturk](https://github.com/user-attachments/assets/10e0a238-9f60-4b06-9dda-edfc7602f1d6)](https://www.btcturk.com)                                                                        | btcturk               | [BTCTurk](https://www.btcturk.com)                                                      | [![API Version *](https://img.shields.io/badge/*-lightgray)](https://github.com/BTCTrader/broker-api-docs)                                       | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             |                                                                              |
@@ -171,7 +175,6 @@ Full public and private HTTP REST APIs for all exchanges are implemented. WebSoc
 | [![paymium](https://user-images.githubusercontent.com/51840849/87153930-f0f02200-c2c0-11ea-9c0a-40337375ae89.jpg)](https://www.paymium.com/page/sign-up?referral=eDAzPoRQFMvaAB8sf-qj)        | paymium               | [Paymium](https://www.paymium.com/page/sign-up?referral=eDAzPoRQFMvaAB8sf-qj)           | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://github.com/Paymium/api-documentation)                                       | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             |                                                                              |
 | [![phemex](https://user-images.githubusercontent.com/1294454/85225056-221eb600-b3d7-11ea-930d-564d2690e3f6.jpg)](https://phemex.com/register?referralCode=EDNVJ)                              | phemex                | [Phemex](https://phemex.com/register?referralCode=EDNVJ)                                | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://phemex-docs.github.io/#overview)                                            | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
 | [![poloniex](https://user-images.githubusercontent.com/1294454/27766817-e9456312-5ee6-11e7-9b3c-b628ca5626a5.jpg)](https://poloniex.com/signup?c=UBFZJRPJ)                                    | poloniex              | [Poloniex](https://poloniex.com/signup?c=UBFZJRPJ)                                      | [![API Version *](https://img.shields.io/badge/*-lightgray)](https://api-docs.poloniex.com/spot/)                                                | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
-| [![probit](https://user-images.githubusercontent.com/51840849/79268032-c4379480-7ea2-11ea-80b3-dd96bb29fd0d.jpg)](https://www.probit.com/r/34608773)                                          | probit                | [ProBit](https://www.probit.com/r/34608773)                                             | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://docs-en.probit.com)                                                         | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
 | [![timex](https://user-images.githubusercontent.com/1294454/70423869-6839ab00-1a7f-11ea-8f94-13ae72c31115.jpg)](https://timex.io/?refcode=1x27vNkTbP1uwkCck)                                  | timex                 | [TimeX](https://timex.io/?refcode=1x27vNkTbP1uwkCck)                                    | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://plasma-relay-backend.timex.io/swagger-ui/index.html)                        | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             |                                                                              |
 | [![tokocrypto](https://user-images.githubusercontent.com/1294454/183870484-d3398d0c-f6a1-4cce-91b8-d58792308716.jpg)](https://tokocrypto.com)                                                 | tokocrypto            | [Tokocrypto](https://tokocrypto.com)                                                    | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://www.tokocrypto.com/apidocs/)                                                | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             |                                                                              |
 | [![toobit](https://github.com/user-attachments/assets/0c7a97d5-182c-492e-b921-23540c868e0e)](https://www.toobit.com/en-US/r?i=IFFPy0)                                                         | toobit                | [Toobit](https://www.toobit.com/en-US/r?i=IFFPy0)                                       | [![API Version 1](https://img.shields.io/badge/1-lightgray)](https://toobit-docs.github.io/apidocs/spot/v1/en/)                                  | ![CEX – Centralized EXchange](https://img.shields.io/badge/CEX-green.svg "CEX – Centralized EXchange") |                                                                                                                             | [![CCXT Pro](https://img.shields.io/badge/CCXT-Pro-black)](https://ccxt.pro) |
@@ -593,7 +596,7 @@ Below is a detailed description of each of the base exchange properties:
 
 - `timeout`: A timeout in milliseconds for a request-response roundtrip (default timeout is 10000 ms = 10 seconds). If the response is not received in that time, the library will throw an `RequestTimeout` exception. You can leave the default timeout value or set it to a reasonable value. Hanging forever with no timeout is not your option, for sure. You don't have to override this option in general case.
 
-- `rateLimit`: A request rate limit in milliseconds. Specifies the required minimal delay between two consequent HTTP requests to the same exchange. The built-in rate-limiter is enabled by default and can be turned off by setting the `enableRateLimit` property to false.
+- `rateLimit`: The rate limit in milliseconds. This value represents the number of milliseconds to wait between consecutive requests to stay within the exchange's rate limits. For example, if `rateLimit` is 1000, it means 1 request per second is allowed. The built-in rate-limiter is enabled by default and can be turned off by setting the `enableRateLimit` property to false.
 
 - `enableRateLimit`: A boolean (true/false) value that enables the built-in rate limiter and throttles consecutive requests. This setting is `true` (enabled) by default. **The user is required to implement own [rate limiting](#rate-limit) or leave the built-in rate limiter enabled to avoid being banned from the exchange**.
 
@@ -607,7 +610,6 @@ Below is a detailed description of each of the base exchange properties:
   logging.basicConfig(level=logging.DEBUG)
   ```
 - `returnResponseHeaders`: If set to `true`, the HTTP response headers from the exchange will be included in the `responseHeaders` property inside the `info` field of the returned result for REST API calls. This can be useful for accessing metadata such as rate limit information or exchange-specific headers. By default, this is `false` and headers are not included in the response. Note: it's only supported when response is an object and not a list or string
-
 
 - `markets`: An associative array of markets indexed by common trading pairs or symbols. Markets should be loaded prior to accessing this property. Markets are unavailable until you call the `loadMarkets() / load_markets()` method on exchange instance.
 
@@ -631,7 +633,7 @@ Below is a detailed description of each of the base exchange properties:
 
 - `precisionMode`: The exchange decimal precision counting mode, read more about [Precision And Limits](#precision-and-limits)
 
-- For proxies - `proxyUrl`, `httpUrl`, `httpsUrl`, `socksProxy`, `wsProxy`, `wssProxy`, `wsSocksProxy` : An url of specific proxy. Read details in [Proxy](#proxy) section.
+- For proxies - `proxyUrl`, `httpUrl`, `httpsUrl`, `socksProxy`, `wsProxy`, `wssProxy`, `wsSocksProxy` : An url of specific proxy. See the [Proxy](#proxy) section for more details.
 
 See this section on [Overriding exchange properties](#overriding-exchange-properties-upon-instantiation).
 
@@ -686,18 +688,18 @@ See this section on [Overriding exchange properties](#overriding-exchange-proper
 
 Exchanges usually impose what is called a *rate limit*. Exchanges will remember and track your user credentials and your IP address and will not allow you to query the API too frequently. They balance their load and control traffic congestion to protect API servers from (D)DoS and misuse.
 
-CCXT supports two different rate-limiting algorithms:
-
-- **leaky bucket (default)**: works by queueing requests and releasing them at a steady, fixed rate. Bursts of requests are smoothed out over time rather than executed immediately, which helps prevent hitting exchange rate limits while still allowing short spikes in activity to be handled gracefully.
-- **window-based rate limiter**:  If the user provides the `{ 'rateLimiterAlgorithm': 'rollingWindow' }` option, ccxt switches from the leaky bucket model to a window-based rate limiter (the size of the window can be customized by providing `rollingWindowSize: X0000`, CCXT uses 60s as the default windowSize). A window-based limiter enforces a maximum number of requests within a fixed time window (for example, N requests per X milliseconds). Once the limit is reached, further requests are delayed until the current window expires.
-
 **WARNING: Stay under the rate limit to avoid ban!**
 
 Most exchanges allow **up to 1 or 2 requests per second**. Exchanges may temporarily restrict your access to their API or ban you for some period of time if you are too aggressive with your requests.
 
 **The `exchange.rateLimit` property is set to a safe default which is sub-optimal. Some exchanges may have varying rate limits for different endpoints. It is up to the user to tweak `rateLimit` according to application-specific purposes.**
 
-The CCXT library has a built-in experimental rate-limiter that will do the necessary throttling in background transparently to the user. **WARNING: users are responsible for at least some type of rate-limiting: either by implementing a custom algorithm or by doing it with the built-in rate-limiter.**.
+The CCXT library has built-in experimental rate-limiter algorithms that will do the necessary throttling in background transparently to the user. **WARNING: users are responsible for at least some type of rate-limiting: either by implementing a custom algorithm or by doing it with the built-in rate-limiter.**
+
+CCXT has the following built-in rate-limiting algorithms:
+
+- **Leaky Bucket (default)**: Works by queueing requests and releasing them at a steady, fixed rate. Bursts of requests are smoothed out over time rather than executed immediately, which helps prevent hitting exchange rate limits while still allowing short spikes in activity to be handled gracefully.
+- **Window-Based (optional)**:  If the user provides the `{ 'rateLimiterAlgorithm': 'rollingWindow' }` option, ccxt switches from the leaky bucket model to a window-based rate limiter (the size of the window can be customized by providing `rollingWindowSize: X0000`, CCXT uses 60s as the default windowSize). A window-based limiter enforces a maximum number of requests within a fixed time window (for example, N requests per X milliseconds). Once the limit is reached, further requests are delayed until the current window expires.
 
 You can turn on/off the built-in rate-limiter with `.enableRateLimit` property, like so:
 
@@ -847,9 +849,9 @@ If you encounter DDoS protection errors and cannot reach a particular exchange t
 
 ## Maximum Requests capacity
 
-In asynchronous programming, CCXT allows you to schedule an unlimited number of requests. However, there is a default queue limit of 1,000 concurrent requests. If you attempt to enqueue more than this limit, you will encounter the error: "throttle queue is over maxCapacity".
+In asynchronous programming, CCXT allows you to schedule an unlimited number of requests. However, there's a limit on the queue length which is by default set to 1000 concurrent requests max. If you attempt to enqueue more than that, you will encounter the error: "throttle queue is over maxCapacity".
 
-In most cases, having such a large number of pending tasks indicates suboptimal design, as new requests will be delayed until the existing tasks complete.
+In most cases, having so many pending tasks indicates suboptimal design, as new requests will be delayed until the existing tasks complete.
 
 That said, users who wish to bypass this restriction can increase the default maxCapacity during instantiation as shown below:
 
@@ -1953,7 +1955,7 @@ var_dump (new \ccxt\okcoin ()); // PHP
 
 The unified ccxt API is a subset of methods common among the exchanges. It currently contains the following methods:
 
-- `fetchMarkets ()`: Fetches a list of all available markets from an exchange and returns an array of markets (objects with properties such as `symbol`, `base`, `quote` etc.). Some exchanges do not have means for obtaining a list of markets via their online API. For those, the list of markets is hardcoded.
+- `fetchMarkets ()`: Fetches a list of all available markets from an exchange and returns an array of Market objects as defined by the [Market structure](#market-structure) (with properties such as `symbol`, `base`, `quote` etc.). Some exchanges do not have means for obtaining a list of markets via their online API. For those, the list of markets is hardcoded.
 - `fetchCurrencies ()`: Fetches all available currencies from an exchange and returns an associative dictionary of currencies (objects with properties such as `code`, `name`, etc.). Some exchanges do not have means for obtaining currencies via their online API. For those, the currencies will be extracted from market pairs or hardcoded.
 - `loadMarkets ([reload])`: Returns the list of markets as an object indexed by symbol and caches it with the exchange instance. Returns cached markets if loaded already, unless the `reload = true` flag is forced.
 - `fetchOrderBook (symbol, limit = undefined, params = {})`: Fetch L2/L3 order book for a particular market trading symbol.
@@ -1997,6 +1999,9 @@ The unified ccxt API is a subset of methods common among the exchanges. It curre
 - `fetchFundingRateInterval (symbol, params)`
 - `fetchFundingRateIntervals (symbols, params)`
 - `fetchLongShortRatio (symbol, params)`
+- `fetchAutoDeLeverageRank (symbol, params)`
+- `fetchPositionAutoDeLeverageRank (symbol, params)`
+- `fetchPositionsAutoDeLeverageRank (symbols, params)`
 - ...
 
 ```text
@@ -2373,6 +2378,7 @@ if ($exchange->has['fetchMyTrades']) {
 - [Liquidations](#liquidations)
 - [Greeks](#greeks)
 - [OptionChain](#option-chain)
+- [Auto De Leverage](#auto-de-leverage)
 
 ## Order Book
 
@@ -3817,6 +3823,39 @@ Returns
 }
 ```
 
+## Auto De Leverage
+
+*contract only*
+
+Use the `fetchADLRank` method to get the public details of a symbols auto de leverage rank from the exchange.
+
+```javascript
+fetchADLRank (symbol, params = {})
+```
+
+Parameters
+
+- **symbol** (String) Unified CCXT market symbol (e.g. `"BTC/USDT:USDT"`)
+- **params** (Dictionary) Extra parameters specific to the exchange API endpoint (e.g. `{"category": "futures"}`)
+
+Returns
+
+- An [auto de leverage structure](#auto-de-leverage)
+
+### Auto De Leverage Stucture
+
+```javascript
+{
+    'info': { ... },                            // the original decoded JSON as is
+    'symbol': 'BTC/USDT:USDT',                  // unified CCXT market symbol
+    'rank': 5,                                  // a quantile rank from 1 to 5 with 5 being the highest risk
+    'rating': 'high',                           // a string risk rating as either low, medium or high
+    'percent': 72.86,                           // the risk percentage with a higher percentage being a higher risk of auto de leverage
+    'timestamp': 1699593511632,                 // unix timestamp in milliseconds
+    'datetime': '2023-11-10T05:18:31.632Z',     // ISO8601 datetime with milliseconds
+}
+```
+
 # Private API
 
 - [Authentication](#authentication)
@@ -3840,6 +3879,7 @@ Returns
 - [Positions](#positions)
 - [Funding History](#funding-history)
 - [Conversion](#conversion)
+- [Auto De Leverage](#auto-de-leverage)
 
 In order to be able to access your user account, perform algorithmic trading by placing market and limit orders, query balances, deposit and withdraw funds and so on, you need to obtain your API keys for authentication from each exchange you want to trade with. They usually have it available on a separate tab or page within your user account settings. API keys are exchange-specific and cannnot be interchanged under any circumstances.
 
@@ -6975,6 +7015,52 @@ Returns
     toAmount: 2.9722,
     price: 0.97,
     fee: 0.0
+}
+```
+
+## Auto De Leverage
+
+*contract only*
+
+Use the `fetchPositionADLRank` or `fetchPositionsADLRank` methods to get the private details of a positions auto de leverage rank from the exchange.
+
+```javascript
+fetchPositionADLRank (symbol, params = {})
+```
+
+Parameters
+
+- **symbol** (String) Unified CCXT market symbol (e.g. `"BTC/USDT:USDT"`)
+- **params** (Dictionary) Extra parameters specific to the exchange API endpoint (e.g. `{"category": "futures"}`)
+
+Returns
+
+- An [auto de leverage structure](#auto-de-leverage)
+
+```javascript
+fetchPositionsADLRank (symbols, params = {})
+```
+
+Parameters
+
+- **symbols** (\[String\]) A list of unified CCXT symbols (e.g. `[ "BTC/USDT:USDT" ]`)
+- **params** (Dictionary) Extra parameters specific to the exchange API endpoint (e.g. `{"category": "futures"}`)
+
+Returns
+
+- A list of [auto de leverage structures](#auto-de-leverage)
+
+### Auto De Leverage Stucture
+
+```javascript
+{
+    'info': { ... },                            // the original decoded JSON as is
+    'symbol': 'BTC/USDT:USDT',                  // unified CCXT market symbol
+    'rank': 5,                                  // a quantile rank from 1 to 5 with 5 being the highest risk
+    'rating': 'high',                           // a string risk rating as either low, medium or high
+    'percent': 72.86,                           // the risk percentage with a higher percentage being a higher risk of auto de leverage
+    'timestamp': 1699593511632,                 // unix timestamp in milliseconds
+    'datetime': '2023-11-10T05:18:31.632Z',     // ISO8601 datetime with milliseconds
 }
 ```
 

@@ -44,6 +44,7 @@ public partial class gate : Exchange
                         { "earn", "https://api.gateio.ws/api/v4" },
                         { "account", "https://api.gateio.ws/api/v4" },
                         { "loan", "https://api.gateio.ws/api/v4" },
+                        { "otc", "https://api.gateio.ws/api/v4" },
                     } },
                 } },
                 { "test", new Dictionary<string, object>() {
@@ -465,6 +466,7 @@ public partial class gate : Exchange
                             { "{settle}/account_book", 1 },
                             { "{settle}/positions", 1 },
                             { "{settle}/positions/{contract}", 1 },
+                            { "{settle}/get_leverage/{contract}", 1 },
                             { "{settle}/dual_comp/positions/{contract}", 1 },
                             { "{settle}/orders", 1 },
                             { "{settle}/orders_timerange", 1 },
@@ -482,10 +484,12 @@ public partial class gate : Exchange
                         { "post", new Dictionary<string, object>() {
                             { "{settle}/positions/{contract}/margin", 1 },
                             { "{settle}/positions/{contract}/leverage", 1 },
+                            { "{settle}/positions/{contract}/set_leverage", 1 },
                             { "{settle}/positions/{contract}/risk_limit", 1 },
                             { "{settle}/positions/cross_mode", 1 },
                             { "{settle}/dual_comp/positions/cross_mode", 1 },
                             { "{settle}/dual_mode", 1 },
+                            { "{settle}/set_position_mode", 1 },
                             { "{settle}/dual_comp/positions/{contract}/margin", 1 },
                             { "{settle}/dual_comp/positions/{contract}/leverage", 1 },
                             { "{settle}/dual_comp/positions/{contract}/risk_limit", 1 },
@@ -572,6 +576,7 @@ public partial class gate : Exchange
                             { "uni/rate", divide(20, 15) },
                             { "staking/eth2/rate_records", divide(20, 15) },
                             { "dual/orders", divide(20, 15) },
+                            { "dual/balance", divide(20, 15) },
                             { "structured/orders", divide(20, 15) },
                             { "staking/coins", divide(20, 15) },
                             { "staking/order_list", divide(20, 15) },
@@ -652,6 +657,21 @@ public partial class gate : Exchange
                             { "broker/transaction_history", divide(20, 15) },
                             { "user/info", divide(20, 15) },
                             { "user/sub_relation", divide(20, 15) },
+                        } },
+                    } },
+                    { "otc", new Dictionary<string, object>() {
+                        { "get", new Dictionary<string, object>() {
+                            { "get_user_def_bank", 1 },
+                            { "order/list", 1 },
+                            { "stable_coin/order/list", 1 },
+                            { "order/detail", 1 },
+                        } },
+                        { "post", new Dictionary<string, object>() {
+                            { "quote", 1 },
+                            { "order/create", 1 },
+                            { "stable_coin/order/create", 1 },
+                            { "order/paid", 1 },
+                            { "order/cancel", 1 },
                         } },
                     } },
                 } },
@@ -946,7 +966,7 @@ public partial class gate : Exchange
             } },
             { "exceptions", new Dictionary<string, object>() {
                 { "exact", new Dictionary<string, object>() {
-                    { "INVALID_PARAM_VALUE", typeof(InvalidOrder) },
+                    { "INVALID_PARAM_VALUE", typeof(BadRequest) },
                     { "INVALID_PROTOCOL", typeof(BadRequest) },
                     { "INVALID_ARGUMENT", typeof(BadRequest) },
                     { "INVALID_REQUEST_BODY", typeof(BadRequest) },
@@ -1044,7 +1064,9 @@ public partial class gate : Exchange
                     { "NO_CHANGE", typeof(InvalidOrder) },
                     { "PRICE_THRESHOLD_EXCEEDED", typeof(InvalidOrder) },
                 } },
-                { "broad", new Dictionary<string, object>() {} },
+                { "broad", new Dictionary<string, object>() {
+                    { "Your order size", typeof(InvalidOrder) },
+                } },
             } },
         });
     }
@@ -7439,6 +7461,7 @@ public partial class gate : Exchange
         {
             this.checkRequiredCredentials();
             object queryString = "";
+            object rawQueryString = "";
             object requiresURLEncoding = false;
             if (isTrue(isTrue((isTrue((isEqual(type, "futures"))) || isTrue((isEqual(type, "delivery"))))) && isTrue(isEqual(method, "POST"))))
             {
@@ -7450,6 +7473,8 @@ public partial class gate : Exchange
             {
                 if (isTrue(getArrayLength(new List<object>(((IDictionary<string,object>)query).Keys))))
                 {
+                    // https://github.com/ccxt/ccxt/issues/27663
+                    rawQueryString = this.rawencode(query);
                     queryString = this.urlencode(query);
                     // https://github.com/ccxt/ccxt/issues/25570
                     if (isTrue(isTrue(isGreaterThanOrEqual(getIndexOf(queryString, "currencies="), 0)) && isTrue(isGreaterThanOrEqual(getIndexOf(queryString, "%2C"), 0))))
@@ -7479,7 +7504,7 @@ public partial class gate : Exchange
             object timestamp = this.parseToInt(divide(nonce, 1000));
             object timestampString = ((object)timestamp).ToString();
             object signaturePath = add(add("/api/", this.version), entirePath);
-            object payloadArray = new List<object> {((string)method).ToUpper(), signaturePath, queryString, bodySignature, timestampString};
+            object payloadArray = new List<object> {((string)method).ToUpper(), signaturePath, rawQueryString, bodySignature, timestampString};
             // eslint-disable-next-line quotes
             object payload = String.Join("\n", ((IList<object>)payloadArray).ToArray());
             object signature = this.hmac(this.encode(payload), this.encode(this.secret), sha512);
@@ -7576,7 +7601,7 @@ public partial class gate : Exchange
      * @param {string} symbol unified market symbol
      * @param {float} amount the amount of margin to remove
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @returns {object} a [margin structure]{@link https://docs.ccxt.com/?id=reduce-margin-structure}
+     * @returns {object} a [margin structure]{@link https://docs.ccxt.com/?id=margin-structure}
      */
     public async override Task<object> reduceMargin(object symbol, object amount, object parameters = null)
     {
@@ -7593,7 +7618,7 @@ public partial class gate : Exchange
      * @param {string} symbol unified market symbol
      * @param {float} amount amount of margin to add
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @returns {object} a [margin structure]{@link https://docs.ccxt.com/?id=add-margin-structure}
+     * @returns {object} a [margin structure]{@link https://docs.ccxt.com/?id=margin-structure}
      */
     public async override Task<object> addMargin(object symbol, object amount, object parameters = null)
     {
@@ -7919,7 +7944,7 @@ public partial class gate : Exchange
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {int} [params.until] end time in ms
      * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [available parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
-     * @returns {object} a [ledger structure]{@link https://docs.ccxt.com/?id=ledger}
+     * @returns {object} a [ledger structure]{@link https://docs.ccxt.com/?id=ledger-entry-structure}
      */
     public async override Task<object> fetchLedger(object code = null, object since = null, object limit = null, object parameters = null)
     {

@@ -8,7 +8,7 @@ from ccxt.abstract.binance import ImplicitAPI
 import asyncio
 import hashlib
 import json
-from ccxt.base.types import Any, Balances, BorrowInterest, Conversion, CrossBorrowRate, Currencies, Currency, DepositAddress, Greeks, Int, IsolatedBorrowRate, IsolatedBorrowRates, LedgerEntry, Leverage, Leverages, LeverageTier, LeverageTiers, LongShortRatio, MarginMode, MarginModes, MarginModification, Market, Num, Option, Order, OrderBook, OrderRequest, OrderSide, OrderType, Position, Str, Strings, Ticker, Tickers, FundingRate, FundingRates, Trade, TradingFeeInterface, TradingFees, Transaction, MarketInterface, TransferEntry
+from ccxt.base.types import Any, ADL, Balances, BorrowInterest, Conversion, CrossBorrowRate, Currencies, Currency, DepositAddress, Greeks, Int, IsolatedBorrowRate, IsolatedBorrowRates, LedgerEntry, Leverage, Leverages, LeverageTier, LeverageTiers, LongShortRatio, MarginMode, MarginModes, MarginModification, Market, Num, Option, Order, OrderBook, OrderRequest, OrderSide, OrderType, Position, Str, Strings, Ticker, Tickers, FundingRate, FundingRates, Trade, TradingFeeInterface, TradingFees, Transaction, MarketInterface, TransferEntry
 from typing import List
 from ccxt.base.errors import ExchangeError
 from ccxt.base.errors import AuthenticationError
@@ -88,6 +88,7 @@ class binance(Exchange, ImplicitAPI):
                 'editOrder': True,
                 'editOrders': True,
                 'fetchAccounts': None,
+                'fetchADLRank': True,
                 'fetchAllGreeks': True,
                 'fetchBalance': True,
                 'fetchBidsAsks': True,
@@ -157,9 +158,11 @@ class binance(Exchange, ImplicitAPI):
                 'fetchOrders': True,
                 'fetchOrderTrades': True,
                 'fetchPosition': True,
+                'fetchPositionADLRank': True,
                 'fetchPositionHistory': False,
                 'fetchPositionMode': True,
                 'fetchPositions': True,
+                'fetchPositionsADLRank': True,
                 'fetchPositionsHistory': False,
                 'fetchPositionsRisk': True,
                 'fetchPremiumIndexOHLCV': True,
@@ -522,6 +525,7 @@ class binance(Exchange, ImplicitAPI):
                         'portfolio/negative-balance-exchange-record': 2,
                         'portfolio/pmloan-history': 5,
                         'portfolio/earn-asset-balance': 150,  # Weight(IP): 1500 => cost = 0.1 * 1500 = 150
+                        'portfolio/delta-mode': 150,  # Weight(IP): 1500 => cost = 0.1 * 1500 = 150
                         # staking
                         'staking/productList': 0.1,
                         'staking/position': 0.1,
@@ -561,6 +565,10 @@ class binance(Exchange, ImplicitAPI):
                         'dci/product/list': 0.1,
                         'dci/product/positions': 0.1,
                         'dci/product/accounts': 0.1,
+                        # Discount Buy
+                        'accumulator/product/list': 0.1,
+                        'accumulator/product/position/list': 0.1,
+                        'accumulator/product/sum-holding': 0.1,
                     },
                     'post': {
                         'asset/dust': 0.06667,  # Weight(UID): 10 => cost = 0.006667 * 10 = 0.06667
@@ -602,6 +610,7 @@ class binance(Exchange, ImplicitAPI):
                         'managed-subaccount/withdraw': 0.1,
                         'userDataStream': 0.1,
                         'userDataStream/isolated': 0.1,
+                        'userListenToken': 0.1,
                         'futures/transfer': 0.1,
                         # lending
                         'lending/customizedFixed/purchase': 0.1,
@@ -681,6 +690,7 @@ class binance(Exchange, ImplicitAPI):
                         'portfolio/mint': 20,
                         'portfolio/redeem': 20,
                         'portfolio/earn-asset-transfer': 150,  # Weight(IP): 1500 => cost = 0.1 * 1500 = 150
+                        'portfolio/delta-mode': 150,  # Weight(IP): 1500 => cost = 0.1 * 1500 = 150
                         'lending/auto-invest/plan/add': 0.1,  # Weight(IP): 1 => cost = 0.1 * 1 = 0.1
                         'lending/auto-invest/plan/edit': 0.1,  # Weight(IP): 1 => cost = 0.1 * 1 = 0.1
                         'lending/auto-invest/plan/edit-status': 0.1,  # Weight(IP): 1 => cost = 0.1 * 1 = 0.1
@@ -697,6 +707,8 @@ class binance(Exchange, ImplicitAPI):
                         # convert
                         'dci/product/subscribe': 0.1,
                         'dci/product/auto_compound/edit': 0.1,
+                        # discount buy
+                        'accumulator/product/subscribe': 0.1,
                     },
                     'put': {
                         'userDataStream': 0.1,
@@ -1101,6 +1113,8 @@ class binance(Exchange, ImplicitAPI):
                         'orderList/oco': 0.2,
                         'orderList/oto': 0.2,
                         'orderList/otoco': 0.2,
+                        'orderList/opo': 0.2,
+                        'orderList/opoco': 0.2,
                         'sor/order': 0.2,
                         'sor/order/test': 0.2,
                         'order': 0.2,
@@ -4579,7 +4593,7 @@ class binance(Exchange, ImplicitAPI):
         # binance docs say that the default limit 500, max 1500 for futures, max 1000 for spot markets
         # the reality is that the time range wider than 500 candles won't work right
         defaultLimit = 500
-        maxLimit = 1500
+        maxLimit = 1000
         price = self.safe_string(params, 'price')
         until = self.safe_integer(params, 'until')
         params = self.omit(params, ['price', 'until'])
@@ -11135,7 +11149,7 @@ class binance(Exchange, ImplicitAPI):
         :param str id: the identification number of the ledger entry
         :param str code: unified currency code
         :param dict [params]: extra parameters specific to the exchange API endpoint
-        :returns dict: a `ledger structure <https://docs.ccxt.com/?id=ledger>`
+        :returns dict: a `ledger structure <https://docs.ccxt.com/?id=ledger-entry-structure>`
         """
         await self.load_markets()
         type = None
@@ -11181,7 +11195,7 @@ class binance(Exchange, ImplicitAPI):
         :param boolean [params.paginate]: default False, when True will automatically paginate by calling self endpoint multiple times. See in the docs all the [available parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
         :param boolean [params.portfolioMargin]: set to True if you would like to fetch the ledger for a portfolio margin account
         :param str [params.subType]: "linear" or "inverse"
-        :returns dict: a `ledger structure <https://docs.ccxt.com/?id=ledger>`
+        :returns dict: a `ledger structure <https://docs.ccxt.com/?id=ledger-entry-structure>`
         """
         await self.load_markets()
         paginate = False
@@ -11374,7 +11388,7 @@ class binance(Exchange, ImplicitAPI):
                 }
             else:
                 raise AuthenticationError(self.id + ' historicalTrades endpoint requires `apiKey` credential')
-        userDataStream = (path == 'userDataStream') or (path == 'listenKey')
+        userDataStream = (path == 'userDataStream') or (path == 'listenKey') or (path == 'userListenToken')
         if userDataStream:
             if self.apiKey:
                 # v1 special case for userDataStream
@@ -11676,7 +11690,7 @@ class binance(Exchange, ImplicitAPI):
         :param str symbol: unified market symbol
         :param float amount: the amount of margin to remove
         :param dict [params]: extra parameters specific to the exchange API endpoint
-        :returns dict: a `margin structure <https://docs.ccxt.com/?id=reduce-margin-structure>`
+        :returns dict: a `margin structure <https://docs.ccxt.com/?id=margin-structure>`
         """
         return await self.modify_margin_helper(symbol, amount, 2, params)
 
@@ -11690,7 +11704,7 @@ class binance(Exchange, ImplicitAPI):
         :param str symbol: unified market symbol
         :param float amount: amount of margin to add
         :param dict [params]: extra parameters specific to the exchange API endpoint
-        :returns dict: a `margin structure <https://docs.ccxt.com/?id=add-margin-structure>`
+        :returns dict: a `margin structure <https://docs.ccxt.com/?id=margin-structure>`
         """
         return await self.modify_margin_helper(symbol, amount, 1, params)
 
@@ -13607,4 +13621,129 @@ class binance(Exchange, ImplicitAPI):
             'datetime': self.iso8601(timestamp),
             'timeframe': None,
             'longShortRatio': self.safe_number(info, 'longShortRatio'),
+        }
+
+    async def fetch_adl_rank(self, symbol: str, params={}) -> ADL:
+        """
+        fetches the auto deleveraging rank and risk percentage for a symbol
+
+        https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/ADL-Risk
+
+        :param str symbol: unified symbol of the market to fetch the auto deleveraging rank for
+        :param dict [params]: extra parameters specific to the exchange API endpoint
+        :returns dict: an `auto de leverage structure <https://docs.ccxt.com/?id=auto-de-leverage-structure>`
+        """
+        await self.load_markets()
+        market = self.market(symbol)
+        request: dict = {
+            'symbol': market['id'],
+        }
+        subType = None
+        subType, params = self.handle_sub_type_and_params('fetchADLRank', market, params)
+        response = None
+        if subType == 'linear':
+            response = await self.fapiPublicGetSymbolAdlRisk(self.extend(request, params))
+            #
+            #     {
+            #         "symbol": "BTCUSDT",
+            #         "adlRisk": "LOW",
+            #         "updateTime": 1766827800453
+            #     }
+            #
+        else:
+            raise BadRequest(self.id + ' fetchADLRank() supports linear subTypes only')
+        return self.parse_adl_rank(response, market)
+
+    async def fetch_positions_adl_rank(self, symbols: Strings = None, params={}) -> List[ADL]:
+        """
+        fetches the auto deleveraging rank and risk percentage for a list of symbols that have open positions
+
+        https://developers.binance.com/docs/derivatives/usds-margined-futures/trade/rest-api/Position-ADL-Quantile-Estimation
+        https://developers.binance.com/docs/derivatives/coin-margined-futures/trade/rest-api/Position-ADL-Quantile-Estimation
+        https://developers.binance.com/docs/derivatives/portfolio-margin/trade/UM-Position-ADL-Quantile-Estimation
+        https://developers.binance.com/docs/derivatives/portfolio-margin/trade/CM-Position-ADL-Quantile-Estimation
+
+        :param str[] [symbols]: list of unified market symbols
+        :param dict [params]: extra parameters specific to the exchange API endpoint
+        :param boolean [params.portfolioMargin]: set to True for the portfolio margin account
+        :returns dict[]: an array of `auto de leverage structure <https://docs.ccxt.com/?id=auto-de-leverage-structure>`
+        """
+        await self.load_markets()
+        symbols = self.market_symbols(symbols, None, True, True, True)
+        market = self.get_market_from_symbols(symbols)
+        subType = None
+        subType, params = self.handle_sub_type_and_params('fetchPositionsADLRank', market, params)
+        isPortfolioMargin = None
+        isPortfolioMargin, params = self.handle_option_and_params_2(params, 'fetchPositionsADLRank', 'papi', 'portfolioMargin', False)
+        response = None
+        if subType == 'linear':
+            if isPortfolioMargin:
+                response = await self.papiGetUmAdlQuantile(params)
+            else:
+                response = await self.fapiPrivateGetAdlQuantile(params)
+        elif subType == 'inverse':
+            if isPortfolioMargin:
+                response = await self.papiGetCmAdlQuantile(params)
+            else:
+                response = await self.dapiPrivateGetAdlQuantile(params)
+        else:
+            raise BadRequest(self.id + ' fetchPositionsADLRank() supports linear and inverse subTypes only')
+        #
+        #     [
+        #         {
+        #             "symbol": "BTCUSDT",
+        #             "adlQuantile": {
+        #                 "LONG": 0,
+        #                 "SHORT": 0,
+        #                 "BOTH": 1
+        #             }
+        #         }
+        #     ]
+        #
+        return self.parse_adl_ranks(response, symbols)
+
+    def parse_adl_rank(self, info: dict, market: Market = None) -> ADL:
+        #
+        # fetchADLRank
+        #
+        #     {
+        #         "symbol": "BTCUSDT",
+        #         "adlRisk": "LOW",
+        #         "updateTime": 1766827800453
+        #     }
+        #
+        # fetchPositionADLRank
+        #
+        #     {
+        #         "symbol": "BTCUSDT",
+        #         "adlQuantile": {
+        #             "LONG": 0,
+        #             "SHORT": 0,
+        #             "BOTH": 1
+        #         }
+        #     }
+        #
+        adlQuantile = self.safe_dict(info, 'adlQuantile', {})
+        longNum = self.safe_number(adlQuantile, 'LONG')
+        shortNum = self.safe_number(adlQuantile, 'SHORT')
+        both = self.safe_number(adlQuantile, 'BOTH')
+        rank = None
+        if both is not None:
+            rank = both
+        else:
+            if longNum is not None and shortNum is not None:
+                if longNum > shortNum:
+                    rank = longNum
+                else:
+                    rank = shortNum
+        marketId = self.safe_string(info, 'symbol')
+        timestamp = self.safe_integer_2(info, 'timestamp', 'updateTime')
+        return {
+            'info': info,
+            'symbol': self.safe_symbol(marketId, market, None, 'contract'),
+            'rank': rank,
+            'rating': self.safe_string_lower(info, 'adlRisk'),
+            'percentage': None,
+            'timestamp': timestamp,
+            'datetime': self.iso8601(timestamp),
         }

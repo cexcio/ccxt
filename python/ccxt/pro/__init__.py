@@ -4,7 +4,7 @@
 
 # ----------------------------------------------------------------------------
 
-__version__ = '4.5.32'
+__version__ = '4.5.40'
 
 # ----------------------------------------------------------------------------
 
@@ -129,7 +129,6 @@ from ccxt.pro.p2b import p2b                                              # noqa
 from ccxt.pro.paradex import paradex                                      # noqa: F401
 from ccxt.pro.phemex import phemex                                        # noqa: F401
 from ccxt.pro.poloniex import poloniex                                    # noqa: F401
-from ccxt.pro.probit import probit                                        # noqa: F401
 from ccxt.pro.toobit import toobit                                        # noqa: F401
 from ccxt.pro.upbit import upbit                                          # noqa: F401
 from ccxt.pro.whitebit import whitebit                                    # noqa: F401
@@ -210,7 +209,6 @@ exchanges = [
     'paradex',
     'phemex',
     'poloniex',
-    'probit',
     'toobit',
     'upbit',
     'whitebit',
