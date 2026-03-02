@@ -2898,7 +2898,7 @@ export default class whitebit extends Exchange {
         //
         //     []
         //
-        return this.extend(this.parseTransaction(response, currency), { 'id': uniqueId });
+        return this.extend({ 'id': uniqueId }, this.parseTransaction(response, currency));
     }
     parseTransaction(transaction, currency = undefined) {
         //
