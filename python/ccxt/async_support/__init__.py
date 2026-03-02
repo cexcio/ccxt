@@ -64,7 +64,6 @@ from ccxt.base.errors import UnsubscribeError                         # noqa: F4
 from ccxt.base.errors import error_hierarchy                          # noqa: F401
 
 
-from ccxt.async_support.alp import alp                                          # noqa: F401
 from ccxt.async_support.alpaca import alpaca                                    # noqa: F401
 from ccxt.async_support.apex import apex                                        # noqa: F401
 from ccxt.async_support.arkham import arkham                                    # noqa: F401
@@ -96,6 +95,7 @@ from ccxt.async_support.bittrade import bittrade                                
 from ccxt.async_support.bitvavo import bitvavo                                  # noqa: F401
 from ccxt.async_support.blockchaincom import blockchaincom                      # noqa: F401
 from ccxt.async_support.blofin import blofin                                    # noqa: F401
+from ccxt.async_support.btcalpha import btcalpha                                # noqa: F401
 from ccxt.async_support.btcbox import btcbox                                    # noqa: F401
 from ccxt.async_support.btcmarkets import btcmarkets                            # noqa: F401
 from ccxt.async_support.btcturk import btcturk                                  # noqa: F401
@@ -177,7 +177,6 @@ from ccxt.async_support.zebpay import zebpay                                    
 from ccxt.async_support.zonda import zonda                                      # noqa: F401
 
 exchanges = [
-    'alp',
     'alpaca',
     'apex',
     'arkham',
@@ -209,6 +208,7 @@ exchanges = [
     'bitvavo',
     'blockchaincom',
     'blofin',
+    'btcalpha',
     'btcbox',
     'btcmarkets',
     'btcturk',

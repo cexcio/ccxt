@@ -46,7 +46,6 @@ const version = '4.5.40';
 
 //-----------------------------------------------------------------------------
 
-import alp from  './src/alp.js'
 import alpaca from  './src/alpaca.js'
 import apex from  './src/apex.js'
 import arkham from  './src/arkham.js'
@@ -78,6 +77,7 @@ import bittrade from  './src/bittrade.js'
 import bitvavo from  './src/bitvavo.js'
 import blockchaincom from  './src/blockchaincom.js'
 import blofin from  './src/blofin.js'
+import btcalpha from  './src/btcalpha.js'
 import btcbox from  './src/btcbox.js'
 import btcmarkets from  './src/btcmarkets.js'
 import btcturk from  './src/btcturk.js'
@@ -240,7 +240,6 @@ import woofiproPro from  './src/pro/woofipro.js'
 import xtPro from  './src/pro/xt.js'
 
 const exchanges = {
-    'alp':                    alp,
     'alpaca':                 alpaca,
     'apex':                   apex,
     'arkham':                 arkham,
@@ -272,6 +271,7 @@ const exchanges = {
     'bitvavo':                bitvavo,
     'blockchaincom':          blockchaincom,
     'blofin':                 blofin,
+    'btcalpha':               btcalpha,
     'btcbox':                 btcbox,
     'btcmarkets':             btcmarkets,
     'btcturk':                btcturk,
@@ -577,7 +577,6 @@ export {
     IsolatedBorrowRates,
     CrossBorrowRates,
     LeverageTiers,
-    alp,
     alpaca,
     apex,
     arkham,
@@ -609,6 +608,7 @@ export {
     bitvavo,
     blockchaincom,
     blofin,
+    btcalpha,
     btcbox,
     btcmarkets,
     btcturk,
