@@ -124,7 +124,12 @@ function initExchange(exchangeId, args, isWs = false) {
     if (isWs) {
         return new (ccxt.pro)[exchangeId](args);
     }
-    return new (ccxt)[exchangeId](args);
+    console.log('------------------------');
+    console.log('exchangeId:', exchangeId);
+    console.log(Object.keys(ccxt));
+    console.log(ccxt[exchangeId]);
+    console.log('------------------------');
+    return new ((ccxt)[exchangeId])(args);
 }
 async function importTestFile(filePath) {
     // eslint-disable-next-line global-require, import/no-dynamic-require, no-path-concat

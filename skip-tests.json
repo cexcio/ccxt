@@ -2123,16 +2123,6 @@
             }
         }
     },
-    "zonda": {
-        "skipMethods": {
-            "loadMarkets": {
-                "active":"is undefined"
-            },
-            "fetchCurrencies": {
-                "activeMajorCurrencies": "todo"
-            }
-        }
-    },
     "deepcoin": {
         "skipMethods": {
             "loadMarkets": {

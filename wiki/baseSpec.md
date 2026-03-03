@@ -382,7 +382,6 @@ cancels an open order
 * [yobit](/exchanges/yobit.md#cancelorder)
 * [zaif](/exchanges/zaif.md#cancelorder)
 * [zebpay](/exchanges/zebpay.md#cancelorder)
-* [zonda](/exchanges/zonda.md#cancelorder)
 
 ---
 
@@ -992,7 +991,6 @@ create a trade order
 * [yobit](/exchanges/yobit.md#createorder)
 * [zaif](/exchanges/zaif.md#createorder)
 * [zebpay](/exchanges/zebpay.md#createorder)
-* [zonda](/exchanges/zonda.md#createorder)
 
 ---
 
@@ -1746,7 +1744,6 @@ query for balance and get the amount of funds available for trading or funds loc
 * [yobit](/exchanges/yobit.md#fetchbalance)
 * [zaif](/exchanges/zaif.md#fetchbalance)
 * [zebpay](/exchanges/zebpay.md#fetchbalance)
-* [zonda](/exchanges/zonda.md#fetchbalance)
 
 ---
 
@@ -2441,7 +2438,6 @@ fetch the deposit address for a currency associated with this account
 * [woo](/exchanges/woo.md#fetchdepositaddress)
 * [xt](/exchanges/xt.md#fetchdepositaddress)
 * [yobit](/exchanges/yobit.md#fetchdepositaddress)
-* [zonda](/exchanges/zonda.md#fetchdepositaddress)
 
 ---
 
@@ -2468,7 +2464,6 @@ fetch deposit addresses for multiple currencies (when available)
 * [indodax](/exchanges/indodax.md#fetchdepositaddresses)
 * [paymium](/exchanges/paymium.md#fetchdepositaddresses)
 * [upbit](/exchanges/upbit.md#fetchdepositaddresses)
-* [zonda](/exchanges/zonda.md#fetchdepositaddresses)
 
 ---
 
@@ -3246,7 +3241,6 @@ fetch the history of changes, actions done by the user or operations that altere
 * [woo](/exchanges/woo.md#fetchledger)
 * [woofipro](/exchanges/woofipro.md#fetchledger)
 * [xt](/exchanges/xt.md#fetchledger)
-* [zonda](/exchanges/zonda.md#fetchledger)
 
 ---
 
@@ -3688,7 +3682,6 @@ retrieves data on all markets for alpaca
 * [yobit](/exchanges/yobit.md#fetchmarkets)
 * [zaif](/exchanges/zaif.md#fetchmarkets)
 * [zebpay](/exchanges/zebpay.md#fetchmarkets)
-* [zonda](/exchanges/zonda.md#fetchmarkets)
 
 ---
 
@@ -3896,7 +3889,6 @@ fetch all trades made by the user
 * [xt](/exchanges/xt.md#fetchmytrades)
 * [yobit](/exchanges/yobit.md#fetchmytrades)
 * [zebpay](/exchanges/zebpay.md#fetchmytrades)
-* [zonda](/exchanges/zonda.md#fetchmytrades)
 
 ---
 
@@ -4027,7 +4019,6 @@ fetches historical candlestick data containing the open, high, low, and close pr
 * [woofipro](/exchanges/woofipro.md#fetchohlcv)
 * [xt](/exchanges/xt.md#fetchohlcv)
 * [zebpay](/exchanges/zebpay.md#fetchohlcv)
-* [zonda](/exchanges/zonda.md#fetchohlcv)
 
 ---
 
@@ -4292,7 +4283,6 @@ fetch all unfilled currently open orders
 * [yobit](/exchanges/yobit.md#fetchopenorders)
 * [zaif](/exchanges/zaif.md#fetchopenorders)
 * [zebpay](/exchanges/zebpay.md#fetchopenorders)
-* [zonda](/exchanges/zonda.md#fetchopenorders)
 
 ---
 
@@ -4606,7 +4596,6 @@ fetches information on open orders with bid (buy) and ask (sell) prices, volumes
 * [yobit](/exchanges/yobit.md#fetchorderbook)
 * [zaif](/exchanges/zaif.md#fetchorderbook)
 * [zebpay](/exchanges/zebpay.md#fetchorderbook)
-* [zonda](/exchanges/zonda.md#fetchorderbook)
 
 ---
 
@@ -5514,7 +5503,6 @@ fetches a price ticker, a statistical calculation with the information calculate
 * [yobit](/exchanges/yobit.md#fetchticker)
 * [zaif](/exchanges/zaif.md#fetchticker)
 * [zebpay](/exchanges/zebpay.md#fetchticker)
-* [zonda](/exchanges/zonda.md#fetchticker)
 
 ---
 
@@ -5831,7 +5819,6 @@ get the list of most recent trades for a particular symbol
 * [yobit](/exchanges/yobit.md#fetchtrades)
 * [zaif](/exchanges/zaif.md#fetchtrades)
 * [zebpay](/exchanges/zebpay.md#fetchtrades)
-* [zonda](/exchanges/zonda.md#fetchtrades)
 
 ---
 
@@ -6847,7 +6834,6 @@ transfer currency internally between wallets on the same account
 * [whitebit](/exchanges/whitebit.md#transfer)
 * [woo](/exchanges/woo.md#transfer)
 * [xt](/exchanges/xt.md#transfer)
-* [zonda](/exchanges/zonda.md#transfer)
 
 ---
 
@@ -8404,7 +8390,6 @@ make a withdrawal
 * [xt](/exchanges/xt.md#withdraw)
 * [yobit](/exchanges/yobit.md#withdraw)
 * [zaif](/exchanges/zaif.md#withdraw)
-* [zonda](/exchanges/zonda.md#withdraw)
 
 ---
 
