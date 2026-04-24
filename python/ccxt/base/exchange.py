@@ -5090,7 +5090,6 @@ class Exchange(object):
             try:
                 self.log('[cexc_log]: Request:', request)
                 response = self.fetch(request['url'], request['method'], request['headers'], request['body'])
-                self.log('[cexc_log]: Response: ', response)
                 return response
             except Exception as e:
                 self.log('[cexc_log]: Caught error on attempt ' + str(i + 1))

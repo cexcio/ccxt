@@ -3803,7 +3803,6 @@ class Exchange extends \ccxt\Exchange {
                 try {
                     $this->log('[cexc_log] => Request:', $request);
                     $response = Async\await($this->fetch($request['url'], $request['method'], $request['headers'], $request['body']));
-                    $this->log('[cexc_log] => Response => ', $response);
                     return $response;
                 } catch (Exception $e) {
                     $this->log('[cexc_log] => Caught error on attempt ' . 'strval' ($i + 1));

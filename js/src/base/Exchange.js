@@ -4889,7 +4889,6 @@ export default class Exchange {
             try {
                 this.log('[cexc_log]: Request:', request);
                 const response = await this.fetch(request['url'], request['method'], request['headers'], request['body']);
-                this.log('[cexc_log]: Response: ', response);
                 return response;
             }
             catch (e) {
