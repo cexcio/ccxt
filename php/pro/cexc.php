@@ -58,7 +58,7 @@ class cexc extends \ccxt\async\cexc {
             'streaming' => array(
                 // cexc does not support built-in ws protocol-level ping-pong
                 // instead it requires a custom json-based text ping-pong
-                // https://exchange-broker-deploy.cexc.io/api/v1/documentation#ping
+                // https://exchange-broker.cexc.io/api/v1/documentation#ping
                 'ping' => array($this, 'ping'),
             ),
         ));
@@ -214,7 +214,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific $market
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
              *
              * @param {string} $symbol unified $symbol of the $market to fetch the ticker for
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -236,7 +236,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * unWatches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific $market
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
              *
              * @param {string} $symbol unified $symbol of the $market to fetch the ticker for
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -266,7 +266,7 @@ class cexc extends \ccxt\async\cexc {
         return Async\async(function () use ($symbols, $params) {
             /**
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/ticker
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/ticker
              *
              * watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
              * @param {string[]} $symbols unified $symbol of the $market to fetch the ticker for
@@ -396,7 +396,7 @@ class cexc extends \ccxt\async\cexc {
         return Async\async(function () use ($symbols, $params) {
             /**
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
              *
              * watches best bid & ask for $symbols
              * @param {string[]} $symbols unified symbol of the market to fetch the $ticker for
@@ -491,7 +491,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * watches historical candlestick data containing the open, high, low, and close price, and the volume of a $market
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/klines
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/klines
              *
              * @param {string} $symbol unified $symbol of the $market to fetch OHLCV data for
              * @param {string} $timeframe the length of time each candle represents
@@ -520,7 +520,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * unWatches historical candlestick data containing the open, high, low, and close price, and the volume of a $market
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/klines
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/klines
              *
              * @param {string} $symbol unified $symbol of the $market to fetch OHLCV data for
              * @param {string} $timeframe the length of time each candle represents
@@ -595,7 +595,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * get the list of most recent trades for a particular $symbol
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
              *
              * @param {string} $symbol unified $symbol of the market to fetch trades for
              * @param {int} [$since] timestamp in ms of the earliest trade to fetch
@@ -612,7 +612,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * get the list of most recent $trades for a particular $symbol
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
              *
              * @param {string[]} $symbols
              * @param {int} [$since] timestamp in ms of the earliest trade to fetch
@@ -652,7 +652,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * unWatches trades stream
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
              *
              * @param {string} $symbols
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -686,7 +686,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * unWatches trades stream
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
              *
              * @param {string} $symbol unified $symbol of the market to fetch trades for
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -734,10 +734,10 @@ class cexc extends \ccxt\async\cexc {
         return Async\async(function () use ($symbol, $limit, $params) {
             /**
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
              *
              * watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
              * @param {string} $symbol unified $symbol of the market to fetch the order book for
@@ -747,7 +747,7 @@ class cexc extends \ccxt\async\cexc {
              * @return {array} A dictionary of ~@link https://docs.ccxt.com/?id=order-book-structure order book structures~ indexed by market symbols
              */
             //
-            // https://exchange-broker-deploy.cexc.io/api/v1/documentation#level-2-market-data
+            // https://exchange-broker.cexc.io/api/v1/documentation#level-2-market-data
             //
             // 1. After receiving the websocket Level 2 data flow, cache the data.
             // 2. Initiate a REST request to get the snapshot data of Level 2 order book.
@@ -769,10 +769,10 @@ class cexc extends \ccxt\async\cexc {
         return Async\async(function () use ($symbol, $params) {
             /**
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
              *
              * unWatches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
              * @param {string} $symbol unified $symbol of the market to fetch the order book for
@@ -788,10 +788,10 @@ class cexc extends \ccxt\async\cexc {
         return Async\async(function () use ($symbols, $limit, $params) {
             /**
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
              *
              * watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
              * @param {string[]} $symbols unified array of $symbols
@@ -844,10 +844,10 @@ class cexc extends \ccxt\async\cexc {
         return Async\async(function () use ($symbols, $params) {
             /**
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
              *
              * unWatches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
              * @param {string[]} $symbols unified array of $symbols
@@ -1084,8 +1084,8 @@ class cexc extends \ccxt\async\cexc {
             /**
              * watches information on multiple $orders made by the user
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/stop-order-event
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/stop-order-event
              *
              * @param {string} $symbol unified $market $symbol of the $market $orders were made in
              * @param {int} [$since] the earliest time in ms to fetch $orders for
@@ -1261,7 +1261,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * watches information on multiple $trades made by the user
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
              *
              * @param {string} $symbol unified $market $symbol of the $market $trades were made in
              * @param {int} [$since] the earliest time in ms to fetch $trades for
@@ -1419,7 +1419,7 @@ class cexc extends \ccxt\async\cexc {
             /**
              * watch balance and get the amount of funds available for trading or funds locked in orders
              *
-             * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/account-balance-change
+             * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/account-balance-change
              *
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @return {array} a ~@link https://docs.ccxt.com/?id=balance-structure balance structure~
@@ -1535,7 +1535,7 @@ class cexc extends \ccxt\async\cexc {
     public function ping(Client $client) {
         // cexc does not support built-in ws protocol-level ping-pong
         // instead it requires a custom json-based text ping-pong
-        // https://exchange-broker-deploy.cexc.io/api/v1/documentation#ping
+        // https://exchange-broker.cexc.io/api/v1/documentation#ping
         $id = (string) $this->request_id();
         return array(
             'id' => $id,
@@ -1545,7 +1545,7 @@ class cexc extends \ccxt\async\cexc {
 
     public function handle_pong(Client $client, $message) {
         $client->lastPong = $this->milliseconds();
-        // https://exchange-broker-deploy.cexc.io/api/v1/documentation#ping
+        // https://exchange-broker.cexc.io/api/v1/documentation#ping
     }
 
     public function handle_error_message(Client $client, $message): Bool {

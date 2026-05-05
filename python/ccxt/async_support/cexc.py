@@ -136,16 +136,16 @@ class cexc(Exchange, ImplicitAPI):
             },
             'urls': {
                 'logo': 'https://user-images.githubusercontent.com/51840849/87295558-132aaf80-c50e-11ea-9801-a2fb0c57c799.jpg',
-                'referral': 'https://exchange-broker-deploy.cexc.io/api/v1/auth/signup?rcode=E5wkqe',
+                'referral': 'https://exchange-broker.cexc.io/api/v1/auth/signup?rcode=E5wkqe',
                 'api': {
-                    'public': 'https://exchange-broker-deploy.cexc.io',
-                    'private': 'https://exchange-broker-deploy.cexc.io',
-                    'futuresPrivate': 'https://exchange-broker-deploy.cexc.io',
-                    'futuresPublic': 'https://exchange-broker-deploy.cexc.io',
-                    'webExchange': 'https://exchange-broker-deploy.cexc.io/_api',
-                    'broker': 'https://exchange-broker-deploy.cexc.io',
-                    'earn': 'https://exchange-broker-deploy.cexc.io',
-                    'uta': 'https://exchange-broker-deploy.cexc.io',
+                    'public': 'https://exchange-broker.cexc.io',
+                    'private': 'https://exchange-broker.cexc.io',
+                    'futuresPrivate': 'https://exchange-broker.cexc.io',
+                    'futuresPublic': 'https://exchange-broker.cexc.io',
+                    'webExchange': 'https://exchange-broker.cexc.io/_api',
+                    'broker': 'https://exchange-broker.cexc.io',
+                    'earn': 'https://exchange-broker.cexc.io',
+                    'uta': 'https://exchange-broker.cexc.io',
                 },
                 'www': 'https://cexc.io',
                 'doc': [
@@ -1153,7 +1153,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches the current integer timestamp in milliseconds from the exchange server
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#server-time
+        https://exchange-broker.cexc.io/api/v1/documentation#server-time
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :returns int: the current integer timestamp in milliseconds from the exchange server
@@ -1172,8 +1172,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         the latest known information on the availability of the exchange API
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#service-status
-        https://exchange-broker-deploy.cexc.io/api/v1/ua/get-service-status
+        https://exchange-broker.cexc.io/api/v1/documentation#service-status
+        https://exchange-broker.cexc.io/api/v1/ua/get-service-status
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param boolean [params.uta]: set to True for the unified trading account(uta), defaults to False
@@ -1226,8 +1226,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         retrieves data on all markets for cexc
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-symbols-list-deprecated
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-all-tickers
+        https://exchange-broker.cexc.io/api/v1/documentation#get-symbols-list-deprecated
+        https://exchange-broker.cexc.io/api/v1/documentation#get-all-tickers
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param boolean [params.uta]: set to True for the unified trading account(uta), defaults to False
@@ -1622,7 +1622,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches all available currencies on an exchange
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-currencies
+        https://exchange-broker.cexc.io/api/v1/documentation#get-currencies
 
         :param dict params: extra parameters specific to the exchange API endpoint
         :returns dict: an associative dictionary of currencies
@@ -1726,7 +1726,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch all the accounts associated with a profile
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#list-accounts
+        https://exchange-broker.cexc.io/api/v1/documentation#list-accounts
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :returns dict: a dictionary of `account structures <https://docs.ccxt.com/?id=account-structure>` indexed by the account type
@@ -1776,7 +1776,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         *DEPRECATED* please use fetchDepositWithdrawFee instead
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-withdrawal-quotas
+        https://exchange-broker.cexc.io/api/v1/documentation#get-withdrawal-quotas
 
         :param str code: unified currency code
         :param dict params: extra parameters specific to the exchange API endpoint
@@ -1805,7 +1805,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the fee for deposits and withdrawals
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-withdrawal-quotas
+        https://exchange-broker.cexc.io/api/v1/documentation#get-withdrawal-quotas
 
         :param str code: unified currency code
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -2042,8 +2042,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches price tickers for multiple markets, statistical information calculated over the past 24 hours for each market
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-all-tickers
-        https://exchange-broker-deploy.cexc.io/api/v1/ua/get-ticker
+        https://exchange-broker.cexc.io/api/v1/documentation#get-all-tickers
+        https://exchange-broker.cexc.io/api/v1/ua/get-ticker
 
         :param str[]|None symbols: unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -2162,8 +2162,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-24hr-stats
-        https://exchange-broker-deploy.cexc.io/api/v1/ua/get-ticker
+        https://exchange-broker.cexc.io/api/v1/documentation#get-24hr-stats
+        https://exchange-broker.cexc.io/api/v1/ua/get-ticker
 
         :param str symbol: unified symbol of the market to fetch the ticker for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -2289,8 +2289,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches historical candlestick data containing the open, high, low, and close price, and the volume of a market
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-klines
-        https://exchange-broker-deploy.cexc.io/api/v1/ua/get-klines
+        https://exchange-broker.cexc.io/api/v1/documentation#get-klines
+        https://exchange-broker.cexc.io/api/v1/ua/get-klines
 
         :param str symbol: unified symbol of the market to fetch OHLCV data for
         :param str timeframe: the length of time each candle represents
@@ -2316,8 +2316,8 @@ class cexc(Exchange, ImplicitAPI):
         if since is not None:
             request['startAt'] = self.parse_to_int(int(math.floor(since / 1000)))
             if limit is None:
-                # https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-klines
-                # https://exchange-broker-deploy.cexc.io/api/v1/documentation#details
+                # https://exchange-broker.cexc.io/api/v1/documentation#get-klines
+                # https://exchange-broker.cexc.io/api/v1/documentation#details
                 # For each query, the system would return at most 1500 pieces of data.
                 # To obtain more data, please page the data by time.
                 limit = self.safe_integer(self.options, 'fetchOHLCVLimit', 1500)
@@ -2414,7 +2414,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the deposit address for a currency associated with self account
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-deposit-addresses-v2
+        https://exchange-broker.cexc.io/api/v1/documentation#get-deposit-addresses-v2
 
         :param str code: unified currency code
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -2466,7 +2466,7 @@ class cexc(Exchange, ImplicitAPI):
     async def fetch_deposit_addresses_by_network(self, code: str, params={}) -> List[DepositAddress]:
         """
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-deposit-addresses-v2
+        https://exchange-broker.cexc.io/api/v1/documentation#get-deposit-addresses-v2
 
         fetch the deposit address for a currency associated with self account
         :param str code: unified currency code
@@ -2509,7 +2509,7 @@ class cexc(Exchange, ImplicitAPI):
 
         https://cexc.io/docs/rest/spot-trading/market-data/get-part-order-book-aggregated-
         https://cexc.io/docs/rest/spot-trading/market-data/get-full-order-book-aggregated-
-        https://exchange-broker-deploy.cexc.io/api/v1/ua/get-orderbook
+        https://exchange-broker.cexc.io/api/v1/ua/get-orderbook
 
         :param str symbol: unified symbol of the market to fetch the order book for
         :param int [limit]: the maximum amount of order book entries to return
@@ -2618,10 +2618,10 @@ class cexc(Exchange, ImplicitAPI):
         """
         Create an order on the exchange
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#place-a-new-order
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#place-a-new-order-2
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#place-a-margin-order
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#place-hf-order
+        https://exchange-broker.cexc.io/api/v1/documentationspot#place-a-new-order
+        https://exchange-broker.cexc.io/api/v1/documentationspot#place-a-new-order-2
+        https://exchange-broker.cexc.io/api/v1/documentationspot#place-a-margin-order
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#place-hf-order
         https://cexc.io/docs/rest/spot-trading/orders/place-order-test
         https://cexc.io/docs/rest/margin-trading/orders/place-margin-order-test
         https://cexc.io/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-place-hf-order
@@ -2902,7 +2902,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         edit an order, cexc currently only supports the modification of HF orders
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#modify-order
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#modify-order
 
         :param str id: order id
         :param str symbol: unified symbol of the market to create an order in
@@ -2944,12 +2944,12 @@ class cexc(Exchange, ImplicitAPI):
         """
         cancels an open order
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-an-order
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-an-order-2
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid-2
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#cancel-orders-by-orderid
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#cancel-order-by-clientoid
+        https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-an-order
+        https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-an-order-2
+        https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid
+        https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid-2
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#cancel-orders-by-orderid
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#cancel-order-by-clientoid
         https://cexc.io/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-cancel-hf-order-by-orderid
         https://cexc.io/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-cancel-hf-order-by-clientoid
 
@@ -3059,9 +3059,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         cancel all open orders
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-all-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#cancel-all-hf-orders-by-symbol
+        https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-all-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#cancel-all-hf-orders-by-symbol
 
         :param str symbol: unified market symbol, only orders in the market of self symbol are cancelled when symbol is not None
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -3100,10 +3100,10 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch a list of orders
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-stop-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot#list-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot#list-stop-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
 
         :param str status: *not used for stop orders* 'open' or 'closed'
         :param str symbol: unified market symbol
@@ -3212,10 +3212,10 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches information on multiple closed orders made by the user
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-stop-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot#list-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot#list-stop-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
 
         :param str symbol: unified market symbol of the market orders were made in
         :param int [since]: the earliest time in ms to fetch orders for
@@ -3241,10 +3241,10 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch all unfilled currently open orders
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-stop-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot#list-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot#list-stop-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
 
         :param str symbol: unified market symbol
         :param int [since]: the earliest time in ms to fetch open orders for
@@ -3272,12 +3272,12 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch an order
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-an-order
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-single-active-order-by-clientoid
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-single-order-info
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-single-order-by-clientoid
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#details-of-a-single-hf-order
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-details-of-a-single-hf-order-using-clientoid
+        https://exchange-broker.cexc.io/api/v1/documentationspot#get-an-order
+        https://exchange-broker.cexc.io/api/v1/documentationspot#get-single-active-order-by-clientoid
+        https://exchange-broker.cexc.io/api/v1/documentationspot#get-single-order-info
+        https://exchange-broker.cexc.io/api/v1/documentationspot#get-single-order-by-clientoid
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#details-of-a-single-hf-order
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-details-of-a-single-hf-order-using-clientoid
 
         :param str id: Order id
         :param str symbol: not sent to exchange except for trigger orders with clientOid, but used internally by CCXT to filter
@@ -3507,8 +3507,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch all the trades made from a single order
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#list-fills
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#transaction-details
+        https://exchange-broker.cexc.io/api/v1/documentation#list-fills
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#transaction-details
 
         :param str id: order id
         :param str symbol: unified market symbol
@@ -3525,8 +3525,8 @@ class cexc(Exchange, ImplicitAPI):
     async def fetch_my_trades(self, symbol: Str = None, since: Int = None, limit: Int = None, params={}):
         """
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#list-fills
-        https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#transaction-details
+        https://exchange-broker.cexc.io/api/v1/documentation#list-fills
+        https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#transaction-details
 
         fetch all trades made by the user
         :param str symbol: unified market symbol
@@ -3631,7 +3631,7 @@ class cexc(Exchange, ImplicitAPI):
         get the list of most recent trades for a particular symbol
 
         https://cexc.io/docs/rest/spot-trading/market-data/get-trade-histories
-        https://exchange-broker-deploy.cexc.io/api/v1/ua/get-trades
+        https://exchange-broker.cexc.io/api/v1/ua/get-trades
 
         :param str symbol: unified symbol of the market to fetch trades for
         :param int [since]: timestamp in ms of the earliest trade to fetch
@@ -4384,7 +4384,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         transfer currency internally between wallets on the same account
 
-        https://exchange-broker-deploy.cexc.io/api/v1/account-info/transfer/flex-transfer?lang=en_US&
+        https://exchange-broker.cexc.io/api/v1/account-info/transfer/flex-transfer?lang=en_US&
 
         :param str code: unified currency code
         :param float amount: amount to transfer
@@ -4813,8 +4813,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the interest owed by the user for borrowing currency for margin trading
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-repay-record
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#query-isolated-margin-account-info
+        https://exchange-broker.cexc.io/api/v1/documentation#get-repay-record
+        https://exchange-broker.cexc.io/api/v1/documentation#query-isolated-margin-account-info
 
         :param str [code]: unified currency code
         :param str [symbol]: unified market symbol, required for isolated margin
@@ -5122,7 +5122,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         create a loan to borrow margin
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#1-margin-borrowing
+        https://exchange-broker.cexc.io/api/v1/documentation#1-margin-borrowing
 
         :param str code: unified currency code of the currency to borrow
         :param float amount: the amount to borrow
@@ -5157,7 +5157,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         create a loan to borrow margin
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#1-margin-borrowing
+        https://exchange-broker.cexc.io/api/v1/documentation#1-margin-borrowing
 
         :param str symbol: unified market symbol, required for isolated margin
         :param str code: unified currency code of the currency to borrow
@@ -5196,7 +5196,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         repay borrowed margin and interest
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#2-repayment
+        https://exchange-broker.cexc.io/api/v1/documentation#2-repayment
 
         :param str code: unified currency code of the currency to repay
         :param float amount: the amount to repay
@@ -5229,7 +5229,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         repay borrowed margin and interest
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#2-repayment
+        https://exchange-broker.cexc.io/api/v1/documentation#2-repayment
 
         :param str symbol: unified market symbol
         :param str code: unified currency code of the currency to repay
@@ -5285,7 +5285,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch deposit and withdraw fees - *IMPORTANT* use fetchDepositWithdrawFee to get more in-depth info
 
-        https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-currencies
+        https://exchange-broker.cexc.io/api/v1/documentation#get-currencies
 
         :param str[]|None codes: list of unified currency codes
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -5350,7 +5350,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the current funding rate
 
-        https://exchange-broker-deploy.cexc.io/api/v1/ua/get-current-funding-rate
+        https://exchange-broker.cexc.io/api/v1/ua/get-current-funding-rate
 
         :param str symbol: unified market symbol
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -5414,7 +5414,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches historical funding rate prices
 
-        https://exchange-broker-deploy.cexc.io/api/v1/ua/get-history-funding-rate
+        https://exchange-broker.cexc.io/api/v1/ua/get-history-funding-rate
 
         :param str symbol: unified symbol of the market to fetch the funding rate history for
         :param int [since]: not used by kucuoinfutures
@@ -5571,7 +5571,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch a history of internal transfers made on an account
 
-        https://exchange-broker-deploy.cexc.io/api/v1/account-info/account-funding/get-account-ledgers-spot-margin
+        https://exchange-broker.cexc.io/api/v1/account-info/account-funding/get-account-ledgers-spot-margin
 
         :param str [code]: unified currency code of the currency transferred
         :param int [since]: the earliest time in ms to fetch transfers for

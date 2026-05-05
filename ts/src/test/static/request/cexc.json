@@ -13,7 +13,7 @@
             {
                 "description": "fetch transfers",
                 "method": "fetchTransfers",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/accounts/ledgers?bizType=TRANSFER&pageSize=500",
+                "url": "https://exchange-broker.cexc.io/api/v1/accounts/ledgers?bizType=TRANSFER&pageSize=500",
                 "input": [],
                 "output": null
             }
@@ -22,7 +22,7 @@
             {
                 "description": "Spot market buy order",
                 "method": "createOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders",
                 "input": [
                     "LTC/USDT",
                     "market",
@@ -34,7 +34,7 @@
             {
                 "description": "Spot market sell",
                 "method": "createOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders",
                 "input": [
                     "LTC/USDT",
                     "market",
@@ -46,7 +46,7 @@
             {
                 "description": "Spot order with trigger price",
                 "method": "createOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/stop-order",
+                "url": "https://exchange-broker.cexc.io/api/v1/stop-order",
                 "input": [
                     "LTC/USDT",
                     "limit",
@@ -62,7 +62,7 @@
             {
                 "description": "Create hf order",
                 "method": "createOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders",
                 "input": [
                     "LTC/USDT",
                     "market",
@@ -78,7 +78,7 @@
             {
                 "description": "limit order with weird price/amoutn",
                 "method": "createOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders",
                 "input": [
                   "LTC/USDT",
                   "limit",
@@ -91,7 +91,7 @@
             {
                 "description": "postOnly hf order",
                 "method": "createOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders",
                 "input": [
                   "ADA/USDT",
                   "limit",
@@ -108,7 +108,7 @@
             {
                 "description": "spot limit with hf:true",
                 "method": "createOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders",
                 "input": [
                   "ETH/USDT",
                   "limit",
@@ -124,7 +124,7 @@
             {
                 "description": "spot limit with hf:false",
                 "method": "createOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders",
                 "input": [
                   "ETH/USDT",
                   "limit",
@@ -140,7 +140,7 @@
             {
                 "description": "order with hf sync endpoint",
                 "method": "createOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders/sync",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders/sync",
                 "input": [
                   "ADA/USDT",
                   "limit",
@@ -158,7 +158,7 @@
             {
                 "description": "create limit orders",
                 "method": "createOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders/multi",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders/multi",
                 "input": [
                     [
                         {
@@ -183,7 +183,7 @@
         "createMarketBuyOrderWithCost": [
             {
                 "method": "market buy with cost",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders",
                 "input": [
                     "LTC/USDT",
                     5
@@ -195,7 +195,7 @@
             {
                 "description": "market sell with cost",
                 "method": "createMarketSellOrderWithCost",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders",
                 "input": [
                     "LTC/USDT",
                     5
@@ -207,7 +207,7 @@
             {
                 "description": "buy order with too many decimals",
                 "method": "createMarketOrderWithCost",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders",
                 "input": [
                   "BTC/USDT",
                   "buy",
@@ -218,7 +218,7 @@
             {
                 "description": "market sell order",
                 "method": "createMarketOrderWithCost",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders",
                 "input": [
                   "BTC/USDT",
                   "sell",
@@ -231,7 +231,7 @@
             {
                 "description": "Spot open orders",
                 "method": "fetchOpenOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders?status=active&symbol=LTC-USDT&tradeType=TRADE",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders?status=active&symbol=LTC-USDT&tradeType=TRADE",
                 "input": [
                     "LTC/USDT"
                 ]
@@ -239,7 +239,7 @@
             {
                 "description": "spot with hf:true",
                 "method": "fetchOpenOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders/active?status=active&symbol=BTC-USDT&tradeType=TRADE",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders/active?status=active&symbol=BTC-USDT&tradeType=TRADE",
                 "input": [
                   "BTC/USDT",
                   null,
@@ -252,7 +252,7 @@
             {
                 "description": "spot with hf:false",
                 "method": "fetchOpenOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders?status=active&symbol=BTC-USDT&tradeType=TRADE",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders?status=active&symbol=BTC-USDT&tradeType=TRADE",
                 "input": [
                   "BTC/USDT",
                   null,
@@ -267,7 +267,7 @@
             {
                 "description": "Spot closed orders",
                 "method": "fetchClosedOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders?status=done&symbol=LTC-USDT&tradeType=TRADE",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders?status=done&symbol=LTC-USDT&tradeType=TRADE",
                 "input": [
                     "LTC/USDT"
                 ]
@@ -275,7 +275,7 @@
             {
                 "description": "spot with hf:true",
                 "method": "fetchClosedOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders/done?status=done&symbol=BTC-USDT&tradeType=TRADE",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders/done?status=done&symbol=BTC-USDT&tradeType=TRADE",
                 "input": [
                   "BTC/USDT",
                   null,
@@ -288,7 +288,7 @@
             {
                 "description": "spot with hf:false",
                 "method": "fetchClosedOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders?status=done&symbol=BTC-USDT&tradeType=TRADE",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders?status=done&symbol=BTC-USDT&tradeType=TRADE",
                 "input": [
                   "BTC/USDT",
                   null,
@@ -303,7 +303,7 @@
             {
                 "description": "Cancel spot orders",
                 "method": "cancelAllOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders?symbol=LTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders?symbol=LTC-USDT",
                 "input": [
                     "LTC/USDT"
                 ]
@@ -311,7 +311,7 @@
             {
                 "description": "Cancel spot orders - stop order",
                 "method": "cancelAllOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/stop-order/cancel?symbol=LTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/stop-order/cancel?symbol=LTC-USDT",
                 "input": [
                     "LTC/USDT",
                     {
@@ -322,7 +322,7 @@
             {
                 "description": "Cancel spot orders - hf order with symbol",
                 "method": "cancelAllOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders?symbol=LTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders?symbol=LTC-USDT",
                 "input": [
                     "LTC/USDT",
                     {
@@ -333,7 +333,7 @@
             {
                 "description": "spot with hf:true",
                 "method": "cancelAllOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders/cancelAll",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders/cancelAll",
                 "input": [
                     null,
                     {
@@ -344,7 +344,7 @@
             {
                 "description": "spot with hf:false",
                 "method": "cancelAllOrders",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders?symbol=ETH-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders?symbol=ETH-USDT",
                 "input": [
                   "ETH/USDT",
                   {
@@ -357,7 +357,7 @@
             {
                 "description": "Canceling stop order",
                 "method": "cancelOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/stop-order/vs8lgpan88t0q73m003j7m81",
+                "url": "https://exchange-broker.cexc.io/api/v1/stop-order/vs8lgpan88t0q73m003j7m81",
                 "input": [
                     "vs8lgpan88t0q73m003j7m81",
                     "LTC/USDT",
@@ -369,7 +369,7 @@
             {
                 "description": "Canceling regular order",
                 "method": "cancelOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders/6556088034d111000738f7b8",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders/6556088034d111000738f7b8",
                 "input": [
                     "6556088034d111000738f7b8",
                     "LTC/USDT"
@@ -378,7 +378,7 @@
             {
                 "description": "Canceling order by clientOrderId",
                 "method": "cancelOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/order/client-order/myorderid",
+                "url": "https://exchange-broker.cexc.io/api/v1/order/client-order/myorderid",
                 "input": [
                     "random",
                     "LTC/USDT",
@@ -390,7 +390,7 @@
             {
                 "description": "cancel hf order",
                 "method": "cancelOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders/66d1c3fb7a0f910007762fdc?symbol=ADA-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders/66d1c3fb7a0f910007762fdc?symbol=ADA-USDT",
                 "input": [
                   "66d1c3fb7a0f910007762fdc",
                   "ADA/USDT",
@@ -402,7 +402,7 @@
             {
                 "description": "spot with hf:true",
                 "method": "cancelOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders/66d22fac5caf5a0007d9f1bc?symbol=ETH-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders/66d22fac5caf5a0007d9f1bc?symbol=ETH-USDT",
                 "input": [
                   "66d22fac5caf5a0007d9f1bc",
                   "ETH/USDT",
@@ -414,7 +414,7 @@
             {
                 "description": "spot with hf:false",
                 "method": "cancelOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders/66d22f239250290007b795bb",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders/66d22f239250290007b795bb",
                 "input": [
                   "66d22f239250290007b795bb",
                   "ETH/USDT",
@@ -426,7 +426,7 @@
             {
                 "description": "cancelOrder with hf sync endpoint",
                 "method": "cancelOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/orders/sync/66d41123cf24cf00072d3e52?symbol=ADA-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/orders/sync/66d41123cf24cf00072d3e52?symbol=ADA-USDT",
                 "input": [
                   "66d41123cf24cf00072d3e52",
                   "ADA/USDT",
@@ -440,7 +440,7 @@
             {
                 "description": "Fetch spot Balance",
                 "method": "fetchBalance",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/accounts?type=trade",
+                "url": "https://exchange-broker.cexc.io/api/v1/accounts?type=trade",
                 "input": [
                     {
                         "type": "spot"
@@ -450,7 +450,7 @@
             {
                 "description": "fetch spot hf balance",
                 "method": "fetchBalance",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/accounts?type=trade_hf",
+                "url": "https://exchange-broker.cexc.io/api/v1/accounts?type=trade_hf",
                 "input": [
                     {
                         "hf": true
@@ -460,7 +460,7 @@
             {
                 "description": "Fetch the cross margin balance",
                 "method": "fetchBalance",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/margin/account",
+                "url": "https://exchange-broker.cexc.io/api/v1/margin/account",
                 "input": [
                   {
                     "type": "cross"
@@ -470,7 +470,7 @@
             {
                 "description": "Fetch the isolated margin balance",
                 "method": "fetchBalance",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/isolated/accounts",
+                "url": "https://exchange-broker.cexc.io/api/v3/isolated/accounts",
                 "input": [
                   {
                     "marginMode": "isolated"
@@ -480,7 +480,7 @@
             {
                 "description": "spot with hf:false",
                 "method": "fetchBalance",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/accounts?type=trade",
+                "url": "https://exchange-broker.cexc.io/api/v1/accounts?type=trade",
                 "input": [
                   {
                     "hf": false
@@ -490,7 +490,7 @@
             {
                 "description": "spot with hf:true",
                 "method": "fetchBalance",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/accounts?type=trade_hf",
+                "url": "https://exchange-broker.cexc.io/api/v1/accounts?type=trade_hf",
                 "input": [
                   {
                     "hf": true
@@ -502,7 +502,7 @@
             {
                 "description": "Fetch deposits",
                 "method": "fetchDeposits",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/deposits",
+                "url": "https://exchange-broker.cexc.io/api/v1/deposits",
                 "input": []
             }
         ],
@@ -510,7 +510,7 @@
             {
                 "description": "Fetch withdrawals",
                 "method": "fetchWithdrawals",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/withdrawals",
+                "url": "https://exchange-broker.cexc.io/api/v1/withdrawals",
                 "input": []
             }
         ],
@@ -518,7 +518,7 @@
             {
                 "description": "fetch trades with limit",
                 "method": "fetchMyTrades",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/fills?symbol=LTC-USDT&limit=5",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/fills?symbol=LTC-USDT&limit=5",
                 "input": [
                     "LTC/USDT",
                     null,
@@ -530,7 +530,7 @@
             {
                 "description": "spot with hf:true",
                 "method": "fetchMyTrades",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/fills?symbol=ETH-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/fills?symbol=ETH-USDT",
                 "input": [
                   "ETH/USDT",
                   null,
@@ -543,7 +543,7 @@
             {
                 "description": "spot with hf:false",
                 "method": "fetchMyTrades",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/fills?symbol=ETH-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/fills?symbol=ETH-USDT",
                 "input": [
                   "ETH/USDT",
                   null,
@@ -558,7 +558,7 @@
             {
                 "description": "Transfer from swap to spot",
                 "method": "transfer",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/accounts/universal-transfer",
+                "url": "https://exchange-broker.cexc.io/api/v3/accounts/universal-transfer",
                 "input": [
                     "USDT",
                     1,
@@ -570,7 +570,7 @@
             {
                 "description": "Transfer from spot to cross",
                 "method": "transfer",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/accounts/universal-transfer",
+                "url": "https://exchange-broker.cexc.io/api/v3/accounts/universal-transfer",
                 "input": [
                     "USDT",
                     1,
@@ -582,7 +582,7 @@
             {
                 "description": "Transfer from spot to isolated",
                 "method": "transfer",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/accounts/universal-transfer",
+                "url": "https://exchange-broker.cexc.io/api/v3/accounts/universal-transfer",
                 "input": [
                     "USDT",
                     1,
@@ -594,7 +594,7 @@
             {
                 "description": "Transfer from spot to swap",
                 "method": "transfer",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/accounts/universal-transfer",
+                "url": "https://exchange-broker.cexc.io/api/v3/accounts/universal-transfer",
                 "input": [
                     "USDT",
                     1,
@@ -606,7 +606,7 @@
             {
                 "description": "Transfer from main to spot",
                 "method": "transfer",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/accounts/universal-transfer",
+                "url": "https://exchange-broker.cexc.io/api/v3/accounts/universal-transfer",
                 "input": [
                     "USDT",
                     5,
@@ -620,7 +620,7 @@
             {
                 "description": "with network",
                 "method": "withdraw",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/withdrawals",
+                "url": "https://exchange-broker.cexc.io/api/v3/withdrawals",
                 "input": [
                   "USDT",
                   5.5,
@@ -637,7 +637,7 @@
             {
                 "description": "fetch USDT ledger",
                 "method": "fetchLedger",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/accounts/ledgers?currency=USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/accounts/ledgers?currency=USDT",
                 "input": [
                     "USDT"
                 ]
@@ -645,7 +645,7 @@
             {
                 "description": "fetch hf ledger",
                 "method": "fetchLedger",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/accounts/ledgers?currency=USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/accounts/ledgers?currency=USDT",
                 "input": [
                     "USDT",
                     null,
@@ -658,7 +658,7 @@
             {
                 "description": "with hf:true",
                 "method": "fetchLedger",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/hf/accounts/ledgers",
+                "url": "https://exchange-broker.cexc.io/api/v1/hf/accounts/ledgers",
                 "input": [
                   null,
                   null,
@@ -671,7 +671,7 @@
             {
                 "description": "with hf:false",
                 "method": "fetchLedger",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/accounts/ledgers",
+                "url": "https://exchange-broker.cexc.io/api/v1/accounts/ledgers",
                 "input": [
                   null,
                   null,
@@ -686,7 +686,7 @@
             {
                 "description": "fetch tickers",
                 "method": "fetchTickers",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/market/allTickers",
+                "url": "https://exchange-broker.cexc.io/api/v1/market/allTickers",
                 "input": [
                     [
                         "BTC/USDT",
@@ -697,7 +697,7 @@
             {
                 "description": "spot tickers",
                 "method": "fetchTickers",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/market/allTickers",
+                "url": "https://exchange-broker.cexc.io/api/v1/market/allTickers",
                 "input": [
                     [
                         "BTC/USDT",
@@ -710,7 +710,7 @@
             {
                 "description": "fetchTicker",
                 "method": "fetchTicker",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/market/stats?symbol=BTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/market/stats?symbol=BTC-USDT",
                 "input": [
                     "BTC/USDT"
                 ]
@@ -718,7 +718,7 @@
             {
                 "description": "spot ticker",
                 "method": "fetchTicker",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/market/stats?symbol=BTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/market/stats?symbol=BTC-USDT",
                 "input": [
                     "BTC/USDT"
                 ]
@@ -726,7 +726,7 @@
             {
                 "description": "uta spot fetch ticker",
                 "method": "fetchTicker",
-                "url": "https://exchange-broker-deploy.cexc.io/api/ua/v1/market/ticker?symbol=BTC-USDT&tradeType=SPOT",
+                "url": "https://exchange-broker.cexc.io/api/ua/v1/market/ticker?symbol=BTC-USDT&tradeType=SPOT",
                 "input": [
                     "BTC/USDT",
                     {
@@ -740,7 +740,7 @@
             {
                 "description": "fetch trades",
                 "method": "fetchTrades",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/market/histories?symbol=BTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/market/histories?symbol=BTC-USDT",
                 "input": [
                     "BTC/USDT"
                 ]
@@ -748,7 +748,7 @@
             {
                 "description": "spot fetchTrades",
                 "method": "fetchTrades",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/market/histories?symbol=BTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/market/histories?symbol=BTC-USDT",
                 "input": [
                     "BTC/USDT"
                 ]
@@ -756,7 +756,7 @@
             {
                 "description": "uta fetch trades",
                 "method": "fetchTrades",
-                "url": "https://exchange-broker-deploy.cexc.io/api/ua/v1/market/trade?symbol=BTC-USDT&tradeType=SPOT",
+                "url": "https://exchange-broker.cexc.io/api/ua/v1/market/trade?symbol=BTC-USDT&tradeType=SPOT",
                 "input": [
                     "BTC/USDT",
                     null,
@@ -772,7 +772,7 @@
             {
                 "description": "fetchOrderBook",
                 "method": "fetchOrderBook",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/market/orderbook/level2_20?symbol=BTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/market/orderbook/level2_20?symbol=BTC-USDT",
                 "input": [
                     "BTC/USDT",
                     20
@@ -781,7 +781,7 @@
             {
                 "description": "spot orderbook",
                 "method": "fetchOrderBook",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/market/orderbook/level2?symbol=BTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v3/market/orderbook/level2?symbol=BTC-USDT",
                 "input": [
                     "BTC/USDT"
                 ]
@@ -789,7 +789,7 @@
             {
                 "description": "uta orderbook",
                 "method": "fetchOrderBook",
-                "url": "https://exchange-broker-deploy.cexc.io/api/ua/v1/market/orderbook?symbol=BTC-USDT&tradeType=SPOT&limit=20",
+                "url": "https://exchange-broker.cexc.io/api/ua/v1/market/orderbook?symbol=BTC-USDT&tradeType=SPOT&limit=20",
                 "input": [
                     "BTC/USDT",
                     20,
@@ -804,7 +804,7 @@
             {
                 "description": "fetch ohlcv",
                 "method": "fetchOHLCV",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/market/candles?symbol=BTC-USDT&type=1hour&startAt=1706628191&endAt=1706638991",
+                "url": "https://exchange-broker.cexc.io/api/v1/market/candles?symbol=BTC-USDT&type=1hour&startAt=1706628191&endAt=1706638991",
                 "input": [
                     "BTC/USDT",
                     "1h",
@@ -815,7 +815,7 @@
             {
                 "description": "spot ohlcv",
                 "method": "fetchOHLCV",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/market/candles?symbol=BTC-USDT&type=1min&endAt=1709992989",
+                "url": "https://exchange-broker.cexc.io/api/v1/market/candles?symbol=BTC-USDT&type=1min&endAt=1709992989",
                 "input": [
                     "BTC/USDT"
                 ]
@@ -823,7 +823,7 @@
             {
                 "description": "uta spot ohlcv",
                 "method": "fetchOHLCV",
-                "url": "https://exchange-broker-deploy.cexc.io/api/ua/v1/market/kline?symbol=BTC-USDT&startAt=1762240065&endAt=1762240245&tradeType=SPOT&interval=1min",
+                "url": "https://exchange-broker.cexc.io/api/ua/v1/market/kline?symbol=BTC-USDT&startAt=1762240065&endAt=1762240245&tradeType=SPOT&interval=1min",
                 "input": [
                     "BTC/USDT",
                     "1m",
@@ -840,7 +840,7 @@
             {
                 "description": "fetch trading fee",
                 "method": "fetchTradingFee",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/trade-fees?symbols=BTC-USDT",
+                "url": "https://exchange-broker.cexc.io/api/v1/trade-fees?symbols=BTC-USDT",
                 "input": [
                     "BTC/USDT"
                 ]
@@ -850,7 +850,7 @@
             {
                 "description": "fetch order",
                 "method": "fetchOrder",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/orders/65e371dd0ddaa40007cb437b",
+                "url": "https://exchange-broker.cexc.io/api/v1/orders/65e371dd0ddaa40007cb437b",
                 "input": [
                     "65e371dd0ddaa40007cb437b",
                     "LTC/USDT"
@@ -861,7 +861,7 @@
             {
                 "description": "fetchDepositWithdrawFees",
                 "method": "fetchDepositWithdrawFees",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/currencies",
+                "url": "https://exchange-broker.cexc.io/api/v3/currencies",
                 "input": [
                     [
                         "BTC"
@@ -873,7 +873,7 @@
             {
                 "description": "fetch accounts",
                 "method": "fetchAccounts",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/accounts",
+                "url": "https://exchange-broker.cexc.io/api/v1/accounts",
                 "input": []
             }
         ],
@@ -881,7 +881,7 @@
             {
                 "description": "fetchTime",
                 "method": "fetchTime",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/timestamp",
+                "url": "https://exchange-broker.cexc.io/api/v1/timestamp",
                 "input": []
             }
         ],
@@ -889,7 +889,7 @@
             {
                 "description": "fetchBorrowRateHistory",
                 "method": "fetchBorrowRateHistory",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/margin/interest?isIsolated=false&currency=BTC",
+                "url": "https://exchange-broker.cexc.io/api/v3/margin/interest?isIsolated=false&currency=BTC",
                 "input": [
                     "BTC"
                 ]
@@ -899,7 +899,7 @@
             {
                 "description": "fetchBorrowRateHistories",
                 "method": "fetchBorrowRateHistories",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/margin/interest?isIsolated=false",
+                "url": "https://exchange-broker.cexc.io/api/v3/margin/interest?isIsolated=false",
                 "input": []
             }
         ],
@@ -907,7 +907,7 @@
             {
                 "description": "with common currency",
                 "method": "fetchDepositAddressesByNetwork",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v2/deposit-addresses?currency=KALT",
+                "url": "https://exchange-broker.cexc.io/api/v2/deposit-addresses?currency=KALT",
                 "input": [
                   "ALT"
                 ]
@@ -917,7 +917,7 @@
             {
                 "description": "isolated",
                 "method": "setLeverage",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/position/update-user-leverage",
+                "url": "https://exchange-broker.cexc.io/api/v3/position/update-user-leverage",
                 "input": [
                     4,
                     "BTC/USDT",
@@ -930,7 +930,7 @@
             {
                 "description": "cross",
                 "method": "setLeverage",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/position/update-user-leverage",
+                "url": "https://exchange-broker.cexc.io/api/v3/position/update-user-leverage",
                 "input": [
                   4,
                   null,
@@ -945,7 +945,7 @@
             {
                 "description": "with network code",
                 "method": "createDepositAddress",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/deposit-address/create",
+                "url": "https://exchange-broker.cexc.io/api/v3/deposit-address/create",
                 "input": [
                   "USDT",
                   {
@@ -959,14 +959,14 @@
             {
                 "description": "fetchCurrencies",
                 "method": "fetchCurrencies",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/currencies",
+                "url": "https://exchange-broker.cexc.io/api/v3/currencies",
                 "input": [],
                 "output": null
             },
             {
                 "description": "default",
                 "method": "fetchCurrencies",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/currencies",
+                "url": "https://exchange-broker.cexc.io/api/v3/currencies",
                 "input": []
             }
         ],
@@ -974,7 +974,7 @@
             {
                 "description": "cross fetch the borrow interest",
                 "method": "fetchBorrowInterest",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/margin/accounts?quoteCurrency=USDT",
+                "url": "https://exchange-broker.cexc.io/api/v3/margin/accounts?quoteCurrency=USDT",
                 "input": [
                   "USDT"
                 ]
@@ -982,7 +982,7 @@
             {
                 "description": "isolated fetch the borrow interest",
                 "method": "fetchBorrowInterest",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v3/isolated/accounts?balanceCurrency=USDT",
+                "url": "https://exchange-broker.cexc.io/api/v3/isolated/accounts?balanceCurrency=USDT",
                 "input": [
                   "USDT",
                   "BTC/USDT",
@@ -998,13 +998,13 @@
             {
                 "description": "fetch the status",
                 "method": "fetchStatus",
-                "url": "https://exchange-broker-deploy.cexc.io/api/v1/status",
+                "url": "https://exchange-broker.cexc.io/api/v1/status",
                 "input": []
             },
             {
                 "description": "uta fetch status",
                 "method": "fetchStatus",
-                "url": "https://exchange-broker-deploy.cexc.io/api/ua/v1/server/status?tradeType=SPOT",
+                "url": "https://exchange-broker.cexc.io/api/ua/v1/server/status?tradeType=SPOT",
                 "input": [
                     {
                         "uta": true,

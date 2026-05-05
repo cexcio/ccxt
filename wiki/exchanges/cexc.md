@@ -82,7 +82,7 @@ fetches the current integer timestamp in milliseconds from the exchange server
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>int</code> - the current integer timestamp in milliseconds from the exchange server
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#server-time  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#server-time  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -104,8 +104,8 @@ the latest known information on the availability of the exchange API
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#service-status
-- https://exchange-broker-deploy.cexc.io/api/v1/ua/get-service-status
+- https://exchange-broker.cexc.io/api/v1/documentation#service-status
+- https://exchange-broker.cexc.io/api/v1/ua/get-service-status
 
 
 | Param | Type | Required | Description |
@@ -130,8 +130,8 @@ retrieves data on all markets for cexc
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-symbols-list-deprecated
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-all-tickers
+- https://exchange-broker.cexc.io/api/v1/documentation#get-symbols-list-deprecated
+- https://exchange-broker.cexc.io/api/v1/documentation#get-all-tickers
 
 
 | Param | Type | Required | Description |
@@ -173,7 +173,7 @@ fetches all available currencies on an exchange
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - an associative dictionary of currencies
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-currencies  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#get-currencies  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -193,7 +193,7 @@ fetch all the accounts associated with a profile
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a dictionary of [account structures](https://docs.ccxt.com/?id=account-structure) indexed by the account type
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#list-accounts  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#list-accounts  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -213,7 +213,7 @@ cexc.fetchAccounts ([params])
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [fee structure](https://docs.ccxt.com/?id=fee-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-withdrawal-quotas  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#get-withdrawal-quotas  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -234,7 +234,7 @@ fetch the fee for deposits and withdrawals
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [fee structure](https://docs.ccxt.com/?id=fee-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-withdrawal-quotas  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#get-withdrawal-quotas  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -258,8 +258,8 @@ fetches price tickers for multiple markets, statistical information calculated o
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-all-tickers
-- https://exchange-broker-deploy.cexc.io/api/v1/ua/get-ticker
+- https://exchange-broker.cexc.io/api/v1/documentation#get-all-tickers
+- https://exchange-broker.cexc.io/api/v1/ua/get-ticker
 
 
 | Param | Type | Required | Description |
@@ -306,8 +306,8 @@ fetches a price ticker, a statistical calculation with the information calculate
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-24hr-stats
-- https://exchange-broker-deploy.cexc.io/api/v1/ua/get-ticker
+- https://exchange-broker.cexc.io/api/v1/documentation#get-24hr-stats
+- https://exchange-broker.cexc.io/api/v1/ua/get-ticker
 
 
 | Param | Type | Required | Description |
@@ -353,8 +353,8 @@ fetches historical candlestick data containing the open, high, low, and close pr
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-klines
-- https://exchange-broker-deploy.cexc.io/api/v1/ua/get-klines
+- https://exchange-broker.cexc.io/api/v1/documentation#get-klines
+- https://exchange-broker.cexc.io/api/v1/ua/get-klines
 
 
 | Param | Type | Required | Description |
@@ -403,7 +403,7 @@ fetch the deposit address for a currency associated with this account
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - an [address structure](https://docs.ccxt.com/?id=address-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-deposit-addresses-v2  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#get-deposit-addresses-v2  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -425,7 +425,7 @@ fetch the deposit address for a currency associated with this account
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - an array of [address structures](https://docs.ccxt.com/?id=address-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-deposit-addresses-v2  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#get-deposit-addresses-v2  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -450,7 +450,7 @@ fetches information on open orders with bid (buy) and ask (sell) prices, volumes
 
 - https://cexc.io/docs/rest/spot-trading/market-data/get-part-order-book-aggregated-
 - https://cexc.io/docs/rest/spot-trading/market-data/get-full-order-book-aggregated-
-- https://exchange-broker-deploy.cexc.io/api/v1/ua/get-orderbook
+- https://exchange-broker.cexc.io/api/v1/ua/get-orderbook
 
 
 | Param | Type | Required | Description |
@@ -476,10 +476,10 @@ Create an order on the exchange
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#place-a-new-order
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#place-a-new-order-2
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#place-a-margin-order
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#place-hf-order
+- https://exchange-broker.cexc.io/api/v1/documentationspot#place-a-new-order
+- https://exchange-broker.cexc.io/api/v1/documentationspot#place-a-new-order-2
+- https://exchange-broker.cexc.io/api/v1/documentationspot#place-a-margin-order
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#place-hf-order
 - https://cexc.io/docs/rest/spot-trading/orders/place-order-test
 - https://cexc.io/docs/rest/margin-trading/orders/place-margin-order-test
 - https://cexc.io/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-place-hf-order
@@ -622,7 +622,7 @@ edit an order, cexc currently only supports the modification of HF orders
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/?id=order-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#modify-order  
+**See**: https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#modify-order  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -651,12 +651,12 @@ cancels an open order
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-an-order
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-an-order-2
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid-2
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#cancel-orders-by-orderid
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#cancel-order-by-clientoid
+- https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-an-order
+- https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-an-order-2
+- https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid
+- https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid-2
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#cancel-orders-by-orderid
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#cancel-order-by-clientoid
 - https://cexc.io/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-cancel-hf-order-by-orderid
 - https://cexc.io/docs/rest/spot-trading/spot-hf-trade-pro-account/sync-cancel-hf-order-by-clientoid
 
@@ -686,9 +686,9 @@ cancel all open orders
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-all-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#cancel-all-hf-orders-by-symbol
+- https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-all-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#cancel-all-hf-orders-by-symbol
 
 
 | Param | Type | Required | Description |
@@ -716,10 +716,10 @@ fetch a list of orders
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-stop-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot#list-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot#list-stop-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
 
 
 | Param | Type | Required | Description |
@@ -754,10 +754,10 @@ fetches information on multiple closed orders made by the user
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-stop-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot#list-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot#list-stop-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
 
 
 | Param | Type | Required | Description |
@@ -790,10 +790,10 @@ fetch all unfilled currently open orders
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-stop-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot#list-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot#list-stop-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
 
 
 | Param | Type | Required | Description |
@@ -828,12 +828,12 @@ fetch an order
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-an-order
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-single-active-order-by-clientoid
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-single-order-info
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-single-order-by-clientoid
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#details-of-a-single-hf-order
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-details-of-a-single-hf-order-using-clientoid
+- https://exchange-broker.cexc.io/api/v1/documentationspot#get-an-order
+- https://exchange-broker.cexc.io/api/v1/documentationspot#get-single-active-order-by-clientoid
+- https://exchange-broker.cexc.io/api/v1/documentationspot#get-single-order-info
+- https://exchange-broker.cexc.io/api/v1/documentationspot#get-single-order-by-clientoid
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#details-of-a-single-hf-order
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-details-of-a-single-hf-order-using-clientoid
 
 
 | Param | Type | Required | Description |
@@ -861,8 +861,8 @@ fetch all the trades made from a single order
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#list-fills
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#transaction-details
+- https://exchange-broker.cexc.io/api/v1/documentation#list-fills
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#transaction-details
 
 
 | Param | Type | Required | Description |
@@ -889,8 +889,8 @@ fetch all trades made by the user
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#list-fills
-- https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#transaction-details
+- https://exchange-broker.cexc.io/api/v1/documentation#list-fills
+- https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#transaction-details
 
 
 | Param | Type | Required | Description |
@@ -920,7 +920,7 @@ get the list of most recent trades for a particular symbol
 **See**
 
 - https://cexc.io/docs/rest/spot-trading/market-data/get-trade-histories
-- https://exchange-broker-deploy.cexc.io/api/v1/ua/get-trades
+- https://exchange-broker.cexc.io/api/v1/ua/get-trades
 
 
 | Param | Type | Required | Description |
@@ -1076,7 +1076,7 @@ transfer currency internally between wallets on the same account
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [transfer structure](https://docs.ccxt.com/?id=transfer-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/account-info/transfer/flex-transfer?lang=en_US&  
+**See**: https://exchange-broker.cexc.io/api/v1/account-info/transfer/flex-transfer?lang=en_US&  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1136,8 +1136,8 @@ fetch the interest owed by the user for borrowing currency for margin trading
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-repay-record
-- https://exchange-broker-deploy.cexc.io/api/v1/documentation#query-isolated-margin-account-info
+- https://exchange-broker.cexc.io/api/v1/documentation#get-repay-record
+- https://exchange-broker.cexc.io/api/v1/documentation#query-isolated-margin-account-info
 
 
 | Param | Type | Required | Description |
@@ -1213,7 +1213,7 @@ create a loan to borrow margin
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [margin loan structure](https://docs.ccxt.com/?id=margin-loan-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#1-margin-borrowing  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#1-margin-borrowing  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1236,7 +1236,7 @@ create a loan to borrow margin
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [margin loan structure](https://docs.ccxt.com/?id=margin-loan-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#1-margin-borrowing  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#1-margin-borrowing  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1260,7 +1260,7 @@ repay borrowed margin and interest
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [margin loan structure](https://docs.ccxt.com/?id=margin-loan-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#2-repayment  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#2-repayment  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1282,7 +1282,7 @@ repay borrowed margin and interest
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [margin loan structure](https://docs.ccxt.com/?id=margin-loan-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#2-repayment  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#2-repayment  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1305,7 +1305,7 @@ fetch deposit and withdraw fees - *IMPORTANT* use fetchDepositWithdrawFee to get
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a list of [fee structures](https://docs.ccxt.com/?id=fee-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-currencies  
+**See**: https://exchange-broker.cexc.io/api/v1/documentation#get-currencies  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1348,7 +1348,7 @@ fetch the current funding rate
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [funding rate structure](https://docs.ccxt.com/?id=funding-rate-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/ua/get-current-funding-rate  
+**See**: https://exchange-broker.cexc.io/api/v1/ua/get-current-funding-rate  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1369,7 +1369,7 @@ fetches historical funding rate prices
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;object&gt;</code> - a list of [funding rate structures](https://docs.ccxt.com/?id=funding-rate-history-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/ua/get-history-funding-rate  
+**See**: https://exchange-broker.cexc.io/api/v1/ua/get-history-funding-rate  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1393,7 +1393,7 @@ fetch a history of internal transfers made on an account
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;object&gt;</code> - a list of [transfer structures](https://docs.ccxt.com/?id=transfer-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/api/v1/account-info/account-funding/get-account-ledgers-spot-margin  
+**See**: https://exchange-broker.cexc.io/api/v1/account-info/account-funding/get-account-ledgers-spot-margin  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1418,7 +1418,7 @@ watches a price ticker, a statistical calculation with the information calculate
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1439,7 +1439,7 @@ unWatches a price ticker, a statistical calculation with the information calcula
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1460,7 +1460,7 @@ watches a price ticker, a statistical calculation with the information calculate
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/ticker  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/ticker  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1482,7 +1482,7 @@ watches best bid & ask for symbols
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1503,7 +1503,7 @@ watches historical candlestick data containing the open, high, low, and close pr
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;Array&lt;int&gt;&gt;</code> - A list of candles ordered as timestamp, open, high, low, close, volume
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/klines  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/klines  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1527,7 +1527,7 @@ unWatches historical candlestick data containing the open, high, low, and close 
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;Array&lt;int&gt;&gt;</code> - A list of candles ordered as timestamp, open, high, low, close, volume
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/klines  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/klines  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1549,7 +1549,7 @@ get the list of most recent trades for a particular symbol
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=public-trades)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1572,7 +1572,7 @@ get the list of most recent trades for a particular symbol
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=public-trades)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1595,7 +1595,7 @@ unWatches trades stream
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=public-trades)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1616,7 +1616,7 @@ unWatches trades stream
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=public-trades)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1639,10 +1639,10 @@ watches information on open orders with bid (buy) and ask (sell) prices, volumes
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
 
 
 | Param | Type | Required | Description |
@@ -1668,10 +1668,10 @@ unWatches information on open orders with bid (buy) and ask (sell) prices, volum
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
 
 
 | Param | Type | Required | Description |
@@ -1696,10 +1696,10 @@ watches information on open orders with bid (buy) and ask (sell) prices, volumes
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
 
 
 | Param | Type | Required | Description |
@@ -1725,10 +1725,10 @@ unWatches information on open orders with bid (buy) and ask (sell) prices, volum
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
 
 
 | Param | Type | Required | Description |
@@ -1753,8 +1753,8 @@ watches information on multiple orders made by the user
 
 **See**
 
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
-- https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/stop-order-event
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
+- https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/stop-order-event
 
 
 | Param | Type | Required | Description |
@@ -1779,7 +1779,7 @@ watches information on multiple trades made by the user
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=trade-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1803,7 +1803,7 @@ watch balance and get the amount of funds available for trading or funds locked 
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [balance structure](https://docs.ccxt.com/?id=balance-structure)
 
-**See**: https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/account-balance-change  
+**See**: https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/account-balance-change  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |

@@ -14,7 +14,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#watchTicker
      * @description watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
      * @param {string} symbol unified symbol of the market to fetch the ticker for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
@@ -24,7 +24,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#unWatchTicker
      * @description unWatches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
      * @param {string} symbol unified symbol of the market to fetch the ticker for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
@@ -33,7 +33,7 @@ export default class cexc extends cexcRest {
     /**
      * @method
      * @name cexc#watchTickers
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/ticker
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/ticker
      * @description watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
      * @param {string[]} symbols unified symbol of the market to fetch the ticker for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -45,7 +45,7 @@ export default class cexc extends cexcRest {
     /**
      * @method
      * @name cexc#watchBidsAsks
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
      * @description watches best bid & ask for symbols
      * @param {string[]} symbols unified symbol of the market to fetch the ticker for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -59,7 +59,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#watchOHLCV
      * @description watches historical candlestick data containing the open, high, low, and close price, and the volume of a market
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/klines
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/klines
      * @param {string} symbol unified symbol of the market to fetch OHLCV data for
      * @param {string} timeframe the length of time each candle represents
      * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -72,7 +72,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#unWatchOHLCV
      * @description unWatches historical candlestick data containing the open, high, low, and close price, and the volume of a market
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/klines
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/klines
      * @param {string} symbol unified symbol of the market to fetch OHLCV data for
      * @param {string} timeframe the length of time each candle represents
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -84,7 +84,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#watchTrades
      * @description get the list of most recent trades for a particular symbol
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
      * @param {string} symbol unified symbol of the market to fetch trades for
      * @param {int} [since] timestamp in ms of the earliest trade to fetch
      * @param {int} [limit] the maximum amount of trades to fetch
@@ -96,7 +96,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#watchTradesForSymbols
      * @description get the list of most recent trades for a particular symbol
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
      * @param {string[]} symbols
      * @param {int} [since] timestamp in ms of the earliest trade to fetch
      * @param {int} [limit] the maximum amount of trades to fetch
@@ -108,7 +108,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#unWatchTradesForSymbols
      * @description unWatches trades stream
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
      * @param {string} symbols
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
@@ -118,7 +118,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#unWatchTrades
      * @description unWatches trades stream
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
      * @param {string} symbol unified symbol of the market to fetch trades for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
@@ -128,10 +128,10 @@ export default class cexc extends cexcRest {
     /**
      * @method
      * @name cexc#watchOrderBook
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
      * @description watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
      * @param {string} symbol unified symbol of the market to fetch the order book for
      * @param {int} [limit] the maximum amount of order book entries to return
@@ -143,10 +143,10 @@ export default class cexc extends cexcRest {
     /**
      * @method
      * @name cexc#unWatchOrderBook
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
      * @description unWatches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
      * @param {string} symbol unified symbol of the market to fetch the order book for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -157,10 +157,10 @@ export default class cexc extends cexcRest {
     /**
      * @method
      * @name cexc#watchOrderBookForSymbols
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
      * @description watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
      * @param {string[]} symbols unified array of symbols
      * @param {int} [limit] the maximum amount of order book entries to return
@@ -172,10 +172,10 @@ export default class cexc extends cexcRest {
     /**
      * @method
      * @name cexc#unWatchOrderBookForSymbols
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
      * @description unWatches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
      * @param {string[]} symbols unified array of symbols
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -194,8 +194,8 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#watchOrders
      * @description watches information on multiple orders made by the user
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/stop-order-event
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/stop-order-event
      * @param {string} symbol unified market symbol of the market orders were made in
      * @param {int} [since] the earliest time in ms to fetch orders for
      * @param {int} [limit] the maximum number of order structures to retrieve
@@ -211,7 +211,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#watchMyTrades
      * @description watches information on multiple trades made by the user
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
      * @param {string} symbol unified market symbol of the market trades were made in
      * @param {int} [since] the earliest time in ms to fetch trades for
      * @param {int} [limit] the maximum number of trade structures to retrieve
@@ -226,7 +226,7 @@ export default class cexc extends cexcRest {
      * @method
      * @name cexc#watchBalance
      * @description watch balance and get the amount of funds available for trading or funds locked in orders
-     * @see https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/account-balance-change
+     * @see https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/account-balance-change
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
      */

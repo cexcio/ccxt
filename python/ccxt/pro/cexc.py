@@ -59,7 +59,7 @@ class cexc(ccxt.async_support.cexc):
             'streaming': {
                 # cexc does not support built-in ws protocol-level ping-pong
                 # instead it requires a custom json-based text ping-pong
-                # https://exchange-broker-deploy.cexc.io/api/v1/documentation#ping
+                # https://exchange-broker.cexc.io/api/v1/documentation#ping
                 'ping': self.ping,
             },
         })
@@ -185,7 +185,7 @@ class cexc(ccxt.async_support.cexc):
         """
         watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
 
         :param str symbol: unified symbol of the market to fetch the ticker for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -204,7 +204,7 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/market-snapshot
 
         :param str symbol: unified symbol of the market to fetch the ticker for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -231,7 +231,7 @@ class cexc(ccxt.async_support.cexc):
     async def watch_tickers(self, symbols: Strings = None, params={}) -> Tickers:
         """
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/ticker
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/ticker
 
         watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
         :param str[] symbols: unified symbol of the market to fetch the ticker for
@@ -350,7 +350,7 @@ class cexc(ccxt.async_support.cexc):
     async def watch_bids_asks(self, symbols: Strings = None, params={}) -> Tickers:
         """
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
 
         watches best bid & ask for symbols
         :param str[] symbols: unified symbol of the market to fetch the ticker for
@@ -434,7 +434,7 @@ class cexc(ccxt.async_support.cexc):
         """
         watches historical candlestick data containing the open, high, low, and close price, and the volume of a market
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/klines
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/klines
 
         :param str symbol: unified symbol of the market to fetch OHLCV data for
         :param str timeframe: the length of time each candle represents
@@ -459,7 +459,7 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches historical candlestick data containing the open, high, low, and close price, and the volume of a market
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/klines
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/klines
 
         :param str symbol: unified symbol of the market to fetch OHLCV data for
         :param str timeframe: the length of time each candle represents
@@ -529,7 +529,7 @@ class cexc(ccxt.async_support.cexc):
         """
         get the list of most recent trades for a particular symbol
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
 
         :param str symbol: unified symbol of the market to fetch trades for
         :param int [since]: timestamp in ms of the earliest trade to fetch
@@ -543,7 +543,7 @@ class cexc(ccxt.async_support.cexc):
         """
         get the list of most recent trades for a particular symbol
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
 
         :param str[] symbols:
         :param int [since]: timestamp in ms of the earliest trade to fetch
@@ -577,7 +577,7 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches trades stream
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
 
         :param str symbols:
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -607,7 +607,7 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches trades stream
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/match-execution-data
 
         :param str symbol: unified symbol of the market to fetch trades for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -650,10 +650,10 @@ class cexc(ccxt.async_support.cexc):
     async def watch_order_book(self, symbol: str, limit: Int = None, params={}) -> OrderBook:
         """
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
 
         watches information on open orders with bid(buy) and ask(sell) prices, volumes and other data
         :param str symbol: unified symbol of the market to fetch the order book for
@@ -663,7 +663,7 @@ class cexc(ccxt.async_support.cexc):
         :returns dict: A dictionary of `order book structures <https://docs.ccxt.com/?id=order-book-structure>` indexed by market symbols
         """
         #
-        # https://exchange-broker-deploy.cexc.io/api/v1/documentation#level-2-market-data
+        # https://exchange-broker.cexc.io/api/v1/documentation#level-2-market-data
         #
         # 1. After receiving the websocket Level 2 data flow, cache the data.
         # 2. Initiate a REST request to get the snapshot data of Level 2 order book.
@@ -682,10 +682,10 @@ class cexc(ccxt.async_support.cexc):
     async def un_watch_order_book(self, symbol: str, params={}) -> Any:
         """
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
 
         unWatches information on open orders with bid(buy) and ask(sell) prices, volumes and other data
         :param str symbol: unified symbol of the market to fetch the order book for
@@ -698,10 +698,10 @@ class cexc(ccxt.async_support.cexc):
     async def watch_order_book_for_symbols(self, symbols: List[str], limit: Int = None, params={}) -> OrderBook:
         """
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
 
         watches information on open orders with bid(buy) and ask(sell) prices, volumes and other data
         :param str[] symbols: unified array of symbols
@@ -745,10 +745,10 @@ class cexc(ccxt.async_support.cexc):
     async def un_watch_order_book_for_symbols(self, symbols: List[str], params={}) -> Any:
         """
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level1-bbo-market-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-market-data
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-5-best-ask-bid-orders
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/public-channels/level2-50-best-ask-bid-orders
 
         unWatches information on open orders with bid(buy) and ask(sell) prices, volumes and other data
         :param str[] symbols: unified array of symbols
@@ -956,8 +956,8 @@ class cexc(ccxt.async_support.cexc):
         """
         watches information on multiple orders made by the user
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/stop-order-event
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/stop-order-event
 
         :param str symbol: unified market symbol of the market orders were made in
         :param int [since]: the earliest time in ms to fetch orders for
@@ -1120,7 +1120,7 @@ class cexc(ccxt.async_support.cexc):
         """
         watches information on multiple trades made by the user
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/private-order-change
 
         :param str symbol: unified market symbol of the market trades were made in
         :param int [since]: the earliest time in ms to fetch trades for
@@ -1269,7 +1269,7 @@ class cexc(ccxt.async_support.cexc):
         """
         watch balance and get the amount of funds available for trading or funds locked in orders
 
-        https://exchange-broker-deploy.cexc.io/docs/websocket/spot-trading/private-channels/account-balance-change
+        https://exchange-broker.cexc.io/docs/websocket/spot-trading/private-channels/account-balance-change
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :returns dict: a `balance structure <https://docs.ccxt.com/?id=balance-structure>`
@@ -1376,7 +1376,7 @@ class cexc(ccxt.async_support.cexc):
     def ping(self, client: Client):
         # cexc does not support built-in ws protocol-level ping-pong
         # instead it requires a custom json-based text ping-pong
-        # https://exchange-broker-deploy.cexc.io/api/v1/documentation#ping
+        # https://exchange-broker.cexc.io/api/v1/documentation#ping
         id = str(self.request_id())
         return {
             'id': id,
@@ -1385,7 +1385,7 @@ class cexc(ccxt.async_support.cexc):
 
     def handle_pong(self, client: Client, message):
         client.lastPong = self.milliseconds()
-        # https://exchange-broker-deploy.cexc.io/api/v1/documentation#ping
+        # https://exchange-broker.cexc.io/api/v1/documentation#ping
 
     def handle_error_message(self, client: Client, message) -> Bool:
         #

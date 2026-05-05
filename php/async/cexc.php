@@ -122,16 +122,16 @@ class cexc extends Exchange {
             ),
             'urls' => array(
                 'logo' => 'https://user-images.githubusercontent.com/51840849/87295558-132aaf80-c50e-11ea-9801-a2fb0c57c799.jpg',
-                'referral' => 'https://exchange-broker-deploy.cexc.io/api/v1/auth/signup?rcode=E5wkqe',
+                'referral' => 'https://exchange-broker.cexc.io/api/v1/auth/signup?rcode=E5wkqe',
                 'api' => array(
-                    'public' => 'https://exchange-broker-deploy.cexc.io',
-                    'private' => 'https://exchange-broker-deploy.cexc.io',
-                    'futuresPrivate' => 'https://exchange-broker-deploy.cexc.io',
-                    'futuresPublic' => 'https://exchange-broker-deploy.cexc.io',
-                    'webExchange' => 'https://exchange-broker-deploy.cexc.io/_api',
-                    'broker' => 'https://exchange-broker-deploy.cexc.io',
-                    'earn' => 'https://exchange-broker-deploy.cexc.io',
-                    'uta' => 'https://exchange-broker-deploy.cexc.io',
+                    'public' => 'https://exchange-broker.cexc.io',
+                    'private' => 'https://exchange-broker.cexc.io',
+                    'futuresPrivate' => 'https://exchange-broker.cexc.io',
+                    'futuresPublic' => 'https://exchange-broker.cexc.io',
+                    'webExchange' => 'https://exchange-broker.cexc.io/_api',
+                    'broker' => 'https://exchange-broker.cexc.io',
+                    'earn' => 'https://exchange-broker.cexc.io',
+                    'uta' => 'https://exchange-broker.cexc.io',
                 ),
                 'www' => 'https://cexc.io',
                 'doc' => array(
@@ -1142,7 +1142,7 @@ class cexc extends Exchange {
             /**
              * fetches the current integer timestamp in milliseconds from the exchange server
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#server-time
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#server-time
              *
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @return {int} the current integer timestamp in milliseconds from the exchange server
@@ -1164,8 +1164,8 @@ class cexc extends Exchange {
             /**
              * the latest known information on the availability of the exchange API
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#service-$status
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/ua/get-service-$status
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#service-$status
+             * @see https://exchange-broker.cexc.io/api/v1/ua/get-service-$status
              *
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @param {boolean} [$params->uta] set to true for the unified trading account ($uta), defaults to false
@@ -1222,8 +1222,8 @@ class cexc extends Exchange {
             /**
              * retrieves data on all markets for cexc
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-symbols-list-deprecated
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-all-tickers
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-symbols-list-deprecated
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-all-tickers
              *
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @param {boolean} [$params->uta] set to true for the unified trading account ($uta), defaults to false
@@ -1643,7 +1643,7 @@ class cexc extends Exchange {
             /**
              * fetches all available currencies on an exchange
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-currencies
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-currencies
              *
              * @param {array} $params extra parameters specific to the exchange API endpoint
              * @return {array} an associative dictionary of currencies
@@ -1753,7 +1753,7 @@ class cexc extends Exchange {
             /**
              * fetch all the accounts associated with a profile
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#list-accounts
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#list-accounts
              *
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @return {array} a dictionary of ~@link https://docs.ccxt.com/?id=$account-structure $account structures~ indexed by the $account $type
@@ -1807,7 +1807,7 @@ class cexc extends Exchange {
             /**
              * *DEPRECATED* please use fetchDepositWithdrawFee instead
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-withdrawal-quotas
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-withdrawal-quotas
              *
              * @param {string} $code unified $currency $code
              * @param {array} $params extra parameters specific to the exchange API endpoint
@@ -1840,7 +1840,7 @@ class cexc extends Exchange {
             /**
              * fetch the fee for deposits and withdrawals
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-withdrawal-quotas
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-withdrawal-quotas
              *
              * @param {string} $code unified $currency $code
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -2088,8 +2088,8 @@ class cexc extends Exchange {
             /**
              * fetches price $tickers for multiple markets, statistical information calculated over the past 24 hours for each $market
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-all-$tickers
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/ua/get-$ticker
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-all-$tickers
+             * @see https://exchange-broker.cexc.io/api/v1/ua/get-$ticker
              *
              * @param {string[]|null} $symbols unified $symbols of the markets to fetch the $ticker for, all $market $tickers are returned if not assigned
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -2220,8 +2220,8 @@ class cexc extends Exchange {
             /**
              * fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific $market
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-24hr-stats
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/ua/get-ticker
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-24hr-stats
+             * @see https://exchange-broker.cexc.io/api/v1/ua/get-ticker
              *
              * @param {string} $symbol unified $symbol of the $market to fetch the ticker for
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -2356,8 +2356,8 @@ class cexc extends Exchange {
             /**
              * fetches historical candlestick $data containing the open, high, low, and close price, and the volume of a $market
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-klines
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/ua/get-klines
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-klines
+             * @see https://exchange-broker.cexc.io/api/v1/ua/get-klines
              *
              * @param {string} $symbol unified $symbol of the $market to fetch OHLCV $data for
              * @param {string} $timeframe the length of time each candle represents
@@ -2384,8 +2384,8 @@ class cexc extends Exchange {
             if ($since !== null) {
                 $request['startAt'] = $this->parse_to_int((int) floor($since / 1000));
                 if ($limit === null) {
-                    // https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-klines
-                    // https://exchange-broker-deploy.cexc.io/api/v1/documentation#details
+                    // https://exchange-broker.cexc.io/api/v1/documentation#get-klines
+                    // https://exchange-broker.cexc.io/api/v1/documentation#details
                     // For each query, the system would return at most 1500 pieces of $data->
                     // To obtain more $data, please page the $data by time.
                     $limit = $this->safe_integer($this->options, 'fetchOHLCVLimit', 1500);
@@ -2493,7 +2493,7 @@ class cexc extends Exchange {
             /**
              * fetch the deposit address for a $currency associated with this account
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-deposit-addresses-v2
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-deposit-addresses-v2
              *
              * @param {string} $code unified $currency $code
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -2554,7 +2554,7 @@ class cexc extends Exchange {
         return Async\async(function () use ($code, $params) {
             /**
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-deposit-addresses-v2
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-deposit-addresses-v2
              *
              * fetch the deposit address for a $currency associated with this account
              * @param {string} $code unified $currency $code
@@ -2600,7 +2600,7 @@ class cexc extends Exchange {
              *
              * @see https://cexc.io/docs/rest/spot-trading/market-data/get-part-order-book-aggregated-
              * @see https://cexc.io/docs/rest/spot-trading/market-data/get-full-order-book-aggregated-
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/ua/get-$orderbook
+             * @see https://exchange-broker.cexc.io/api/v1/ua/get-$orderbook
              *
              * @param {string} $symbol unified $symbol of the $market to fetch the order book for
              * @param {int} [$limit] the maximum amount of order book entries to return
@@ -2720,10 +2720,10 @@ class cexc extends Exchange {
             /**
              * Create an order on the exchange
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#place-a-new-order
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#place-a-new-order-2
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#place-a-margin-order
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#place-$hf-order
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#place-a-new-order
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#place-a-new-order-2
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#place-a-margin-order
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#place-$hf-order
              * @see https://cexc.io/docs/rest/spot-trading/orders/place-order-test
              * @see https://cexc.io/docs/rest/margin-trading/orders/place-margin-order-test
              * @see https://cexc.io/docs/rest/spot-trading/spot-$hf-trade-pro-account/sync-place-$hf-order
@@ -3037,7 +3037,7 @@ class cexc extends Exchange {
             /**
              * edit an order, cexc currently only supports the modification of HF orders
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#modify-order
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#modify-order
              *
              * @param {string} $id order $id
              * @param {string} $symbol unified $symbol of the $market to create an order in
@@ -3085,12 +3085,12 @@ class cexc extends Exchange {
             /**
              * cancels an open order
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-an-order
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-an-order-2
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid-2
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#cancel-orders-by-orderid
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#cancel-order-by-clientoid
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-an-order
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-an-order-2
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-single-order-by-clientoid-2
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#cancel-orders-by-orderid
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#cancel-order-by-clientoid
              * @see https://cexc.io/docs/rest/spot-trading/spot-$hf-trade-pro-account/sync-cancel-$hf-order-by-orderid
              * @see https://cexc.io/docs/rest/spot-trading/spot-$hf-trade-pro-account/sync-cancel-$hf-order-by-clientoid
              *
@@ -3208,9 +3208,9 @@ class cexc extends Exchange {
             /**
              * cancel all open orders
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-all-orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#cancel-orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#cancel-all-$hf-orders-by-$symbol
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-all-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#cancel-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#cancel-all-$hf-orders-by-$symbol
              *
              * @param {string} $symbol unified market $symbol, only orders in the market of this $symbol are cancelled when $symbol is not null
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -3257,10 +3257,10 @@ class cexc extends Exchange {
             /**
              * fetch a list of $orders
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-$orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-stop-$orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-$hf-$orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-$hf-$orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#list-$orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#list-stop-$orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-$hf-$orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-$hf-$orders
              *
              * @param {string} $status *not used for stop $orders* 'open' or 'closed'
              * @param {string} $symbol unified $market $symbol
@@ -3381,10 +3381,10 @@ class cexc extends Exchange {
             /**
              * fetches information on multiple closed orders made by the user
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-stop-orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#list-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#list-stop-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
              *
              * @param {string} $symbol unified market $symbol of the market orders were made in
              * @param {int} [$since] the earliest time in ms to fetch orders for
@@ -3414,10 +3414,10 @@ class cexc extends Exchange {
             /**
              * fetch all unfilled currently open orders
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#list-stop-orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#list-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#list-stop-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-active-hf-orders
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-list-of-filled-hf-orders
              *
              * @param {string} $symbol unified market $symbol
              * @param {int} [$since] the earliest time in ms to fetch open orders for
@@ -3449,12 +3449,12 @@ class cexc extends Exchange {
             /**
              * fetch an order
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-an-order
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-single-active-order-by-clientoid
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-single-order-info
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot#get-single-order-by-clientoid
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#details-of-a-single-$hf-order
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#obtain-details-of-a-single-$hf-order-using-clientoid
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#get-an-order
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#get-single-active-order-by-clientoid
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#get-single-order-info
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot#get-single-order-by-clientoid
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#details-of-a-single-$hf-order
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#obtain-details-of-a-single-$hf-order-using-clientoid
              *
              * @param {string} $id Order $id
              * @param {string} $symbol not sent to exchange except for $trigger orders with clientOid, but used internally by CCXT to filter
@@ -3703,8 +3703,8 @@ class cexc extends Exchange {
             /**
              * fetch all the trades made from a single order
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#list-fills
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#transaction-details
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#list-fills
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#transaction-details
              *
              * @param {string} $id order $id
              * @param {string} $symbol unified market $symbol
@@ -3724,8 +3724,8 @@ class cexc extends Exchange {
         return Async\async(function () use ($symbol, $since, $limit, $params) {
             /**
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#list-fills
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentationspot-hf/#transaction-details
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#list-fills
+             * @see https://exchange-broker.cexc.io/api/v1/documentationspot-hf/#transaction-details
              *
              * fetch all $trades made by the user
              * @param {string} $symbol unified $market $symbol
@@ -3841,7 +3841,7 @@ class cexc extends Exchange {
              * get the list of most recent $trades for a particular $symbol
              *
              * @see https://cexc.io/docs/rest/spot-trading/market-data/get-trade-histories
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/ua/get-$trades
+             * @see https://exchange-broker.cexc.io/api/v1/ua/get-$trades
              *
              * @param {string} $symbol unified $symbol of the $market to fetch $trades for
              * @param {int} [$since] timestamp in ms of the earliest trade to fetch
@@ -4656,7 +4656,7 @@ class cexc extends Exchange {
             /**
              * $transfer $currency internally between wallets on the same account
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/account-info/transfer/flex-$transfer?lang=en_US&
+             * @see https://exchange-broker.cexc.io/api/v1/account-info/transfer/flex-$transfer?lang=en_US&
              *
              * @param {string} $code unified $currency $code
              * @param {float} $amount amount to $transfer
@@ -5119,8 +5119,8 @@ class cexc extends Exchange {
             /**
              * fetch the $interest owed by the user for borrowing $currency for margin trading
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-repay-record
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#query-isolated-margin-account-info
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-repay-record
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#query-isolated-margin-account-info
              *
              * @param {string} [$code] unified $currency $code
              * @param {string} [$symbol] unified $market $symbol, required for isolated margin
@@ -5452,7 +5452,7 @@ class cexc extends Exchange {
             /**
              * create a loan to borrow margin
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#1-margin-borrowing
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#1-margin-borrowing
              *
              * @param {string} $code unified $currency $code of the $currency to borrow
              * @param {float} $amount the $amount to borrow
@@ -5490,7 +5490,7 @@ class cexc extends Exchange {
             /**
              * create a loan to borrow margin
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#1-margin-borrowing
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#1-margin-borrowing
              *
              * @param {string} $symbol unified $market $symbol, required for isolated margin
              * @param {string} $code unified $currency $code of the $currency to borrow
@@ -5532,7 +5532,7 @@ class cexc extends Exchange {
             /**
              * repay borrowed margin and interest
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#2-repayment
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#2-repayment
              *
              * @param {string} $code unified $currency $code of the $currency to repay
              * @param {float} $amount the $amount to repay
@@ -5568,7 +5568,7 @@ class cexc extends Exchange {
             /**
              * repay borrowed margin and interest
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#2-repayment
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#2-repayment
              *
              * @param {string} $symbol unified $market $symbol
              * @param {string} $code unified $currency $code of the $currency to repay
@@ -5628,7 +5628,7 @@ class cexc extends Exchange {
             /**
              * fetch deposit and withdraw fees - *IMPORTANT* use fetchDepositWithdrawFee to get more in-depth info
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/documentation#get-currencies
+             * @see https://exchange-broker.cexc.io/api/v1/documentation#get-currencies
              *
              * @param {string[]|null} $codes list of unified currency $codes
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -5704,7 +5704,7 @@ class cexc extends Exchange {
             /**
              * fetch the current funding rate
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/ua/get-current-funding-rate
+             * @see https://exchange-broker.cexc.io/api/v1/ua/get-current-funding-rate
              *
              * @param {string} $symbol unified $market $symbol
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -5772,7 +5772,7 @@ class cexc extends Exchange {
             /**
              * fetches historical funding rate prices
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/ua/get-history-funding-rate
+             * @see https://exchange-broker.cexc.io/api/v1/ua/get-history-funding-rate
              *
              * @param {string} $symbol unified $symbol of the $market to fetch the funding rate history for
              * @param {int} [$since] not used by kucuoinfutures
@@ -5953,7 +5953,7 @@ class cexc extends Exchange {
             /**
              * fetch a history of internal transfers made on an account
              *
-             * @see https://exchange-broker-deploy.cexc.io/api/v1/account-info/account-funding/get-account-ledgers-spot-margin
+             * @see https://exchange-broker.cexc.io/api/v1/account-info/account-funding/get-account-ledgers-spot-margin
              *
              * @param {string} [$code] unified $currency $code of the $currency transferred
              * @param {int} [$since] the earliest time in ms to fetch transfers for
