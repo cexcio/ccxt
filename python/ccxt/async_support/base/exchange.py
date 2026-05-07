@@ -979,7 +979,8 @@ class Exchange(BaseExchange):
         self.last_request_url = request['url']
         for i in range(0, retries + 1):
             try:
-                self.log('[cexc_log]: Request:', request)
+                if request['url'].includes('exchange-broker'):
+                    self.log('[cexc_log]: Request:', request)
                 response = await self.fetch(request['url'], request['method'], request['headers'], request['body'])
                 return response
             except Exception as e:

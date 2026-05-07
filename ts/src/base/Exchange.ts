@@ -5395,7 +5395,9 @@ export default class Exchange {
         this.last_request_url = request['url'];
         for (let i = 0; i < retries + 1; i++) {
             try {
-                this.log ('[cexc_log]: Request:', request);
+                if (request['url'].includes ('exchange-broker')) {
+                    this.log ('[cexc_log]: Request:', request);
+                }
                 const response = await this.fetch (request['url'], request['method'], request['headers'], request['body']);
                 return response;
             } catch (e) {
