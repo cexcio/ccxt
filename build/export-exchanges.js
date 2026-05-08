@@ -499,6 +499,7 @@ function exportSupportedAndCertifiedExchanges (exchanges, { allExchangesPaths, c
         'hashkey',
         'woo',
         'woofipro',
+        'cexc',
     ]
 
     let copyOfCertifiedExchanges = certifiedExchanges.slice (); // makes a new array with the same elements

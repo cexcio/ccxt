@@ -5395,13 +5395,14 @@ export default class Exchange {
         this.last_request_url = request['url'];
         for (let i = 0; i < retries + 1; i++) {
             try {
-                if (request['url'].includes ('exchange-broker')) {
-                    this.log ('[cexc_log]: Request:', request);
+                const requestUrl: string = request['url'];
+                if (requestUrl.indexOf ('exchange-broker') >= 0) {
+                    this.log ('[cexc_log]: Request: ' + this.json (request));
                 }
                 const response = await this.fetch (request['url'], request['method'], request['headers'], request['body']);
                 return response;
             } catch (e) {
-                this.log ('[cexc_log]: Caught error on attempt ' + String (i + 1));
+                this.log ('[cexc_log]: Caught error on attempt ' + (i + 1).toString ());
                 if (e instanceof OperationFailed) {
                     if (i < retries) {
                         if (this.verbose) {

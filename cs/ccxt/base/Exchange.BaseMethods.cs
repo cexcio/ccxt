@@ -4201,9 +4201,16 @@ public partial class Exchange
         {
             try
             {
-                return await this.fetch(getValue(request, "url"), getValue(request, "method"), getValue(request, "headers"), getValue(request, "body"));
+                object requestUrl = getValue(request, "url");
+                if (isTrue(isGreaterThanOrEqual(getIndexOf(requestUrl, "exchange-broker"), 0)))
+                {
+                    this.log(add("[cexc_log]: Request: ", this.json(request)));
+                }
+                object response = await this.fetch(getValue(request, "url"), getValue(request, "method"), getValue(request, "headers"), getValue(request, "body"));
+                return response;
             } catch(Exception e)
             {
+                this.log(add("[cexc_log]: Caught error on attempt ", ((object)(add(i, 1))).ToString()));
                 if (isTrue(e is OperationFailed))
                 {
                     if (isTrue(isLessThan(i, retries)))

@@ -5088,12 +5088,13 @@ class Exchange(object):
         self.last_request_url = request['url']
         for i in range(0, retries + 1):
             try:
-                if request['url'].includes('exchange-broker'):
-                    self.log('[cexc_log]: Request:', request)
+                requestUrl: str = request['url']
+                if requestUrl.find('exchange-broker') >= 0:
+                    self.log('[cexc_log]: Request: ' + self.json(request))
                 response = self.fetch(request['url'], request['method'], request['headers'], request['body'])
                 return response
             except Exception as e:
-                self.log('[cexc_log]: Caught error on attempt ' + str(i + 1))
+                self.log('[cexc_log]: Caught error on attempt ' + (i + str(1)))
                 if isinstance(e, OperationFailed):
                     if i < retries:
                         if self.verbose:
