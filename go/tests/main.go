@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/ccxt/tests/base"
-	cache "github.com/ccxt/tests/base/cache"
+	"github.com/cexcio/ccxt/go/tests/base"
+	cache "github.com/cexcio/ccxt/go/tests/base/cache"
 )
 
 func main() {

@@ -1410,6 +1410,7 @@ public class  Bullish: bullish { public Bullish(object args = null) : base(args)
 public class  Bybit: bybit { public Bybit(object args = null) : base(args) { } }
 public class  Bydfi: bydfi { public Bydfi(object args = null) : base(args) { } }
 public class  Cex: cex { public Cex(object args = null) : base(args) { } }
+public class  Cexc: cexc { public Cexc(object args = null) : base(args) { } }
 public class  Coinbase: coinbase { public Coinbase(object args = null) : base(args) { } }
 public class  Coinbaseadvanced: coinbaseadvanced { public Coinbaseadvanced(object args = null) : base(args) { } }
 public class  Coinbaseexchange: coinbaseexchange { public Coinbaseexchange(object args = null) : base(args) { } }

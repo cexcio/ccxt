@@ -1,4 +1,4 @@
-module github.com/ccxt/tests/base
+module github.com/cexcio/ccxt/go/tests/base
 
 go 1.23.4
 

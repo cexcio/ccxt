@@ -46,6 +46,7 @@
 	- [bybit](exchanges/bybit.md)
 	- [bydfi](exchanges/bydfi.md)
 	- [cex](exchanges/cex.md)
+	- [kucoin](exchanges/kucoin.md)
 	- [coinbase](exchanges/coinbase.md)
 	- [coinbaseexchange](exchanges/coinbaseexchange.md)
 	- [coinbaseinternational](exchanges/coinbaseinternational.md)

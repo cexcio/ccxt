@@ -1,5 +1,5 @@
 package ccxtpro
-import ccxt "github.com/ccxt/ccxt/go/v4"
+import ccxt "github.com/cexcio/ccxt/go/v4"
 type Independentreserve struct {
    *IndependentreserveCore
    Core *IndependentreserveCore
