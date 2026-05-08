@@ -237,6 +237,39 @@ class binance extends \ccxt\async\binance {
         return $stream;
     }
 
+    public function get_ws_url($type, $category) {
+        $baseUrl = $this->urls['api']['ws'][$type];
+        if ($type === 'future') {
+            // skip URL manipulation for proxied/bridge URLs (contain an embedded protocol)
+            $firstProtocol = mb_strpos($baseUrl, '://');
+            if ($firstProtocol !== -1 && mb_strpos($baseUrl, '://', $firstProtocol + 3) !== -1) {
+                return $baseUrl;
+            }
+            // only rewrite when the URL ends with exactly "/ws"
+            // this avoids matching "/wss", "/ws-api", "/ws-fapi/v1", etc.
+            if (str_ends_with($baseUrl, '/ws')) {
+                $prefix = mb_substr($baseUrl, 0, strlen($baseUrl) - 3 - 0);
+                return $prefix . '/' . $category . '/ws';
+            }
+            return $baseUrl;
+        }
+        return $baseUrl;
+    }
+
+    public function get_future_ws_category($channel) {
+        if ($channel === 'depth' || $channel === 'rpiDepth' || $channel === 'bookTicker' || $channel === 'trade') {
+            return 'public';
+        }
+        return 'market';
+    }
+
+    public function get_private_ws_url($type, $listenKey) {
+        if ($type === 'future') {
+            return $this->get_ws_url($type, 'private') . '?$listenKey=' . $listenKey;
+        }
+        return $this->urls['api']['ws'][$type] . '/' . $listenKey;
+    }
+
     public function watch_liquidations(string $symbol, ?int $since = null, ?int $limit = null, $params = array ()): PromiseInterface {
         return Async\async(function () use ($symbol, $since, $limit, $params) {
             /**
@@ -299,7 +332,7 @@ class binance extends \ccxt\async\binance {
                 $type = 'delivery';
             }
             $numSubscriptions = count($subscriptionHashes);
-            $url = $this->urls['api']['ws'][$type] . '/' . $this->stream($type, $streamHash, $numSubscriptions);
+            $url = $this->get_ws_url($type, $this->get_future_ws_category('forceOrder')) . '/' . $this->stream($type, $streamHash, $numSubscriptions);
             $requestId = $this->request_id($url);
             $request = array(
                 'method' => 'SUBSCRIBE',
@@ -514,7 +547,8 @@ class binance extends \ccxt\async\binance {
                 $type = 'delivery';
             }
             Async\await($this->authenticate($params));
-            $url = $this->urls['api']['ws'][$type] . '/' . $this->options[$type]['listenKey'];
+            $listenKey = $this->options[$type]['listenKey'];
+            $url = $this->get_private_ws_url($type, $listenKey);
             $message = null;
             $newLiquidations = Async\await($this->watch_multiple($url, $messageHashes, $message, array( $type )));
             if ($this->newUpdates) {
@@ -701,7 +735,7 @@ class binance extends \ccxt\async\binance {
                 $subParams[] = $symbolHash;
             }
             $messageHashesLength = count($messageHashes);
-            $url = $this->urls['api']['ws'][$type] . '/' . $this->stream($type, $streamHash, $messageHashesLength);
+            $url = $this->get_ws_url($type, $this->get_future_ws_category($name)) . '/' . $this->stream($type, $streamHash, $messageHashesLength);
             $requestId = $this->request_id($url);
             $request = array(
                 'method' => 'SUBSCRIBE',
@@ -764,7 +798,7 @@ class binance extends \ccxt\async\binance {
                 $subParams[] = $symbolHash;
             }
             $messageHashesLength = count($subMessageHashes);
-            $url = $this->urls['api']['ws'][$type] . '/' . $this->stream($type, $streamHash, $messageHashesLength);
+            $url = $this->get_ws_url($type, $this->get_future_ws_category('depth')) . '/' . $this->stream($type, $streamHash, $messageHashesLength);
             $requestId = $this->request_id($url);
             $request = array(
                 'method' => 'UNSUBSCRIBE',
@@ -1157,7 +1191,7 @@ class binance extends \ccxt\async\binance {
             }
             $query = $this->omit($params, 'type');
             $subParamsLength = count($subParams);
-            $url = $this->urls['api']['ws'][$type] . '/' . $this->stream($type, $streamHash, $subParamsLength);
+            $url = $this->get_ws_url($type, $this->get_future_ws_category($name)) . '/' . $this->stream($type, $streamHash, $subParamsLength);
             $requestId = $this->request_id($url);
             $request = array(
                 'method' => 'SUBSCRIBE',
@@ -1223,7 +1257,7 @@ class binance extends \ccxt\async\binance {
             }
             $query = $this->omit($params, 'type');
             $subParamsLength = count($subParams);
-            $url = $this->urls['api']['ws'][$type] . '/' . $this->stream($type, $streamHash, $subParamsLength);
+            $url = $this->get_ws_url($type, $this->get_future_ws_category($name)) . '/' . $this->stream($type, $streamHash, $subParamsLength);
             $requestId = $this->request_id($url);
             $request = array(
                 'method' => 'UNSUBSCRIBE',
@@ -1542,7 +1576,7 @@ class binance extends \ccxt\async\binance {
                 $rawHashes[] = $marketId . '@' . $klineType . '_' . $interval . $utcSuffix;
                 $messageHashes[] = 'ohlcv::' . $market['symbol'] . '::' . $timeframeString;
             }
-            $url = $this->urls['api']['ws'][$type] . '/' . $this->stream($type, 'multipleOHLCV');
+            $url = $this->get_ws_url($type, $this->get_future_ws_category($klineType)) . '/' . $this->stream($type, 'multipleOHLCV');
             $requestId = $this->request_id($url);
             $request = array(
                 'method' => 'SUBSCRIBE',
@@ -1612,7 +1646,7 @@ class binance extends \ccxt\async\binance {
                 $subMessageHashes[] = 'ohlcv::' . $market['symbol'] . '::' . $timeframeString;
                 $messageHashes[] = 'unsubscribe::ohlcv::' . $market['symbol'] . '::' . $timeframeString;
             }
-            $url = $this->urls['api']['ws'][$type] . '/' . $this->stream($type, 'multipleOHLCV');
+            $url = $this->get_ws_url($type, $this->get_future_ws_category($klineType)) . '/' . $this->stream($type, 'multipleOHLCV');
             $requestId = $this->request_id($url);
             $request = array(
                 'method' => 'UNSUBSCRIBE',
@@ -2130,7 +2164,7 @@ class binance extends \ccxt\async\binance {
             if ($symbolsDefined) {
                 $streamHash = $channelName . '::' . implode(',', $symbols);
             }
-            $url = $this->urls['api']['ws'][$rawMarketType] . '/' . $this->stream($rawMarketType, $streamHash);
+            $url = $this->get_ws_url($rawMarketType, $this->get_future_ws_category($channelName)) . '/' . $this->stream($rawMarketType, $streamHash);
             $requestId = $this->request_id($url);
             $request = array(
                 'method' => $isUnsubscribe ? 'UNSUBSCRIBE' : 'SUBSCRIBE',
@@ -2714,7 +2748,8 @@ class binance extends \ccxt\async\binance {
                 if ($isPortfolioMargin) {
                     $urlType = 'papi';
                 }
-                $url = $this->urls['api']['ws'][$urlType] . '/' . $this->options[$type]['listenKey'];
+                $cachedListenKey = $this->options[$type]['listenKey'];
+                $url = $this->get_private_ws_url($urlType, $cachedListenKey);
                 $client = $this->client($url);
                 $messageHashes = is_array($client->futures) ? array_keys($client->futures) : array();
                 for ($i = 0; $i < count($messageHashes); $i++) {
@@ -3041,7 +3076,7 @@ class binance extends \ccxt\async\binance {
                 if ($isPortfolioMargin) {
                     $urlType = 'papi';
                 }
-                $url = $this->urls['api']['ws'][$urlType] . '/' . $this->options[$type]['listenKey'];
+                $url = $this->get_private_ws_url($urlType, $this->options[$type]['listenKey']);
             }
             $client = $this->client($url);
             $this->set_balance_cache($client, $type, $isPortfolioMargin);
@@ -3601,6 +3636,9 @@ class binance extends \ccxt\async\binance {
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @return {array[]} a list of ~@link https://docs.ccxt.com/?id=order-structure order structures~
              */
+            if ($symbol === null) {
+                throw new ArgumentsRequired($this->id . ' cancelAllOrdersWs() requires a $symbol argument');
+            }
             Async\await($this->load_markets());
             $market = $this->market($symbol);
             $type = $this->get_market_type('cancelAllOrdersWs', $market, $params);
@@ -3847,7 +3885,7 @@ class binance extends \ccxt\async\binance {
                 if ($isPortfolioMargin) {
                     $urlType = 'papi';
                 }
-                $url = $this->urls['api']['ws'][$urlType] . '/' . $this->options[$type]['listenKey'];
+                $url = $this->get_private_ws_url($urlType, $this->options[$type]['listenKey']);
             }
             $client = $this->client($url);
             $this->set_balance_cache($client, $type, $isPortfolioMargin);
@@ -4014,7 +4052,7 @@ class binance extends \ccxt\async\binance {
             'datetime' => $this->iso8601($timestamp),
             'lastTradeTimestamp' => $lastTradeTimestamp,
             'lastUpdateTimestamp' => $lastUpdateTimestamp,
-            'type' => $this->parseOrderType ($this->safe_string_lower($order, 'o')),
+            'type' => $this->parseOrderTypeByMarket ($this->safe_string_lower($order, 'o'), $marketType),
             'timeInForce' => $timeInForce,
             'postOnly' => null,
             'reduceOnly' => $this->safe_bool($order, 'R'),
@@ -4201,7 +4239,7 @@ class binance extends \ccxt\async\binance {
             if ($isPortfolioMargin) {
                 $urlType = 'papi';
             }
-            $url = $this->urls['api']['ws'][$urlType] . '/' . $this->options[$type]['listenKey'];
+            $url = $this->get_private_ws_url($urlType, $this->options[$type]['listenKey']);
             $client = $this->client($url);
             $this->set_balance_cache($client, $type, $isPortfolioMargin);
             $this->set_positions_cache($client, $type, $symbols, $isPortfolioMargin);
@@ -4591,7 +4629,7 @@ class binance extends \ccxt\async\binance {
                 if ($isPortfolioMargin) {
                     $urlType = 'papi';
                 }
-                $url = $this->urls['api']['ws'][$urlType] . '/' . $this->options[$type]['listenKey'];
+                $url = $this->get_private_ws_url($urlType, $this->options[$type]['listenKey']);
             }
             $client = $this->client($url);
             $this->set_balance_cache($client, $type, $isPortfolioMargin);

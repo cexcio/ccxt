@@ -1569,7 +1569,7 @@ class krakenfutures extends Exchange {
             $request['count'] = $limit;
         }
         if ($since !== null) {
-            $request['from'] = $since;
+            $request['since'] = $since;
         }
         $isTrigger = $this->safe_bool_2($params, 'trigger', 'stop', false);
         $response = null;
@@ -1585,12 +1585,20 @@ class krakenfutures extends Exchange {
             $order = $allOrders[$i];
             $event = $this->safe_dict($order, 'event', array());
             $orderPlaced = $this->safe_dict_2($event, 'OrderPlaced', 'OrderTriggerActivated');
+            $orderUpdated = $this->safe_dict($event, 'OrderUpdated');
             if ($orderPlaced !== null) {
                 $innerOrder = $this->safe_dict($orderPlaced, 'order', array());
                 $filled = $this->safe_string($innerOrder, 'filled');
                 if ($filled !== '0') {
                     $innerOrder['status'] = 'closed'; // status not available in the $response
                     $closedOrders[] = $innerOrder;
+                }
+            } elseif ($orderUpdated !== null) {
+                $reason = $this->safe_string($orderUpdated, 'reason');
+                if ($reason === 'full_fill') {
+                    $newOrder = $this->safe_dict($orderUpdated, 'newOrder', array());
+                    $newOrder['status'] = 'closed';
+                    $closedOrders[] = $newOrder;
                 }
             }
         }
@@ -2042,10 +2050,8 @@ class krakenfutures extends Exchange {
             //
             $datetime = $this->safe_string($orderDictFromFetchOrder, 'timestamp');
             $innerStatus = $this->safe_string($order, 'status');
-            $filledOrder = $this->safe_string($orderDictFromFetchOrder, 'filled', '0');
-            if (($filledOrder === '0') || ($filledOrder === '0.0')) {
-                $filledOrder = null;
-            }
+            $fetchOrderPriceTriggerOptions = $this->safe_dict($orderDictFromFetchOrder, 'priceTriggerOptions', array());
+            $fetchOrderTriggerPrice = $this->safe_string($fetchOrderPriceTriggerOptions, 'triggerPrice');
             return $this->safe_order(array(
                 'info' => $order,
                 'id' => $this->safe_string($orderDictFromFetchOrder, 'orderId'),
@@ -2060,12 +2066,13 @@ class krakenfutures extends Exchange {
                 'postOnly' => null,
                 'reduceOnly' => $this->safe_bool($orderDictFromFetchOrder, 'reduceOnly'),
                 'side' => $this->safe_string($orderDictFromFetchOrder, 'side'),
-                'price' => $this->safe_string($orderDictFromFetchOrder, 'limitPrice'),
-                'triggerPrice' => null,
+                'price' => null, // limitPrice is returning inaccurate values https://github.com/ccxt/ccxt/issues/27996#issuecomment-4019280204
+                'triggerPrice' => $fetchOrderTriggerPrice,
+                'stopPrice' => $fetchOrderTriggerPrice,
                 'amount' => $this->safe_string($orderDictFromFetchOrder, 'quantity'),
                 'cost' => null,
                 'average' => null,
-                'filled' => $filledOrder,
+                'filled' => $this->safe_string($orderDictFromFetchOrder, 'filled'),
                 'remaining' => null,
                 'status' => $this->parse_order_status($innerStatus),
                 'fee' => null,
@@ -2128,13 +2135,11 @@ class krakenfutures extends Exchange {
         // but will be $fixed below
         $status = $this->parse_order_status($statusId);
         $isClosed = $this->in_array($status, array( 'canceled', 'rejected', 'closed' ));
-        $marketId = $this->safe_string($details, 'symbol');
+        $marketId = $this->safe_string_2($details, 'symbol', 'tradeable');
         $market = $this->safe_market($marketId, $market);
+        $symbol = $this->safe_string($market, 'symbol');
         $timestamp = $this->parse8601($this->safe_string_2($details, 'timestamp', 'receivedTime'));
         $lastUpdateTimestamp = $this->parse8601($this->safe_string($details, 'lastUpdateTime'));
-        if ($price === null) {
-            $price = $this->safe_string($details, 'limitPrice');
-        }
         $amount = $this->safe_string($details, 'quantity');
         $filled = $this->safe_string_2($details, 'filledSize', 'filled', '0.0');
         $remaining = $this->safe_string($details, 'unfilledSize');
@@ -2195,10 +2200,6 @@ class krakenfutures extends Exchange {
         if ($type === 'ioc' || $this->parse_order_type($type) === 'market') {
             $timeInForce = 'ioc';
         }
-        $symbol = $this->safe_string($market, 'symbol');
-        if (is_array($details) && array_key_exists('tradeable', $details)) {
-            $symbol = $this->safe_symbol($this->safe_string($details, 'tradeable'), $market);
-        }
         $ts = $this->safe_integer($details, 'timestamp', $timestamp);
         $priceTriggerOptions = $this->safe_dict($details, 'priceTriggerOptions', array());
         $triggerPrice = $this->safe_string_2($details, 'triggerPrice', 'stopPrice');
@@ -2219,7 +2220,7 @@ class krakenfutures extends Exchange {
             'postOnly' => $type === 'post',
             'reduceOnly' => $this->safe_bool_2($details, 'reduceOnly', 'reduce_only'),
             'side' => $this->safe_string_lower_2($details, 'side', 'direction'),
-            'price' => $price,
+            'price' => $price, // limitPrice is returning inaccurate values https://github.com/ccxt/ccxt/issues/27996#issuecomment-4070088684
             'triggerPrice' => $triggerPrice,
             'stopPrice' => $triggerPrice,
             'amount' => $amount,

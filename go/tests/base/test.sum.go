@@ -5,10 +5,10 @@ import ccxt "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 func TestSum()  {
-    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]interface{} {
+    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]any {
         "id": "sampleexchange",
-    }, map[string]interface{}{}, exchange)
-    // testSharedMethods.assertDeepEqual (exchange, undefined, 'testSum', exchange.sum (), undefined); // todo: bugs in py
+    }, map[string]any{}, exchange)
+    // assertDeepEqual (exchange, undefined, 'testSum', exchange.sum (), undefined); // todo: bugs in py
     AssertDeepEqual(exchange, nil, "testSum", exchange.Sum(2), 2)
     AssertDeepEqual(exchange, nil, "testSum", exchange.Sum(2, 30, 400), 432)
 }

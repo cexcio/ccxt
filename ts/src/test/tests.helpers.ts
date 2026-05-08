@@ -149,13 +149,7 @@ function initExchange (exchangeId, args, isWs = false): Exchange {
     if (isWs) {
         return new (ccxt.pro)[exchangeId] (args);
     }
-    console.log('------------------------')
-    console.log('exchangeId:', exchangeId);
-    console.log(Object.keys(ccxt));
-    console.log(ccxt[exchangeId]);
-    console.log('------------------------')
-    
-    return new ((ccxt)[exchangeId]) (args);
+    return new (ccxt)[exchangeId] (args);
 }
 
 async function importTestFile (filePath) {
@@ -227,6 +221,18 @@ function getExt () {
     return EXT;
 }
 
+function isWindows () {
+    return process.platform === "win32";
+}
+
+function isLinux () {
+    return process.platform === "linux";
+}
+
+function isAmd64 () {
+    return process.arch === "x64";
+}
+
 
 export {
     // errors
@@ -274,7 +280,10 @@ export {
     EXT,
     getEnvVars,
     getLang,
-    getExt
+    getExt,
+    isWindows,
+    isLinux,
+    isAmd64,
 };
 
 export default {};

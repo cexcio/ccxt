@@ -6,7 +6,7 @@ type Htx struct {
    exchangeTyped *ExchangeTyped
 }
 
-func NewHtx(userConfig map[string]interface{}) *Htx {
+func NewHtx(userConfig map[string]any) *Htx {
    p := NewHtxCore()
    p.Init(userConfig)
    return &Htx{
@@ -39,12 +39,12 @@ func NewHtxFromCore(core *HtxCore) *Htx {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [status structure]{@link https://docs.ccxt.com/?id=exchange-status-structure}
  */
-func (this *Htx) FetchStatus(params ...interface{}) (map[string]interface{}, error) {
+func (this *Htx) FetchStatus(params ...any) (map[string]any, error) {
     res := <- this.Core.FetchStatus(params...)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
@@ -55,7 +55,7 @@ func (this *Htx) FetchStatus(params ...interface{}) (map[string]interface{}, err
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func (this *Htx) FetchTime(params ...interface{}) ( int64, error) {
+func (this *Htx) FetchTime(params ...any) ( int64, error) {
     res := <- this.Core.FetchTime(params...)
     if IsError(res) {
         return -1, CreateReturnError(res)
@@ -79,7 +79,7 @@ func (this *Htx) FetchTradingFee(symbol string, options ...FetchTradingFeeOption
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -89,7 +89,7 @@ func (this *Htx) FetchTradingFee(symbol string, options ...FetchTradingFeeOption
     }
     return NewTradingFeeInterface(res), nil
 }
-func (this *Htx) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]interface{}, error) {
+func (this *Htx) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]any, error) {
 
     opts := FetchTradingLimitsOptionsStruct{}
 
@@ -97,20 +97,20 @@ func (this *Htx) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[s
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchTradingLimits(symbols, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @ignore
@@ -121,7 +121,7 @@ func (this *Htx) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[s
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} the limits object of a market structure
  */
-func (this *Htx) FetchTradingLimitsById(id string, options ...FetchTradingLimitsByIdOptions) (map[string]interface{}, error) {
+func (this *Htx) FetchTradingLimitsById(id string, options ...FetchTradingLimitsByIdOptions) (map[string]any, error) {
 
     opts := FetchTradingLimitsByIdOptionsStruct{}
 
@@ -129,15 +129,15 @@ func (this *Htx) FetchTradingLimitsById(id string, options ...FetchTradingLimits
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchTradingLimitsById(id, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
@@ -150,7 +150,7 @@ func (this *Htx) FetchTradingLimitsById(id string, options ...FetchTradingLimits
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func (this *Htx) FetchMarkets(params ...interface{}) ([]MarketInterface, error) {
+func (this *Htx) FetchMarkets(params ...any) ([]MarketInterface, error) {
     res := <- this.Core.FetchMarkets(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -171,7 +171,7 @@ func (this *Htx) FetchMarkets(params ...interface{}) ([]MarketInterface, error) 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func (this *Htx) FetchMarketsByTypeAndSubType(typeVar string, subType string, options ...FetchMarketsByTypeAndSubTypeOptions) ([]map[string]interface{}, error) {
+func (this *Htx) FetchMarketsByTypeAndSubType(typeVar string, subType string, options ...FetchMarketsByTypeAndSubTypeOptions) ([]map[string]any, error) {
 
     opts := FetchMarketsByTypeAndSubTypeOptionsStruct{}
 
@@ -179,7 +179,7 @@ func (this *Htx) FetchMarketsByTypeAndSubType(typeVar string, subType string, op
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -187,7 +187,7 @@ func (this *Htx) FetchMarketsByTypeAndSubType(typeVar string, subType string, op
     if IsError(res) {
         return nil, CreateReturnError(res)
     }
-    return res.([]map[string]interface{}), nil
+    return res.([]map[string]any), nil
 }
 /**
  * @method
@@ -209,7 +209,7 @@ func (this *Htx) FetchTicker(symbol string, options ...FetchTickerOptions) (Tick
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -239,12 +239,12 @@ func (this *Htx) FetchTickers(options ...FetchTickersOptions) (Tickers, error) {
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -273,12 +273,12 @@ func (this *Htx) FetchLastPrices(options ...FetchLastPricesOptions) (LastPrices,
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -309,12 +309,12 @@ func (this *Htx) FetchOrderBook(symbol string, options ...FetchOrderBookOptions)
         opt(&opts)
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -345,22 +345,22 @@ func (this *Htx) FetchOrderTrades(id string, options ...FetchOrderTradesOptions)
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -378,22 +378,22 @@ func (this *Htx) FetchSpotOrderTrades(id string, options ...FetchSpotOrderTrades
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -426,22 +426,22 @@ func (this *Htx) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade, error)
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -473,17 +473,17 @@ func (this *Htx) FetchTrades(symbol string, options ...FetchTradesOptions) ([]Tr
         opt(&opts)
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -518,22 +518,22 @@ func (this *Htx) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) ([]OHLC
         opt(&opts)
     }
 
-    var timeframe interface{} = nil
+    var timeframe any = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -551,7 +551,7 @@ func (this *Htx) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) ([]OHLC
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [account structures]{@link https://docs.ccxt.com/?id=account-structure} indexed by the account type
  */
-func (this *Htx) FetchAccounts(params ...interface{}) ([]Account, error) {
+func (this *Htx) FetchAccounts(params ...any) ([]Account, error) {
     res := <- this.Core.FetchAccounts(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -569,7 +569,7 @@ func (this *Htx) FetchAccounts(params ...interface{}) ([]Account, error) {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [account structures]{@link https://docs.ccxt.com/?id=account-structure} indexed by the account type
  */
-func (this *Htx) FetchAccountIdByType(typeVar string, options ...FetchAccountIdByTypeOptions) (map[string]interface{}, error) {
+func (this *Htx) FetchAccountIdByType(typeVar string, options ...FetchAccountIdByTypeOptions) (map[string]any, error) {
 
     opts := FetchAccountIdByTypeOptionsStruct{}
 
@@ -577,25 +577,25 @@ func (this *Htx) FetchAccountIdByType(typeVar string, options ...FetchAccountIdB
         opt(&opts)
     }
 
-    var marginMode interface{} = nil
+    var marginMode any = nil
     if opts.MarginMode != nil {
         marginMode = *opts.MarginMode
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchAccountIdByType(typeVar, marginMode, symbol, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
@@ -605,7 +605,7 @@ func (this *Htx) FetchAccountIdByType(typeVar string, options ...FetchAccountIdB
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an associative dictionary of currencies
  */
-func (this *Htx) FetchCurrencies(params ...interface{}) (Currencies, error) {
+func (this *Htx) FetchCurrencies(params ...any) (Currencies, error) {
     res := <- this.Core.FetchCurrencies(params...)
     if IsError(res) {
         return Currencies{}, CreateReturnError(res)
@@ -630,7 +630,7 @@ func (this *Htx) FetchCurrencies(params ...interface{}) (Currencies, error) {
  * @param {bool} [params.multiAssetMode] set to true if you are using multi-asset mode for USDT-margined contracts
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func (this *Htx) FetchBalance(params ...interface{}) (Balances, error) {
+func (this *Htx) FetchBalance(params ...any) (Balances, error) {
     res := <- this.Core.FetchBalance(params...)
     if IsError(res) {
         return Balances{}, CreateReturnError(res)
@@ -660,12 +660,12 @@ func (this *Htx) FetchOrder(id string, options ...FetchOrderOptions) (Order, err
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -675,7 +675,7 @@ func (this *Htx) FetchOrder(id string, options ...FetchOrderOptions) (Order, err
     }
     return NewOrder(res), nil
 }
-func (this *Htx) FetchSpotOrdersByStates(states interface{}, options ...FetchSpotOrdersByStatesOptions) ([]Order, error) {
+func (this *Htx) FetchSpotOrdersByStates(states any, options ...FetchSpotOrdersByStatesOptions) ([]Order, error) {
 
     opts := FetchSpotOrdersByStatesOptionsStruct{}
 
@@ -683,22 +683,22 @@ func (this *Htx) FetchSpotOrdersByStates(states interface{}, options ...FetchSpo
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -716,22 +716,22 @@ func (this *Htx) FetchSpotOrders(options ...FetchSpotOrdersOptions) ([]Order, er
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -749,22 +749,22 @@ func (this *Htx) FetchClosedSpotOrders(options ...FetchClosedSpotOrdersOptions) 
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -782,22 +782,22 @@ func (this *Htx) FetchContractOrders(options ...FetchContractOrdersOptions) ([]O
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -815,22 +815,22 @@ func (this *Htx) FetchClosedContractOrders(options ...FetchClosedContractOrdersO
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -868,22 +868,22 @@ func (this *Htx) FetchOrders(options ...FetchOrdersOptions) ([]Order, error) {
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -919,22 +919,22 @@ func (this *Htx) FetchClosedOrders(options ...FetchClosedOrdersOptions) ([]Order
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -968,22 +968,22 @@ func (this *Htx) FetchOpenOrders(options ...FetchOpenOrdersOptions) ([]Order, er
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1011,7 +1011,7 @@ func (this *Htx) CreateMarketBuyOrderWithCost(symbol string, cost float64, optio
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1043,22 +1043,22 @@ func (this *Htx) CreateTrailingPercentOrder(symbol string, typeVar string, side 
         opt(&opts)
     }
 
-    var price interface{} = nil
+    var price any = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var trailingPercent interface{} = nil
+    var trailingPercent any = nil
     if opts.TrailingPercent != nil {
         trailingPercent = *opts.TrailingPercent
     }
 
-    var trailingTriggerPrice interface{} = nil
+    var trailingTriggerPrice any = nil
     if opts.TrailingTriggerPrice != nil {
         trailingTriggerPrice = *opts.TrailingTriggerPrice
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1083,7 +1083,7 @@ func (this *Htx) CreateTrailingPercentOrder(symbol string, typeVar string, side 
  * @param {float} [params.cost] the quote quantity that can be used as an alternative for the amount for market buy orders
  * @returns {object} request to be sent to the exchange
  */
-func (this *Htx) CreateSpotOrderRequest(symbol string, typeVar string, side string, amount float64, options ...CreateSpotOrderRequestOptions) (map[string]interface{}, error) {
+func (this *Htx) CreateSpotOrderRequest(symbol string, typeVar string, side string, amount float64, options ...CreateSpotOrderRequestOptions) (map[string]any, error) {
 
     opts := CreateSpotOrderRequestOptionsStruct{}
 
@@ -1091,20 +1091,20 @@ func (this *Htx) CreateSpotOrderRequest(symbol string, typeVar string, side stri
         opt(&opts)
     }
 
-    var price interface{} = nil
+    var price any = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.CreateSpotOrderRequest(symbol, typeVar, side, amount, price, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
@@ -1150,12 +1150,12 @@ func (this *Htx) CreateOrder(symbol string, typeVar string, side string, amount 
         opt(&opts)
     }
 
-    var price interface{} = nil
+    var price any = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1186,7 +1186,7 @@ func (this *Htx) CreateOrders(orders []OrderRequest, options ...CreateOrdersOpti
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1216,12 +1216,12 @@ func (this *Htx) CancelOrder(id string, options ...CancelOrderOptions) (Order, e
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1250,12 +1250,12 @@ func (this *Htx) CancelOrders(ids []string, options ...CancelOrdersOptions) ([]O
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1284,12 +1284,12 @@ func (this *Htx) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Order, er
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1308,7 +1308,7 @@ func (this *Htx) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Order, er
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} the api result
  */
-func (this *Htx) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]interface{}, error) {
+func (this *Htx) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]any, error) {
 
     opts := CancelAllOrdersAfterOptionsStruct{}
 
@@ -1316,15 +1316,15 @@ func (this *Htx) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersA
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.CancelAllOrdersAfter(timeout, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
@@ -1343,7 +1343,7 @@ func (this *Htx) FetchDepositAddressesByNetwork(code string, options ...FetchDep
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1370,7 +1370,7 @@ func (this *Htx) FetchDepositAddress(code string, options ...FetchDepositAddress
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1380,7 +1380,7 @@ func (this *Htx) FetchDepositAddress(code string, options ...FetchDepositAddress
     }
     return NewDepositAddress(res), nil
 }
-func (this *Htx) FetchWithdrawAddresses(code string, options ...FetchWithdrawAddressesOptions) ([]map[string]interface{}, error) {
+func (this *Htx) FetchWithdrawAddresses(code string, options ...FetchWithdrawAddressesOptions) ([]map[string]any, error) {
 
     opts := FetchWithdrawAddressesOptionsStruct{}
 
@@ -1388,17 +1388,17 @@ func (this *Htx) FetchWithdrawAddresses(code string, options ...FetchWithdrawAdd
         opt(&opts)
     }
 
-    var note interface{} = nil
+    var note any = nil
     if opts.Note != nil {
         note = *opts.Note
     }
 
-    var networkCode interface{} = nil
+    var networkCode any = nil
     if opts.NetworkCode != nil {
         networkCode = *opts.NetworkCode
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1406,7 +1406,7 @@ func (this *Htx) FetchWithdrawAddresses(code string, options ...FetchWithdrawAdd
     if IsError(res) {
         return nil, CreateReturnError(res)
     }
-    return res.([]map[string]interface{}), nil
+    return res.([]map[string]any), nil
 }
 /**
  * @method
@@ -1427,22 +1427,22 @@ func (this *Htx) FetchDeposits(options ...FetchDepositsOptions) ([]Transaction, 
         opt(&opts)
     }
 
-    var code interface{} = nil
+    var code any = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1471,22 +1471,22 @@ func (this *Htx) FetchWithdrawals(options ...FetchWithdrawalsOptions) ([]Transac
         opt(&opts)
     }
 
-    var code interface{} = nil
+    var code any = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1516,12 +1516,12 @@ func (this *Htx) Withdraw(code string, amount float64, address string, options .
         opt(&opts)
     }
 
-    var tag interface{} = nil
+    var tag any = nil
     if opts.Tag != nil {
         tag = *opts.Tag
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1559,7 +1559,7 @@ func (this *Htx) Transfer(code string, amount float64, fromAccount string, toAcc
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1577,7 +1577,7 @@ func (this *Htx) Transfer(code string, amount float64, fromAccount string, toAcc
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a list of [isolated borrow rate structures]{@link https://docs.ccxt.com/?id=isolated-borrow-rate-structure}
  */
-func (this *Htx) FetchIsolatedBorrowRates(params ...interface{}) (IsolatedBorrowRates, error) {
+func (this *Htx) FetchIsolatedBorrowRates(params ...any) (IsolatedBorrowRates, error) {
     res := <- this.Core.FetchIsolatedBorrowRates(params...)
     if IsError(res) {
         return IsolatedBorrowRates{}, CreateReturnError(res)
@@ -1605,22 +1605,22 @@ func (this *Htx) FetchFundingRateHistory(options ...FetchFundingRateHistoryOptio
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1648,7 +1648,7 @@ func (this *Htx) FetchFundingRate(symbol string, options ...FetchFundingRateOpti
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1676,12 +1676,12 @@ func (this *Htx) FetchFundingRates(options ...FetchFundingRatesOptions) (Funding
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1712,27 +1712,27 @@ func (this *Htx) FetchBorrowInterest(options ...FetchBorrowInterestOptions) ([]B
         opt(&opts)
     }
 
-    var code interface{} = nil
+    var code any = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1763,22 +1763,22 @@ func (this *Htx) FetchFundingHistory(options ...FetchFundingHistoryOptions) ([]F
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1801,7 +1801,7 @@ func (this *Htx) FetchFundingHistory(options ...FetchFundingHistoryOptions) ([]F
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} response from the exchange
  */
-func (this *Htx) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]interface{}, error) {
+func (this *Htx) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]any, error) {
 
     opts := SetLeverageOptionsStruct{}
 
@@ -1809,20 +1809,20 @@ func (this *Htx) SetLeverage(leverage int64, options ...SetLeverageOptions) (map
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetLeverage(leverage, symbol, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
@@ -1847,12 +1847,12 @@ func (this *Htx) FetchPositions(options ...FetchPositionsOptions) ([]Position, e
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1882,7 +1882,7 @@ func (this *Htx) FetchPosition(symbol string, options ...FetchPositionOptions) (
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1913,22 +1913,22 @@ func (this *Htx) FetchLedger(options ...FetchLedgerOptions) ([]LedgerEntry, erro
         opt(&opts)
     }
 
-    var code interface{} = nil
+    var code any = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1954,12 +1954,12 @@ func (this *Htx) FetchLeverageTiers(options ...FetchLeverageTiersOptions) (Lever
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1993,22 +1993,22 @@ func (this *Htx) FetchOpenInterestHistory(symbol string, options ...FetchOpenInt
         opt(&opts)
     }
 
-    var timeframe interface{} = nil
+    var timeframe any = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2037,12 +2037,12 @@ func (this *Htx) FetchOpenInterests(options ...FetchOpenInterestsOptions) (OpenI
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2071,7 +2071,7 @@ func (this *Htx) FetchOpenInterest(symbol string, options ...FetchOpenInterestOp
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2097,7 +2097,7 @@ func (this *Htx) FetchOpenInterest(symbol string, options ...FetchOpenInterestOp
  * @param {int} [params.code] unified currency code, can be used when symbol is undefined
  * @returns {object[]} a list of [settlement history objects]{@link https://docs.ccxt.com/?id=settlement-history-structure}
  */
-func (this *Htx) FetchSettlementHistory(options ...FetchSettlementHistoryOptions) ([]map[string]interface{}, error) {
+func (this *Htx) FetchSettlementHistory(options ...FetchSettlementHistoryOptions) ([]map[string]any, error) {
 
     opts := FetchSettlementHistoryOptionsStruct{}
 
@@ -2105,22 +2105,22 @@ func (this *Htx) FetchSettlementHistory(options ...FetchSettlementHistoryOptions
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2128,7 +2128,7 @@ func (this *Htx) FetchSettlementHistory(options ...FetchSettlementHistoryOptions
     if IsError(res) {
         return nil, CreateReturnError(res)
     }
-    return res.([]map[string]interface{}), nil
+    return res.([]map[string]any), nil
 }
 /**
  * @method
@@ -2139,7 +2139,7 @@ func (this *Htx) FetchSettlementHistory(options ...FetchSettlementHistoryOptions
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [fees structures]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func (this *Htx) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]interface{}, error) {
+func (this *Htx) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]any, error) {
 
     opts := FetchDepositWithdrawFeesOptionsStruct{}
 
@@ -2147,20 +2147,20 @@ func (this *Htx) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOpt
         opt(&opts)
     }
 
-    var codes interface{} = nil
+    var codes any = nil
     if opts.Codes != nil {
         codes = *opts.Codes
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchDepositWithdrawFees(codes, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return (res).(map[string]interface{}), nil
+    return (res).(map[string]any), nil
 }
 /**
  * @method
@@ -2185,17 +2185,17 @@ func (this *Htx) FetchLiquidations(symbol string, options ...FetchLiquidationsOp
         opt(&opts)
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2217,7 +2217,7 @@ func (this *Htx) FetchLiquidations(symbol string, options ...FetchLiquidationsOp
  * @param {string} [params.marginMode] "cross" (default) or "isolated"
  * @returns {object} response from the exchange
  */
-func (this *Htx) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]interface{}, error) {
+func (this *Htx) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]any, error) {
 
     opts := SetPositionModeOptionsStruct{}
 
@@ -2225,20 +2225,20 @@ func (this *Htx) SetPositionMode(hedged bool, options ...SetPositionModeOptions)
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetPositionMode(hedged, symbol, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
@@ -2260,12 +2260,12 @@ func (this *Htx) FetchPositionsADLRank(options ...FetchPositionsADLRankOptions) 
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2277,7 +2277,7 @@ func (this *Htx) FetchPositionsADLRank(options ...FetchPositionsADLRankOptions) 
 }
 // missing typed methods from base
 //nolint
-func (this *Htx) LoadMarkets(params ...interface{}) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
+func (this *Htx) LoadMarkets(params ...any) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
 func (this *Htx) CancelOrdersWithClientOrderIds(clientOrderIds []string, options ...CancelOrdersWithClientOrderIdsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersWithClientOrderIds(clientOrderIds, options...)}
 func (this *Htx) CancelOrderWithClientOrderId(clientOrderId string, options ...CancelOrderWithClientOrderIdOptions) (Order, error) {return this.exchangeTyped.CancelOrderWithClientOrderId(clientOrderId, options...)}
 func (this *Htx) CancelOrdersForSymbols(orders []CancellationRequest, options ...CancelOrdersForSymbolsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersForSymbols(orders, options...)}
@@ -2309,18 +2309,18 @@ func (this *Htx) EditOrderWithClientOrderId(clientOrderId string, symbol string,
 func (this *Htx) EditOrders(orders []OrderRequest, options ...EditOrdersOptions) ([]Order, error) {return this.exchangeTyped.EditOrders(orders, options...)}
 func (this *Htx) FetchAllGreeks(options ...FetchAllGreeksOptions) ([]Greeks, error) {return this.exchangeTyped.FetchAllGreeks(options...)}
 func (this *Htx) FetchBidsAsks(options ...FetchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.FetchBidsAsks(options...)}
-func (this *Htx) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
+func (this *Htx) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]any, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
 func (this *Htx) FetchCanceledAndClosedOrders(options ...FetchCanceledAndClosedOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchCanceledAndClosedOrders(options...)}
-func (this *Htx) FetchConvertCurrencies(params ...interface{}) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
+func (this *Htx) FetchConvertCurrencies(params ...any) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
 func (this *Htx) FetchConvertQuote(fromCode string, toCode string, options ...FetchConvertQuoteOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertQuote(fromCode, toCode, options...)}
 func (this *Htx) FetchConvertTrade(id string, options ...FetchConvertTradeOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertTrade(id, options...)}
 func (this *Htx) FetchConvertTradeHistory(options ...FetchConvertTradeHistoryOptions) ([]Conversion, error) {return this.exchangeTyped.FetchConvertTradeHistory(options...)}
 func (this *Htx) FetchCrossBorrowRate(code string, options ...FetchCrossBorrowRateOptions) (CrossBorrowRate, error) {return this.exchangeTyped.FetchCrossBorrowRate(code, options...)}
-func (this *Htx) FetchCrossBorrowRates(params ...interface{}) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
+func (this *Htx) FetchCrossBorrowRates(params ...any) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
 func (this *Htx) FetchDepositAddresses(options ...FetchDepositAddressesOptions) ([]DepositAddress, error) {return this.exchangeTyped.FetchDepositAddresses(options...)}
 func (this *Htx) FetchDepositsWithdrawals(options ...FetchDepositsWithdrawalsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchDepositsWithdrawals(options...)}
-func (this *Htx) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositWithdrawFee(code, options...)}
-func (this *Htx) FetchFreeBalance(params ...interface{}) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
+func (this *Htx) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositWithdrawFee(code, options...)}
+func (this *Htx) FetchFreeBalance(params ...any) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
 func (this *Htx) FetchFundingInterval(symbol string, options ...FetchFundingIntervalOptions) (FundingRate, error) {return this.exchangeTyped.FetchFundingInterval(symbol, options...)}
 func (this *Htx) FetchFundingIntervals(options ...FetchFundingIntervalsOptions) (FundingRates, error) {return this.exchangeTyped.FetchFundingIntervals(options...)}
 func (this *Htx) FetchGreeks(symbol string, options ...FetchGreeksOptions) (Greeks, error) {return this.exchangeTyped.FetchGreeks(symbol, options...)}
@@ -2344,21 +2344,21 @@ func (this *Htx) FetchOptionChain(code string, options ...FetchOptionChainOption
 func (this *Htx) FetchOrderWithClientOrderId(clientOrderId string, options ...FetchOrderWithClientOrderIdOptions) (Order, error) {return this.exchangeTyped.FetchOrderWithClientOrderId(clientOrderId, options...)}
 func (this *Htx) FetchOrderBooks(options ...FetchOrderBooksOptions) (OrderBooks, error) {return this.exchangeTyped.FetchOrderBooks(options...)}
 func (this *Htx) FetchOrderStatus(id string, options ...FetchOrderStatusOptions) (string, error) {return this.exchangeTyped.FetchOrderStatus(id, options...)}
-func (this *Htx) FetchPaymentMethods(params ...interface{}) (map[string]interface{}, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
+func (this *Htx) FetchPaymentMethods(params ...any) (map[string]any, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
 func (this *Htx) FetchPositionHistory(symbol string, options ...FetchPositionHistoryOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionHistory(symbol, options...)}
-func (this *Htx) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchPositionMode(options...)}
+func (this *Htx) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]any, error) {return this.exchangeTyped.FetchPositionMode(options...)}
 func (this *Htx) FetchPositionsForSymbol(symbol string, options ...FetchPositionsForSymbolOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsForSymbol(symbol, options...)}
 func (this *Htx) FetchPositionsHistory(options ...FetchPositionsHistoryOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsHistory(options...)}
 func (this *Htx) FetchPositionsRisk(options ...FetchPositionsRiskOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsRisk(options...)}
 func (this *Htx) FetchPremiumIndexOHLCV(symbol string, options ...FetchPremiumIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchPremiumIndexOHLCV(symbol, options...)}
-func (this *Htx) FetchTradingFees(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
-func (this *Htx) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFee(code, options...)}
-func (this *Htx) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
+func (this *Htx) FetchTradingFees(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
+func (this *Htx) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFee(code, options...)}
+func (this *Htx) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
 func (this *Htx) FetchTransactions(options ...FetchTransactionsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchTransactions(options...)}
 func (this *Htx) FetchTransfer(id string, options ...FetchTransferOptions) (TransferEntry, error) {return this.exchangeTyped.FetchTransfer(id, options...)}
 func (this *Htx) FetchTransfers(options ...FetchTransfersOptions) ([]TransferEntry, error) {return this.exchangeTyped.FetchTransfers(options...)}
 func (this *Htx) SetMargin(symbol string, amount float64, options ...SetMarginOptions) (MarginModification, error) {return this.exchangeTyped.SetMargin(symbol, amount, options...)}
-func (this *Htx) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]interface{}, error) {return this.exchangeTyped.SetMarginMode(marginMode, options...)}
+func (this *Htx) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]any, error) {return this.exchangeTyped.SetMarginMode(marginMode, options...)}
 func (this *Htx) CancelAllOrdersWs(options ...CancelAllOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.CancelAllOrdersWs(options...)}
 func (this *Htx) CancelOrdersWs(ids []string, options ...CancelOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersWs(ids, options...)}
 func (this *Htx) CancelOrderWs(id string, options ...CancelOrderWsOptions) (Order, error) {return this.exchangeTyped.CancelOrderWs(id, options...)}
@@ -2383,9 +2383,9 @@ func (this *Htx) CreateTrailingAmountOrderWs(symbol string, typeVar string, side
 func (this *Htx) CreateTrailingPercentOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTrailingPercentOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTrailingPercentOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Htx) CreateTriggerOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTriggerOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTriggerOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Htx) EditOrderWs(id string, symbol string, typeVar string, side string, options ...EditOrderWsOptions) (Order, error) {return this.exchangeTyped.EditOrderWs(id, symbol, typeVar, side, options...)}
-func (this *Htx) FetchBalanceWs(params ...interface{}) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
+func (this *Htx) FetchBalanceWs(params ...any) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
 func (this *Htx) FetchClosedOrdersWs(options ...FetchClosedOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchClosedOrdersWs(options...)}
-func (this *Htx) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
+func (this *Htx) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
 func (this *Htx) FetchMyTradesWs(options ...FetchMyTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchMyTradesWs(options...)}
 func (this *Htx) FetchOHLCVWs(symbol string, options ...FetchOHLCVWsOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchOHLCVWs(symbol, options...)}
 func (this *Htx) FetchOpenOrdersWs(options ...FetchOpenOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchOpenOrdersWs(options...)}
@@ -2399,20 +2399,20 @@ func (this *Htx) FetchPositionWs(symbol string, options ...FetchPositionWsOption
 func (this *Htx) FetchTickersWs(options ...FetchTickersWsOptions) (Tickers, error) {return this.exchangeTyped.FetchTickersWs(options...)}
 func (this *Htx) FetchTickerWs(symbol string, options ...FetchTickerWsOptions) (Ticker, error) {return this.exchangeTyped.FetchTickerWs(symbol, options...)}
 func (this *Htx) FetchTradesWs(symbol string, options ...FetchTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchTradesWs(symbol, options...)}
-func (this *Htx) FetchTradingFeesWs(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
-func (this *Htx) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
-func (this *Htx) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (interface{}, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
-func (this *Htx) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
-func (this *Htx) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
-func (this *Htx) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
-func (this *Htx) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
-func (this *Htx) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
-func (this *Htx) UnWatchOrders(options ...UnWatchOrdersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrders(options...)}
-func (this *Htx) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
-func (this *Htx) UnWatchTickers(options ...UnWatchTickersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTickers(options...)}
-func (this *Htx) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
-func (this *Htx) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
-func (this *Htx) WatchBalance(params ...interface{}) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
+func (this *Htx) FetchTradingFeesWs(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
+func (this *Htx) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
+func (this *Htx) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (any, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
+func (this *Htx) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (any, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
+func (this *Htx) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
+func (this *Htx) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
+func (this *Htx) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
+func (this *Htx) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
+func (this *Htx) UnWatchOrders(options ...UnWatchOrdersOptions) (any, error) {return this.exchangeTyped.UnWatchOrders(options...)}
+func (this *Htx) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (any, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
+func (this *Htx) UnWatchTickers(options ...UnWatchTickersOptions) (any, error) {return this.exchangeTyped.UnWatchTickers(options...)}
+func (this *Htx) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (any, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
+func (this *Htx) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
+func (this *Htx) WatchBalance(params ...any) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
 func (this *Htx) WatchBidsAsks(options ...WatchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.WatchBidsAsks(options...)}
 func (this *Htx) WatchLiquidations(symbol string, options ...WatchLiquidationsOptions) ([]Liquidation, error) {return this.exchangeTyped.WatchLiquidations(symbol, options...)}
 func (this *Htx) WatchMarkPrice(symbol string, options ...WatchMarkPriceOptions) (Ticker, error) {return this.exchangeTyped.WatchMarkPrice(symbol, options...)}

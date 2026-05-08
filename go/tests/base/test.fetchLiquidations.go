@@ -5,12 +5,12 @@ import "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 
-    func TestFetchLiquidations(exchange ccxt.ICoreExchange, skippedProperties interface{}, code interface{}) <- chan interface{} {
-                ch := make(chan interface{})
-                go func() interface{} {
+    func TestFetchLiquidations(exchange ccxt.ICoreExchange, skippedProperties any, code any) <- chan any {
+                ch := make(chan any)
+                go func() any {
                     defer close(ch)
                     defer ReturnPanicError(ch)
-                        var method interface{} = "fetchLiquidations"
+                        var method any = "fetchLiquidations"
                 if !IsTrue(GetValue(exchange.GetHas(), "fetchLiquidations")) {
             
                     ch <- true

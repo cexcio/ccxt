@@ -479,6 +479,7 @@ function exportSupportedAndCertifiedExchanges (exchanges, { allExchangesPaths, c
     const certifiedExchanges = arrayOfExchanges.filter (exchange => exchange.certified)
     // certified exchanges are sorted according to the following order
     const certifiedExchangesSortingOrder = [
+        'cexc',
         'binance',
         'binanceusdm',
         'binancecoinm',
@@ -499,7 +500,6 @@ function exportSupportedAndCertifiedExchanges (exchanges, { allExchangesPaths, c
         'hashkey',
         'woo',
         'woofipro',
-        'cexc',
     ]
 
     let copyOfCertifiedExchanges = certifiedExchanges.slice (); // makes a new array with the same elements
@@ -557,7 +557,7 @@ function exportBuilderCodeExchanges(exchangePath, exchanges) {
 
     const beginning = "<!--- init builder codes list --->\n";
     const allExchangesReplacement = beginning + table + "\n<!--- end list -->"
-    const allExchangesRegex = new RegExp (/<!--- init builder codes list -->([\s\S]*?)<!--- end list -->/)
+    const allExchangesRegex = new RegExp (/<!--- init builder codes list --->([\s\S]*?)<!--- end list -->/)
 
     logExportExchanges (exchangePath, allExchangesRegex, allExchangesReplacement)
 }

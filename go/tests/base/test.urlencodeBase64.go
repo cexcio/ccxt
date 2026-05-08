@@ -5,9 +5,9 @@ import ccxt "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 func TestUrlencodeBase64()  {
-    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]interface{} {
+    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]any {
         "id": "sampleexchange",
-    }, map[string]interface{}{}, exchange)
+    }, map[string]any{}, exchange)
     // Test 1: Simple string
     Assert(ccxt.IsEqual(exchange.UrlencodeBase64("hello"), "aGVsbG8"))
     // Test 2: String with space
@@ -35,6 +35,6 @@ func TestUrlencodeBase64()  {
     //
     // add binary tests
     //
-    var binaryData interface{} = exchange.Base16ToBinary("191919191919")
+    var binaryData any = exchange.Base16ToBinary("191919191919")
     Assert(ccxt.IsEqual(exchange.UrlencodeBase64(binaryData), "GRkZGRkZ"))
 }

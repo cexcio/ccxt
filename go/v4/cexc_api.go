@@ -7,1070 +7,1398 @@
 
 package ccxt
 
-func (this *CexcCore) PublicGetCurrencies (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetCurrencies (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetCurrencies", args...)
 }
 
-func (this *CexcCore) PublicGetCurrenciesCurrency (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetCurrenciesCurrency (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetCurrenciesCurrency", args...)
 }
 
-func (this *CexcCore) PublicGetSymbols (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetSymbols (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetSymbols", args...)
 }
 
-func (this *CexcCore) PublicGetMarketOrderbookLevel1 (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarketOrderbookLevel1 (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarketOrderbookLevel1", args...)
 }
 
-func (this *CexcCore) PublicGetMarketAllTickers (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarketAllTickers (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarketAllTickers", args...)
 }
 
-func (this *CexcCore) PublicGetMarketStats (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarketStats (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarketStats", args...)
 }
 
-func (this *CexcCore) PublicGetMarkets (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarkets (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarkets", args...)
 }
 
-func (this *CexcCore) PublicGetMarketOrderbookLevelLevelLimit (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarketOrderbookLevelLevelLimit (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarketOrderbookLevelLevelLimit", args...)
 }
 
-func (this *CexcCore) PublicGetMarketOrderbookLevel220 (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarketOrderbookLevel220 (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarketOrderbookLevel220", args...)
 }
 
-func (this *CexcCore) PublicGetMarketOrderbookLevel2100 (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarketOrderbookLevel2100 (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarketOrderbookLevel2100", args...)
 }
 
-func (this *CexcCore) PublicGetMarketHistories (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarketHistories (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarketHistories", args...)
 }
 
-func (this *CexcCore) PublicGetMarketCandles (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarketCandles (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarketCandles", args...)
 }
 
-func (this *CexcCore) PublicGetPrices (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetPrices (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetPrices", args...)
 }
 
-func (this *CexcCore) PublicGetTimestamp (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetTimestamp (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetTimestamp", args...)
 }
 
-func (this *CexcCore) PublicGetStatus (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetStatus (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetStatus", args...)
 }
 
-func (this *CexcCore) PublicGetMarkPriceSymbolCurrent (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarkPriceSymbolCurrent (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarkPriceSymbolCurrent", args...)
 }
 
-func (this *CexcCore) PublicGetMarkPriceAllSymbols (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarkPriceAllSymbols (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarkPriceAllSymbols", args...)
 }
 
-func (this *CexcCore) PublicGetMarginConfig (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarginConfig (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarginConfig", args...)
 }
 
-func (this *CexcCore) PublicGetAnnouncements (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetAnnouncements (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetAnnouncements", args...)
 }
 
-func (this *CexcCore) PublicGetMarginCollateralRatio (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetMarginCollateralRatio (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetMarginCollateralRatio", args...)
 }
 
-func (this *CexcCore) PublicGetConvertSymbol (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetConvertSymbol (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetConvertSymbol", args...)
 }
 
-func (this *CexcCore) PublicGetConvertCurrencies (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicGetConvertCurrencies (args ...any) <-chan any {
    return this.callEndpointAsync("publicGetConvertCurrencies", args...)
 }
 
-func (this *CexcCore) PublicPostBulletPublic (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PublicPostBulletPublic (args ...any) <-chan any {
    return this.callEndpointAsync("publicPostBulletPublic", args...)
 }
 
-func (this *CexcCore) PrivateGetUserInfo (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetUserInfo (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetUserInfo", args...)
 }
 
-func (this *CexcCore) PrivateGetUserApiKey (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetUserApiKey (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetUserApiKey", args...)
 }
 
-func (this *CexcCore) PrivateGetAccounts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetAccounts (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetAccounts", args...)
 }
 
-func (this *CexcCore) PrivateGetAccountsAccountId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetAccountsAccountId (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetAccountsAccountId", args...)
 }
 
-func (this *CexcCore) PrivateGetAccountsLedgers (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetAccountsLedgers (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetAccountsLedgers", args...)
 }
 
-func (this *CexcCore) PrivateGetHfAccountsLedgers (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfAccountsLedgers (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfAccountsLedgers", args...)
 }
 
-func (this *CexcCore) PrivateGetHfMarginAccountLedgers (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfMarginAccountLedgers (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfMarginAccountLedgers", args...)
 }
 
-func (this *CexcCore) PrivateGetTransactionHistory (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetTransactionHistory (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetTransactionHistory", args...)
 }
 
-func (this *CexcCore) PrivateGetSubUser (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetSubUser (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetSubUser", args...)
 }
 
-func (this *CexcCore) PrivateGetSubAccountsSubUserId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetSubAccountsSubUserId (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetSubAccountsSubUserId", args...)
 }
 
-func (this *CexcCore) PrivateGetSubAccounts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetSubAccounts (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetSubAccounts", args...)
 }
 
-func (this *CexcCore) PrivateGetSubApiKey (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetSubApiKey (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetSubApiKey", args...)
 }
 
-func (this *CexcCore) PrivateGetMarginAccount (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarginAccount (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarginAccount", args...)
 }
 
-func (this *CexcCore) PrivateGetMarginAccounts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarginAccounts (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarginAccounts", args...)
 }
 
-func (this *CexcCore) PrivateGetIsolatedAccounts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetIsolatedAccounts (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetIsolatedAccounts", args...)
 }
 
-func (this *CexcCore) PrivateGetDepositAddresses (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetDepositAddresses (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetDepositAddresses", args...)
 }
 
-func (this *CexcCore) PrivateGetDeposits (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetDeposits (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetDeposits", args...)
 }
 
-func (this *CexcCore) PrivateGetHistDeposits (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHistDeposits (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHistDeposits", args...)
 }
 
-func (this *CexcCore) PrivateGetWithdrawals (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetWithdrawals (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetWithdrawals", args...)
 }
 
-func (this *CexcCore) PrivateGetHistWithdrawals (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHistWithdrawals (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHistWithdrawals", args...)
 }
 
-func (this *CexcCore) PrivateGetWithdrawalsQuotas (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetWithdrawalsQuotas (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetWithdrawalsQuotas", args...)
 }
 
-func (this *CexcCore) PrivateGetAccountsTransferable (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetAccountsTransferable (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetAccountsTransferable", args...)
 }
 
-func (this *CexcCore) PrivateGetTransferList (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetTransferList (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetTransferList", args...)
 }
 
-func (this *CexcCore) PrivateGetBaseFee (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetBaseFee (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetBaseFee", args...)
 }
 
-func (this *CexcCore) PrivateGetTradeFees (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetTradeFees (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetTradeFees", args...)
 }
 
-func (this *CexcCore) PrivateGetMarketOrderbookLevelLevel (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarketOrderbookLevelLevel (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarketOrderbookLevelLevel", args...)
 }
 
-func (this *CexcCore) PrivateGetMarketOrderbookLevel2 (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarketOrderbookLevel2 (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarketOrderbookLevel2", args...)
 }
 
-func (this *CexcCore) PrivateGetMarketOrderbookLevel3 (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarketOrderbookLevel3 (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarketOrderbookLevel3", args...)
 }
 
-func (this *CexcCore) PrivateGetHfAccountsOpened (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfAccountsOpened (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfAccountsOpened", args...)
 }
 
-func (this *CexcCore) PrivateGetHfOrdersActive (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfOrdersActive (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfOrdersActive", args...)
 }
 
-func (this *CexcCore) PrivateGetHfOrdersActiveSymbols (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfOrdersActiveSymbols (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfOrdersActiveSymbols", args...)
 }
 
-func (this *CexcCore) PrivateGetHfMarginOrderActiveSymbols (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfMarginOrderActiveSymbols (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfMarginOrderActiveSymbols", args...)
 }
 
-func (this *CexcCore) PrivateGetHfOrdersDone (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfOrdersDone (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfOrdersDone", args...)
 }
 
-func (this *CexcCore) PrivateGetHfOrdersOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfOrdersOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfOrdersOrderId", args...)
 }
 
-func (this *CexcCore) PrivateGetHfOrdersClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfOrdersClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfOrdersClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) PrivateGetHfOrdersDeadCancelAllQuery (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfOrdersDeadCancelAllQuery (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfOrdersDeadCancelAllQuery", args...)
 }
 
-func (this *CexcCore) PrivateGetHfFills (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfFills (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfFills", args...)
 }
 
-func (this *CexcCore) PrivateGetOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetOrders", args...)
 }
 
-func (this *CexcCore) PrivateGetLimitOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetLimitOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetLimitOrders", args...)
 }
 
-func (this *CexcCore) PrivateGetOrdersOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetOrdersOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetOrdersOrderId", args...)
 }
 
-func (this *CexcCore) PrivateGetOrderClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetOrderClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetOrderClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) PrivateGetFills (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetFills (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetFills", args...)
 }
 
-func (this *CexcCore) PrivateGetLimitFills (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetLimitFills (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetLimitFills", args...)
 }
 
-func (this *CexcCore) PrivateGetStopOrder (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetStopOrder (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetStopOrder", args...)
 }
 
-func (this *CexcCore) PrivateGetStopOrderOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetStopOrderOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetStopOrderOrderId", args...)
 }
 
-func (this *CexcCore) PrivateGetStopOrderQueryOrderByClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetStopOrderQueryOrderByClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetStopOrderQueryOrderByClientOid", args...)
 }
 
-func (this *CexcCore) PrivateGetOcoOrderOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetOcoOrderOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetOcoOrderOrderId", args...)
 }
 
-func (this *CexcCore) PrivateGetOcoOrderDetailsOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetOcoOrderDetailsOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetOcoOrderDetailsOrderId", args...)
 }
 
-func (this *CexcCore) PrivateGetOcoClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetOcoClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetOcoClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) PrivateGetOcoOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetOcoOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetOcoOrders", args...)
 }
 
-func (this *CexcCore) PrivateGetHfMarginOrdersActive (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfMarginOrdersActive (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfMarginOrdersActive", args...)
 }
 
-func (this *CexcCore) PrivateGetHfMarginOrdersDone (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfMarginOrdersDone (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfMarginOrdersDone", args...)
 }
 
-func (this *CexcCore) PrivateGetHfMarginOrdersOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfMarginOrdersOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfMarginOrdersOrderId", args...)
 }
 
-func (this *CexcCore) PrivateGetHfMarginOrdersClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfMarginOrdersClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfMarginOrdersClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) PrivateGetHfMarginFills (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfMarginFills (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetHfMarginFills", args...)
 }
 
-func (this *CexcCore) PrivateGetEtfInfo (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetHfMarginStopOrders (args ...any) <-chan any {
+   return this.callEndpointAsync("privateGetHfMarginStopOrders", args...)
+}
+
+func (this *CexcCore) PrivateGetHfMarginStopOrderOrderId (args ...any) <-chan any {
+   return this.callEndpointAsync("privateGetHfMarginStopOrderOrderId", args...)
+}
+
+func (this *CexcCore) PrivateGetHfMarginStopOrderClientOid (args ...any) <-chan any {
+   return this.callEndpointAsync("privateGetHfMarginStopOrderClientOid", args...)
+}
+
+func (this *CexcCore) PrivateGetHfMarginOcoOrderOrderId (args ...any) <-chan any {
+   return this.callEndpointAsync("privateGetHfMarginOcoOrderOrderId", args...)
+}
+
+func (this *CexcCore) PrivateGetHfMarginOcoOrderClientOid (args ...any) <-chan any {
+   return this.callEndpointAsync("privateGetHfMarginOcoOrderClientOid", args...)
+}
+
+func (this *CexcCore) PrivateGetHfMarginOcoOrderDetailOrderId (args ...any) <-chan any {
+   return this.callEndpointAsync("privateGetHfMarginOcoOrderDetailOrderId", args...)
+}
+
+func (this *CexcCore) PrivateGetHfMarginOcoOrders (args ...any) <-chan any {
+   return this.callEndpointAsync("privateGetHfMarginOcoOrders", args...)
+}
+
+func (this *CexcCore) PrivateGetEtfInfo (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetEtfInfo", args...)
 }
 
-func (this *CexcCore) PrivateGetMarginCurrencies (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarginCurrencies (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarginCurrencies", args...)
 }
 
-func (this *CexcCore) PrivateGetRiskLimitStrategy (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetRiskLimitStrategy (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetRiskLimitStrategy", args...)
 }
 
-func (this *CexcCore) PrivateGetIsolatedSymbols (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetIsolatedSymbols (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetIsolatedSymbols", args...)
 }
 
-func (this *CexcCore) PrivateGetMarginSymbols (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarginSymbols (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarginSymbols", args...)
 }
 
-func (this *CexcCore) PrivateGetIsolatedAccountSymbol (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetIsolatedAccountSymbol (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetIsolatedAccountSymbol", args...)
 }
 
-func (this *CexcCore) PrivateGetMarginBorrow (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarginBorrow (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarginBorrow", args...)
 }
 
-func (this *CexcCore) PrivateGetMarginRepay (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarginRepay (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarginRepay", args...)
 }
 
-func (this *CexcCore) PrivateGetMarginInterest (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMarginInterest (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMarginInterest", args...)
 }
 
-func (this *CexcCore) PrivateGetProjectList (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetProjectList (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetProjectList", args...)
 }
 
-func (this *CexcCore) PrivateGetProjectMarketInterestRate (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetProjectMarketInterestRate (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetProjectMarketInterestRate", args...)
 }
 
-func (this *CexcCore) PrivateGetRedeemOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetRedeemOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetRedeemOrders", args...)
 }
 
-func (this *CexcCore) PrivateGetPurchaseOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetPurchaseOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetPurchaseOrders", args...)
 }
 
-func (this *CexcCore) PrivateGetBrokerApiRebaseDownload (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetBrokerApiRebaseDownload (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetBrokerApiRebaseDownload", args...)
 }
 
-func (this *CexcCore) PrivateGetBrokerQueryMyCommission (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetBrokerQueryMyCommission (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetBrokerQueryMyCommission", args...)
 }
 
-func (this *CexcCore) PrivateGetBrokerQueryUser (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetBrokerQueryUser (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetBrokerQueryUser", args...)
 }
 
-func (this *CexcCore) PrivateGetBrokerQueryDetailByUid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetBrokerQueryDetailByUid (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetBrokerQueryDetailByUid", args...)
 }
 
-func (this *CexcCore) PrivateGetMigrateUserAccountStatus (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetMigrateUserAccountStatus (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetMigrateUserAccountStatus", args...)
 }
 
-func (this *CexcCore) PrivateGetConvertQuote (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetConvertQuote (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetConvertQuote", args...)
 }
 
-func (this *CexcCore) PrivateGetConvertOrderDetail (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetConvertOrderDetail (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetConvertOrderDetail", args...)
 }
 
-func (this *CexcCore) PrivateGetConvertOrderHistory (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetConvertOrderHistory (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetConvertOrderHistory", args...)
 }
 
-func (this *CexcCore) PrivateGetConvertLimitQuote (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetConvertLimitQuote (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetConvertLimitQuote", args...)
 }
 
-func (this *CexcCore) PrivateGetConvertLimitOrderDetail (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetConvertLimitOrderDetail (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetConvertLimitOrderDetail", args...)
 }
 
-func (this *CexcCore) PrivateGetConvertLimitOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetConvertLimitOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetConvertLimitOrders", args...)
 }
 
-func (this *CexcCore) PrivateGetAffiliateInviterStatistics (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateGetAffiliateInviterStatistics (args ...any) <-chan any {
    return this.callEndpointAsync("privateGetAffiliateInviterStatistics", args...)
 }
 
-func (this *CexcCore) PrivateGetEarnRedeemPreview (args ...interface{}) <-chan interface{} {
-   return this.callEndpointAsync("privateGetEarnRedeemPreview", args...)
-}
-
-func (this *CexcCore) PrivatePostSubUserCreated (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostSubUserCreated (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostSubUserCreated", args...)
 }
 
-func (this *CexcCore) PrivatePostSubApiKey (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostSubApiKey (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostSubApiKey", args...)
 }
 
-func (this *CexcCore) PrivatePostSubApiKeyUpdate (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostSubApiKeyUpdate (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostSubApiKeyUpdate", args...)
 }
 
-func (this *CexcCore) PrivatePostDepositAddresses (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostDepositAddresses (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostDepositAddresses", args...)
 }
 
-func (this *CexcCore) PrivatePostWithdrawals (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostWithdrawals (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostWithdrawals", args...)
 }
 
-func (this *CexcCore) PrivatePostAccountsUniversalTransfer (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostAccountsUniversalTransfer (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostAccountsUniversalTransfer", args...)
 }
 
-func (this *CexcCore) PrivatePostAccountsSubTransfer (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostAccountsSubTransfer (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostAccountsSubTransfer", args...)
 }
 
-func (this *CexcCore) PrivatePostAccountsInnerTransfer (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostAccountsInnerTransfer (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostAccountsInnerTransfer", args...)
 }
 
-func (this *CexcCore) PrivatePostTransferOut (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostTransferOut (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostTransferOut", args...)
 }
 
-func (this *CexcCore) PrivatePostTransferIn (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostTransferIn (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostTransferIn", args...)
 }
 
-func (this *CexcCore) PrivatePostHfOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostHfOrders", args...)
 }
 
-func (this *CexcCore) PrivatePostHfOrdersTest (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfOrdersTest (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostHfOrdersTest", args...)
 }
 
-func (this *CexcCore) PrivatePostHfOrdersSync (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfOrdersSync (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostHfOrdersSync", args...)
 }
 
-func (this *CexcCore) PrivatePostHfOrdersMulti (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfOrdersMulti (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostHfOrdersMulti", args...)
 }
 
-func (this *CexcCore) PrivatePostHfOrdersMultiSync (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfOrdersMultiSync (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostHfOrdersMultiSync", args...)
 }
 
-func (this *CexcCore) PrivatePostHfOrdersAlter (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfOrdersAlter (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostHfOrdersAlter", args...)
 }
 
-func (this *CexcCore) PrivatePostHfOrdersDeadCancelAll (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfOrdersDeadCancelAll (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostHfOrdersDeadCancelAll", args...)
 }
 
-func (this *CexcCore) PrivatePostOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostOrders", args...)
 }
 
-func (this *CexcCore) PrivatePostOrdersTest (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostOrdersTest (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostOrdersTest", args...)
 }
 
-func (this *CexcCore) PrivatePostOrdersMulti (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostOrdersMulti (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostOrdersMulti", args...)
 }
 
-func (this *CexcCore) PrivatePostStopOrder (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostStopOrder (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostStopOrder", args...)
 }
 
-func (this *CexcCore) PrivatePostOcoOrder (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostOcoOrder (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostOcoOrder", args...)
 }
 
-func (this *CexcCore) PrivatePostHfMarginOrder (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfMarginOrder (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostHfMarginOrder", args...)
 }
 
-func (this *CexcCore) PrivatePostHfMarginOrderTest (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfMarginOrderTest (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostHfMarginOrderTest", args...)
 }
 
-func (this *CexcCore) PrivatePostMarginOrder (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfMarginStopOrder (args ...any) <-chan any {
+   return this.callEndpointAsync("privatePostHfMarginStopOrder", args...)
+}
+
+func (this *CexcCore) PrivatePostMarginOrder (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostMarginOrder", args...)
 }
 
-func (this *CexcCore) PrivatePostMarginOrderTest (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostMarginOrderTest (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostMarginOrderTest", args...)
 }
 
-func (this *CexcCore) PrivatePostMarginBorrow (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostHfMarginOcoOrder (args ...any) <-chan any {
+   return this.callEndpointAsync("privatePostHfMarginOcoOrder", args...)
+}
+
+func (this *CexcCore) PrivatePostMarginBorrow (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostMarginBorrow", args...)
 }
 
-func (this *CexcCore) PrivatePostMarginRepay (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostMarginRepay (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostMarginRepay", args...)
 }
 
-func (this *CexcCore) PrivatePostPurchase (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostPurchase (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostPurchase", args...)
 }
 
-func (this *CexcCore) PrivatePostRedeem (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostRedeem (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostRedeem", args...)
 }
 
-func (this *CexcCore) PrivatePostLendPurchaseUpdate (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostLendPurchaseUpdate (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostLendPurchaseUpdate", args...)
 }
 
-func (this *CexcCore) PrivatePostConvertOrder (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostConvertOrder (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostConvertOrder", args...)
 }
 
-func (this *CexcCore) PrivatePostConvertLimitOrder (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostConvertLimitOrder (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostConvertLimitOrder", args...)
 }
 
-func (this *CexcCore) PrivatePostBulletPrivate (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostBulletPrivate (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostBulletPrivate", args...)
 }
 
-func (this *CexcCore) PrivatePostPositionUpdateUserLeverage (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostPositionUpdateUserLeverage (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostPositionUpdateUserLeverage", args...)
 }
 
-func (this *CexcCore) PrivatePostDepositAddressCreate (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivatePostDepositAddressCreate (args ...any) <-chan any {
    return this.callEndpointAsync("privatePostDepositAddressCreate", args...)
 }
 
-func (this *CexcCore) PrivateDeleteSubApiKey (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteSubApiKey (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteSubApiKey", args...)
 }
 
-func (this *CexcCore) PrivateDeleteWithdrawalsWithdrawalId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteWithdrawalsWithdrawalId (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteWithdrawalsWithdrawalId", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfOrdersOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfOrdersOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfOrdersOrderId", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfOrdersSyncOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfOrdersSyncOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfOrdersSyncOrderId", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfOrdersClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfOrdersClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfOrdersClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfOrdersSyncClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfOrdersSyncClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfOrdersSyncClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfOrdersCancelOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfOrdersCancelOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfOrdersCancelOrderId", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfOrders", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfOrdersCancelAll (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfOrdersCancelAll (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfOrdersCancelAll", args...)
 }
 
-func (this *CexcCore) PrivateDeleteOrdersOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteOrdersOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteOrdersOrderId", args...)
 }
 
-func (this *CexcCore) PrivateDeleteOrderClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteOrderClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteOrderClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) PrivateDeleteOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteOrders", args...)
 }
 
-func (this *CexcCore) PrivateDeleteStopOrderOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteStopOrderOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteStopOrderOrderId", args...)
 }
 
-func (this *CexcCore) PrivateDeleteStopOrderCancelOrderByClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteStopOrderCancelOrderByClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteStopOrderCancelOrderByClientOid", args...)
 }
 
-func (this *CexcCore) PrivateDeleteStopOrderCancel (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteStopOrderCancel (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteStopOrderCancel", args...)
 }
 
-func (this *CexcCore) PrivateDeleteOcoOrderOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteOcoOrderOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteOcoOrderOrderId", args...)
 }
 
-func (this *CexcCore) PrivateDeleteOcoClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteOcoClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteOcoClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) PrivateDeleteOcoOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteOcoOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteOcoOrders", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfMarginOrdersOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfMarginOrdersOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfMarginOrdersOrderId", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfMarginOrdersClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfMarginOrdersClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfMarginOrdersClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) PrivateDeleteHfMarginOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfMarginOrders (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteHfMarginOrders", args...)
 }
 
-func (this *CexcCore) PrivateDeleteConvertLimitOrderCancel (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) PrivateDeleteHfMarginStopOrderCancelById (args ...any) <-chan any {
+   return this.callEndpointAsync("privateDeleteHfMarginStopOrderCancelById", args...)
+}
+
+func (this *CexcCore) PrivateDeleteHfMarginStopOrderCancelByClientOid (args ...any) <-chan any {
+   return this.callEndpointAsync("privateDeleteHfMarginStopOrderCancelByClientOid", args...)
+}
+
+func (this *CexcCore) PrivateDeleteHfMarginStopOrderCancel (args ...any) <-chan any {
+   return this.callEndpointAsync("privateDeleteHfMarginStopOrderCancel", args...)
+}
+
+func (this *CexcCore) PrivateDeleteHfMarginOcoOrderCancelById (args ...any) <-chan any {
+   return this.callEndpointAsync("privateDeleteHfMarginOcoOrderCancelById", args...)
+}
+
+func (this *CexcCore) PrivateDeleteHfMarginOcoOrderCancelByClientOid (args ...any) <-chan any {
+   return this.callEndpointAsync("privateDeleteHfMarginOcoOrderCancelByClientOid", args...)
+}
+
+func (this *CexcCore) PrivateDeleteHfMarginOcoOrderCancel (args ...any) <-chan any {
+   return this.callEndpointAsync("privateDeleteHfMarginOcoOrderCancel", args...)
+}
+
+func (this *CexcCore) PrivateDeleteConvertLimitOrderCancel (args ...any) <-chan any {
    return this.callEndpointAsync("privateDeleteConvertLimitOrderCancel", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetContractsActive (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetContractsActive (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetContractsActive", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetContractsSymbol (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetContractsSymbol (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetContractsSymbol", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetTicker (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetTicker (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetTicker", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetLevel2Snapshot (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetAllTickers (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPublicGetAllTickers", args...)
+}
+
+func (this *CexcCore) FuturesPublicGetLevel2Snapshot (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetLevel2Snapshot", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetLevel2Depth20 (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetLevel2Depth20 (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetLevel2Depth20", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetLevel2Depth100 (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetLevel2Depth100 (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetLevel2Depth100", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetTradeHistory (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetTradeHistory (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetTradeHistory", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetKlineQuery (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetKlineQuery (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetKlineQuery", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetInterestQuery (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetInterestQuery (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetInterestQuery", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetIndexQuery (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetIndexQuery (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetIndexQuery", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetMarkPriceSymbolCurrent (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetMarkPriceSymbolCurrent (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetMarkPriceSymbolCurrent", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetPremiumQuery (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetPremiumQuery (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetPremiumQuery", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetTradeStatistics (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetTradeStatistics (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetTradeStatistics", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetFundingRateSymbolCurrent (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetFundingRateSymbolCurrent (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetFundingRateSymbolCurrent", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetContractFundingRates (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetContractFundingRates (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetContractFundingRates", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetTimestamp (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetTimestamp (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetTimestamp", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetStatus (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetStatus (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetStatus", args...)
 }
 
-func (this *CexcCore) FuturesPublicGetLevel2MessageQuery (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetLevel2MessageQuery (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicGetLevel2MessageQuery", args...)
 }
 
-func (this *CexcCore) FuturesPublicPostBulletPublic (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPublicGetContractsRiskLimitSymbol (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPublicGetContractsRiskLimitSymbol", args...)
+}
+
+func (this *CexcCore) FuturesPublicGetLevel3MessageQuery (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPublicGetLevel3MessageQuery", args...)
+}
+
+func (this *CexcCore) FuturesPublicGetLevel3Snapshot (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPublicGetLevel3Snapshot", args...)
+}
+
+func (this *CexcCore) FuturesPublicPostBulletPublic (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPublicPostBulletPublic", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetTransactionHistory (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetTransactionHistory (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetTransactionHistory", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetAccountOverview (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetAccountOverview (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetAccountOverview", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetAccountOverviewAll (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetAccountOverviewAll (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetAccountOverviewAll", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetTransferList (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetTransferList (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetTransferList", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetOrders (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetOrders", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetStopOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetStopOrders (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetStopOrders", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetRecentDoneOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetRecentDoneOrders (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetRecentDoneOrders", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetOrdersOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetOrdersOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetOrdersOrderId", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetOrdersByClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetOrdersByClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetOrdersByClientOid", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetFills (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetFills (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetFills", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetRecentFills (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetRecentFills (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetRecentFills", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetOpenOrderStatistics (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetTradeFees (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetTradeFees", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetOpenOrderStatistics (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetOpenOrderStatistics", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetPosition (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetPosition (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetPosition", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetPositions (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetPositions (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetPositions", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetMarginMaxWithdrawMargin (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetMarginMaxWithdrawMargin (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetMarginMaxWithdrawMargin", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetContractsRiskLimitSymbol (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetContractsRiskLimitSymbol (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetContractsRiskLimitSymbol", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetFundingHistory (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetFundingHistory (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetFundingHistory", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetCopyTradeFuturesGetMaxOpenSize (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetCopyTradeFuturesGetMaxOpenSize (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetCopyTradeFuturesGetMaxOpenSize", args...)
 }
 
-func (this *CexcCore) FuturesPrivateGetCopyTradeFuturesPositionMarginMaxWithdrawMargin (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetCopyTradeFuturesPositionMarginMaxWithdrawMargin (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateGetCopyTradeFuturesPositionMarginMaxWithdrawMargin", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostTransferOut (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateGetHistoryPositions (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetHistoryPositions", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetPositionGetMarginMode (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetPositionGetMarginMode", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetPositionGetPositionMode (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetPositionGetPositionMode", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetDepositAddress (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetDepositAddress", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetDepositList (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetDepositList", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetWithdrawalsQuotas (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetWithdrawalsQuotas", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetWithdrawalList (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetWithdrawalList", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetSubApiKey (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetSubApiKey", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetTradeStatistics (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetTradeStatistics", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetGetMaxOpenSize (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetGetMaxOpenSize", args...)
+}
+
+func (this *CexcCore) FuturesPrivateGetGetCrossUserLeverage (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateGetGetCrossUserLeverage", args...)
+}
+
+func (this *CexcCore) FuturesPrivatePostTransferOut (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostTransferOut", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostTransferIn (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostTransferIn (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostTransferIn", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostOrders (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostOrders", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostOrdersTest (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostStOrders (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivatePostStOrders", args...)
+}
+
+func (this *CexcCore) FuturesPrivatePostOrdersTest (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostOrdersTest", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostOrdersMulti (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostOrdersMulti (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostOrdersMulti", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostPositionMarginAutoDepositStatus (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostPositionMarginAutoDepositStatus (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostPositionMarginAutoDepositStatus", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostMarginWithdrawMargin (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostMarginWithdrawMargin (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostMarginWithdrawMargin", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostPositionMarginDepositMargin (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostPositionMarginDepositMargin (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostPositionMarginDepositMargin", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostPositionRiskLimitLevelChange (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostPositionRiskLimitLevelChange (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostPositionRiskLimitLevelChange", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesOrders (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeFuturesOrders", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesOrdersTest (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesOrdersTest (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeFuturesOrdersTest", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesStOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesStOrders (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeFuturesStOrders", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionMarginDepositMargin (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionMarginDepositMargin (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeFuturesPositionMarginDepositMargin", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionMarginWithdrawMargin (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionMarginWithdrawMargin (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeFuturesPositionMarginWithdrawMargin", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionRiskLimitLevelChange (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionRiskLimitLevelChange (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeFuturesPositionRiskLimitLevelChange", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionMarginAutoDepositStatus (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionMarginAutoDepositStatus (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeFuturesPositionMarginAutoDepositStatus", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionChangeMarginMode (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionChangeMarginMode (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeFuturesPositionChangeMarginMode", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionChangeCrossUserLeverage (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeFuturesPositionChangeCrossUserLeverage (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeFuturesPositionChangeCrossUserLeverage", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradeGetCrossModeMarginRequirement (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradeGetCrossModeMarginRequirement (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradeGetCrossModeMarginRequirement", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostCopyTradePositionSwitchPositionMode (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostCopyTradePositionSwitchPositionMode (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostCopyTradePositionSwitchPositionMode", args...)
 }
 
-func (this *CexcCore) FuturesPrivatePostBulletPrivate (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivatePostChangeCrossUserLeverage (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivatePostChangeCrossUserLeverage", args...)
+}
+
+func (this *CexcCore) FuturesPrivatePostWithdrawals (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivatePostWithdrawals", args...)
+}
+
+func (this *CexcCore) FuturesPrivatePostSubApiKey (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivatePostSubApiKey", args...)
+}
+
+func (this *CexcCore) FuturesPrivatePostSubApiKeyUpdate (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivatePostSubApiKeyUpdate", args...)
+}
+
+func (this *CexcCore) FuturesPrivatePostPositionChangeMarginMode (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivatePostPositionChangeMarginMode", args...)
+}
+
+func (this *CexcCore) FuturesPrivatePostPositionSwitchPositionMode (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivatePostPositionSwitchPositionMode", args...)
+}
+
+func (this *CexcCore) FuturesPrivatePostBulletPrivate (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivatePostBulletPrivate", args...)
 }
 
-func (this *CexcCore) FuturesPrivateDeleteOrdersOrderId (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateDeleteOrdersOrderId (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateDeleteOrdersOrderId", args...)
 }
 
-func (this *CexcCore) FuturesPrivateDeleteOrdersClientOrderClientOid (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateDeleteOrdersClientOrderClientOid (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateDeleteOrdersClientOrderClientOid", args...)
 }
 
-func (this *CexcCore) FuturesPrivateDeleteOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateDeleteOrders (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateDeleteOrders", args...)
 }
 
-func (this *CexcCore) FuturesPrivateDeleteStopOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateDeleteStopOrders (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateDeleteStopOrders", args...)
 }
 
-func (this *CexcCore) FuturesPrivateDeleteCopyTradeFuturesOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateDeleteCopyTradeFuturesOrders (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateDeleteCopyTradeFuturesOrders", args...)
 }
 
-func (this *CexcCore) FuturesPrivateDeleteCopyTradeFuturesOrdersClientOrder (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateDeleteCopyTradeFuturesOrdersClientOrder (args ...any) <-chan any {
    return this.callEndpointAsync("futuresPrivateDeleteCopyTradeFuturesOrdersClientOrder", args...)
 }
 
-func (this *CexcCore) WebExchangeGetCurrencyCurrencyChainInfo (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) FuturesPrivateDeleteOrdersMultiCancel (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateDeleteOrdersMultiCancel", args...)
+}
+
+func (this *CexcCore) FuturesPrivateDeleteWithdrawalsWithdrawalId (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateDeleteWithdrawalsWithdrawalId", args...)
+}
+
+func (this *CexcCore) FuturesPrivateDeleteCancelTransferOut (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateDeleteCancelTransferOut", args...)
+}
+
+func (this *CexcCore) FuturesPrivateDeleteSubApiKey (args ...any) <-chan any {
+   return this.callEndpointAsync("futuresPrivateDeleteSubApiKey", args...)
+}
+
+func (this *CexcCore) WebExchangeGetCurrencyCurrencyChainInfo (args ...any) <-chan any {
    return this.callEndpointAsync("webExchangeGetCurrencyCurrencyChainInfo", args...)
 }
 
-func (this *CexcCore) BrokerGetBrokerNdInfo (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) WebExchangeGetContractSymbolFundingRates (args ...any) <-chan any {
+   return this.callEndpointAsync("webExchangeGetContractSymbolFundingRates", args...)
+}
+
+func (this *CexcCore) BrokerGetBrokerNdInfo (args ...any) <-chan any {
    return this.callEndpointAsync("brokerGetBrokerNdInfo", args...)
 }
 
-func (this *CexcCore) BrokerGetBrokerNdAccount (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerGetBrokerNdAccount (args ...any) <-chan any {
    return this.callEndpointAsync("brokerGetBrokerNdAccount", args...)
 }
 
-func (this *CexcCore) BrokerGetBrokerNdAccountApikey (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerGetBrokerNdAccountApikey (args ...any) <-chan any {
    return this.callEndpointAsync("brokerGetBrokerNdAccountApikey", args...)
 }
 
-func (this *CexcCore) BrokerGetBrokerNdRebaseDownload (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerGetBrokerNdRebaseDownload (args ...any) <-chan any {
    return this.callEndpointAsync("brokerGetBrokerNdRebaseDownload", args...)
 }
 
-func (this *CexcCore) BrokerGetAssetNdbrokerDepositList (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerGetAssetNdbrokerDepositList (args ...any) <-chan any {
    return this.callEndpointAsync("brokerGetAssetNdbrokerDepositList", args...)
 }
 
-func (this *CexcCore) BrokerGetBrokerNdTransferDetail (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerGetBrokerNdTransferDetail (args ...any) <-chan any {
    return this.callEndpointAsync("brokerGetBrokerNdTransferDetail", args...)
 }
 
-func (this *CexcCore) BrokerGetBrokerNdDepositDetail (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerGetBrokerNdDepositDetail (args ...any) <-chan any {
    return this.callEndpointAsync("brokerGetBrokerNdDepositDetail", args...)
 }
 
-func (this *CexcCore) BrokerGetBrokerNdWithdrawDetail (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerGetBrokerNdWithdrawDetail (args ...any) <-chan any {
    return this.callEndpointAsync("brokerGetBrokerNdWithdrawDetail", args...)
 }
 
-func (this *CexcCore) BrokerPostBrokerNdTransfer (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerPostBrokerNdTransfer (args ...any) <-chan any {
    return this.callEndpointAsync("brokerPostBrokerNdTransfer", args...)
 }
 
-func (this *CexcCore) BrokerPostBrokerNdAccount (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerPostBrokerNdAccount (args ...any) <-chan any {
    return this.callEndpointAsync("brokerPostBrokerNdAccount", args...)
 }
 
-func (this *CexcCore) BrokerPostBrokerNdAccountApikey (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerPostBrokerNdAccountApikey (args ...any) <-chan any {
    return this.callEndpointAsync("brokerPostBrokerNdAccountApikey", args...)
 }
 
-func (this *CexcCore) BrokerPostBrokerNdAccountUpdateApikey (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerPostBrokerNdAccountUpdateApikey (args ...any) <-chan any {
    return this.callEndpointAsync("brokerPostBrokerNdAccountUpdateApikey", args...)
 }
 
-func (this *CexcCore) BrokerDeleteBrokerNdAccountApikey (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) BrokerDeleteBrokerNdAccountApikey (args ...any) <-chan any {
    return this.callEndpointAsync("brokerDeleteBrokerNdAccountApikey", args...)
 }
 
-func (this *CexcCore) EarnGetOtcLoanDiscountRateConfigs (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetOtcLoanDiscountRateConfigs (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetOtcLoanDiscountRateConfigs", args...)
 }
 
-func (this *CexcCore) EarnGetOtcLoanLoan (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetOtcLoanLoan (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetOtcLoanLoan", args...)
 }
 
-func (this *CexcCore) EarnGetOtcLoanAccounts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetOtcLoanAccounts (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetOtcLoanAccounts", args...)
 }
 
-func (this *CexcCore) EarnGetEarnRedeemPreview (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetEarnRedeemPreview (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetEarnRedeemPreview", args...)
 }
 
-func (this *CexcCore) EarnGetEarnSavingProducts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetEarnSavingProducts (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetEarnSavingProducts", args...)
 }
 
-func (this *CexcCore) EarnGetEarnHoldAssets (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetEarnHoldAssets (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetEarnHoldAssets", args...)
 }
 
-func (this *CexcCore) EarnGetEarnPromotionProducts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetEarnPromotionProducts (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetEarnPromotionProducts", args...)
 }
 
-func (this *CexcCore) EarnGetEarnKcsStakingProducts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetEarnKcsStakingProducts (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetEarnKcsStakingProducts", args...)
 }
 
-func (this *CexcCore) EarnGetEarnStakingProducts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetEarnStakingProducts (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetEarnStakingProducts", args...)
 }
 
-func (this *CexcCore) EarnGetEarnEthStakingProducts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetEarnEthStakingProducts (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetEarnEthStakingProducts", args...)
 }
 
-func (this *CexcCore) EarnGetStructEarnDualProducts (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetStructEarnDualProducts (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetStructEarnDualProducts", args...)
 }
 
-func (this *CexcCore) EarnGetStructEarnOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnGetStructEarnOrders (args ...any) <-chan any {
    return this.callEndpointAsync("earnGetStructEarnOrders", args...)
 }
 
-func (this *CexcCore) EarnPostEarnOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnPostEarnOrders (args ...any) <-chan any {
    return this.callEndpointAsync("earnPostEarnOrders", args...)
 }
 
-func (this *CexcCore) EarnPostStructEarnOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnPostStructEarnOrders (args ...any) <-chan any {
    return this.callEndpointAsync("earnPostStructEarnOrders", args...)
 }
 
-func (this *CexcCore) EarnDeleteEarnOrders (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) EarnDeleteEarnOrders (args ...any) <-chan any {
    return this.callEndpointAsync("earnDeleteEarnOrders", args...)
 }
 
-func (this *CexcCore) UtaGetMarketAnnouncement (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetMarketAnnouncement (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetMarketAnnouncement", args...)
 }
 
-func (this *CexcCore) UtaGetMarketCurrency (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetMarketCurrency (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetMarketCurrency", args...)
 }
 
-func (this *CexcCore) UtaGetMarketInstrument (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetAssetCurrencies (args ...any) <-chan any {
+   return this.callEndpointAsync("utaGetAssetCurrencies", args...)
+}
+
+func (this *CexcCore) UtaGetMarketInstrument (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetMarketInstrument", args...)
 }
 
-func (this *CexcCore) UtaGetMarketTicker (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetMarketTicker (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetMarketTicker", args...)
 }
 
-func (this *CexcCore) UtaGetMarketOrderbook (args ...interface{}) <-chan interface{} {
-   return this.callEndpointAsync("utaGetMarketOrderbook", args...)
-}
-
-func (this *CexcCore) UtaGetMarketTrade (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetMarketTrade (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetMarketTrade", args...)
 }
 
-func (this *CexcCore) UtaGetMarketKline (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetMarketKline (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetMarketKline", args...)
 }
 
-func (this *CexcCore) UtaGetMarketFundingRate (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetMarketFundingRate (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetMarketFundingRate", args...)
 }
 
-func (this *CexcCore) UtaGetMarketFundingRateHistory (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetMarketFundingRateHistory (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetMarketFundingRateHistory", args...)
 }
 
-func (this *CexcCore) UtaGetMarketCrossConfig (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetMarketCrossConfig (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetMarketCrossConfig", args...)
 }
 
-func (this *CexcCore) UtaGetServerStatus (args ...interface{}) <-chan interface{} {
+func (this *CexcCore) UtaGetMarketCollateralDiscountRatio (args ...any) <-chan any {
+   return this.callEndpointAsync("utaGetMarketCollateralDiscountRatio", args...)
+}
+
+func (this *CexcCore) UtaGetMarketIndexPrice (args ...any) <-chan any {
+   return this.callEndpointAsync("utaGetMarketIndexPrice", args...)
+}
+
+func (this *CexcCore) UtaGetMarketPositionTiers (args ...any) <-chan any {
+   return this.callEndpointAsync("utaGetMarketPositionTiers", args...)
+}
+
+func (this *CexcCore) UtaGetMarketOpenInterest (args ...any) <-chan any {
+   return this.callEndpointAsync("utaGetMarketOpenInterest", args...)
+}
+
+func (this *CexcCore) UtaGetServerStatus (args ...any) <-chan any {
    return this.callEndpointAsync("utaGetServerStatus", args...)
+}
+
+func (this *CexcCore) UtaGetMarketBorrowableCurrency (args ...any) <-chan any {
+   return this.callEndpointAsync("utaGetMarketBorrowableCurrency", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetMarketOrderbook (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetMarketOrderbook", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountBalance (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountBalance", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountTransferQuota (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountTransferQuota", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountMode (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountMode", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountLedger (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountLedger", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountInterestHistory (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountInterestHistory", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAssetDepositAddress (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAssetDepositAddress", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountDepositAddress (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountDepositAddress", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountModeAccountBalance (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountModeAccountBalance", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountModeAccountOverview (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountModeAccountOverview", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountModeOrderDetail (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountModeOrderDetail", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountModeOrderOpenList (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountModeOrderOpenList", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountModeOrderHistory (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountModeOrderHistory", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountModeOrderExecution (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountModeOrderExecution", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountModePositionOpenList (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountModePositionOpenList", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountModePositionHistory (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountModePositionHistory", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetPositionHistory (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetPositionHistory", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountModePositionTiers (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountModePositionTiers", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetSubAccountBalance (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetSubAccountBalance", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetUserFeeRate (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetUserFeeRate", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetDcpQuery (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetDcpQuery", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetUnifiedAccountLeverage (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetUnifiedAccountLeverage", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetPositionFundingHistory (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetPositionFundingHistory", args...)
+}
+
+func (this *CexcCore) UtaPrivateGetAccountInterestLimits (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivateGetAccountInterestLimits", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostAccountTransfer (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostAccountTransfer", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostAccountMode (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostAccountMode", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostAccountModeAccountModifyLeverage (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostAccountModeAccountModifyLeverage", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostAccountModeOrderPlace (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostAccountModeOrderPlace", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostAccountModeOrderPlaceBatch (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostAccountModeOrderPlaceBatch", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostAccountModeOrderCancel (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostAccountModeOrderCancel", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostAccountModeOrderCancelBatch (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostAccountModeOrderCancelBatch", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostAccountModeOrderCancelAll (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostAccountModeOrderCancelAll", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostSubAccountCanTransferOut (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostSubAccountCanTransferOut", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostDcpSet (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostDcpSet", args...)
+}
+
+func (this *CexcCore) UtaPrivatePostAccountModeAccountModifyLeverageMarginCross (args ...any) <-chan any {
+   return this.callEndpointAsync("utaPrivatePostAccountModeAccountModifyLeverageMarginCross", args...)
 }

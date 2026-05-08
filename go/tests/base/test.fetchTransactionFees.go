@@ -5,9 +5,9 @@ import "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 
-    func TestFetchTransactionFees(exchange ccxt.ICoreExchange, skippedProperties interface{}) <- chan interface{} {
-                ch := make(chan interface{})
-                go func() interface{} {
+    func TestFetchTransactionFees(exchange ccxt.ICoreExchange, skippedProperties any) <- chan any {
+                ch := make(chan any)
+                go func() any {
                     defer close(ch)
                     defer ReturnPanicError(ch)
                     

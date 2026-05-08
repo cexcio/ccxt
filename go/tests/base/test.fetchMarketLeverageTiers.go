@@ -5,12 +5,12 @@ import "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 
-    func TestFetchMarketLeverageTiers(exchange ccxt.ICoreExchange, skippedProperties interface{}, symbol interface{}) <- chan interface{} {
-                ch := make(chan interface{})
-                go func() interface{} {
+    func TestFetchMarketLeverageTiers(exchange ccxt.ICoreExchange, skippedProperties any, symbol any) <- chan any {
+                ch := make(chan any)
+                go func() any {
                     defer close(ch)
                     defer ReturnPanicError(ch)
-                        var method interface{} = "fetchMarketLeverageTiers"
+                        var method any = "fetchMarketLeverageTiers"
             
                 tiers:= (<-exchange.FetchMarketLeverageTiers(symbol))
                 PanicOnError(tiers)

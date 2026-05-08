@@ -4,7 +4,7 @@
 
 # -----------------------------------------------------------------------------
 
-__version__ = '4.5.40'
+__version__ = '4.5.52'
 
 # -----------------------------------------------------------------------------
 
@@ -100,6 +100,11 @@ try:
 except ImportError:
     zklink_sdk = None
 
+# lighter
+import os
+from ccxt.static_dependencies.lighter_client.signer import load_lighter_library, decode_tx_info, decode_auth, decode_api_key, CreateOrderTxReq
+# import ctypes
+
 # -----------------------------------------------------------------------------
 
 __all__ = [
@@ -121,7 +126,6 @@ import gzip
 import hashlib
 import hmac
 import io
-import os
 import tempfile
 
 # load orjson if available, otherwise default to json
@@ -163,7 +167,7 @@ class SafeJSONEncoder(json.JSONEncoder):
 
 class Exchange(object):
     """Base exchange class"""
-    id = None
+    id = 'Exchange'
     name = None
     countries = None
     version = None
@@ -266,15 +270,18 @@ class Exchange(object):
     proxies = None
 
     hostname = None  # in case of inaccessibility of the "main" domain
-    apiKey = ''
-    secret = ''
-    password = ''
-    uid = ''
+
+    apiKey = None
+    secret = None
+    password = None
+    uid = None
     accountId = None
-    privateKey = ''  # a "0x"-prefixed hexstring private key for a wallet
-    walletAddress = ''  # the wallet address "0x"-prefixed hexstring
-    token = ''  # reserved for HTTP auth in some cases
+    login = None
+    privateKey = None  # a "0x"-prefixed hexstring private key for a wallet
+    walletAddress = None  # the wallet address "0x"-prefixed hexstring
+    token = None  # reserved for HTTP auth in some cases
     twofa = None
+
     markets_by_id = None
     currencies_by_id = None
 
@@ -364,7 +371,7 @@ class Exchange(object):
 
     # API method metainfo
     has = {}
-    features = {}
+    features = None
     precisionMode = DECIMAL_PLACES
     paddingMode = NO_PADDING
     minFundingAddressLength = 1  # used in check_address
@@ -401,7 +408,6 @@ class Exchange(object):
 
     commonCurrencies = {
         'XBT': 'BTC',
-        'BCC': 'BCH',
         'BCHSV': 'BSV',
     }
     synchronous = True
@@ -410,7 +416,6 @@ class Exchange(object):
         self.aiohttp_trust_env = self.aiohttp_trust_env or self.trust_env
         self.requests_trust_env = self.requests_trust_env or self.trust_env
 
-        self.precision = dict() if self.precision is None else self.precision
         self.limits = dict() if self.limits is None else self.limits
         self.exceptions = dict() if self.exceptions is None else self.exceptions
         self.headers = dict() if self.headers is None else self.headers
@@ -628,6 +633,23 @@ class Exchange(object):
         # end of proxies & headers
 
         request_body = body
+        content_type_key = None
+        files = None
+        for k, v in request_headers.items():
+            lk = k.lower()
+            if lk == 'content-type':
+                if v == 'multipart/form-data':
+                    content_type_key = k
+                    files = ()
+                    for k, v in body.items():
+                        files += ((k, (None, v)), )
+                    body = None
+                    break
+                else:
+                    break
+        if files is not None:
+            # requests would handle it for multipart/form-data
+            del request_headers[content_type_key]
         if body:
             body = body.encode()
 
@@ -645,7 +667,8 @@ class Exchange(object):
                 headers=request_headers,
                 timeout=(self.timeout / 1000),
                 proxies=proxies,
-                verify=self.verify and self.validateServerSsl
+                verify=self.verify and self.validateServerSsl,
+                files=files
             )
             # does not try to detect encoding
             response.encoding = 'utf-8'
@@ -1009,11 +1032,11 @@ class Exchange(object):
 
     @staticmethod
     def uuid22(length=22):
-        return format(random.getrandbits(length * 4), 'x')
+        return '{:0{}x}'.format(random.getrandbits(length * 4), length)
 
     @staticmethod
     def uuid16(length=16):
-        return format(random.getrandbits(length * 4), 'x')
+        return '{:0{}x}'.format(random.getrandbits(length * 4), length)
 
     @staticmethod
     def uuid():
@@ -1147,8 +1170,21 @@ class Exchange(object):
         return needle in haystack
 
     @staticmethod
-    def is_empty(object):
-        return not object
+    def is_empty(obj):
+
+        if obj is None:
+            return True
+
+        # skip the strings
+        if hasattr(obj, "__len__") and not isinstance(obj, (str, bytes)):
+            return len(obj) == 0
+
+        if hasattr(obj, "__dict__"):
+            # filter-out private members
+            public_vars = [k for k in vars(obj).keys() if not k.startswith('_')]
+            return len(public_vars) == 0
+
+        return False
 
     @staticmethod
     def extract_params(string):
@@ -1198,7 +1234,7 @@ class Exchange(object):
         if isinstance(params, dict):
             for key in params:
                 _encode_params(params[key], key)
-        return _urlencode.urlencode(result, quote_via=_urlencode.quote)
+        return _urlencode.urlencode(result, safe='[]', quote_via=_urlencode.quote)
 
     @staticmethod
     def rawencode(params={}, sort=False):
@@ -1370,6 +1406,14 @@ class Exchange(object):
         elif digest == 'base64':
             return Exchange.binary_to_base64(binary)
         return binary
+
+    @staticmethod
+    def string_to_binary(buff: str) -> bytes:
+        return buff.encode('utf-8')
+
+    @staticmethod
+    def binary_to_string(buff: bytes) -> str:
+        return buff.decode('utf-8')
 
     @staticmethod
     def binary_concat(*args):
@@ -2216,6 +2260,253 @@ class Exchange(object):
     def unlock_id(self):
         return None
 
+    def is_lighter_library_path_required(self):
+        return True
+
+    def load_lighter_library(self, path, chainId, privateKey, apiKeyIndex, accountIndex, createClient):
+        return self.load_lighter_library_helper(path, chainId, privateKey, apiKeyIndex, accountIndex, createClient)
+
+    def load_lighter_library_helper(self, path, chainId, privateKey, apiKeyIndex, accountIndex, createClient):
+        if path is None:
+            raise NotSupported(self.id + ' load_lighter_library() requires a path to the lighter library. You can find it here https://github.com/elliottech/lighter-python/tree/main/lighter/signers. Please download the appropriate library for your system and provide the path to it.\nExample: exchange.options["libraryPath"] = "path/to/lighter-signer-linux-arm64.so"')
+        if not os.path.isfile(path):
+            raise NotSupported(self.id + ' the library path does not exist')
+
+        lighterSigner = load_lighter_library(path)
+        if createClient:
+            self.lighter_create_client(lighterSigner, chainId, privateKey, apiKeyIndex, accountIndex)
+        return lighterSigner
+
+    def lighter_create_client(self, lighterSigner, chainId, privateKey, apiKeyIndex, accountIndex):
+        url = self.implode_hostname(self.urls['api']['public'])
+        res = lighterSigner.CreateClient(
+            url.encode("utf-8"),
+            privateKey.encode("utf-8"),
+            chainId,
+            apiKeyIndex,
+            accountIndex,
+        )
+        if res is not None and str(res).find('error'):
+            raise Exception('lighter_create_client(): Failed to create lighter client: ' + str(res))
+        return lighterSigner
+
+    def lighter_sign_create_grouped_orders(self, signer, request):
+        orders = request['orders']
+        arr_type = CreateOrderTxReq * len(orders)
+        orders_arr = []
+        for order in orders:
+            orders_arr.append(CreateOrderTxReq(
+                MarketIndex=int(order['market_index']),
+                ClientOrderIndex=order['client_order_index'],
+                BaseAmount=order['base_amount'],
+                Price=order['avg_execution_price'],
+                IsAsk=order['is_ask'],
+                Type=order['order_type'],
+                TimeInForce=order['time_in_force'],
+                ReduceOnly=order['reduce_only'],
+                TriggerPrice=order['trigger_price'],
+                OrderExpiry=order['order_expiry'],
+            ))
+        orders_carr = arr_type(*orders_arr)
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignCreateGroupedOrders(
+            request['grouping_type'],
+            orders_carr,
+            len(orders),
+            request['integrator_account_index'],
+            request['integrator_taker_fee'],
+            request['integrator_maker_fee'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index']
+        ))
+        return [tx_type, tx_info]
+
+    def lighter_sign_create_order(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignCreateOrder(
+            int(request['market_index']),
+            request['client_order_index'],
+            request['base_amount'],
+            request['avg_execution_price'],
+            request['is_ask'],
+            request['order_type'],
+            request['time_in_force'],
+            request['reduce_only'],
+            request['trigger_price'],
+            request['order_expiry'],
+            request['integrator_account_index'],
+            request['integrator_taker_fee'],
+            request['integrator_maker_fee'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_create_order() failed with error: ' + str(error))
+        return [tx_type, tx_info]
+
+    def lighter_sign_cancel_order(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignCancelOrder(
+            request['market_index'],
+            request['order_index'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_cancel_order() failed with error: ' + str(error))
+        return [tx_type, tx_info]
+
+    def lighter_sign_withdraw(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignWithdraw(
+            request['asset_index'],
+            request['route_type'],
+            request['amount'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_withdraw() failed with error: ' + str(error))
+        return [tx_type, tx_info]
+
+    def lighter_sign_create_sub_account(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignCreateSubAccount(
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_create_sub_account() failed with error: ' + str(error))
+        return [tx_type, tx_info]
+
+    def lighter_sign_cancel_all_orders(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignCancelAllOrders(
+            request['time_in_force'],
+            request['time'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_cancel_all_orders() failed with error: ' + str(error))
+        return [tx_type, tx_info]
+
+    def lighter_sign_modify_order(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignModifyOrder(
+            request['market_index'],
+            request['index'],
+            request['base_amount'],
+            request['price'],
+            request['trigger_price'],
+            request['integrator_account_index'],
+            request['integrator_taker_fee'],
+            request['integrator_maker_fee'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_modify_order() failed with error: ' + str(error))
+        return [tx_type, tx_info]
+
+    def lighter_sign_transfer(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignTransfer(
+            request['to_account_index'],
+            request['asset_index'],
+            request['from_route_type'],
+            request['to_route_type'],
+            request['amount'],
+            request['usdc_fee'],
+            request['memo'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_transfer() failed with error: ' + str(error))
+        return [tx_type, tx_info]
+
+    def lighter_sign_update_leverage(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignUpdateLeverage(
+            request['market_index'],
+            request['initial_margin_fraction'],
+            request['margin_mode'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_update_leverage() failed with error: ' + str(error))
+        return [tx_type, tx_info]
+
+    def lighter_create_auth_token(self, signer, request):
+        auth, error = decode_auth(signer.CreateAuthToken(
+            request['deadline'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_create_auth_token() failed with error: ' + str(error))
+        return auth
+
+    def lighter_sign_update_margin(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignUpdateMargin(
+            request['market_index'],
+            request['usdc_amount'],
+            request['direction'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_update_margin() failed with error: ' + str(error))
+        return [tx_type, tx_info]
+
+    def lighter_sign_approve_integrator(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignApproveIntegrator(
+            int(request['integrator_account_index']),
+            int(request['integrator_taker_fee']),
+            int(request['integrator_maker_fee']),
+            int(request['integrator_taker_fee']),
+            int(request['integrator_maker_fee']),
+            request['approval_expiry'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_approve_integrator() failed with error: ' + str(error))
+        return [tx_type, tx_info, message_to_sign]
+
+    def lighter_generate_api_key(self, signer):
+        privateKey, publicKey, error = decode_api_key(signer.GenerateAPIKey())
+        if error:
+            raise Exception('lighter_generate_api_key() failed with error: ' + str(error))
+        return [privateKey, publicKey]
+
+    def lighter_sign_change_pubkey(self, signer, request):
+        tx_type, tx_info, tx_hash, message_to_sign, error = decode_tx_info(signer.SignChangePubKey(
+            request['pubkey'],
+            True,
+            request['nonce'],
+            request['api_key_index'],
+            request['account_index'],
+        ))
+        if error:
+            raise Exception('lighter_sign_change_pubkey() failed with error: ' + str(error))
+        return [tx_type, tx_info, message_to_sign]
+
     # ########################################################################
     # ########################################################################
     # ########################################################################
@@ -2257,15 +2548,16 @@ class Exchange(object):
 
     def describe(self) -> Any:
         return {
-            'id': None,
-            'name': None,
-            'countries': None,
-            'enableRateLimit': True,
-            'rateLimit': 2000,  # milliseconds = seconds * 1000
+            'id': self.id,
+            'name': self.name,
+            'countries': self.countries,
+            'enableRateLimit': self.enableRateLimit,
+            'rateLimit': self.rateLimit,  # milliseconds = seconds * 1000
+            'rateLimiterAlgorithm': self.rateLimiterAlgorithm,
             'timeout': self.timeout,  # milliseconds = seconds * 1000
-            'certified': False,  # if certified by the CCXT dev team
-            'pro': False,  # if it is integrated with CCXT Pro for WebSocket support
-            'alias': False,  # whether self exchange is an alias to another exchange
+            'certified': self.certified,  # if certified by the CCXT dev team
+            'pro': self.pro,  # if it is integrated with CCXT Pro for WebSocket support
+            'alias': self.alias,  # whether self exchange is an alias to another exchange
             'dex': False,
             'has': {
                 'publicAPI': True,
@@ -2511,9 +2803,12 @@ class Exchange(object):
             'urls': {
                 'logo': None,
                 'api': None,
+                'test': None,
                 'www': None,
                 'doc': None,
+                'api_management': None,
                 'fees': None,
+                'referral': None,
             },
             'api': None,
             'requiredCredentials': {
@@ -2550,6 +2845,7 @@ class Exchange(object):
                 'updated': None,
                 'eta': None,
                 'url': None,
+                'info': None,
             },
             'exceptions': None,
             'httpExceptions': {
@@ -2633,7 +2929,7 @@ class Exchange(object):
         value = self.safe_value_n(dictionaryOrList, keys, defaultValue)
         if value is None:
             return defaultValue
-        if isinstance(value, dict):
+        if self.is_dictionary(value):
             return value
         return defaultValue
 
@@ -2646,7 +2942,7 @@ class Exchange(object):
         value = self.safe_value(dictionary, key, defaultValue)
         if value is None:
             return defaultValue
-        if isinstance(value, dict):
+        if self.is_dictionary(value):
             return value
         return defaultValue
 
@@ -2670,6 +2966,9 @@ class Exchange(object):
         if isinstance(value, list):
             return value
         return defaultValue
+
+    def is_dictionary(self, value: Any):
+        return(value is not None) and isinstance(value, dict)
 
     def safe_list_2(self, dictionaryOrList, key1: IndexType, key2: str, defaultValue: List[Any] = None):
         """
@@ -3278,6 +3577,9 @@ class Exchange(object):
         res = self.parse_to_numeric((value % 1))
         return res == 0
 
+    def is_empty_string(self, value):
+        return not self.value_is_defined(value) or value == ''
+
     def safe_number_omit_zero(self, obj: object, key: IndexType, defaultValue: Num = None):
         value = self.safe_string(obj, key)
         final = self.parse_number(self.omit_zero(value))
@@ -3403,7 +3705,7 @@ class Exchange(object):
         """
         self method is a very deterministic to help users to know what feature is supported by the exchange
         :param str [symbol]: unified symbol
-        :param str [methodName]: view currently supported methods: https://docs.ccxt.com/#/README?id=features
+        :param str [methodName]: view currently supported methods: https://docs.ccxt.com/README?id=features
         :param str [paramName]: unified param value, like: `triggerPrice`, `stopLoss.triggerPrice`(check docs for supported param names)
         :param dict [defaultValue]: return default value if no result found
         :returns dict: returns feature value
@@ -3416,7 +3718,7 @@ class Exchange(object):
         self method is a very deterministic to help users to know what feature is supported by the exchange
         :param str [marketType]: supported only: "spot", "swap", "future"
         :param str [subType]: supported only: "linear", "inverse"
-        :param str [methodName]: view currently supported methods: https://docs.ccxt.com/#/README?id=features
+        :param str [methodName]: view currently supported methods: https://docs.ccxt.com/README?id=features
         :param str [paramName]: unified param value(check docs for supported param names)
         :param dict [defaultValue]: return default value if no result found
         :returns dict: returns feature value
@@ -4282,6 +4584,9 @@ class Exchange(object):
                 reversed[value] = key
         return reversed
 
+    def string_to_base16(self, str):
+        return '0x' + self.binary_to_base16(self.base64_to_binary(self.string_to_base64(str)))
+
     def reduce_fees_by_currency(self, fees):
         #
         # self function takes a list of fee structures having the following format
@@ -4462,6 +4767,12 @@ class Exchange(object):
         if self.has['fetchTrades']:
             message = '. If you want to build OHLCV candles from trade executions data, visit https://github.com/ccxt/ccxt/tree/master/examples/ and see "build-ohlcv-bars" file'
         raise NotSupported(self.id + ' fetchOHLCV() is not supported yet' + message)
+
+    def fetch_spot_ohlcv(self, symbol: str, timeframe: str = '1m', since: Int = None, limit: Int = None, params={}):
+        raise NotSupported(self.id + ' fetchSpotOHLCV() is not supported yet')
+
+    def fetch_contract_ohlcv(self, symbol: str, timeframe: str = '1m', since: Int = None, limit: Int = None, params={}):
+        raise NotSupported(self.id + ' fetchContractOHLCV() is not supported yet')
 
     def fetch_ohlcv_ws(self, symbol: str, timeframe: str = '1m', since: Int = None, limit: Int = None, params={}):
         message = ''
@@ -5073,6 +5384,24 @@ class Exchange(object):
             return self.index_by(results, key)
         return results
 
+    def filter_out_by_array(self, objects, key: IndexType, values=None, indexed=True):
+        objects = self.to_array(objects)
+        # return all of them if no values were passed
+        if values is None or not values:
+            # return self.index_by(objects, key) if indexed else objects
+            if indexed:
+                return self.index_by(objects, key)
+            else:
+                return objects
+        results = []
+        for i in range(0, len(objects)):
+            if not self.in_array(objects[i][key], values):
+                results.append(objects[i])
+        # return self.index_by(results, key) if indexed else results
+        if indexed:
+            return self.index_by(results, key)
+        return results
+
     def fetch2(self, path, api: Any = 'public', method='GET', params={}, headers: Any = None, body: Any = None, config={}):
         if self.enableRateLimit:
             cost = self.calculate_rate_limiter_cost(api, method, path, params, config)
@@ -5088,13 +5417,8 @@ class Exchange(object):
         self.last_request_url = request['url']
         for i in range(0, retries + 1):
             try:
-                requestUrl: str = request['url']
-                if requestUrl.find('exchange-broker') >= 0:
-                    self.log('[cexc_log]: Request: ' + self.json(request))
-                response = self.fetch(request['url'], request['method'], request['headers'], request['body'])
-                return response
+                return self.fetch(request['url'], request['method'], request['headers'], request['body'])
             except Exception as e:
-                self.log('[cexc_log]: Caught error on attempt ' + (i + str(1)))
                 if isinstance(e, OperationFailed):
                     if i < retries:
                         if self.verbose:
@@ -5190,7 +5514,8 @@ class Exchange(object):
         return self.create_order(symbol, type, side, amount, price, params)
 
     def edit_order_with_client_order_id(self, clientOrderId: str, symbol: str, type: OrderType, side: OrderSide, amount: Num = None, price: Num = None, params={}):
-        return self.edit_order('', symbol, type, side, amount, price, self.extend({'clientOrderId': clientOrderId}, params))
+        extendedParams = self.extend(params, {'clientOrderId': clientOrderId})
+        return self.edit_order('', symbol, type, side, amount, price, extendedParams)
 
     def edit_order_ws(self, id: str, symbol: str, type: OrderType, side: OrderSide, amount: Num = None, price: Num = None, params={}):
         self.cancel_order_ws(id, symbol)
@@ -5583,11 +5908,17 @@ class Exchange(object):
     def fetch_tickers(self, symbols: Strings = None, params={}):
         raise NotSupported(self.id + ' fetchTickers() is not supported yet')
 
+    def fetch_spot_tickers(self, symbols: Strings = None, params={}):
+        raise NotSupported(self.id + ' fetchSpotTickers() is not supported yet')
+
+    def fetch_contract_tickers(self, symbols: Strings = None, params={}):
+        raise NotSupported(self.id + ' fetchContractTickers() is not supported yet')
+
     def fetch_mark_prices(self, symbols: Strings = None, params={}):
         raise NotSupported(self.id + ' fetchMarkPrices() is not supported yet')
 
     def fetch_tickers_ws(self, symbols: Strings = None, params={}):
-        raise NotSupported(self.id + ' fetchTickers() is not supported yet')
+        raise NotSupported(self.id + ' fetchTickersWs() is not supported yet')
 
     def fetch_order_books(self, symbols: Strings = None, limit: Int = None, params={}):
         raise NotSupported(self.id + ' fetchOrderBooks() is not supported yet')
@@ -5820,7 +6151,7 @@ class Exchange(object):
         """
         if triggerPrice is None:
             raise ArgumentsRequired(self.id + ' createTriggerOrder() requires a triggerPrice argument')
-        params['triggerPrice'] = triggerPrice
+        params = self.extend(params, {'triggerPrice': triggerPrice})
         if self.has['createTriggerOrder']:
             return self.create_order(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createTriggerOrder() is not supported yet')
@@ -5839,7 +6170,7 @@ class Exchange(object):
         """
         if triggerPrice is None:
             raise ArgumentsRequired(self.id + ' createTriggerOrderWs() requires a triggerPrice argument')
-        params['triggerPrice'] = triggerPrice
+        params = self.extend(params, {'triggerPrice': triggerPrice})
         if self.has['createTriggerOrderWs']:
             return self.create_order_ws(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createTriggerOrderWs() is not supported yet')
@@ -5858,7 +6189,7 @@ class Exchange(object):
         """
         if stopLossPrice is None:
             raise ArgumentsRequired(self.id + ' createStopLossOrder() requires a stopLossPrice argument')
-        params['stopLossPrice'] = stopLossPrice
+        params = self.extend(params, {'stopLossPrice': stopLossPrice})
         if self.has['createStopLossOrder']:
             return self.create_order(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createStopLossOrder() is not supported yet')
@@ -5877,7 +6208,7 @@ class Exchange(object):
         """
         if stopLossPrice is None:
             raise ArgumentsRequired(self.id + ' createStopLossOrderWs() requires a stopLossPrice argument')
-        params['stopLossPrice'] = stopLossPrice
+        params = self.extend(params, {'stopLossPrice': stopLossPrice})
         if self.has['createStopLossOrderWs']:
             return self.create_order_ws(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createStopLossOrderWs() is not supported yet')
@@ -5896,7 +6227,7 @@ class Exchange(object):
         """
         if takeProfitPrice is None:
             raise ArgumentsRequired(self.id + ' createTakeProfitOrder() requires a takeProfitPrice argument')
-        params['takeProfitPrice'] = takeProfitPrice
+        params = self.extend(params, {'takeProfitPrice': takeProfitPrice})
         if self.has['createTakeProfitOrder']:
             return self.create_order(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createTakeProfitOrder() is not supported yet')
@@ -5915,7 +6246,7 @@ class Exchange(object):
         """
         if takeProfitPrice is None:
             raise ArgumentsRequired(self.id + ' createTakeProfitOrderWs() requires a takeProfitPrice argument')
-        params['takeProfitPrice'] = takeProfitPrice
+        params = self.extend(params, {'takeProfitPrice': takeProfitPrice})
         if self.has['createTakeProfitOrderWs']:
             return self.create_order_ws(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createTakeProfitOrderWs() is not supported yet')
@@ -6013,6 +6344,12 @@ class Exchange(object):
     def create_orders(self, orders: List[OrderRequest], params={}):
         raise NotSupported(self.id + ' createOrders() is not supported yet')
 
+    def create_spot_orders(self, orders: List[OrderRequest], params={}):
+        raise NotSupported(self.id + ' createSpotOrders() is not supported yet')
+
+    def create_contract_orders(self, orders: List[OrderRequest], params={}):
+        raise NotSupported(self.id + ' createContractOrders() is not supported yet')
+
     def edit_orders(self, orders: List[OrderRequest], params={}):
         raise NotSupported(self.id + ' editOrders() is not supported yet')
 
@@ -6021,6 +6358,12 @@ class Exchange(object):
 
     def cancel_order(self, id: str, symbol: Str = None, params={}):
         raise NotSupported(self.id + ' cancelOrder() is not supported yet')
+
+    def cancel_spot_order(self, id: str, symbol: Str = None, params={}):
+        raise NotSupported(self.id + ' cancelSpotOrder() is not supported yet')
+
+    def cancel_contract_order(self, id: str, symbol: Str = None, params={}):
+        raise NotSupported(self.id + ' cancelContractOrder() is not supported yet')
 
     def cancel_order_with_client_order_id(self, clientOrderId: str, symbol: Str = None, params={}):
         """
@@ -6055,6 +6398,12 @@ class Exchange(object):
 
     def cancel_all_orders(self, symbol: Str = None, params={}):
         raise NotSupported(self.id + ' cancelAllOrders() is not supported yet')
+
+    def cancel_all_spot_orders(self, symbol: Str = None, params={}):
+        raise NotSupported(self.id + ' cancelAllSpotOrders() is not supported yet')
+
+    def cancel_all_contract_orders(self, symbol: Str = None, params={}):
+        raise NotSupported(self.id + ' cancelAllContractOrders() is not supported yet')
 
     def cancel_all_orders_after(self, timeout: Int, params={}):
         raise NotSupported(self.id + ' cancelAllOrdersAfter() is not supported yet')
@@ -6204,6 +6553,9 @@ class Exchange(object):
         else:
             raise NotSupported(self.id + ' fetchDepositAddress() is not supported yet')
 
+    def fetch_contract_deposit_address(self, code: str, params={}):
+        raise NotSupported(self.id + ' fetchContractDepositAddress() is not supported yet')
+
     def account(self) -> BalanceAccount:
         return {
             'free': None,
@@ -6267,7 +6619,7 @@ class Exchange(object):
         return False
 
     def handle_withdraw_tag_and_params(self, tag, params):
-        if (tag is not None) and (isinstance(tag, dict)):
+        if self.is_dictionary(tag):
             params = self.extend(tag, params)
             tag = None
         if tag is None:
@@ -6316,7 +6668,7 @@ class Exchange(object):
         if cost is None:
             return None
         market = self.market(symbol)
-        return self.decimal_to_precision(cost, TRUNCATE, market['precision']['price'], self.precisionMode, self.paddingMode)
+        return self.decimal_to_precision(cost, TRUNCATE, self.safe_string_2(market['precision'], 'cost', 'price'), self.precisionMode, self.paddingMode)
 
     def price_to_precision(self, symbol: str, price):
         if price is None:
@@ -7814,3 +8166,6 @@ class Exchange(object):
         if ms % second == 0:
             return(ms / second) + 's'
         return ''
+
+    def is_uta_enabled(self, params={}):
+        return False  # stub

@@ -5,9 +5,9 @@ import ccxt "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 func TestPrecisionFromString()  {
-    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]interface{} {
+    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]any {
         "id": "sampleexchange",
-    }, map[string]interface{}{}, exchange)
+    }, map[string]any{}, exchange)
     // Test 1: Scientific notation negative exponent
     Assert(ccxt.IsEqual(exchange.PrecisionFromString("1e-4"), 4))
     // Test 2: Scientific notation uppercase E

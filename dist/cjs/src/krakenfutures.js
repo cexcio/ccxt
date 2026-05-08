@@ -1569,7 +1569,7 @@ class krakenfutures extends krakenfutures$1["default"] {
             request['count'] = limit;
         }
         if (since !== undefined) {
-            request['from'] = since;
+            request['since'] = since;
         }
         const isTrigger = this.safeBool2(params, 'trigger', 'stop', false);
         let response = undefined;
@@ -1586,12 +1586,21 @@ class krakenfutures extends krakenfutures$1["default"] {
             const order = allOrders[i];
             const event = this.safeDict(order, 'event', {});
             const orderPlaced = this.safeDict2(event, 'OrderPlaced', 'OrderTriggerActivated');
+            const orderUpdated = this.safeDict(event, 'OrderUpdated');
             if (orderPlaced !== undefined) {
                 const innerOrder = this.safeDict(orderPlaced, 'order', {});
                 const filled = this.safeString(innerOrder, 'filled');
                 if (filled !== '0') {
                     innerOrder['status'] = 'closed'; // status not available in the response
                     closedOrders.push(innerOrder);
+                }
+            }
+            else if (orderUpdated !== undefined) {
+                const reason = this.safeString(orderUpdated, 'reason');
+                if (reason === 'full_fill') {
+                    const newOrder = this.safeDict(orderUpdated, 'newOrder', {});
+                    newOrder['status'] = 'closed';
+                    closedOrders.push(newOrder);
                 }
             }
         }
@@ -2039,10 +2048,8 @@ class krakenfutures extends krakenfutures$1["default"] {
             //
             const datetime = this.safeString(orderDictFromFetchOrder, 'timestamp');
             const innerStatus = this.safeString(order, 'status');
-            let filledOrder = this.safeString(orderDictFromFetchOrder, 'filled', '0');
-            if ((filledOrder === '0') || (filledOrder === '0.0')) {
-                filledOrder = undefined;
-            }
+            const fetchOrderPriceTriggerOptions = this.safeDict(orderDictFromFetchOrder, 'priceTriggerOptions', {});
+            const fetchOrderTriggerPrice = this.safeString(fetchOrderPriceTriggerOptions, 'triggerPrice');
             return this.safeOrder({
                 'info': order,
                 'id': this.safeString(orderDictFromFetchOrder, 'orderId'),
@@ -2057,12 +2064,13 @@ class krakenfutures extends krakenfutures$1["default"] {
                 'postOnly': undefined,
                 'reduceOnly': this.safeBool(orderDictFromFetchOrder, 'reduceOnly'),
                 'side': this.safeString(orderDictFromFetchOrder, 'side'),
-                'price': this.safeString(orderDictFromFetchOrder, 'limitPrice'),
-                'triggerPrice': undefined,
+                'price': undefined,
+                'triggerPrice': fetchOrderTriggerPrice,
+                'stopPrice': fetchOrderTriggerPrice,
                 'amount': this.safeString(orderDictFromFetchOrder, 'quantity'),
                 'cost': undefined,
                 'average': undefined,
-                'filled': filledOrder,
+                'filled': this.safeString(orderDictFromFetchOrder, 'filled'),
                 'remaining': undefined,
                 'status': this.parseOrderStatus(innerStatus),
                 'fee': undefined,
@@ -2127,13 +2135,11 @@ class krakenfutures extends krakenfutures$1["default"] {
         // but will be fixed below
         let status = this.parseOrderStatus(statusId);
         let isClosed = this.inArray(status, ['canceled', 'rejected', 'closed']);
-        const marketId = this.safeString(details, 'symbol');
+        const marketId = this.safeString2(details, 'symbol', 'tradeable');
         market = this.safeMarket(marketId, market);
+        const symbol = this.safeString(market, 'symbol');
         const timestamp = this.parse8601(this.safeString2(details, 'timestamp', 'receivedTime'));
         const lastUpdateTimestamp = this.parse8601(this.safeString(details, 'lastUpdateTime'));
-        if (price === undefined) {
-            price = this.safeString(details, 'limitPrice');
-        }
         let amount = this.safeString(details, 'quantity');
         let filled = this.safeString2(details, 'filledSize', 'filled', '0.0');
         let remaining = this.safeString(details, 'unfilledSize');
@@ -2196,10 +2202,6 @@ class krakenfutures extends krakenfutures$1["default"] {
         let timeInForce = 'gtc';
         if (type === 'ioc' || this.parseOrderType(type) === 'market') {
             timeInForce = 'ioc';
-        }
-        let symbol = this.safeString(market, 'symbol');
-        if ('tradeable' in details) {
-            symbol = this.safeSymbol(this.safeString(details, 'tradeable'), market);
         }
         const ts = this.safeInteger(details, 'timestamp', timestamp);
         const priceTriggerOptions = this.safeDict(details, 'priceTriggerOptions', {});

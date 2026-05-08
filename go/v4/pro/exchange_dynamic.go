@@ -5,8 +5,12 @@ import ccxt "github.com/cexcio/ccxt/go/v4"
 
 
 
-func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]interface{}) (ccxt.ICoreExchange, bool) {
+func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]any) (ccxt.ICoreExchange, bool) {
     switch exchangeId {
+    case "aftermath":
+        aftermathItf := NewAftermathCore()
+        aftermathItf.Init(exchangeArgs)
+        return aftermathItf, true
     case "alpaca":
         alpacaItf := NewAlpacaCore()
         alpacaItf.Init(exchangeArgs)
@@ -139,10 +143,6 @@ func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]interf
         coinbaseinternationalItf := NewCoinbaseinternationalCore()
         coinbaseinternationalItf.Init(exchangeArgs)
         return coinbaseinternationalItf, true
-    case "coincatch":
-        coincatchItf := NewCoincatchCore()
-        coincatchItf.Init(exchangeArgs)
-        return coincatchItf, true
     case "coincheck":
         coincheckItf := NewCoincheckCore()
         coincheckItf.Init(exchangeArgs)
@@ -163,10 +163,6 @@ func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]interf
         deepcoinItf := NewDeepcoinCore()
         deepcoinItf.Init(exchangeArgs)
         return deepcoinItf, true
-    case "defx":
-        defxItf := NewDefxCore()
-        defxItf.Init(exchangeArgs)
-        return defxItf, true
     case "deribit":
         deribitItf := NewDeribitCore()
         deribitItf.Init(exchangeArgs)
@@ -195,6 +191,10 @@ func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]interf
         geminiItf := NewGeminiCore()
         geminiItf.Init(exchangeArgs)
         return geminiItf, true
+    case "grvt":
+        grvtItf := NewGrvtCore()
+        grvtItf.Init(exchangeArgs)
+        return grvtItf, true
     case "hashkey":
         hashkeyItf := NewHashkeyCore()
         hashkeyItf.Init(exchangeArgs)
@@ -243,6 +243,10 @@ func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]interf
         lbankItf := NewLbankCore()
         lbankItf.Init(exchangeArgs)
         return lbankItf, true
+    case "lighter":
+        lighterItf := NewLighterCore()
+        lighterItf.Init(exchangeArgs)
+        return lighterItf, true
     case "luno":
         lunoItf := NewLunoCore()
         lunoItf.Init(exchangeArgs)
@@ -283,6 +287,10 @@ func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]interf
         p2bItf := NewP2bCore()
         p2bItf.Init(exchangeArgs)
         return p2bItf, true
+    case "pacifica":
+        pacificaItf := NewPacificaCore()
+        pacificaItf.Init(exchangeArgs)
+        return pacificaItf, true
     case "paradex":
         paradexItf := NewParadexCore()
         paradexItf.Init(exchangeArgs)
@@ -303,6 +311,10 @@ func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]interf
         upbitItf := NewUpbitCore()
         upbitItf.Init(exchangeArgs)
         return upbitItf, true
+    case "weex":
+        weexItf := NewWeexCore()
+        weexItf.Init(exchangeArgs)
+        return weexItf, true
     case "whitebit":
         whitebitItf := NewWhitebitCore()
         whitebitItf.Init(exchangeArgs)

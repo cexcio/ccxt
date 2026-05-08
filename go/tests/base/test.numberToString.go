@@ -5,9 +5,9 @@ import ccxt "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 func TestNumberToString()  {
-    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]interface{} {
+    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]any {
         "id": "regirock",
-    }, map[string]interface{}{}, exchange)
+    }, map[string]any{}, exchange)
     // ----------------------------------------------------------------------------
     // numberToString
     Assert(ccxt.IsEqual(exchange.NumberToString(ccxt.OpNeg(7.8e-7)), "-0.00000078"))

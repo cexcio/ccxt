@@ -5,9 +5,9 @@ import "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 
-    func TestFundingRateHistory(exchange ccxt.ICoreExchange, skippedProperties interface{}, method interface{}, entry interface{}, symbol interface{})  {
-        var format interface{} = map[string]interface{} {
-            "info": map[string]interface{} {},
+    func TestFundingRateHistory(exchange ccxt.ICoreExchange, skippedProperties any, method any, entry any, symbol any)  {
+        var format any = map[string]any {
+            "info": map[string]any {},
             "symbol": "BTC/USDT:USDT",
             "timestamp": 1638230400000,
             "datetime": "2021-11-30T00:00:00.000Z",

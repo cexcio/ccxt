@@ -5,6 +5,6 @@ import "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 
-    func TestStatus(exchange ccxt.ICoreExchange, skippedProperties interface{}, method interface{}, entry interface{}, now interface{})  {
+    func TestStatus(exchange ccxt.ICoreExchange, skippedProperties any, method any, entry any, now any)  {
         Assert(true, "testStatus")
     }

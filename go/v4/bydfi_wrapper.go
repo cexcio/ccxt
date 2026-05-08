@@ -6,7 +6,7 @@ type Bydfi struct {
    exchangeTyped *ExchangeTyped
 }
 
-func NewBydfi(userConfig map[string]interface{}) *Bydfi {
+func NewBydfi(userConfig map[string]any) *Bydfi {
    p := NewBydfiCore()
    p.Init(userConfig)
    return &Bydfi{
@@ -31,11 +31,11 @@ func NewBydfiFromCore(core *BydfiCore) *Bydfi {
  * @method
  * @name bydfi#fetchMarkets
  * @description retrieves data on all markets for bydfi
- * @see https://developers.bydfi.com/en/swap/market#fetching-trading-rules-and-pairs
+ * @see https://developers.bydfi.com/en/futures/market#fetching-trading-rules-and-pairs
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func (this *Bydfi) FetchMarkets(params ...interface{}) ([]MarketInterface, error) {
+func (this *Bydfi) FetchMarkets(params ...any) ([]MarketInterface, error) {
     res := <- this.Core.FetchMarkets(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -46,7 +46,7 @@ func (this *Bydfi) FetchMarkets(params ...interface{}) ([]MarketInterface, error
  * @method
  * @name bydfi#fetchOrderBook
  * @description fetches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
- * @see https://developers.bydfi.com/en/swap/market#depth-information
+ * @see https://developers.bydfi.com/en/futures/market#depth-information
  * @param {string} symbol unified symbol of the market to fetch the order book for
  * @param {int} [limit] the maximum amount of order book entries to return, could be 5, 10, 20, 50, 100, 500 or 1000 (default 500)
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -61,12 +61,12 @@ func (this *Bydfi) FetchOrderBook(symbol string, options ...FetchOrderBookOption
         opt(&opts)
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -80,7 +80,7 @@ func (this *Bydfi) FetchOrderBook(symbol string, options ...FetchOrderBookOption
  * @method
  * @name bydfi#fetchTrades
  * @description get the list of most recent trades for a particular symbol
- * @see https://developers.bydfi.com/en/swap/market#recent-trades
+ * @see https://developers.bydfi.com/en/futures/market#recent-trades
  * @param {string} symbol unified symbol of the market to fetch trades for
  * @param {int} [since] timestamp in ms of the earliest trade to fetch
  * @param {int} [limit] the maximum amount of trades to fetch (default 500, max 1000)
@@ -96,17 +96,17 @@ func (this *Bydfi) FetchTrades(symbol string, options ...FetchTradesOptions) ([]
         opt(&opts)
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -120,7 +120,7 @@ func (this *Bydfi) FetchTrades(symbol string, options ...FetchTradesOptions) ([]
  * @method
  * @name bydfi#fetchMyTrades
  * @description fetch all trades made by the user
- * @see https://developers.bydfi.com/en/swap/trade#historical-trades-query
+ * @see https://developers.bydfi.com/en/futures/trade#historical-trades-query
  * @param {string} symbol unified market symbol
  * @param {int} [since] the earliest time in ms to fetch trades for
  * @param {int} [limit] the maximum number of trades structures to retrieve
@@ -139,22 +139,22 @@ func (this *Bydfi) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade, erro
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -168,7 +168,7 @@ func (this *Bydfi) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade, erro
  * @method
  * @name bydfi#fetchOHLCV
  * @description fetches historical candlestick data containing the open, high, low, and close price, and the volume of a market
- * @see https://developers.bydfi.com/en/swap/market#candlestick-data
+ * @see https://developers.bydfi.com/en/futures/market#candlestick-data
  * @param {string} symbol unified symbol of the market to fetch OHLCV data for
  * @param {string} timeframe the length of time each candle represents
  * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -185,22 +185,22 @@ func (this *Bydfi) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) ([]OH
         opt(&opts)
     }
 
-    var timeframe interface{} = nil
+    var timeframe any = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -213,7 +213,7 @@ func (this *Bydfi) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) ([]OH
 /**
  * @method
  * @name bydfi#fetchTickers
- * @see https://developers.bydfi.com/en/swap/market#24hr-price-change-statistics
+ * @see https://developers.bydfi.com/en/futures/market#24hr-price-change-statistics
  * @description fetches price tickers for multiple markets, statistical information calculated over the past 24 hours for each market
  * @param {string[]|undefined} symbols unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -227,12 +227,12 @@ func (this *Bydfi) FetchTickers(options ...FetchTickersOptions) (Tickers, error)
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -246,7 +246,7 @@ func (this *Bydfi) FetchTickers(options ...FetchTickersOptions) (Tickers, error)
  * @method
  * @name bydfi#fetchTicker
  * @description fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
- * @see https://developers.bydfi.com/en/swap/market#24hr-price-change-statistics
+ * @see https://developers.bydfi.com/en/futures/market#24hr-price-change-statistics
  * @param {string} symbol unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
@@ -259,7 +259,7 @@ func (this *Bydfi) FetchTicker(symbol string, options ...FetchTickerOptions) (Ti
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -273,7 +273,7 @@ func (this *Bydfi) FetchTicker(symbol string, options ...FetchTickerOptions) (Ti
  * @method
  * @name bydfi#fetchFundingRate
  * @description fetch the current funding rate
- * @see https://developers.bydfi.com/en/swap/market#recent-funding-rate
+ * @see https://developers.bydfi.com/en/futures/market#recent-funding-rate
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [funding rate structure]{@link https://docs.ccxt.com/?id=funding-rate-structure}
@@ -286,7 +286,7 @@ func (this *Bydfi) FetchFundingRate(symbol string, options ...FetchFundingRateOp
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -300,7 +300,7 @@ func (this *Bydfi) FetchFundingRate(symbol string, options ...FetchFundingRateOp
  * @method
  * @name bydfi#fetchFundingRateHistory
  * @description fetches historical funding rate prices
- * @see https://developers.bydfi.com/en/swap/market#historical-funding-rates
+ * @see https://developers.bydfi.com/en/futures/market#historical-funding-rates
  * @param {string} symbol unified symbol of the market to fetch the funding rate history for
  * @param {int} [since] timestamp in ms of the earliest funding rate to fetch
  * @param {int} [limit] the maximum amount of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-history-structure} to fetch
@@ -316,22 +316,22 @@ func (this *Bydfi) FetchFundingRateHistory(options ...FetchFundingRateHistoryOpt
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -345,7 +345,7 @@ func (this *Bydfi) FetchFundingRateHistory(options ...FetchFundingRateHistoryOpt
  * @method
  * @name bydfi#createOrder
  * @description create a trade order
- * @see https://developers.bydfi.com/en/swap/trade#placing-an-order
+ * @see https://developers.bydfi.com/en/futures/trade#placing-an-order
  * @param {string} symbol unified symbol of the market to create an order in
  * @param {string} type 'market' or 'limit'
  * @param {string} side 'buy' or 'sell'
@@ -374,12 +374,12 @@ func (this *Bydfi) CreateOrder(symbol string, typeVar string, side string, amoun
         opt(&opts)
     }
 
-    var price interface{} = nil
+    var price any = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -393,7 +393,7 @@ func (this *Bydfi) CreateOrder(symbol string, typeVar string, side string, amoun
  * @method
  * @name bydfi#createOrders
  * @description create a list of trade orders
- * @see https://developers.bydfi.com/en/swap/trade#batch-order-placement
+ * @see https://developers.bydfi.com/en/futures/trade#batch-order-placement
  * @param {Array} orders list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.wallet] The unique code of a sub-wallet. W001 is the default wallet and the main wallet code of the contract
@@ -407,7 +407,7 @@ func (this *Bydfi) CreateOrders(orders []OrderRequest, options ...CreateOrdersOp
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -421,7 +421,7 @@ func (this *Bydfi) CreateOrders(orders []OrderRequest, options ...CreateOrdersOp
  * @method
  * @name bydfi#editOrder
  * @description edit a trade order
- * @see https://developers.bydfi.com/en/swap/trade#order-modification
+ * @see https://developers.bydfi.com/en/futures/trade#order-modification
  * @param {string} id order id (mandatory if params.clientOrderId is not provided)
  * @param {string} [symbol] unified symbol of the market to create an order in
  * @param {string} [type] not used by bydfi editOrder
@@ -441,17 +441,17 @@ func (this *Bydfi) EditOrder(id string, symbol string, typeVar string, side stri
         opt(&opts)
     }
 
-    var amount interface{} = nil
+    var amount any = nil
     if opts.Amount != nil {
         amount = *opts.Amount
     }
 
-    var price interface{} = nil
+    var price any = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -465,7 +465,7 @@ func (this *Bydfi) EditOrder(id string, symbol string, typeVar string, side stri
  * @method
  * @name bydfi#editOrders
  * @description edit a list of trade orders
- * @see https://developers.bydfi.com/en/swap/trade#batch-order-modification
+ * @see https://developers.bydfi.com/en/futures/trade#batch-order-modification
  * @param {Array} orders list of orders to edit, each object should contain the parameters required by editOrder, namely id, symbol, amount, price and params
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.wallet] The unique code of a sub-wallet. W001 is the default wallet and the main wallet code of the contract
@@ -479,7 +479,7 @@ func (this *Bydfi) EditOrders(orders []OrderRequest, options ...EditOrdersOption
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -493,7 +493,7 @@ func (this *Bydfi) EditOrders(orders []OrderRequest, options ...EditOrdersOption
  * @method
  * @name bydfi#cancelAllOrders
  * @description cancel all open orders in a market
- * @see https://developers.bydfi.com/en/swap/trade#complete-order-cancellation
+ * @see https://developers.bydfi.com/en/futures/trade#complete-order-cancellation
  * @param {string} symbol unified market symbol of the market to cancel orders in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.wallet] The unique code of a sub-wallet. W001 is the default wallet and the main wallet code of the contract
@@ -507,12 +507,12 @@ func (this *Bydfi) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Order, 
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -526,8 +526,8 @@ func (this *Bydfi) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Order, 
  * @method
  * @name bydfi#fetchOpenOrders
  * @description fetch all unfilled currently open orders
- * @see https://developers.bydfi.com/en/swap/trade#pending-order-query
- * @see https://developers.bydfi.com/en/swap/trade#planned-order-query
+ * @see https://developers.bydfi.com/en/futures/trade#pending-order-query
+ * @see https://developers.bydfi.com/en/futures/trade#planned-order-query
  * @param {string} symbol unified market symbol of the market orders were made in
  * @param {int} [since] the earliest time in ms to fetch orders for
  * @param {int} [limit] the maximum number of order structures to retrieve
@@ -544,22 +544,22 @@ func (this *Bydfi) FetchOpenOrders(options ...FetchOpenOrdersOptions) ([]Order, 
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -573,8 +573,8 @@ func (this *Bydfi) FetchOpenOrders(options ...FetchOpenOrdersOptions) ([]Order, 
  * @method
  * @name bydfi#fetchOpenOrder
  * @description fetch an open order by the id
- * @see https://developers.bydfi.com/en/swap/trade#pending-order-query
- * @see https://developers.bydfi.com/en/swap/trade#planned-order-query
+ * @see https://developers.bydfi.com/en/futures/trade#pending-order-query
+ * @see https://developers.bydfi.com/en/futures/trade#planned-order-query
  * @param {string} id order id (mandatory if params.clientOrderId is not provided)
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -591,12 +591,12 @@ func (this *Bydfi) FetchOpenOrder(id string, options ...FetchOpenOrderOptions) (
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -610,7 +610,7 @@ func (this *Bydfi) FetchOpenOrder(id string, options ...FetchOpenOrderOptions) (
  * @method
  * @name bydfi#fetchCanceledAndClosedOrders
  * @description fetches information on multiple canceled and closed orders made by the user
- * @see https://developers.bydfi.com/en/swap/trade#historical-orders-query
+ * @see https://developers.bydfi.com/en/futures/trade#historical-orders-query
  * @param {string} symbol unified market symbol of the closed orders
  * @param {int} [since] timestamp in ms of the earliest order
  * @param {int} [limit] the max number of closed orders to return
@@ -629,22 +629,22 @@ func (this *Bydfi) FetchCanceledAndClosedOrders(options ...FetchCanceledAndClose
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -658,14 +658,14 @@ func (this *Bydfi) FetchCanceledAndClosedOrders(options ...FetchCanceledAndClose
  * @method
  * @name bydfi#setLeverage
  * @description set the level of leverage for a market
- * @see https://developers.bydfi.com/en/swap/trade#set-leverage-for-single-trading-pair
+ * @see https://developers.bydfi.com/en/futures/trade#set-leverage-for-single-trading-pair
  * @param {float} leverage the rate of leverage
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.wallet] The unique code of a sub-wallet. W001 is the default wallet and the main wallet code of the contract
  * @returns {object} response from the exchange
  */
-func (this *Bydfi) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]interface{}, error) {
+func (this *Bydfi) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]any, error) {
 
     opts := SetLeverageOptionsStruct{}
 
@@ -673,26 +673,26 @@ func (this *Bydfi) SetLeverage(leverage int64, options ...SetLeverageOptions) (m
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetLeverage(leverage, symbol, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
  * @name bydfi#fetchLeverage
  * @description fetch the set leverage for a market
- * @see https://developers.bydfi.com/en/swap/trade#get-leverage-for-single-trading-pair
+ * @see https://developers.bydfi.com/en/futures/trade#get-leverage-for-single-trading-pair
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.wallet] The unique code of a sub-wallet. W001 is the default wallet and the main wallet code of the contract
@@ -706,7 +706,7 @@ func (this *Bydfi) FetchLeverage(symbol string, options ...FetchLeverageOptions)
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -720,7 +720,7 @@ func (this *Bydfi) FetchLeverage(symbol string, options ...FetchLeverageOptions)
  * @method
  * @name bydfi#fetchPositions
  * @description fetch all open positions
- * @see https://developers.bydfi.com/en/swap/trade#positions-query
+ * @see https://developers.bydfi.com/en/futures/trade#positions-query
  * @param {string[]} [symbols] list of unified market symbols
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.contractType] FUTURE or DELIVERY, default is FUTURE
@@ -735,12 +735,12 @@ func (this *Bydfi) FetchPositions(options ...FetchPositionsOptions) ([]Position,
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -754,7 +754,7 @@ func (this *Bydfi) FetchPositions(options ...FetchPositionsOptions) ([]Position,
  * @method
  * @name bydfi#fetchPositionsForSymbol
  * @description fetch open positions for a single market
- * @see https://developers.bydfi.com/en/swap/trade#positions-query
+ * @see https://developers.bydfi.com/en/futures/trade#positions-query
  * @description fetch all open positions for specific symbol
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -769,7 +769,7 @@ func (this *Bydfi) FetchPositionsForSymbol(symbol string, options ...FetchPositi
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -783,7 +783,7 @@ func (this *Bydfi) FetchPositionsForSymbol(symbol string, options ...FetchPositi
  * @method
  * @name bydfi#fetchPositionHistory
  * @description fetches historical positions
- * @see https://developers.bydfi.com/en/swap/trade#query-historical-position-profit-and-loss-records
+ * @see https://developers.bydfi.com/en/futures/trade#query-historical-position-profit-and-loss-records
  * @param {string} symbol a unified market symbol
  * @param {int} [since] timestamp in ms of the earliest position to fetch , params["until"] - since <= 7 days
  * @param {int} [limit] the maximum amount of records to fetch (default 500, max 500)
@@ -801,17 +801,17 @@ func (this *Bydfi) FetchPositionHistory(symbol string, options ...FetchPositionH
         opt(&opts)
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -825,7 +825,7 @@ func (this *Bydfi) FetchPositionHistory(symbol string, options ...FetchPositionH
  * @method
  * @name bydfi#fetchPositionsHistory
  * @description fetches historical positions
- * @see https://developers.bydfi.com/en/swap/trade#query-historical-position-profit-and-loss-records
+ * @see https://developers.bydfi.com/en/futures/trade#query-historical-position-profit-and-loss-records
  * @param {string[]} symbols a list of unified market symbols
  * @param {int} [since] timestamp in ms of the earliest position to fetch , params["until"] - since <= 7 days
  * @param {int} [limit] the maximum amount of records to fetch (default 500, max 500)
@@ -843,22 +843,22 @@ func (this *Bydfi) FetchPositionsHistory(options ...FetchPositionsHistoryOptions
         opt(&opts)
     }
 
-    var symbols interface{} = nil
+    var symbols any = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -872,7 +872,7 @@ func (this *Bydfi) FetchPositionsHistory(options ...FetchPositionsHistoryOptions
  * @method
  * @name bydfi#fetchMarginMode
  * @description fetches the margin mode of a trading pair
- * @see https://developers.bydfi.com/en/swap/user#margin-mode-query
+ * @see https://developers.bydfi.com/en/futures/user#margin-mode-query
  * @param {string} symbol unified symbol of the market to fetch the margin mode for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.contractType] FUTURE or DELIVERY, default is FUTURE
@@ -887,7 +887,7 @@ func (this *Bydfi) FetchMarginMode(symbol string, options ...FetchMarginModeOpti
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -901,7 +901,7 @@ func (this *Bydfi) FetchMarginMode(symbol string, options ...FetchMarginModeOpti
  * @method
  * @name bydfi#setMarginMode
  * @description set margin mode to 'cross' or 'isolated'
- * @see https://developers.bydfi.com/en/swap/user#change-margin-type-cross-margin
+ * @see https://developers.bydfi.com/en/futures/user#change-margin-type-cross-margin
  * @param {string} marginMode 'cross' or 'isolated'
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -909,7 +909,7 @@ func (this *Bydfi) FetchMarginMode(symbol string, options ...FetchMarginModeOpti
  * @param {string} [params.wallet] The unique code of a sub-wallet. W001 is the default wallet and the main wallet code of the contract
  * @returns {object} response from the exchange
  */
-func (this *Bydfi) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]interface{}, error) {
+func (this *Bydfi) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]any, error) {
 
     opts := SetMarginModeOptionsStruct{}
 
@@ -917,26 +917,26 @@ func (this *Bydfi) SetMarginMode(marginMode string, options ...SetMarginModeOpti
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetMarginMode(marginMode, symbol, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
  * @name bydfi#setPositionMode
  * @description set hedged to true or false for a market, hedged for bydfi is set identically for all markets with same settle currency
- * @see https://developers.bydfi.com/en/swap/user#change-position-mode-dual
+ * @see https://developers.bydfi.com/en/futures/user#change-position-mode-dual
  * @param {bool} hedged set to true to use dualSidePosition
  * @param {string} [symbol] not used by bydfi setPositionMode ()
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -945,7 +945,7 @@ func (this *Bydfi) SetMarginMode(marginMode string, options ...SetMarginModeOpti
  * @param {string} [params.settleCoin] The settlement currency - USDT or USDC or USD (default is USDT)
  * @returns {object} response from the exchange
  */
-func (this *Bydfi) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]interface{}, error) {
+func (this *Bydfi) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]any, error) {
 
     opts := SetPositionModeOptionsStruct{}
 
@@ -953,26 +953,26 @@ func (this *Bydfi) SetPositionMode(hedged bool, options ...SetPositionModeOption
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetPositionMode(hedged, symbol, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
  * @name bydfi#fetchPositionMode
  * @description fetchs the position mode, hedged or one way, hedged for bydfi is set identically for all markets with same settle currency
- * @see https://developers.bydfi.com/en/swap/user#get-position-mode
+ * @see https://developers.bydfi.com/en/futures/user#get-position-mode
  * @param {string} [symbol] unified symbol of the market to fetch the order book for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.contractType] FUTURE or DELIVERY, default is FUTURE
@@ -980,7 +980,7 @@ func (this *Bydfi) SetPositionMode(hedged bool, options ...SetPositionModeOption
  * @param {string} [params.settleCoin] The settlement currency - USDT or USDC or USD (default is USDT or settle currency of the market if market is provided)
  * @returns {object} an object detailing whether the market is in hedged or one-way mode
  */
-func (this *Bydfi) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]interface{}, error) {
+func (this *Bydfi) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]any, error) {
 
     opts := FetchPositionModeOptionsStruct{}
 
@@ -988,34 +988,34 @@ func (this *Bydfi) FetchPositionMode(options ...FetchPositionModeOptions) (map[s
         opt(&opts)
     }
 
-    var symbol interface{} = nil
+    var symbol any = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchPositionMode(symbol, params)
     if IsError(res) {
-        return map[string]interface{}{}, CreateReturnError(res)
+        return map[string]any{}, CreateReturnError(res)
     }
-    return res.(map[string]interface{}), nil
+    return res.(map[string]any), nil
 }
 /**
  * @method
  * @name bydfi#fetchBalance
  * @description query for balance and get the amount of funds available for trading or funds locked in orders
  * @see https://developers.bydfi.com/en/account#asset-inquiry
- * @see https://developers.bydfi.com/en/swap/user#asset-query
+ * @see https://developers.bydfi.com/en/futures/user#asset-query
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @param {string} [params.accountType] the type of account to fetch the balance for, either 'spot' or 'swap'  or 'funding' (default is 'spot')
+ * @param {string} [params.account] the type of account to fetch the balance for, either 'SPOT' or 'UMFUTURE'  or 'CMFUTURE'  or 'COPY'  or 'GRID'  or 'FUNDING' (default is 'SPOT')
  * @param {string} [params.wallet] *swap only* The unique code of a sub-wallet. W001 is the default wallet and the main wallet code of the contract
  * @param {string} [params.asset] currency id for the balance to fetch
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func (this *Bydfi) FetchBalance(params ...interface{}) (Balances, error) {
+func (this *Bydfi) FetchBalance(params ...any) (Balances, error) {
     res := <- this.Core.FetchBalance(params...)
     if IsError(res) {
         return Balances{}, CreateReturnError(res)
@@ -1030,7 +1030,7 @@ func (this *Bydfi) Transfer(code string, amount float64, fromAccount string, toA
         opt(&opts)
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1060,22 +1060,22 @@ func (this *Bydfi) FetchTransfers(options ...FetchTransfersOptions) ([]TransferE
         opt(&opts)
     }
 
-    var code interface{} = nil
+    var code any = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1104,22 +1104,22 @@ func (this *Bydfi) FetchDeposits(options ...FetchDepositsOptions) ([]Transaction
         opt(&opts)
     }
 
-    var code interface{} = nil
+    var code any = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1148,22 +1148,22 @@ func (this *Bydfi) FetchWithdrawals(options ...FetchWithdrawalsOptions) ([]Trans
         opt(&opts)
     }
 
-    var code interface{} = nil
+    var code any = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since interface{} = nil
+    var since any = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit interface{} = nil
+    var limit any = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params interface{} = nil
+    var params any = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1173,19 +1173,19 @@ func (this *Bydfi) FetchWithdrawals(options ...FetchWithdrawalsOptions) ([]Trans
     }
     return NewTransactionArray(res), nil
 }
-func (this *Bydfi) FetchTransactionsHelper(typeVar interface{}, code interface{}, since interface{}, limit interface{}, params interface{}) ([]map[string]interface{}, error) {
+func (this *Bydfi) FetchTransactionsHelper(typeVar any, code any, since any, limit any, params any) ([]map[string]any, error) {
     res := <- this.Core.FetchTransactionsHelper(typeVar, code, since, limit, params)
     if IsError(res) {
         return nil, CreateReturnError(res)
     }
-    return res.([]map[string]interface{}), nil
+    return res.([]map[string]any), nil
 }
 // missing typed methods from base
 //nolint
-func (this *Bydfi) LoadMarkets(params ...interface{}) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
+func (this *Bydfi) LoadMarkets(params ...any) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
 func (this *Bydfi) CancelOrders(ids []string, options ...CancelOrdersOptions) ([]Order, error) {return this.exchangeTyped.CancelOrders(ids, options...)}
 func (this *Bydfi) CancelOrdersWithClientOrderIds(clientOrderIds []string, options ...CancelOrdersWithClientOrderIdsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersWithClientOrderIds(clientOrderIds, options...)}
-func (this *Bydfi) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]interface{}, error) {return this.exchangeTyped.CancelAllOrdersAfter(timeout, options...)}
+func (this *Bydfi) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]any, error) {return this.exchangeTyped.CancelAllOrdersAfter(timeout, options...)}
 func (this *Bydfi) CancelOrder(id string, options ...CancelOrderOptions) (Order, error) {return this.exchangeTyped.CancelOrder(id, options...)}
 func (this *Bydfi) CancelOrderWithClientOrderId(clientOrderId string, options ...CancelOrderWithClientOrderIdOptions) (Order, error) {return this.exchangeTyped.CancelOrderWithClientOrderId(clientOrderId, options...)}
 func (this *Bydfi) CancelOrdersForSymbols(orders []CancellationRequest, options ...CancelOrdersForSymbolsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersForSymbols(orders, options...)}
@@ -1215,26 +1215,26 @@ func (this *Bydfi) EditLimitBuyOrder(id string, symbol string, amount float64, o
 func (this *Bydfi) EditLimitOrder(id string, symbol string, side string, amount float64, options ...EditLimitOrderOptions) (Order, error) {return this.exchangeTyped.EditLimitOrder(id, symbol, side, amount, options...)}
 func (this *Bydfi) EditLimitSellOrder(id string, symbol string, amount float64, options ...EditLimitSellOrderOptions) (Order, error) {return this.exchangeTyped.EditLimitSellOrder(id, symbol, amount, options...)}
 func (this *Bydfi) EditOrderWithClientOrderId(clientOrderId string, symbol string, typeVar string, side string, options ...EditOrderWithClientOrderIdOptions) (Order, error) {return this.exchangeTyped.EditOrderWithClientOrderId(clientOrderId, symbol, typeVar, side, options...)}
-func (this *Bydfi) FetchAccounts(params ...interface{}) ([]Account, error) {return this.exchangeTyped.FetchAccounts(params...)}
+func (this *Bydfi) FetchAccounts(params ...any) ([]Account, error) {return this.exchangeTyped.FetchAccounts(params...)}
 func (this *Bydfi) FetchAllGreeks(options ...FetchAllGreeksOptions) ([]Greeks, error) {return this.exchangeTyped.FetchAllGreeks(options...)}
 func (this *Bydfi) FetchBidsAsks(options ...FetchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.FetchBidsAsks(options...)}
 func (this *Bydfi) FetchBorrowInterest(options ...FetchBorrowInterestOptions) ([]BorrowInterest, error) {return this.exchangeTyped.FetchBorrowInterest(options...)}
-func (this *Bydfi) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
+func (this *Bydfi) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]any, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
 func (this *Bydfi) FetchClosedOrders(options ...FetchClosedOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchClosedOrders(options...)}
-func (this *Bydfi) FetchConvertCurrencies(params ...interface{}) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
+func (this *Bydfi) FetchConvertCurrencies(params ...any) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
 func (this *Bydfi) FetchConvertQuote(fromCode string, toCode string, options ...FetchConvertQuoteOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertQuote(fromCode, toCode, options...)}
 func (this *Bydfi) FetchConvertTrade(id string, options ...FetchConvertTradeOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertTrade(id, options...)}
 func (this *Bydfi) FetchConvertTradeHistory(options ...FetchConvertTradeHistoryOptions) ([]Conversion, error) {return this.exchangeTyped.FetchConvertTradeHistory(options...)}
 func (this *Bydfi) FetchCrossBorrowRate(code string, options ...FetchCrossBorrowRateOptions) (CrossBorrowRate, error) {return this.exchangeTyped.FetchCrossBorrowRate(code, options...)}
-func (this *Bydfi) FetchCrossBorrowRates(params ...interface{}) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
-func (this *Bydfi) FetchCurrencies(params ...interface{}) (Currencies, error) {return this.exchangeTyped.FetchCurrencies(params...)}
+func (this *Bydfi) FetchCrossBorrowRates(params ...any) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
+func (this *Bydfi) FetchCurrencies(params ...any) (Currencies, error) {return this.exchangeTyped.FetchCurrencies(params...)}
 func (this *Bydfi) FetchDepositAddress(code string, options ...FetchDepositAddressOptions) (DepositAddress, error) {return this.exchangeTyped.FetchDepositAddress(code, options...)}
 func (this *Bydfi) FetchDepositAddresses(options ...FetchDepositAddressesOptions) ([]DepositAddress, error) {return this.exchangeTyped.FetchDepositAddresses(options...)}
 func (this *Bydfi) FetchDepositAddressesByNetwork(code string, options ...FetchDepositAddressesByNetworkOptions) ([]DepositAddress, error) {return this.exchangeTyped.FetchDepositAddressesByNetwork(code, options...)}
 func (this *Bydfi) FetchDepositsWithdrawals(options ...FetchDepositsWithdrawalsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchDepositsWithdrawals(options...)}
-func (this *Bydfi) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositWithdrawFee(code, options...)}
-func (this *Bydfi) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositWithdrawFees(options...)}
-func (this *Bydfi) FetchFreeBalance(params ...interface{}) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
+func (this *Bydfi) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositWithdrawFee(code, options...)}
+func (this *Bydfi) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositWithdrawFees(options...)}
+func (this *Bydfi) FetchFreeBalance(params ...any) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
 func (this *Bydfi) FetchFundingHistory(options ...FetchFundingHistoryOptions) ([]FundingHistory, error) {return this.exchangeTyped.FetchFundingHistory(options...)}
 func (this *Bydfi) FetchFundingInterval(symbol string, options ...FetchFundingIntervalOptions) (FundingRate, error) {return this.exchangeTyped.FetchFundingInterval(symbol, options...)}
 func (this *Bydfi) FetchFundingIntervals(options ...FetchFundingIntervalsOptions) (FundingRates, error) {return this.exchangeTyped.FetchFundingIntervals(options...)}
@@ -1242,7 +1242,7 @@ func (this *Bydfi) FetchFundingRates(options ...FetchFundingRatesOptions) (Fundi
 func (this *Bydfi) FetchGreeks(symbol string, options ...FetchGreeksOptions) (Greeks, error) {return this.exchangeTyped.FetchGreeks(symbol, options...)}
 func (this *Bydfi) FetchIndexOHLCV(symbol string, options ...FetchIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchIndexOHLCV(symbol, options...)}
 func (this *Bydfi) FetchIsolatedBorrowRate(symbol string, options ...FetchIsolatedBorrowRateOptions) (IsolatedBorrowRate, error) {return this.exchangeTyped.FetchIsolatedBorrowRate(symbol, options...)}
-func (this *Bydfi) FetchIsolatedBorrowRates(params ...interface{}) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
+func (this *Bydfi) FetchIsolatedBorrowRates(params ...any) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
 func (this *Bydfi) FetchLastPrices(options ...FetchLastPricesOptions) (LastPrices, error) {return this.exchangeTyped.FetchLastPrices(options...)}
 func (this *Bydfi) FetchLedger(options ...FetchLedgerOptions) ([]LedgerEntry, error) {return this.exchangeTyped.FetchLedger(options...)}
 func (this *Bydfi) FetchLedgerEntry(id string, options ...FetchLedgerEntryOptions) (LedgerEntry, error) {return this.exchangeTyped.FetchLedgerEntry(id, options...)}
@@ -1269,17 +1269,17 @@ func (this *Bydfi) FetchOrderBooks(options ...FetchOrderBooksOptions) (OrderBook
 func (this *Bydfi) FetchOrders(options ...FetchOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchOrders(options...)}
 func (this *Bydfi) FetchOrderStatus(id string, options ...FetchOrderStatusOptions) (string, error) {return this.exchangeTyped.FetchOrderStatus(id, options...)}
 func (this *Bydfi) FetchOrderTrades(id string, options ...FetchOrderTradesOptions) ([]Trade, error) {return this.exchangeTyped.FetchOrderTrades(id, options...)}
-func (this *Bydfi) FetchPaymentMethods(params ...interface{}) (map[string]interface{}, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
+func (this *Bydfi) FetchPaymentMethods(params ...any) (map[string]any, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
 func (this *Bydfi) FetchPosition(symbol string, options ...FetchPositionOptions) (Position, error) {return this.exchangeTyped.FetchPosition(symbol, options...)}
 func (this *Bydfi) FetchPositionsRisk(options ...FetchPositionsRiskOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsRisk(options...)}
 func (this *Bydfi) FetchPremiumIndexOHLCV(symbol string, options ...FetchPremiumIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchPremiumIndexOHLCV(symbol, options...)}
-func (this *Bydfi) FetchStatus(params ...interface{}) (map[string]interface{}, error) {return this.exchangeTyped.FetchStatus(params...)}
-func (this *Bydfi) FetchTime(params ...interface{}) ( int64, error) {return this.exchangeTyped.FetchTime(params...)}
+func (this *Bydfi) FetchStatus(params ...any) (map[string]any, error) {return this.exchangeTyped.FetchStatus(params...)}
+func (this *Bydfi) FetchTime(params ...any) ( int64, error) {return this.exchangeTyped.FetchTime(params...)}
 func (this *Bydfi) FetchTradingFee(symbol string, options ...FetchTradingFeeOptions) (TradingFeeInterface, error) {return this.exchangeTyped.FetchTradingFee(symbol, options...)}
-func (this *Bydfi) FetchTradingFees(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
-func (this *Bydfi) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
-func (this *Bydfi) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFee(code, options...)}
-func (this *Bydfi) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
+func (this *Bydfi) FetchTradingFees(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
+func (this *Bydfi) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]any, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
+func (this *Bydfi) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFee(code, options...)}
+func (this *Bydfi) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
 func (this *Bydfi) FetchTransactions(options ...FetchTransactionsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchTransactions(options...)}
 func (this *Bydfi) FetchTransfer(id string, options ...FetchTransferOptions) (TransferEntry, error) {return this.exchangeTyped.FetchTransfer(id, options...)}
 func (this *Bydfi) SetMargin(symbol string, amount float64, options ...SetMarginOptions) (MarginModification, error) {return this.exchangeTyped.SetMargin(symbol, amount, options...)}
@@ -1308,9 +1308,9 @@ func (this *Bydfi) CreateTrailingAmountOrderWs(symbol string, typeVar string, si
 func (this *Bydfi) CreateTrailingPercentOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTrailingPercentOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTrailingPercentOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Bydfi) CreateTriggerOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTriggerOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTriggerOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Bydfi) EditOrderWs(id string, symbol string, typeVar string, side string, options ...EditOrderWsOptions) (Order, error) {return this.exchangeTyped.EditOrderWs(id, symbol, typeVar, side, options...)}
-func (this *Bydfi) FetchBalanceWs(params ...interface{}) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
+func (this *Bydfi) FetchBalanceWs(params ...any) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
 func (this *Bydfi) FetchClosedOrdersWs(options ...FetchClosedOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchClosedOrdersWs(options...)}
-func (this *Bydfi) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
+func (this *Bydfi) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
 func (this *Bydfi) FetchMyTradesWs(options ...FetchMyTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchMyTradesWs(options...)}
 func (this *Bydfi) FetchOHLCVWs(symbol string, options ...FetchOHLCVWsOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchOHLCVWs(symbol, options...)}
 func (this *Bydfi) FetchOpenOrdersWs(options ...FetchOpenOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchOpenOrdersWs(options...)}
@@ -1324,20 +1324,20 @@ func (this *Bydfi) FetchPositionWs(symbol string, options ...FetchPositionWsOpti
 func (this *Bydfi) FetchTickersWs(options ...FetchTickersWsOptions) (Tickers, error) {return this.exchangeTyped.FetchTickersWs(options...)}
 func (this *Bydfi) FetchTickerWs(symbol string, options ...FetchTickerWsOptions) (Ticker, error) {return this.exchangeTyped.FetchTickerWs(symbol, options...)}
 func (this *Bydfi) FetchTradesWs(symbol string, options ...FetchTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchTradesWs(symbol, options...)}
-func (this *Bydfi) FetchTradingFeesWs(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
-func (this *Bydfi) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
-func (this *Bydfi) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (interface{}, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
-func (this *Bydfi) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
-func (this *Bydfi) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
-func (this *Bydfi) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
-func (this *Bydfi) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
-func (this *Bydfi) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
-func (this *Bydfi) UnWatchOrders(options ...UnWatchOrdersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrders(options...)}
-func (this *Bydfi) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
-func (this *Bydfi) UnWatchTickers(options ...UnWatchTickersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTickers(options...)}
-func (this *Bydfi) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
-func (this *Bydfi) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
-func (this *Bydfi) WatchBalance(params ...interface{}) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
+func (this *Bydfi) FetchTradingFeesWs(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
+func (this *Bydfi) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
+func (this *Bydfi) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (any, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
+func (this *Bydfi) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (any, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
+func (this *Bydfi) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
+func (this *Bydfi) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
+func (this *Bydfi) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
+func (this *Bydfi) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
+func (this *Bydfi) UnWatchOrders(options ...UnWatchOrdersOptions) (any, error) {return this.exchangeTyped.UnWatchOrders(options...)}
+func (this *Bydfi) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (any, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
+func (this *Bydfi) UnWatchTickers(options ...UnWatchTickersOptions) (any, error) {return this.exchangeTyped.UnWatchTickers(options...)}
+func (this *Bydfi) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (any, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
+func (this *Bydfi) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
+func (this *Bydfi) WatchBalance(params ...any) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
 func (this *Bydfi) WatchBidsAsks(options ...WatchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.WatchBidsAsks(options...)}
 func (this *Bydfi) WatchLiquidations(symbol string, options ...WatchLiquidationsOptions) ([]Liquidation, error) {return this.exchangeTyped.WatchLiquidations(symbol, options...)}
 func (this *Bydfi) WatchMarkPrice(symbol string, options ...WatchMarkPriceOptions) (Ticker, error) {return this.exchangeTyped.WatchMarkPrice(symbol, options...)}

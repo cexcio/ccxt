@@ -5,12 +5,12 @@ import "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 
-    func TestFetchFundingRateHistory(exchange ccxt.ICoreExchange, skippedProperties interface{}, symbol interface{}) <- chan interface{} {
-                ch := make(chan interface{})
-                go func() interface{} {
+    func TestFetchFundingRateHistory(exchange ccxt.ICoreExchange, skippedProperties any, symbol any) <- chan any {
+                ch := make(chan any)
+                go func() any {
                     defer close(ch)
                     defer ReturnPanicError(ch)
-                        var method interface{} = "fetchFundingRateHistory"
+                        var method any = "fetchFundingRateHistory"
             
                 fundingRatesHistory:= (<-exchange.FetchFundingRateHistory(symbol))
                 PanicOnError(fundingRatesHistory)

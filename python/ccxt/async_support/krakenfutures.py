@@ -1520,7 +1520,7 @@ class krakenfutures(Exchange, ImplicitAPI):
         if limit is not None:
             request['count'] = limit
         if since is not None:
-            request['from'] = since
+            request['since'] = since
         isTrigger = self.safe_bool_2(params, 'trigger', 'stop', False)
         response = None
         if isTrigger:
@@ -1534,12 +1534,19 @@ class krakenfutures(Exchange, ImplicitAPI):
             order = allOrders[i]
             event = self.safe_dict(order, 'event', {})
             orderPlaced = self.safe_dict_2(event, 'OrderPlaced', 'OrderTriggerActivated')
+            orderUpdated = self.safe_dict(event, 'OrderUpdated')
             if orderPlaced is not None:
                 innerOrder = self.safe_dict(orderPlaced, 'order', {})
                 filled = self.safe_string(innerOrder, 'filled')
                 if filled != '0':
                     innerOrder['status'] = 'closed'  # status not available in the response
                     closedOrders.append(innerOrder)
+            elif orderUpdated is not None:
+                reason = self.safe_string(orderUpdated, 'reason')
+                if reason == 'full_fill':
+                    newOrder = self.safe_dict(orderUpdated, 'newOrder', {})
+                    newOrder['status'] = 'closed'
+                    closedOrders.append(newOrder)
         return self.parse_orders(closedOrders, market, since, limit)
 
     async def fetch_canceled_orders(self, symbol: Str = None, since: Int = None, limit: Int = None, params={}) -> List[Order]:
@@ -1973,9 +1980,8 @@ class krakenfutures(Exchange, ImplicitAPI):
             #
             datetime = self.safe_string(orderDictFromFetchOrder, 'timestamp')
             innerStatus = self.safe_string(order, 'status')
-            filledOrder = self.safe_string(orderDictFromFetchOrder, 'filled', '0')
-            if (filledOrder == '0') or (filledOrder == '0.0'):
-                filledOrder = None
+            fetchOrderPriceTriggerOptions = self.safe_dict(orderDictFromFetchOrder, 'priceTriggerOptions', {})
+            fetchOrderTriggerPrice = self.safe_string(fetchOrderPriceTriggerOptions, 'triggerPrice')
             return self.safe_order({
                 'info': order,
                 'id': self.safe_string(orderDictFromFetchOrder, 'orderId'),
@@ -1990,12 +1996,13 @@ class krakenfutures(Exchange, ImplicitAPI):
                 'postOnly': None,
                 'reduceOnly': self.safe_bool(orderDictFromFetchOrder, 'reduceOnly'),
                 'side': self.safe_string(orderDictFromFetchOrder, 'side'),
-                'price': self.safe_string(orderDictFromFetchOrder, 'limitPrice'),
-                'triggerPrice': None,
+                'price': None,  # limitPrice is returning inaccurate values https://github.com/ccxt/ccxt/issues/27996#issuecomment-4019280204
+                'triggerPrice': fetchOrderTriggerPrice,
+                'stopPrice': fetchOrderTriggerPrice,
                 'amount': self.safe_string(orderDictFromFetchOrder, 'quantity'),
                 'cost': None,
                 'average': None,
-                'filled': filledOrder,
+                'filled': self.safe_string(orderDictFromFetchOrder, 'filled'),
                 'remaining': None,
                 'status': self.parse_order_status(innerStatus),
                 'fee': None,
@@ -2047,12 +2054,11 @@ class krakenfutures(Exchange, ImplicitAPI):
         # but will be fixed below
         status = self.parse_order_status(statusId)
         isClosed = self.in_array(status, ['canceled', 'rejected', 'closed'])
-        marketId = self.safe_string(details, 'symbol')
+        marketId = self.safe_string_2(details, 'symbol', 'tradeable')
         market = self.safe_market(marketId, market)
+        symbol = self.safe_string(market, 'symbol')
         timestamp = self.parse8601(self.safe_string_2(details, 'timestamp', 'receivedTime'))
         lastUpdateTimestamp = self.parse8601(self.safe_string(details, 'lastUpdateTime'))
-        if price is None:
-            price = self.safe_string(details, 'limitPrice')
         amount = self.safe_string(details, 'quantity')
         filled = self.safe_string_2(details, 'filledSize', 'filled', '0.0')
         remaining = self.safe_string(details, 'unfilledSize')
@@ -2100,9 +2106,6 @@ class krakenfutures(Exchange, ImplicitAPI):
         timeInForce = 'gtc'
         if type == 'ioc' or self.parse_order_type(type) == 'market':
             timeInForce = 'ioc'
-        symbol = self.safe_string(market, 'symbol')
-        if 'tradeable' in details:
-            symbol = self.safe_symbol(self.safe_string(details, 'tradeable'), market)
         ts = self.safe_integer(details, 'timestamp', timestamp)
         priceTriggerOptions = self.safe_dict(details, 'priceTriggerOptions', {})
         triggerPrice = self.safe_string_2(details, 'triggerPrice', 'stopPrice')
@@ -2122,7 +2125,7 @@ class krakenfutures(Exchange, ImplicitAPI):
             'postOnly': type == 'post',
             'reduceOnly': self.safe_bool_2(details, 'reduceOnly', 'reduce_only'),
             'side': self.safe_string_lower_2(details, 'side', 'direction'),
-            'price': price,
+            'price': price,  # limitPrice is returning inaccurate values https://github.com/ccxt/ccxt/issues/27996#issuecomment-4070088684
             'triggerPrice': triggerPrice,
             'stopPrice': triggerPrice,
             'amount': amount,

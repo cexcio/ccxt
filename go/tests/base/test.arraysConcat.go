@@ -5,8 +5,8 @@ import ccxt "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 func TestArraysConcat()  {
-    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]interface{} {
+    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]any {
         "id": "sampleexchange",
-    }, map[string]interface{}{}, exchange)
-    AssertDeepEqual(exchange, nil, "testArraysConcat", exchange.ArraysConcat([]interface{}{[]interface{}{"b"}, []interface{}{"a", "c"}}), []interface{}{"b", "a", "c"})
+    }, map[string]any{}, exchange)
+    AssertDeepEqual(exchange, nil, "testArraysConcat", exchange.ArraysConcat([]any{[]any{"b"}, []any{"a", "c"}}), []any{"b", "a", "c"})
 }

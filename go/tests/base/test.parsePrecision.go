@@ -5,9 +5,9 @@ import ccxt "github.com/cexcio/ccxt/go/v4"
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 func TestParsePrecision()  {
-    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]interface{} {
+    exchange := ccxt.NewExchange().(*ccxt.Exchange); exchange.DerivedExchange = exchange; exchange.InitParent(map[string]any {
         "id": "sampleexchange",
-    }, map[string]interface{}{}, exchange)
+    }, map[string]any{}, exchange)
     Assert(ccxt.IsEqual(exchange.ParsePrecision("15"), "0.000000000000001"))
     Assert(ccxt.IsEqual(exchange.ParsePrecision("1"), "0.1"))
     Assert(ccxt.IsEqual(exchange.ParsePrecision("0"), "1"))
