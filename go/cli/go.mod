@@ -1,10 +1,10 @@
-module github.com/ccxt/cli
+module github.com/cexcio/ccxt/go/cli
 
 go 1.24.4
 
 require (
-	github.com/ccxt/ccxt/go/v4 v4.4.64
-	github.com/ccxt/ccxt/go/v4/pro v0.0.0-20260107182908-7e922c964a00
+	github.com/cexcio/ccxt/go/v4 v4.4.64
+	github.com/cexcio/ccxt/go/v4/pro v0.0.0-20260107182908-7e922c964a00
 )
 
 require (

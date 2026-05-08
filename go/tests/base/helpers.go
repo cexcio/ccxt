@@ -5,7 +5,7 @@ import (
 	"math"
 	"reflect"
 
-	ccxt "github.com/ccxt/ccxt/go/v4"
+	ccxt "github.com/cexcio/ccxt/go/v4"
 )
 
 const (

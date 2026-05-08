@@ -9,8 +9,8 @@ import (
 	"reflect"
 	"strings"
 
-	ccxt "github.com/ccxt/ccxt/go/v4"
-	ccxtPro "github.com/ccxt/ccxt/go/v4/pro"
+	ccxt "github.com/cexcio/ccxt/go/v4"
+	ccxtPro "github.com/cexcio/ccxt/go/v4/pro"
 )
 
 const (
