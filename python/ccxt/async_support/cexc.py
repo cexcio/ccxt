@@ -10668,19 +10668,19 @@ class cexc(Exchange, ImplicitAPI):
             self.check_required_credentials()
             timestamp = str(self.nonce())
             headers = self.extend({
-                'KC-API-KEY-VERSION': '2',
-                'KC-API-KEY': self.apiKey,
-                'KC-API-TIMESTAMP': timestamp,
+                'CEXC-API-KEY-VERSION': '2',
+                'CEXC-API-KEY': self.apiKey,
+                'CEXC-API-TIMESTAMP': timestamp,
             }, headers)
-            apiKeyVersion = self.safe_string(headers, 'KC-API-KEY-VERSION')
+            apiKeyVersion = self.safe_string(headers, 'CEXC-API-KEY-VERSION')
             if apiKeyVersion == '2':
                 passphrase = self.hmac(self.encode(self.password), self.encode(self.secret), hashlib.sha256, 'base64')
-                headers['KC-API-PASSPHRASE'] = passphrase
+                headers['CEXC-API-PASSPHRASE'] = passphrase
             else:
-                headers['KC-API-PASSPHRASE'] = self.password
+                headers['CEXC-API-PASSPHRASE'] = self.password
             payload = timestamp + method + endpoint + endpart
             signature = self.hmac(self.encode(payload), self.encode(self.secret), hashlib.sha256, 'base64')
-            headers['KC-API-SIGN'] = signature
+            headers['CEXC-API-SIGN'] = signature
             partner = self.safe_dict(self.options, 'partner', {})
             isUtaFuturePrivate = isUtaPrivate and (tradeType == 'FUTURES')
             isFuturePartner = isFuturePrivate or isUtaFuturePrivate
@@ -10690,13 +10690,13 @@ class cexc(Exchange, ImplicitAPI):
             if (partnerId is not None) and (partnerSecret is not None):
                 partnerPayload = timestamp + partnerId + self.apiKey
                 partnerSignature = self.hmac(self.encode(partnerPayload), self.encode(partnerSecret), hashlib.sha256, 'base64')
-                headers['KC-API-PARTNER-SIGN'] = partnerSignature
-                headers['KC-API-PARTNER'] = partnerId
-                headers['KC-API-PARTNER-VERIFY'] = 'true'
+                headers['CEXC-API-PARTNER-SIGN'] = partnerSignature
+                headers['CEXC-API-PARTNER'] = partnerId
+                headers['CEXC-API-PARTNER-VERIFY'] = 'true'
             if isBroker:
                 brokerName = self.safe_string(partner, 'name')
                 if brokerName is not None:
-                    headers['KC-BROKER-NAME'] = brokerName
+                    headers['CEXC-BROKER-NAME'] = brokerName
         return {'url': url, 'method': method, 'body': body, 'headers': headers}
 
     def handle_errors(self, code: int, reason: str, url: str, method: str, headers: dict, body: str, response, requestHeaders, requestBody):

@@ -11949,22 +11949,22 @@ public partial class cexc : Exchange
             this.checkRequiredCredentials();
             object timestamp = ((object)this.nonce()).ToString();
             headers = this.extend(new Dictionary<string, object>() {
-                { "KC-API-KEY-VERSION", "2" },
-                { "KC-API-KEY", this.apiKey },
-                { "KC-API-TIMESTAMP", timestamp },
+                { "CEXC-API-KEY-VERSION", "2" },
+                { "CEXC-API-KEY", this.apiKey },
+                { "CEXC-API-TIMESTAMP", timestamp },
             }, headers);
-            object apiKeyVersion = this.safeString(headers, "KC-API-KEY-VERSION");
+            object apiKeyVersion = this.safeString(headers, "CEXC-API-KEY-VERSION");
             if (isTrue(isEqual(apiKeyVersion, "2")))
             {
                 object passphrase = this.hmac(this.encode(this.password), this.encode(this.secret), sha256, "base64");
-                ((IDictionary<string,object>)headers)["KC-API-PASSPHRASE"] = passphrase;
+                ((IDictionary<string,object>)headers)["CEXC-API-PASSPHRASE"] = passphrase;
             } else
             {
-                ((IDictionary<string,object>)headers)["KC-API-PASSPHRASE"] = this.password;
+                ((IDictionary<string,object>)headers)["CEXC-API-PASSPHRASE"] = this.password;
             }
             object payload = add(add(add(timestamp, method), endpoint), endpart);
             object signature = this.hmac(this.encode(payload), this.encode(this.secret), sha256, "base64");
-            ((IDictionary<string,object>)headers)["KC-API-SIGN"] = signature;
+            ((IDictionary<string,object>)headers)["CEXC-API-SIGN"] = signature;
             object partner = this.safeDict(this.options, "partner", new Dictionary<string, object>() {});
             object isUtaFuturePrivate = isTrue(isUtaPrivate) && isTrue((isEqual(tradeType, "FUTURES")));
             object isFuturePartner = isTrue(isFuturePrivate) || isTrue(isUtaFuturePrivate);
@@ -11975,16 +11975,16 @@ public partial class cexc : Exchange
             {
                 object partnerPayload = add(add(timestamp, partnerId), this.apiKey);
                 object partnerSignature = this.hmac(this.encode(partnerPayload), this.encode(partnerSecret), sha256, "base64");
-                ((IDictionary<string,object>)headers)["KC-API-PARTNER-SIGN"] = partnerSignature;
-                ((IDictionary<string,object>)headers)["KC-API-PARTNER"] = partnerId;
-                ((IDictionary<string,object>)headers)["KC-API-PARTNER-VERIFY"] = "true";
+                ((IDictionary<string,object>)headers)["CEXC-API-PARTNER-SIGN"] = partnerSignature;
+                ((IDictionary<string,object>)headers)["CEXC-API-PARTNER"] = partnerId;
+                ((IDictionary<string,object>)headers)["CEXC-API-PARTNER-VERIFY"] = "true";
             }
             if (isTrue(isBroker))
             {
                 object brokerName = this.safeString(partner, "name");
                 if (isTrue(!isEqual(brokerName, null)))
                 {
-                    ((IDictionary<string,object>)headers)["KC-BROKER-NAME"] = brokerName;
+                    ((IDictionary<string,object>)headers)["CEXC-BROKER-NAME"] = brokerName;
                 }
             }
         }

@@ -11318,21 +11318,21 @@ class cexc extends cexc$1["default"] {
             this.checkRequiredCredentials();
             const timestamp = this.nonce().toString();
             headers = this.extend({
-                'KC-API-KEY-VERSION': '2',
-                'KC-API-KEY': this.apiKey,
-                'KC-API-TIMESTAMP': timestamp,
+                'CEXC-API-KEY-VERSION': '2',
+                'CEXC-API-KEY': this.apiKey,
+                'CEXC-API-TIMESTAMP': timestamp,
             }, headers);
-            const apiKeyVersion = this.safeString(headers, 'KC-API-KEY-VERSION');
+            const apiKeyVersion = this.safeString(headers, 'CEXC-API-KEY-VERSION');
             if (apiKeyVersion === '2') {
                 const passphrase = this.hmac(this.encode(this.password), this.encode(this.secret), sha256.sha256, 'base64');
-                headers['KC-API-PASSPHRASE'] = passphrase;
+                headers['CEXC-API-PASSPHRASE'] = passphrase;
             }
             else {
-                headers['KC-API-PASSPHRASE'] = this.password;
+                headers['CEXC-API-PASSPHRASE'] = this.password;
             }
             const payload = timestamp + method + endpoint + endpart;
             const signature = this.hmac(this.encode(payload), this.encode(this.secret), sha256.sha256, 'base64');
-            headers['KC-API-SIGN'] = signature;
+            headers['CEXC-API-SIGN'] = signature;
             let partner = this.safeDict(this.options, 'partner', {});
             const isUtaFuturePrivate = isUtaPrivate && (tradeType === 'FUTURES');
             const isFuturePartner = isFuturePrivate || isUtaFuturePrivate;
@@ -11342,14 +11342,14 @@ class cexc extends cexc$1["default"] {
             if ((partnerId !== undefined) && (partnerSecret !== undefined)) {
                 const partnerPayload = timestamp + partnerId + this.apiKey;
                 const partnerSignature = this.hmac(this.encode(partnerPayload), this.encode(partnerSecret), sha256.sha256, 'base64');
-                headers['KC-API-PARTNER-SIGN'] = partnerSignature;
-                headers['KC-API-PARTNER'] = partnerId;
-                headers['KC-API-PARTNER-VERIFY'] = 'true';
+                headers['CEXC-API-PARTNER-SIGN'] = partnerSignature;
+                headers['CEXC-API-PARTNER'] = partnerId;
+                headers['CEXC-API-PARTNER-VERIFY'] = 'true';
             }
             if (isBroker) {
                 const brokerName = this.safeString(partner, 'name');
                 if (brokerName !== undefined) {
-                    headers['KC-BROKER-NAME'] = brokerName;
+                    headers['CEXC-BROKER-NAME'] = brokerName;
                 }
             }
         }
