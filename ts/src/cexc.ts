@@ -140,6 +140,7 @@ export default class cexc extends Exchange {
                     'broker': 'https://exchange-broker.cexc.io',
                     'earn': 'https://exchange-broker.cexc.io',
                     'uta': 'https://exchange-broker.cexc.io',
+                    'utaPrivate': 'https://exchange-broker.cexc.io',
                 },
                 'www': 'https://cexc.io',
                 'doc': [
