@@ -13,7 +13,8 @@ function test_number_to_be() {
     $exchange = new \ccxt\async\Exchange(array(
         'id' => 'sampleexchange',
     ));
-    // @SKIP_START_GO
+    assert($exchange->parse_number(null) === null, 'GO skip trick');
+    assert('GO_SKIP_START');
     // 1234567890 (decimal) = 0x499602D2 (hex)
     // BE: 00 00 00 00 49 96 02 D2
     $num1 = 1234567890;
@@ -73,6 +74,5 @@ function test_number_to_be() {
     assert($exchange->binary_length($result9) === 4);
     $expected_binary_9 = $exchange->base16_to_binary('01020304');
     assert($exchange->binary_to_base64($result9) === $exchange->binary_to_base64($expected_binary_9), '0x01020304 4-byte failed');
-    // @SKIP_END_GO
-    $exchange->describe(); // avoid unused var
+    assert('GO_SKIP_END');
 }

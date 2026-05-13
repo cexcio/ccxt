@@ -5,7 +5,7 @@ import (
 	"math"
 	"reflect"
 
-	ccxt "github.com/cexcio/ccxt/go/v4"
+	ccxt "github.com/ccxt/ccxt/go/v4"
 )
 
 const (
@@ -28,11 +28,11 @@ var NO_PADDING = 5
 var PAD_WITH_ZERO int = 6
 
 // support two arg signature
-func assert(condition2 any, message2 ...any) {
+func assert(condition2 interface{}, message2 ...interface{}) {
 	Assert(condition2, message2...)
 }
 
-func Assert(condition2 any, message2 ...any) {
+func Assert(condition2 interface{}, message2 ...interface{}) {
 	condition := true
 
 	// Check if the condition is nil or not of type bool
@@ -71,9 +71,9 @@ func Assert(condition2 any, message2 ...any) {
 	}
 }
 
-func UnWrapType(value any) any {
+func UnWrapType(value interface{}) interface{} {
 	// converts from wrapped types to basic types
-	// like OrderBook, Ticker, Trade, etc to map[string]any or []any
+	// like OrderBook, Ticker, Trade, etc to map[string]interface{} or []interface{}
 	// also if value is a string, it panics with that string (error message)
 	if value == nil {
 		return nil
@@ -92,7 +92,7 @@ func UnWrapType(value any) any {
 	}
 }
 
-func ToOrderBook(ob any) map[string]any {
+func ToOrderBook(ob interface{}) map[string]interface{} {
 	if ob == nil {
 		return nil
 	}
@@ -105,31 +105,31 @@ func ToOrderBook(ob any) map[string]any {
 	return nil
 }
 
-// func IsEqual(a, b any) bool {
+// func IsEqual(a, b interface{}) bool {
 // 	return ccxt.IsEqual(a, b)
 // }
 
-// func GetValue(obj any, key any) any {
+// func GetValue(obj interface{}, key interface{}) interface{} {
 // 	return ccxt.GetValue(obj, key)
 // }
 
-// func InOp(a, b any) bool {
+// func InOp(a, b interface{}) bool {
 // 	return ccxt.InOp(a, b)
 // }
 
-// func IsTrue(a any) bool {
+// func IsTrue(a interface{}) bool {
 // 	return ccxt.IsTrue(a)
 // }
 
-// func OpNeg(a any) any {
+// func OpNeg(a interface{}) interface{} {
 // 	return ccxt.OpNeg(a)
 // }
 
-// func ParseFloat(num any) any {
+// func ParseFloat(num interface{}) interface{} {
 // 	return ccxt.ParseFloat(num)
 // }
 
-func Equals(a any, b any) bool {
+func Equals(a interface{}, b interface{}) bool {
 	// Check if 'a' is a slice
 	if reflect.TypeOf(a).Kind() == reflect.Slice {
 		list1 := reflect.ValueOf(a)
@@ -180,15 +180,15 @@ func Equals(a any, b any) bool {
 
 // CRYPTO HELPERS
 
-func Encode(data any) string {
+func Encode(data interface{}) string {
 	return ccxt.Encode(data)
 }
 
-func Hash(request2 any, hash func() string, digest2 any) any {
+func Hash(request2 interface{}, hash func() string, digest2 interface{}) interface{} {
 	return ccxt.Hash(request2, hash, digest2)
 }
 
-func Hmac(request2 any, secret2 any, algorithm2 func() string, digest string) any {
+func Hmac(request2 interface{}, secret2 interface{}, algorithm2 func() string, digest string) interface{} {
 	return ccxt.Hmac(request2, secret2, algorithm2, digest)
 }
 
@@ -208,22 +208,22 @@ func secp256k1() string {
 	return "secp256k1"
 }
 
-func Ecdsa(request2 any, secret2 any, algorithm2 func() string, digest func() string) any {
+func Ecdsa(request2 interface{}, secret2 interface{}, algorithm2 func() string, digest func() string) interface{} {
 	return ccxt.Ecdsa(request2, secret2, algorithm2, digest)
 }
 
-func Rsa(request2 any, secret2 any, algorithm2 func() string) any {
+func Rsa(request2 interface{}, secret2 interface{}, algorithm2 func() string) interface{} {
 	return ccxt.Rsa(request2, secret2, algorithm2)
 }
 
-func Jwt(request2 any, secret2 any, algorithm2 func() string, encode bool) any {
+func Jwt(request2 interface{}, secret2 interface{}, algorithm2 func() string, encode bool) interface{} {
 	return ccxt.Jwt(request2, secret2, algorithm2, encode)
 }
 
-func Crc32(request2 any, signed2 bool) any {
+func Crc32(request2 interface{}, signed2 bool) interface{} {
 	return ccxt.Crc32(request2.(string), signed2)
 }
 
-// func Join(interfaceArray any, separator string) string {
+// func Join(interfaceArray interface{}, separator string) string {
 // 	return ccxt.Join(interfaceArray, separator)
 // }

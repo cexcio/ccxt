@@ -577,7 +577,6 @@ class kraken(Exchange, ImplicitAPI):
                     'EFunding:No funding method': BadRequest,  # {"error":"EFunding:No funding method"}
                     'EFunding:Unknown asset': BadSymbol,  # {"error":["EFunding:Unknown asset"]}
                     'EService:Market in post_only mode': OnMaintenance,  # {"error":["EService:Market in post_only mode"]}
-                    'EService:Market in cancel_only mode': OnMaintenance,  # {"error":["EService:Market in cancel_only mode"]}
                     'EGeneral:Too many requests': DDoSProtection,  # {"error":["EGeneral:Too many requests"]}
                     'ETrade:User Locked': AccountSuspended,  # {"error":["ETrade:User Locked"]}
                 },
@@ -664,9 +663,6 @@ class kraken(Exchange, ImplicitAPI):
         result = []
         for i in range(0, len(keys)):
             id = keys[i]
-            isSynthetic = False
-            if id.find(':BTNL') >= 0:
-                isSynthetic = True
             market = markets[id]
             baseIdRaw = self.safe_string(market, 'base')
             quoteIdRaw = self.safe_string(market, 'quote')
@@ -700,11 +696,10 @@ class kraken(Exchange, ImplicitAPI):
                     precisionAmount = currencyPrecision
             status = self.safe_string(market, 'status')
             isActive = status == 'online'
-            symbol = (base + '/' + quote) if (not isSynthetic) else id
             result.append({
                 'id': id,
                 'wsId': self.safe_string(market, 'wsname'),
-                'symbol': symbol,
+                'symbol': base + '/' + quote,
                 'base': base,
                 'quote': quote,
                 'settle': None,

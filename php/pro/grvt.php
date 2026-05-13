@@ -330,7 +330,7 @@ class grvt extends \ccxt\async\grvt {
                 $market = $this->market($symbol);
                 $marketId = $market['id'];
                 $limitRaw = $this->safe_integer($params, 'limit', 50); // 50, 200, 500, 1000
-                $rawHashes[] = $marketId . '@' . (string) $limitRaw;
+                $rawHashes[] = $marketId . '@' . $limitRaw;
                 $messageHashes[] = 'trade::' . $market['symbol'];
             }
             $request = array(
@@ -546,14 +546,14 @@ class grvt extends \ccxt\async\grvt {
             $interval = null;
             list($interval, $params) = $this->handle_option_and_params($params, 'watchOrderBook', 'interval', 500);
             $symbols = $this->market_symbols($symbols);
-            $extraPart = $isSnapshot ? (string) ($interval . '-' . (string) $limit) : (string) $interval;
+            $extraPart = $isSnapshot ? ($interval . '-' . $limit) : $interval;
             $rawHashes = array();
             $messageHashes = array();
             for ($i = 0; $i < count($symbols); $i++) {
                 $symbol = $symbols[$i];
                 $market = $this->market($symbol);
                 $marketId = $market['id'];
-                $rawHashes[] = $marketId . '@' . $extraPart;
+                $rawHashes[] = $marketId . '@' . (string) $extraPart;
                 $messageHashes[] = 'orderbook::' . $market['symbol'];
             }
             $request = array(
@@ -666,9 +666,9 @@ class grvt extends \ccxt\async\grvt {
              * @param {boolean} [$params->unifiedMargin] use unified margin account
              * @return {array[]} a list of ~@link https://docs.ccxt.com/?id=trade-structure trade structures~
              */
+            $subAccountId = $this->getSubAccountId ($params);
             Async\await($this->load_markets());
             Async\await($this->authenticate());
-            $subAccountId = $this->getSubAccountId ($params);
             $messageHashes = array();
             $rawHashes = array();
             if ($symbol !== null) {
@@ -755,9 +755,9 @@ class grvt extends \ccxt\async\grvt {
              * @param {array} $params extra parameters specific to the exchange API endpoint
              * @return {array[]} a list of {@link https://docs.ccxt.com/en/latest/manual.html#position-structure position structure}
              */
+            $subAccountId = $this->getSubAccountId ($params);
             Async\await($this->authenticate());
             Async\await($this->load_markets());
-            $subAccountId = $this->getSubAccountId ($params);
             $symbols = $this->market_symbols($symbols);
             $rawHashes = array();
             $messageHashes = array();
@@ -844,9 +844,9 @@ class grvt extends \ccxt\async\grvt {
              * @param {array} [$params] extra parameters specific to the exchange API endpoint
              * @return {array[]} a list of ~@link https://docs.ccxt.com/?id=order-structure order structures~
              */
+            $subAccountId = $this->getSubAccountId ($params);
             Async\await($this->load_markets());
             Async\await($this->authenticate());
-            $subAccountId = $this->getSubAccountId ($params);
             $messageHashes = array();
             $rawHashes = array();
             if ($symbol === null) {
@@ -942,7 +942,8 @@ class grvt extends \ccxt\async\grvt {
         $order = $this->parse_ws_order($data);
         $this->orders.append ($order);
         $client->resolve ($this->orders, 'orders');
-        $client->resolve ($this->orders, 'order::' . $order['symbol']);
+        $ordersForSymbol = $this->filter_by_symbol_since_limit($this->orders, $order['symbol'], null, null, true);
+        $client->resolve ($ordersForSymbol, 'orders::' . $order['symbol']);
     }
 
     public function parse_ws_order($order, $market = null): array {

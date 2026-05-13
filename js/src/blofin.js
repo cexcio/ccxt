@@ -1245,8 +1245,7 @@ export default class blofin extends Exchange {
         let marginMode = undefined;
         [marginMode, params] = this.handleMarginModeAndParams('createOrder', params, 'cross');
         request['marginMode'] = marginMode;
-        const triggerPriceAny = this.safeStringN(params, ['triggerPrice', 'stopLossPrice', 'takeProfitPrice']);
-        const triggerPriceSlTp = this.safeString2(params, 'stopLossPrice', 'takeProfitPrice');
+        const triggerPrice = this.safeString(params, 'triggerPrice');
         const timeInForce = this.safeString(params, 'timeInForce', 'GTC');
         const isHedged = this.safeBool(params, 'hedged', false);
         if (isHedged) {
@@ -1260,7 +1259,7 @@ export default class blofin extends Exchange {
             request['orderType'] = 'market';
         }
         else {
-            const key = (triggerPriceAny !== undefined) ? 'orderPrice' : 'price';
+            const key = (triggerPrice !== undefined) ? 'orderPrice' : 'price';
             request[key] = this.priceToPrecision(symbol, price);
         }
         let postOnly = false;
@@ -1287,16 +1286,12 @@ export default class blofin extends Exchange {
                 request['tpOrderPrice'] = this.priceToPrecision(symbol, tpPrice);
             }
         }
-        else if (triggerPriceAny !== undefined) {
+        else if (triggerPrice !== undefined) {
             request['orderType'] = 'trigger';
-            request['triggerPrice'] = this.priceToPrecision(symbol, triggerPriceAny);
+            request['triggerPrice'] = this.priceToPrecision(symbol, triggerPrice);
             if (isMarketOrder) {
                 request['orderPrice'] = '-1';
             }
-            if (triggerPriceSlTp !== undefined) {
-                request['reduceOnly'] = true;
-            }
-            params = this.omit(params, ['stopLossPrice', 'takeProfitPrice', 'triggerPrice']);
         }
         return this.extend(request, params);
     }
@@ -1469,21 +1464,26 @@ export default class blofin extends Exchange {
     async createOrder(symbol, type, side, amount, price = undefined, params = {}) {
         await this.loadMarkets();
         const market = this.market(symbol);
+        const tpsl = this.safeBool(params, 'tpsl', false);
+        params = this.omit(params, 'tpsl');
+        let method = undefined;
+        [method, params] = this.handleOptionAndParams(params, 'createOrder', 'method', 'privatePostTradeOrder');
         const isStopLossPriceDefined = this.safeString(params, 'stopLossPrice') !== undefined;
         const isTakeProfitPriceDefined = this.safeString(params, 'takeProfitPrice') !== undefined;
-        const isTriggerOrder = this.safeString(params, 'triggerPrice') !== undefined;
-        const isCombinedSlTp = (isStopLossPriceDefined && isTakeProfitPriceDefined);
-        const isSlOrTp = isStopLossPriceDefined || isTakeProfitPriceDefined;
+        const hasTriggerPrice = this.safeString(params, 'triggerPrice') !== undefined;
+        const isType2Order = (isStopLossPriceDefined || isTakeProfitPriceDefined);
         let response = undefined;
         const reduceOnly = this.safeBool(params, 'reduceOnly');
         if (reduceOnly !== undefined) {
             params['reduceOnly'] = reduceOnly ? 'true' : 'false';
         }
-        if (isCombinedSlTp) {
+        const isTpslOrder = tpsl || (method === 'privatePostTradeOrderTpsl') || isType2Order;
+        const isTriggerOrder = hasTriggerPrice || (method === 'privatePostTradeOrderAlgo');
+        if (isTpslOrder) {
             const tpslRequest = this.createTpslOrderRequest(symbol, type, side, amount, price, params);
             response = await this.privatePostTradeOrderTpsl(tpslRequest);
         }
-        else if (isTriggerOrder || isSlOrTp) {
+        else if (isTriggerOrder) {
             const triggerRequest = this.createOrderRequest(symbol, type, side, amount, price, params);
             response = await this.privatePostTradeOrderAlgo(triggerRequest);
         }
@@ -1491,7 +1491,7 @@ export default class blofin extends Exchange {
             const request = this.createOrderRequest(symbol, type, side, amount, price, params);
             response = await this.privatePostTradeOrder(request);
         }
-        if (isCombinedSlTp || isSlOrTp || isTriggerOrder) {
+        if (isTpslOrder || isTriggerOrder) {
             const dataDict = this.safeDict(response, 'data', {});
             return this.parseOrder(dataDict, market);
         }
@@ -1504,17 +1504,12 @@ export default class blofin extends Exchange {
     }
     createTpslOrderRequest(symbol, type, side, amount = undefined, price = undefined, params = {}) {
         const market = this.market(symbol);
-        const hedged = this.safeBool(params, 'hedged', false);
-        let positionSide = 'net';
-        if (hedged) {
-            positionSide = (side === 'buy') ? 'short' : 'long';
-        }
+        const positionSide = this.safeString(params, 'positionSide', 'net');
         const request = {
             'instId': market['id'],
             'side': side,
             'positionSide': positionSide,
             'brokerId': this.safeString(this.options, 'brokerId', 'ec6dd3a7dd982d0b'),
-            'reduceOnly': this.safeBool(params, 'reduceOnly', true), // this is TP &  SL protective order, so it should be reduceOnly by default
         };
         if (amount !== undefined) {
             request['size'] = this.amountToPrecision(symbol, amount);
@@ -1527,14 +1522,24 @@ export default class blofin extends Exchange {
         const takeProfitPrice = this.safeString(params, 'takeProfitPrice');
         if (stopLossPrice !== undefined) {
             request['slTriggerPrice'] = this.priceToPrecision(symbol, stopLossPrice);
-            request['slOrderPrice'] = (type === 'market') ? '-1' : this.priceToPrecision(symbol, price);
+            if (type === 'market') {
+                request['slOrderPrice'] = '-1';
+            }
+            else {
+                request['slOrderPrice'] = this.priceToPrecision(symbol, price);
+            }
         }
-        if (takeProfitPrice !== undefined) {
+        else if (takeProfitPrice !== undefined) {
             request['tpTriggerPrice'] = this.priceToPrecision(symbol, takeProfitPrice);
-            request['tpOrderPrice'] = (type === 'market') ? '-1' : this.priceToPrecision(symbol, price);
+            if (type === 'market') {
+                request['tpOrderPrice'] = '-1';
+            }
+            else {
+                request['tpOrderPrice'] = this.priceToPrecision(symbol, price);
+            }
         }
         request['marginMode'] = marginMode;
-        params = this.omit(params, ['stopLossPrice', 'takeProfitPrice', 'reduceOnly', 'hedged']);
+        params = this.omit(params, ['stopLossPrice', 'takeProfitPrice']);
         return this.extend(request, params);
     }
     /**
@@ -2163,70 +2168,6 @@ export default class blofin extends Exchange {
         const result = this.parsePositions(data);
         return this.filterByArrayPositions(result, 'symbol', symbols, false);
     }
-    /**
-     * @method
-     * @name blofin#fetchPositionsHistory
-     * @description fetches historical positions
-     * @see https://docs.blofin.com/index.html#get-positions-history
-     * @param {string[]} [symbols] unified contract symbols
-     * @param {int} [since] timestamp in ms of the earliest position to fetch, default=3 months ago, max range for params["until"] - since is 3 months
-     * @param {int} [limit] the maximum amount of records to fetch, default=20, max=100
-     * @param {object} params extra parameters specific to the exchange api endpoint
-     * @param {int} [params.until] timestamp in ms of the latest position to fetch, max range for params["until"] - since is 3 months
-     * @param {string} [params.productType] USDT-FUTURES (default), COIN-FUTURES, USDC-FUTURES, SUSDT-FUTURES, SCOIN-FUTURES, or SUSDC-FUTURES
-     * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
-     * @returns {object[]} a list of [position structures]{@link https://docs.ccxt.com/?id=position-structure}
-     */
-    async fetchPositionsHistory(symbols = undefined, since = undefined, limit = undefined, params = {}) {
-        await this.loadMarkets();
-        let request = {};
-        let market = undefined;
-        if (symbols !== undefined) {
-            const symbolsLength = symbols.length;
-            if (symbolsLength === 0) {
-                market = this.market(symbols[0]);
-                request['instId'] = market['id'];
-            }
-        }
-        if (limit !== undefined) {
-            request['limit'] = Math.min(limit, 100);
-        }
-        if (since !== undefined) {
-            request['begin'] = since;
-        }
-        [request, params] = this.handleUntilOption('end', request, params);
-        const response = await this.privateGetAccountPositionsHistory(this.extend(request, params));
-        //
-        //    {
-        //        "code": "0",
-        //        "msg": "success",
-        //        "data": [
-        //            {
-        //                "historyId": "110307402",
-        //                "positionId": "1000000722711",
-        //                "instId": "BTC-USDT",
-        //                "instType": "SWAP",
-        //                "marginMode": "cross",
-        //                "positionSide": "net",
-        //                "closePositions": "0.0006",
-        //                "maxPositions": "0.0006",
-        //                "liquidationPositions": "0",
-        //                "openAveragePrice": "81550.1",
-        //                "closeAveragePrice": "81550",
-        //                "createTime": "1777995583329",
-        //                "updateTime": "1777995588333",
-        //                "leverage": "50",
-        //                "realizedPnl": "-0.058776036",
-        //                "realizedPnlRatio": "-0.060061275216094155",
-        //                "fee": "-0.058716036"
-        //            },
-        //        ]
-        //    }
-        //
-        const data = this.safeList(response, 'data', []);
-        const positions = this.parsePositions(data, symbols, params);
-        return this.filterBySinceLimit(positions, since, limit);
-    }
     parsePosition(position, market = undefined) {
         //
         // response similar for REST & WS
@@ -2253,29 +2194,6 @@ export default class blofin extends Exchange {
         //         createTime: '1707235776528',
         //         updateTime: '1707235776528'
         //     }
-        //
-        //
-        //    positions-history
-        //
-        //            {
-        //                "positionId": "1000000722711",
-        //                "instId": "BTC-USDT",
-        //                "instType": "SWAP",
-        //                "marginMode": "cross",
-        //                "positionSide": "net",
-        //                "createTime": "1777995583329",
-        //                "updateTime": "1777995588333",
-        //                "leverage": "50",
-        //                "realizedPnl": "-0.058776036",
-        //                "realizedPnlRatio": "-0.060061275216094155",
-        //                "fee": "-0.058716036"
-        //                "historyId": "110307402",
-        //                "closePositions": "0.0006",
-        //                "maxPositions": "0.0006",
-        //                "liquidationPositions": "0",
-        //                "openAveragePrice": "81550.1",
-        //                "closeAveragePrice": "81550",
-        //            },
         //
         const marketId = this.safeString(position, 'instId');
         market = this.safeMarket(marketId, market);
@@ -2308,7 +2226,7 @@ export default class blofin extends Exchange {
         const notional = this.parseNumber(notionalString);
         const marginMode = this.safeString(position, 'marginMode');
         let initialMarginString = undefined;
-        const entryPriceString = this.safeString2(position, 'averagePrice', 'openAveragePrice');
+        const entryPriceString = this.safeString(position, 'averagePrice');
         const unrealizedPnlString = this.safeString(position, 'unrealizedPnl');
         const leverageString = this.safeString(position, 'leverage');
         let initialMarginPercentage = undefined;
@@ -2345,9 +2263,7 @@ export default class blofin extends Exchange {
             'marginMode': marginMode,
             'liquidationPrice': liquidationPrice,
             'entryPrice': this.parseNumber(entryPriceString),
-            'exitPrice': this.safeNumber(position, 'closeAveragePrice'),
             'unrealizedPnl': this.parseNumber(unrealizedPnlString),
-            'realizedPnl': this.safeNumber(position, 'realizedPnl'),
             'percentage': percentage,
             'contracts': contracts,
             'contractSize': contractSize,

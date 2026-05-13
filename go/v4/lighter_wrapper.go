@@ -6,7 +6,7 @@ type Lighter struct {
    exchangeTyped *ExchangeTyped
 }
 
-func NewLighter(userConfig map[string]any) *Lighter {
+func NewLighter(userConfig map[string]interface{}) *Lighter {
    p := NewLighterCore()
    p.Init(userConfig)
    return &Lighter{
@@ -27,7 +27,7 @@ func NewLighterFromCore(core *LighterCore) *Lighter {
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 
-func (this *Lighter) CreateSubAccount(name string, options ...CreateSubAccountOptions) (map[string]any, error) {
+func (this *Lighter) CreateSubAccount(name string, options ...CreateSubAccountOptions) (map[string]interface{}, error) {
 
     opts := CreateSubAccountOptionsStruct{}
 
@@ -35,17 +35,17 @@ func (this *Lighter) CreateSubAccount(name string, options ...CreateSubAccountOp
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.CreateSubAccount(name, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
-func (this *Lighter) FetchNonce(accountIndex any, apiKeyIndex any, options ...FetchNonceOptions) (float64, error) {
+func (this *Lighter) FetchNonce(accountIndex interface{}, apiKeyIndex interface{}, options ...FetchNonceOptions) (float64, error) {
 
     opts := FetchNonceOptionsStruct{}
 
@@ -53,7 +53,7 @@ func (this *Lighter) FetchNonce(accountIndex any, apiKeyIndex any, options ...Fe
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -91,12 +91,12 @@ func (this *Lighter) CreateOrder(symbol string, typeVar string, side string, amo
         opt(&opts)
     }
 
-    var price any = nil
+    var price interface{} = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -129,17 +129,17 @@ func (this *Lighter) EditOrder(id string, symbol string, typeVar string, side st
         opt(&opts)
     }
 
-    var amount any = nil
+    var amount interface{} = nil
     if opts.Amount != nil {
         amount = *opts.Amount
     }
 
-    var price any = nil
+    var price interface{} = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -155,14 +155,14 @@ func (this *Lighter) EditOrder(id string, symbol string, typeVar string, side st
  * @description the latest known information on the availability of the exchange API
  * @see https://apidocs.lighter.xyz/reference/status
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} a [status structure]{@link https://docs.ccxt.com/?id=exchange-status-structure}
+ * @returns {object} a [status structure]{@link https://docs.ccxt.com/#/?id=exchange-status-structure}
  */
-func (this *Lighter) FetchStatus(params ...any) (map[string]any, error) {
+func (this *Lighter) FetchStatus(params ...interface{}) (map[string]interface{}, error) {
     res := <- this.Core.FetchStatus(params...)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -172,7 +172,7 @@ func (this *Lighter) FetchStatus(params ...any) (map[string]any, error) {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func (this *Lighter) FetchTime(params ...any) ( int64, error) {
+func (this *Lighter) FetchTime(params ...interface{}) ( int64, error) {
     res := <- this.Core.FetchTime(params...)
     if IsError(res) {
         return -1, CreateReturnError(res)
@@ -187,7 +187,7 @@ func (this *Lighter) FetchTime(params ...any) ( int64, error) {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func (this *Lighter) FetchMarkets(params ...any) ([]MarketInterface, error) {
+func (this *Lighter) FetchMarkets(params ...interface{}) ([]MarketInterface, error) {
     res := <- this.Core.FetchMarkets(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -202,7 +202,7 @@ func (this *Lighter) FetchMarkets(params ...any) ([]MarketInterface, error) {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an associative dictionary of currencies
  */
-func (this *Lighter) FetchCurrencies(params ...any) (Currencies, error) {
+func (this *Lighter) FetchCurrencies(params ...interface{}) (Currencies, error) {
     res := <- this.Core.FetchCurrencies(params...)
     if IsError(res) {
         return Currencies{}, CreateReturnError(res)
@@ -217,7 +217,7 @@ func (this *Lighter) FetchCurrencies(params ...any) (Currencies, error) {
  * @param {string} symbol unified symbol of the market to fetch the order book for
  * @param {int} [limit] the maximum amount of order book entries to return
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
+ * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/#/?id=order-book-structure} indexed by market symbols
  */
 func (this *Lighter) FetchOrderBook(symbol string, options ...FetchOrderBookOptions) (OrderBook, error) {
 
@@ -227,12 +227,12 @@ func (this *Lighter) FetchOrderBook(symbol string, options ...FetchOrderBookOpti
         opt(&opts)
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -249,7 +249,7 @@ func (this *Lighter) FetchOrderBook(symbol string, options ...FetchOrderBookOpti
  * @see https://apidocs.lighter.xyz/reference/orderbookdetails
  * @param {string} symbol unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
+ * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/#/?id=ticker-structure}
  */
 func (this *Lighter) FetchTicker(symbol string, options ...FetchTickerOptions) (Ticker, error) {
 
@@ -259,7 +259,7 @@ func (this *Lighter) FetchTicker(symbol string, options ...FetchTickerOptions) (
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -276,7 +276,7 @@ func (this *Lighter) FetchTicker(symbol string, options ...FetchTickerOptions) (
  * @see https://apidocs.lighter.xyz/reference/orderbookdetails
  * @param {string[]|undefined} symbols unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
+ * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/#/?id=ticker-structure}
  */
 func (this *Lighter) FetchTickers(options ...FetchTickersOptions) (Tickers, error) {
 
@@ -286,12 +286,12 @@ func (this *Lighter) FetchTickers(options ...FetchTickersOptions) (Tickers, erro
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -322,22 +322,22 @@ func (this *Lighter) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) ([]
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -354,7 +354,7 @@ func (this *Lighter) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) ([]
  * @see https://apidocs.lighter.xyz/reference/funding-rates
  * @param {string[]} [symbols] list of unified market symbols
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object[]} a list of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-structure}
+ * @returns {object[]} a list of [funding rate structures]{@link https://docs.ccxt.com/#/?id=funding-rate-structure}
  */
 func (this *Lighter) FetchFundingRates(options ...FetchFundingRatesOptions) (FundingRates, error) {
 
@@ -364,12 +364,12 @@ func (this *Lighter) FetchFundingRates(options ...FetchFundingRatesOptions) (Fun
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -379,7 +379,7 @@ func (this *Lighter) FetchFundingRates(options ...FetchFundingRatesOptions) (Fun
     }
     return NewFundingRates(res), nil
 }
-func (this *Lighter) FetchBalance(params ...any) (Balances, error) {
+func (this *Lighter) FetchBalance(params ...interface{}) (Balances, error) {
     res := <- this.Core.FetchBalance(params...)
     if IsError(res) {
         return Balances{}, CreateReturnError(res)
@@ -405,7 +405,7 @@ func (this *Lighter) FetchPosition(symbol string, options ...FetchPositionOption
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -434,12 +434,12 @@ func (this *Lighter) FetchPositions(options ...FetchPositionsOptions) ([]Positio
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -459,7 +459,7 @@ func (this *Lighter) FetchPositions(options ...FetchPositionsOptions) ([]Positio
  * @param {string} [params.value] fetch balance value, account index or l1 address
  * @returns {object} a dictionary of [account structures]{@link https://docs.ccxt.com/?id=accounts-structure} indexed by the account type
  */
-func (this *Lighter) FetchAccounts(params ...any) ([]Account, error) {
+func (this *Lighter) FetchAccounts(params ...interface{}) ([]Account, error) {
     res := <- this.Core.FetchAccounts(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -486,22 +486,22 @@ func (this *Lighter) FetchOpenOrders(options ...FetchOpenOrdersOptions) ([]Order
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -531,22 +531,22 @@ func (this *Lighter) FetchClosedOrders(options ...FetchClosedOrdersOptions) ([]O
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -579,7 +579,7 @@ func (this *Lighter) Transfer(code string, amount float64, fromAccount string, t
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -610,22 +610,22 @@ func (this *Lighter) FetchTransfers(options ...FetchTransfersOptions) ([]Transfe
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -657,22 +657,22 @@ func (this *Lighter) FetchDeposits(options ...FetchDepositsOptions) ([]Transacti
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -703,22 +703,22 @@ func (this *Lighter) FetchWithdrawals(options ...FetchWithdrawalsOptions) ([]Tra
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -750,12 +750,12 @@ func (this *Lighter) Withdraw(code string, amount float64, address string, optio
         opt(&opts)
     }
 
-    var tag any = nil
+    var tag interface{} = nil
     if opts.Tag != nil {
         tag = *opts.Tag
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -787,22 +787,22 @@ func (this *Lighter) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade, er
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -824,7 +824,7 @@ func (this *Lighter) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade, er
  * @param {string} [params.marginMode] margin mode, 'cross' or 'isolated'
  * @returns {object} response from the exchange
  */
-func (this *Lighter) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]any, error) {
+func (this *Lighter) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]interface{}, error) {
 
     opts := SetLeverageOptionsStruct{}
 
@@ -832,20 +832,20 @@ func (this *Lighter) SetLeverage(leverage int64, options ...SetLeverageOptions) 
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetLeverage(leverage, symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -859,7 +859,7 @@ func (this *Lighter) SetLeverage(leverage int64, options ...SetLeverageOptions) 
  * @param {int} [params.leverage] required leverage
  * @returns {object} response from the exchange
  */
-func (this *Lighter) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]any, error) {
+func (this *Lighter) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]interface{}, error) {
 
     opts := SetMarginModeOptionsStruct{}
 
@@ -867,20 +867,20 @@ func (this *Lighter) SetMarginMode(marginMode string, options ...SetMarginModeOp
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetMarginMode(marginMode, symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -901,12 +901,12 @@ func (this *Lighter) CancelOrder(id string, options ...CancelOrderOptions) (Orde
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -934,12 +934,12 @@ func (this *Lighter) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Order
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -957,7 +957,7 @@ func (this *Lighter) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Order
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} the api result
  */
-func (this *Lighter) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]any, error) {
+func (this *Lighter) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]interface{}, error) {
 
     opts := CancelAllOrdersAfterOptionsStruct{}
 
@@ -965,15 +965,15 @@ func (this *Lighter) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrd
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.CancelAllOrdersAfter(timeout, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -994,7 +994,7 @@ func (this *Lighter) SetMargin(symbol string, amount float64, options ...SetMarg
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1006,7 +1006,7 @@ func (this *Lighter) SetMargin(symbol string, amount float64, options ...SetMarg
 }
 // missing typed methods from base
 //nolint
-func (this *Lighter) LoadMarkets(params ...any) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
+func (this *Lighter) LoadMarkets(params ...interface{}) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
 func (this *Lighter) CancelOrders(ids []string, options ...CancelOrdersOptions) ([]Order, error) {return this.exchangeTyped.CancelOrders(ids, options...)}
 func (this *Lighter) CancelOrdersWithClientOrderIds(clientOrderIds []string, options ...CancelOrdersWithClientOrderIdsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersWithClientOrderIds(clientOrderIds, options...)}
 func (this *Lighter) CancelOrderWithClientOrderId(clientOrderId string, options ...CancelOrderWithClientOrderIdOptions) (Order, error) {return this.exchangeTyped.CancelOrderWithClientOrderId(clientOrderId, options...)}
@@ -1042,21 +1042,21 @@ func (this *Lighter) EditOrders(orders []OrderRequest, options ...EditOrdersOpti
 func (this *Lighter) FetchAllGreeks(options ...FetchAllGreeksOptions) ([]Greeks, error) {return this.exchangeTyped.FetchAllGreeks(options...)}
 func (this *Lighter) FetchBidsAsks(options ...FetchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.FetchBidsAsks(options...)}
 func (this *Lighter) FetchBorrowInterest(options ...FetchBorrowInterestOptions) ([]BorrowInterest, error) {return this.exchangeTyped.FetchBorrowInterest(options...)}
-func (this *Lighter) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]any, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
+func (this *Lighter) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
 func (this *Lighter) FetchCanceledAndClosedOrders(options ...FetchCanceledAndClosedOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchCanceledAndClosedOrders(options...)}
-func (this *Lighter) FetchConvertCurrencies(params ...any) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
+func (this *Lighter) FetchConvertCurrencies(params ...interface{}) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
 func (this *Lighter) FetchConvertQuote(fromCode string, toCode string, options ...FetchConvertQuoteOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertQuote(fromCode, toCode, options...)}
 func (this *Lighter) FetchConvertTrade(id string, options ...FetchConvertTradeOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertTrade(id, options...)}
 func (this *Lighter) FetchConvertTradeHistory(options ...FetchConvertTradeHistoryOptions) ([]Conversion, error) {return this.exchangeTyped.FetchConvertTradeHistory(options...)}
 func (this *Lighter) FetchCrossBorrowRate(code string, options ...FetchCrossBorrowRateOptions) (CrossBorrowRate, error) {return this.exchangeTyped.FetchCrossBorrowRate(code, options...)}
-func (this *Lighter) FetchCrossBorrowRates(params ...any) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
+func (this *Lighter) FetchCrossBorrowRates(params ...interface{}) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
 func (this *Lighter) FetchDepositAddress(code string, options ...FetchDepositAddressOptions) (DepositAddress, error) {return this.exchangeTyped.FetchDepositAddress(code, options...)}
 func (this *Lighter) FetchDepositAddresses(options ...FetchDepositAddressesOptions) ([]DepositAddress, error) {return this.exchangeTyped.FetchDepositAddresses(options...)}
 func (this *Lighter) FetchDepositAddressesByNetwork(code string, options ...FetchDepositAddressesByNetworkOptions) ([]DepositAddress, error) {return this.exchangeTyped.FetchDepositAddressesByNetwork(code, options...)}
 func (this *Lighter) FetchDepositsWithdrawals(options ...FetchDepositsWithdrawalsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchDepositsWithdrawals(options...)}
-func (this *Lighter) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositWithdrawFee(code, options...)}
-func (this *Lighter) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositWithdrawFees(options...)}
-func (this *Lighter) FetchFreeBalance(params ...any) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
+func (this *Lighter) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositWithdrawFee(code, options...)}
+func (this *Lighter) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositWithdrawFees(options...)}
+func (this *Lighter) FetchFreeBalance(params ...interface{}) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
 func (this *Lighter) FetchFundingHistory(options ...FetchFundingHistoryOptions) ([]FundingHistory, error) {return this.exchangeTyped.FetchFundingHistory(options...)}
 func (this *Lighter) FetchFundingInterval(symbol string, options ...FetchFundingIntervalOptions) (FundingRate, error) {return this.exchangeTyped.FetchFundingInterval(symbol, options...)}
 func (this *Lighter) FetchFundingIntervals(options ...FetchFundingIntervalsOptions) (FundingRates, error) {return this.exchangeTyped.FetchFundingIntervals(options...)}
@@ -1065,7 +1065,7 @@ func (this *Lighter) FetchFundingRateHistory(options ...FetchFundingRateHistoryO
 func (this *Lighter) FetchGreeks(symbol string, options ...FetchGreeksOptions) (Greeks, error) {return this.exchangeTyped.FetchGreeks(symbol, options...)}
 func (this *Lighter) FetchIndexOHLCV(symbol string, options ...FetchIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchIndexOHLCV(symbol, options...)}
 func (this *Lighter) FetchIsolatedBorrowRate(symbol string, options ...FetchIsolatedBorrowRateOptions) (IsolatedBorrowRate, error) {return this.exchangeTyped.FetchIsolatedBorrowRate(symbol, options...)}
-func (this *Lighter) FetchIsolatedBorrowRates(params ...any) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
+func (this *Lighter) FetchIsolatedBorrowRates(params ...interface{}) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
 func (this *Lighter) FetchLastPrices(options ...FetchLastPricesOptions) (LastPrices, error) {return this.exchangeTyped.FetchLastPrices(options...)}
 func (this *Lighter) FetchLedger(options ...FetchLedgerOptions) ([]LedgerEntry, error) {return this.exchangeTyped.FetchLedger(options...)}
 func (this *Lighter) FetchLedgerEntry(id string, options ...FetchLedgerEntryOptions) (LedgerEntry, error) {return this.exchangeTyped.FetchLedgerEntry(id, options...)}
@@ -1094,22 +1094,22 @@ func (this *Lighter) FetchOrderBooks(options ...FetchOrderBooksOptions) (OrderBo
 func (this *Lighter) FetchOrders(options ...FetchOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchOrders(options...)}
 func (this *Lighter) FetchOrderStatus(id string, options ...FetchOrderStatusOptions) (string, error) {return this.exchangeTyped.FetchOrderStatus(id, options...)}
 func (this *Lighter) FetchOrderTrades(id string, options ...FetchOrderTradesOptions) ([]Trade, error) {return this.exchangeTyped.FetchOrderTrades(id, options...)}
-func (this *Lighter) FetchPaymentMethods(params ...any) (map[string]any, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
+func (this *Lighter) FetchPaymentMethods(params ...interface{}) (map[string]interface{}, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
 func (this *Lighter) FetchPositionHistory(symbol string, options ...FetchPositionHistoryOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionHistory(symbol, options...)}
-func (this *Lighter) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]any, error) {return this.exchangeTyped.FetchPositionMode(options...)}
+func (this *Lighter) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchPositionMode(options...)}
 func (this *Lighter) FetchPositionsForSymbol(symbol string, options ...FetchPositionsForSymbolOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsForSymbol(symbol, options...)}
 func (this *Lighter) FetchPositionsHistory(options ...FetchPositionsHistoryOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsHistory(options...)}
 func (this *Lighter) FetchPositionsRisk(options ...FetchPositionsRiskOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsRisk(options...)}
 func (this *Lighter) FetchPremiumIndexOHLCV(symbol string, options ...FetchPremiumIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchPremiumIndexOHLCV(symbol, options...)}
 func (this *Lighter) FetchTrades(symbol string, options ...FetchTradesOptions) ([]Trade, error) {return this.exchangeTyped.FetchTrades(symbol, options...)}
 func (this *Lighter) FetchTradingFee(symbol string, options ...FetchTradingFeeOptions) (TradingFeeInterface, error) {return this.exchangeTyped.FetchTradingFee(symbol, options...)}
-func (this *Lighter) FetchTradingFees(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
-func (this *Lighter) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]any, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
-func (this *Lighter) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFee(code, options...)}
-func (this *Lighter) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
+func (this *Lighter) FetchTradingFees(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
+func (this *Lighter) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
+func (this *Lighter) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFee(code, options...)}
+func (this *Lighter) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
 func (this *Lighter) FetchTransactions(options ...FetchTransactionsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchTransactions(options...)}
 func (this *Lighter) FetchTransfer(id string, options ...FetchTransferOptions) (TransferEntry, error) {return this.exchangeTyped.FetchTransfer(id, options...)}
-func (this *Lighter) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]any, error) {return this.exchangeTyped.SetPositionMode(hedged, options...)}
+func (this *Lighter) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]interface{}, error) {return this.exchangeTyped.SetPositionMode(hedged, options...)}
 func (this *Lighter) CancelAllOrdersWs(options ...CancelAllOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.CancelAllOrdersWs(options...)}
 func (this *Lighter) CancelOrdersWs(ids []string, options ...CancelOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersWs(ids, options...)}
 func (this *Lighter) CancelOrderWs(id string, options ...CancelOrderWsOptions) (Order, error) {return this.exchangeTyped.CancelOrderWs(id, options...)}
@@ -1134,9 +1134,9 @@ func (this *Lighter) CreateTrailingAmountOrderWs(symbol string, typeVar string, 
 func (this *Lighter) CreateTrailingPercentOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTrailingPercentOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTrailingPercentOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Lighter) CreateTriggerOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTriggerOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTriggerOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Lighter) EditOrderWs(id string, symbol string, typeVar string, side string, options ...EditOrderWsOptions) (Order, error) {return this.exchangeTyped.EditOrderWs(id, symbol, typeVar, side, options...)}
-func (this *Lighter) FetchBalanceWs(params ...any) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
+func (this *Lighter) FetchBalanceWs(params ...interface{}) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
 func (this *Lighter) FetchClosedOrdersWs(options ...FetchClosedOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchClosedOrdersWs(options...)}
-func (this *Lighter) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
+func (this *Lighter) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
 func (this *Lighter) FetchMyTradesWs(options ...FetchMyTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchMyTradesWs(options...)}
 func (this *Lighter) FetchOHLCVWs(symbol string, options ...FetchOHLCVWsOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchOHLCVWs(symbol, options...)}
 func (this *Lighter) FetchOpenOrdersWs(options ...FetchOpenOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchOpenOrdersWs(options...)}
@@ -1150,20 +1150,20 @@ func (this *Lighter) FetchPositionWs(symbol string, options ...FetchPositionWsOp
 func (this *Lighter) FetchTickersWs(options ...FetchTickersWsOptions) (Tickers, error) {return this.exchangeTyped.FetchTickersWs(options...)}
 func (this *Lighter) FetchTickerWs(symbol string, options ...FetchTickerWsOptions) (Ticker, error) {return this.exchangeTyped.FetchTickerWs(symbol, options...)}
 func (this *Lighter) FetchTradesWs(symbol string, options ...FetchTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchTradesWs(symbol, options...)}
-func (this *Lighter) FetchTradingFeesWs(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
-func (this *Lighter) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
-func (this *Lighter) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (any, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
-func (this *Lighter) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (any, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
-func (this *Lighter) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
-func (this *Lighter) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
-func (this *Lighter) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
-func (this *Lighter) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
-func (this *Lighter) UnWatchOrders(options ...UnWatchOrdersOptions) (any, error) {return this.exchangeTyped.UnWatchOrders(options...)}
-func (this *Lighter) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (any, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
-func (this *Lighter) UnWatchTickers(options ...UnWatchTickersOptions) (any, error) {return this.exchangeTyped.UnWatchTickers(options...)}
-func (this *Lighter) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (any, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
-func (this *Lighter) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
-func (this *Lighter) WatchBalance(params ...any) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
+func (this *Lighter) FetchTradingFeesWs(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
+func (this *Lighter) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
+func (this *Lighter) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (interface{}, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
+func (this *Lighter) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
+func (this *Lighter) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
+func (this *Lighter) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
+func (this *Lighter) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
+func (this *Lighter) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
+func (this *Lighter) UnWatchOrders(options ...UnWatchOrdersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrders(options...)}
+func (this *Lighter) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
+func (this *Lighter) UnWatchTickers(options ...UnWatchTickersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTickers(options...)}
+func (this *Lighter) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
+func (this *Lighter) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
+func (this *Lighter) WatchBalance(params ...interface{}) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
 func (this *Lighter) WatchBidsAsks(options ...WatchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.WatchBidsAsks(options...)}
 func (this *Lighter) WatchLiquidations(symbol string, options ...WatchLiquidationsOptions) ([]Liquidation, error) {return this.exchangeTyped.WatchLiquidations(symbol, options...)}
 func (this *Lighter) WatchMarkPrice(symbol string, options ...WatchMarkPriceOptions) (Ticker, error) {return this.exchangeTyped.WatchMarkPrice(symbol, options...)}

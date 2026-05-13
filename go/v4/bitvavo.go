@@ -15,16 +15,16 @@ func NewBitvavoCore() *BitvavoCore {
     return p
 }
 
-func  (this *BitvavoCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *BitvavoCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "bitvavo",
         "name": "Bitvavo",
-        "countries": []any{"NL"},
+        "countries": []interface{}{"NL"},
         "rateLimit": 60,
         "version": "v2",
         "certified": false,
         "pro": true,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": false,
@@ -131,7 +131,7 @@ func  (this *BitvavoCore) Describe() any  {
             "transfer": false,
             "withdraw": true,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": "1m",
             "5m": "5m",
             "15m": "15m",
@@ -144,9 +144,9 @@ func  (this *BitvavoCore) Describe() any  {
             "12h": "12h",
             "1d": "1d",
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/user-attachments/assets/d213155c-8c71-4701-9bd5-45351febc2a8",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://api.bitvavo.com",
                 "private": "https://api.bitvavo.com",
             },
@@ -155,9 +155,9 @@ func  (this *BitvavoCore) Describe() any  {
             "fees": "https://bitvavo.com/en/fees",
             "referral": "https://bitvavo.com/?a=24F34952F7",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "time": 1,
                     "markets": 1,
                     "assets": 1,
@@ -166,18 +166,18 @@ func  (this *BitvavoCore) Describe() any  {
                     "{market}/candles": 1,
                     "ticker/price": 1,
                     "ticker/book": 1,
-                    "ticker/24h": map[string]any {
+                    "ticker/24h": map[string]interface{} {
                         "cost": 1,
                         "noMarket": 25,
                     },
                 },
             },
-            "private": map[string]any {
-                "get": map[string]any {
+            "private": map[string]interface{} {
+                "get": map[string]interface{} {
                     "account": 1,
                     "order": 1,
                     "orders": 5,
-                    "ordersOpen": map[string]any {
+                    "ordersOpen": map[string]interface{} {
                         "cost": 1,
                         "noMarket": 25,
                     },
@@ -191,21 +191,21 @@ func  (this *BitvavoCore) Describe() any  {
                     "subaccounts/transfers/{transferId}": 5,
                     "institutional/subaccounts/balance": 5,
                     "institutional/subaccounts/history": 5,
-                    "institutional/subaccounts/orders/open": map[string]any {
+                    "institutional/subaccounts/orders/open": map[string]interface{} {
                         "cost": 1,
                         "noMarket": 25,
                     },
                 },
-                "post": map[string]any {
+                "post": map[string]interface{} {
                     "order": 1,
                     "withdrawal": 1,
                     "subaccounts": 5,
                     "subaccounts/transfers": 5,
                 },
-                "put": map[string]any {
+                "put": map[string]interface{} {
                     "order": 1,
                 },
-                "delete": map[string]any {
+                "delete": map[string]interface{} {
                     "order": 1,
                     "orders": 1,
                     "institutional/subaccounts/order": 1,
@@ -213,26 +213,26 @@ func  (this *BitvavoCore) Describe() any  {
                 },
             },
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "tierBased": true,
                 "percentage": true,
                 "taker": this.ParseNumber("0.0025"),
                 "maker": this.ParseNumber("0.002"),
-                "tiers": map[string]any {
-                    "taker": []any{[]any{this.ParseNumber("0"), this.ParseNumber("0.0025")}, []any{this.ParseNumber("100000"), this.ParseNumber("0.0020")}, []any{this.ParseNumber("250000"), this.ParseNumber("0.0016")}, []any{this.ParseNumber("500000"), this.ParseNumber("0.0012")}, []any{this.ParseNumber("1000000"), this.ParseNumber("0.0010")}, []any{this.ParseNumber("2500000"), this.ParseNumber("0.0008")}, []any{this.ParseNumber("5000000"), this.ParseNumber("0.0006")}, []any{this.ParseNumber("10000000"), this.ParseNumber("0.0005")}, []any{this.ParseNumber("25000000"), this.ParseNumber("0.0004")}},
-                    "maker": []any{[]any{this.ParseNumber("0"), this.ParseNumber("0.0015")}, []any{this.ParseNumber("100000"), this.ParseNumber("0.0010")}, []any{this.ParseNumber("250000"), this.ParseNumber("0.0008")}, []any{this.ParseNumber("500000"), this.ParseNumber("0.0006")}, []any{this.ParseNumber("1000000"), this.ParseNumber("0.0005")}, []any{this.ParseNumber("2500000"), this.ParseNumber("0.0004")}, []any{this.ParseNumber("5000000"), this.ParseNumber("0.0004")}, []any{this.ParseNumber("10000000"), this.ParseNumber("0.0003")}, []any{this.ParseNumber("25000000"), this.ParseNumber("0.0003")}},
+                "tiers": map[string]interface{} {
+                    "taker": []interface{}{[]interface{}{this.ParseNumber("0"), this.ParseNumber("0.0025")}, []interface{}{this.ParseNumber("100000"), this.ParseNumber("0.0020")}, []interface{}{this.ParseNumber("250000"), this.ParseNumber("0.0016")}, []interface{}{this.ParseNumber("500000"), this.ParseNumber("0.0012")}, []interface{}{this.ParseNumber("1000000"), this.ParseNumber("0.0010")}, []interface{}{this.ParseNumber("2500000"), this.ParseNumber("0.0008")}, []interface{}{this.ParseNumber("5000000"), this.ParseNumber("0.0006")}, []interface{}{this.ParseNumber("10000000"), this.ParseNumber("0.0005")}, []interface{}{this.ParseNumber("25000000"), this.ParseNumber("0.0004")}},
+                    "maker": []interface{}{[]interface{}{this.ParseNumber("0"), this.ParseNumber("0.0015")}, []interface{}{this.ParseNumber("100000"), this.ParseNumber("0.0010")}, []interface{}{this.ParseNumber("250000"), this.ParseNumber("0.0008")}, []interface{}{this.ParseNumber("500000"), this.ParseNumber("0.0006")}, []interface{}{this.ParseNumber("1000000"), this.ParseNumber("0.0005")}, []interface{}{this.ParseNumber("2500000"), this.ParseNumber("0.0004")}, []interface{}{this.ParseNumber("5000000"), this.ParseNumber("0.0004")}, []interface{}{this.ParseNumber("10000000"), this.ParseNumber("0.0003")}, []interface{}{this.ParseNumber("25000000"), this.ParseNumber("0.0003")}},
                 },
             },
         },
-        "requiredCredentials": map[string]any {
+        "requiredCredentials": map[string]interface{} {
             "apiKey": true,
             "secret": true,
         },
-        "features": map[string]any {
-            "spot": map[string]any {
+        "features": map[string]interface{} {
+            "spot": map[string]interface{} {
                 "sandbox": false,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": true,
                     "triggerPriceType": nil,
@@ -240,7 +240,7 @@ func  (this *BitvavoCore) Describe() any  {
                     "stopLossPrice": true,
                     "takeProfitPrice": true,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": true,
                         "PO": true,
@@ -251,7 +251,7 @@ func  (this *BitvavoCore) Describe() any  {
                     "leverage": false,
                     "marketBuyRequiresPrice": false,
                     "marketBuyByCost": true,
-                    "selfTradePrevention": map[string]any {
+                    "selfTradePrevention": map[string]interface{} {
                         "EXPIRE_MAKER": false,
                         "EXPIRE_TAKER": false,
                         "EXPIRE_BOTH": true,
@@ -260,27 +260,27 @@ func  (this *BitvavoCore) Describe() any  {
                     "iceberg": false,
                 },
                 "createOrders": nil,
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": 1000,
                     "daysBack": 100000,
                     "untilDays": 100000,
                     "symbolRequired": true,
                 },
-                "fetchOrder": map[string]any {
+                "fetchOrder": map[string]interface{} {
                     "marginMode": false,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": true,
                 },
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": nil,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": true,
                 },
-                "fetchOrders": map[string]any {
+                "fetchOrders": map[string]interface{} {
                     "marginMode": true,
                     "limit": 1000,
                     "daysBack": 100000,
@@ -290,21 +290,21 @@ func  (this *BitvavoCore) Describe() any  {
                     "symbolRequired": true,
                 },
                 "fetchClosedOrders": nil,
-                "fetchOHLCV": map[string]any {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": 1440,
                 },
             },
-            "swap": map[string]any {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
         },
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "101": ExchangeError,
                 "102": BadRequest,
                 "103": RateLimitExceeded,
@@ -368,25 +368,25 @@ func  (this *BitvavoCore) Describe() any  {
                 "413": InvalidAddress,
                 "414": ExchangeError,
             },
-            "broad": map[string]any {
+            "broad": map[string]interface{} {
                 "start parameter is invalid": BadRequest,
                 "symbol parameter is invalid": BadSymbol,
                 "amount parameter is invalid": InvalidOrder,
                 "orderId parameter is invalid": InvalidOrder,
             },
         },
-        "options": map[string]any {
+        "options": map[string]interface{} {
             "currencyToPrecisionRoundingMode": TRUNCATE,
             "BITVAVO-ACCESS-WINDOW": 10000,
-            "networks": map[string]any {
+            "networks": map[string]interface{} {
                 "ERC20": "ETH",
                 "TRC20": "TRX",
             },
             "operatorId": nil,
-            "fiatCurrencies": []any{"EUR"},
+            "fiatCurrencies": []interface{}{"EUR"},
         },
         "precisionMode": TICK_SIZE,
-        "commonCurrencies": map[string]any {
+        "commonCurrencies": map[string]interface{} {
             "MIOTA": "IOTA",
         },
         "rollingWindowSize": 60000,
@@ -399,12 +399,12 @@ func  (this *BitvavoCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func  (this *BitvavoCore) FetchTime(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchTime(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetTime(params))
@@ -427,12 +427,12 @@ func  (this *BitvavoCore) FetchTime(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *BitvavoCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetMarkets(params))
@@ -463,18 +463,18 @@ func  (this *BitvavoCore) FetchMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *BitvavoCore) ParseMarkets(markets any) any  {
-    var result any = []any{}
-    var fees any = this.Fees
+func  (this *BitvavoCore) ParseMarkets(markets interface{}) interface{}  {
+    var result interface{} = []interface{}{}
+    var fees interface{} = this.Fees
     for i := 0; IsLessThan(i, GetArrayLength(markets)); i++ {
-        var market any = GetValue(markets, i)
-        var id any = this.SafeString(market, "market")
-        var baseId any = this.SafeString(market, "base")
-        var quoteId any = this.SafeString(market, "quote")
-        var base any = this.SafeCurrencyCode(baseId)
-        var quote any = this.SafeCurrencyCode(quoteId)
-        var status any = this.SafeString(market, "status")
-        AppendToArray(&result, this.SafeMarketStructure(map[string]any {
+        var market interface{} = GetValue(markets, i)
+        var id interface{} = this.SafeString(market, "market")
+        var baseId interface{} = this.SafeString(market, "base")
+        var quoteId interface{} = this.SafeString(market, "quote")
+        var base interface{} = this.SafeCurrencyCode(baseId)
+        var quote interface{} = this.SafeCurrencyCode(quoteId)
+        var status interface{} = this.SafeString(market, "status")
+        AppendToArray(&result, this.SafeMarketStructure(map[string]interface{} {
             "id": id,
             "symbol": Add(Add(base, "/"), quote),
             "base": base,
@@ -500,25 +500,25 @@ func  (this *BitvavoCore) ParseMarkets(markets any) any  {
             "optionType": nil,
             "taker": GetValue(GetValue(fees, "trading"), "taker"),
             "maker": GetValue(GetValue(fees, "trading"), "maker"),
-            "precision": map[string]any {
+            "precision": map[string]interface{} {
                 "amount": this.ParseNumber(this.ParsePrecision(this.SafeString(market, "quantityDecimals"))),
                 "price": this.SafeNumber(market, "tickSize"),
                 "cost": this.ParseNumber(this.ParsePrecision(this.SafeString(market, "notionalDecimals"))),
             },
-            "limits": map[string]any {
-                "leverage": map[string]any {
+            "limits": map[string]interface{} {
+                "leverage": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
-                "amount": map[string]any {
+                "amount": map[string]interface{} {
                     "min": this.SafeNumber(market, "minOrderInBaseAsset"),
                     "max": this.SafeNumber(market, "maxOrderInBaseAsset"),
                 },
-                "price": map[string]any {
+                "price": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
-                "cost": map[string]any {
+                "cost": map[string]interface{} {
                     "min": this.SafeNumber(market, "minOrderInQuoteAsset"),
                     "max": this.SafeNumber(market, "maxOrderInQuoteAsset"),
                 },
@@ -537,12 +537,12 @@ func  (this *BitvavoCore) ParseMarkets(markets any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an associative dictionary of currencies
  */
-func  (this *BitvavoCore) FetchCurrencies(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchCurrencies(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetAssets(params))
@@ -587,7 +587,7 @@ func  (this *BitvavoCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *BitvavoCore) ParseCurrenciesCustom(currencies any) any  {
+func  (this *BitvavoCore) ParseCurrenciesCustom(currencies interface{}) interface{}  {
     //
     //     [
     //         {
@@ -621,26 +621,26 @@ func  (this *BitvavoCore) ParseCurrenciesCustom(currencies any) any  {
     //         },
     //     ]
     //
-    var fiatCurrencies any = this.SafeList(this.Options, "fiatCurrencies", []any{})
-    var result any = map[string]any {}
+    var fiatCurrencies interface{} = this.SafeList(this.Options, "fiatCurrencies", []interface{}{})
+    var result interface{} = map[string]interface{} {}
     for i := 0; IsLessThan(i, GetArrayLength(currencies)); i++ {
-        var currency any = GetValue(currencies, i)
-        var id any = this.SafeString(currency, "symbol")
-        var code any = this.SafeCurrencyCode(id)
-        var isFiat any = this.InArray(code, fiatCurrencies)
-        var networks any = map[string]any {}
-        var networksArray any = this.SafeList(currency, "networks", []any{})
-        var deposit any = IsEqual(this.SafeString(currency, "depositStatus"), "OK")
-        var withdrawal any = IsEqual(this.SafeString(currency, "withdrawalStatus"), "OK")
-        var active any = IsTrue(deposit) && IsTrue(withdrawal)
-        var withdrawFee any = this.SafeNumber(currency, "withdrawalFee")
-        var precision any = this.SafeString(currency, "decimals", "8")
-        var minWithdraw any = this.SafeNumber(currency, "withdrawalMinAmount")
+        var currency interface{} = GetValue(currencies, i)
+        var id interface{} = this.SafeString(currency, "symbol")
+        var code interface{} = this.SafeCurrencyCode(id)
+        var isFiat interface{} = this.InArray(code, fiatCurrencies)
+        var networks interface{} = map[string]interface{} {}
+        var networksArray interface{} = this.SafeList(currency, "networks", []interface{}{})
+        var deposit interface{} = IsEqual(this.SafeString(currency, "depositStatus"), "OK")
+        var withdrawal interface{} = IsEqual(this.SafeString(currency, "withdrawalStatus"), "OK")
+        var active interface{} = IsTrue(deposit) && IsTrue(withdrawal)
+        var withdrawFee interface{} = this.SafeNumber(currency, "withdrawalFee")
+        var precision interface{} = this.SafeString(currency, "decimals", "8")
+        var minWithdraw interface{} = this.SafeNumber(currency, "withdrawalMinAmount")
         // btw, absolutely all of them have 1 network atm
         for j := 0; IsLessThan(j, GetArrayLength(networksArray)); j++ {
-            var networkId any = GetValue(networksArray, j)
-            var networkCode any = this.NetworkIdToCode(networkId)
-            AddElementToObject(networks, networkCode, map[string]any {
+            var networkId interface{} = GetValue(networksArray, j)
+            var networkCode interface{} = this.NetworkIdToCode(networkId)
+            AddElementToObject(networks, networkCode, map[string]interface{} {
     "info": currency,
     "id": networkId,
     "network": networkCode,
@@ -649,15 +649,15 @@ func  (this *BitvavoCore) ParseCurrenciesCustom(currencies any) any  {
     "withdraw": withdrawal,
     "fee": withdrawFee,
     "precision": this.ParseNumber(this.ParsePrecision(precision)),
-    "limits": map[string]any {
-        "withdraw": map[string]any {
+    "limits": map[string]interface{} {
+        "withdraw": map[string]interface{} {
             "min": minWithdraw,
             "max": nil,
         },
     },
 })
         }
-        AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]any {
+        AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]interface{} {
     "info": currency,
     "id": id,
     "code": code,
@@ -669,16 +669,16 @@ func  (this *BitvavoCore) ParseCurrenciesCustom(currencies any) any  {
     "fee": withdrawFee,
     "precision": nil,
     "type": Ternary(IsTrue(isFiat), "fiat", "crypto"),
-    "limits": map[string]any {
-        "amount": map[string]any {
+    "limits": map[string]interface{} {
+        "amount": map[string]interface{} {
             "min": nil,
             "max": nil,
         },
-        "deposit": map[string]any {
+        "deposit": map[string]interface{} {
             "min": nil,
             "max": nil,
         },
-        "withdraw": map[string]any {
+        "withdraw": map[string]interface{} {
             "min": minWithdraw,
             "max": nil,
         },
@@ -696,18 +696,18 @@ func  (this *BitvavoCore) ParseCurrenciesCustom(currencies any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *BitvavoCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes6788 := (<-this.LoadMarkets())
             PanicOnError(retRes6788)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
         
@@ -736,7 +736,7 @@ func  (this *BitvavoCore) FetchTicker(symbol any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *BitvavoCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTicker
     //
@@ -757,14 +757,14 @@ func  (this *BitvavoCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(ticker, "market")
-    var symbol any = this.SafeSymbol(marketId, market, "-")
-    var timestamp any = this.SafeInteger(ticker, "timestamp")
-    var last any = this.SafeString(ticker, "last")
-    var baseVolume any = this.SafeString(ticker, "volume")
-    var quoteVolume any = this.SafeString(ticker, "volumeQuote")
-    var open any = this.SafeString(ticker, "open")
-    return this.SafeTicker(map[string]any {
+    var marketId interface{} = this.SafeString(ticker, "market")
+    var symbol interface{} = this.SafeSymbol(marketId, market, "-")
+    var timestamp interface{} = this.SafeInteger(ticker, "timestamp")
+    var last interface{} = this.SafeString(ticker, "last")
+    var baseVolume interface{} = this.SafeString(ticker, "volume")
+    var quoteVolume interface{} = this.SafeString(ticker, "volumeQuote")
+    var open interface{} = this.SafeString(ticker, "open")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": symbol,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -795,14 +795,14 @@ func  (this *BitvavoCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *BitvavoCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes7628 := (<-this.LoadMarkets())
@@ -848,22 +848,22 @@ func  (this *BitvavoCore) FetchTickers(optionalArgs ...any) <- chan any {
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *BitvavoCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes7998 := (<-this.LoadMarkets())
             PanicOnError(retRes7998)
-            var market any = this.Market(symbol)
-            var paginate any = false
+            var market interface{} = this.Market(symbol)
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchTrades", "paginate");
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
@@ -874,7 +874,7 @@ func  (this *BitvavoCore) FetchTrades(symbol any, optionalArgs ...any) <- chan a
                     ch <- retRes80419
                     return nil
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -907,7 +907,7 @@ func  (this *BitvavoCore) FetchTrades(symbol any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *BitvavoCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTrades (public)
     //
@@ -966,30 +966,30 @@ func  (this *BitvavoCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var priceString any = this.SafeString(trade, "price")
-    var amountString any = this.SafeString(trade, "amount")
-    var timestamp any = this.SafeInteger(trade, "timestamp")
-    var side any = this.SafeString(trade, "side")
-    var id any = this.SafeString2(trade, "id", "fillId")
-    var marketId any = this.SafeString(trade, "market")
-    var symbol any = this.SafeSymbol(marketId, market, "-")
-    var taker any = this.SafeValue(trade, "taker")
-    var takerOrMaker any = nil
+    var priceString interface{} = this.SafeString(trade, "price")
+    var amountString interface{} = this.SafeString(trade, "amount")
+    var timestamp interface{} = this.SafeInteger(trade, "timestamp")
+    var side interface{} = this.SafeString(trade, "side")
+    var id interface{} = this.SafeString2(trade, "id", "fillId")
+    var marketId interface{} = this.SafeString(trade, "market")
+    var symbol interface{} = this.SafeSymbol(marketId, market, "-")
+    var taker interface{} = this.SafeValue(trade, "taker")
+    var takerOrMaker interface{} = nil
     if IsTrue(!IsEqual(taker, nil)) {
         takerOrMaker = Ternary(IsTrue(taker), "taker", "maker")
     }
-    var feeCostString any = this.SafeString(trade, "fee")
-    var fee any = nil
+    var feeCostString interface{} = this.SafeString(trade, "fee")
+    var fee interface{} = nil
     if IsTrue(!IsEqual(feeCostString, nil)) {
-        var feeCurrencyId any = this.SafeString(trade, "feeCurrency")
-        var feeCurrencyCode any = this.SafeCurrencyCode(feeCurrencyId)
-        fee = map[string]any {
+        var feeCurrencyId interface{} = this.SafeString(trade, "feeCurrency")
+        var feeCurrencyCode interface{} = this.SafeCurrencyCode(feeCurrencyId)
+        fee = map[string]interface{} {
             "cost": feeCostString,
             "currency": feeCurrencyCode,
         }
     }
-    var orderId any = this.SafeString(trade, "orderId")
-    return this.SafeTrade(map[string]any {
+    var orderId interface{} = this.SafeString(trade, "orderId")
+    return this.SafeTrade(map[string]interface{} {
         "info": trade,
         "id": id,
         "symbol": symbol,
@@ -1013,12 +1013,12 @@ func  (this *BitvavoCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [fee structures]{@link https://docs.ccxt.com/?id=fee-structure} indexed by market symbols
  */
-func  (this *BitvavoCore) FetchTradingFees(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchTradingFees(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes9428 := (<-this.LoadMarkets())
@@ -1042,7 +1042,7 @@ func  (this *BitvavoCore) FetchTradingFees(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *BitvavoCore) ParseTradingFees(fees any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) ParseTradingFees(fees interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "fees": {
@@ -1054,13 +1054,13 @@ func  (this *BitvavoCore) ParseTradingFees(fees any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var feesValue any = this.SafeValue(fees, "fees")
-    var maker any = this.SafeNumber(feesValue, "maker")
-    var taker any = this.SafeNumber(feesValue, "taker")
-    var result any = map[string]any {}
+    var feesValue interface{} = this.SafeValue(fees, "fees")
+    var maker interface{} = this.SafeNumber(feesValue, "maker")
+    var taker interface{} = this.SafeNumber(feesValue, "taker")
+    var result interface{} = map[string]interface{} {}
     for i := 0; IsLessThan(i, GetArrayLength(this.Symbols)); i++ {
-        var symbol any = GetValue(this.Symbols, i)
-        AddElementToObject(result, symbol, map[string]any {
+        var symbol interface{} = GetValue(this.Symbols, i)
+        AddElementToObject(result, symbol, map[string]interface{} {
     "info": fees,
     "symbol": symbol,
     "maker": maker,
@@ -1081,20 +1081,20 @@ func  (this *BitvavoCore) ParseTradingFees(fees any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *BitvavoCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes9958 := (<-this.LoadMarkets())
             PanicOnError(retRes9958)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -1119,7 +1119,7 @@ func  (this *BitvavoCore) FetchOrderBook(symbol any, optionalArgs ...any) <- cha
             //         ]
             //     }
             //
-            var orderbook any = this.ParseOrderBook(response, GetValue(market, "symbol"))
+            var orderbook interface{} = this.ParseOrderBook(response, GetValue(market, "symbol"))
             AddElementToObject(orderbook, "nonce", this.SafeInteger(response, "nonce"))
         
             ch <- orderbook
@@ -1128,7 +1128,7 @@ func  (this *BitvavoCore) FetchOrderBook(symbol any, optionalArgs ...any) <- cha
             }()
             return ch
         }
-func  (this *BitvavoCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) ParseOHLCV(ohlcv interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     [
     //         1590383700000,
@@ -1141,25 +1141,25 @@ func  (this *BitvavoCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    return []any{this.SafeInteger(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 5)}
+    return []interface{}{this.SafeInteger(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 5)}
 }
-func  (this *BitvavoCore) FetchOHLCVRequest(symbol any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) FetchOHLCVRequest(symbol interface{}, optionalArgs ...interface{}) interface{}  {
     timeframe := GetArg(optionalArgs, 0, "1m")
     _ = timeframe
     since := GetArg(optionalArgs, 1, nil)
     _ = since
     limit := GetArg(optionalArgs, 2, nil)
     _ = limit
-    params := GetArg(optionalArgs, 3, map[string]any {})
+    params := GetArg(optionalArgs, 3, map[string]interface{} {})
     _ = params
-    var market any = this.Market(symbol)
-    var request any = map[string]any {
+    var market interface{} = this.Market(symbol)
+    var request interface{} = map[string]interface{} {
         "market": GetValue(market, "id"),
         "interval": this.SafeString(this.Timeframes, timeframe, timeframe),
     }
     if IsTrue(!IsEqual(since, nil)) {
         // https://github.com/ccxt/ccxt/issues/9227
-        var duration any = this.ParseTimeframe(timeframe)
+        var duration interface{} = this.ParseTimeframe(timeframe)
         AddElementToObject(request, "start", since)
         if IsTrue(IsEqual(limit, nil)) {
             limit = 1440
@@ -1190,9 +1190,9 @@ func  (this *BitvavoCore) FetchOHLCVRequest(symbol any, optionalArgs ...any) any
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *BitvavoCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -1201,13 +1201,13 @@ func  (this *BitvavoCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan an
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes10888 := (<-this.LoadMarkets())
             PanicOnError(retRes10888)
-            var market any = this.Market(symbol)
-            var paginate any = false
+            var market interface{} = this.Market(symbol)
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchOHLCV", "paginate");
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
@@ -1218,7 +1218,7 @@ func  (this *BitvavoCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan an
                     ch <- retRes109319
                     return nil
             }
-            var request any = this.FetchOHLCVRequest(symbol, timeframe, since, limit, params)
+            var request interface{} = this.FetchOHLCVRequest(symbol, timeframe, since, limit, params)
         
             response:= (<-this.PublicGetMarketCandles(request))
             PanicOnError(response)
@@ -1236,17 +1236,17 @@ func  (this *BitvavoCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan an
             }()
             return ch
         }
-func  (this *BitvavoCore) ParseBalance(response any) any  {
-    var result any = map[string]any {
+func  (this *BitvavoCore) ParseBalance(response interface{}) interface{}  {
+    var result interface{} = map[string]interface{} {
         "info": response,
         "timestamp": nil,
         "datetime": nil,
     }
     for i := 0; IsLessThan(i, GetArrayLength(response)); i++ {
-        var balance any = GetValue(response, i)
-        var currencyId any = this.SafeString(balance, "symbol")
-        var code any = this.SafeCurrencyCode(currencyId)
-        var account any = this.Account()
+        var balance interface{} = GetValue(response, i)
+        var currencyId interface{} = this.SafeString(balance, "symbol")
+        var code interface{} = this.SafeCurrencyCode(currencyId)
+        var account interface{} = this.Account()
         AddElementToObject(account, "free", this.SafeString(balance, "available"))
         AddElementToObject(account, "used", this.SafeString(balance, "inOrder"))
         AddElementToObject(result, code, account)
@@ -1261,12 +1261,12 @@ func  (this *BitvavoCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *BitvavoCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes11348 := (<-this.LoadMarkets())
@@ -1298,18 +1298,18 @@ func  (this *BitvavoCore) FetchBalance(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [address structure]{@link https://docs.ccxt.com/?id=address-structure}
  */
-func  (this *BitvavoCore) FetchDepositAddress(code any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchDepositAddress(code interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes11578 := (<-this.LoadMarkets())
             PanicOnError(retRes11578)
-            var currency any = this.Currency(code)
-            var request any = map[string]any {
+            var currency interface{} = this.Currency(code)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(currency, "id"),
             }
         
@@ -1321,11 +1321,11 @@ func  (this *BitvavoCore) FetchDepositAddress(code any, optionalArgs ...any) <- 
             //         "paymentId": "10002653"
             //     }
             //
-            var address any = this.SafeString(response, "address")
-            var tag any = this.SafeString(response, "paymentId")
+            var address interface{} = this.SafeString(response, "address")
+            var tag interface{} = this.SafeString(response, "paymentId")
             this.CheckAddress(address)
         
-            ch <- map[string]any {
+            ch <- map[string]interface{} {
                 "info": response,
                 "currency": code,
                 "network": nil,
@@ -1337,48 +1337,48 @@ func  (this *BitvavoCore) FetchDepositAddress(code any, optionalArgs ...any) <- 
             }()
             return ch
         }
-func  (this *BitvavoCore) CreateOrderRequest(symbol any, typeVar any, side any, amount any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) CreateOrderRequest(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) interface{}  {
     price := GetArg(optionalArgs, 0, nil)
     _ = price
-    params := GetArg(optionalArgs, 1, map[string]any {})
+    params := GetArg(optionalArgs, 1, map[string]interface{} {})
     _ = params
-    var market any = this.Market(symbol)
-    var request any = map[string]any {
+    var market interface{} = this.Market(symbol)
+    var request interface{} = map[string]interface{} {
         "market": GetValue(market, "id"),
         "side": side,
         "orderType": typeVar,
     }
-    var isMarketOrder any = IsTrue(IsTrue((IsEqual(typeVar, "market"))) || IsTrue((IsEqual(typeVar, "stopLoss")))) || IsTrue((IsEqual(typeVar, "takeProfit")))
-    var isLimitOrder any = IsTrue(IsTrue((IsEqual(typeVar, "limit"))) || IsTrue((IsEqual(typeVar, "stopLossLimit")))) || IsTrue((IsEqual(typeVar, "takeProfitLimit")))
-    var timeInForce any = this.SafeString(params, "timeInForce")
-    var triggerPrice any = this.SafeStringN(params, []any{"triggerPrice", "stopPrice", "triggerAmount"})
-    var postOnly any = this.IsPostOnly(isMarketOrder, false, params)
-    var stopLossPrice any = this.SafeValue(params, "stopLossPrice") // trigger when price crosses from above to below this value
-    var takeProfitPrice any = this.SafeValue(params, "takeProfitPrice") // trigger when price crosses from below to above this value
-    params = this.Omit(params, []any{"timeInForce", "triggerPrice", "stopPrice", "stopLossPrice", "takeProfitPrice"})
+    var isMarketOrder interface{} = IsTrue(IsTrue((IsEqual(typeVar, "market"))) || IsTrue((IsEqual(typeVar, "stopLoss")))) || IsTrue((IsEqual(typeVar, "takeProfit")))
+    var isLimitOrder interface{} = IsTrue(IsTrue((IsEqual(typeVar, "limit"))) || IsTrue((IsEqual(typeVar, "stopLossLimit")))) || IsTrue((IsEqual(typeVar, "takeProfitLimit")))
+    var timeInForce interface{} = this.SafeString(params, "timeInForce")
+    var triggerPrice interface{} = this.SafeStringN(params, []interface{}{"triggerPrice", "stopPrice", "triggerAmount"})
+    var postOnly interface{} = this.IsPostOnly(isMarketOrder, false, params)
+    var stopLossPrice interface{} = this.SafeValue(params, "stopLossPrice") // trigger when price crosses from above to below this value
+    var takeProfitPrice interface{} = this.SafeValue(params, "takeProfitPrice") // trigger when price crosses from below to above this value
+    params = this.Omit(params, []interface{}{"timeInForce", "triggerPrice", "stopPrice", "stopLossPrice", "takeProfitPrice"})
     if IsTrue(isMarketOrder) {
-        var cost any = nil
+        var cost interface{} = nil
         if IsTrue(!IsEqual(price, nil)) {
-            var priceString any = this.NumberToString(price)
-            var amountString any = this.NumberToString(amount)
-            var quoteAmount any = Precise.StringMul(amountString, priceString)
+            var priceString interface{} = this.NumberToString(price)
+            var amountString interface{} = this.NumberToString(amount)
+            var quoteAmount interface{} = Precise.StringMul(amountString, priceString)
             cost = this.ParseNumber(quoteAmount)
         } else {
             cost = this.SafeNumber(params, "cost")
         }
         if IsTrue(!IsEqual(cost, nil)) {
-            var precision any = GetValue(this.Currency(GetValue(market, "quote")), "precision")
+            var precision interface{} = GetValue(this.Currency(GetValue(market, "quote")), "precision")
             AddElementToObject(request, "amountQuote", this.DecimalToPrecision(cost, TRUNCATE, precision, this.PrecisionMode))
         } else {
             AddElementToObject(request, "amount", this.AmountToPrecision(symbol, amount))
         }
-        params = this.Omit(params, []any{"cost"})
+        params = this.Omit(params, []interface{}{"cost"})
     } else if IsTrue(isLimitOrder) {
         AddElementToObject(request, "price", this.PriceToPrecision(symbol, price))
         AddElementToObject(request, "amount", this.AmountToPrecision(symbol, amount))
     }
-    var isTakeProfit any = IsTrue(IsTrue((!IsEqual(takeProfitPrice, nil))) || IsTrue((IsEqual(typeVar, "takeProfit")))) || IsTrue((IsEqual(typeVar, "takeProfitLimit")))
-    var isStopLoss any = IsTrue(IsTrue(IsTrue((!IsEqual(stopLossPrice, nil))) || IsTrue(IsTrue((!IsEqual(triggerPrice, nil))) && IsTrue((!IsTrue(isTakeProfit))))) || IsTrue((IsEqual(typeVar, "stopLoss")))) || IsTrue((IsEqual(typeVar, "stopLossLimit")))
+    var isTakeProfit interface{} = IsTrue(IsTrue((!IsEqual(takeProfitPrice, nil))) || IsTrue((IsEqual(typeVar, "takeProfit")))) || IsTrue((IsEqual(typeVar, "takeProfitLimit")))
+    var isStopLoss interface{} = IsTrue(IsTrue(IsTrue((!IsEqual(stopLossPrice, nil))) || IsTrue(IsTrue((!IsEqual(triggerPrice, nil))) && IsTrue((!IsTrue(isTakeProfit))))) || IsTrue((IsEqual(typeVar, "stopLoss")))) || IsTrue((IsEqual(typeVar, "stopLossLimit")))
     if IsTrue(isStopLoss) {
         if IsTrue(!IsEqual(stopLossPrice, nil)) {
             triggerPrice = stopLossPrice
@@ -1401,7 +1401,7 @@ func  (this *BitvavoCore) CreateOrderRequest(symbol any, typeVar any, side any, 
     if IsTrue(postOnly) {
         AddElementToObject(request, "postOnly", true)
     }
-    var operatorId any = nil
+    var operatorId interface{} = nil
     operatorIdparamsVariable := this.HandleOptionAndParams(params, "createOrder", "operatorId");
     operatorId = GetValue(operatorIdparamsVariable,0);
     params = GetValue(operatorIdparamsVariable,1)
@@ -1410,7 +1410,7 @@ func  (this *BitvavoCore) CreateOrderRequest(symbol any, typeVar any, side any, 
     } else {
         panic(ArgumentsRequired(Add(this.Id, " createOrder() requires an operatorId in params or options, eg: exchange.options[\\'operatorId\\'] = 1234567890")))
     }
-    var selfTradePrevention any = nil
+    var selfTradePrevention interface{} = nil
     selfTradePreventionparamsVariable := this.HandleOptionAndParams(params, "createOrder", "selfTradePrevention");
     selfTradePrevention = GetValue(selfTradePreventionparamsVariable,0);
     params = GetValue(selfTradePreventionparamsVariable,1)
@@ -1447,20 +1447,20 @@ func  (this *BitvavoCore) CreateOrderRequest(symbol any, typeVar any, side any, 
  * @param {bool} [params.responseRequired] Set this to 'false' when only an acknowledgement of success or failure is required, this is faster.
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *BitvavoCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes12858 := (<-this.LoadMarkets())
             PanicOnError(retRes12858)
-            var market any = this.Market(symbol)
-            var request any = this.CreateOrderRequest(symbol, typeVar, side, amount, price, params)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = this.CreateOrderRequest(symbol, typeVar, side, amount, price, params)
         
             response:= (<-this.PrivatePostOrder(request))
             PanicOnError(response)
@@ -1511,18 +1511,18 @@ func  (this *BitvavoCore) CreateOrder(symbol any, typeVar any, side any, amount 
             }()
             return ch
         }
-func  (this *BitvavoCore) EditOrderRequest(id any, symbol any, typeVar any, side any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) EditOrderRequest(id interface{}, symbol interface{}, typeVar interface{}, side interface{}, optionalArgs ...interface{}) interface{}  {
     amount := GetArg(optionalArgs, 0, nil)
     _ = amount
     price := GetArg(optionalArgs, 1, nil)
     _ = price
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
-    var request any = map[string]any {}
-    var market any = this.Market(symbol)
-    var amountRemaining any = this.SafeNumber(params, "amountRemaining")
-    var triggerPrice any = this.SafeStringN(params, []any{"triggerPrice", "stopPrice", "triggerAmount"})
-    params = this.Omit(params, []any{"amountRemaining", "triggerPrice", "stopPrice", "triggerAmount"})
+    var request interface{} = map[string]interface{} {}
+    var market interface{} = this.Market(symbol)
+    var amountRemaining interface{} = this.SafeNumber(params, "amountRemaining")
+    var triggerPrice interface{} = this.SafeStringN(params, []interface{}{"triggerPrice", "stopPrice", "triggerAmount"})
+    params = this.Omit(params, []interface{}{"amountRemaining", "triggerPrice", "stopPrice", "triggerAmount"})
     if IsTrue(!IsEqual(price, nil)) {
         AddElementToObject(request, "price", this.PriceToPrecision(symbol, price))
     }
@@ -1539,11 +1539,11 @@ func  (this *BitvavoCore) EditOrderRequest(id any, symbol any, typeVar any, side
     if IsTrue(this.IsEmpty(request)) {
         panic(ArgumentsRequired(Add(this.Id, " editOrder() requires an amount argument, or a price argument, or non-empty params")))
     }
-    var clientOrderId any = this.SafeString(params, "clientOrderId")
+    var clientOrderId interface{} = this.SafeString(params, "clientOrderId")
     if IsTrue(IsEqual(clientOrderId, nil)) {
         AddElementToObject(request, "orderId", id)
     }
-    var operatorId any = nil
+    var operatorId interface{} = nil
     operatorIdparamsVariable := this.HandleOptionAndParams(params, "editOrder", "operatorId");
     operatorId = GetValue(operatorIdparamsVariable,0);
     params = GetValue(operatorIdparamsVariable,1)
@@ -1569,22 +1569,22 @@ func  (this *BitvavoCore) EditOrderRequest(id any, symbol any, typeVar any, side
  * @param {object} [params] extra parameters specific to the bitvavo api endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *BitvavoCore) EditOrder(id any, symbol any, typeVar any, side any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) EditOrder(id interface{}, symbol interface{}, typeVar interface{}, side interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     amount := GetArg(optionalArgs, 0, nil)
             _ = amount
             price := GetArg(optionalArgs, 1, nil)
             _ = price
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes13848 := (<-this.LoadMarkets())
             PanicOnError(retRes13848)
-            var market any = this.Market(symbol)
-            var request any = this.EditOrderRequest(id, symbol, typeVar, side, amount, price, params)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = this.EditOrderRequest(id, symbol, typeVar, side, amount, price, params)
         
             response:= (<-this.PrivatePutOrder(request))
             PanicOnError(response)
@@ -1595,23 +1595,23 @@ func  (this *BitvavoCore) EditOrder(id any, symbol any, typeVar any, side any, o
             }()
             return ch
         }
-func  (this *BitvavoCore) CancelOrderRequest(id any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) CancelOrderRequest(id interface{}, optionalArgs ...interface{}) interface{}  {
     symbol := GetArg(optionalArgs, 0, nil)
     _ = symbol
-    params := GetArg(optionalArgs, 1, map[string]any {})
+    params := GetArg(optionalArgs, 1, map[string]interface{} {})
     _ = params
     if IsTrue(IsEqual(symbol, nil)) {
         panic(ArgumentsRequired(Add(this.Id, " cancelOrder() requires a symbol argument")))
     }
-    var market any = this.Market(symbol)
-    var request any = map[string]any {
+    var market interface{} = this.Market(symbol)
+    var request interface{} = map[string]interface{} {
         "market": GetValue(market, "id"),
     }
-    var clientOrderId any = this.SafeString(params, "clientOrderId")
+    var clientOrderId interface{} = this.SafeString(params, "clientOrderId")
     if IsTrue(IsEqual(clientOrderId, nil)) {
         AddElementToObject(request, "orderId", id)
     }
-    var operatorId any = nil
+    var operatorId interface{} = nil
     operatorIdparamsVariable := this.HandleOptionAndParams(params, "cancelOrder", "operatorId");
     operatorId = GetValue(operatorIdparamsVariable,0);
     params = GetValue(operatorIdparamsVariable,1)
@@ -1633,20 +1633,20 @@ func  (this *BitvavoCore) CancelOrderRequest(id any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *BitvavoCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes14258 := (<-this.LoadMarkets())
             PanicOnError(retRes14258)
-            var market any = this.Market(symbol)
-            var request any = this.CancelOrderRequest(id, symbol, params)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = this.CancelOrderRequest(id, symbol, params)
         
             response:= (<-this.PrivateDeleteOrder(request))
             PanicOnError(response)
@@ -1671,25 +1671,25 @@ func  (this *BitvavoCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *BitvavoCore) CancelAllOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) CancelAllOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes14478 := (<-this.LoadMarkets())
             PanicOnError(retRes14478)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "market", GetValue(market, "id"))
             }
-            var operatorId any = nil
+            var operatorId interface{} = nil
             operatorIdparamsVariable := this.HandleOptionAndParams(params, "cancelAllOrders", "operatorId");
             operatorId = GetValue(operatorIdparamsVariable,0);
             params = GetValue(operatorIdparamsVariable,1)
@@ -1725,14 +1725,14 @@ func  (this *BitvavoCore) CancelAllOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *BitvavoCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOrder() requires a symbol argument")))
@@ -1740,11 +1740,11 @@ func  (this *BitvavoCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
         
             retRes14868 := (<-this.LoadMarkets())
             PanicOnError(retRes14868)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
-            var clientOrderId any = this.SafeString(params, "clientOrderId")
+            var clientOrderId interface{} = this.SafeString(params, "clientOrderId")
             if IsTrue(IsEqual(clientOrderId, nil)) {
                 AddElementToObject(request, "orderId", id)
             }
@@ -1792,17 +1792,17 @@ func  (this *BitvavoCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *BitvavoCore) FetchOrdersRequest(optionalArgs ...any) any  {
+func  (this *BitvavoCore) FetchOrdersRequest(optionalArgs ...interface{}) interface{}  {
     symbol := GetArg(optionalArgs, 0, nil)
     _ = symbol
     since := GetArg(optionalArgs, 1, nil)
     _ = since
     limit := GetArg(optionalArgs, 2, nil)
     _ = limit
-    params := GetArg(optionalArgs, 3, map[string]any {})
+    params := GetArg(optionalArgs, 3, map[string]interface{} {})
     _ = params
-    var market any = this.Market(symbol)
-    var request any = map[string]any {
+    var market interface{} = this.Market(symbol)
+    var request interface{} = map[string]interface{} {
         "market": GetValue(market, "id"),
     }
     if IsTrue(!IsEqual(since, nil)) {
@@ -1829,9 +1829,9 @@ func  (this *BitvavoCore) FetchOrdersRequest(optionalArgs ...any) any  {
  * @param {int} [params.until] the latest time in ms to fetch entries for
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *BitvavoCore) FetchOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1840,7 +1840,7 @@ func  (this *BitvavoCore) FetchOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOrders() requires a symbol argument")))
@@ -1848,7 +1848,7 @@ func  (this *BitvavoCore) FetchOrders(optionalArgs ...any) <- chan any {
         
             retRes15708 := (<-this.LoadMarkets())
             PanicOnError(retRes15708)
-            var paginate any = false
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchOrders", "paginate");
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
@@ -1859,8 +1859,8 @@ func  (this *BitvavoCore) FetchOrders(optionalArgs ...any) <- chan any {
                     ch <- retRes157419
                     return nil
             }
-            var market any = this.Market(symbol)
-            var request any = this.FetchOrdersRequest(symbol, since, limit, params)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = this.FetchOrdersRequest(symbol, since, limit, params)
         
             response:= (<-this.PrivateGetOrders(request))
             PanicOnError(response)
@@ -1918,9 +1918,9 @@ func  (this *BitvavoCore) FetchOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *BitvavoCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1929,13 +1929,13 @@ func  (this *BitvavoCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes16308 := (<-this.LoadMarkets())
             PanicOnError(retRes16308)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "market", GetValue(market, "id"))
@@ -1986,8 +1986,8 @@ func  (this *BitvavoCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *BitvavoCore) ParseOrderStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *BitvavoCore) ParseOrderStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "new": "open",
         "canceled": "canceled",
         "canceledAuction": "canceled",
@@ -2004,7 +2004,7 @@ func  (this *BitvavoCore) ParseOrderStatus(status any) any  {
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *BitvavoCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // cancelOrder, cancelAllOrders
     //
@@ -2052,39 +2052,39 @@ func  (this *BitvavoCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var id any = this.SafeString(order, "orderId")
-    var timestamp any = this.SafeInteger(order, "created")
-    var marketId any = this.SafeString(order, "market")
+    var id interface{} = this.SafeString(order, "orderId")
+    var timestamp interface{} = this.SafeInteger(order, "created")
+    var marketId interface{} = this.SafeString(order, "market")
     market = this.SafeMarket(marketId, market, "-")
-    var symbol any = GetValue(market, "symbol")
-    var status any = this.ParseOrderStatus(this.SafeString(order, "status"))
-    var side any = this.SafeString(order, "side")
-    var typeVar any = this.SafeString(order, "orderType")
-    var price any = this.SafeString(order, "price")
-    var amount any = this.SafeString(order, "amount")
-    var remaining any = this.SafeString(order, "amountRemaining")
-    var filled any = this.SafeString(order, "filledAmount")
-    var cost any = this.SafeString(order, "filledAmountQuote")
+    var symbol interface{} = GetValue(market, "symbol")
+    var status interface{} = this.ParseOrderStatus(this.SafeString(order, "status"))
+    var side interface{} = this.SafeString(order, "side")
+    var typeVar interface{} = this.SafeString(order, "orderType")
+    var price interface{} = this.SafeString(order, "price")
+    var amount interface{} = this.SafeString(order, "amount")
+    var remaining interface{} = this.SafeString(order, "amountRemaining")
+    var filled interface{} = this.SafeString(order, "filledAmount")
+    var cost interface{} = this.SafeString(order, "filledAmountQuote")
     if IsTrue(IsEqual(cost, nil)) {
-        var amountQuote any = this.SafeString(order, "amountQuote")
-        var amountQuoteRemaining any = this.SafeString(order, "amountQuoteRemaining")
+        var amountQuote interface{} = this.SafeString(order, "amountQuote")
+        var amountQuoteRemaining interface{} = this.SafeString(order, "amountQuoteRemaining")
         cost = Precise.StringSub(amountQuote, amountQuoteRemaining)
     }
-    var fee any = nil
-    var feeCost any = this.SafeNumber(order, "feePaid")
+    var fee interface{} = nil
+    var feeCost interface{} = this.SafeNumber(order, "feePaid")
     if IsTrue(!IsEqual(feeCost, nil)) {
-        var feeCurrencyId any = this.SafeString(order, "feeCurrency")
-        var feeCurrencyCode any = this.SafeCurrencyCode(feeCurrencyId)
-        fee = map[string]any {
+        var feeCurrencyId interface{} = this.SafeString(order, "feeCurrency")
+        var feeCurrencyCode interface{} = this.SafeCurrencyCode(feeCurrencyId)
+        fee = map[string]interface{} {
             "cost": feeCost,
             "currency": feeCurrencyCode,
         }
     }
-    var rawTrades any = this.SafeValue(order, "fills", []any{})
-    var timeInForce any = this.SafeString(order, "timeInForce")
-    var postOnly any = this.SafeValue(order, "postOnly")
+    var rawTrades interface{} = this.SafeValue(order, "fills", []interface{}{})
+    var timeInForce interface{} = this.SafeString(order, "timeInForce")
+    var postOnly interface{} = this.SafeValue(order, "postOnly")
     // https://github.com/ccxt/ccxt/issues/8489
-    return this.SafeOrder(map[string]any {
+    return this.SafeOrder(map[string]interface{} {
         "info": order,
         "id": id,
         "clientOrderId": nil,
@@ -2108,17 +2108,17 @@ func  (this *BitvavoCore) ParseOrder(order any, optionalArgs ...any) any  {
         "trades": rawTrades,
     }, market)
 }
-func  (this *BitvavoCore) FetchMyTradesRequest(optionalArgs ...any) any  {
+func  (this *BitvavoCore) FetchMyTradesRequest(optionalArgs ...interface{}) interface{}  {
     symbol := GetArg(optionalArgs, 0, nil)
     _ = symbol
     since := GetArg(optionalArgs, 1, nil)
     _ = since
     limit := GetArg(optionalArgs, 2, nil)
     _ = limit
-    params := GetArg(optionalArgs, 3, map[string]any {})
+    params := GetArg(optionalArgs, 3, map[string]interface{} {})
     _ = params
-    var market any = this.Market(symbol)
-    var request any = map[string]any {
+    var market interface{} = this.Market(symbol)
+    var request interface{} = map[string]interface{} {
         "market": GetValue(market, "id"),
     }
     if IsTrue(!IsEqual(since, nil)) {
@@ -2145,9 +2145,9 @@ func  (this *BitvavoCore) FetchMyTradesRequest(optionalArgs ...any) any  {
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *BitvavoCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2156,7 +2156,7 @@ func  (this *BitvavoCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchMyTrades() requires a symbol argument")))
@@ -2164,7 +2164,7 @@ func  (this *BitvavoCore) FetchMyTrades(optionalArgs ...any) <- chan any {
         
             retRes18388 := (<-this.LoadMarkets())
             PanicOnError(retRes18388)
-            var paginate any = false
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchMyTrades", "paginate");
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
@@ -2175,8 +2175,8 @@ func  (this *BitvavoCore) FetchMyTrades(optionalArgs ...any) <- chan any {
                     ch <- retRes184219
                     return nil
             }
-            var market any = this.Market(symbol)
-            var request any = this.FetchMyTradesRequest(symbol, since, limit, params)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = this.FetchMyTradesRequest(symbol, since, limit, params)
         
             response:= (<-this.PrivateGetTrades(request))
             PanicOnError(response)
@@ -2204,13 +2204,13 @@ func  (this *BitvavoCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *BitvavoCore) WithdrawRequest(code any, amount any, address any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) WithdrawRequest(code interface{}, amount interface{}, address interface{}, optionalArgs ...interface{}) interface{}  {
     tag := GetArg(optionalArgs, 0, nil)
     _ = tag
-    params := GetArg(optionalArgs, 1, map[string]any {})
+    params := GetArg(optionalArgs, 1, map[string]interface{} {})
     _ = params
-    var currency any = this.Currency(code)
-    var request any = map[string]any {
+    var currency interface{} = this.Currency(code)
+    var request interface{} = map[string]interface{} {
         "symbol": GetValue(currency, "id"),
         "amount": this.CurrencyToPrecision(code, amount),
         "address": address,
@@ -2231,14 +2231,14 @@ func  (this *BitvavoCore) WithdrawRequest(code any, amount any, address any, opt
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *BitvavoCore) Withdraw(code any, amount any, address any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) Withdraw(code interface{}, amount interface{}, address interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     tag := GetArg(optionalArgs, 0, nil)
             _ = tag
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             tagparamsVariable := this.HandleWithdrawTagAndParams(tag, params);
             tag = GetValue(tagparamsVariable,0);
@@ -2247,8 +2247,8 @@ func  (this *BitvavoCore) Withdraw(code any, amount any, address any, optionalAr
         
             retRes18968 := (<-this.LoadMarkets())
             PanicOnError(retRes18968)
-            var currency any = this.Currency(code)
-            var request any = this.WithdrawRequest(code, amount, address, tag, params)
+            var currency interface{} = this.Currency(code)
+            var request interface{} = this.WithdrawRequest(code, amount, address, tag, params)
         
             response:= (<-this.PrivatePostWithdrawal(request))
             PanicOnError(response)
@@ -2266,17 +2266,17 @@ func  (this *BitvavoCore) Withdraw(code any, amount any, address any, optionalAr
             }()
             return ch
         }
-func  (this *BitvavoCore) FetchWithdrawalsRequest(optionalArgs ...any) any  {
+func  (this *BitvavoCore) FetchWithdrawalsRequest(optionalArgs ...interface{}) interface{}  {
     code := GetArg(optionalArgs, 0, nil)
     _ = code
     since := GetArg(optionalArgs, 1, nil)
     _ = since
     limit := GetArg(optionalArgs, 2, nil)
     _ = limit
-    params := GetArg(optionalArgs, 3, map[string]any {})
+    params := GetArg(optionalArgs, 3, map[string]interface{} {})
     _ = params
-    var request any = map[string]any {}
-    var currency any = nil
+    var request interface{} = map[string]interface{} {}
+    var currency interface{} = nil
     if IsTrue(!IsEqual(code, nil)) {
         currency = this.Currency(code)
         AddElementToObject(request, "symbol", GetValue(currency, "id"))
@@ -2300,9 +2300,9 @@ func  (this *BitvavoCore) FetchWithdrawalsRequest(optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the bitvavo api endpoint
  * @returns {object[]} a list of [transaction structures]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *BitvavoCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchWithdrawals(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -2311,13 +2311,13 @@ func  (this *BitvavoCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes19438 := (<-this.LoadMarkets())
             PanicOnError(retRes19438)
-            var request any = this.FetchWithdrawalsRequest(code, since, limit, params)
-            var currency any = nil
+            var request interface{} = this.FetchWithdrawalsRequest(code, since, limit, params)
+            var currency interface{} = nil
             if IsTrue(!IsEqual(code, nil)) {
                 currency = this.Currency(code)
             }
@@ -2339,7 +2339,7 @@ func  (this *BitvavoCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             //         }
             //     ]
             //
-        ch <- this.ParseTransactions(response, currency, since, limit, map[string]any {
+        ch <- this.ParseTransactions(response, currency, since, limit, map[string]interface{} {
                 "type": "withdrawal",
             })
             return nil
@@ -2347,17 +2347,17 @@ func  (this *BitvavoCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *BitvavoCore) FetchDepositsRequest(optionalArgs ...any) any  {
+func  (this *BitvavoCore) FetchDepositsRequest(optionalArgs ...interface{}) interface{}  {
     code := GetArg(optionalArgs, 0, nil)
     _ = code
     since := GetArg(optionalArgs, 1, nil)
     _ = since
     limit := GetArg(optionalArgs, 2, nil)
     _ = limit
-    params := GetArg(optionalArgs, 3, map[string]any {})
+    params := GetArg(optionalArgs, 3, map[string]interface{} {})
     _ = params
-    var request any = map[string]any {}
-    var currency any = nil
+    var request interface{} = map[string]interface{} {}
+    var currency interface{} = nil
     if IsTrue(!IsEqual(code, nil)) {
         currency = this.Currency(code)
         AddElementToObject(request, "symbol", GetValue(currency, "id"))
@@ -2381,9 +2381,9 @@ func  (this *BitvavoCore) FetchDepositsRequest(optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the bitvavo api endpoint
  * @returns {object[]} a list of [transaction structures]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *BitvavoCore) FetchDeposits(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchDeposits(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -2392,13 +2392,13 @@ func  (this *BitvavoCore) FetchDeposits(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes20008 := (<-this.LoadMarkets())
             PanicOnError(retRes20008)
-            var request any = this.FetchDepositsRequest(code, since, limit, params)
-            var currency any = nil
+            var request interface{} = this.FetchDepositsRequest(code, since, limit, params)
+            var currency interface{} = nil
             if IsTrue(!IsEqual(code, nil)) {
                 currency = this.Currency(code)
             }
@@ -2418,7 +2418,7 @@ func  (this *BitvavoCore) FetchDeposits(optionalArgs ...any) <- chan any {
             //         }
             //     ]
             //
-        ch <- this.ParseTransactions(response, currency, since, limit, map[string]any {
+        ch <- this.ParseTransactions(response, currency, since, limit, map[string]interface{} {
                 "type": "deposit",
             })
             return nil
@@ -2426,8 +2426,8 @@ func  (this *BitvavoCore) FetchDeposits(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *BitvavoCore) ParseTransactionStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *BitvavoCore) ParseTransactionStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "awaiting_processing": "pending",
         "awaiting_email_confirmation": "pending",
         "awaiting_bitvavo_inspection": "pending",
@@ -2440,7 +2440,7 @@ func  (this *BitvavoCore) ParseTransactionStatus(status any) any  {
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *BitvavoCore) ParseTransaction(transaction any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) ParseTransaction(transaction interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // withdraw
     //
@@ -2476,30 +2476,30 @@ func  (this *BitvavoCore) ParseTransaction(transaction any, optionalArgs ...any)
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var id any = nil
-    var timestamp any = this.SafeInteger(transaction, "timestamp")
-    var currencyId any = this.SafeString(transaction, "symbol")
-    var code any = this.SafeCurrencyCode(currencyId, currency)
-    var status any = this.ParseTransactionStatus(this.SafeString(transaction, "status"))
-    var amount any = this.SafeNumber(transaction, "amount")
-    var address any = this.SafeString(transaction, "address")
-    var txid any = this.SafeString(transaction, "txId")
-    var fee any = nil
-    var feeCost any = this.SafeNumber(transaction, "fee")
+    var id interface{} = nil
+    var timestamp interface{} = this.SafeInteger(transaction, "timestamp")
+    var currencyId interface{} = this.SafeString(transaction, "symbol")
+    var code interface{} = this.SafeCurrencyCode(currencyId, currency)
+    var status interface{} = this.ParseTransactionStatus(this.SafeString(transaction, "status"))
+    var amount interface{} = this.SafeNumber(transaction, "amount")
+    var address interface{} = this.SafeString(transaction, "address")
+    var txid interface{} = this.SafeString(transaction, "txId")
+    var fee interface{} = nil
+    var feeCost interface{} = this.SafeNumber(transaction, "fee")
     if IsTrue(!IsEqual(feeCost, nil)) {
-        fee = map[string]any {
+        fee = map[string]interface{} {
             "cost": feeCost,
             "currency": code,
         }
     }
-    var typeVar any = nil
+    var typeVar interface{} = nil
     if IsTrue(IsTrue((InOp(transaction, "success"))) || IsTrue((InOp(transaction, "address")))) {
         typeVar = "withdrawal"
     } else {
         typeVar = "deposit"
     }
-    var tag any = this.SafeString(transaction, "paymentId")
-    return map[string]any {
+    var tag interface{} = this.SafeString(transaction, "paymentId")
+    return map[string]interface{} {
         "info": transaction,
         "id": id,
         "txid": txid,
@@ -2522,7 +2522,7 @@ func  (this *BitvavoCore) ParseTransaction(transaction any, optionalArgs ...any)
         "internal": nil,
     }
 }
-func  (this *BitvavoCore) ParseDepositWithdrawFee(fee any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) ParseDepositWithdrawFee(fee interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //   {
     //       "symbol": "1INCH",
@@ -2542,26 +2542,26 @@ func  (this *BitvavoCore) ParseDepositWithdrawFee(fee any, optionalArgs ...any) 
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var result any = map[string]any {
+    var result interface{} = map[string]interface{} {
         "info": fee,
-        "withdraw": map[string]any {
+        "withdraw": map[string]interface{} {
             "fee": this.SafeNumber(fee, "withdrawalFee"),
             "percentage": false,
         },
-        "deposit": map[string]any {
+        "deposit": map[string]interface{} {
             "fee": this.SafeNumber(fee, "depositFee"),
             "percentage": false,
         },
-        "networks": map[string]any {},
+        "networks": map[string]interface{} {},
     }
-    var networks any = this.SafeValue(fee, "networks")
-    var networkId any = this.SafeValue(networks, 0) // Bitvavo currently only supports one network per currency
-    var currencyCode any = this.SafeString(currency, "code")
+    var networks interface{} = this.SafeValue(fee, "networks")
+    var networkId interface{} = this.SafeValue(networks, 0) // Bitvavo currently only supports one network per currency
+    var currencyCode interface{} = this.SafeString(currency, "code")
     if IsTrue(IsEqual(networkId, "Mainnet")) {
         networkId = currencyCode
     }
-    var networkCode any = this.NetworkIdToCode(networkId, currencyCode)
-    AddElementToObject(GetValue(result, "networks"), networkCode, map[string]any {
+    var networkCode interface{} = this.NetworkIdToCode(networkId, currencyCode)
+    AddElementToObject(GetValue(result, "networks"), networkCode, map[string]interface{} {
     "deposit": GetValue(result, "deposit"),
     "withdraw": GetValue(result, "withdraw"),
 })
@@ -2576,14 +2576,14 @@ func  (this *BitvavoCore) ParseDepositWithdrawFee(fee any, optionalArgs ...any) 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a list of [fee structures]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func  (this *BitvavoCore) FetchDepositWithdrawFees(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BitvavoCore) FetchDepositWithdrawFees(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     codes := GetArg(optionalArgs, 0, nil)
             _ = codes
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes21728 := (<-this.LoadMarkets())
@@ -2617,20 +2617,20 @@ func  (this *BitvavoCore) FetchDepositWithdrawFees(optionalArgs ...any) <- chan 
             }()
             return ch
         }
-func  (this *BitvavoCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *BitvavoCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var query any = this.Omit(params, this.ExtractParams(path))
-    var url any = Add(Add(Add("/", this.Version), "/"), this.ImplodeParams(path, params))
-    var getOrDelete any = IsTrue((IsEqual(method, "GET"))) || IsTrue((IsEqual(method, "DELETE")))
+    var query interface{} = this.Omit(params, this.ExtractParams(path))
+    var url interface{} = Add(Add(Add("/", this.Version), "/"), this.ImplodeParams(path, params))
+    var getOrDelete interface{} = IsTrue((IsEqual(method, "GET"))) || IsTrue((IsEqual(method, "DELETE")))
     if IsTrue(getOrDelete) {
         if IsTrue(GetArrayLength(ObjectKeys(query))) {
             url = Add(url, Add("?", this.Urlencode(query)))
@@ -2638,18 +2638,18 @@ func  (this *BitvavoCore) Sign(path any, optionalArgs ...any) any  {
     }
     if IsTrue(IsEqual(api, "private")) {
         this.CheckRequiredCredentials()
-        var payload any = ""
+        var payload interface{} = ""
         if !IsTrue(getOrDelete) {
             if IsTrue(GetArrayLength(ObjectKeys(query))) {
                 body = this.Json(query)
                 payload = body
             }
         }
-        var timestamp any = ToString(this.Milliseconds())
-        var auth any = Add(Add(Add(timestamp, method), url), payload)
-        var signature any = this.Hmac(this.Encode(auth), this.Encode(this.Secret), sha256)
-        var accessWindow any = this.SafeString(this.Options, "BITVAVO-ACCESS-WINDOW", "10000")
-        headers = map[string]any {
+        var timestamp interface{} = ToString(this.Milliseconds())
+        var auth interface{} = Add(Add(Add(timestamp, method), url), payload)
+        var signature interface{} = this.Hmac(this.Encode(auth), this.Encode(this.Secret), sha256)
+        var accessWindow interface{} = this.SafeString(this.Options, "BITVAVO-ACCESS-WINDOW", "10000")
+        headers = map[string]interface{} {
             "BITVAVO-ACCESS-KEY": this.ApiKey,
             "BITVAVO-ACCESS-SIGNATURE": signature,
             "BITVAVO-ACCESS-TIMESTAMP": timestamp,
@@ -2660,14 +2660,14 @@ func  (this *BitvavoCore) Sign(path any, optionalArgs ...any) any  {
         }
     }
     url = Add(GetValue(GetValue(this.Urls, "api"), api), url)
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *BitvavoCore) HandleErrors(httpCode any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *BitvavoCore) HandleErrors(httpCode interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil  // fallback to default error handler
     }
@@ -2676,18 +2676,18 @@ func  (this *BitvavoCore) HandleErrors(httpCode any, reason any, url any, method
     //     {"errorCode":203,"error":"symbol parameter is required."}
     //     {"errorCode":205,"error":"symbol parameter is invalid."}
     //
-    var errorCode any = this.SafeString(response, "errorCode")
-    var error any = this.SafeString(response, "error")
+    var errorCode interface{} = this.SafeString(response, "errorCode")
+    var error interface{} = this.SafeString(response, "error")
     if IsTrue(!IsEqual(errorCode, nil)) {
-        var feedback any = Add(Add(this.Id, " "), body)
+        var feedback interface{} = Add(Add(this.Id, " "), body)
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), error, feedback)
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), errorCode, feedback)
         panic(ExchangeError(feedback))
     }
     return nil
 }
-func  (this *BitvavoCore) CalculateRateLimiterCost(api any, method any, path any, params any, optionalArgs ...any) any  {
-    config := GetArg(optionalArgs, 0, map[string]any {})
+func  (this *BitvavoCore) CalculateRateLimiterCost(api interface{}, method interface{}, path interface{}, params interface{}, optionalArgs ...interface{}) interface{}  {
+    config := GetArg(optionalArgs, 0, map[string]interface{} {})
     _ = config
     if IsTrue(IsTrue((InOp(config, "noMarket"))) && !IsTrue((InOp(params, "market")))) {
         return GetValue(config, "noMarket")
@@ -2696,8 +2696,8 @@ func  (this *BitvavoCore) CalculateRateLimiterCost(api any, method any, path any
 }
 
 
-func (this *BitvavoCore) Init(userConfig map[string]any) {
+func (this *BitvavoCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

@@ -14,32 +14,32 @@ type IOrderBook struct {
 // NewIOrderBook attempts to convert arbitrary return values coming from the
 // core WatchOrderBook / FetchOrderBook methods into an IOrderBook instance.
 // The input is expected to be either an *OrderBook already, or a snapshot
-// map[string]any coming from REST/WS which will be used to seed a
+// map[string]interface{} coming from REST/WS which will be used to seed a
 // fresh order-book.
-func NewIOrderBook(v any) IOrderBook {
+func NewIOrderBook(v interface{}) IOrderBook {
 	switch t := v.(type) {
 	case *WsOrderBook:
 		return IOrderBook{t}
-	case map[string]any:
+	case map[string]interface{}:
 		ob := (&Exchange{}).OrderBook(t) // depth defaults to max-int
 		return IOrderBook{ob}
 	default:
 		// unknown type – create empty orderbook
-		ob := NewWsOrderBook(map[string]any{}, nil)
+		ob := NewWsOrderBook(map[string]interface{}{}, nil)
 		return IOrderBook{ob}
 	}
 }
 
-func NewOrderBookFromWs(v any) OrderBook {
+func NewOrderBookFromWs(v interface{}) OrderBook {
 	switch t := v.(type) {
 	case *WsOrderBook:
 		ob := t.ToMap()
 		return NewOrderBook(ob)
-	case map[string]any:
+	case map[string]interface{}:
 		return NewOrderBook(t)
 	default:
 		// unknown type – create empty orderbook
-		ob := NewWsOrderBook(map[string]any{}, nil)
+		ob := NewWsOrderBook(map[string]interface{}{}, nil)
 		return NewOrderBook(ob.ToMap())
 	}
 }

@@ -5,7 +5,7 @@ package ccxt
 
 
 
-func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]any) (ICoreExchange, bool) {
+func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]interface{}) (ICoreExchange, bool) {
     switch exchangeId {
     case "Exchange":
         ExchangeItf := NewExchange()
@@ -423,10 +423,6 @@ func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]any) (
         wavesexchangeItf := NewWavesexchangeCore()
         wavesexchangeItf.Init(exchangeArgs)
         return wavesexchangeItf, true
-    case "weex":
-        weexItf := NewWeexCore()
-        weexItf.Init(exchangeArgs)
-        return weexItf, true
     case "whitebit":
         whitebitItf := NewWhitebitCore()
         whitebitItf.Init(exchangeArgs)

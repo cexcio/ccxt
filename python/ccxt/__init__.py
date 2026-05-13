@@ -22,7 +22,7 @@
 
 # ----------------------------------------------------------------------------
 
-__version__ = '4.5.52'
+__version__ = '4.5.48'
 
 # ----------------------------------------------------------------------------
 
@@ -187,7 +187,6 @@ from ccxt.tokocrypto import tokocrypto                                # noqa: F4
 from ccxt.toobit import toobit                                        # noqa: F401
 from ccxt.upbit import upbit                                          # noqa: F401
 from ccxt.wavesexchange import wavesexchange                          # noqa: F401
-from ccxt.weex import weex                                            # noqa: F401
 from ccxt.whitebit import whitebit                                    # noqa: F401
 from ccxt.woo import woo                                              # noqa: F401
 from ccxt.woofipro import woofipro                                    # noqa: F401
@@ -301,7 +300,6 @@ exchanges = [
     'toobit',
     'upbit',
     'wavesexchange',
-    'weex',
     'whitebit',
     'woo',
     'woofipro',

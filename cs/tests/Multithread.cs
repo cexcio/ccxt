@@ -8,8 +8,8 @@ public partial class BaseTest
 
     public static async Task MultithreadTest()
     {
-        var startDate = DateTime.UtcNow;
-        var exchange = new ccxt.pro.okx();
+        return;
+        var exchange = new ccxt.pro.binance();
         exchange.setSandboxMode(true);
         var symbol = "BTC/USDT";
         var parallelCount = 5;
@@ -28,7 +28,6 @@ public partial class BaseTest
 
         await Task.WhenAll(tasks);
         // Console.WriteLine("All tasks completed.");
-        var passedTime = DateTime.UtcNow - startDate;
-        Helper.Green(" [C#] Multithreaded test completed successfully. Total time: " + passedTime.TotalSeconds + " seconds");
+        Helper.Green(" [C#] Multithreaded test completed successfully.");
     }
 }

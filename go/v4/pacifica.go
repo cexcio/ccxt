@@ -15,18 +15,18 @@ func NewPacificaCore() *PacificaCore {
     return p
 }
 
-func  (this *PacificaCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *PacificaCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "pacifica",
         "name": "Pacifica",
-        "countries": []any{},
+        "countries": []interface{}{},
         "version": "v1",
         "isSandboxModeEnabled": false,
         "rateLimit": 50,
         "certified": false,
         "pro": true,
         "dex": true,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": false,
             "margin": false,
@@ -121,7 +121,7 @@ func  (this *PacificaCore) Describe() any  {
             "transfer": true,
             "withdraw": true,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": "1m",
             "3m": "3m",
             "5m": "5m",
@@ -135,13 +135,13 @@ func  (this *PacificaCore) Describe() any  {
             "1d": "1d",
         },
         "hostname": "pacifica.fi",
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/user-attachments/assets/f795515a-828e-4a04-8fca-bf19fcf17ea4",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://api.{hostname}",
                 "private": "https://api.{hostname}",
             },
-            "test": map[string]any {
+            "test": map[string]interface{} {
                 "public": "https://test-api.{hostname}",
                 "private": "https://test-api.{hostname}",
             },
@@ -150,9 +150,9 @@ func  (this *PacificaCore) Describe() any  {
             "fees": "https://docs.pacifica.fi/trading-on-pacifica/trading-fees",
             "referral": "https://app.pacifica.fi?referral=ccxt",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "info": 1,
                     "info/prices": 1,
                     "kline": 12,
@@ -173,8 +173,8 @@ func  (this *PacificaCore) Describe() any  {
                     "account/builder_codes/approvals": 1,
                 },
             },
-            "private": map[string]any {
-                "post": map[string]any {
+            "private": map[string]interface{} {
+                "post": map[string]interface{} {
                     "account/leverage": 1,
                     "account/margin": 1,
                     "account/withdraw": 1,
@@ -199,20 +199,20 @@ func  (this *PacificaCore) Describe() any  {
                 },
             },
         },
-        "fees": map[string]any {
-            "swap": map[string]any {
+        "fees": map[string]interface{} {
+            "swap": map[string]interface{} {
                 "taker": this.ParseNumber("0.0004"),
                 "maker": this.ParseNumber("0.00015"),
             },
         },
-        "requiredCredentials": map[string]any {
+        "requiredCredentials": map[string]interface{} {
             "apiKey": false,
             "secret": false,
             "walletAddress": false,
             "privateKey": true,
         },
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "400": BadRequest,
                 "403": PermissionDenied,
                 "404": BadRequest,
@@ -223,7 +223,7 @@ func  (this *PacificaCore) Describe() any  {
                 "503": ExchangeNotAvailable,
                 "504": RequestTimeout,
             },
-            "broad": map[string]any {
+            "broad": map[string]interface{} {
                 "UNKNOWN": ExchangeError,
                 "ACCOUNT_NOT_FOUND": ExchangeError,
                 "BOOK_NOT_FOUND": ExchangeError,
@@ -238,8 +238,8 @@ func  (this *PacificaCore) Describe() any  {
             },
         },
         "precisionMode": TICK_SIZE,
-        "commonCurrencies": map[string]any {},
-        "options": map[string]any {
+        "commonCurrencies": map[string]interface{} {},
+        "options": map[string]interface{} {
             "agentAddress": nil,
             "apiKey": nil,
             "builderCode": "CCXT",
@@ -250,27 +250,27 @@ func  (this *PacificaCore) Describe() any  {
             "defaultSlippage": "0.5",
             "expiryWindow": 5000,
             "maxCostHugeWithApiKey": 3,
-            "marketHelperProps": []any{},
+            "marketHelperProps": []interface{}{},
             "defaultMarginMode": "cross",
-            "builderSupportOperations": map[string]any {
+            "builderSupportOperations": map[string]interface{} {
                 "create_market_order": true,
                 "create_limit_order": true,
                 "create_stop_order": true,
                 "set_position_tpsl": true,
             },
         },
-        "features": map[string]any {
-            "default": map[string]any {
+        "features": map[string]interface{} {
+            "default": map[string]interface{} {
                 "sandbox": true,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": false,
                     "triggerPriceType": nil,
                     "triggerDirection": false,
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
-                    "attachedStopLossTakeProfit": map[string]any {
-                        "triggerPriceType": map[string]any {
+                    "attachedStopLossTakeProfit": map[string]interface{} {
+                        "triggerPriceType": map[string]interface{} {
                             "last": false,
                             "mark": false,
                             "index": false,
@@ -279,7 +279,7 @@ func  (this *PacificaCore) Describe() any  {
                         "type": true,
                         "price": true,
                     },
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": false,
                         "PO": true,
@@ -293,34 +293,34 @@ func  (this *PacificaCore) Describe() any  {
                     "selfTradePrevention": false,
                     "iceberg": false,
                 },
-                "createOrders": map[string]any {
+                "createOrders": map[string]interface{} {
                     "max": 10,
                 },
-                "editOrder": map[string]any {
+                "editOrder": map[string]interface{} {
                     "side": false,
                     "type": false,
                 },
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": nil,
                     "untilDays": nil,
                     "symbolRequired": false,
                 },
-                "fetchOrder": map[string]any {
+                "fetchOrder": map[string]interface{} {
                     "marginMode": false,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOrders": map[string]any {
+                "fetchOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": nil,
@@ -329,7 +329,7 @@ func  (this *PacificaCore) Describe() any  {
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchClosedOrders": map[string]any {
+                "fetchClosedOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": nil,
@@ -339,55 +339,55 @@ func  (this *PacificaCore) Describe() any  {
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOHLCV": map[string]any {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": 3950,
                 },
-                "fetchLedger": map[string]any {
+                "fetchLedger": map[string]interface{} {
                     "code": false,
                 },
             },
-            "forPerps": map[string]any {
+            "forPerps": map[string]interface{} {
                 "extends": "default",
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "stopLossPrice": true,
                     "takeProfitPrice": true,
                     "attachedStopLossTakeProfit": nil,
                 },
             },
             "spot": nil,
-            "swap": map[string]any {
-                "linear": map[string]any {
+            "swap": map[string]interface{} {
+                "linear": map[string]interface{} {
                     "extends": "forPerps",
                 },
-                "inverse": map[string]any {
+                "inverse": map[string]interface{} {
                     "extends": "forPerps",
                 },
             },
-            "future": map[string]any {
-                "linear": map[string]any {
+            "future": map[string]interface{} {
+                "linear": map[string]interface{} {
                     "extends": "forPerps",
                 },
-                "inverse": map[string]any {
+                "inverse": map[string]interface{} {
                     "extends": "forPerps",
                 },
             },
         },
     })
 }
-func  (this *PacificaCore) InitializeClient() <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) InitializeClient() <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                 
             {
-                 func(this *PacificaCore) (ret_ any) {
+                 func(this *PacificaCore) (ret_ interface{}) {
         		    defer func() {
                         if e := recover(); e != nil {
                             if e == "break" {
                                 return
                             }
-                            ret_ = func(this *PacificaCore) any {
+                            ret_ = func(this *PacificaCore) interface{} {
                                 // catch block:
                                 
             ch <- false
@@ -411,9 +411,9 @@ func  (this *PacificaCore) InitializeClient() <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) HandleBuilderFeeApproval() <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) HandleBuilderFeeApproval() <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                 if IsTrue(this.IsSandboxModeEnabled) {
@@ -421,13 +421,13 @@ func  (this *PacificaCore) HandleBuilderFeeApproval() <- chan any {
             ch <- false
             return nil
         }
-        var buildFee any = this.SafeBool(this.Options, "builderFee", true)
+        var buildFee interface{} = this.SafeBool(this.Options, "builderFee", true)
         if !IsTrue(buildFee) {
         
             ch <- false  // skip if builder fee is not enabled
             return nil
         }
-        var approvedBuilderFee any = this.SafeBool(this.Options, "approvedBuilderFee", false)
+        var approvedBuilderFee interface{} = this.SafeBool(this.Options, "approvedBuilderFee", false)
         if IsTrue(approvedBuilderFee) {
         
             ch <- true  // skip if builder fee is already approved
@@ -435,13 +435,13 @@ func  (this *PacificaCore) HandleBuilderFeeApproval() <- chan any {
         }
         
             {
-                 func(this *PacificaCore) (ret_ any) {
+                 func(this *PacificaCore) (ret_ interface{}) {
         		    defer func() {
                         if e := recover(); e != nil {
                             if e == "break" {
                                 return
                             }
-                            ret_ = func(this *PacificaCore) any {
+                            ret_ = func(this *PacificaCore) interface{} {
                                 // catch block:
                                     AddElementToObject(this.Options, "builderFee", false) // disable builder fee if an error occurs
                                 return nil
@@ -449,8 +449,8 @@ func  (this *PacificaCore) HandleBuilderFeeApproval() <- chan any {
                         }
                     }()
         		    // try block:
-                        var builder any = this.SafeString(this.Options, "builderCode", "CCXT") // case sensitive
-            var maxFeeRate any = this.SafeString(this.Options, "feeRate", "0.01")
+                        var builder interface{} = this.SafeString(this.Options, "builderCode", "CCXT") // case sensitive
+            var maxFeeRate interface{} = this.SafeString(this.Options, "feeRate", "0.01")
         
             retRes40712 := (<-this.ApproveBuilderCode(builder, maxFeeRate))
             PanicOnError(retRes40712)
@@ -473,12 +473,12 @@ func  (this *PacificaCore) HandleBuilderFeeApproval() <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *PacificaCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
             if IsTrue(this.CheckRequiredCredentials(false)) {
         
@@ -506,12 +506,12 @@ func  (this *PacificaCore) FetchMarkets(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *PacificaCore) FetchSwapMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchSwapMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetInfo(params))
@@ -552,8 +552,8 @@ func  (this *PacificaCore) FetchSwapMarkets(optionalArgs ...any) <- chan any {
             //   "error": null,
             //   "code": null
             // }
-            var meta any = this.SafeList(response, "data", []any{})
-            var results any = []any{}
+            var meta interface{} = this.SafeList(response, "data", []interface{}{})
+            var results interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(meta)); i++ {
                 AppendToArray(&results, GetValue(meta, i))
             }
@@ -564,7 +564,7 @@ func  (this *PacificaCore) FetchSwapMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) ParseMarket(market any) any  {
+func  (this *PacificaCore) ParseMarket(market interface{}) interface{}  {
     //     {
     //       "symbol": "ETH",
     //       "tick_size": "0.1",
@@ -593,29 +593,29 @@ func  (this *PacificaCore) ParseMarket(market any) any  {
     //       "next_funding_rate": "0.0000125",
     //       "created_at": 1748881333944
     //     },
-    var quoteId any = "usdc"
-    var settleId any = "usdc"
-    var id any = this.SafeString(market, "symbol")
-    var baseId any = ToLower(id)
-    var baseName any = ToUpper(id)
-    var base any = this.SafeCurrencyCode(baseName)
-    var quote any = this.SafeCurrencyCode(quoteId)
-    var settle any = this.SafeCurrencyCode(settleId)
-    var symbol any = Add(Add(base, "/"), quote)
-    var contract any = true
-    var swap any = true
+    var quoteId interface{} = "usdc"
+    var settleId interface{} = "usdc"
+    var id interface{} = this.SafeString(market, "symbol")
+    var baseId interface{} = ToLower(id)
+    var baseName interface{} = ToUpper(id)
+    var base interface{} = this.SafeCurrencyCode(baseName)
+    var quote interface{} = this.SafeCurrencyCode(quoteId)
+    var settle interface{} = this.SafeCurrencyCode(settleId)
+    var symbol interface{} = Add(Add(base, "/"), quote)
+    var contract interface{} = true
+    var swap interface{} = true
     if IsTrue(contract) {
         if IsTrue(swap) {
             symbol = Add(Add(symbol, ":"), settle)
         }
     }
-    var fees any = this.SafeDict(this.Fees, "swap", map[string]any {})
-    var taker any = this.SafeNumber(fees, "taker")
-    var maker any = this.SafeNumber(fees, "maker")
-    var amountPrecisionStr any = this.SafeString(market, "lot_size")
-    var pricePrecisionStr any = this.SafeString(market, "tick_size")
-    var active any = true // there is no non-active markets comes from endpoint market info
-    return this.SafeMarketStructure(map[string]any {
+    var fees interface{} = this.SafeDict(this.Fees, "swap", map[string]interface{} {})
+    var taker interface{} = this.SafeNumber(fees, "taker")
+    var maker interface{} = this.SafeNumber(fees, "maker")
+    var amountPrecisionStr interface{} = this.SafeString(market, "lot_size")
+    var pricePrecisionStr interface{} = this.SafeString(market, "tick_size")
+    var active interface{} = true // there is no non-active markets comes from endpoint market info
+    return this.SafeMarketStructure(map[string]interface{} {
         "id": id,
         "symbol": symbol,
         "base": base,
@@ -642,30 +642,30 @@ func  (this *PacificaCore) ParseMarket(market any) any  {
         "expiryDatetime": nil,
         "strike": nil,
         "optionType": nil,
-        "precision": map[string]any {
+        "precision": map[string]interface{} {
             "amount": this.ParseNumber(amountPrecisionStr),
             "price": this.ParseNumber(pricePrecisionStr),
         },
-        "limits": map[string]any {
-            "leverage": map[string]any {
+        "limits": map[string]interface{} {
+            "leverage": map[string]interface{} {
                 "min": 1,
                 "max": this.SafeInteger(market, "max_leverage"),
             },
-            "amount": map[string]any {
+            "amount": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "price": map[string]any {
+            "price": map[string]interface{} {
                 "min": this.SafeString(market, "min_tick"),
                 "max": this.SafeString(market, "max_tick"),
             },
-            "cost": map[string]any {
+            "cost": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
         },
         "created": nil,
-        "marginModes": map[string]any {
+        "marginModes": map[string]interface{} {
             "cross": true,
             "isolated": true,
         },
@@ -681,18 +681,18 @@ func  (this *PacificaCore) ParseMarket(market any) any  {
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *PacificaCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var userAccount any = nil
+            var userAccount interface{} = nil
             userAccountparamsVariable := this.HandleOriginAndSingleAddress("fetchBalance", params);
             userAccount = GetValue(userAccountparamsVariable,0);
             params = GetValue(userAccountparamsVariable,1)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "account": userAccount,
             }
         
@@ -720,20 +720,20 @@ func  (this *PacificaCore) FetchBalance(optionalArgs ...any) <- chan any {
             //   "error": null,
             //   "code": null
             // }
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var result any = map[string]any {
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var result interface{} = map[string]interface{} {
                 "info": data,
             }
-            AddElementToObject(result, "free", map[string]any {})
-            AddElementToObject(result, "used", map[string]any {})
-            AddElementToObject(result, "total", map[string]any {})
-            var totalBalance any = this.SafeNumber(data, "account_equity")
-            var usedMargin any = this.SafeNumber(data, "total_margin_used")
-            var freeBalance any = this.SafeNumber(data, "available_to_spend")
+            AddElementToObject(result, "free", map[string]interface{} {})
+            AddElementToObject(result, "used", map[string]interface{} {})
+            AddElementToObject(result, "total", map[string]interface{} {})
+            var totalBalance interface{} = this.SafeNumber(data, "account_equity")
+            var usedMargin interface{} = this.SafeNumber(data, "total_margin_used")
+            var freeBalance interface{} = this.SafeNumber(data, "available_to_spend")
             AddElementToObject(GetValue(result, "total"), "USDC", totalBalance)
             AddElementToObject(GetValue(result, "used"), "USDC", usedMargin)
             AddElementToObject(GetValue(result, "free"), "USDC", freeBalance)
-            var timestamp any = this.SafeInteger(data, "updated_at")
+            var timestamp interface{} = this.SafeInteger(data, "updated_at")
             AddElementToObject(result, "timestamp", timestamp)
             AddElementToObject(result, "datetime", this.Iso8601(timestamp))
         
@@ -752,12 +752,12 @@ func  (this *PacificaCore) FetchBalance(optionalArgs ...any) <- chan any {
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {object} a [leverage structure]{@link https://docs.ccxt.com/?id=leverage-structure}
  */
-func  (this *PacificaCore) FetchLeverage(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchLeverage(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes6588 := (<-this.LoadAccountSettings())
@@ -765,24 +765,24 @@ func  (this *PacificaCore) FetchLeverage(symbol any, optionalArgs ...any) <- cha
         
             retRes6598 := (<-this.LoadMarkets())
             PanicOnError(retRes6598)
-            var market any = this.Market(symbol)
-            var userAccount any = nil
+            var market interface{} = this.Market(symbol)
+            var userAccount interface{} = nil
             userAccountparamsVariable := this.HandleOriginAndSingleAddress("fetchLeverage", params);
             userAccount = GetValue(userAccountparamsVariable,0);
             params = GetValue(userAccountparamsVariable,1)
-            var cacheAddress any = this.WalletAddress
-            var settings any = nil
+            var cacheAddress interface{} = this.WalletAddress
+            var settings interface{} = nil
             if IsTrue(IsEqual(userAccount, cacheAddress)) {
                 settings = this.HandleOption("fetchLeverage", "settings", nil)
             } else {
-                var request any = map[string]any {
+                var request interface{} = map[string]interface{} {
                     "account": userAccount,
                 }
                 
             settings = (<-this.FetchAccountSettings(this.Extend(request, params)))
                     PanicOnError(settings)
             }
-            var setting any = this.SafeDict(settings, symbol, nil)
+            var setting interface{} = this.SafeDict(settings, symbol, nil)
             if IsTrue(IsEqual(setting, nil)) {
         
                         // NOTE: Upon account creation, all markets have margin settings default to cross margin and leverage default to max.
@@ -798,7 +798,7 @@ func  (this *PacificaCore) FetchLeverage(symbol any, optionalArgs ...any) <- cha
             }()
             return ch
         }
-func  (this *PacificaCore) ParseLeverageFromSetting(symbol any, setting any) any  {
+func  (this *PacificaCore) ParseLeverageFromSetting(symbol interface{}, setting interface{}) interface{}  {
     // {
     //   "WLFI/USDC:USDC": {
     //       "symbol": "WLFI",
@@ -808,10 +808,10 @@ func  (this *PacificaCore) ParseLeverageFromSetting(symbol any, setting any) any
     //       "updated_at": 1758086074002
     //    },
     // }
-    var isIsolated any = this.SafeBool(setting, "isolated", false)
-    var leverage any = this.SafeInteger(setting, "leverage")
-    var marginMode any = Ternary(IsTrue(isIsolated), "isolated", "cross")
-    return map[string]any {
+    var isIsolated interface{} = this.SafeBool(setting, "isolated", false)
+    var leverage interface{} = this.SafeInteger(setting, "leverage")
+    var marginMode interface{} = Ternary(IsTrue(isIsolated), "isolated", "cross")
+    return map[string]interface{} {
         "info": setting,
         "symbol": symbol,
         "marginMode": marginMode,
@@ -819,10 +819,10 @@ func  (this *PacificaCore) ParseLeverageFromSetting(symbol any, setting any) any
         "shortLeverage": leverage,
     }
 }
-func  (this *PacificaCore) ParseLeverageFromMarket(market any) any  {
-    var marketLimits any = this.SafeDict(market, "limits", map[string]any {})
-    var leverageLimits any = this.SafeDict(marketLimits, "leverage", map[string]any {})
-    return map[string]any {
+func  (this *PacificaCore) ParseLeverageFromMarket(market interface{}) interface{}  {
+    var marketLimits interface{} = this.SafeDict(market, "limits", map[string]interface{} {})
+    var leverageLimits interface{} = this.SafeDict(marketLimits, "leverage", map[string]interface{} {})
+    return map[string]interface{} {
         "info": market,
         "symbol": this.SafeString(market, "symbol"),
         "marginMode": this.HandleOption("fetchLeverage", "defaultMarginMode", "cross"),
@@ -839,18 +839,18 @@ func  (this *PacificaCore) ParseLeverageFromMarket(market any) any  {
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {object} Dict repacked from list by symbol key
  */
-func  (this *PacificaCore) FetchAccountSettings(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchAccountSettings(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var userAccount any = nil
+            var userAccount interface{} = nil
             userAccountparamsVariable := this.HandleOriginAndSingleAddress("fetchAccountSettings", params);
             userAccount = GetValue(userAccountparamsVariable,0);
             params = GetValue(userAccountparamsVariable,1)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "account": userAccount,
             }
         
@@ -871,22 +871,22 @@ func  (this *PacificaCore) FetchAccountSettings(optionalArgs ...any) <- chan any
             //   "error": null,
             //   "code": null
             // }
-        ch <- this.ParseAccountSettings(this.SafeList(response, "data", []any{}))
+        ch <- this.ParseAccountSettings(this.SafeList(response, "data", []interface{}{}))
             return nil
         
             }()
             return ch
         }
-func  (this *PacificaCore) LoadAccountSettings(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) LoadAccountSettings(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     refresh := GetArg(optionalArgs, 0, false)
             _ = refresh
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var settings any = this.HandleOption("loadAccountSettings", "settings", nil)
+            var settings interface{} = this.HandleOption("loadAccountSettings", "settings", nil)
             if IsTrue(IsTrue((IsEqual(settings, nil))) || IsTrue((IsEqual(refresh, true)))) {
                 AddElementToObject(this.Options, "settings", this.CreateSafeDictionary())
                 
@@ -898,16 +898,16 @@ func  (this *PacificaCore) LoadAccountSettings(optionalArgs ...any) <- chan any 
             }()
             return ch
         }
-func  (this *PacificaCore) ParseAccountSettings(settings any) any  {
-    var settingsLen any =     GetArrayLength(settings)
+func  (this *PacificaCore) ParseAccountSettings(settings interface{}) interface{}  {
+    var settingsLen interface{} =     GetArrayLength(settings)
     if IsTrue(IsEqual(settingsLen, 0)) {
-        return map[string]any {}
+        return map[string]interface{} {}
     }
-    var settingsBySymbol any = map[string]any {}
+    var settingsBySymbol interface{} = map[string]interface{} {}
     for i := 0; IsLessThan(i, GetArrayLength(settings)); i++ {
-        var marketId any = GetValue(GetValue(settings, i), "symbol")
-        var market any = this.SafeMarket(marketId)
-        var symbol any = GetValue(market, "symbol")
+        var marketId interface{} = GetValue(GetValue(settings, i), "symbol")
+        var market interface{} = this.SafeMarket(marketId)
+        var symbol interface{} = GetValue(market, "symbol")
         AddElementToObject(settingsBySymbol, symbol, GetValue(settings, i))
     }
     return settingsBySymbol
@@ -921,26 +921,26 @@ func  (this *PacificaCore) ParseAccountSettings(settings any) any  {
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {object} a [margin mode structure]{@link https://docs.ccxt.com/?id=margin-mode-structure}
  */
-func  (this *PacificaCore) FetchMarginMode(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchMarginMode(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes7848 := (<-this.LoadAccountSettings())
             PanicOnError(retRes7848)
-            var userAccount any = nil
+            var userAccount interface{} = nil
             userAccountparamsVariable := this.HandleOriginAndSingleAddress("fetchMarginMode", params);
             userAccount = GetValue(userAccountparamsVariable,0);
             params = GetValue(userAccountparamsVariable,1)
-            var cacheAddress any = this.WalletAddress
-            var settings any = nil
+            var cacheAddress interface{} = this.WalletAddress
+            var settings interface{} = nil
             if IsTrue(IsEqual(userAccount, cacheAddress)) {
                 settings = this.HandleOption("fetchMarginMode", "settings", nil)
             } else {
-                var request any = map[string]any {
+                var request interface{} = map[string]interface{} {
                     "account": userAccount,
                 }
                 
@@ -956,12 +956,12 @@ func  (this *PacificaCore) FetchMarginMode(symbol any, optionalArgs ...any) <- c
             //       "updated_at": 1758086074002
             //    },
             // }
-            var setting any = this.SafeDict(settings, symbol, nil)
+            var setting interface{} = this.SafeDict(settings, symbol, nil)
             if IsTrue(IsEqual(setting, nil)) {
         
                         // NOTE: Upon account creation, all markets have margin settings default to cross margin and leverage default to max.
                 // When querying this endpoint, all markets with default margin and leverage settings on this account will return blank.
-        ch <- map[string]any {
+        ch <- map[string]interface{} {
                     "symbol": symbol,
                     "marginMode": this.HandleOption("fetchMarginMode", "defaultMarginMode", "cross"),
                 }
@@ -975,7 +975,7 @@ func  (this *PacificaCore) FetchMarginMode(symbol any, optionalArgs ...any) <- c
             }()
             return ch
         }
-func  (this *PacificaCore) ParseMarginModeFromSetting(symbol any, setting any) any  {
+func  (this *PacificaCore) ParseMarginModeFromSetting(symbol interface{}, setting interface{}) interface{}  {
     // {
     //       "symbol": "WLFI",
     //       "isolated": false,
@@ -984,9 +984,9 @@ func  (this *PacificaCore) ParseMarginModeFromSetting(symbol any, setting any) a
     //       "updated_at": 1758086074002
     //
     // }
-    var isIsolated any = this.SafeBool(setting, "isolated", false)
-    var marginMode any = Ternary(IsTrue(isIsolated), "isolated", "cross")
-    return map[string]any {
+    var isIsolated interface{} = this.SafeBool(setting, "isolated", false)
+    var marginMode interface{} = Ternary(IsTrue(isIsolated), "isolated", "cross")
+    return map[string]interface{} {
         "symbol": symbol,
         "marginMode": marginMode,
         "info": setting,
@@ -1003,24 +1003,24 @@ func  (this *PacificaCore) ParseMarginModeFromSetting(symbol any, setting any) a
  * @param {int} [params.aggLevel] aggregation level for price grouping. Defaults to 1. Can be 1, 10, 100, 1000, 10000
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *PacificaCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes8498 := (<-this.LoadMarkets())
             PanicOnError(retRes8498)
-            var market any = this.Market(symbol)
-            var aggLevel any = nil
+            var market interface{} = this.Market(symbol)
+            var aggLevel interface{} = nil
             aggLevelparamsVariable := this.HandleOptionAndParams(params, "fetchOrderBook", "aggLevel", 1);
             aggLevel = GetValue(aggLevelparamsVariable,0);
             params = GetValue(aggLevelparamsVariable,1)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
                 "agg_level": aggLevel,
             }
@@ -1062,13 +1062,13 @@ func  (this *PacificaCore) FetchOrderBook(symbol any, optionalArgs ...any) <- ch
             //   "error": null,
             //   "code": null
             // }
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var levels any = this.SafeList(data, "l", []any{})
-            var result any = map[string]any {
-                "bids": this.SafeList(levels, 0, []any{}),
-                "asks": this.SafeList(levels, 1, []any{}),
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var levels interface{} = this.SafeList(data, "l", []interface{}{})
+            var result interface{} = map[string]interface{} {
+                "bids": this.SafeList(levels, 0, []interface{}{}),
+                "asks": this.SafeList(levels, 1, []interface{}{}),
             }
-            var timestamp any = this.SafeInteger(data, "t")
+            var timestamp interface{} = this.SafeInteger(data, "t")
         
             ch <- this.ParseOrderBook(result, this.SafeSymbol(nil, market), timestamp, "bids", "asks", "p", "a")
             return nil
@@ -1084,14 +1084,14 @@ func  (this *PacificaCore) FetchOrderBook(symbol any, optionalArgs ...any) <- ch
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *PacificaCore) FetchFundingRates(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchFundingRates(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetInfoPrices(params))
@@ -1117,7 +1117,7 @@ func  (this *PacificaCore) FetchFundingRates(optionalArgs ...any) <- chan any {
             //     "code": null
             //   }
             //
-            var result any = this.SafeList(response, "data", []any{})
+            var result interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseFundingRates(result, symbols)
             return nil
@@ -1125,7 +1125,7 @@ func  (this *PacificaCore) FetchFundingRates(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) ParseFundingRate(info any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseFundingRate(info interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //      {
     //         "funding": "0.00010529",
@@ -1142,16 +1142,16 @@ func  (this *PacificaCore) ParseFundingRate(info any, optionalArgs ...any) any  
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(info, "symbol")
+    var marketId interface{} = this.SafeString(info, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var funding any = this.SafeNumber(info, "funding")
-    var markPx any = this.SafeNumber(info, "mark")
-    var oraclePx any = this.SafeNumber(info, "oracle")
-    var nextFundingRate any = this.SafeNumber(info, "next_funding")
-    var timestamp any = this.SafeInteger(info, "timestamp")
-    var fundingTimestamp any = Multiply(Multiply(Multiply((Add(MathFloor(Divide(Divide(Divide(this.Milliseconds(), 60), 60), 1000)), 1)), 60), 60), 1000)
-    return map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var funding interface{} = this.SafeNumber(info, "funding")
+    var markPx interface{} = this.SafeNumber(info, "mark")
+    var oraclePx interface{} = this.SafeNumber(info, "oracle")
+    var nextFundingRate interface{} = this.SafeNumber(info, "next_funding")
+    var timestamp interface{} = this.SafeInteger(info, "timestamp")
+    var fundingTimestamp interface{} = Multiply(Multiply(Multiply((Add(MathFloor(Divide(Divide(Divide(this.Milliseconds(), 60), 60), 1000)), 1)), 60), 60), 1000)
+    return map[string]interface{} {
         "info": info,
         "symbol": symbol,
         "markPrice": markPx,
@@ -1186,9 +1186,9 @@ func  (this *PacificaCore) ParseFundingRate(info any, optionalArgs ...any) any  
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *PacificaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -1197,7 +1197,7 @@ func  (this *PacificaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan a
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(since, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOHLCV() requires a \"since\" argument")))
@@ -1205,12 +1205,12 @@ func  (this *PacificaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan a
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOHLCV() requires a \"symbol\" argument")))
             }
-            var defaultMaxLimit any = 3950 // 4000 by docs, but in fact >~3960 returns error
+            var defaultMaxLimit interface{} = 3950 // 4000 by docs, but in fact >~3960 returns error
         
             retRes10068 := (<-this.LoadMarkets())
             PanicOnError(retRes10068)
-            var market any = this.Market(symbol)
-            var paginate any = false
+            var market interface{} = this.Market(symbol)
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchOHLCV", "paginate", false);
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
@@ -1221,8 +1221,8 @@ func  (this *PacificaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan a
                     ch <- retRes101119
                     return nil
             } else {
-                var tf any = this.SafeString(this.Timeframes, timeframe, timeframe)
-                var request any = map[string]any {
+                var tf interface{} = this.SafeString(this.Timeframes, timeframe, timeframe)
+                var request interface{} = map[string]interface{} {
                     "symbol": GetValue(market, "id"),
                     "interval": tf,
                     "start_time": since,
@@ -1230,8 +1230,8 @@ func  (this *PacificaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan a
                 requestparamsVariable := this.HandleUntilOption("end_time", request, params);
                 request = GetValue(requestparamsVariable,0);
                 params = GetValue(requestparamsVariable,1)
-                var nowMillis any = this.Milliseconds()
-                var until any = this.SafeInteger(request, "end_time")
+                var nowMillis interface{} = this.Milliseconds()
+                var until interface{} = this.SafeInteger(request, "end_time")
                 if IsTrue(IsEqual(until, nil)) {
                     if IsTrue(!IsEqual(limit, nil)) {
                         until = Subtract(Add(since, (Multiply(limit, (Multiply(this.ParseTimeframe(tf), 1000))))), 1)
@@ -1268,7 +1268,7 @@ func  (this *PacificaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan a
                 //   "code": null
                 // }
                 //
-                var candles any = this.SafeList(response, "data", []any{})
+                var candles interface{} = this.SafeList(response, "data", []interface{}{})
         
                 ch <- this.ParseOHLCVs(candles, market, timeframe, since, limit)
                 return nil
@@ -1277,7 +1277,7 @@ func  (this *PacificaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *PacificaCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseOHLCV(ohlcv interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //       "t": 1748954160000,
@@ -1294,7 +1294,7 @@ func  (this *PacificaCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    return []any{this.SafeInteger(ohlcv, "t"), this.SafeNumber(ohlcv, "o"), this.SafeNumber(ohlcv, "h"), this.SafeNumber(ohlcv, "l"), this.SafeNumber(ohlcv, "c"), this.SafeNumber(ohlcv, "v")}
+    return []interface{}{this.SafeInteger(ohlcv, "t"), this.SafeNumber(ohlcv, "o"), this.SafeNumber(ohlcv, "h"), this.SafeNumber(ohlcv, "l"), this.SafeNumber(ohlcv, "c"), this.SafeNumber(ohlcv, "v")}
 }
 /**
  * @method
@@ -1307,22 +1307,22 @@ func  (this *PacificaCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *PacificaCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes10988 := (<-this.LoadMarkets())
             PanicOnError(retRes10988)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
         
@@ -1346,7 +1346,7 @@ func  (this *PacificaCore) FetchTrades(symbol any, optionalArgs ...any) <- chan 
             //   "last_order_id": 1557404170
             // }
             //
-            var recentTrades any = this.SafeList(response, "data", []any{})
+            var recentTrades interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseTrades(recentTrades, market, since, limit)
             return nil
@@ -1369,9 +1369,9 @@ func  (this *PacificaCore) FetchTrades(symbol any, optionalArgs ...any) <- chan 
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *PacificaCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1380,24 +1380,24 @@ func  (this *PacificaCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes11428 := (<-this.LoadMarkets())
             PanicOnError(retRes11428)
-            var market any = nil
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
             }
-            var paginate any = false
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchMyTrades", "paginate", false);
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
-            var userAddress any = nil
+            var userAddress interface{} = nil
             userAddressparamsVariable := this.HandleOriginAndSingleAddress("fetchMyTrades", params);
             userAddress = GetValue(userAddressparamsVariable,0);
             params = GetValue(userAddressparamsVariable,1)
-            var defaultLimit any = 100 // Default max limit
+            var defaultLimit interface{} = 100 // Default max limit
             if IsTrue(paginate) {
         
                     retRes115319 :=  (<-this.FetchPaginatedCallCursor("fetchMyTrades", symbol, since, limit, params, "next_cursor", "cursor", nil, defaultLimit))
@@ -1405,7 +1405,7 @@ func  (this *PacificaCore) FetchMyTrades(optionalArgs ...any) <- chan any {
                     ch <- retRes115319
                     return nil
             }
-            var request any = map[string]any {}
+            var request interface{} = map[string]interface{} {}
             requestparamsVariable := this.HandleUntilOption("end_time", request, params);
             request = GetValue(requestparamsVariable,0);
             params = GetValue(requestparamsVariable,1)
@@ -1447,7 +1447,7 @@ func  (this *PacificaCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             //   "has_more": true   // not included to info!
             // }
             //
-            var data any = this.AddPaginationCursorToResult(response)
+            var data interface{} = this.AddPaginationCursorToResult(response)
         
             ch <- this.ParseTrades(data, market, since, limit)
             return nil
@@ -1455,7 +1455,7 @@ func  (this *PacificaCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // user trades:
     //     {
@@ -1485,13 +1485,13 @@ func  (this *PacificaCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var eventType any = this.SafeString(trade, "event_type")
-    var timestamp any = this.SafeInteger(trade, "created_at")
-    var price any = this.SafeString(trade, "price")
-    var amount any = this.SafeString(trade, "amount")
-    var symbol any = this.SafeSymbol(nil, market)
-    var id any = this.SafeString(trade, "history_id")
-    var side any = this.SafeString(trade, "side")
+    var eventType interface{} = this.SafeString(trade, "event_type")
+    var timestamp interface{} = this.SafeInteger(trade, "created_at")
+    var price interface{} = this.SafeString(trade, "price")
+    var amount interface{} = this.SafeString(trade, "amount")
+    var symbol interface{} = this.SafeSymbol(nil, market)
+    var id interface{} = this.SafeString(trade, "history_id")
+    var side interface{} = this.SafeString(trade, "side")
     if IsTrue(IsEqual(side, "open_long")) {
         side = "buy"
     } else if IsTrue(IsEqual(side, "close_long")) {
@@ -1501,9 +1501,9 @@ func  (this *PacificaCore) ParseTrade(trade any, optionalArgs ...any) any  {
     } else if IsTrue(IsEqual(side, "close_short")) {
         side = "buy"
     }
-    var fee any = this.SafeString(trade, "fee")
-    var orderId any = this.SafeString(trade, "order_id")
-    var takerOrMaker any = nil
+    var fee interface{} = this.SafeString(trade, "fee")
+    var orderId interface{} = this.SafeString(trade, "order_id")
+    var takerOrMaker interface{} = nil
     if IsTrue(!IsEqual(eventType, nil)) {
         takerOrMaker = Ternary(IsTrue((IsEqual(eventType, "fulfill_maker"))), "maker", "taker")
     }
@@ -1511,7 +1511,7 @@ func  (this *PacificaCore) ParseTrade(trade any, optionalArgs ...any) any  {
     if IsTrue(IsEqual(orderId, nil)) {
         takerOrMaker = nil
     }
-    return this.SafeTrade(map[string]any {
+    return this.SafeTrade(map[string]interface{} {
         "info": trade,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -1524,7 +1524,7 @@ func  (this *PacificaCore) ParseTrade(trade any, optionalArgs ...any) any  {
         "price": price,
         "amount": amount,
         "cost": nil,
-        "fee": map[string]any {
+        "fee": map[string]interface{} {
             "cost": fee,
             "currency": "USDC",
             "rate": nil,
@@ -1554,14 +1554,14 @@ func  (this *PacificaCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {int} [params.expiryWindow] time to live in milliseconds
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes12968 := (<-this.LoadMarkets())
@@ -1572,8 +1572,8 @@ func  (this *PacificaCore) CreateOrder(symbol any, typeVar any, side any, amount
             requestoperationTypeVariable := this.CreateOrderRequest(symbol, typeVar, side, amount, price, params);
             request := GetValue(requestoperationTypeVariable,0);
             operationType := GetValue(requestoperationTypeVariable,1)
-            params = this.Omit(params, []any{"reduceOnly", "clientOrderId", "stopLimitPrice", "timeInForce", "triggerPrice", "stopLossCloid", "stopLossPrice", "stopLossLimitPrice", "takeProfitCloid", "takeProfitPrice", "takeProfitLimitPrice", "expiryWindow"})
-            var response any = nil
+            params = this.Omit(params, []interface{}{"reduceOnly", "clientOrderId", "stopLimitPrice", "timeInForce", "triggerPrice", "stopLossCloid", "stopLossPrice", "stopLossLimitPrice", "takeProfitCloid", "takeProfitPrice", "takeProfitLimitPrice", "expiryWindow"})
+            var response interface{} = nil
             if IsTrue(IsEqual(operationType, "create_market_order")) {
                 
             response = (<-this.PrivatePostOrdersCreateMarket(this.Extend(request, params)))
@@ -1599,17 +1599,17 @@ func  (this *PacificaCore) CreateOrder(symbol any, typeVar any, side any, amount
             //    },
             // }
             //
-            var success any = this.SafeBool(response, "success", false)
-            var status any = nil
+            var success interface{} = this.SafeBool(response, "success", false)
+            var status interface{} = nil
             if !IsTrue(success) {
                 status = "rejected"
             } else {
                 status = "open"
             }
-            var order any = this.SafeDict(response, "data", map[string]any {})
-            var orderId any = this.SafeString(order, "order_id")
+            var order interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var orderId interface{} = this.SafeString(order, "order_id")
         
-            ch <- this.SafeOrder(map[string]any {
+            ch <- this.SafeOrder(map[string]interface{} {
                 "id": orderId,
                 "status": status,
                 "info": response,
@@ -1620,7 +1620,7 @@ func  (this *PacificaCore) CreateOrder(symbol any, typeVar any, side any, amount
             }()
             return ch
         }
-func  (this *PacificaCore) CreateOrderRequest(symbol any, typeVar any, side any, amount any, optionalArgs ...any) any  {
+func  (this *PacificaCore) CreateOrderRequest(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) interface{}  {
     /**
     * @method
     * @ignore
@@ -1647,39 +1647,39 @@ func  (this *PacificaCore) CreateOrderRequest(symbol any, typeVar any, side any,
     */
     price := GetArg(optionalArgs, 0, nil)
     _ = price
-    params := GetArg(optionalArgs, 1, map[string]any {})
+    params := GetArg(optionalArgs, 1, map[string]interface{} {})
     _ = params
-    var market any = this.Market(symbol)
-    var sigPayload any = map[string]any {
+    var market interface{} = this.Market(symbol)
+    var sigPayload interface{} = map[string]interface{} {
         "symbol": GetValue(market, "id"),
         "side": this.MapSide(side),
     }
-    var operationType any = nil
-    var reduceOnly any = this.SafeBool2(params, "reduceOnly", "reduce_only", false)
-    var orderType any = ToUpper(typeVar)
-    var triggerPrice any = this.SafeString(params, "triggerPrice")
-    var stopLossPrice any = this.SafeString(params, "stopLossPrice")
-    var takeProfitPrice any = this.SafeString(params, "takeProfitPrice")
-    var tifRaw any = this.SafeStringUpper(params, "timeInForce")
-    var isMarket any = IsEqual(orderType, "MARKET")
-    var isTakeProfitOrder any =     (!IsEqual(takeProfitPrice, nil))
-    var isStopLossOrder any =     (!IsEqual(stopLossPrice, nil))
-    var isStopOrder any =     (!IsEqual(triggerPrice, nil))
-    var timeInForce any = this.MapTimeInForce(tifRaw)
+    var operationType interface{} = nil
+    var reduceOnly interface{} = this.SafeBool2(params, "reduceOnly", "reduce_only", false)
+    var orderType interface{} = ToUpper(typeVar)
+    var triggerPrice interface{} = this.SafeString(params, "triggerPrice")
+    var stopLossPrice interface{} = this.SafeString(params, "stopLossPrice")
+    var takeProfitPrice interface{} = this.SafeString(params, "takeProfitPrice")
+    var tifRaw interface{} = this.SafeStringUpper(params, "timeInForce")
+    var isMarket interface{} = IsEqual(orderType, "MARKET")
+    var isTakeProfitOrder interface{} =     (!IsEqual(takeProfitPrice, nil))
+    var isStopLossOrder interface{} =     (!IsEqual(stopLossPrice, nil))
+    var isStopOrder interface{} =     (!IsEqual(triggerPrice, nil))
+    var timeInForce interface{} = this.MapTimeInForce(tifRaw)
     if IsTrue(isMarket) {
         operationType = "create_market_order"
         AddElementToObject(sigPayload, "reduce_only", reduceOnly)
-        var defaultSlippage any = this.HandleOption("createOrder", "defaultSlippage", "0.5")
-        var slippage any = this.SafeString2(params, "slippage", "slippage_percent", defaultSlippage)
+        var defaultSlippage interface{} = this.HandleOption("createOrder", "defaultSlippage", "0.5")
+        var slippage interface{} = this.SafeString2(params, "slippage", "slippage_percent", defaultSlippage)
         AddElementToObject(sigPayload, "slippage_percent", slippage)
     } else if IsTrue(IsTrue((IsTrue(isTakeProfitOrder) || IsTrue(isStopLossOrder))) && IsTrue((IsEqual(price, nil)))) {
         operationType = "set_position_tpsl"
     } else if IsTrue(isStopOrder) {
         operationType = "create_stop_order"
         AddElementToObject(sigPayload, "reduce_only", reduceOnly)
-        var stopClientOrderId any = this.SafeString(params, "clientOrderId")
-        params = this.Omit(params, []any{"clientOrderId"})
-        var stopPayload any = map[string]any {
+        var stopClientOrderId interface{} = this.SafeString(params, "clientOrderId")
+        params = this.Omit(params, []interface{}{"clientOrderId"})
+        var stopPayload interface{} = map[string]interface{} {
             "amount": this.AmountToPrecision(symbol, amount),
             "stop_price": this.PriceToPrecision(symbol, triggerPrice),
         }
@@ -1700,7 +1700,7 @@ func  (this *PacificaCore) CreateOrderRequest(symbol any, typeVar any, side any,
         }
     }
     if IsTrue(isTakeProfitOrder) {
-        var tpPayload any = map[string]any {
+        var tpPayload interface{} = map[string]interface{} {
             "stop_price": this.PriceToPrecision(symbol, takeProfitPrice),
         }
         if IsTrue(!IsEqual(price, nil)) {
@@ -1709,7 +1709,7 @@ func  (this *PacificaCore) CreateOrderRequest(symbol any, typeVar any, side any,
         AddElementToObject(sigPayload, "take_profit", tpPayload)
     }
     if IsTrue(isStopLossOrder) {
-        var slPayload any = map[string]any {
+        var slPayload interface{} = map[string]interface{} {
             "stop_price": this.PriceToPrecision(symbol, stopLossPrice),
         }
         if IsTrue(!IsEqual(price, nil)) {
@@ -1723,14 +1723,14 @@ func  (this *PacificaCore) CreateOrderRequest(symbol any, typeVar any, side any,
     if IsTrue(IsTrue(!IsEqual(amount, nil)) && IsTrue((IsTrue(!IsEqual(operationType, "create_stop_order")) && IsTrue(!IsEqual(operationType, "set_position_tpsl"))))) {
         AddElementToObject(sigPayload, "amount", this.AmountToPrecision(symbol, amount))
     }
-    var clientOrderId any = this.SafeStringN(params, []any{"clientOrderId"})
+    var clientOrderId interface{} = this.SafeStringN(params, []interface{}{"clientOrderId"})
     if IsTrue(!IsEqual(clientOrderId, nil)) {
         AddElementToObject(sigPayload, "client_order_id", clientOrderId)
     }
-    var request any = this.PostActionRequest(operationType, sigPayload, params)
-    return []any{request, operationType}
+    var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
+    return []interface{}{request, operationType}
 }
-func  (this *PacificaCore) BatchOrdersRequest(actions any) any  {
+func  (this *PacificaCore) BatchOrdersRequest(actions interface{}) interface{}  {
     //
     // [
     //     {
@@ -1765,38 +1765,38 @@ func  (this *PacificaCore) BatchOrdersRequest(actions any) any  {
     //  Create (Only Limit or Market, never stop order or tpsl order)
     //  Cancel (Only common (limit) orders)
     //
-    var lenActions any =     GetArrayLength(actions)
-    var maxLen any = this.HandleOption("batchOrdersRequest", "batchOrdersMax")
+    var lenActions interface{} =     GetArrayLength(actions)
+    var maxLen interface{} = this.HandleOption("batchOrdersRequest", "batchOrdersMax")
     if IsTrue(!IsEqual(maxLen, nil)) {
         if IsTrue(IsGreaterThan(lenActions, maxLen)) {
             panic(ExchangeError(Add(Add(this.Id, " batchOrdersRequest() too many orders to create/cancel. Limit is "), maxLen)))
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "actions": actions,
     }
 }
-func  (this *PacificaCore) CreateOrdersRequest(orders any, optionalArgs ...any) any  {
-    params := GetArg(optionalArgs, 0, map[string]any {})
+func  (this *PacificaCore) CreateOrdersRequest(orders interface{}, optionalArgs ...interface{}) interface{}  {
+    params := GetArg(optionalArgs, 0, map[string]interface{} {})
     _ = params
-    var actions any = []any{}
-    var timestamp any = this.Milliseconds() // unified sequence
+    var actions interface{} = []interface{}{}
+    var timestamp interface{} = this.Milliseconds() // unified sequence
     for i := 0; IsLessThan(i, GetArrayLength(orders)); i++ {
-        var order any = GetValue(orders, i)
-        var symbol any = this.SafeString(order, "symbol")
-        var side any = this.SafeString(order, "side")
-        var price any = this.SafeString(order, "price")
-        var typeVar any = this.SafeString(order, "type", "limit")
-        var orderParams any = this.SafeDict(order, "params", map[string]any {})
+        var order interface{} = GetValue(orders, i)
+        var symbol interface{} = this.SafeString(order, "symbol")
+        var side interface{} = this.SafeString(order, "side")
+        var price interface{} = this.SafeString(order, "price")
+        var typeVar interface{} = this.SafeString(order, "type", "limit")
+        var orderParams interface{} = this.SafeDict(order, "params", map[string]interface{} {})
         AddElementToObject(orderParams, "timestamp", timestamp)
-        var amount any = this.SafeString(order, "amount")
-        var amountNumber any = this.ParseNumber(amount)
-        var priceNumber any = this.ParseNumber(price)
+        var amount interface{} = this.SafeString(order, "amount")
+        var amountNumber interface{} = this.ParseNumber(amount)
+        var priceNumber interface{} = this.ParseNumber(price)
         if IsTrue(!IsEqual(typeVar, "limit")) {
             panic(NotSupported(Add(Add(this.Id, " createOrders() supports only type = \"limit\"! Your value type="), typeVar)))
         }
-        var requestList any = this.CreateOrderRequest(symbol, typeVar, side, amountNumber, priceNumber, orderParams)
-        var action any = map[string]any {
+        var requestList interface{} = this.CreateOrderRequest(symbol, typeVar, side, amountNumber, priceNumber, orderParams)
+        var action interface{} = map[string]interface{} {
             "type": "Create",
             "data": GetValue(requestList, 0),
         }
@@ -1813,12 +1813,12 @@ func  (this *PacificaCore) CreateOrdersRequest(orders any, optionalArgs ...any) 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) CreateOrders(orders any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) CreateOrders(orders interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes15248 := (<-this.LoadMarkets())
@@ -1826,7 +1826,7 @@ func  (this *PacificaCore) CreateOrders(orders any, optionalArgs ...any) <- chan
         
             retRes15258 := (<-this.InitializeClient())
             PanicOnError(retRes15258)
-            var request any = this.CreateOrdersRequest(orders)
+            var request interface{} = this.CreateOrdersRequest(orders)
         
             response:= (<-this.PrivatePostOrdersBatch(this.Extend(request, params)))
             PanicOnError(response)
@@ -1848,21 +1848,21 @@ func  (this *PacificaCore) CreateOrders(orders any, optionalArgs ...any) <- chan
             //     "code": null
             // }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var results any = this.SafeList(data, "results", []any{})
-            var ordersToReturn any = []any{}
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var results interface{} = this.SafeList(data, "results", []interface{}{})
+            var ordersToReturn interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(results)); i++ {
-                var order any = GetValue(results, i)
-                var error any = this.SafeString(order, "error", nil)
-                var success any = this.SafeBool(order, "success", false)
-                var status any = nil
+                var order interface{} = GetValue(results, i)
+                var error interface{} = this.SafeString(order, "error", nil)
+                var success interface{} = this.SafeBool(order, "success", false)
+                var status interface{} = nil
                 if IsTrue(IsTrue((!IsEqual(error, nil))) || IsTrue((!IsTrue(success)))) {
                     status = "rejected"
                 } else {
                     status = "open"
                 }
-                var orderId any = this.SafeString(order, "order_id")
-                AppendToArray(&ordersToReturn, this.SafeOrder(map[string]any {
+                var orderId interface{} = this.SafeString(order, "order_id")
+                AppendToArray(&ordersToReturn, this.SafeOrder(map[string]interface{} {
                     "info": order,
                     "id": orderId,
                     "status": status,
@@ -1887,14 +1887,14 @@ func  (this *PacificaCore) CreateOrders(orders any, optionalArgs ...any) <- chan
  * @param {int} [params.expiryWindow] time to live in milliseconds
  * @returns {object} an list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) CancelOrders(ids any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) CancelOrders(ids interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes15788 := (<-this.LoadMarkets())
@@ -1905,8 +1905,8 @@ func  (this *PacificaCore) CancelOrders(ids any, optionalArgs ...any) <- chan an
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " cancelOrders() requires a \"symbol\" argument!")))
             }
-            var request any = this.CancelOrdersRequest(ids, symbol, params)
-            params = this.Omit(params, []any{"expiryWindow", "clientOrderIds"})
+            var request interface{} = this.CancelOrdersRequest(ids, symbol, params)
+            params = this.Omit(params, []interface{}{"expiryWindow", "clientOrderIds"})
         
             response:= (<-this.PrivatePostOrdersBatch(this.Extend(request, params)))
             PanicOnError(response)
@@ -1929,20 +1929,20 @@ func  (this *PacificaCore) CancelOrders(ids any, optionalArgs ...any) <- chan an
             //     "code": null
             // }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var results any = this.SafeList(data, "results", []any{})
-            var ordersToReturn any = []any{}
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var results interface{} = this.SafeList(data, "results", []interface{}{})
+            var ordersToReturn interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(results)); i++ {
-                var order any = GetValue(results, i)
-                var error any = this.SafeString(order, "error", nil)
-                var success any = this.SafeBool(order, "success", false)
-                var status any = nil
+                var order interface{} = GetValue(results, i)
+                var error interface{} = this.SafeString(order, "error", nil)
+                var success interface{} = this.SafeBool(order, "success", false)
+                var status interface{} = nil
                 if IsTrue(IsTrue((!IsEqual(error, nil))) || IsTrue((!IsTrue(success)))) {
                     status = "closed"
                 } else {
                     status = "canceled"
                 }
-                AppendToArray(&ordersToReturn, this.SafeOrder(map[string]any {
+                AppendToArray(&ordersToReturn, this.SafeOrder(map[string]interface{} {
                     "info": order,
                     "status": status,
                     "symbol": symbol,
@@ -1955,30 +1955,30 @@ func  (this *PacificaCore) CancelOrders(ids any, optionalArgs ...any) <- chan an
             }()
             return ch
         }
-func  (this *PacificaCore) CancelOrdersRequest(ids any, optionalArgs ...any) any  {
+func  (this *PacificaCore) CancelOrdersRequest(ids interface{}, optionalArgs ...interface{}) interface{}  {
     symbol := GetArg(optionalArgs, 0, nil)
     _ = symbol
-    params := GetArg(optionalArgs, 1, map[string]any {})
+    params := GetArg(optionalArgs, 1, map[string]interface{} {})
     _ = params
-    var actions any = []any{}
+    var actions interface{} = []interface{}{}
     for i := 0; IsLessThan(i, GetArrayLength(ids)); i++ {
-        var id any = GetValue(ids, i)
-        var request any = this.CancelOrderRequest(id, symbol, params)
-        var action any = map[string]any {
+        var id interface{} = GetValue(ids, i)
+        var request interface{} = this.CancelOrderRequest(id, symbol, params)
+        var action interface{} = map[string]interface{} {
             "type": "Cancel",
             "data": request,
         }
         AppendToArray(&actions, action)
     }
-    var clientOrderIds any = this.SafeList(params, "clientOrderIds", []any{})
+    var clientOrderIds interface{} = this.SafeList(params, "clientOrderIds", []interface{}{})
     params = this.Omit(params, "clientOrderIds")
     for i := 0; IsLessThan(i, GetArrayLength(clientOrderIds)); i++ {
-        var cloid any = GetValue(clientOrderIds, i)
-        var cloidParams any = map[string]any {
+        var cloid interface{} = GetValue(clientOrderIds, i)
+        var cloidParams interface{} = map[string]interface{} {
             "clientOrderId": cloid,
         }
-        var request any = this.CancelOrderRequest(cloid, symbol, this.Extend(cloidParams, params))
-        var action any = map[string]any {
+        var request interface{} = this.CancelOrderRequest(cloid, symbol, this.Extend(cloidParams, params))
+        var action interface{} = map[string]interface{} {
             "type": "Cancel",
             "data": request,
         }
@@ -1997,14 +1997,14 @@ func  (this *PacificaCore) CancelOrdersRequest(ids any, optionalArgs ...any) any
  * @param {int} [params.expiryWindow] time to live in milliseconds
  * @returns {object[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) CancelAllOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) CancelAllOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes16638 := (<-this.LoadMarkets())
@@ -2012,8 +2012,8 @@ func  (this *PacificaCore) CancelAllOrders(optionalArgs ...any) <- chan any {
         
             retRes16648 := (<-this.InitializeClient())
             PanicOnError(retRes16648)
-            var request any = this.CancelAllOrdersRequest(symbol, params)
-            params = this.Omit(params, []any{"excludeReduceOnly", "expiryWindow"})
+            var request interface{} = this.CancelAllOrdersRequest(symbol, params)
+            params = this.Omit(params, []interface{}{"excludeReduceOnly", "expiryWindow"})
         
             response:= (<-this.PrivatePostOrdersCancelAll(this.Extend(request, params)))
             PanicOnError(response)
@@ -2028,7 +2028,7 @@ func  (this *PacificaCore) CancelAllOrders(optionalArgs ...any) <- chan any {
             //   error: null
             // }
             //
-        ch <- []any{this.SafeOrder(map[string]any {
+        ch <- []interface{}{this.SafeOrder(map[string]interface{} {
             "info": response,
         })}
             return nil
@@ -2036,21 +2036,21 @@ func  (this *PacificaCore) CancelAllOrders(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) CancelAllOrdersRequest(symbol any, optionalArgs ...any) any  {
-    params := GetArg(optionalArgs, 0, map[string]any {})
+func  (this *PacificaCore) CancelAllOrdersRequest(symbol interface{}, optionalArgs ...interface{}) interface{}  {
+    params := GetArg(optionalArgs, 0, map[string]interface{} {})
     _ = params
-    var operationType any = "cancel_all_orders"
-    var sigPayload any = map[string]any {}
-    var excludeReduceOnly any = this.SafeBool(params, "excludeReduceOnly", false)
+    var operationType interface{} = "cancel_all_orders"
+    var sigPayload interface{} = map[string]interface{} {}
+    var excludeReduceOnly interface{} = this.SafeBool(params, "excludeReduceOnly", false)
     AddElementToObject(sigPayload, "exclude_reduce_only", excludeReduceOnly)
     if IsTrue(!IsEqual(symbol, nil)) {
-        var market any = this.Market(symbol)
+        var market interface{} = this.Market(symbol)
         AddElementToObject(sigPayload, "all_symbols", false)
         AddElementToObject(sigPayload, "symbol", GetValue(market, "id"))
     } else {
         AddElementToObject(sigPayload, "all_symbols", true)
     }
-    var request any = this.PostActionRequest(operationType, sigPayload, params)
+    var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
     return request
 }
 /**
@@ -2067,14 +2067,14 @@ func  (this *PacificaCore) CancelAllOrdersRequest(symbol any, optionalArgs ...an
  * @param {int} [params.expiryWindow] time to live in milliseconds
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes17168 := (<-this.LoadMarkets())
@@ -2085,10 +2085,10 @@ func  (this *PacificaCore) CancelOrder(id any, optionalArgs ...any) <- chan any 
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " cancelOrder() requires a symbol argument")))
             }
-            var request any = this.CancelOrderRequest(id, symbol, params)
-            var isStopOrder any = this.SafeBool2(params, "trigger", "stop", false)
-            params = this.Omit(params, []any{"expiryWindow", "trigger", "stop", "clientOrderId"})
-            var response any = nil
+            var request interface{} = this.CancelOrderRequest(id, symbol, params)
+            var isStopOrder interface{} = this.SafeBool2(params, "trigger", "stop", false)
+            params = this.Omit(params, []interface{}{"expiryWindow", "trigger", "stop", "clientOrderId"})
+            var response interface{} = nil
             if IsTrue(isStopOrder) {
                 
             response = (<-this.PrivatePostOrdersStopCancel(this.Extend(request, params)))
@@ -2105,10 +2105,10 @@ func  (this *PacificaCore) CancelOrder(id any, optionalArgs ...any) <- chan any 
             //   "data": null
             // }
             //
-            var success any = this.SafeBool(response, "success", false)
-            var status any = Ternary(IsTrue(success), "canceled", "closed")
+            var success interface{} = this.SafeBool(response, "success", false)
+            var status interface{} = Ternary(IsTrue(success), "canceled", "closed")
         
-            ch <- this.SafeOrder(map[string]any {
+            ch <- this.SafeOrder(map[string]interface{} {
                 "id": id,
                 "status": status,
                 "info": response,
@@ -2119,21 +2119,21 @@ func  (this *PacificaCore) CancelOrder(id any, optionalArgs ...any) <- chan any 
             }()
             return ch
         }
-func  (this *PacificaCore) CancelOrderRequest(id any, optionalArgs ...any) any  {
+func  (this *PacificaCore) CancelOrderRequest(id interface{}, optionalArgs ...interface{}) interface{}  {
     symbol := GetArg(optionalArgs, 0, nil)
     _ = symbol
-    params := GetArg(optionalArgs, 1, map[string]any {})
+    params := GetArg(optionalArgs, 1, map[string]interface{} {})
     _ = params
-    var market any = this.Market(symbol)
-    var isStopOrder any = this.SafeBool2(params, "trigger", "stop", false)
-    var operationType any = nil
+    var market interface{} = this.Market(symbol)
+    var isStopOrder interface{} = this.SafeBool2(params, "trigger", "stop", false)
+    var operationType interface{} = nil
     if IsTrue(isStopOrder) {
         operationType = "cancel_stop_order"
     } else {
         operationType = "cancel_order"
     }
-    var clientOrderId any = this.SafeString(params, "clientOrderId")
-    var sigPayload any = map[string]any {
+    var clientOrderId interface{} = this.SafeString(params, "clientOrderId")
+    var sigPayload interface{} = map[string]interface{} {
         "symbol": GetValue(market, "id"),
     }
     if IsTrue(!IsEqual(clientOrderId, nil)) {
@@ -2141,7 +2141,7 @@ func  (this *PacificaCore) CancelOrderRequest(id any, optionalArgs ...any) any  
     } else {
         AddElementToObject(sigPayload, "order_id", this.ParseToInt(id))
     }
-    var request any = this.PostActionRequest(operationType, sigPayload, params)
+    var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
     return request
 }
 /**
@@ -2160,16 +2160,16 @@ func  (this *PacificaCore) CancelOrderRequest(id any, optionalArgs ...any) any  
  * @param {int} [params.expiryWindow] time to live in milliseconds
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) EditOrder(id any, symbol any, typeVar any, side any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) EditOrder(id interface{}, symbol interface{}, typeVar interface{}, side interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     amount := GetArg(optionalArgs, 0, nil)
             _ = amount
             price := GetArg(optionalArgs, 1, nil)
             _ = price
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes17818 := (<-this.LoadMarkets())
@@ -2177,9 +2177,9 @@ func  (this *PacificaCore) EditOrder(id any, symbol any, typeVar any, side any, 
         
             retRes17828 := (<-this.InitializeClient())
             PanicOnError(retRes17828)
-            var market any = this.Market(symbol)
-            var request any = this.EditOrderRequest(id, symbol, typeVar, side, amount, price, market, params)
-            params = this.Omit(params, []any{"expiryWindow", "clientOrderId"})
+            var market interface{} = this.Market(symbol)
+            var request interface{} = this.EditOrderRequest(id, symbol, typeVar, side, amount, price, market, params)
+            params = this.Omit(params, []interface{}{"expiryWindow", "clientOrderId"})
         
             response:= (<-this.PrivatePostOrdersEdit(this.Extend(request, params)))
             PanicOnError(response)
@@ -2190,10 +2190,10 @@ func  (this *PacificaCore) EditOrder(id any, symbol any, typeVar any, side any, 
             //     }
             // }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var orderId any = this.SafeString(data, "order_id")
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var orderId interface{} = this.SafeString(data, "order_id")
         
-            ch <- this.SafeOrder(map[string]any {
+            ch <- this.SafeOrder(map[string]interface{} {
                 "id": orderId,
                 "info": response,
                 "symbol": symbol,
@@ -2203,8 +2203,8 @@ func  (this *PacificaCore) EditOrder(id any, symbol any, typeVar any, side any, 
             }()
             return ch
         }
-func  (this *PacificaCore) EditOrderRequest(id any, symbol any, typeVar any, side any, amount any, price any, market any, optionalArgs ...any) any  {
-    params := GetArg(optionalArgs, 0, map[string]any {})
+func  (this *PacificaCore) EditOrderRequest(id interface{}, symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, price interface{}, market interface{}, optionalArgs ...interface{}) interface{}  {
+    params := GetArg(optionalArgs, 0, map[string]interface{} {})
     _ = params
     if IsTrue(IsEqual(amount, nil)) {
         panic(ArgumentsRequired(Add(this.Id, " editOrder() requires an amount!")))
@@ -2212,11 +2212,11 @@ func  (this *PacificaCore) EditOrderRequest(id any, symbol any, typeVar any, sid
     if IsTrue(IsEqual(price, nil)) {
         panic(ArgumentsRequired(Add(this.Id, " editOrder() requires a price")))
     }
-    var operationType any = "edit_order"
-    var clientOrderId any = this.SafeString(params, "clientOrderId")
-    var priceNormalized any = this.PriceToPrecision(symbol, price)
-    var amountNormalized any = this.AmountToPrecision(symbol, amount)
-    var sigPayload any = map[string]any {
+    var operationType interface{} = "edit_order"
+    var clientOrderId interface{} = this.SafeString(params, "clientOrderId")
+    var priceNormalized interface{} = this.PriceToPrecision(symbol, price)
+    var amountNormalized interface{} = this.AmountToPrecision(symbol, amount)
+    var sigPayload interface{} = map[string]interface{} {
         "symbol": GetValue(market, "id"),
         "price": priceNormalized,
         "amount": amountNormalized,
@@ -2229,7 +2229,7 @@ func  (this *PacificaCore) EditOrderRequest(id any, symbol any, typeVar any, sid
     } else {
         AddElementToObject(sigPayload, "order_id", this.ParseToInt(id))
     }
-    var request any = this.PostActionRequest(operationType, sigPayload, params)
+    var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
     return request
 }
 /**
@@ -2245,9 +2245,9 @@ func  (this *PacificaCore) EditOrderRequest(id any, symbol any, typeVar any, sid
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {object[]} a list of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-history-structure}
  */
-func  (this *PacificaCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchFundingRateHistory(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2256,7 +2256,7 @@ func  (this *PacificaCore) FetchFundingRateHistory(optionalArgs ...any) <- chan 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes18418 := (<-this.LoadMarkets())
@@ -2264,12 +2264,12 @@ func  (this *PacificaCore) FetchFundingRateHistory(optionalArgs ...any) <- chan 
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchFundingRateHistory() requires a symbol argument")))
             }
-            var market any = this.Market(symbol)
-            var paginate any = false
+            var market interface{} = this.Market(symbol)
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchFundingRateHistory", "paginate", false);
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
-            var defaultLimit any = 100 // Default max limit
+            var defaultLimit interface{} = 100 // Default max limit
             if IsTrue(paginate) {
         
                     retRes185019 :=  (<-this.FetchPaginatedCallCursor("fetchFundingRateHistory", symbol, since, limit, params, "next_cursor", "cursor", nil, defaultLimit))
@@ -2277,7 +2277,7 @@ func  (this *PacificaCore) FetchFundingRateHistory(optionalArgs ...any) <- chan 
                     ch <- retRes185019
                     return nil
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -2304,12 +2304,12 @@ func  (this *PacificaCore) FetchFundingRateHistory(optionalArgs ...any) <- chan 
             //   "has_more": true
             // }
             //
-            var data any = this.AddPaginationCursorToResult(response)
-            var result any = []any{}
+            var data interface{} = this.AddPaginationCursorToResult(response)
+            var result interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(data)); i++ {
-                var entry any = GetValue(data, i)
-                var timestamp any = this.SafeInteger(entry, "created_at")
-                AppendToArray(&result, map[string]any {
+                var entry interface{} = GetValue(data, i)
+                var timestamp interface{} = this.SafeInteger(entry, "created_at")
+                AppendToArray(&result, map[string]interface{} {
                     "info": entry,
                     "symbol": GetValue(market, "symbol"),
                     "fundingRate": this.SafeNumber(entry, "funding_rate"),
@@ -2317,7 +2317,7 @@ func  (this *PacificaCore) FetchFundingRateHistory(optionalArgs ...any) <- chan 
                     "datetime": this.Iso8601(timestamp),
                 })
             }
-            var sorted any = this.SortBy(result, "timestamp")
+            var sorted interface{} = this.SortBy(result, "timestamp")
         
             ch <- this.FilterBySinceLimit(sorted, since, limit, "timestamp")
             return nil
@@ -2334,14 +2334,14 @@ func  (this *PacificaCore) FetchFundingRateHistory(optionalArgs ...any) <- chan 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *PacificaCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes19048 := (<-this.LoadMarkets())
@@ -2371,12 +2371,12 @@ func  (this *PacificaCore) FetchTickers(optionalArgs ...any) <- chan any {
             //   "code": null
             // }
             //
-            var data any = this.SafeList(response, "data", []any{})
-            var result any = map[string]any {}
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(data)); i++ {
-                var info any = GetValue(data, i)
-                var ticker any = this.ParseTicker(info)
-                var symbol any = this.SafeString(ticker, "symbol")
+                var info interface{} = GetValue(data, i)
+                var ticker interface{} = this.ParseTicker(info)
+                var symbol interface{} = this.SafeString(ticker, "symbol")
                 AddElementToObject(result, symbol, ticker)
             }
         
@@ -2386,7 +2386,7 @@ func  (this *PacificaCore) FetchTickers(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //       "funding": "0.00010529",
@@ -2403,11 +2403,11 @@ func  (this *PacificaCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(ticker, "symbol")
+    var marketId interface{} = this.SafeString(ticker, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var timestamp any = this.SafeInteger(ticker, "timestamp")
-    return this.SafeTicker(map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var timestamp interface{} = this.SafeInteger(ticker, "timestamp")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": symbol,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -2430,9 +2430,9 @@ func  (this *PacificaCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchClosedOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2441,7 +2441,7 @@ func  (this *PacificaCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes19838 := (<-this.LoadMarkets())
@@ -2449,7 +2449,7 @@ func  (this *PacificaCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
         
             orders:= (<-this.FetchOrders(symbol, nil, nil, params))
             PanicOnError(orders) // don't filter here because we don't want to catch open orders
-            var closedOrders any = this.FilterByArray(orders, "status", []any{"closed"}, false)
+            var closedOrders interface{} = this.FilterByArray(orders, "status", []interface{}{"closed"}, false)
         
             ch <- this.FilterBySymbolSinceLimit(closedOrders, symbol, since, limit)
             return nil
@@ -2468,9 +2468,9 @@ func  (this *PacificaCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) FetchCanceledOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchCanceledOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2479,7 +2479,7 @@ func  (this *PacificaCore) FetchCanceledOrders(optionalArgs ...any) <- chan any 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes20018 := (<-this.LoadMarkets())
@@ -2487,7 +2487,7 @@ func  (this *PacificaCore) FetchCanceledOrders(optionalArgs ...any) <- chan any 
         
             orders:= (<-this.FetchOrders(symbol, nil, nil, params))
             PanicOnError(orders) // don't filter here because we don't want to catch open orders
-            var closedOrders any = this.FilterByArray(orders, "status", []any{"canceled"}, false)
+            var closedOrders interface{} = this.FilterByArray(orders, "status", []interface{}{"canceled"}, false)
         
             ch <- this.FilterBySymbolSinceLimit(closedOrders, symbol, since, limit)
             return nil
@@ -2506,9 +2506,9 @@ func  (this *PacificaCore) FetchCanceledOrders(optionalArgs ...any) <- chan any 
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) FetchCanceledAndClosedOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchCanceledAndClosedOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2517,7 +2517,7 @@ func  (this *PacificaCore) FetchCanceledAndClosedOrders(optionalArgs ...any) <- 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes20198 := (<-this.LoadMarkets())
@@ -2525,7 +2525,7 @@ func  (this *PacificaCore) FetchCanceledAndClosedOrders(optionalArgs ...any) <- 
         
             orders:= (<-this.FetchOrders(symbol, nil, nil, params))
             PanicOnError(orders) // don't filter here because we don't want to catch open orders
-            var closedOrders any = this.FilterByArray(orders, "status", []any{"canceled", "closed", "rejected"}, false)
+            var closedOrders interface{} = this.FilterByArray(orders, "status", []interface{}{"canceled", "closed", "rejected"}, false)
         
             ch <- this.FilterBySymbolSinceLimit(closedOrders, symbol, since, limit)
             return nil
@@ -2545,9 +2545,9 @@ func  (this *PacificaCore) FetchCanceledAndClosedOrders(optionalArgs ...any) <- 
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2556,19 +2556,19 @@ func  (this *PacificaCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes20388 := (<-this.LoadMarkets())
             PanicOnError(retRes20388)
-            var userAddress any = nil
+            var userAddress interface{} = nil
             userAddressparamsVariable := this.HandleOriginAndSingleAddress("fetchOpenOrders", params);
             userAddress = GetValue(userAddressparamsVariable,0);
             params = GetValue(userAddressparamsVariable,1)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "account": userAddress,
             }
-            var market any = nil
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
             }
@@ -2601,7 +2601,7 @@ func  (this *PacificaCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             //   "last_order_id": 1557370337
             // }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseOrders(data, market, since, limit)
             return nil
@@ -2623,9 +2623,9 @@ func  (this *PacificaCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) FetchOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2634,16 +2634,16 @@ func  (this *PacificaCore) FetchOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes20948 := (<-this.LoadMarkets())
             PanicOnError(retRes20948)
-            var paginate any = false
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchOrders", "paginate", false);
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
-            var defaultLimit any = 100 // max default 100
+            var defaultLimit interface{} = 100 // max default 100
             if IsTrue(paginate) {
         
                     retRes209919 :=  (<-this.FetchPaginatedCallCursor("fetchOrders", symbol, since, limit, params, "next_cursor", "cursor", nil, defaultLimit))
@@ -2651,15 +2651,15 @@ func  (this *PacificaCore) FetchOrders(optionalArgs ...any) <- chan any {
                     ch <- retRes209919
                     return nil
             }
-            var userAddress any = nil
+            var userAddress interface{} = nil
             userAddressparamsVariable := this.HandleOriginAndSingleAddress("fetchOrders", params);
             userAddress = GetValue(userAddressparamsVariable,0);
             params = GetValue(userAddressparamsVariable,1)
-            var market any = nil
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "account": userAddress,
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -2696,8 +2696,8 @@ func  (this *PacificaCore) FetchOrders(optionalArgs ...any) <- chan any {
             //   "has_more": true
             // }
             //
-            var data any = this.AddPaginationCursorToResult(response)
-            var orders any = this.ParseOrders(data, market, since, limit)
+            var data interface{} = this.AddPaginationCursorToResult(response)
+            var orders interface{} = this.ParseOrders(data, market, since, limit)
         
             ch <- orders
             return nil
@@ -2705,14 +2705,14 @@ func  (this *PacificaCore) FetchOrders(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) AddPaginationCursorToResult(response any) any  {
-    var data any = this.SafeList(response, "data", []any{})
-    var paginationCursor any = this.SafeString(response, "next_cursor")
-    var hasMore any = this.SafeBool(response, "has_more", false)
-    var dataLength any =     GetArrayLength(data)
+func  (this *PacificaCore) AddPaginationCursorToResult(response interface{}) interface{}  {
+    var data interface{} = this.SafeList(response, "data", []interface{}{})
+    var paginationCursor interface{} = this.SafeString(response, "next_cursor")
+    var hasMore interface{} = this.SafeBool(response, "has_more", false)
+    var dataLength interface{} =     GetArrayLength(data)
     if IsTrue(hasMore) {
         if IsTrue(IsTrue((!IsEqual(paginationCursor, nil))) && IsTrue((IsGreaterThan(dataLength, 0)))) {
-            var first any = GetValue(data, 0)
+            var first interface{} = GetValue(data, 0)
             AddElementToObject(first, "next_cursor", paginationCursor)
             AddElementToObject(first, "has_more", hasMore)
             AddElementToObject(data, 0, first)
@@ -2730,23 +2730,23 @@ func  (this *PacificaCore) AddPaginationCursorToResult(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PacificaCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes21748 := (<-this.LoadMarkets())
             PanicOnError(retRes21748)
-            var market any = nil
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "order_id": id,
             }
         
@@ -2797,11 +2797,11 @@ func  (this *PacificaCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
             //   "code": null
             // }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
             // return last state
-            var sorted any = this.SortBy(data, "created_at")
-            var lastIdx any =     GetArrayLength(sorted)
-            var lastInfo any = map[string]any {}
+            var sorted interface{} = this.SortBy(data, "created_at")
+            var lastIdx interface{} =     GetArrayLength(sorted)
+            var lastInfo interface{} = map[string]interface{} {}
             if IsTrue(IsGreaterThan(lastIdx, 0)) {
                 lastInfo = GetValue(sorted, 0)
             }
@@ -2812,8 +2812,8 @@ func  (this *PacificaCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) ParseOrderStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *PacificaCore) ParseOrderStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "open": "open",
         "partially_filled": "open",
         "filled": "closed",
@@ -2822,8 +2822,8 @@ func  (this *PacificaCore) ParseOrderStatus(status any) any  {
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *PacificaCore) MapTimeInForce(tifRaw any) any  {
-    var tifMap any = map[string]any {
+func  (this *PacificaCore) MapTimeInForce(tifRaw interface{}) interface{}  {
+    var tifMap interface{} = map[string]interface{} {
         "GTC": "GTC",
         "IOC": "IOC",
         "PO": "ALO",
@@ -2832,21 +2832,21 @@ func  (this *PacificaCore) MapTimeInForce(tifRaw any) any  {
         "TOB": "TOB",
         "ALO": "ALO",
     }
-    var tif any = nil
+    var tif interface{} = nil
     if IsTrue(!IsEqual(tifRaw, nil)) {
         tif = ToUpper(tifRaw)
     }
     return this.SafeString(tifMap, tif, nil)
 }
-func  (this *PacificaCore) MapSide(sideRaw any) any  {
-    var sideMap any = map[string]any {
+func  (this *PacificaCore) MapSide(sideRaw interface{}) interface{}  {
+    var sideMap interface{} = map[string]interface{} {
         "sell": "ask",
         "buy": "bid",
     }
     return this.SafeString(sideMap, sideRaw, sideRaw)
 }
-func  (this *PacificaCore) ParseOrderType(status any) any  {
-    var statuses any = map[string]any {
+func  (this *PacificaCore) ParseOrderType(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "stop_limit": "limit",
         "stop_market": "market",
         "take_profit_limit": "limit",
@@ -2856,7 +2856,7 @@ func  (this *PacificaCore) ParseOrderType(status any) any  {
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *PacificaCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchOpenOrders
     //   [
@@ -2945,22 +2945,22 @@ func  (this *PacificaCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString2(order, "symbol", "s")
-    var symbol any = nil
+    var marketId interface{} = this.SafeString2(order, "symbol", "s")
+    var symbol interface{} = nil
     if IsTrue(!IsEqual(symbol, nil)) {
         market = this.SafeMarket(marketId, market)
         symbol = GetValue(market, "symbol")
     }
-    var timestamp any = this.SafeInteger2(order, "created_at", "ct")
-    var status any = this.SafeString2(order, "order_status", "os", "open") // open if method is fetchOpenOrders
-    var side any = this.SafeString(order, "side", "d")
+    var timestamp interface{} = this.SafeInteger2(order, "created_at", "ct")
+    var status interface{} = this.SafeString2(order, "order_status", "os", "open") // open if method is fetchOpenOrders
+    var side interface{} = this.SafeString(order, "side", "d")
     if IsTrue(!IsEqual(side, nil)) {
         side = Ternary(IsTrue((IsEqual(side, "bid"))), "buy", "sell")
     }
-    var totalAmount any = this.SafeString2(order, "initial_amount", "a")
-    var filledAmount any = this.SafeString2(order, "filled_amount", "f")
-    var remaining any = Precise.StringSub(totalAmount, filledAmount)
-    return this.SafeOrder(map[string]any {
+    var totalAmount interface{} = this.SafeString2(order, "initial_amount", "a")
+    var filledAmount interface{} = this.SafeString2(order, "filled_amount", "f")
+    var remaining interface{} = Precise.StringSub(totalAmount, filledAmount)
+    return this.SafeOrder(map[string]interface{} {
         "info": order,
         "id": this.SafeString2(order, "order_id", "i"),
         "clientOrderId": this.SafeString2(order, "client_order_id", "I"),
@@ -2996,18 +2996,18 @@ func  (this *PacificaCore) ParseOrder(order any, optionalArgs ...any) any  {
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {object} a [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
-func  (this *PacificaCore) FetchPosition(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchPosition(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            positions:= (<-this.FetchPositions([]any{symbol}, params))
+            positions:= (<-this.FetchPositions([]interface{}{symbol}, params))
             PanicOnError(positions)
         
-            ch <- this.SafeDict(positions, 0, map[string]any {})
+            ch <- this.SafeDict(positions, 0, map[string]interface{} {})
             return nil
         
             }()
@@ -3023,24 +3023,24 @@ func  (this *PacificaCore) FetchPosition(symbol any, optionalArgs ...any) <- cha
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
-func  (this *PacificaCore) FetchPositions(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchPositions(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes24428 := (<-this.LoadMarkets())
             PanicOnError(retRes24428)
-            var userAddress any = nil
+            var userAddress interface{} = nil
             userAddressparamsVariable := this.HandleOriginAndSingleAddress("fetchPositions", params);
             userAddress = GetValue(userAddressparamsVariable,0);
             params = GetValue(userAddressparamsVariable,1)
             symbols = this.MarketSymbols(symbols)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "account": userAddress,
             }
         
@@ -3065,8 +3065,8 @@ func  (this *PacificaCore) FetchPositions(optionalArgs ...any) <- chan any {
             //   "code": null,
             //   "last_order_id": 1557431179
             // }
-            var data any = this.SafeList(response, "data", []any{})
-            var result any = []any{}
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
+            var result interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(data)); i++ {
                 AppendToArray(&result, this.ParsePosition(GetValue(data, i), nil))
             }
@@ -3077,7 +3077,7 @@ func  (this *PacificaCore) FetchPositions(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) ParsePosition(position any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParsePosition(position interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //       "symbol": "AAVE",
@@ -3093,18 +3093,18 @@ func  (this *PacificaCore) ParsePosition(position any, optionalArgs ...any) any 
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(position, "symbol")
+    var marketId interface{} = this.SafeString(position, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var margin any = this.SafeString(position, "margin")
-    var marginMode any = Ternary(IsTrue((IsTrue(!IsEqual(margin, nil)) && IsTrue(!IsEqual(margin, "0")))), "isolated", "cross")
-    var isIsolated any =     (IsEqual(marginMode, "isolated"))
-    var side any = this.SafeString(position, "side")
+    var symbol interface{} = GetValue(market, "symbol")
+    var margin interface{} = this.SafeString(position, "margin")
+    var marginMode interface{} = Ternary(IsTrue((IsTrue(!IsEqual(margin, nil)) && IsTrue(!IsEqual(margin, "0")))), "isolated", "cross")
+    var isIsolated interface{} =     (IsEqual(marginMode, "isolated"))
+    var side interface{} = this.SafeString(position, "side")
     if IsTrue(!IsEqual(side, nil)) {
         side = Ternary(IsTrue((IsEqual(side, "bid"))), "long", "short")
     }
-    var createdAt any = this.SafeInteger(position, "created_at")
-    return this.SafePosition(map[string]any {
+    var createdAt interface{} = this.SafeInteger(position, "created_at")
+    return this.SafePosition(map[string]interface{} {
         "info": position,
         "id": nil,
         "symbol": symbol,
@@ -3141,30 +3141,30 @@ func  (this *PacificaCore) ParsePosition(position any, optionalArgs ...any) any 
  * @param {int} [params.expiryWindow] time to live in milliseconds
  * @returns {object} response from the exchange
  */
-func  (this *PacificaCore) SetMarginMode(marginMode any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) SetMarginMode(marginMode interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var operationType any = "update_margin_mode"
+            var operationType interface{} = "update_margin_mode"
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " setMarginMode() requires a symbol argument")))
             }
         
             retRes25458 := (<-this.LoadMarkets())
             PanicOnError(retRes25458)
-            var market any = this.Market(symbol)
-            var isIsolated any =     (IsEqual(marginMode, "isolated"))
-            var sigPayload any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var isIsolated interface{} =     (IsEqual(marginMode, "isolated"))
+            var sigPayload interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
                 "is_isolated": isIsolated,
             }
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
-            params = this.Omit(params, []any{"expiryWindow"})
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
+            params = this.Omit(params, []interface{}{"expiryWindow"})
         
             response:= (<-this.PrivatePostAccountMargin(request))
             PanicOnError(response)
@@ -3189,29 +3189,29 @@ func  (this *PacificaCore) SetMarginMode(marginMode any, optionalArgs ...any) <-
  * @param {int} [params.expiryWindow] time to live in milliseconds
  * @returns {object} response from the exchange
  */
-func  (this *PacificaCore) SetLeverage(leverage any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) SetLeverage(leverage interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var operationType any = "update_leverage"
+            var operationType interface{} = "update_leverage"
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " setMarginMode() requires a symbol argument")))
             }
         
             retRes25778 := (<-this.LoadMarkets())
             PanicOnError(retRes25778)
-            var market any = this.Market(symbol)
-            var sigPayload any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var sigPayload interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
                 "leverage": leverage,
             }
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
-            params = this.Omit(params, []any{"expiryWindow"})
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
+            params = this.Omit(params, []interface{}{"expiryWindow"})
         
             response:= (<-this.PrivatePostAccountLeverage(request))
             PanicOnError(response)
@@ -3238,30 +3238,30 @@ func  (this *PacificaCore) SetLeverage(leverage any, optionalArgs ...any) <- cha
  * @param {int} [params.expiryWindow] time to live in milliseconds
  * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *PacificaCore) Withdraw(code any, amount any, address any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) Withdraw(code interface{}, amount interface{}, address interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     tag := GetArg(optionalArgs, 0, nil)
             _ = tag
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var operationType any = "withdraw"
+            var operationType interface{} = "withdraw"
         
             retRes26078 := (<-this.LoadMarkets())
             PanicOnError(retRes26078)
             this.CheckAddress(address)
-            var sigPayload any = map[string]any {
+            var sigPayload interface{} = map[string]interface{} {
                 "amount": ToString(amount),
             }
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
-            params = this.Omit(params, []any{"expiryWindow"})
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
+            params = this.Omit(params, []interface{}{"expiryWindow"})
         
             response:= (<-this.PrivatePostAccountWithdraw(this.Extend(request, params)))
             PanicOnError(response)
         
-            ch <- map[string]any {
+            ch <- map[string]interface{} {
                 "info": response,
             }
             return nil
@@ -3279,22 +3279,22 @@ func  (this *PacificaCore) Withdraw(code any, amount any, address any, optionalA
  * @param {string} [params.account] will default to walletAddress if not provided
  * @returns {object} a [fee structure]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func  (this *PacificaCore) FetchTradingFee(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchTradingFee(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes26298 := (<-this.LoadMarkets())
             PanicOnError(retRes26298)
-            var userAddress any = nil
+            var userAddress interface{} = nil
             userAddressparamsVariable := this.HandleOriginAndSingleAddress("fetchTradingFee", params);
             userAddress = GetValue(userAddressparamsVariable,0);
             params = GetValue(userAddressparamsVariable,1)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "account": userAddress,
             }
         
@@ -3322,7 +3322,7 @@ func  (this *PacificaCore) FetchTradingFee(symbol any, optionalArgs ...any) <- c
             //   "error": null,
             //   "code": null
             // }
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseTradingFee(data, market)
             return nil
@@ -3330,7 +3330,7 @@ func  (this *PacificaCore) FetchTradingFee(symbol any, optionalArgs ...any) <- c
             }()
             return ch
         }
-func  (this *PacificaCore) ParseTradingFee(fee any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseTradingFee(fee interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //   {
     //     "balance": "2000.000000",
@@ -3353,8 +3353,8 @@ func  (this *PacificaCore) ParseTradingFee(fee any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var symbol any = this.SafeSymbol(nil, market)
-    return map[string]any {
+    var symbol interface{} = this.SafeSymbol(nil, market)
+    return map[string]interface{} {
         "info": fee,
         "symbol": symbol,
         "maker": this.SafeNumber(fee, "maker_fee"),
@@ -3371,14 +3371,14 @@ func  (this *PacificaCore) ParseTradingFee(fee any, optionalArgs ...any) any  {
  * @param {object} [params] exchange specific parameters
  * @returns {object} an open interest structure{@link https://docs.ccxt.com/?id=open-interest-structure}
  */
-func  (this *PacificaCore) FetchOpenInterests(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchOpenInterests(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes27048 := (<-this.LoadMarkets())
@@ -3402,19 +3402,19 @@ func  (this *PacificaCore) FetchOpenInterests(optionalArgs ...any) <- chan any {
  * @param {object} [params] exchange specific parameters
  * @returns {object} an [open interest structure]{@link https://docs.ccxt.com/?id=open-interest-structure}
  */
-func  (this *PacificaCore) FetchOpenInterest(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchOpenInterest(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
             symbol = this.Symbol(symbol)
         
             retRes27208 := (<-this.LoadMarkets())
             PanicOnError(retRes27208)
         
-            ois:= (<-this.FetchOpenInterests([]any{symbol}, params))
+            ois:= (<-this.FetchOpenInterests([]interface{}{symbol}, params))
             PanicOnError(ois)
         
             ch <- GetValue(ois, symbol)
@@ -3423,7 +3423,7 @@ func  (this *PacificaCore) FetchOpenInterest(symbol any, optionalArgs ...any) <-
             }()
             return ch
         }
-func  (this *PacificaCore) ParseOpenInterest(interest any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseOpenInterest(interest interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //       "funding": "0.00010529",
@@ -3440,20 +3440,20 @@ func  (this *PacificaCore) ParseOpenInterest(interest any, optionalArgs ...any) 
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(interest, "symbol")
-    var symbol any = nil
+    var marketId interface{} = this.SafeString(interest, "symbol")
+    var symbol interface{} = nil
     if IsTrue(!IsEqual(marketId, nil)) {
         market = this.SafeMarket(marketId, market)
         symbol = GetValue(market, "symbol")
     }
-    var interestValue any = nil
-    var markPrice any = this.SafeString(interest, "mark")
-    var openInterest any = this.SafeString(interest, "open_interest")
+    var interestValue interface{} = nil
+    var markPrice interface{} = this.SafeString(interest, "mark")
+    var openInterest interface{} = this.SafeString(interest, "open_interest")
     if IsTrue(IsTrue((!IsEqual(openInterest, nil))) && IsTrue((!IsEqual(markPrice, nil)))) {
         interestValue = Precise.StringMul(openInterest, markPrice)
     }
-    var timestamp any = this.SafeInteger(interest, "timestamp")
-    return this.SafeOpenInterest(map[string]any {
+    var timestamp interface{} = this.SafeInteger(interest, "timestamp")
+    return this.SafeOpenInterest(map[string]interface{} {
         "symbol": this.SafeSymbol(symbol),
         "openInterestAmount": this.ParseNumber(openInterest),
         "openInterestValue": this.ParseNumber(interestValue),
@@ -3476,9 +3476,9 @@ func  (this *PacificaCore) ParseOpenInterest(interest any, optionalArgs ...any) 
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {object} a [ledger structure]{@link https://docs.ccxt.com/?id=ledger-entry-structure}
  */
-func  (this *PacificaCore) FetchLedger(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchLedger(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -3487,20 +3487,20 @@ func  (this *PacificaCore) FetchLedger(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes27788 := (<-this.LoadMarkets())
             PanicOnError(retRes27788)
-            var paginate any = false
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchLedger", "paginate", false);
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
-            var userAddress any = nil
+            var userAddress interface{} = nil
             userAddressparamsVariable := this.HandleOriginAndSingleAddress("fetchLedger", params);
             userAddress = GetValue(userAddressparamsVariable,0);
             params = GetValue(userAddressparamsVariable,1)
-            var defaultLimit any = 100 // Default max limit
+            var defaultLimit interface{} = 100 // Default max limit
             if IsTrue(paginate) {
         
                     retRes278519 :=  (<-this.FetchPaginatedCallCursor("fetchLedger", code, since, limit, params, "next_cursor", "cursor", nil, defaultLimit))
@@ -3508,7 +3508,7 @@ func  (this *PacificaCore) FetchLedger(optionalArgs ...any) <- chan any {
                     ch <- retRes278519
                     return nil
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "account": userAddress,
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -3532,7 +3532,7 @@ func  (this *PacificaCore) FetchLedger(optionalArgs ...any) <- chan any {
             //   "next_cursor": "11114Lz77",
             //   "has_more": true
             // }
-            var data any = this.AddPaginationCursorToResult(response)
+            var data interface{} = this.AddPaginationCursorToResult(response)
         
             ch <- this.ParseLedger(data, nil, since, limit)
             return nil
@@ -3540,7 +3540,7 @@ func  (this *PacificaCore) FetchLedger(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) ParseLedgerEntry(item any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseLedgerEntry(item interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //       "amount": "100.000000",
@@ -3552,11 +3552,11 @@ func  (this *PacificaCore) ParseLedgerEntry(item any, optionalArgs ...any) any  
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var timestamp any = this.SafeInteger(item, "created_at")
-    var typeVar any = this.SafeString(item, "event_type")
-    var amount any = this.SafeString(item, "amount")
-    var balance any = this.SafeString(item, "balance")
-    return this.SafeLedgerEntry(map[string]any {
+    var timestamp interface{} = this.SafeInteger(item, "created_at")
+    var typeVar interface{} = this.SafeString(item, "event_type")
+    var amount interface{} = this.SafeString(item, "amount")
+    var balance interface{} = this.SafeString(item, "balance")
+    return this.SafeLedgerEntry(map[string]interface{} {
         "info": item,
         "id": nil,
         "direction": nil,
@@ -3574,8 +3574,8 @@ func  (this *PacificaCore) ParseLedgerEntry(item any, optionalArgs ...any) any  
         "fee": nil,
     }, currency)
 }
-func  (this *PacificaCore) ParseLedgerEntryType(typeVar any) any  {
-    var ledgerType any = map[string]any {
+func  (this *PacificaCore) ParseLedgerEntryType(typeVar interface{}) interface{}  {
+    var ledgerType interface{} = map[string]interface{} {
         "subaccount_transfer": "transfer",
         "deposit": "transaction",
         "deposit_release": "transaction",
@@ -3607,9 +3607,9 @@ func  (this *PacificaCore) ParseLedgerEntryType(typeVar any) any  {
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {object} a [funding history structure]{@link https://docs.ccxt.com/?id=funding-history-structure}
  */
-func  (this *PacificaCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchFundingHistory(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -3618,30 +3618,30 @@ func  (this *PacificaCore) FetchFundingHistory(optionalArgs ...any) <- chan any 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes28818 := (<-this.LoadMarkets())
             PanicOnError(retRes28818)
-            var market any = nil
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
             }
-            var paginate any = false
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchFundingHistory", "paginate", false);
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
-            var userAddress any = nil
+            var userAddress interface{} = nil
             userAddressparamsVariable := this.HandleOriginAndSingleAddress("fetchFundingHistory", params);
             userAddress = GetValue(userAddressparamsVariable,0);
             params = GetValue(userAddressparamsVariable,1)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "account": userAddress,
             }
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var defaultLimit any = 100
+            var defaultLimit interface{} = 100
             if IsTrue(paginate) {
         
                     retRes289819 :=  (<-this.FetchPaginatedCallCursor("fetchFundingHistory", symbol, since, limit, params, "next_cursor", "cursor", nil, defaultLimit))
@@ -3669,7 +3669,7 @@ func  (this *PacificaCore) FetchFundingHistory(optionalArgs ...any) <- chan any 
             //   "next_cursor": "11114Lz77",
             //   "has_more": true
             // }
-            var data any = this.AddPaginationCursorToResult(response)
+            var data interface{} = this.AddPaginationCursorToResult(response)
         
             ch <- this.ParseIncomes(data, market, since, limit)
             return nil
@@ -3677,7 +3677,7 @@ func  (this *PacificaCore) FetchFundingHistory(optionalArgs ...any) <- chan any 
             }()
             return ch
         }
-func  (this *PacificaCore) ParseIncome(income any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseIncome(income interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //       "history_id": 2287920,
@@ -3691,15 +3691,15 @@ func  (this *PacificaCore) ParseIncome(income any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var id any = this.SafeString(income, "history_id")
-    var timestamp any = this.SafeInteger(income, "created_at")
-    var marketId any = this.SafeString(income, "symbol")
+    var id interface{} = this.SafeString(income, "history_id")
+    var timestamp interface{} = this.SafeInteger(income, "created_at")
+    var marketId interface{} = this.SafeString(income, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var amount any = this.SafeString(income, "amount")
-    var code any = this.SafeCurrencyCode("USDC")
-    var rate any = this.SafeNumber(income, "rate")
-    return map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var amount interface{} = this.SafeString(income, "amount")
+    var code interface{} = this.SafeCurrencyCode("USDC")
+    var rate interface{} = this.SafeNumber(income, "rate")
+    return map[string]interface{} {
         "info": income,
         "symbol": symbol,
         "code": code,
@@ -3723,21 +3723,21 @@ func  (this *PacificaCore) ParseIncome(income any, optionalArgs ...any) any  {
  * @param {int} [params.expiryWindow] time to live in milliseconds
  * @returns {object} a [transfer structure]{@link https://docs.ccxt.com/?id=transfer-structure}
  */
-func  (this *PacificaCore) Transfer(code any, amount any, fromAccount any, toAccount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) Transfer(code interface{}, amount interface{}, fromAccount interface{}, toAccount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var operationType any = "transfer_funds"
-            var sigPayload any = map[string]any {
+            var operationType interface{} = "transfer_funds"
+            var sigPayload interface{} = map[string]interface{} {
                 "to_account": toAccount,
                 "amount": amount,
             }
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
-            params = this.Omit(params, []any{"expiryWindow"})
-            var response any = this.PrivatePostAccountSubaccountTransfer(this.Extend(request, params))
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
+            params = this.Omit(params, []interface{}{"expiryWindow"})
+            var response interface{} = this.PrivatePostAccountSubaccountTransfer(this.Extend(request, params))
             //
             // {
             //   "success": true,
@@ -3749,7 +3749,7 @@ func  (this *PacificaCore) Transfer(code any, amount any, fromAccount any, toAcc
             //   "code": null
             // }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseTransfer(data)
             return nil
@@ -3757,7 +3757,7 @@ func  (this *PacificaCore) Transfer(code any, amount any, fromAccount any, toAcc
             }()
             return ch
         }
-func  (this *PacificaCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
+func  (this *PacificaCore) ParseTransfer(transfer interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // {
     //   "success": true,
@@ -3771,7 +3771,7 @@ func  (this *PacificaCore) ParseTransfer(transfer any, optionalArgs ...any) any 
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    return map[string]any {
+    return map[string]interface{} {
         "info": transfer,
         "id": nil,
         "timestamp": nil,
@@ -3794,19 +3794,19 @@ func  (this *PacificaCore) ParseTransfer(transfer any, optionalArgs ...any) any 
  * @param {string} [params.subAccountPrivateKey] - The private key of the sub-account to use for creation
  * @returns {object} a response object
  */
-func  (this *PacificaCore) CreateSubAccount(name any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) CreateSubAccount(name interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var finalHeaders any = map[string]any {}
-            var agentAddress any = nil
+            var finalHeaders interface{} = map[string]interface{} {}
+            var agentAddress interface{} = nil
             agentAddressparamsVariable := this.HandleOption("createSubAccount", "agentAddress", nil);
             agentAddress = GetValue(agentAddressparamsVariable,0);
             params = GetValue(agentAddressparamsVariable,1)
-            var originAddress any = nil
+            var originAddress interface{} = nil
             originAddressparamsVariable := this.HandleOriginAndSingleAddress("createSubAccount", params);
             originAddress = GetValue(originAddressparamsVariable,0);
             params = GetValue(originAddressparamsVariable,1)
@@ -3816,11 +3816,11 @@ func  (this *PacificaCore) CreateSubAccount(name any, optionalArgs ...any) <- ch
             if IsTrue(!IsEqual(agentAddress, nil)) {
                 AddElementToObject(finalHeaders, "agent_wallet", agentAddress)
             }
-            var subAccountAddress any = nil
+            var subAccountAddress interface{} = nil
             subAccountAddressparamsVariable := this.HandleOptionAndParams(params, "createSubAccount", "subAccountAddress");
             subAccountAddress = GetValue(subAccountAddressparamsVariable,0);
             params = GetValue(subAccountAddressparamsVariable,1)
-            var subAccountPrivateKey any = nil
+            var subAccountPrivateKey interface{} = nil
             subAccountPrivateKeyparamsVariable := this.HandleOptionAndParams(params, "createSubAccount", "subAccountPrivateKey");
             subAccountPrivateKey = GetValue(subAccountPrivateKeyparamsVariable,0);
             params = GetValue(subAccountPrivateKeyparamsVariable,1)
@@ -3830,36 +3830,36 @@ func  (this *PacificaCore) CreateSubAccount(name any, optionalArgs ...any) <- ch
             if IsTrue(IsEqual(subAccountPrivateKey, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " createSubAccount() requires a \"subAccountPrivateKey\"!")))
             }
-            var timestamp any = this.Milliseconds()
-            var expiryWindow any = nil
+            var timestamp interface{} = this.Milliseconds()
+            var expiryWindow interface{} = nil
             expiryWindowparamsVariable := this.HandleOptionAndParams2(params, "createSubAccount", "expiryWindow", "expiry_window", 5000);
             expiryWindow = GetValue(expiryWindowparamsVariable,0);
             params = GetValue(expiryWindowparamsVariable,1)
-            var subaccountSignatureHeader any = map[string]any {
+            var subaccountSignatureHeader interface{} = map[string]interface{} {
                 "timestamp": timestamp,
                 "expiry_window": expiryWindow,
                 "type": "subaccount_initiate",
             }
-            var subSigPayload any = map[string]any {
+            var subSigPayload interface{} = map[string]interface{} {
                 "account": originAddress,
             }
-            var subaccountSignature any = this.SignMessage(subaccountSignatureHeader, subSigPayload, subAccountPrivateKey)
-            var mainSignatureHeader any = map[string]any {
+            var subaccountSignature interface{} = this.SignMessage(subaccountSignatureHeader, subSigPayload, subAccountPrivateKey)
+            var mainSignatureHeader interface{} = map[string]interface{} {
                 "timestamp": timestamp,
                 "expiry_window": expiryWindow,
                 "type": "subaccount_confirm",
             }
-            var mainSigPayload any = map[string]any {
+            var mainSigPayload interface{} = map[string]interface{} {
                 "signature": subaccountSignature,
             }
-            var main_signature any = this.SignMessage(mainSignatureHeader, mainSigPayload, this.PrivateKey)
+            var main_signature interface{} = this.SignMessage(mainSignatureHeader, mainSigPayload, this.PrivateKey)
             AddElementToObject(finalHeaders, "main_account", originAddress)
             AddElementToObject(finalHeaders, "subaccount", subAccountAddress)
             AddElementToObject(finalHeaders, "sub_signature", subaccountSignature)
             AddElementToObject(finalHeaders, "main_signature", main_signature)
             AddElementToObject(finalHeaders, "timestamp", timestamp)
             AddElementToObject(finalHeaders, "expiry_window", expiryWindow)
-            var request any = finalHeaders
+            var request interface{} = finalHeaders
         
             response:= (<-this.PrivatePostAccountSubaccountCreate(request))
             PanicOnError(response)
@@ -3878,18 +3878,18 @@ func  (this *PacificaCore) CreateSubAccount(name any, optionalArgs ...any) <- ch
             }()
             return ch
         }
-func  (this *PacificaCore) BindAgentWallet(agentAddress any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) BindAgentWallet(agentAddress interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var operationType any = "bind_agent_wallet"
-            var sigPayload any = map[string]any {
+            var operationType interface{} = "bind_agent_wallet"
+            var sigPayload interface{} = map[string]interface{} {
                 "agent_wallet": agentAddress,
             }
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
         
                 retRes309515 :=  (<-this.PrivatePostAgentBind(this.Extend(request, params)))
                 PanicOnError(retRes309515)
@@ -3899,16 +3899,16 @@ func  (this *PacificaCore) BindAgentWallet(agentAddress any, optionalArgs ...any
             }()
             return ch
         }
-func  (this *PacificaCore) CreateApiKey(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) CreateApiKey(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var operationType any = "create_api_key"
-            var sigPayload any = map[string]any {}
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
+            var operationType interface{} = "create_api_key"
+            var sigPayload interface{} = map[string]interface{} {}
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
         
                 retRes310215 :=  (<-this.PrivatePostAccountApiKeysCreate(this.Extend(request, params)))
                 PanicOnError(retRes310215)
@@ -3918,18 +3918,18 @@ func  (this *PacificaCore) CreateApiKey(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) RevokeApiKey(apiKey any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) RevokeApiKey(apiKey interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var operationType any = "revoke_api_key"
-            var sigPayload any = map[string]any {
+            var operationType interface{} = "revoke_api_key"
+            var sigPayload interface{} = map[string]interface{} {
                 "api_key": apiKey,
             }
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
         
                 retRes311115 :=  (<-this.PrivatePostAccountApiKeysRevoke(this.Extend(request, params)))
                 PanicOnError(retRes311115)
@@ -3939,16 +3939,16 @@ func  (this *PacificaCore) RevokeApiKey(apiKey any, optionalArgs ...any) <- chan
             }()
             return ch
         }
-func  (this *PacificaCore) FetchApiKeys(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchApiKeys(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var operationType any = "list_api_keys"
-            var sigPayload any = map[string]any {}
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
+            var operationType interface{} = "list_api_keys"
+            var sigPayload interface{} = map[string]interface{} {}
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
         
                 retRes311815 :=  (<-this.PrivatePostAccountApiKeys(this.Extend(request, params)))
                 PanicOnError(retRes311815)
@@ -3958,19 +3958,19 @@ func  (this *PacificaCore) FetchApiKeys(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) ApproveBuilderCode(builderCode any, maxFeeRate any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) ApproveBuilderCode(builderCode interface{}, maxFeeRate interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var operationType any = "approve_builder_code"
-            var sigPayload any = map[string]any {
+            var operationType interface{} = "approve_builder_code"
+            var sigPayload interface{} = map[string]interface{} {
                 "builder_code": builderCode,
                 "max_fee_rate": maxFeeRate,
             }
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
         
                 retRes312815 :=  (<-this.PrivatePostAccountBuilderCodesApprove(this.Extend(request, params)))
                 PanicOnError(retRes312815)
@@ -3980,12 +3980,12 @@ func  (this *PacificaCore) ApproveBuilderCode(builderCode any, maxFeeRate any, o
             }()
             return ch
         }
-func  (this *PacificaCore) FetchBuilderApprovals(address any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) FetchBuilderApprovals(address interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    var request any = map[string]any {
+                    var request interface{} = map[string]interface{} {
                 "account": address,
             }
         
@@ -3997,18 +3997,18 @@ func  (this *PacificaCore) FetchBuilderApprovals(address any) <- chan any {
             }()
             return ch
         }
-func  (this *PacificaCore) RevokeBuilderCode(builderCode any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PacificaCore) RevokeBuilderCode(builderCode interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var operationType any = "revoke_builder_code"
-            var sigPayload any = map[string]any {
+            var operationType interface{} = "revoke_builder_code"
+            var sigPayload interface{} = map[string]interface{} {
                 "builder_code": builderCode,
             }
-            var request any = this.PostActionRequest(operationType, sigPayload, params)
+            var request interface{} = this.PostActionRequest(operationType, sigPayload, params)
         
                 retRes314415 :=  (<-this.PrivatePostAccountBuilderCodesRevoke(this.Extend(request, params)))
                 PanicOnError(retRes314415)
@@ -4018,21 +4018,21 @@ func  (this *PacificaCore) RevokeBuilderCode(builderCode any, optionalArgs ...an
             }()
             return ch
         }
-func  (this *PacificaCore) HandleOriginAndSingleAddress(methodName any, params any) any  {
-    var address any = nil
+func  (this *PacificaCore) HandleOriginAndSingleAddress(methodName interface{}, params interface{}) interface{}  {
+    var address interface{} = nil
     addressparamsVariable := this.HandleParamString2(params, "account", "address", nil);
     address = GetValue(addressparamsVariable,0);
     params = GetValue(addressparamsVariable,1) // this is for get endpoints that accept account or address
     if IsTrue(!IsEqual(address, nil)) {
-        return []any{address, params}
+        return []interface{}{address, params}
     }
-    var address1 any = this.WalletAddress
+    var address1 interface{} = this.WalletAddress
     if IsTrue(!IsEqual(address1, nil)) {
-        return []any{address1, params}
+        return []interface{}{address1, params}
     }
     panic(ArgumentsRequired(Add(Add(Add(this.Id, " "), methodName), "() requires address either as \"exchange.walletAddress = ...\" or as parameter or \"address\" in params")))
 }
-func  (this *PacificaCore) HandleErrors(code any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *PacificaCore) HandleErrors(code interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil  // fallback to default error handler
     }
@@ -4041,17 +4041,17 @@ func  (this *PacificaCore) HandleErrors(code any, reason any, url any, method an
     //     {"success":false,"data":null,"error":"Agent not authorized for account","code":400}
     //     {"success":false,"data":null,"error":"Internal server error","code":500}
     //
-    var inCode any = this.SafeInteger(response, "code") // actually if all ok -> code = undefined or code = 200
-    var message any = this.SafeString(response, "error")
-    var error any = nil
+    var inCode interface{} = this.SafeInteger(response, "code") // actually if all ok -> code = undefined or code = 200
+    var message interface{} = this.SafeString(response, "error")
+    var error interface{} = nil
     if IsTrue(IsTrue(IsEqual(inCode, nil)) || IsTrue(IsEqual(inCode, 200))) {
         error = false
     } else {
         error = true
     }
-    var nonEmptyMessage any =     (IsTrue((!IsEqual(message, nil))) && IsTrue((!IsEqual(message, ""))))
+    var nonEmptyMessage interface{} =     (IsTrue((!IsEqual(message, nil))) && IsTrue((!IsEqual(message, ""))))
     if IsTrue(IsTrue(error) || IsTrue(nonEmptyMessage)) {
-        var feedback any = Add(Add(this.Id, " "), body)
+        var feedback interface{} = Add(Add(this.Id, " "), body)
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), message, feedback) // Try deeper catch first
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), inCode, feedback)
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), message, feedback)
@@ -4059,24 +4059,24 @@ func  (this *PacificaCore) HandleErrors(code any, reason any, url any, method an
     }
     return nil
 }
-func  (this *PacificaCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *PacificaCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var isTestnet any = this.IsSandboxModeEnabled
-    var urlKey any = Ternary(IsTrue((isTestnet)), "test", "api")
-    var host any = this.ImplodeHostname(GetValue(GetValue(this.Urls, urlKey), api))
-    var url any = Add(Add(Add(Add(host, "/api/"), this.Version), "/"), this.ImplodeParams(path, params))
+    var isTestnet interface{} = this.IsSandboxModeEnabled
+    var urlKey interface{} = Ternary(IsTrue((isTestnet)), "test", "api")
+    var host interface{} = this.ImplodeHostname(GetValue(GetValue(this.Urls, urlKey), api))
+    var url interface{} = Add(Add(Add(Add(host, "/api/"), this.Version), "/"), this.ImplodeParams(path, params))
     params = this.Omit(params, this.ExtractParams(path))
-    var paramsLen any =     GetArrayLength(ObjectKeys(params))
-    headers = map[string]any {
+    var paramsLen interface{} =     GetArrayLength(ObjectKeys(params))
+    headers = map[string]interface{} {
         "Content-Type": "application/json",
     }
     if IsTrue(IsTrue(IsEqual(method, "GET")) && IsTrue(paramsLen)) {
@@ -4089,39 +4089,39 @@ func  (this *PacificaCore) Sign(path any, optionalArgs ...any) any  {
     if IsTrue(!IsEqual(this.HandleOption("sign", "apiKey", nil), nil)) {
         AddElementToObject(headers, "PF-API-KEY", GetValue(this.Options, "apiKey"))
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *PacificaCore) CalculateRateLimiterCost(api any, method any, path any, params any, optionalArgs ...any) any  {
-    config := GetArg(optionalArgs, 0, map[string]any {})
+func  (this *PacificaCore) CalculateRateLimiterCost(api interface{}, method interface{}, path interface{}, params interface{}, optionalArgs ...interface{}) interface{}  {
+    config := GetArg(optionalArgs, 0, map[string]interface{} {})
     _ = config
-    var cost any = this.SafeString(config, "cost", "1")
-    var costNumber any = this.ParseNumber(cost)
+    var cost interface{} = this.SafeString(config, "cost", "1")
+    var costNumber interface{} = this.ParseNumber(cost)
     // 1 is normal POST/GET, 0.5 is cancels, 3-12 is heavy GET
     if IsTrue(IsGreaterThan(costNumber, 1)) {
         if IsTrue(!IsEqual(this.HandleOption(method, "apiKey", nil), nil)) {
-            var costWithKey any = this.HandleOption(method, "maxCostHugeWithApiKey", 3)
+            var costWithKey interface{} = this.HandleOption(method, "maxCostHugeWithApiKey", 3)
             return costWithKey
         }
     }
     return costNumber
 }
-func  (this *PacificaCore) SortJsonKeys(value any) any  {
+func  (this *PacificaCore) SortJsonKeys(value interface{}) interface{}  {
     if IsTrue(IsObject(value)) {
-        var result any = map[string]any {}
-        var keys any = ObjectKeys(value)
-        var sortedKeys any = this.Sort(keys)
+        var result interface{} = map[string]interface{} {}
+        var keys interface{} = ObjectKeys(value)
+        var sortedKeys interface{} = this.Sort(keys)
         for i := 0; IsLessThan(i, GetArrayLength(sortedKeys)); i++ {
-            var key any = GetValue(sortedKeys, i)
+            var key interface{} = GetValue(sortedKeys, i)
             AddElementToObject(result, key, this.SortJsonKeys(GetValue(value, key)))
         }
         return result
     } else if IsTrue(IsArray(value)) {
-        var result any = []any{}
+        var result interface{} = []interface{}{}
         for i := 0; IsLessThan(i, GetArrayLength(value)); i++ {
             AppendToArray(&result, this.SortJsonKeys(GetValue(value, i)))
         }
@@ -4130,61 +4130,61 @@ func  (this *PacificaCore) SortJsonKeys(value any) any  {
         return value
     }
 }
-func  (this *PacificaCore) PrepareMessage(header any, payload any) any  {
+func  (this *PacificaCore) PrepareMessage(header interface{}, payload interface{}) interface{}  {
     if IsTrue(IsTrue(IsTrue(IsEqual(GetValue(header, "type"), nil)) || IsTrue(IsEqual(GetValue(header, "timestamp"), nil))) || IsTrue(IsEqual(GetValue(header, "expiry_window"), nil))) {
         panic(ArgumentsRequired(Add(this.Id, " prepareMessage() requires type, timestamp, expiry_window in header")))
     }
-    var data any = this.Extend(header, map[string]any {
+    var data interface{} = this.Extend(header, map[string]interface{} {
         "data": payload,
     })
-    var sorted any = this.SortJsonKeys(data)
+    var sorted interface{} = this.SortJsonKeys(data)
     return this.Json(sorted)
 }
-func  (this *PacificaCore) SignMessage(header any, payload any, privateKey any) any  {
-    var message any = this.PrepareMessage(header, payload)
-    var messageBytes any = this.Encode(message)
-    var secretBytes any = this.Base58ToBinary(privateKey)
-    var seed any = this.ArraySlice(secretBytes, 0, 32)
-    var signatureBase64 any = Eddsa(messageBytes, seed, ed25519)
-    var signatureBinary any = this.Base64ToBinary(signatureBase64)
-    var signatureBase58 any = this.BinaryToBase58(signatureBinary)
+func  (this *PacificaCore) SignMessage(header interface{}, payload interface{}, privateKey interface{}) interface{}  {
+    var message interface{} = this.PrepareMessage(header, payload)
+    var messageBytes interface{} = this.Encode(message)
+    var secretBytes interface{} = this.Base58ToBinary(privateKey)
+    var seed interface{} = this.ArraySlice(secretBytes, 0, 32)
+    var signatureBase64 interface{} = Eddsa(messageBytes, seed, ed25519)
+    var signatureBinary interface{} = this.Base64ToBinary(signatureBase64)
+    var signatureBase58 interface{} = this.BinaryToBase58(signatureBinary)
     return signatureBase58
 }
-func  (this *PacificaCore) PostActionRequest(operationType any, sigPayload any, params any) any  {
+func  (this *PacificaCore) PostActionRequest(operationType interface{}, sigPayload interface{}, params interface{}) interface{}  {
     this.CheckRequiredCredentials() // check credentials every post action
     if IsTrue(IsEqual(operationType, "undefined")) {
         panic(ArgumentsRequired(Add(Add(Add(this.Id, " action: "), operationType), " postActionRequest() requires \"operationType\"")))
     }
     if !IsTrue(this.IsSandboxModeEnabled) {
-        var useBuilder any = this.HandleOption("postActionRequest", "builderFee", true)
-        var builderCode any = nil
+        var useBuilder interface{} = this.HandleOption("postActionRequest", "builderFee", true)
+        var builderCode interface{} = nil
         if IsTrue(useBuilder) {
             builderCode = this.HandleOption("postActionRequest", "builderCode")
         }
         if IsTrue(!IsEqual(builderCode, nil)) {
-            var isOperationSupportBuilder any = this.SafeBool(GetValue(this.Options, "builderSupportOperations"), operationType, false)
+            var isOperationSupportBuilder interface{} = this.SafeBool(GetValue(this.Options, "builderSupportOperations"), operationType, false)
             if IsTrue(isOperationSupportBuilder) {
                 AddElementToObject(sigPayload, "builder_code", builderCode)
             }
         }
     }
-    var expiryWindow any = nil
+    var expiryWindow interface{} = nil
     expiryWindowparamsVariable := this.HandleOptionAndParams2(params, "postActionRequest", "expiryWindow", "expiry_window", 5000);
     expiryWindow = GetValue(expiryWindowparamsVariable,0);
     params = GetValue(expiryWindowparamsVariable,1)
-    var timestamp any = this.SafeInteger(params, "timestamp", this.Milliseconds())
-    var signatureHeader any = map[string]any {
+    var timestamp interface{} = this.SafeInteger(params, "timestamp", this.Milliseconds())
+    var signatureHeader interface{} = map[string]interface{} {
         "timestamp": timestamp,
         "expiry_window": expiryWindow,
         "type": operationType,
     }
-    var signature any = this.SignMessage(signatureHeader, sigPayload, this.PrivateKey)
-    var finalHeaders any = map[string]any {}
-    var agentAddress any = nil
+    var signature interface{} = this.SignMessage(signatureHeader, sigPayload, this.PrivateKey)
+    var finalHeaders interface{} = map[string]interface{} {}
+    var agentAddress interface{} = nil
     agentAddressparamsVariable := this.HandleOptionAndParams(params, "postActionRequest", "agentAddress");
     agentAddress = GetValue(agentAddressparamsVariable,0);
     params = GetValue(agentAddressparamsVariable,1)
-    var originAddress any = nil
+    var originAddress interface{} = nil
     originAddressparamsVariable := this.HandleOriginAndSingleAddress("postActionRequest", params);
     originAddress = GetValue(originAddressparamsVariable,0);
     params = GetValue(originAddressparamsVariable,1)
@@ -4198,13 +4198,13 @@ func  (this *PacificaCore) PostActionRequest(operationType any, sigPayload any, 
     AddElementToObject(finalHeaders, "signature", signature)
     AddElementToObject(finalHeaders, "timestamp", this.SafeInteger(signatureHeader, "timestamp"))
     AddElementToObject(finalHeaders, "expiry_window", this.SafeInteger(signatureHeader, "expiry_window"))
-    var request any = this.Extend(finalHeaders, sigPayload)
+    var request interface{} = this.Extend(finalHeaders, sigPayload)
     return request
 }
 
 
-func (this *PacificaCore) Init(userConfig map[string]any) {
+func (this *PacificaCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

@@ -15,16 +15,16 @@ func NewZebpayCore() *ZebpayCore {
     return p
 }
 
-func  (this *ZebpayCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *ZebpayCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "zebpay",
         "name": "Zebpay",
-        "countries": []any{"IN"},
+        "countries": []interface{}{"IN"},
         "rateLimit": 50,
         "version": "v1",
         "certified": false,
         "pro": false,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": false,
@@ -71,7 +71,7 @@ func  (this *ZebpayCore) Describe() any  {
             "repayIsolatedMargin": false,
             "setLeverage": true,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": 1,
             "5m": 5,
             "15m": 15,
@@ -83,13 +83,13 @@ func  (this *ZebpayCore) Describe() any  {
             "1d": 1440,
             "1w": 10080,
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/user-attachments/assets/8094e7be-55a7-46f4-a087-0ca31b48ecad",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "spot": "https://sapi.zebpay.com",
                 "swap": "https://futuresbe.zebpay.com",
             },
-            "test": map[string]any {
+            "test": map[string]interface{} {
                 "spot": "https://www.zebstage.com",
                 "swap": "https://dev-futuresbe.zebstage.com",
             },
@@ -97,10 +97,10 @@ func  (this *ZebpayCore) Describe() any  {
             "doc": "https://github.com/zebpay/zebpay-api-references",
             "fees": "https://zebpay.com/in/features/pricing",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "spot": map[string]any {
-                    "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "spot": map[string]interface{} {
+                    "get": map[string]interface{} {
                         "v2/system/time": 10,
                         "v2/system/status": 10,
                         "v2/market/orderbook": 10,
@@ -113,8 +113,8 @@ func  (this *ZebpayCore) Describe() any  {
                         "v2/ex/tradefees": 10,
                     },
                 },
-                "swap": map[string]any {
-                    "get": map[string]any {
+                "swap": map[string]interface{} {
+                    "get": map[string]interface{} {
                         "v1/system/time": 10,
                         "v1/system/status": 10,
                         "v1/exchange/tradefee": 10,
@@ -124,31 +124,31 @@ func  (this *ZebpayCore) Describe() any  {
                         "v1/market/markets": 10,
                         "v1/market/aggTrade": 10,
                     },
-                    "post": map[string]any {
+                    "post": map[string]interface{} {
                         "v1/market/klines": 10,
                     },
                 },
             },
-            "private": map[string]any {
-                "spot": map[string]any {
-                    "post": map[string]any {
+            "private": map[string]interface{} {
+                "spot": map[string]interface{} {
+                    "post": map[string]interface{} {
                         "v2/ex/orders": 10,
                     },
-                    "get": map[string]any {
+                    "get": map[string]interface{} {
                         "v2/ex/orders": 10,
                         "v2/account/balance": 10,
                         "v2/ex/tradefee": 10,
                         "v2/ex/order": 10,
                         "v2/ex/order/fills": 10,
                     },
-                    "delete": map[string]any {
+                    "delete": map[string]interface{} {
                         "v2/ex/order": 10,
                         "v2/ex/orders": 10,
                         "v2/ex/orders/cancelAll": 10,
                     },
                 },
-                "swap": map[string]any {
-                    "get": map[string]any {
+                "swap": map[string]interface{} {
+                    "get": map[string]interface{} {
                         "v1/wallet/balance": 10,
                         "v1/trade/order": 10,
                         "v1/trade/order/open-orders": 10,
@@ -157,7 +157,7 @@ func  (this *ZebpayCore) Describe() any  {
                         "v1/trade/positions": 10,
                         "v1/trade/history": 10,
                     },
-                    "post": map[string]any {
+                    "post": map[string]interface{} {
                         "v1/trade/order": 10,
                         "v1/trade/order/addTPSL": 10,
                         "v1/trade/addMargin": 10,
@@ -165,34 +165,34 @@ func  (this *ZebpayCore) Describe() any  {
                         "v1/trade/position/close": 10,
                         "v1/trade/update/userLeverage": 10,
                     },
-                    "delete": map[string]any {
+                    "delete": map[string]interface{} {
                         "v1/trade/order": 10,
                     },
                 },
             },
         },
         "precisionMode": TICK_SIZE,
-        "fees": map[string]any {},
-        "commonCurrencies": map[string]any {},
-        "requiredCredentials": map[string]any {
+        "fees": map[string]interface{} {},
+        "commonCurrencies": map[string]interface{} {},
+        "requiredCredentials": map[string]interface{} {
             "apiKey": true,
             "secret": true,
         },
-        "options": map[string]any {
-            "fetchMarkets": map[string]any {
-                "types": []any{"spot", "swap"},
+        "options": map[string]interface{} {
+            "fetchMarkets": map[string]interface{} {
+                "types": []interface{}{"spot", "swap"},
             },
             "defaultType": "spot",
         },
-        "features": map[string]any {
-            "default": map[string]any {
-                "fetchOHLCV": map[string]any {
+        "features": map[string]interface{} {
+            "default": map[string]interface{} {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": 100,
                 },
             },
         },
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "77": InvalidOrder,
                 "400": BadRequest,
                 "401": AuthenticationError,
@@ -209,7 +209,7 @@ func  (this *ZebpayCore) Describe() any  {
                 "leverage must be in [1,8]": BadRequest,
                 "the request you sent is invalid": BadRequest,
             },
-            "broad": map[string]any {
+            "broad": map[string]interface{} {
                 "InvalidOrder": InvalidOrder,
             },
         },
@@ -224,20 +224,20 @@ func  (this *ZebpayCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [status structure]{@link https://docs.ccxt.com/?id=exchange-status-structure}
  */
-func  (this *ZebpayCore) FetchStatus(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchStatus(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var typeVar any = nil
+            var typeVar interface{} = nil
             typeVarparamsVariable := this.HandleMarketTypeAndParams("fetchStatus", nil, params);
             typeVar = GetValue(typeVarparamsVariable,0);
             params = GetValue(typeVarparamsVariable,1)
-            var isSpot any =     (IsEqual(typeVar, "spot"))
-            var response any = nil
-            var data any = map[string]any {}
+            var isSpot interface{} =     (IsEqual(typeVar, "spot"))
+            var response interface{} = nil
+            var data interface{} = map[string]interface{} {}
             if IsTrue(isSpot) {
                 
             response = (<-this.PublicSpotGetV2SystemStatus(params))
@@ -247,7 +247,7 @@ func  (this *ZebpayCore) FetchStatus(optionalArgs ...any) <- chan any {
                 
             response = (<-this.PublicSwapGetV1SystemStatus(params))
                     PanicOnError(response)
-                data = this.SafeDict(response, "data", map[string]any {})
+                data = this.SafeDict(response, "data", map[string]interface{} {})
             }
             //
             // {
@@ -260,9 +260,9 @@ func  (this *ZebpayCore) FetchStatus(optionalArgs ...any) <- chan any {
             //     "customMessage": ["OK"]
             // }
             //
-            var status any = this.SafeString2(data, "systemStatus", "status")
+            var status interface{} = this.SafeString2(data, "systemStatus", "status")
         
-            ch <- map[string]any {
+            ch <- map[string]interface{} {
                 "status": status,
                 "updated": nil,
                 "eta": nil,
@@ -283,20 +283,20 @@ func  (this *ZebpayCore) FetchStatus(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the poloniexfutures server
  */
-func  (this *ZebpayCore) FetchTime(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchTime(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var typeVar any = nil
+            var typeVar interface{} = nil
             typeVarparamsVariable := this.HandleMarketTypeAndParams("fetchTime", nil, params);
             typeVar = GetValue(typeVarparamsVariable,0);
             params = GetValue(typeVarparamsVariable,1)
-            var isSpot any =     (IsEqual(typeVar, "spot"))
-            var response any = nil
-            var data any = map[string]any {}
+            var isSpot interface{} =     (IsEqual(typeVar, "spot"))
+            var response interface{} = nil
+            var data interface{} = map[string]interface{} {}
             if IsTrue(isSpot) {
                 
             response = (<-this.PublicSpotGetV2SystemTime(params))
@@ -306,7 +306,7 @@ func  (this *ZebpayCore) FetchTime(optionalArgs ...any) <- chan any {
                 
             response = (<-this.PublicSwapGetV1SystemTime(params))
                     PanicOnError(response)
-                data = this.SafeDict(response, "data", map[string]any {})
+                data = this.SafeDict(response, "data", map[string]interface{} {})
             }
             //
             // {
@@ -319,7 +319,7 @@ func  (this *ZebpayCore) FetchTime(optionalArgs ...any) <- chan any {
             //     "customMessage": ["OK"]
             // }
             //
-            var time any = this.SafeInteger(data, "timestamp")
+            var time interface{} = this.SafeInteger(data, "timestamp")
         
             ch <- time
             return nil
@@ -336,19 +336,19 @@ func  (this *ZebpayCore) FetchTime(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange api endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *ZebpayCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var promisesUnresolved any = []any{}
-            var fetchMarketsOptions any = this.SafeDict(this.Options, "fetchMarkets")
-            var defaultMarkets any = []any{"spot", "swap"}
-            var types any = this.SafeList(fetchMarketsOptions, "types", defaultMarkets)
+            var promisesUnresolved interface{} = []interface{}{}
+            var fetchMarketsOptions interface{} = this.SafeDict(this.Options, "fetchMarkets")
+            var defaultMarkets interface{} = []interface{}{"spot", "swap"}
+            var types interface{} = this.SafeList(fetchMarketsOptions, "types", defaultMarkets)
             for i := 0; IsLessThan(i, GetArrayLength(types)); i++ {
-                var typeVar any = GetValue(types, i)
+                var typeVar interface{} = GetValue(types, i)
                 if IsTrue(IsEqual(typeVar, "spot")) {
                     AppendToArray(&promisesUnresolved, this.FetchSpotMarkets(params))
                 } else if IsTrue(IsEqual(typeVar, "swap")) {
@@ -360,8 +360,8 @@ func  (this *ZebpayCore) FetchMarkets(optionalArgs ...any) <- chan any {
         
             promises:= (<-promiseAll(promisesUnresolved))
             PanicOnError(promises)
-            var spotMarkets any = this.SafeList(promises, 0, []any{})
-            var futureMarkets any = this.SafeList(promises, 1, []any{})
+            var spotMarkets interface{} = this.SafeList(promises, 0, []interface{}{})
+            var futureMarkets interface{} = this.SafeList(promises, 1, []interface{}{})
         
             ch <- this.ArrayConcat(spotMarkets, futureMarkets)
             return nil
@@ -377,12 +377,12 @@ func  (this *ZebpayCore) FetchMarkets(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an associative dictionary of currencies
  */
-func  (this *ZebpayCore) FetchCurrencies(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchCurrencies(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicSpotGetV2ExCurrencies(params))
@@ -418,42 +418,42 @@ func  (this *ZebpayCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             //             ]
             //     }
             //
-            var rows any = this.SafeList(response, "data", []any{})
-            var result any = map[string]any {}
+            var rows interface{} = this.SafeList(response, "data", []interface{}{})
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(rows)); i++ {
-                var currency any = GetValue(rows, i)
-                var currencyId any = this.SafeString(currency, "currency")
-                var code any = this.SafeCurrencyCode(currencyId)
-                var name any = this.SafeString(currency, "name")
-                var precision any = this.ParseNumber(this.ParsePrecision(this.SafeString(currency, "precision")))
-                var chains any = this.SafeList(currency, "chains", []any{})
-                var networks any = map[string]any {}
-                var minWithdrawFeeString any = nil
-                var minWithdrawString any = nil
-                var minDepositString any = nil
-                var deposit any = false
-                var withdraw any = false
+                var currency interface{} = GetValue(rows, i)
+                var currencyId interface{} = this.SafeString(currency, "currency")
+                var code interface{} = this.SafeCurrencyCode(currencyId)
+                var name interface{} = this.SafeString(currency, "name")
+                var precision interface{} = this.ParseNumber(this.ParsePrecision(this.SafeString(currency, "precision")))
+                var chains interface{} = this.SafeList(currency, "chains", []interface{}{})
+                var networks interface{} = map[string]interface{} {}
+                var minWithdrawFeeString interface{} = nil
+                var minWithdrawString interface{} = nil
+                var minDepositString interface{} = nil
+                var deposit interface{} = false
+                var withdraw interface{} = false
                 for j := 0; IsLessThan(j, GetArrayLength(chains)); j++ {
-                    var chain any = GetValue(chains, j)
-                    var networkId any = this.SafeString(chain, "chainId")
-                    var networkCode any = this.NetworkIdToCode(networkId)
-                    var depositAllowed any = IsEqual(this.SafeBool(chain, "isDepositEnabled"), true)
+                    var chain interface{} = GetValue(chains, j)
+                    var networkId interface{} = this.SafeString(chain, "chainId")
+                    var networkCode interface{} = this.NetworkIdToCode(networkId)
+                    var depositAllowed interface{} = IsEqual(this.SafeBool(chain, "isDepositEnabled"), true)
                     deposit = Ternary(IsTrue((depositAllowed)), depositAllowed, deposit)
-                    var withdrawAllowed any = IsEqual(this.SafeBool(chain, "isWithdrawEnabled"), true)
+                    var withdrawAllowed interface{} = IsEqual(this.SafeBool(chain, "isWithdrawEnabled"), true)
                     withdraw = Ternary(IsTrue((withdrawAllowed)), withdrawAllowed, withdraw)
-                    var withdrawFeeString any = this.SafeString(chain, "withdrawalFee")
+                    var withdrawFeeString interface{} = this.SafeString(chain, "withdrawalFee")
                     if IsTrue(!IsEqual(withdrawFeeString, nil)) {
                         minWithdrawFeeString = Ternary(IsTrue((IsEqual(minWithdrawFeeString, nil))), withdrawFeeString, Precise.StringMin(withdrawFeeString, minWithdrawFeeString))
                     }
-                    var minNetworkWithdrawString any = this.SafeString(chain, "withdrawalMinSize")
+                    var minNetworkWithdrawString interface{} = this.SafeString(chain, "withdrawalMinSize")
                     if IsTrue(!IsEqual(minNetworkWithdrawString, nil)) {
                         minWithdrawString = Ternary(IsTrue((IsEqual(minWithdrawString, nil))), minNetworkWithdrawString, Precise.StringMin(minNetworkWithdrawString, minWithdrawString))
                     }
-                    var minNetworkDepositString any = this.SafeString(chain, "depositMinSize")
+                    var minNetworkDepositString interface{} = this.SafeString(chain, "depositMinSize")
                     if IsTrue(!IsEqual(minNetworkDepositString, nil)) {
                         minDepositString = Ternary(IsTrue((IsEqual(minDepositString, nil))), minNetworkDepositString, Precise.StringMin(minNetworkDepositString, minDepositString))
                     }
-                    AddElementToObject(networks, networkCode, map[string]any {
+                    AddElementToObject(networks, networkCode, map[string]interface{} {
             "info": chain,
             "id": networkId,
             "network": networkCode,
@@ -462,19 +462,19 @@ func  (this *ZebpayCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             "withdraw": withdrawAllowed,
             "fee": this.ParseNumber(withdrawFeeString),
             "precision": precision,
-            "limits": map[string]any {
-                "withdraw": map[string]any {
+            "limits": map[string]interface{} {
+                "withdraw": map[string]interface{} {
                     "min": this.ParseNumber(minNetworkWithdrawString),
                     "max": nil,
                 },
-                "deposit": map[string]any {
+                "deposit": map[string]interface{} {
                     "min": this.ParseNumber(minNetworkDepositString),
                     "max": nil,
                 },
             },
         })
                 }
-                AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]any {
+                AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]interface{} {
             "info": currency,
             "code": code,
             "id": currencyId,
@@ -484,16 +484,16 @@ func  (this *ZebpayCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             "withdraw": withdraw,
             "fee": this.ParseNumber(minWithdrawFeeString),
             "precision": precision,
-            "limits": map[string]any {
-                "amount": map[string]any {
+            "limits": map[string]interface{} {
+                "amount": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
-                "withdraw": map[string]any {
+                "withdraw": map[string]interface{} {
                     "min": this.ParseNumber(minWithdrawString),
                     "max": nil,
                 },
-                "deposit": map[string]any {
+                "deposit": map[string]interface{} {
                     "min": this.ParseNumber(minDepositString),
                     "max": nil,
                 },
@@ -519,20 +519,20 @@ func  (this *ZebpayCore) FetchCurrencies(optionalArgs ...any) <- chan any {
  * @param {object} [params.side] side to fetch trading fee
  * @returns {object} a [status structure]{@link https://docs.ccxt.com/?id=exchange-status-structure}
  */
-func  (this *ZebpayCore) FetchTradingFee(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchTradingFee(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes4678 := (<-this.LoadMarkets())
             PanicOnError(retRes4678)
-            var market any = this.Market(symbol)
-            var response any = nil
-            var data any = nil
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var response interface{} = nil
+            var data interface{} = nil
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
             if IsTrue(GetValue(market, "spot")) {
@@ -551,7 +551,7 @@ func  (this *ZebpayCore) FetchTradingFee(symbol any, optionalArgs ...any) <- cha
                 //       } ,
                 //     "statusCode": 200,
                 // }
-                data = this.SafeDict(response, "data", map[string]any {})
+                data = this.SafeDict(response, "data", map[string]interface{} {})
             } else {
                 
             response = (<-this.PublicSwapGetV1ExchangeTradefee(this.Extend(request, params)))
@@ -571,7 +571,7 @@ func  (this *ZebpayCore) FetchTradingFee(symbol any, optionalArgs ...any) <- cha
                 //     "customMessage": ["OK"]
                 // }
                 //
-                var responseData any = this.SafeList(response, "data", []any{})
+                var responseData interface{} = this.SafeList(response, "data", []interface{}{})
                 data = this.SafeDict(responseData, 0)
             }
         
@@ -589,18 +589,18 @@ func  (this *ZebpayCore) FetchTradingFee(symbol any, optionalArgs ...any) <- cha
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [status structure]{@link https://docs.ccxt.com/?id=exchange-status-structure}
  */
-func  (this *ZebpayCore) FetchTradingFees(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchTradingFees(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var typeVar any = nil
+            var typeVar interface{} = nil
             typeVarparamsVariable := this.HandleMarketTypeAndParams("fetchTradingFees", nil, params);
             typeVar = GetValue(typeVarparamsVariable,0);
             params = GetValue(typeVarparamsVariable,1)
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(IsEqual(typeVar, "spot")) {
                 
             response = (<-this.PublicSpotGetV2ExTradefees(params))
@@ -624,11 +624,11 @@ func  (this *ZebpayCore) FetchTradingFees(optionalArgs ...any) <- chan any {
             //     "customMessage": ["OK"]
             // }
             //
-            var fees any = this.SafeList(response, "data", []any{})
-            var result any = map[string]any {}
+            var fees interface{} = this.SafeList(response, "data", []interface{}{})
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(fees)); i++ {
-                var fee any = this.ParseTradingFee(GetValue(fees, i))
-                var symbol any = GetValue(fee, "symbol")
+                var fee interface{} = this.ParseTradingFee(GetValue(fees, i))
+                var symbol interface{} = GetValue(fee, "symbol")
                 AddElementToObject(result, symbol, fee)
             }
         
@@ -649,23 +649,23 @@ func  (this *ZebpayCore) FetchTradingFees(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *ZebpayCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes5658 := (<-this.LoadMarkets())
             PanicOnError(retRes5658)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(GetValue(market, "spot")) {
                 if IsTrue(!IsEqual(limit, nil)) {
                     AddElementToObject(request, "limit", limit)
@@ -690,8 +690,8 @@ func  (this *ZebpayCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan
             response = (<-this.PublicSwapGetV1MarketOrderBook(this.Extend(request, params)))
                     PanicOnError(response)
             }
-            var bookData any = this.SafeDict(response, "data", map[string]any {})
-            var orderbook any = this.ParseOrderBook(bookData, GetValue(market, "symbol"), nil, "bids", "asks", 0, 1)
+            var bookData interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var orderbook interface{} = this.ParseOrderBook(bookData, GetValue(market, "symbol"), nil, "bids", "asks", 0, 1)
             AddElementToObject(orderbook, "nonce", this.SafeInteger(bookData, "nonce"))
         
             ch <- orderbook
@@ -710,21 +710,21 @@ func  (this *ZebpayCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *ZebpayCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes6088 := (<-this.LoadMarkets())
             PanicOnError(retRes6088)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(GetValue(market, "spot")) {
                 
             response = (<-this.PublicSpotGetV2MarketTicker(this.Extend(request, params)))
@@ -734,7 +734,7 @@ func  (this *ZebpayCore) FetchTicker(symbol any, optionalArgs ...any) <- chan an
             response = (<-this.PublicSwapGetV1MarketTicker24Hr(this.Extend(request, params)))
                     PanicOnError(response)
             }
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseTicker(data, market)
             return nil
@@ -751,16 +751,16 @@ func  (this *ZebpayCore) FetchTicker(symbol any, optionalArgs ...any) <- chan an
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *ZebpayCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var typeVar any = nil
+            var typeVar interface{} = nil
             typeVarparamsVariable := this.HandleMarketTypeAndParams("fetchTickers", nil, params);
             typeVar = GetValue(typeVarparamsVariable,0);
             params = GetValue(typeVarparamsVariable,1)
@@ -792,7 +792,7 @@ func  (this *ZebpayCore) FetchTickers(optionalArgs ...any) <- chan any {
             //        }
             //     ]
             //
-            var tickerList any = this.SafeList(response, "data", []any{})
+            var tickerList interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseTickers(tickerList, symbols)
             return nil
@@ -814,9 +814,9 @@ func  (this *ZebpayCore) FetchTickers(optionalArgs ...any) <- chan any {
  * @param {int} [params.endtime] the latest time in ms to fetch orders for
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *ZebpayCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -825,16 +825,16 @@ func  (this *ZebpayCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes6968 := (<-this.LoadMarkets())
             PanicOnError(retRes6968)
-            var market any = this.Market(symbol)
+            var market interface{} = this.Market(symbol)
             if IsTrue(IsEqual(limit, nil)) {
                 limit = 100 // default is 200
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
             if IsTrue(GetValue(market, "spot")) {
@@ -852,12 +852,12 @@ func  (this *ZebpayCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any
                     AddElementToObject(request, "since", since)
                 }
             }
-            var until any = this.SafeInteger2(params, "until", "endtime")
+            var until interface{} = this.SafeInteger2(params, "until", "endtime")
             if IsTrue(!IsEqual(until, nil)) {
                 AddElementToObject(request, "endTime", until)
-                params = this.Omit(params, []any{"endtime", "until"})
+                params = this.Omit(params, []interface{}{"endtime", "until"})
             }
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(GetValue(market, "spot")) {
                 if IsTrue(IsTrue(IsEqual(until, nil)) || IsTrue(IsEqual(since, nil))) {
                     panic(ArgumentsRequired(Add(this.Id, " fetchOHLCV() requires a both a since and until/endtime parameter for spot markets")))
@@ -901,7 +901,7 @@ func  (this *ZebpayCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any
             //                 ]
             //             ]
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseOHLCVs(data, market, timeframe, since, limit)
             return nil
@@ -921,28 +921,28 @@ func  (this *ZebpayCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *ZebpayCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes7818 := (<-this.LoadMarkets())
             PanicOnError(retRes7818)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
             if IsTrue(IsTrue(GetValue(market, "spot")) && IsTrue(!IsEqual(limit, nil))) {
                 AddElementToObject(request, "limit", limit)
             }
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(GetValue(market, "spot")) {
                 
             response = (<-this.PublicSpotGetV2MarketTrades(this.Extend(request, params)))
@@ -964,7 +964,7 @@ func  (this *ZebpayCore) FetchTrades(symbol any, optionalArgs ...any) <- chan an
             //         }
             //     ]
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseTrades(data, market, since, limit)
             return nil
@@ -983,9 +983,9 @@ func  (this *ZebpayCore) FetchTrades(symbol any, optionalArgs ...any) <- chan an
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *ZebpayCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -994,20 +994,20 @@ func  (this *ZebpayCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes8238 := (<-this.LoadMarkets())
             PanicOnError(retRes8238)
-            var market any = nil
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
             }
-            var typeVar any = nil
+            var typeVar interface{} = nil
             typeVarparamsVariable := this.HandleMarketTypeAndParams("fetchMyTrades", market, params);
             typeVar = GetValue(typeVarparamsVariable,0);
             params = GetValue(typeVarparamsVariable,1)
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(IsEqual(typeVar, "spot")) {
                 panic(NotSupported(Add(this.Id, " fetchMyTrades() does not support spot markets")))
             } else {
@@ -1015,8 +1015,8 @@ func  (this *ZebpayCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             response = (<-this.PrivateSwapGetV1TradeHistory(params))
                     PanicOnError(response)
             }
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var items any = this.SafeList(data, "items", []any{})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var items interface{} = this.SafeList(data, "items", []interface{}{})
         
             ch <- this.ParseTrades(items, market, since, limit)
             return nil
@@ -1036,9 +1036,9 @@ func  (this *ZebpayCore) FetchMyTrades(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *ZebpayCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchOrderTrades(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1047,9 +1047,9 @@ func  (this *ZebpayCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan a
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
-            var typeVar any = nil
+            var typeVar interface{} = nil
             typeVarparamsVariable := this.HandleMarketTypeAndParams("fetchOrderTrades", nil, params);
             typeVar = GetValue(typeVarparamsVariable,0);
             params = GetValue(typeVarparamsVariable,1)
@@ -1059,7 +1059,7 @@ func  (this *ZebpayCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan a
         
             retRes8598 := (<-this.LoadMarkets())
             PanicOnError(retRes8598)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "orderId": id,
             }
         
@@ -1082,8 +1082,8 @@ func  (this *ZebpayCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan a
             //             "fees": "0.00145",
             //         }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var trades any = []any{data}
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var trades interface{} = []interface{}{data}
         
             ch <- this.ParseTrades(trades)
             return nil
@@ -1091,7 +1091,7 @@ func  (this *ZebpayCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *ZebpayCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *ZebpayCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchMyTrades
     //
@@ -1126,16 +1126,16 @@ func  (this *ZebpayCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var id any = this.SafeString2(trade, "id", "aggregateTradeId")
-    var orderId any = this.SafeString2(trade, "id", "order")
-    var timestamp any = this.SafeInteger2(trade, "timestamp", "tradeTime")
-    var marketId any = this.SafeString(trade, "symbol")
+    var id interface{} = this.SafeString2(trade, "id", "aggregateTradeId")
+    var orderId interface{} = this.SafeString2(trade, "id", "order")
+    var timestamp interface{} = this.SafeInteger2(trade, "timestamp", "tradeTime")
+    var marketId interface{} = this.SafeString(trade, "symbol")
     market = this.SafeMarket(marketId, market, "_")
-    var symbol any = GetValue(market, "symbol")
-    var side any = this.SafeStringLower(trade, "side")
-    var priceString any = this.SafeString(trade, "price")
-    var amountString any = this.SafeString2(trade, "amount", "quantity")
-    return this.SafeTrade(map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var side interface{} = this.SafeStringLower(trade, "side")
+    var priceString interface{} = this.SafeString(trade, "price")
+    var amountString interface{} = this.SafeString2(trade, "amount", "quantity")
+    return this.SafeTrade(map[string]interface{} {
         "id": id,
         "info": trade,
         "timestamp": timestamp,
@@ -1160,22 +1160,22 @@ func  (this *ZebpayCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *ZebpayCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes9558 := (<-this.LoadMarkets())
             PanicOnError(retRes9558)
-            var typeVar any = nil
+            var typeVar interface{} = nil
             typeVarparamsVariable := this.HandleMarketTypeAndParams("fetchBalance", nil, params);
             typeVar = GetValue(typeVarparamsVariable,0);
             params = GetValue(typeVarparamsVariable,1)
-            var isSpot any =     (IsEqual(typeVar, "spot"))
-            var response any = nil
+            var isSpot interface{} =     (IsEqual(typeVar, "spot"))
+            var response interface{} = nil
             if IsTrue(isSpot) {
                 
             response = (<-this.PrivateSpotGetV2AccountBalance(params))
@@ -1229,28 +1229,28 @@ func  (this *ZebpayCore) FetchBalance(optionalArgs ...any) <- chan any {
  * @param {string} [params.positionId] PositionId of the order.
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZebpayCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes10068 := (<-this.LoadMarkets())
             PanicOnError(retRes10068)
-            var market any = this.Market(symbol)
-            var upperCaseType any = ToUpper(typeVar)
-            var takeProfitPrice any = this.SafeString(params, "takeProfitPrice")
-            var stopLossPrice any = this.SafeString(params, "stopLossPrice")
-            params = this.Omit(params, []any{"marginAsset", "takeProfitPrice", "takeProfitPrice"})
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var upperCaseType interface{} = ToUpper(typeVar)
+            var takeProfitPrice interface{} = this.SafeString(params, "takeProfitPrice")
+            var stopLossPrice interface{} = this.SafeString(params, "stopLossPrice")
+            params = this.Omit(params, []interface{}{"marginAsset", "takeProfitPrice", "takeProfitPrice"})
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
                 "side": ToUpper(side),
             }
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(GetValue(market, "spot")) {
                 requestparamsVariable := this.OrderRequest(symbol, typeVar, amount, request, price, params);
                 request = GetValue(requestparamsVariable,0);
@@ -1259,13 +1259,13 @@ func  (this *ZebpayCore) CreateOrder(symbol any, typeVar any, side any, amount a
             response = (<-this.PrivateSpotPostV2ExOrders(this.Extend(request, params)))
                     PanicOnError(response)
             } else {
-                var marginAsset any = this.SafeString(params, "marginAsset", "INR")
-                var formType any = this.SafeStringUpper(params, "formType", "ORDER_FORM")
+                var marginAsset interface{} = this.SafeString(params, "marginAsset", "INR")
+                var formType interface{} = this.SafeStringUpper(params, "formType", "ORDER_FORM")
                 AddElementToObject(request, "formType", formType)
                 AddElementToObject(request, "amount", this.ParseToNumeric(this.AmountToPrecision(GetValue(market, "id"), amount)))
                 AddElementToObject(request, "marginAsset", marginAsset)
-                var hasTP any = !IsEqual(takeProfitPrice, nil)
-                var hasSL any = !IsEqual(stopLossPrice, nil)
+                var hasTP interface{} = !IsEqual(takeProfitPrice, nil)
+                var hasSL interface{} = !IsEqual(stopLossPrice, nil)
                 if IsTrue(IsTrue(hasTP) || IsTrue(hasSL)) {
                     if IsTrue(hasTP) {
                         AddElementToObject(request, "takeProfitPrice", this.ParseToNumeric(this.PriceToPrecision(symbol, takeProfitPrice)))
@@ -1296,7 +1296,7 @@ func  (this *ZebpayCore) CreateOrder(symbol any, typeVar any, side any, amount a
             //        },
             //    }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseOrder(data, market)
             return nil
@@ -1304,17 +1304,17 @@ func  (this *ZebpayCore) CreateOrder(symbol any, typeVar any, side any, amount a
             }()
             return ch
         }
-func  (this *ZebpayCore) OrderRequest(symbol any, typeVar any, amount any, request any, optionalArgs ...any) any  {
+func  (this *ZebpayCore) OrderRequest(symbol interface{}, typeVar interface{}, amount interface{}, request interface{}, optionalArgs ...interface{}) interface{}  {
     price := GetArg(optionalArgs, 0, nil)
     _ = price
-    params := GetArg(optionalArgs, 1, map[string]any {})
+    params := GetArg(optionalArgs, 1, map[string]interface{} {})
     _ = params
-    var upperCaseType any = ToUpper(typeVar)
-    var triggerPrice any = this.SafeString(params, "stopLossPrice", nil)
-    var quoteOrderQty any = this.SafeString2(params, "quoteOrderQty", "cost", nil)
-    var timeInForce any = this.SafeString(params, "timeInForce", "GTC")
-    var clientOrderId any = this.SafeString(params, "clientOrderId", this.Uuid())
-    params = this.Omit(params, []any{"stopLossPrice", "cost", "timeInForce", "clientOrderId"})
+    var upperCaseType interface{} = ToUpper(typeVar)
+    var triggerPrice interface{} = this.SafeString(params, "stopLossPrice", nil)
+    var quoteOrderQty interface{} = this.SafeString2(params, "quoteOrderQty", "cost", nil)
+    var timeInForce interface{} = this.SafeString(params, "timeInForce", "GTC")
+    var clientOrderId interface{} = this.SafeString(params, "clientOrderId", this.Uuid())
+    params = this.Omit(params, []interface{}{"stopLossPrice", "cost", "timeInForce", "clientOrderId"})
     AddElementToObject(request, "type", upperCaseType)
     AddElementToObject(request, "clientOrderId", clientOrderId)
     AddElementToObject(request, "timeInForce", timeInForce)
@@ -1330,7 +1330,7 @@ func  (this *ZebpayCore) OrderRequest(symbol any, typeVar any, amount any, reque
         AddElementToObject(request, "amount", this.AmountToPrecision(symbol, amount))
         AddElementToObject(request, "price", this.PriceToPrecision(symbol, price))
     }
-    return []any{request, params}
+    return []interface{}{request, params}
 }
 /**
  * @method
@@ -1344,28 +1344,28 @@ func  (this *ZebpayCore) OrderRequest(symbol any, typeVar any, amount any, reque
  * @param {object} [params.timestamp] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZebpayCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes10968 := (<-this.LoadMarkets())
             PanicOnError(retRes10968)
-            var market any = this.Market(symbol)
-            var response any = nil
-            var request any = map[string]any {}
+            var market interface{} = this.Market(symbol)
+            var response interface{} = nil
+            var request interface{} = map[string]interface{} {}
             if IsTrue(GetValue(market, "spot")) {
                 AddElementToObject(request, "orderId", id)
                 
             response = (<-this.PrivateSpotDeleteV2ExOrder(this.Extend(request, params)))
                     PanicOnError(response)
             } else {
-                var clientOrderId any = this.SafeString(params, "clientOrderId")
+                var clientOrderId interface{} = this.SafeString(params, "clientOrderId")
                 if IsTrue(IsEqual(clientOrderId, nil)) {
                     panic(ArgumentsRequired(Add(this.Id, " cancelOrder() requires a clientOrderId parameter for swap orders")))
                 }
@@ -1400,16 +1400,16 @@ func  (this *ZebpayCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
  * @param {object} [params.timestamp] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZebpayCore) CancelAllOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) CancelAllOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var typeVar any = nil
+            var typeVar interface{} = nil
             typeVarparamsVariable := this.HandleMarketTypeAndParams("cancelAllOrders", nil, params);
             typeVar = GetValue(typeVarparamsVariable,0);
             params = GetValue(typeVarparamsVariable,1)
@@ -1430,10 +1430,10 @@ func  (this *ZebpayCore) CancelAllOrders(optionalArgs ...any) <- chan any {
             //        },
             //    }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var parsedOrder any = this.ParseOrder(data)
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var parsedOrder interface{} = this.ParseOrder(data)
         
-            ch <- []any{parsedOrder}
+            ch <- []interface{}{parsedOrder}
             return nil
         
             }()
@@ -1451,9 +1451,9 @@ func  (this *ZebpayCore) CancelAllOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZebpayCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1462,17 +1462,17 @@ func  (this *ZebpayCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes11678 := (<-this.LoadMarkets())
             PanicOnError(retRes11678)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
-            var response any = nil
-            var orders any = []any{}
+            var response interface{} = nil
+            var orders interface{} = []interface{}{}
             if IsTrue(GetValue(market, "spot")) {
                 AddElementToObject(request, "currentPage", 1)
                 if IsTrue(!IsEqual(limit, nil)) {
@@ -1481,8 +1481,8 @@ func  (this *ZebpayCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
                 
             response = (<-this.PrivateSpotGetV2ExOrders(this.Extend(request, params)))
                     PanicOnError(response)
-                var responseData any = this.SafeDict(response, "data", map[string]any {})
-                orders = this.SafeList(responseData, "items", []any{})
+                var responseData interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+                orders = this.SafeList(responseData, "items", []interface{}{})
             } else {
                 if IsTrue(!IsEqual(since, nil)) {
                     AddElementToObject(request, "since", since)
@@ -1493,8 +1493,8 @@ func  (this *ZebpayCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
                 
             response = (<-this.PrivateSwapGetV1TradeOrderOpenOrders(this.Extend(request, params)))
                     PanicOnError(response)
-                var responseData any = this.SafeDict(response, "data", map[string]any {})
-                orders = this.SafeList(responseData, "data", []any{})
+                var responseData interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+                orders = this.SafeList(responseData, "data", []interface{}{})
             }
         
                 //
@@ -1541,21 +1541,21 @@ func  (this *ZebpayCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {string} [params.timestamp] cancel order by client order id
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZebpayCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes12358 := (<-this.LoadMarkets())
             PanicOnError(retRes12358)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {}
-            var response any = nil
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {}
+            var response interface{} = nil
             if IsTrue(GetValue(market, "spot")) {
                 AddElementToObject(request, "orderId", id)
                 
@@ -1592,7 +1592,7 @@ func  (this *ZebpayCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
             //         }
             //     }
             //
-            var responseData any = this.SafeDict(response, "data")
+            var responseData interface{} = this.SafeDict(response, "data")
         
             ch <- this.ParseOrder(responseData, market)
             return nil
@@ -1600,7 +1600,7 @@ func  (this *ZebpayCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZebpayCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *ZebpayCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //      {
     //          "clientOrderId": "64507d02921f1c0001ff6892-123-zeb",
@@ -1620,20 +1620,20 @@ func  (this *ZebpayCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(order, "symbol")
+    var marketId interface{} = this.SafeString(order, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var typeVar any = this.SafeString(order, "type")
-    var timestamp any = this.SafeNumber(order, "timestamp")
-    var datetime any = this.Iso8601(timestamp)
-    var price any = this.SafeString(order, "price")
-    var side any = this.SafeString(order, "side")
-    var amount any = this.SafeString(order, "amount")
-    var clientOrderId any = this.SafeString(order, "clientOrderId")
-    var timeInForce any = this.SafeString(order, "timeInForce")
-    var status any = this.SafeStringLower(order, "status")
-    var orderId any = this.SafeString(order, "orderId", nil)
-    var parsedOrder any = this.SafeOrder(map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var typeVar interface{} = this.SafeString(order, "type")
+    var timestamp interface{} = this.SafeNumber(order, "timestamp")
+    var datetime interface{} = this.Iso8601(timestamp)
+    var price interface{} = this.SafeString(order, "price")
+    var side interface{} = this.SafeString(order, "side")
+    var amount interface{} = this.SafeString(order, "amount")
+    var clientOrderId interface{} = this.SafeString(order, "clientOrderId")
+    var timeInForce interface{} = this.SafeString(order, "timeInForce")
+    var status interface{} = this.SafeStringLower(order, "status")
+    var orderId interface{} = this.SafeString(order, "orderId", nil)
+    var parsedOrder interface{} = this.SafeOrder(map[string]interface{} {
         "id": orderId,
         "clientOrderId": clientOrderId,
         "symbol": symbol,
@@ -1671,26 +1671,26 @@ func  (this *ZebpayCore) ParseOrder(order any, optionalArgs ...any) any  {
  * @param {string} [params.positionId] client order id of the order
  * @returns {object[]} [A list of position structures]{@link https://docs.ccxt.com/?id=position-structure}
  */
-func  (this *ZebpayCore) ClosePosition(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) ClosePosition(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     side := GetArg(optionalArgs, 0, nil)
             _ = side
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes13468 := (<-this.LoadMarkets())
             PanicOnError(retRes13468)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
         
             response:= (<-this.PrivateSwapPostV1TradePositionClose(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseOrder(data, market)
             return nil
@@ -1707,14 +1707,14 @@ func  (this *ZebpayCore) ClosePosition(symbol any, optionalArgs ...any) <- chan 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a list of [leverage structures]{@link https://docs.ccxt.com/?id=leverage-structure}
  */
-func  (this *ZebpayCore) FetchLeverages(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchLeverages(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes13668 := (<-this.LoadMarkets())
@@ -1734,7 +1734,7 @@ func  (this *ZebpayCore) FetchLeverages(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var leveragePreferences any = this.SafeList(response, "data", []any{})
+            var leveragePreferences interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseLeverages(leveragePreferences, symbols, "symbol")
             return nil
@@ -1751,18 +1751,18 @@ func  (this *ZebpayCore) FetchLeverages(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [leverage structure]{@link https://docs.ccxt.com/?id=leverage-structure}
  */
-func  (this *ZebpayCore) FetchLeverage(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchLeverage(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes13948 := (<-this.LoadMarkets())
             PanicOnError(retRes13948)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": ToUpper(GetValue(market, "id")),
             }
         
@@ -1773,7 +1773,7 @@ func  (this *ZebpayCore) FetchLeverage(symbol any, optionalArgs ...any) <- chan 
             //         "data": { symbol: "ETHINR", longLeverage: 1, shortLeverage: 1, marginMode: "isolated" }
             //     }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseLeverage(data, market)
             return nil
@@ -1791,14 +1791,14 @@ func  (this *ZebpayCore) FetchLeverage(symbol any, optionalArgs ...any) <- chan 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} response from the exchange
  */
-func  (this *ZebpayCore) SetLeverage(leverage any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) SetLeverage(leverage interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " setLeverage() requires a symbol argument")))
@@ -1806,8 +1806,8 @@ func  (this *ZebpayCore) SetLeverage(leverage any, optionalArgs ...any) <- chan 
         
             retRes14238 := (<-this.LoadMarkets())
             PanicOnError(retRes14238)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "leverage": leverage,
                 "symbol": GetValue(market, "id"),
             }
@@ -1833,19 +1833,19 @@ func  (this *ZebpayCore) SetLeverage(leverage any, optionalArgs ...any) <- chan 
  * @param {object} [params] Not used by krakenfutures
  * @returns Parsed exchange response for positions
  */
-func  (this *ZebpayCore) FetchPositions(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchPositions(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes14468 := (<-this.LoadMarkets())
             PanicOnError(retRes14468)
-            var request any = map[string]any {}
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(symbols, nil)) {
                 AddElementToObject(request, "symbols", this.MarketIds(symbols))
             }
@@ -1865,8 +1865,8 @@ func  (this *ZebpayCore) FetchPositions(optionalArgs ...any) <- chan any {
             //        ],
             //    }
             //
-            var positions any = this.SafeList(response, "data", []any{})
-            var result any = this.ParsePositions(positions)
+            var positions interface{} = this.SafeList(response, "data", []interface{}{})
+            var result interface{} = this.ParsePositions(positions)
         
             ch <- this.FilterByArrayPositions(result, "symbol", symbols, false)
             return nil
@@ -1886,18 +1886,18 @@ func  (this *ZebpayCore) FetchPositions(optionalArgs ...any) <- chan any {
  * @param {string} [params.timestamp] Tiemstamp.
  * @returns {object} a [margin structure]{@link https://docs.ccxt.com/?id=margin-structure}
  */
-func  (this *ZebpayCore) AddMargin(symbol any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) AddMargin(symbol interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes14838 := (<-this.LoadMarkets())
             PanicOnError(retRes14838)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
                 "amount": amount,
             }
@@ -1922,9 +1922,9 @@ func  (this *ZebpayCore) AddMargin(symbol any, amount any, optionalArgs ...any) 
             //        "msg":"Position does not exist"
             //    }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
-            ch <- this.Extend(this.ParseMarginModification(data, market), map[string]any {
+            ch <- this.Extend(this.ParseMarginModification(data, market), map[string]interface{} {
                 "amount": amount,
                 "direction": "in",
             })
@@ -1945,18 +1945,18 @@ func  (this *ZebpayCore) AddMargin(symbol any, amount any, optionalArgs ...any) 
  * @param {string} [params.timestamp] Tiemstamp.
  * @returns {object} a [margin structure]{@link https://docs.ccxt.com/?id=margin-structure}
  */
-func  (this *ZebpayCore) ReduceMargin(symbol any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) ReduceMargin(symbol interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes15288 := (<-this.LoadMarkets())
             PanicOnError(retRes15288)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
                 "amount": amount,
             }
@@ -1975,9 +1975,9 @@ func  (this *ZebpayCore) ReduceMargin(symbol any, amount any, optionalArgs ...an
             //        }
             //    }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
-            ch <- this.Extend(this.ParseMarginModification(data, market), map[string]any {
+            ch <- this.Extend(this.ParseMarginModification(data, market), map[string]interface{} {
                 "amount": amount,
                 "direction": "out",
             })
@@ -1986,12 +1986,12 @@ func  (this *ZebpayCore) ReduceMargin(symbol any, amount any, optionalArgs ...an
             }()
             return ch
         }
-func  (this *ZebpayCore) FetchSpotMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchSpotMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicSpotGetV2ExExchangeInfo(params))
@@ -2014,18 +2014,18 @@ func  (this *ZebpayCore) FetchSpotMarkets(optionalArgs ...any) <- chan any {
             //        }
             //    }
             //
-            var result any = []any{}
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var markets any = this.SafeList(data, "symbols", []any{})
+            var result interface{} = []interface{}{}
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var markets interface{} = this.SafeList(data, "symbols", []interface{}{})
             for i := 0; IsLessThan(i, GetArrayLength(markets)); i++ {
-                var market any = GetValue(markets, i)
-                var id any = this.SafeString(market, "symbol")
-                var baseId any = this.SafeString(market, "baseAsset")
-                var quoteId any = this.SafeString(market, "quoteAsset")
-                var base any = this.SafeCurrencyCode(baseId)
-                var quote any = this.SafeCurrencyCode(quoteId)
-                var symbol any = Add(Add(base, "/"), quote)
-                AppendToArray(&result, map[string]any {
+                var market interface{} = GetValue(markets, i)
+                var id interface{} = this.SafeString(market, "symbol")
+                var baseId interface{} = this.SafeString(market, "baseAsset")
+                var quoteId interface{} = this.SafeString(market, "quoteAsset")
+                var base interface{} = this.SafeCurrencyCode(baseId)
+                var quote interface{} = this.SafeCurrencyCode(quoteId)
+                var symbol interface{} = Add(Add(base, "/"), quote)
+                AppendToArray(&result, map[string]interface{} {
                     "id": id,
                     "symbol": symbol,
                     "base": base,
@@ -2044,20 +2044,20 @@ func  (this *ZebpayCore) FetchSpotMarkets(optionalArgs ...any) <- chan any {
                     "maker": this.SafeNumber(market, "makerFee"),
                     "strike": nil,
                     "optionType": nil,
-                    "precision": map[string]any {
+                    "precision": map[string]interface{} {
                         "amount": this.SafeNumber(market, "lotSz"),
                         "price": this.SafeNumber(market, "tickSz"),
                     },
-                    "limits": map[string]any {
-                        "amount": map[string]any {
+                    "limits": map[string]interface{} {
+                        "amount": map[string]interface{} {
                             "min": nil,
                             "max": nil,
                         },
-                        "price": map[string]any {
+                        "price": map[string]interface{} {
                             "min": nil,
                             "max": nil,
                         },
-                        "cost": map[string]any {
+                        "cost": map[string]interface{} {
                             "min": nil,
                             "max": nil,
                         },
@@ -2072,12 +2072,12 @@ func  (this *ZebpayCore) FetchSpotMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZebpayCore) FetchSwapMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZebpayCore) FetchSwapMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicSwapGetV1MarketMarkets(params))
@@ -2105,20 +2105,20 @@ func  (this *ZebpayCore) FetchSwapMarkets(optionalArgs ...any) <- chan any {
             //        }
             //    }
             //
-            var result any = []any{}
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var markets any = this.SafeList(data, "symbols", []any{})
+            var result interface{} = []interface{}{}
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var markets interface{} = this.SafeList(data, "symbols", []interface{}{})
             for i := 0; IsLessThan(i, GetArrayLength(markets)); i++ {
-                var market any = GetValue(markets, i)
-                var id any = this.SafeString(market, "symbol")
-                var baseId any = this.SafeString(market, "baseAsset")
-                var quoteId any = this.SafeString(market, "quoteAsset")
-                var base any = this.SafeCurrencyCode(baseId)
-                var quote any = this.SafeCurrencyCode(quoteId)
-                var settle any = this.SafeCurrencyCode(quoteId)
-                var status any = this.SafeString(market, "status")
-                var symbol any = Add(Add(base, "/"), quote)
-                AppendToArray(&result, this.SafeMarketStructure(map[string]any {
+                var market interface{} = GetValue(markets, i)
+                var id interface{} = this.SafeString(market, "symbol")
+                var baseId interface{} = this.SafeString(market, "baseAsset")
+                var quoteId interface{} = this.SafeString(market, "quoteAsset")
+                var base interface{} = this.SafeCurrencyCode(baseId)
+                var quote interface{} = this.SafeCurrencyCode(quoteId)
+                var settle interface{} = this.SafeCurrencyCode(quoteId)
+                var status interface{} = this.SafeString(market, "status")
+                var symbol interface{} = Add(Add(base, "/"), quote)
+                AppendToArray(&result, this.SafeMarketStructure(map[string]interface{} {
                     "id": id,
                     "symbol": Add(Add(symbol, ":"), settle),
                     "base": base,
@@ -2137,12 +2137,12 @@ func  (this *ZebpayCore) FetchSwapMarkets(optionalArgs ...any) <- chan any {
                     "maker": this.SafeNumber(market, "makerFee"),
                     "strike": nil,
                     "optionType": nil,
-                    "precision": map[string]any {
+                    "precision": map[string]interface{} {
                         "amount": this.SafeNumber(market, "lotSz"),
                         "price": this.SafeNumber(market, "tickSz"),
                     },
-                    "limits": map[string]any {
-                        "leverage": map[string]any {
+                    "limits": map[string]interface{} {
+                        "leverage": map[string]interface{} {
                             "min": this.SafeNumber(market, "minLeverage"),
                             "max": this.SafeNumber(market, "maxLeverage"),
                         },
@@ -2157,26 +2157,26 @@ func  (this *ZebpayCore) FetchSwapMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZebpayCore) ParseBalance(response any) any  {
-    var result any = map[string]any {
+func  (this *ZebpayCore) ParseBalance(response interface{}) interface{}  {
+    var result interface{} = map[string]interface{} {
         "info": response,
         "timestamp": nil,
         "datetime": nil,
     }
-    var currencyList any = this.SafeList(response, "data", []any{})
+    var currencyList interface{} = this.SafeList(response, "data", []interface{}{})
     for i := 0; IsLessThan(i, GetArrayLength(currencyList)); i++ {
-        var entry any = GetValue(currencyList, i)
-        var account any = this.Account()
+        var entry interface{} = GetValue(currencyList, i)
+        var account interface{} = this.Account()
         AddElementToObject(account, "total", this.SafeString(entry, "total"))
         AddElementToObject(account, "free", this.SafeString(entry, "free"))
         AddElementToObject(account, "used", this.SafeString(entry, "used"))
-        var currencyId any = this.SafeString(entry, "currency")
-        var code any = this.SafeCurrencyCode(currencyId)
+        var currencyId interface{} = this.SafeString(entry, "currency")
+        var code interface{} = this.SafeCurrencyCode(currencyId)
         AddElementToObject(result, code, account)
     }
     return this.SafeBalance(result)
 }
-func  (this *ZebpayCore) ParsePosition(position any, optionalArgs ...any) any  {
+func  (this *ZebpayCore) ParsePosition(position interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // isolated
     //    {
@@ -2190,11 +2190,11 @@ func  (this *ZebpayCore) ParsePosition(position any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var leverage any = this.SafeNumber(position, "leverage")
-    var datetime any = this.SafeString(position, "datetime")
-    var marketId any = this.SafeString(position, "symbol")
+    var leverage interface{} = this.SafeNumber(position, "leverage")
+    var datetime interface{} = this.SafeString(position, "datetime")
+    var marketId interface{} = this.SafeString(position, "symbol")
     market = this.SafeMarket(marketId, market)
-    return map[string]any {
+    return map[string]interface{} {
         "info": position,
         "symbol": marketId,
         "timestamp": this.Parse8601(datetime),
@@ -2218,15 +2218,15 @@ func  (this *ZebpayCore) ParsePosition(position any, optionalArgs ...any) any  {
         "percentage": nil,
     }
 }
-func  (this *ZebpayCore) ParseLeverage(leverage any, optionalArgs ...any) any  {
+func  (this *ZebpayCore) ParseLeverage(leverage interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(leverage, "symbol")
-    var info any = this.SafeDict(leverage, "info")
-    var leverageValue any = this.SafeInteger(leverage, "longLeverage")
-    var leverageValueShort any = this.SafeInteger(leverage, "shortLeverage")
-    var marginMode any = this.SafeString(leverage, "marginMode")
-    return map[string]any {
+    var marketId interface{} = this.SafeString(leverage, "symbol")
+    var info interface{} = this.SafeDict(leverage, "info")
+    var leverageValue interface{} = this.SafeInteger(leverage, "longLeverage")
+    var leverageValueShort interface{} = this.SafeInteger(leverage, "shortLeverage")
+    var marginMode interface{} = this.SafeString(leverage, "marginMode")
+    return map[string]interface{} {
         "info": info,
         "symbol": marketId,
         "marginMode": marginMode,
@@ -2234,12 +2234,12 @@ func  (this *ZebpayCore) ParseLeverage(leverage any, optionalArgs ...any) any  {
         "shortLeverage": leverageValueShort,
     }
 }
-func  (this *ZebpayCore) ParseTradingFee(fee any, optionalArgs ...any) any  {
+func  (this *ZebpayCore) ParseTradingFee(fee interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(fee, "symbol")
-    var symbol any = this.SafeSymbol(marketId, market)
-    return map[string]any {
+    var marketId interface{} = this.SafeString(fee, "symbol")
+    var symbol interface{} = this.SafeSymbol(marketId, market)
+    return map[string]interface{} {
         "info": fee,
         "symbol": symbol,
         "maker": this.SafeNumber2(fee, "makerFeeRate", "makerFee"),
@@ -2248,7 +2248,7 @@ func  (this *ZebpayCore) ParseTradingFee(fee any, optionalArgs ...any) any  {
         "tierBased": nil,
     }
 }
-func  (this *ZebpayCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *ZebpayCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     [
     //        {
@@ -2269,15 +2269,15 @@ func  (this *ZebpayCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeInteger2(ticker, "timestamp", "ts", nil)
-    var marketId any = this.SafeString(ticker, "symbol")
+    var timestamp interface{} = this.SafeInteger2(ticker, "timestamp", "ts", nil)
+    var marketId interface{} = this.SafeString(ticker, "symbol")
     market = this.SafeMarket(marketId)
-    var close any = this.SafeString(ticker, "close", nil)
-    var last any = this.SafeString(ticker, "last", nil)
-    var percentage any = this.SafeString(ticker, "percentage")
-    var bidVolume any = this.SafeString(ticker, "bidVolume")
-    var askVolume any = this.SafeString(ticker, "askVolume")
-    return this.SafeTicker(map[string]any {
+    var close interface{} = this.SafeString(ticker, "close", nil)
+    var last interface{} = this.SafeString(ticker, "last", nil)
+    var percentage interface{} = this.SafeString(ticker, "percentage")
+    var bidVolume interface{} = this.SafeString(ticker, "bidVolume")
+    var askVolume interface{} = this.SafeString(ticker, "askVolume")
+    return this.SafeTicker(map[string]interface{} {
         "id": marketId,
         "symbol": GetValue(market, "symbol"),
         "timestamp": timestamp,
@@ -2302,7 +2302,7 @@ func  (this *ZebpayCore) ParseTicker(ticker any, optionalArgs ...any) any  {
         "info": ticker,
     }, market)
 }
-func  (this *ZebpayCore) ParseMarginModification(info any, optionalArgs ...any) any  {
+func  (this *ZebpayCore) ParseMarginModification(info interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //    {
     //         "symbol": "BTCINR",
@@ -2314,8 +2314,8 @@ func  (this *ZebpayCore) ParseMarginModification(info any, optionalArgs ...any) 
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.Milliseconds()
-    return map[string]any {
+    var timestamp interface{} = this.Milliseconds()
+    return map[string]interface{} {
         "info": info,
         "symbol": GetValue(market, "id"),
         "type": nil,
@@ -2328,28 +2328,28 @@ func  (this *ZebpayCore) ParseMarginModification(info any, optionalArgs ...any) 
         "datetime": this.Iso8601(timestamp),
     }
 }
-func  (this *ZebpayCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *ZebpayCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
     params = this.Omit(params, "defaultType")
-    var isV1 any = IsGreaterThan(GetIndexOf(path, "v1/"), OpNeg(1))
-    var marketType any = Ternary(IsTrue(isV1), "swap", "spot")
-    var url any = GetValue(GetValue(this.Urls, "api"), marketType)
-    var tail any = Add("/api/", this.ImplodeParams(path, params))
+    var isV1 interface{} = IsGreaterThan(GetIndexOf(path, "v1/"), OpNeg(1))
+    var marketType interface{} = Ternary(IsTrue(isV1), "swap", "spot")
+    var url interface{} = GetValue(GetValue(this.Urls, "api"), marketType)
+    var tail interface{} = Add("/api/", this.ImplodeParams(path, params))
     url = Add(url, tail)
-    var timestamp any = ToString(this.Milliseconds())
-    var signature any = ""
-    var query any = this.Omit(params, this.ExtractParams(path))
-    var queryLength any =     GetArrayLength(ObjectKeys(query))
-    var access any = this.SafeString(api, 0, "public")
+    var timestamp interface{} = ToString(this.Milliseconds())
+    var signature interface{} = ""
+    var query interface{} = this.Omit(params, this.ExtractParams(path))
+    var queryLength interface{} =     GetArrayLength(ObjectKeys(query))
+    var access interface{} = this.SafeString(api, 0, "public")
     if IsTrue(IsEqual(access, "public")) {
         if IsTrue(IsTrue(IsEqual(method, "GET")) || IsTrue(IsEqual(method, "DELETE"))) {
             if IsTrue(queryLength) {
@@ -2357,18 +2357,18 @@ func  (this *ZebpayCore) Sign(path any, optionalArgs ...any) any  {
             }
         } else {
             body = JsonStringify(params)
-            headers = map[string]any {
+            headers = map[string]interface{} {
                 "Referrer": "ccxt",
                 "Content-Type": "application/json",
             }
         }
     } else {
         this.CheckRequiredCredentials()
-        var isSpot any = IsEqual(marketType, "spot")
+        var isSpot interface{} = IsEqual(marketType, "spot")
         AddElementToObject(params, "timestamp", timestamp)
         if IsTrue(IsTrue(IsEqual(method, "GET")) || IsTrue((IsTrue(IsEqual(method, "DELETE")) && IsTrue(isSpot)))) {
             // For GET/DELETE: Append params to URL and sign the query string
-            var queryString any = this.Urlencode(params)
+            var queryString interface{} = this.Urlencode(params)
             signature = this.Hmac(this.Encode(queryString), this.Encode(this.Secret), sha256, "hex")
             url = Add(url, Add("?", queryString))
         } else {
@@ -2376,21 +2376,21 @@ func  (this *ZebpayCore) Sign(path any, optionalArgs ...any) any  {
             body = this.Json(params)
             signature = this.Hmac(this.Encode(body), this.Encode(this.Secret), sha256, "hex")
         }
-        headers = map[string]any {
+        headers = map[string]interface{} {
             "Referrer": "ccxt",
             "X-AUTH-APIKEY": this.ApiKey,
             "X-AUTH-SIGNATURE": signature,
         }
         AddElementToObject(headers, "Content-Type", "application/json")
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *ZebpayCore) HandleErrors(code any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *ZebpayCore) HandleErrors(code interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if !IsTrue(response) {
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), body, body)
         return nil
@@ -2402,9 +2402,9 @@ func  (this *ZebpayCore) HandleErrors(code any, reason any, url any, method any,
     //     { code: "200000", data: { ... }}
     // {"statusDescription":"Order quantity is out of range","data":{},"statusCode":400,"customMessage":["Order quantity is out of range"]}
     //
-    var errorCode any = this.SafeString2(response, "code", "statusCode")
-    var message any = this.SafeString2(response, "msg", "statusDescription")
-    var feedback any = Add(Add(this.Id, " "), message)
+    var errorCode interface{} = this.SafeString2(response, "code", "statusCode")
+    var message interface{} = this.SafeString2(response, "msg", "statusDescription")
+    var feedback interface{} = Add(Add(this.Id, " "), message)
     this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), message, feedback)
     this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), message, feedback)
     this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), errorCode, feedback)
@@ -2412,8 +2412,8 @@ func  (this *ZebpayCore) HandleErrors(code any, reason any, url any, method any,
 }
 
 
-func (this *ZebpayCore) Init(userConfig map[string]any) {
+func (this *ZebpayCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

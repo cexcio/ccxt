@@ -25,11 +25,11 @@ function example() {
         ));
         $symbols = ['BTC/USDT:USDT', 'ETH/USDT:USDT', 'DOGE/USDT:USDT'];
         while (true) {
-            $trades = \React\Async\await($exchange->watch_positions($symbols));
+            $trades = Async\await($exchange->watch_positions($symbols));
             var_dump($trades);
         }
     }) ();
 }
 
 
-\React\Async\await(example());
+Async\await(example());

@@ -11,8 +11,7 @@ async function testWatchTradesForSymbols(exchange, skippedProperties, symbols) {
     const method = 'watchTradesForSymbols';
     let now = exchange.milliseconds();
     const ends = now + 15000;
-    const returnedSymbols = [];
-    while (now < ends || returnedSymbols.length < symbols.length) {
+    while (now < ends) {
         let response = undefined;
         const success = true;
         try {
@@ -34,13 +33,10 @@ async function testWatchTradesForSymbols(exchange, skippedProperties, symbols) {
                 symbol = trade['symbol'];
                 testTrade(exchange, skippedProperties, method, trade, symbol, now);
                 testSharedMethods.assertInArray(exchange, skippedProperties, method, trade, 'symbol', symbols);
-                if (!exchange.inArray(symbol, returnedSymbols)) {
-                    returnedSymbols.push(symbol);
-                }
             }
-            // if (!('timestampSort' in skippedProperties)) {
-            //     testSharedMethods.assertTimestampOrder (exchange, method, symbol, response);
-            // }
+            if (!('timestamp' in skippedProperties)) {
+                testSharedMethods.assertTimestampOrder(exchange, method, symbol, response);
+            }
         }
     }
     return true;

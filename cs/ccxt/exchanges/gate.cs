@@ -707,6 +707,7 @@ public partial class gate : Exchange
                 { "MPH", "MORPHER" },
                 { "POINT", "GATEPOINT" },
                 { "RAI", "RAIREFLEXINDEX" },
+                { "RED", "RedLang" },
                 { "SBTC", "SUPERBITCOIN" },
                 { "TNC", "TRINITYNETWORKCREDIT" },
                 { "VAI", "VAIOT" },
@@ -1690,11 +1691,6 @@ public partial class gate : Exchange
                 object maxMultiplier = Precise.stringAdd("1", priceDeviate);
                 object minPrice = Precise.stringMul(minMultiplier, markPrice);
                 object maxPrice = Precise.stringMul(maxMultiplier, markPrice);
-                object createdTs = this.safeTimestamp(market, "create_time");
-                if (isTrue(isEqual(createdTs, 0)))
-                {
-                    createdTs = null;
-                }
                 ((IList<object>)result).Add(new Dictionary<string, object>() {
                     { "id", id },
                     { "symbol", symbol },
@@ -1743,7 +1739,7 @@ public partial class gate : Exchange
                             { "max", null },
                         } },
                     } },
-                    { "created", createdTs },
+                    { "created", this.safeTimestamp(market, "create_time") },
                     { "info", market },
                 });
             }

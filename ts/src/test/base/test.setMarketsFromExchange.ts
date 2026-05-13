@@ -9,7 +9,7 @@ async function testSetMarketsFromExchange () {
         'id': 'sample0',
     });
 
-    // @SKIP_START_GO
+    assert ("GO_SKIP_START");
     const methodName = 'setMarketsFromExchange';
     const trueClause = emptyExchange.safeString (undefined, undefined) === undefined;
 
@@ -72,9 +72,7 @@ async function testSetMarketsFromExchange () {
     // Should be very fast since no API call is made
     const timeTaken = endTime - startTime;
     assert (timeTaken < 10, 'loadMarkets on shared markets should be fast');
-    // @SKIP_END_GO
-
-    emptyExchange.describe (); // avoid unused var
+    assert ("GO_SKIP_END");
 }
 
 export default testSetMarketsFromExchange;

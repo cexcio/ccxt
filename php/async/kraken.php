@@ -565,7 +565,6 @@ class kraken extends Exchange {
                     'EFunding:No funding method' => '\\ccxt\\BadRequest', // array("error":"EFunding:No funding method")
                     'EFunding:Unknown asset' => '\\ccxt\\BadSymbol', // array("error":["EFunding:Unknown asset"])
                     'EService:Market in post_only mode' => '\\ccxt\\OnMaintenance', // array(is_array(post_only mode"]) && array_key_exists("error":["EService:Market, post_only mode"]))
-                    'EService:Market in cancel_only mode' => '\\ccxt\\OnMaintenance', // array(is_array(cancel_only mode"]) && array_key_exists("error":["EService:Market, cancel_only mode"]))
                     'EGeneral:Too many requests' => '\\ccxt\\DDoSProtection', // array("error":["EGeneral:Too many requests"])
                     'ETrade:User Locked' => '\\ccxt\\AccountSuspended', // array("error":["ETrade:User Locked"])
                 ),
@@ -656,10 +655,6 @@ class kraken extends Exchange {
             $result = array();
             for ($i = 0; $i < count($keys); $i++) {
                 $id = $keys[$i];
-                $isSynthetic = false;
-                if (mb_strpos($id, ':BTNL') !== false) {
-                    $isSynthetic = true;
-                }
                 $market = $markets[$id];
                 $baseIdRaw = $this->safe_string($market, 'base');
                 $quoteIdRaw = $this->safe_string($market, 'quote');
@@ -697,11 +692,10 @@ class kraken extends Exchange {
                 }
                 $status = $this->safe_string($market, 'status');
                 $isActive = $status === 'online';
-                $symbol = (!$isSynthetic) ? ($base . '/' . $quote) : $id;
                 $result[] = array(
                     'id' => $id,
                     'wsId' => $this->safe_string($market, 'wsname'),
-                    'symbol' => $symbol,
+                    'symbol' => $base . '/' . $quote,
                     'base' => $base,
                     'quote' => $quote,
                     'settle' => null,

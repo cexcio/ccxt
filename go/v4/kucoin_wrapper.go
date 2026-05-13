@@ -6,7 +6,7 @@ type Kucoin struct {
    exchangeTyped *ExchangeTyped
 }
 
-func NewKucoin(userConfig map[string]any) *Kucoin {
+func NewKucoin(userConfig map[string]interface{}) *Kucoin {
    p := NewKucoinCore()
    p.Init(userConfig)
    return &Kucoin{
@@ -36,7 +36,7 @@ func NewKucoinFromCore(core *KucoinCore) *Kucoin {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func (this *Kucoin) FetchTime(params ...any) ( int64, error) {
+func (this *Kucoin) FetchTime(params ...interface{}) ( int64, error) {
     res := <- this.Core.FetchTime(params...)
     if IsError(res) {
         return -1, CreateReturnError(res)
@@ -56,12 +56,12 @@ func (this *Kucoin) FetchTime(params ...any) ( int64, error) {
  * @param {string} [params.tradeType] *uta only* set to SPOT or FUTURES
  * @returns {object} a [status structure]{@link https://docs.ccxt.com/?id=exchange-status-structure}
  */
-func (this *Kucoin) FetchStatus(params ...any) (map[string]any, error) {
+func (this *Kucoin) FetchStatus(params ...interface{}) (map[string]interface{}, error) {
     res := <- this.Core.FetchStatus(params...)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -74,14 +74,14 @@ func (this *Kucoin) FetchStatus(params ...any) (map[string]any, error) {
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
  * @returns {object[]} an array of objects representing market data
  */
-func (this *Kucoin) FetchMarkets(params ...any) ([]MarketInterface, error) {
+func (this *Kucoin) FetchMarkets(params ...interface{}) ([]MarketInterface, error) {
     res := <- this.Core.FetchMarkets(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
     }
     return NewMarketInterfaceArray(res), nil
 }
-func (this *Kucoin) FetchContractMarkets(params ...any) ([]MarketInterface, error) {
+func (this *Kucoin) FetchContractMarkets(params ...interface{}) ([]MarketInterface, error) {
     res := <- this.Core.FetchContractMarkets(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -98,7 +98,7 @@ func (this *Kucoin) FetchContractMarkets(params ...any) ([]MarketInterface, erro
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
  * @returns {object} an associative dictionary of currencies
  */
-func (this *Kucoin) FetchCurrencies(params ...any) (Currencies, error) {
+func (this *Kucoin) FetchCurrencies(params ...interface{}) (Currencies, error) {
     res := <- this.Core.FetchCurrencies(params...)
     if IsError(res) {
         return Currencies{}, CreateReturnError(res)
@@ -114,7 +114,7 @@ func (this *Kucoin) FetchCurrencies(params ...any) (Currencies, error) {
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
  * @returns {object} a dictionary of [account structures]{@link https://docs.ccxt.com/?id=account-structure} indexed by the account type
  */
-func (this *Kucoin) FetchAccounts(params ...any) ([]Account, error) {
+func (this *Kucoin) FetchAccounts(params ...interface{}) ([]Account, error) {
     res := <- this.Core.FetchAccounts(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -130,7 +130,7 @@ func (this *Kucoin) FetchAccounts(params ...any) ([]Account, error) {
  * @param {object} params extra parameters specific to the exchange API endpoint
  * @returns {object} a [fee structure]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func (this *Kucoin) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]any, error) {
+func (this *Kucoin) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]interface{}, error) {
 
     opts := FetchTransactionFeeOptionsStruct{}
 
@@ -138,15 +138,15 @@ func (this *Kucoin) FetchTransactionFee(code string, options ...FetchTransaction
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchTransactionFee(code, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -158,7 +158,7 @@ func (this *Kucoin) FetchTransactionFee(code string, options ...FetchTransaction
  * @param {string} [params.network] The chain of currency. This only apply for multi-chain currency, and there is no need for single chain currency; you can query the chain through the response of the GET /api/v2/currencies/{currency} interface
  * @returns {object} a [fee structure]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func (this *Kucoin) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]any, error) {
+func (this *Kucoin) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]interface{}, error) {
 
     opts := FetchDepositWithdrawFeeOptionsStruct{}
 
@@ -166,15 +166,15 @@ func (this *Kucoin) FetchDepositWithdrawFee(code string, options ...FetchDeposit
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchDepositWithdrawFee(code, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return (res).(map[string]any), nil
+    return (res).(map[string]interface{}), nil
 }
 /**
  * @method
@@ -198,12 +198,12 @@ func (this *Kucoin) FetchTickers(options ...FetchTickersOptions) (Tickers, error
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -221,12 +221,12 @@ func (this *Kucoin) FetchContractTickers(options ...FetchContractTickersOptions)
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -253,12 +253,12 @@ func (this *Kucoin) FetchMarkPrices(options ...FetchMarkPricesOptions) (Tickers,
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -288,7 +288,7 @@ func (this *Kucoin) FetchTicker(symbol string, options ...FetchTickerOptions) (T
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -316,7 +316,7 @@ func (this *Kucoin) FetchMarkPrice(symbol string, options ...FetchMarkPriceOptio
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -350,22 +350,22 @@ func (this *Kucoin) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) ([]O
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -396,22 +396,22 @@ func (this *Kucoin) FetchSpotOHLCV(symbol string, options ...FetchSpotOHLCVOptio
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -442,22 +442,22 @@ func (this *Kucoin) FetchContractOHLCV(symbol string, options ...FetchContractOH
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -485,7 +485,7 @@ func (this *Kucoin) CreateDepositAddress(code string, options ...CreateDepositAd
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -516,7 +516,7 @@ func (this *Kucoin) FetchDepositAddress(code string, options ...FetchDepositAddr
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -543,7 +543,7 @@ func (this *Kucoin) FetchContractDepositAddress(code string, options ...FetchCon
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -572,7 +572,7 @@ func (this *Kucoin) FetchDepositAddressesByNetwork(code string, options ...Fetch
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -604,12 +604,12 @@ func (this *Kucoin) FetchOrderBook(symbol string, options ...FetchOrderBookOptio
         opt(&opts)
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -652,12 +652,12 @@ func (this *Kucoin) CreateOrder(symbol string, typeVar string, side string, amou
         opt(&opts)
     }
 
-    var price any = nil
+    var price interface{} = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -687,7 +687,7 @@ func (this *Kucoin) CreateMarketOrderWithCost(symbol string, side string, cost f
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -716,7 +716,7 @@ func (this *Kucoin) CreateMarketBuyOrderWithCost(symbol string, cost float64, op
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -745,7 +745,7 @@ func (this *Kucoin) CreateMarketSellOrderWithCost(symbol string, cost float64, o
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -774,7 +774,7 @@ func (this *Kucoin) CreateOrders(orders []OrderRequest, options ...CreateOrdersO
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -805,7 +805,7 @@ func (this *Kucoin) CreateSpotOrders(orders []OrderRequest, options ...CreateSpo
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -832,7 +832,7 @@ func (this *Kucoin) CreateContractOrders(orders []OrderRequest, options ...Creat
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -865,17 +865,17 @@ func (this *Kucoin) EditOrder(id string, symbol string, typeVar string, side str
         opt(&opts)
     }
 
-    var amount any = nil
+    var amount interface{} = nil
     if opts.Amount != nil {
         amount = *opts.Amount
     }
 
-    var price any = nil
+    var price interface{} = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -919,12 +919,12 @@ func (this *Kucoin) CancelOrder(id string, options ...CancelOrderOptions) (Order
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -965,12 +965,12 @@ func (this *Kucoin) CancelSpotOrder(id string, options ...CancelSpotOrderOptions
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1000,12 +1000,12 @@ func (this *Kucoin) CancelContractOrder(id string, options ...CancelContractOrde
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1043,12 +1043,12 @@ func (this *Kucoin) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Order,
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1083,12 +1083,12 @@ func (this *Kucoin) CancelAllSpotOrders(options ...CancelAllSpotOrdersOptions) (
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1117,12 +1117,12 @@ func (this *Kucoin) CancelAllContractOrders(options ...CancelAllContractOrdersOp
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1155,7 +1155,7 @@ func (this *Kucoin) CancelAllContractOrders(options ...CancelAllContractOrdersOp
  * Check fetchSpotOrdersByStatus(), fetchContractOrdersByStatus() and fetchUtaOrdersByStatus() for more details on the extra parameters that can be used in params
  * @returns An [array of order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func (this *Kucoin) FetchOrdersByStatus(status any, options ...FetchOrdersByStatusOptions) ([]Order, error) {
+func (this *Kucoin) FetchOrdersByStatus(status interface{}, options ...FetchOrdersByStatusOptions) ([]Order, error) {
 
     opts := FetchOrdersByStatusOptionsStruct{}
 
@@ -1163,22 +1163,22 @@ func (this *Kucoin) FetchOrdersByStatus(status any, options ...FetchOrdersByStat
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1214,7 +1214,7 @@ func (this *Kucoin) FetchOrdersByStatus(status any, options ...FetchOrdersByStat
  * @param {string} [params.marginMode] 'cross' or 'isolated', only for margin orders
  * @returns An [array of order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func (this *Kucoin) FetchSpotOrdersByStatus(status any, options ...FetchSpotOrdersByStatusOptions) ([]Order, error) {
+func (this *Kucoin) FetchSpotOrdersByStatus(status interface{}, options ...FetchSpotOrdersByStatusOptions) ([]Order, error) {
 
     opts := FetchSpotOrdersByStatusOptionsStruct{}
 
@@ -1222,22 +1222,22 @@ func (this *Kucoin) FetchSpotOrdersByStatus(status any, options ...FetchSpotOrde
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1265,7 +1265,7 @@ func (this *Kucoin) FetchSpotOrdersByStatus(status any, options ...FetchSpotOrde
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns An [array of order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func (this *Kucoin) FetchContractOrdersByStatus(status any, options ...FetchContractOrdersByStatusOptions) ([]Order, error) {
+func (this *Kucoin) FetchContractOrdersByStatus(status interface{}, options ...FetchContractOrdersByStatusOptions) ([]Order, error) {
 
     opts := FetchContractOrdersByStatusOptionsStruct{}
 
@@ -1273,22 +1273,22 @@ func (this *Kucoin) FetchContractOrdersByStatus(status any, options ...FetchCont
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1330,22 +1330,22 @@ func (this *Kucoin) FetchClosedOrders(options ...FetchClosedOrdersOptions) ([]Or
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1390,22 +1390,22 @@ func (this *Kucoin) FetchOpenOrders(options ...FetchOpenOrdersOptions) ([]Order,
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1446,12 +1446,12 @@ func (this *Kucoin) FetchOrder(id string, options ...FetchOrderOptions) (Order, 
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1490,12 +1490,12 @@ func (this *Kucoin) FetchSpotOrder(id string, options ...FetchSpotOrderOptions) 
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1524,12 +1524,12 @@ func (this *Kucoin) FetchContractOrder(id string, options ...FetchContractOrderO
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1564,22 +1564,22 @@ func (this *Kucoin) FetchOrderTrades(id string, options ...FetchOrderTradesOptio
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1613,22 +1613,22 @@ func (this *Kucoin) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade, err
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1662,22 +1662,22 @@ func (this *Kucoin) FetchMySpotTrades(options ...FetchMySpotTradesOptions) ([]Tr
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1708,22 +1708,22 @@ func (this *Kucoin) FetchMyContractTrades(options ...FetchMyContractTradesOption
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1755,17 +1755,17 @@ func (this *Kucoin) FetchTrades(symbol string, options ...FetchTradesOptions) ([
         opt(&opts)
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1795,7 +1795,7 @@ func (this *Kucoin) FetchTradingFee(symbol string, options ...FetchTradingFeeOpt
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1825,12 +1825,12 @@ func (this *Kucoin) Withdraw(code string, amount float64, address string, option
         opt(&opts)
     }
 
-    var tag any = nil
+    var tag interface{} = nil
     if opts.Tag != nil {
         tag = *opts.Tag
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1864,22 +1864,22 @@ func (this *Kucoin) FetchDeposits(options ...FetchDepositsOptions) ([]Transactio
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1907,22 +1907,22 @@ func (this *Kucoin) FetchContractDeposits(options ...FetchContractDepositsOption
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1956,22 +1956,22 @@ func (this *Kucoin) FetchWithdrawals(options ...FetchWithdrawalsOptions) ([]Tran
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1999,22 +1999,22 @@ func (this *Kucoin) FetchContractWithdrawals(options ...FetchContractWithdrawals
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2041,7 +2041,7 @@ func (this *Kucoin) FetchContractWithdrawals(options ...FetchContractWithdrawals
  * @param {boolean} [params.uta] set to true for the unified trading account (uta) endpoint, defaults to false
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func (this *Kucoin) FetchBalance(params ...any) (Balances, error) {
+func (this *Kucoin) FetchBalance(params ...interface{}) (Balances, error) {
     res := <- this.Core.FetchBalance(params...)
     if IsError(res) {
         return Balances{}, CreateReturnError(res)
@@ -2057,7 +2057,7 @@ func (this *Kucoin) FetchBalance(params ...any) (Balances, error) {
  * @param {object} [params.code] the unified currency code to fetch the balance for, if not provided, the default .options['fetchBalance']['code'] will be used
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func (this *Kucoin) FetchContractBalance(params ...any) (Balances, error) {
+func (this *Kucoin) FetchContractBalance(params ...interface{}) (Balances, error) {
     res := <- this.Core.FetchContractBalance(params...)
     if IsError(res) {
         return Balances{}, CreateReturnError(res)
@@ -2087,7 +2087,7 @@ func (this *Kucoin) Transfer(code string, amount float64, fromAccount string, to
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2120,7 +2120,7 @@ func (this *Kucoin) TransferClassic(code string, amount float64, fromAccount str
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2158,22 +2158,22 @@ func (this *Kucoin) FetchLedger(options ...FetchLedgerOptions) ([]LedgerEntry, e
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2205,27 +2205,27 @@ func (this *Kucoin) FetchBorrowInterest(options ...FetchBorrowInterestOptions) (
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2248,7 +2248,7 @@ func (this *Kucoin) FetchBorrowInterest(options ...FetchBorrowInterestOptions) (
  * @param {int} [params.until] the latest time in ms to fetch entries for
  * @returns {object} a dictionary of [borrow rate structures]{@link https://docs.ccxt.com/?id=borrow-rate-structure} indexed by the market symbol
  */
-func (this *Kucoin) FetchBorrowRateHistories(options ...FetchBorrowRateHistoriesOptions) (map[string]any, error) {
+func (this *Kucoin) FetchBorrowRateHistories(options ...FetchBorrowRateHistoriesOptions) (map[string]interface{}, error) {
 
     opts := FetchBorrowRateHistoriesOptionsStruct{}
 
@@ -2256,30 +2256,30 @@ func (this *Kucoin) FetchBorrowRateHistories(options ...FetchBorrowRateHistories
         opt(&opts)
     }
 
-    var codes any = nil
+    var codes interface{} = nil
     if opts.Codes != nil {
         codes = *opts.Codes
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchBorrowRateHistories(codes, since, limit, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -2294,7 +2294,7 @@ func (this *Kucoin) FetchBorrowRateHistories(options ...FetchBorrowRateHistories
  * @param {int} [params.until] the latest time in ms to fetch entries for
  * @returns {object[]} an array of [borrow rate structures]{@link https://docs.ccxt.com/?id=borrow-rate-structure}
  */
-func (this *Kucoin) FetchBorrowRateHistory(code string, options ...FetchBorrowRateHistoryOptions) (map[string]any, error) {
+func (this *Kucoin) FetchBorrowRateHistory(code string, options ...FetchBorrowRateHistoryOptions) (map[string]interface{}, error) {
 
     opts := FetchBorrowRateHistoryOptionsStruct{}
 
@@ -2302,52 +2302,25 @@ func (this *Kucoin) FetchBorrowRateHistory(code string, options ...FetchBorrowRa
         opt(&opts)
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchBorrowRateHistory(code, since, limit, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
-}
-/**
- * @method
- * @name kucoin#fetchCrossBorrowRate
- * @description fetch the rate of interest to borrow a currency for margin trading
- * @see https://www.kucoin.com/docs-new/rest/ua/get-borrowing-rates-and-limits
- * @param {string} code unified currency code
- * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} a [borrow rate structure]{@link https://docs.ccxt.com/?id=borrow-rate-structure}
- */
-func (this *Kucoin) FetchCrossBorrowRate(code string, options ...FetchCrossBorrowRateOptions) (CrossBorrowRate, error) {
-
-    opts := FetchCrossBorrowRateOptionsStruct{}
-
-    for _, opt := range options {
-        opt(&opts)
-    }
-
-    var params any = nil
-    if opts.Params != nil {
-        params = *opts.Params
-    }
-    res := <- this.Core.FetchCrossBorrowRate(code, params)
-    if IsError(res) {
-        return CrossBorrowRate{}, CreateReturnError(res)
-    }
-    return NewCrossBorrowRate(res), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -2358,7 +2331,7 @@ func (this *Kucoin) FetchCrossBorrowRate(code string, options ...FetchCrossBorro
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a list of [fee structures]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func (this *Kucoin) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]any, error) {
+func (this *Kucoin) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]interface{}, error) {
 
     opts := FetchDepositWithdrawFeesOptionsStruct{}
 
@@ -2366,20 +2339,20 @@ func (this *Kucoin) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFees
         opt(&opts)
     }
 
-    var codes any = nil
+    var codes interface{} = nil
     if opts.Codes != nil {
         codes = *opts.Codes
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchDepositWithdrawFees(codes, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return (res).(map[string]any), nil
+    return (res).(map[string]interface{}), nil
 }
 /**
  * @method
@@ -2398,7 +2371,7 @@ func (this *Kucoin) FetchLeverage(symbol string, options ...FetchLeverageOptions
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2412,19 +2385,16 @@ func (this *Kucoin) FetchLeverage(symbol string, options ...FetchLeverageOptions
  * @method
  * @name kucoin#setLeverage
  * @description set the level of leverage for a market
- * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage // margin
- * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage // contract
- * @see https://www.kucoin.com/docs-new/rest/ua/modify-cross-margin-leverage-uta // margin uta
- * @see https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta // contract uta
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage
+ * @see https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta
  * @param {int } [leverage] New leverage multiplier. Must be greater than 1 and up to two decimal places, and cannot be less than the user's current debt leverage or greater than the system's maximum leverage
  * @param {string} [symbol] unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @param {boolean} [params.uta] set to true for the unified trading account (uta)
- * @param {string} [params.marginMode] *spot non-uta only* 'cross' or 'isolated' default is 'cross'
- * @param {string} [params.code] *uta margin only* the unified currency code for the margin to set the leverage for
+ * @param {boolean} [params.uta] *contract markets only* set to true for the unified trading account (uta)
  * @returns {object} response from the exchange
  */
-func (this *Kucoin) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]any, error) {
+func (this *Kucoin) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]interface{}, error) {
 
     opts := SetLeverageOptionsStruct{}
 
@@ -2432,26 +2402,25 @@ func (this *Kucoin) SetLeverage(leverage int64, options ...SetLeverageOptions) (
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetLeverage(leverage, symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
  * @name kucoin#fetchFundingInterval
  * @description fetch the current funding rate interval
- * @see https://www.kucoin.com/docs-new/rest/ua/get-current-funding-rate
  * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -2465,7 +2434,7 @@ func (this *Kucoin) FetchFundingInterval(symbol string, options ...FetchFundingI
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2494,7 +2463,7 @@ func (this *Kucoin) FetchFundingRate(symbol string, options ...FetchFundingRateO
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2526,22 +2495,22 @@ func (this *Kucoin) FetchFundingRateHistory(options ...FetchFundingRateHistoryOp
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2560,7 +2529,6 @@ func (this *Kucoin) FetchFundingRateHistory(options ...FetchFundingRateHistoryOp
  * @param {int} [since] the earliest time in ms to fetch funding history for
  * @param {int} [limit] the maximum number of funding history structures to retrieve
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
  * @returns {object} a [funding history structure]{@link https://docs.ccxt.com/?id=funding-history-structure}
  */
 func (this *Kucoin) FetchFundingHistory(options ...FetchFundingHistoryOptions) ([]FundingHistory, error) {
@@ -2571,22 +2539,22 @@ func (this *Kucoin) FetchFundingHistory(options ...FetchFundingHistoryOptions) (
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2605,8 +2573,6 @@ func (this *Kucoin) FetchFundingHistory(options ...FetchFundingHistoryOptions) (
  * @param {string} symbol unified market symbol of the market the position is held in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
- * @param {integer} [params.pageSize] *uta only* page size for the uta endpoint (default 50, max 200)
- * @param {integer} [params.pageNumber] *uta only* page number for the uta endpoint (default 1)
  * @returns {object} a [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
 func (this *Kucoin) FetchPosition(symbol string, options ...FetchPositionOptions) (Position, error) {
@@ -2617,7 +2583,7 @@ func (this *Kucoin) FetchPosition(symbol string, options ...FetchPositionOptions
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2636,8 +2602,6 @@ func (this *Kucoin) FetchPosition(symbol string, options ...FetchPositionOptions
  * @param {string[]|undefined} symbols list of unified market symbols
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
- * @param {integer} [params.pageSize] *uta only* page size for the uta endpoint (default 50, max 200)
- * @param {integer} [params.pageNumber] *uta only* page number for the uta endpoint (default 1)
  * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
 func (this *Kucoin) FetchPositions(options ...FetchPositionsOptions) ([]Position, error) {
@@ -2648,12 +2612,12 @@ func (this *Kucoin) FetchPositions(options ...FetchPositionsOptions) ([]Position
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2686,22 +2650,22 @@ func (this *Kucoin) FetchPositionsHistory(options ...FetchPositionsHistoryOption
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2723,7 +2687,7 @@ func (this *Kucoin) FetchPositionsHistory(options ...FetchPositionsHistoryOption
  * @param {string[]} [params.clientOrderIds] client order ids
  * @param {boolean} [params.uta] set to true to use the unified trading account (uta) endpoint, defaults to false for the contract orders
  * @param {string} [params.accountMode] *for uta endpoint only* 'unified' or 'classic' (default is 'unified')
- * @param {string} [params.marginMode] *for margin orders only* 'cross' or 'isolated' (unified accountMode supports cross margin only)
+ * @param {string} [params.marginMode] *for margin orders only* 'cross' or 'isolated'
  * @returns {object} an list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
 func (this *Kucoin) CancelOrders(ids []string, options ...CancelOrdersOptions) ([]Order, error) {
@@ -2734,12 +2698,12 @@ func (this *Kucoin) CancelOrders(ids []string, options ...CancelOrdersOptions) (
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2766,7 +2730,7 @@ func (this *Kucoin) FetchMarginMode(symbol string, options ...FetchMarginModeOpt
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2786,7 +2750,7 @@ func (this *Kucoin) FetchMarginMode(symbol string, options ...FetchMarginModeOpt
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} response from the exchange
  */
-func (this *Kucoin) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]any, error) {
+func (this *Kucoin) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]interface{}, error) {
 
     opts := SetMarginModeOptionsStruct{}
 
@@ -2794,20 +2758,20 @@ func (this *Kucoin) SetMarginMode(marginMode string, options ...SetMarginModeOpt
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetMarginMode(marginMode, symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -2819,7 +2783,7 @@ func (this *Kucoin) SetMarginMode(marginMode string, options ...SetMarginModeOpt
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a response from the exchange
  */
-func (this *Kucoin) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]any, error) {
+func (this *Kucoin) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]interface{}, error) {
 
     opts := SetPositionModeOptionsStruct{}
 
@@ -2827,20 +2791,20 @@ func (this *Kucoin) SetPositionMode(hedged bool, options ...SetPositionModeOptio
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetPositionMode(hedged, symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -2851,7 +2815,7 @@ func (this *Kucoin) SetPositionMode(hedged bool, options ...SetPositionModeOptio
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an object detailing whether the market is in hedged or one-way mode
  */
-func (this *Kucoin) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]any, error) {
+func (this *Kucoin) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]interface{}, error) {
 
     opts := FetchPositionModeOptionsStruct{}
 
@@ -2859,20 +2823,20 @@ func (this *Kucoin) FetchPositionMode(options ...FetchPositionModeOptions) (map[
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchPositionMode(symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -2892,7 +2856,7 @@ func (this *Kucoin) FetchMarketLeverageTiers(symbol string, options ...FetchMark
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2919,12 +2883,12 @@ func (this *Kucoin) FetchLeverageTiers(options ...FetchLeverageTiersOptions) (Le
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2951,12 +2915,12 @@ func (this *Kucoin) FetchOpenInterests(options ...FetchOpenInterestsOptions) (Op
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2988,22 +2952,22 @@ func (this *Kucoin) FetchOpenInterestHistory(symbol string, options ...FetchOpen
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -3034,22 +2998,22 @@ func (this *Kucoin) FetchTransfers(options ...FetchTransfersOptions) ([]Transfer
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -3067,12 +3031,12 @@ func (this *Kucoin) FetchPositionsADLRank(options ...FetchPositionsADLRankOption
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -3084,9 +3048,9 @@ func (this *Kucoin) FetchPositionsADLRank(options ...FetchPositionsADLRankOption
 }
 // missing typed methods from base
 //nolint
-func (this *Kucoin) LoadMarkets(params ...any) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
+func (this *Kucoin) LoadMarkets(params ...interface{}) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
 func (this *Kucoin) CancelOrdersWithClientOrderIds(clientOrderIds []string, options ...CancelOrdersWithClientOrderIdsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersWithClientOrderIds(clientOrderIds, options...)}
-func (this *Kucoin) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]any, error) {return this.exchangeTyped.CancelAllOrdersAfter(timeout, options...)}
+func (this *Kucoin) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]interface{}, error) {return this.exchangeTyped.CancelAllOrdersAfter(timeout, options...)}
 func (this *Kucoin) CancelOrderWithClientOrderId(clientOrderId string, options ...CancelOrderWithClientOrderIdOptions) (Order, error) {return this.exchangeTyped.CancelOrderWithClientOrderId(clientOrderId, options...)}
 func (this *Kucoin) CancelOrdersForSymbols(orders []CancellationRequest, options ...CancelOrdersForSymbolsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersForSymbols(orders, options...)}
 func (this *Kucoin) CreateConvertTrade(id string, fromCode string, toCode string, options ...CreateConvertTradeOptions) (Conversion, error) {return this.exchangeTyped.CreateConvertTrade(id, fromCode, toCode, options...)}
@@ -3114,22 +3078,23 @@ func (this *Kucoin) EditOrderWithClientOrderId(clientOrderId string, symbol stri
 func (this *Kucoin) EditOrders(orders []OrderRequest, options ...EditOrdersOptions) ([]Order, error) {return this.exchangeTyped.EditOrders(orders, options...)}
 func (this *Kucoin) FetchAllGreeks(options ...FetchAllGreeksOptions) ([]Greeks, error) {return this.exchangeTyped.FetchAllGreeks(options...)}
 func (this *Kucoin) FetchBidsAsks(options ...FetchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.FetchBidsAsks(options...)}
-func (this *Kucoin) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]any, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
+func (this *Kucoin) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
 func (this *Kucoin) FetchCanceledAndClosedOrders(options ...FetchCanceledAndClosedOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchCanceledAndClosedOrders(options...)}
-func (this *Kucoin) FetchConvertCurrencies(params ...any) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
+func (this *Kucoin) FetchConvertCurrencies(params ...interface{}) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
 func (this *Kucoin) FetchConvertQuote(fromCode string, toCode string, options ...FetchConvertQuoteOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertQuote(fromCode, toCode, options...)}
 func (this *Kucoin) FetchConvertTrade(id string, options ...FetchConvertTradeOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertTrade(id, options...)}
 func (this *Kucoin) FetchConvertTradeHistory(options ...FetchConvertTradeHistoryOptions) ([]Conversion, error) {return this.exchangeTyped.FetchConvertTradeHistory(options...)}
-func (this *Kucoin) FetchCrossBorrowRates(params ...any) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
+func (this *Kucoin) FetchCrossBorrowRate(code string, options ...FetchCrossBorrowRateOptions) (CrossBorrowRate, error) {return this.exchangeTyped.FetchCrossBorrowRate(code, options...)}
+func (this *Kucoin) FetchCrossBorrowRates(params ...interface{}) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
 func (this *Kucoin) FetchDepositAddresses(options ...FetchDepositAddressesOptions) ([]DepositAddress, error) {return this.exchangeTyped.FetchDepositAddresses(options...)}
 func (this *Kucoin) FetchDepositsWithdrawals(options ...FetchDepositsWithdrawalsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchDepositsWithdrawals(options...)}
-func (this *Kucoin) FetchFreeBalance(params ...any) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
+func (this *Kucoin) FetchFreeBalance(params ...interface{}) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
 func (this *Kucoin) FetchFundingIntervals(options ...FetchFundingIntervalsOptions) (FundingRates, error) {return this.exchangeTyped.FetchFundingIntervals(options...)}
 func (this *Kucoin) FetchFundingRates(options ...FetchFundingRatesOptions) (FundingRates, error) {return this.exchangeTyped.FetchFundingRates(options...)}
 func (this *Kucoin) FetchGreeks(symbol string, options ...FetchGreeksOptions) (Greeks, error) {return this.exchangeTyped.FetchGreeks(symbol, options...)}
 func (this *Kucoin) FetchIndexOHLCV(symbol string, options ...FetchIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchIndexOHLCV(symbol, options...)}
 func (this *Kucoin) FetchIsolatedBorrowRate(symbol string, options ...FetchIsolatedBorrowRateOptions) (IsolatedBorrowRate, error) {return this.exchangeTyped.FetchIsolatedBorrowRate(symbol, options...)}
-func (this *Kucoin) FetchIsolatedBorrowRates(params ...any) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
+func (this *Kucoin) FetchIsolatedBorrowRates(params ...interface{}) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
 func (this *Kucoin) FetchLastPrices(options ...FetchLastPricesOptions) (LastPrices, error) {return this.exchangeTyped.FetchLastPrices(options...)}
 func (this *Kucoin) FetchLedgerEntry(id string, options ...FetchLedgerEntryOptions) (LedgerEntry, error) {return this.exchangeTyped.FetchLedgerEntry(id, options...)}
 func (this *Kucoin) FetchLeverages(options ...FetchLeveragesOptions) (Leverages, error) {return this.exchangeTyped.FetchLeverages(options...)}
@@ -3147,14 +3112,14 @@ func (this *Kucoin) FetchOrderWithClientOrderId(clientOrderId string, options ..
 func (this *Kucoin) FetchOrderBooks(options ...FetchOrderBooksOptions) (OrderBooks, error) {return this.exchangeTyped.FetchOrderBooks(options...)}
 func (this *Kucoin) FetchOrders(options ...FetchOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchOrders(options...)}
 func (this *Kucoin) FetchOrderStatus(id string, options ...FetchOrderStatusOptions) (string, error) {return this.exchangeTyped.FetchOrderStatus(id, options...)}
-func (this *Kucoin) FetchPaymentMethods(params ...any) (map[string]any, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
+func (this *Kucoin) FetchPaymentMethods(params ...interface{}) (map[string]interface{}, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
 func (this *Kucoin) FetchPositionHistory(symbol string, options ...FetchPositionHistoryOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionHistory(symbol, options...)}
 func (this *Kucoin) FetchPositionsForSymbol(symbol string, options ...FetchPositionsForSymbolOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsForSymbol(symbol, options...)}
 func (this *Kucoin) FetchPositionsRisk(options ...FetchPositionsRiskOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsRisk(options...)}
 func (this *Kucoin) FetchPremiumIndexOHLCV(symbol string, options ...FetchPremiumIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchPremiumIndexOHLCV(symbol, options...)}
-func (this *Kucoin) FetchTradingFees(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
-func (this *Kucoin) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]any, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
-func (this *Kucoin) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
+func (this *Kucoin) FetchTradingFees(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
+func (this *Kucoin) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
+func (this *Kucoin) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
 func (this *Kucoin) FetchTransactions(options ...FetchTransactionsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchTransactions(options...)}
 func (this *Kucoin) FetchTransfer(id string, options ...FetchTransferOptions) (TransferEntry, error) {return this.exchangeTyped.FetchTransfer(id, options...)}
 func (this *Kucoin) SetMargin(symbol string, amount float64, options ...SetMarginOptions) (MarginModification, error) {return this.exchangeTyped.SetMargin(symbol, amount, options...)}
@@ -3182,9 +3147,9 @@ func (this *Kucoin) CreateTrailingAmountOrderWs(symbol string, typeVar string, s
 func (this *Kucoin) CreateTrailingPercentOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTrailingPercentOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTrailingPercentOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Kucoin) CreateTriggerOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTriggerOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTriggerOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Kucoin) EditOrderWs(id string, symbol string, typeVar string, side string, options ...EditOrderWsOptions) (Order, error) {return this.exchangeTyped.EditOrderWs(id, symbol, typeVar, side, options...)}
-func (this *Kucoin) FetchBalanceWs(params ...any) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
+func (this *Kucoin) FetchBalanceWs(params ...interface{}) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
 func (this *Kucoin) FetchClosedOrdersWs(options ...FetchClosedOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchClosedOrdersWs(options...)}
-func (this *Kucoin) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
+func (this *Kucoin) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
 func (this *Kucoin) FetchMyTradesWs(options ...FetchMyTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchMyTradesWs(options...)}
 func (this *Kucoin) FetchOHLCVWs(symbol string, options ...FetchOHLCVWsOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchOHLCVWs(symbol, options...)}
 func (this *Kucoin) FetchOpenOrdersWs(options ...FetchOpenOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchOpenOrdersWs(options...)}
@@ -3198,20 +3163,20 @@ func (this *Kucoin) FetchPositionWs(symbol string, options ...FetchPositionWsOpt
 func (this *Kucoin) FetchTickersWs(options ...FetchTickersWsOptions) (Tickers, error) {return this.exchangeTyped.FetchTickersWs(options...)}
 func (this *Kucoin) FetchTickerWs(symbol string, options ...FetchTickerWsOptions) (Ticker, error) {return this.exchangeTyped.FetchTickerWs(symbol, options...)}
 func (this *Kucoin) FetchTradesWs(symbol string, options ...FetchTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchTradesWs(symbol, options...)}
-func (this *Kucoin) FetchTradingFeesWs(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
-func (this *Kucoin) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
-func (this *Kucoin) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (any, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
-func (this *Kucoin) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (any, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
-func (this *Kucoin) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
-func (this *Kucoin) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
-func (this *Kucoin) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
-func (this *Kucoin) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
-func (this *Kucoin) UnWatchOrders(options ...UnWatchOrdersOptions) (any, error) {return this.exchangeTyped.UnWatchOrders(options...)}
-func (this *Kucoin) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (any, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
-func (this *Kucoin) UnWatchTickers(options ...UnWatchTickersOptions) (any, error) {return this.exchangeTyped.UnWatchTickers(options...)}
-func (this *Kucoin) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (any, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
-func (this *Kucoin) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
-func (this *Kucoin) WatchBalance(params ...any) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
+func (this *Kucoin) FetchTradingFeesWs(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
+func (this *Kucoin) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
+func (this *Kucoin) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (interface{}, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
+func (this *Kucoin) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
+func (this *Kucoin) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
+func (this *Kucoin) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
+func (this *Kucoin) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
+func (this *Kucoin) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
+func (this *Kucoin) UnWatchOrders(options ...UnWatchOrdersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrders(options...)}
+func (this *Kucoin) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
+func (this *Kucoin) UnWatchTickers(options ...UnWatchTickersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTickers(options...)}
+func (this *Kucoin) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
+func (this *Kucoin) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
+func (this *Kucoin) WatchBalance(params ...interface{}) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
 func (this *Kucoin) WatchBidsAsks(options ...WatchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.WatchBidsAsks(options...)}
 func (this *Kucoin) WatchLiquidations(symbol string, options ...WatchLiquidationsOptions) ([]Liquidation, error) {return this.exchangeTyped.WatchLiquidations(symbol, options...)}
 func (this *Kucoin) WatchMarkPrice(symbol string, options ...WatchMarkPriceOptions) (Ticker, error) {return this.exchangeTyped.WatchMarkPrice(symbol, options...)}

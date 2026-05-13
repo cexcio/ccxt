@@ -12,14 +12,12 @@
 * [fetchTrades](#fetchtrades)
 * [fetchMyTrades](#fetchmytrades)
 * [fetchOrderBook](#fetchorderbook)
+* [fetchFundingRateHistory](#fetchfundingratehistory)
 * [fetchTicker](#fetchticker)
 * [fetchTickers](#fetchtickers)
-* [fetchLastPrices](#fetchlastprices)
-* [fetchBidsAsks](#fetchbidsasks)
 * [fetchFundingRate](#fetchfundingrate)
 * [fetchFundingRates](#fetchfundingrates)
 * [fetchFundingIntervals](#fetchfundingintervals)
-* [fetchFundingRateHistory](#fetchfundingratehistory)
 * [fetchBalance](#fetchbalance)
 * [setMarginMode](#setmarginmode)
 * [fetchPositionMode](#fetchpositionmode)
@@ -46,7 +44,6 @@
 * [fetchPositions](#fetchpositions)
 * [withdraw](#withdraw)
 * [transfer](#transfer)
-* [signIn](#signin)
 * [watchTicker](#watchticker)
 * [unWatchTicker](#unwatchticker)
 * [watchTickers](#watchtickers)
@@ -84,8 +81,8 @@ fetches all available currencies on an exchange
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#trading-specification-information
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#exchange-information
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#trading-specification-information
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#exchange-information
 
 
 | Param | Type | Required | Description |
@@ -108,8 +105,8 @@ retrieves data on all markets for bigone
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#trading-specification-information
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#exchange-information
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#trading-specification-information
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#exchange-information
 
 
 | Param | Type | Required | Description |
@@ -130,11 +127,7 @@ fetches the current integer timestamp in milliseconds from the exchange server
 **Kind**: instance method of [<code>aster</code>](#aster)  
 **Returns**: <code>int</code> - the current integer timestamp in milliseconds from the exchange server
 
-**See**
-
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#get-server-time
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#check-server-time
-
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#check-server-time  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -156,10 +149,8 @@ fetches historical candlestick data containing the open, high, low, and close pr
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#k-line-data
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#klinecandlestick-data
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#index-price-klinecandlestick-data
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#mark-price-klinecandlestick-data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#k-line-data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#klinecandlestick-data
 
 
 | Param | Type | Required | Description |
@@ -184,14 +175,12 @@ aster.fetchOHLCV (symbol, timeframe[, since, limit, params])
 get the list of most recent trades for a particular symbol
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;Trade&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=public-trades)
+**Returns**: <code>Array&lt;Trade&gt;</code> - a list of [trade structures](https://docs.ccxt.com/#/?id=public-trades)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#recent-trades-list
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#recent-trades-aggregated
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#recent-trades-list
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#compressedaggregate-trades-list
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#recent-trades-list
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#recent-trades-list
 
 
 | Param | Type | Required | Description |
@@ -213,12 +202,12 @@ aster.fetchTrades (symbol[, since, limit, params])
 fetch all trades made by the user
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=trade-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/#/?id=trade-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#account-trade-history-user_data
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#account-trade-list-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#account-trade-history-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#account-trade-list-user_data
 
 
 | Param | Type | Required | Description |
@@ -241,12 +230,12 @@ aster.fetchMyTrades ([symbol, since, limit, params])
 fetches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/?id=order-book-structure) indexed by market symbols
+**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/#/?id=order-book-structure) indexed by market symbols
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#depth-information
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#order-book
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#depth-information
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#order-book
 
 
 | Param | Type | Required | Description |
@@ -261,18 +250,42 @@ aster.fetchOrderBook (symbol[, limit, params])
 ```
 
 
+<a name="fetchFundingRateHistory" id="fetchfundingratehistory"></a>
+
+### fetchFundingRateHistory{docsify-ignore}
+fetches historical funding rate prices
+
+**Kind**: instance method of [<code>aster</code>](#aster)  
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [funding rate structures](https://docs.ccxt.com/#/?id=funding-rate-history-structure)
+
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#get-funding-rate-history  
+
+| Param | Type | Required | Description |
+| --- | --- | --- | --- |
+| symbol | <code>string</code> | Yes | unified symbol of the market to fetch the funding rate history for |
+| since | <code>int</code> | No | timestamp in ms of the earliest funding rate to fetch |
+| limit | <code>int</code> | No | the maximum amount of [funding rate structures](https://docs.ccxt.com/#/?id=funding-rate-history-structure) to fetch |
+| params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
+| params.until | <code>int</code> | No | timestamp in ms of the latest funding rate |
+
+
+```javascript
+aster.fetchFundingRateHistory (symbol[, since, limit, params])
+```
+
+
 <a name="fetchTicker" id="fetchticker"></a>
 
 ### fetchTicker{docsify-ignore}
 fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#24h-price-change
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#24hr-ticker-price-change-statistics
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#24h-price-change
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#24hr-ticker-price-change-statistics
 
 
 | Param | Type | Required | Description |
@@ -292,12 +305,12 @@ aster.fetchTicker (symbol[, params])
 fetches price tickers for multiple markets, statistical information calculated over the past 24 hours for each market
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - an array of [ticker structures](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - an array of [ticker structures](https://docs.ccxt.com/#/?id=ticker-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#24h-price-change
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#24hr-ticker-price-change-statistics
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#24h-price-change
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#24hr-ticker-price-change-statistics
 
 
 | Param | Type | Required | Description |
@@ -313,67 +326,15 @@ aster.fetchTickers (symbols[, params])
 ```
 
 
-<a name="fetchLastPrices" id="fetchlastprices"></a>
-
-### fetchLastPrices{docsify-ignore}
-fetches the last price for multiple markets
-
-**Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a dictionary of lastprices structures
-
-**See**
-
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#latest-price
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#symbol-price-ticker
-
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| symbols | <code>Array&lt;string&gt;</code>, <code>undefined</code> | Yes | unified symbols of the markets to fetch the last prices |
-| params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
-| params.subType | <code>string</code> | No | "linear" or "inverse" |
-
-
-```javascript
-aster.fetchLastPrices (symbols[, params])
-```
-
-
-<a name="fetchBidsAsks" id="fetchbidsasks"></a>
-
-### fetchBidsAsks{docsify-ignore}
-fetches the bid and ask price and volume for multiple markets
-
-**Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a dictionary of [ticker structures](https://docs.ccxt.com/?id=ticker-structure)
-
-**See**
-
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#current-best-order
-- https://asterdex.github.io/aster-api-website/futures-v3/market-data/#symbol-order-book-ticker
-
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| symbols | <code>Array&lt;string&gt;</code>, <code>undefined</code> | Yes | unified symbols of the markets to fetch the bids and asks for, all markets are returned if not assigned |
-| params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
-| params.subType | <code>string</code> | No | "linear" or "inverse" |
-
-
-```javascript
-aster.fetchBidsAsks (symbols[, params])
-```
-
-
 <a name="fetchFundingRate" id="fetchfundingrate"></a>
 
 ### fetchFundingRate{docsify-ignore}
 fetch the current funding rate
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [funding rate structure](https://docs.ccxt.com/?id=funding-rate-structure)
+**Returns**: <code>object</code> - a [funding rate structure](https://docs.ccxt.com/#/?id=funding-rate-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/market-data/#symbol-price-ticker  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#mark-price  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -392,9 +353,9 @@ aster.fetchFundingRate (symbol[, params])
 fetch the current funding rate for multiple symbols
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [funding rate structures](https://docs.ccxt.com/?id=funding-rate-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [funding rate structures](https://docs.ccxt.com/#/?id=funding-rate-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/market-data/#symbol-price-ticker  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#24hr-ticker-price-change-statistics  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -413,9 +374,9 @@ aster.fetchFundingRates ([symbols, params])
 fetch the funding rate interval for multiple markets
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [funding rate structures](https://docs.ccxt.com/?id=funding-rate-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [funding rate structures](https://docs.ccxt.com/#/?id=funding-rate-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/market-data/#get-funding-rate-config  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#get-funding-rate-config  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -428,42 +389,18 @@ aster.fetchFundingIntervals ([symbols, params])
 ```
 
 
-<a name="fetchFundingRateHistory" id="fetchfundingratehistory"></a>
-
-### fetchFundingRateHistory{docsify-ignore}
-fetches historical funding rate prices
-
-**Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [funding rate structures](https://docs.ccxt.com/?id=funding-rate-history-structure)
-
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/market-data/#get-funding-rate-history  
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| symbol | <code>string</code> | Yes | unified symbol of the market to fetch the funding rate history for |
-| since | <code>int</code> | No | timestamp in ms of the earliest funding rate to fetch |
-| limit | <code>int</code> | No | the maximum amount of [funding rate structures](https://docs.ccxt.com/?id=funding-rate-history-structure) to fetch |
-| params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
-| params.until | <code>int</code> | No | timestamp in ms of the latest funding rate |
-
-
-```javascript
-aster.fetchFundingRateHistory (symbol[, since, limit, params])
-```
-
-
 <a name="fetchBalance" id="fetchbalance"></a>
 
 ### fetchBalance{docsify-ignore}
 query for balance and get the amount of funds available for trading or funds locked in orders
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [balance structure](https://docs.ccxt.com/?id=balance-structure)
+**Returns**: <code>object</code> - a [balance structure](https://docs.ccxt.com/#/?id=balance-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#account-information-user_data
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#futures-account-balance-v3-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#account-information-v4-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#account-information-user_data
 
 
 | Param | Type | Required | Description |
@@ -486,7 +423,7 @@ set margin mode to 'cross' or 'isolated'
 **Kind**: instance method of [<code>aster</code>](#aster)  
 **Returns**: <code>object</code> - response from the exchange
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#change-margin-type-trade  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#change-margin-type-trade  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -508,7 +445,7 @@ fetchs the position mode, hedged or one way, hedged for aster is set identically
 **Kind**: instance method of [<code>aster</code>](#aster)  
 **Returns**: <code>object</code> - an object detailing whether the market is in hedged or one-way mode
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#get-current-position-modeuser_data  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#get-current-position-modeuser_data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -529,7 +466,7 @@ set hedged to true or false for a market
 **Kind**: instance method of [<code>aster</code>](#aster)  
 **Returns**: <code>object</code> - response from the exchange
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#change-position-modetrade  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#change-position-modetrade  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -549,12 +486,12 @@ aster.setPositionMode (hedged, symbol[, params])
 fetch the trading fees for a market
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [fee structure](https://docs.ccxt.com/?id=fee-structure)
+**Returns**: <code>object</code> - a [fee structure](https://docs.ccxt.com/#/?id=fee-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/market-data/#get-symbol-fees
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#user-commission-rate-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#get-symbol-fees
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#user-commission-rate-user_data
 
 
 | Param | Type | Required | Description |
@@ -574,12 +511,12 @@ aster.fetchTradingFee (symbol[, params])
 fetches information on an order made by the user
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/#/?id=order-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#query-order-user_data
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#query-order-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#query-order-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#query-order-user_data
 
 
 | Param | Type | Required | Description |
@@ -601,13 +538,9 @@ aster.fetchOrder (id, symbol[, params])
 fetch an open order by the id
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/#/?id=order-structure)
 
-**See**
-
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#query-current-open-order-user_data
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#query-current-open-order-user_data
-
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#query-current-open-order-user_data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -627,12 +560,12 @@ aster.fetchOpenOrder (id, symbol[, params])
 fetches information on multiple orders made by the user
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;Order&gt;</code> - a list of [order structures](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>Array&lt;Order&gt;</code> - a list of [order structures](https://docs.ccxt.com/#/?id=order-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#query-all-orders-user_data
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#all-orders-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#query-all-orders-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#all-orders-user_data
 
 
 | Param | Type | Required | Description |
@@ -655,12 +588,12 @@ aster.fetchOrders (symbol[, since, limit, params])
 fetch all unfilled currently open orders
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;Order&gt;</code> - a list of [order structures](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>Array&lt;Order&gt;</code> - a list of [order structures](https://docs.ccxt.com/#/?id=order-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#current-open-orders-user_data
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#current-all-open-orders-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#current-open-orders-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#current-all-open-orders-user_data
 
 
 | Param | Type | Required | Description |
@@ -684,12 +617,12 @@ aster.fetchOpenOrders (symbol[, since, limit, params])
 create a trade order
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/#/?id=order-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#place-order-trade
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#new-order-trade
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#place-order-trade
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#new-order--trade
 
 
 | Param | Type | Required | Description |
@@ -721,9 +654,9 @@ aster.createOrder (symbol, type, side, amount[, price, params])
 create a list of trade orders
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/#/?id=order-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#new-order-trade  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#place-multiple-orders--trade  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -742,12 +675,12 @@ aster.createOrders (orders[, params])
 cancel all open orders in a market
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [order structures](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [order structures](https://docs.ccxt.com/#/?id=order-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#cancel-all-open-orders-trade
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#current-all-open-orders-user_data
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#cancel-all-open-orders-trade
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#cancel-all-open-orders-trade
 
 
 | Param | Type | Required | Description |
@@ -767,12 +700,12 @@ aster.cancelAllOrders (symbol[, params])
 cancels an open order
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - An [order structure](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - An [order structure](https://docs.ccxt.com/#/?id=order-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#cancel-order-trade
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#cancel-order-trade
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#cancel-order-trade
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#cancel-order-trade
 
 
 | Param | Type | Required | Description |
@@ -793,13 +726,9 @@ aster.cancelOrder (id, symbol[, params])
 cancel multiple orders
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - an list of [order structures](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - an list of [order structures](https://docs.ccxt.com/#/?id=order-structure)
 
-**See**
-
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#cancel-all-open-orders-trade
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#cancel-multiple-orders-trade
-
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#cancel-multiple-orders-trade  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -823,7 +752,7 @@ set the level of leverage for a market
 **Kind**: instance method of [<code>aster</code>](#aster)  
 **Returns**: <code>object</code> - response from the exchange
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#change-initial-leverage-trade  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#change-initial-leverage-trade  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -843,9 +772,9 @@ aster.setLeverage (leverage, symbol[, params])
 fetch the set leverage for all markets
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a list of [leverage structures](https://docs.ccxt.com/?id=leverage-structure)
+**Returns**: <code>object</code> - a list of [leverage structures](https://docs.ccxt.com/#/?id=leverage-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#position-information-v3-user_data  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#position-information-v2-user_data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -864,9 +793,9 @@ aster.fetchLeverages ([symbols, params])
 fetches margin mode of the user
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a list of [margin mode structures](https://docs.ccxt.com/?id=margin-mode-structure)
+**Returns**: <code>object</code> - a list of [margin mode structures](https://docs.ccxt.com/#/?id=margin-mode-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#position-information-v3-user_data  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#position-information-v2-user_data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -885,9 +814,9 @@ aster.fetchMarginModes (symbols[, params])
 fetches the history of margin added or reduced from contract isolated positions
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [margin structures](https://docs.ccxt.com/?id=margin-loan-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [margin structures](https://docs.ccxt.com/#/?id=margin-loan-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#get-position-margin-change-history-trade  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#get-position-margin-change-history-trade  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -910,9 +839,9 @@ aster.fetchMarginAdjustmentHistory (symbol[, type, since, limit, params])
 remove margin from a position
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [margin structure](https://docs.ccxt.com/?id=reduce-margin-structure)
+**Returns**: <code>object</code> - a [margin structure](https://docs.ccxt.com/#/?id=reduce-margin-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#modify-isolated-position-margin-trade  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#modify-isolated-position-margin-trade  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -932,9 +861,9 @@ aster.reduceMargin (symbol, amount[, params])
 add margin
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [margin structure](https://docs.ccxt.com/?id=add-margin-structure)
+**Returns**: <code>object</code> - a [margin structure](https://docs.ccxt.com/#/?id=add-margin-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#modify-isolated-position-margin-trade  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#modify-isolated-position-margin-trade  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -954,9 +883,9 @@ aster.addMargin (symbol, amount[, params])
 fetch the history of funding payments paid and received on this account
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [funding history structure](https://docs.ccxt.com/?id=funding-history-structure)
+**Returns**: <code>object</code> - a [funding history structure](https://docs.ccxt.com/#/?id=funding-history-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#get-income-historyuser_data  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#get-income-historyuser_data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -980,9 +909,9 @@ aster.fetchFundingHistory (symbol[, since, limit, params])
 fetch the history of changes, actions done by the user or operations that altered the balance of the user
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ledger structure](https://docs.ccxt.com/?id=ledger)
+**Returns**: <code>object</code> - a [ledger structure](https://docs.ccxt.com/#/?id=ledger)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#get-income-historyuser_data  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#get-income-historyuser_data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1006,7 +935,7 @@ fetch positions risk
 **Kind**: instance method of [<code>aster</code>](#aster)  
 **Returns**: <code>object</code> - data on the positions risk
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#position-information-v3-user_data  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#position-information-v2-user_data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1025,9 +954,9 @@ aster.fetchPositionsRisk (symbols[, params])
 fetch all open positions
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [position structure](https://docs.ccxt.com/?id=position-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [position structure](https://docs.ccxt.com/#/?id=position-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#position-information-v3-user_data  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#position-information-v2-user_data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1047,14 +976,9 @@ aster.fetchPositions ([symbols, params])
 make a withdrawal
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [transaction structure](https://docs.ccxt.com/?id=transaction-structure)
+**Returns**: <code>object</code> - a [transaction structure](https://docs.ccxt.com/#/?id=transaction-structure)
 
-**See**
-
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#withdraw-user_data
-- https://asterdex.github.io/aster-api-website/futures-v3/deposit%26withdrawal/#withdraw-by-fapiv3-evm-futures
-- https://asterdex.github.io/aster-api-website/futures-v3/deposit%26withdrawal/#withdraw-by-fapiv3-evm-spot
-
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#withdraw-user_data  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1076,12 +1000,12 @@ aster.withdraw (code, amount, address, tag[, params])
 transfer currency internally between wallets on the same account
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [transfer structure](https://docs.ccxt.com/?id=transfer-structure)
+**Returns**: <code>object</code> - a [transfer structure](https://docs.ccxt.com/#/?id=transfer-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/account%26trades/#perp-spot-transfer-trade
-- https://asterdex.github.io/aster-api-website/futures-v3/account%26trades/#transfer-between-futures-and-spot-transfer
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#transfer-asset-to-other-address-trade
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#transfer-between-futures-and-spot-user_data
 
 
 | Param | Type | Required | Description |
@@ -1098,44 +1022,18 @@ aster.transfer (code, amount, fromAccount, toAccount[, params])
 ```
 
 
-<a name="signIn" id="signin"></a>
-
-### signIn{docsify-ignore}
-sign in, must be called prior to using other authenticated methods
-
-**Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: response from exchange
-
-**See**: https://asterdex.github.io/aster-api-website/asterCode/integration-flow/  
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
-
-
-```javascript
-aster.signIn ([params])
-```
-
-
 <a name="watchTicker" id="watchticker"></a>
 
 ### watchTicker{docsify-ignore}
 watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#simplified-ticker-by-symbol
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#compact-tickers-for-all-symbols-in-the-entire-market
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#full-ticker-per-symbol
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#complete-ticker-for-all-trading-pairs-on-the-entire-market
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#individual-symbol-mini-ticker-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-market-mini-tickers-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#individual-symbol-ticker-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-market-tickers-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#full-ticker-per-symbol
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#individual-symbol-ticker-streams
 
 
 | Param | Type | Required | Description |
@@ -1155,18 +1053,12 @@ aster.watchTicker (symbol[, params])
 unWatches a price ticker
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#simplified-ticker-by-symbol
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#compact-tickers-for-all-symbols-in-the-entire-market
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#full-ticker-per-symbol
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#complete-ticker-for-all-trading-pairs-on-the-entire-market
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#individual-symbol-mini-ticker-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-market-mini-tickers-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#individual-symbol-ticker-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-market-tickers-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#full-ticker-per-symbol
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#individual-symbol-ticker-streams
 
 
 | Param | Type | Required | Description |
@@ -1186,14 +1078,12 @@ aster.unWatchTicker (symbol[, params])
 watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#compact-tickers-for-all-symbols-in-the-entire-market
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#complete-ticker-for-all-trading-pairs-on-the-entire-market
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-market-mini-tickers-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-market-tickers-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#full-ticker-per-symbol
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#individual-symbol-ticker-streams
 
 
 | Param | Type | Required | Description |
@@ -1213,14 +1103,12 @@ aster.watchTickers (symbols[, params])
 unWatches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#compact-tickers-for-all-symbols-in-the-entire-market
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#complete-ticker-for-all-trading-pairs-on-the-entire-market
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-market-mini-tickers-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-market-tickers-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#full-ticker-per-symbol
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#individual-symbol-ticker-streams
 
 
 | Param | Type | Required | Description |
@@ -1240,13 +1128,9 @@ aster.unWatchTickers (symbols[, params])
 watches a mark price for a specific market
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
-**See**
-
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#mark-price-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#mark-price-stream-for-all-market
-
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#mark-price-stream  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1266,13 +1150,9 @@ aster.watchMarkPrice (symbol[, params])
 unWatches a mark price for a specific market
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
-**See**
-
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#mark-price-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#mark-price-stream-for-all-market
-
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#mark-price-stream  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1292,13 +1172,9 @@ aster.unWatchMarkPrice (symbol[, params])
 watches the mark price for all markets
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
-**See**
-
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#mark-price-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#mark-price-stream-for-all-market
-
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#mark-price-stream  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1318,13 +1194,9 @@ aster.watchMarkPrices (symbols[, params])
 watches the mark price for all markets
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
-**See**
-
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#mark-price-stream
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#mark-price-stream-for-all-market
-
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#mark-price-stream  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1344,14 +1216,12 @@ aster.unWatchMarkPrices (symbols[, params])
 watches best bid & ask for symbols
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#best-order-book-information-by-symbol
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#best-order-book-information-across-the-entire-market
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#individual-symbol-book-ticker-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-book-tickers-stream
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#best-order-book-information-by-symbol
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#individual-symbol-book-ticker-streams
 
 
 | Param | Type | Required | Description |
@@ -1371,14 +1241,12 @@ aster.watchBidsAsks (symbols[, params])
 unWatches best bid & ask for symbols
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#best-order-book-information-by-symbol
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#best-order-book-information-across-the-entire-market
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#individual-symbol-book-ticker-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#all-book-tickers-stream
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#best-order-book-information-by-symbol
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#individual-symbol-book-ticker-streams
 
 
 | Param | Type | Required | Description |
@@ -1398,13 +1266,12 @@ aster.unWatchBidsAsks (symbols[, params])
 watches information on multiple trades made in a market
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=trade-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/#/?id=trade-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#collection-transaction-flow
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#tick-by-tick-trades
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#aggregate-trade-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#collection-transaction-flow
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#aggregate-trade-streams
 
 
 | Param | Type | Required | Description |
@@ -1426,13 +1293,12 @@ aster.watchTrades (symbol[, since, limit, params])
 unsubscribe from the trades channel
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=trade-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/#/?id=trade-structure)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#collection-transaction-flow
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#tick-by-tick-trades
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#aggregate-trade-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#collection-transaction-flow
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#aggregate-trade-streams
 
 
 | Param | Type | Required | Description |
@@ -1452,13 +1318,12 @@ aster.unWatchTrades (symbol[, params])
 get the list of most recent trades for a list of symbols
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=public-trades)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/#/?id=public-trades)
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#collection-transaction-flow
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#tick-by-tick-trades
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#aggregate-trade-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#collection-transaction-flow
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#aggregate-trade-streams
 
 
 | Param | Type | Required | Description |
@@ -1480,7 +1345,7 @@ aster.watchTradesForSymbols (symbols[, since, limit, params])
 unsubscribe from the trades channel
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=public-trades)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/#/?id=public-trades)
 
 **See**
 
@@ -1505,14 +1370,12 @@ aster.unWatchTradesForSymbols (symbols[, params])
 watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/?id=order-book-structure) indexed by market symbols
+**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/#/?id=order-book-structure) indexed by market symbols
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#limited-depth-information
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#incremental-depth-information
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#partial-book-depth-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#diff-book-depth-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#limited-depth-information
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#partial-book-depth-streams
 
 
 | Param | Type | Required | Description |
@@ -1533,14 +1396,12 @@ aster.watchOrderBook (symbol[, limit, params])
 unsubscribe from the orderbook channel
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/?id=order-book-structure) indexed by market symbols
+**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/#/?id=order-book-structure) indexed by market symbols
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#limited-depth-information
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#incremental-depth-information
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#partial-book-depth-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#diff-book-depth-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#limited-depth-information
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#partial-book-depth-streams
 
 
 | Param | Type | Required | Description |
@@ -1561,14 +1422,12 @@ aster.unWatchOrderBook (symbol[, params])
 watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/?id=order-book-structure) indexed by market symbols
+**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/#/?id=order-book-structure) indexed by market symbols
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#limited-depth-information
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#incremental-depth-information
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#partial-book-depth-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#diff-book-depth-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#limited-depth-information
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#partial-book-depth-streams
 
 
 | Param | Type | Required | Description |
@@ -1589,14 +1448,12 @@ aster.watchOrderBookForSymbols (symbols[, limit, params])
 unsubscribe from the orderbook channel
 
 **Kind**: instance method of [<code>aster</code>](#aster)  
-**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/?id=order-book-structure) indexed by market symbols
+**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/#/?id=order-book-structure) indexed by market symbols
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#limited-depth-information
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#incremental-depth-information
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#partial-book-depth-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#diff-book-depth-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#limited-depth-information
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#partial-book-depth-streams
 
 
 | Param | Type | Required | Description |
@@ -1621,8 +1478,8 @@ watches historical candlestick data containing the open, high, low, and close pr
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#k-line-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#klinecandlestick-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#k-line-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#klinecandlestick-streams
 
 
 | Param | Type | Required | Description |
@@ -1649,8 +1506,8 @@ unWatches historical candlestick data containing the open, high, low, and close 
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#k-line-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#klinecandlestick-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#k-line-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#klinecandlestick-streams
 
 
 | Param | Type | Required | Description |
@@ -1675,8 +1532,8 @@ watches historical candlestick data containing the open, high, low, and close pr
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#k-line-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#klinecandlestick-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#k-line-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#klinecandlestick-streams
 
 
 | Param | Type | Required | Description |
@@ -1702,8 +1559,8 @@ unWatches historical candlestick data containing the open, high, low, and close 
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-market-streams/#k-line-streams
-- https://asterdex.github.io/aster-api-website/futures-v3/websocket-market-streams/#klinecandlestick-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#k-line-streams
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#klinecandlestick-streams
 
 
 | Param | Type | Required | Description |
@@ -1727,8 +1584,8 @@ query for balance and get the amount of funds available for trading or funds loc
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-account-info/#payload-account_update
-- https://asterdex.github.io/aster-api-website/futures-v3/user-data-streams/#event-balance-and-position-update
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#payload-account_update
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#event-balance-and-position-update
 
 
 | Param | Type | Required | Description |
@@ -1750,7 +1607,7 @@ watch all open positions
 **Kind**: instance method of [<code>aster</code>](#aster)  
 **Returns**: <code>Array&lt;object&gt;</code> - a list of [position structure](https://docs.ccxt.com/en/latest/manual.html#position-structure)
 
-**See**: https://asterdex.github.io/aster-api-website/futures-v3/user-data-streams/#event-balance-and-position-update  
+**See**: https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#event-balance-and-position-update  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -1775,8 +1632,8 @@ watches information on multiple orders made by the user
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-account-info/#payload-order-update
-- https://asterdex.github.io/aster-api-website/futures-v3/user-data-streams/#event-order-update
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#payload-order-update
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#event-order-update
 
 
 | Param | Type | Required | Description |
@@ -1803,8 +1660,8 @@ watches information on multiple trades made by the user
 
 **See**
 
-- https://asterdex.github.io/aster-api-website/spot-v3/websocket-account-info/#payload-order-update
-- https://asterdex.github.io/aster-api-website/futures-v3/user-data-streams/#event-order-update
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-spot-api.md#payload-order-update
+- https://github.com/asterdex/api-docs/blob/master/aster-finance-futures-api.md#event-order-update
 
 
 | Param | Type | Required | Description |

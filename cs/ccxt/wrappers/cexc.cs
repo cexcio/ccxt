@@ -10,8 +10,8 @@ public partial class cexc
     /// fetches the current integer timestamp in milliseconds from the exchange server
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-server-time"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-server-time"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-server-time"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-server-time"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -31,9 +31,9 @@ public partial class cexc
     /// the latest known information on the availability of the exchange API
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-service-status"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-service-status"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-service-status"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-service-status"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-service-status"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-service-status"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -71,9 +71,9 @@ public partial class cexc
     /// retrieves data on all markets for kucoin
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-symbols"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-symbol"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-all-symbols"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-symbols"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-symbol"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-symbols"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -109,7 +109,7 @@ public partial class cexc
     /// fetch all the accounts associated with a profile
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-list-spot"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-list-spot"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -149,7 +149,7 @@ public partial class cexc
     /// fetch the fee for deposits and withdrawals
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/get-withdrawal-quotas"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-quotas"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -175,9 +175,9 @@ public partial class cexc
     /// fetches price tickers for multiple markets, statistical information calculated over the past 24 hours for each market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-tickers"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-all-tickers"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-ticker"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-tickers"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-tickers"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-ticker"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -220,7 +220,7 @@ public partial class cexc
     /// fetches the mark price for multiple markets
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/market-data/get-mark-price-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-list"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -240,9 +240,9 @@ public partial class cexc
     /// fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-24hr-stats"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-ticker"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-ticker"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-24hr-stats"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-ticker"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-ticker"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -268,8 +268,8 @@ public partial class cexc
     /// fetches the mark price for a specific market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/market-data/get-mark-price-detail"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-mark-price"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-detail"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-mark-price"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -289,9 +289,9 @@ public partial class cexc
     /// fetches historical candlestick data containing the open, high, low, and close price, and the volume of a market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-klines"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-klines"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-klines"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-klines"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-klines"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -337,7 +337,7 @@ public partial class cexc
     /// helper method for fetchOHLCV
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-klines"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-klines"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -371,7 +371,7 @@ public partial class cexc
     /// helper method for fetchOHLCV
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-klines"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-klines"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -405,7 +405,7 @@ public partial class cexc
     /// helper method for fetchOHLCV
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-klines"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -439,7 +439,7 @@ public partial class cexc
     /// create a currency deposit address
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/add-deposit-address-v3"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/deposit/add-deposit-address-v3"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -465,8 +465,8 @@ public partial class cexc
     /// fetch the deposit address for a currency associated with this account
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-address-v3/en"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-deposit-address"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3/en"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-deposit-address"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -504,7 +504,7 @@ public partial class cexc
     /// fetch the deposit address for a currency associated with this account
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-deposit-address"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-address"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -524,8 +524,8 @@ public partial class cexc
     /// fetch the deposit address for a currency associated with this account
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-address-v3/en"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-deposit-address"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3/en"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-deposit-address"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -551,10 +551,10 @@ public partial class cexc
     /// fetches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-part-orderbook"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-full-orderbook"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-part-orderbook"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-orderbook"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-part-orderbook"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-full-orderbook"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-part-orderbook"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-orderbook"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>limit</term>
@@ -587,17 +587,17 @@ public partial class cexc
     /// Create an order on the exchange
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-sync"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-test"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-stop-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order-test"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-stop-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order-test"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-take-profit-and-stop-loss-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/place-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-sync"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-test"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-stop-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order-test"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-stop-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/place-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>price</term>
@@ -630,13 +630,13 @@ public partial class cexc
     /// helper method for creating spot orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-sync"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-test"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-stop-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order-test"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-stop-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-sync"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-test"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-stop-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order-test"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-stop-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>price</term>
@@ -783,9 +783,9 @@ public partial class cexc
     /// helper method for creating contract orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order-test"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-take-profit-and-stop-loss-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>price</term>
@@ -944,7 +944,7 @@ public partial class cexc
     /// helper method for creating uta orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/place-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/place-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>price</term>
@@ -1091,8 +1091,8 @@ public partial class cexc
     /// create a market order by providing the symbol, side and cost
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1112,8 +1112,8 @@ public partial class cexc
     /// create a market buy order by providing the symbol and cost
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1133,8 +1133,8 @@ public partial class cexc
     /// create a market sell order by providing the symbol and cost
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1154,8 +1154,8 @@ public partial class cexc
     /// create a list of trade orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders-sync"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders-sync"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1175,9 +1175,9 @@ public partial class cexc
     /// helper method for creating spot orders in batch
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders-sync"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/batch-add-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders-sync"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/batch-add-orders"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1209,7 +1209,7 @@ public partial class cexc
     /// helper method for creating contract orders in batch
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/batch-add-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/batch-add-orders"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1226,10 +1226,10 @@ public partial class cexc
         return ((IList<object>)res).Select(item => new Order(item)).ToList<Order>();
     }
     /// <summary>
-    /// edit an order, cexccurrently only supports the modification of HF orders
+    /// edit an order, kucoin currently only supports the modification of HF orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/modify-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/modify-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>price</term>
@@ -1263,19 +1263,19 @@ public partial class cexc
     /// cancels an open order
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld-sync"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid-sync"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/cancel-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld-sync"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid-sync"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/cancel-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1313,16 +1313,16 @@ public partial class cexc
     /// helper method for cancelling spot orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld-sync"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid-sync"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld-sync"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid-sync"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-clientoid"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1366,8 +1366,8 @@ public partial class cexc
     /// helper method for cancelling contract orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-clientoid"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1393,7 +1393,7 @@ public partial class cexc
     /// helper method for cancelling uta orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/cancel-order"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/cancel-order"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1416,7 +1416,7 @@ public partial class cexc
     /// <item>
     /// <term>params.marginMode</term>
     /// <description>
-    /// string : 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin)
+    /// string : 'cross' or 'isolated', required if fetching a margin order
     /// </description>
     /// </item>
     /// </list>
@@ -1431,14 +1431,14 @@ public partial class cexc
     /// cancel all open orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders-by-symbol"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-cancel-stop-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-all-orders-by-symbol"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/batch-cancel-stop-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-stop-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-symbol"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders-by-symbol"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-cancel-stop-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-all-orders-by-symbol"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/batch-cancel-stop-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-stop-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-symbol"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1476,11 +1476,11 @@ public partial class cexc
     /// helper method for cancelling all spot orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders-by-symbol"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-cancel-stop-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-all-orders-by-symbol"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/batch-cancel-stop-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders-by-symbol"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-cancel-stop-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-all-orders-by-symbol"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/batch-cancel-stop-orders"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1524,8 +1524,8 @@ public partial class cexc
     /// helper method for cancelling all contract orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-stop-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-stop-orders"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1551,7 +1551,7 @@ public partial class cexc
     /// helper method for cancelling all uta orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-symbol"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-symbol"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -1583,16 +1583,16 @@ public partial class cexc
     /// fetches a list of orders placed on the exchange
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-open-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-order-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -1632,12 +1632,12 @@ public partial class cexc
     /// fetch a list of spot orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -1725,8 +1725,8 @@ public partial class cexc
     /// fetches a list of contract orders placed on the exchange
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -1790,8 +1790,8 @@ public partial class cexc
     /// helper method for fetching orders by status with uta endpoint
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-open-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-order-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -1830,12 +1830,6 @@ public partial class cexc
     /// </description>
     /// </item>
     /// <item>
-    /// <term>params.marginMode</term>
-    /// <description>
-    /// string : 'cross' or 'isolated', only for margin orders (unified accountMode supports only cross margin)
-    /// </description>
-    /// </item>
-    /// <item>
     /// <term>params.paginate</term>
     /// <description>
     /// boolean : default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
@@ -1855,13 +1849,13 @@ public partial class cexc
     /// fetches information on multiple closed orders made by the user
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-order-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -1937,14 +1931,14 @@ public partial class cexc
     /// fetch all unfilled currently open orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-open-order-list"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -2032,17 +2026,17 @@ public partial class cexc
     /// fetches information on an order made by the user
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/get-stop-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/get-stop-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-details"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/get-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/get-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-order-details"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2074,14 +2068,14 @@ public partial class cexc
     /// fetch a spot order
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/get-stop-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-clientoid"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/get-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-clientoid"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2125,8 +2119,8 @@ public partial class cexc
     /// fetc contract order
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-by-orderld"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/get-stop-order-by-clientoid"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-by-orderld"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/get-stop-order-by-clientoid"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2146,7 +2140,7 @@ public partial class cexc
     /// fetch uta order
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-details"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-order-details"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2169,7 +2163,7 @@ public partial class cexc
     /// <item>
     /// <term>params.marginMode</term>
     /// <description>
-    /// string : 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin)
+    /// string : 'cross' or 'isolated', required if fetching a margin order
     /// </description>
     /// </item>
     /// </list>
@@ -2185,9 +2179,9 @@ public partial class cexc
     /// </summary>
     /// <remarks>
     /// See <see href="https://docs.kucoin.com/#list-fills"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-trade-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-trade-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -2233,9 +2227,9 @@ public partial class cexc
     /// fetch all trades made by the user
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-trade-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-trade-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -2281,8 +2275,8 @@ public partial class cexc
     /// fetch all spot trades made by the user
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-trade-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -2340,7 +2334,7 @@ public partial class cexc
     /// fetch all contract trades made by the user
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-trade-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -2386,7 +2380,7 @@ public partial class cexc
     /// fetch all trades made by the user
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-trade-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -2421,7 +2415,7 @@ public partial class cexc
     /// <item>
     /// <term>params.marginMode</term>
     /// <description>
-    /// string : 'cross' or 'isolated', only for margin trades (unified accountMode support only cross margin)
+    /// string : 'cross' or 'isolated', only for margin trades
     /// </description>
     /// </item>
     /// <item>
@@ -2450,9 +2444,9 @@ public partial class cexc
     /// get the list of most recent trades for a particular symbol
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-trade-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trades"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-trade-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-trades"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-trade-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -2492,9 +2486,9 @@ public partial class cexc
     /// fetch the trading fees for a market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/trade-fee/get-actual-fee-spot-margin"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/trade-fee/get-actual-fee-futures"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-actual-fee"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-spot-margin"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-futures"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-actual-fee"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2520,7 +2514,7 @@ public partial class cexc
     /// make a withdrawal
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/withdraw-v3"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/withdraw-v3"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2540,9 +2534,9 @@ public partial class cexc
     /// fetch all deposits made to an account
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-deposit-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-v1-historical-deposits-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs/rest/funding/deposit/get-v1-historical-deposits-list"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -2627,9 +2621,9 @@ public partial class cexc
     /// fetch all withdrawals made from an account
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/get-withdrawal-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/withdrawals/get-withdrawals-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/withdrawals/get-v1-historical-withdrawals-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs/rest/funding/withdrawals/get-withdrawals-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs/rest/funding/withdrawals/get-v1-historical-withdrawals-list"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -2714,12 +2708,12 @@ public partial class cexc
     /// query for balance and get the amount of funds available for trading or funds locked in orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-detail-spot"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-cross-margin"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-isolated-margin"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-futures"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-uta"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-classic"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-detail-spot"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2763,7 +2757,7 @@ public partial class cexc
     /// query for balance and get the amount of funds available for trading or funds locked in orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-futures"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2789,8 +2783,8 @@ public partial class cexc
     /// helper method for fetching balance with unified trading account (uta) endpoint
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-uta"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-classic"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2801,7 +2795,7 @@ public partial class cexc
     /// <item>
     /// <term>params.type</term>
     /// <description>
-    /// string : 'unified', 'spot', 'funding', 'cross', 'isolated' or 'swap' (default is 'unified')
+    /// string : 'spot', 'unified', 'funding', 'cross', 'isolated' or 'swap' (default is 'spot')
     /// </description>
     /// </item>
     /// <item>
@@ -2822,8 +2816,8 @@ public partial class cexc
     /// transfer currency internally between wallets on the same account
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/transfer/flex-transfer?lang=en_US&"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/flex-transfer"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer?lang=en_US&"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/flex-transfer"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2849,7 +2843,7 @@ public partial class cexc
     /// transfer currency internally between wallets on the same account with uta endpoint
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/flex-transfer"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/flex-transfer"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2887,7 +2881,7 @@ public partial class cexc
     /// transfer currency internally between wallets on the same account with classic endpoints
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/transfer/flex-transfer?lang=en_US&"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer?lang=en_US&"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -2925,11 +2919,11 @@ public partial class cexc
     /// fetch the history of changes, actions done by the user or operations that altered the balance of the user
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-spot-margin"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-tradehf"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-marginhf"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-futures"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-ledger"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-tradehf"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-marginhf"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-futures"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-account-ledger"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>code</term>
@@ -2999,8 +2993,8 @@ public partial class cexc
     /// fetch the interest owed by the user for borrowing currency for margin trading
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-cross-margin"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-isolated-margin"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>code</term>
@@ -3052,7 +3046,7 @@ public partial class cexc
     /// retrieves a history of a multiple currencies borrow interest rate at specific time slots, returns all currencies if no symbols passed, default is undefined
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/get-interest-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-interest-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -3098,7 +3092,7 @@ public partial class cexc
     /// retrieves a history of a currencies borrow interest rate at specific time slots
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/get-interest-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-interest-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -3141,26 +3135,6 @@ public partial class cexc
         return ((Dictionary<string, object>)res);
     }
     /// <summary>
-    /// fetch the rate of interest to borrow a currency for margin trading
-    /// </summary>
-    /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-borrowing-rates-and-limits"/>  <br/>
-    /// <list type="table">
-    /// <item>
-    /// <term>params</term>
-    /// <description>
-    /// object : extra parameters specific to the exchange API endpoint
-    /// </description>
-    /// </item>
-    /// </list>
-    /// </remarks>
-    /// <returns> <term>object</term> a [borrow rate structure]{@link https://docs.ccxt.com/?id=borrow-rate-structure}.</returns>
-    public async Task<CrossBorrowRate> FetchCrossBorrowRate(string code, Dictionary<string, object> parameters = null)
-    {
-        var res = await this.fetchCrossBorrowRate(code, parameters);
-        return new CrossBorrowRate(res);
-    }
-    /// <summary>
     /// fetch deposit and withdraw fees - *IMPORTANT* use fetchDepositWithdrawFee to get more in-depth info
     /// </summary>
     /// <remarks>
@@ -3184,7 +3158,7 @@ public partial class cexc
     /// fetch the set leverage for a market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-cross-margin-leverage"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-leverage"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3204,10 +3178,9 @@ public partial class cexc
     /// set the level of leverage for a market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/modify-leverage"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/modify-cross-margin-leverage"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-cross-margin-leverage-uta"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-leverage-uta"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>symbol</term>
@@ -3224,19 +3197,7 @@ public partial class cexc
     /// <item>
     /// <term>params.uta</term>
     /// <description>
-    /// boolean : set to true for the unified trading account (uta)
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.marginMode</term>
-    /// <description>
-    /// string : *spot non-uta only* 'cross' or 'isolated' default is 'cross'
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.code</term>
-    /// <description>
-    /// string : *uta margin only* the unified currency code for the margin to set the leverage for
+    /// boolean : *contract markets only* set to true for the unified trading account (uta)
     /// </description>
     /// </item>
     /// </list>
@@ -3251,8 +3212,7 @@ public partial class cexc
     /// fetch the current funding rate interval
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-current-funding-rate"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-current-funding-rate"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3272,8 +3232,8 @@ public partial class cexc
     /// fetch the current funding rate
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-current-funding-rate"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-current-funding-rate"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-current-funding-rate"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3299,8 +3259,8 @@ public partial class cexc
     /// fetches historical funding rate prices
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-public-funding-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-history-funding-rate"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-public-funding-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-history-funding-rate"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -3346,7 +3306,7 @@ public partial class cexc
     /// fetch the history of funding payments paid and received on this account
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-private-funding-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-private-funding-history"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -3366,12 +3326,6 @@ public partial class cexc
     /// object : extra parameters specific to the exchange API endpoint
     /// </description>
     /// </item>
-    /// <item>
-    /// <term>params.uta</term>
-    /// <description>
-    /// boolean : set to true for the unified trading account (uta), defaults to false
-    /// </description>
-    /// </item>
     /// </list>
     /// </remarks>
     /// <returns> <term>object</term> a [funding history structure]{@link https://docs.ccxt.com/?id=funding-history-structure}.</returns>
@@ -3386,8 +3340,8 @@ public partial class cexc
     /// fetch data on an open position
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-details"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-list-uta"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-details"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3399,18 +3353,6 @@ public partial class cexc
     /// <term>params.uta</term>
     /// <description>
     /// boolean : set to true for the unified trading account (uta), defaults to false
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.pageSize</term>
-    /// <description>
-    /// integer : *uta only* page size for the uta endpoint (default 50, max 200)
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.pageNumber</term>
-    /// <description>
-    /// integer : *uta only* page number for the uta endpoint (default 1)
     /// </description>
     /// </item>
     /// </list>
@@ -3425,8 +3367,8 @@ public partial class cexc
     /// fetch all open positions
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-list"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-list-uta"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-list"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3438,18 +3380,6 @@ public partial class cexc
     /// <term>params.uta</term>
     /// <description>
     /// boolean : set to true for the unified trading account (uta), defaults to false
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.pageSize</term>
-    /// <description>
-    /// integer : *uta only* page size for the uta endpoint (default 50, max 200)
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.pageNumber</term>
-    /// <description>
-    /// integer : *uta only* page number for the uta endpoint (default 1)
     /// </description>
     /// </item>
     /// </list>
@@ -3464,8 +3394,8 @@ public partial class cexc
     /// fetches historical positions
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-positions-history"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-history-uta"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-positions-history"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-position-history-uta"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -3517,8 +3447,8 @@ public partial class cexc
     /// cancel multiple orders for contract markets
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentation3470241e0"/>  <br/>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-id"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/3470241e0"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3541,7 +3471,7 @@ public partial class cexc
     /// <item>
     /// <term>params.marginMode</term>
     /// <description>
-    /// string : *for margin orders only* 'cross' or 'isolated' (unified accountMode supports cross margin only)
+    /// string : *for margin orders only* 'cross' or 'isolated'
     /// </description>
     /// </item>
     /// </list>
@@ -3556,7 +3486,7 @@ public partial class cexc
     /// fetches the margin mode of a trading pair
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-margin-mode"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-margin-mode"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3576,7 +3506,7 @@ public partial class cexc
     /// set margin mode to 'cross' or 'isolated'
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/switch-margin-mode"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-margin-mode"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3596,7 +3526,7 @@ public partial class cexc
     /// set hedged to true or false for a market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/switch-position-mode"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-position-mode"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>symbol</term>
@@ -3622,7 +3552,7 @@ public partial class cexc
     /// fetchs the position mode, hedged or one way
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-mode"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-mode"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>symbol</term>
@@ -3648,7 +3578,7 @@ public partial class cexc
     /// retrieve information on the maximum leverage, and maintenance margin for trades of varying trade sizes for a single market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-isolated-margin-risk-limit"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-isolated-margin-risk-limit"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3674,7 +3604,7 @@ public partial class cexc
     /// retrieve information on the maximum leverage, and maintenance margin for trades of varying trade sizes
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-tiers"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-position-tiers"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3694,7 +3624,7 @@ public partial class cexc
     /// Retrieves the open interest for a list of symbols
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-futures-open-interset"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -3714,7 +3644,7 @@ public partial class cexc
     /// Retrieves the open interest history of a currency
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-futures-open-interset"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -3760,7 +3690,7 @@ public partial class cexc
     /// fetch a history of internal transfers made on an account
     /// </summary>
     /// <remarks>
-    /// See <see href="https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-spot-margin"/>  <br/>
+    /// See <see href="https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>code</term>

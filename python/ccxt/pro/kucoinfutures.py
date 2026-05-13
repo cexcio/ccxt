@@ -35,6 +35,7 @@ class kucoinfutures(kucoin):
                 },
                 'defaultType': 'swap',
                 'defaultAccountType': 'contract',
+                'uta': False,
             },
         })
 

@@ -26,29 +26,29 @@ import (
 )
 
 type ClientInterface interface {
-	Resolve(data any, subHash any) any
-	Future(messageHash any) <-chan any
-	ReusableFuture(messageHash any) *Future
-	Reject(err any, messageHash ...any)
-	Send(message any) <-chan any
-	Reset(err any)
+	Resolve(data interface{}, subHash interface{}) interface{}
+	Future(messageHash interface{}) <-chan interface{}
+	ReusableFuture(messageHash interface{}) *Future
+	Reject(err interface{}, messageHash ...interface{})
+	Send(message interface{}) <-chan interface{}
+	Reset(err interface{})
 	OnPong()
 	GetError() error
 	SetError(err error)
 	GetUrl() string
-	GetSubscriptions() map[string]any
-	GetLastPong() any
-	SetLastPong(lastPong any)
-	GetKeepAlive() any
-	SetKeepAlive(keepAlive any)
-	GetFutures() map[string]any
+	GetSubscriptions() map[string]interface{}
+	GetLastPong() interface{}
+	SetLastPong(lastPong interface{})
+	GetKeepAlive() interface{}
+	SetKeepAlive(keepAlive interface{})
+	GetFutures() map[string]interface{}
 }
 
 // Client is a thin wrapper around a single ws:// or wss:// connection.
 // Subscriptions are identified by an arbitrary hash string
 // Each Subscribe call returns a receive-only channel that the caller reads updates from.
 type Client struct {
-	Futures   map[string]any
+	Futures   map[string]interface{}
 	FuturesMu sync.RWMutex // protects Futures map
 	Url       string
 
@@ -57,39 +57,39 @@ type Client struct {
 
 	PongSetMu sync.RWMutex // protects LastPong set
 
-	Subscriptions   map[string]any // map[string]chan any
+	Subscriptions   map[string]interface{} // map[string]chan interface{}
 	SubscriptionsMu sync.RWMutex
 	ConnectMu       sync.RWMutex // protects Connect calls
 	ReadLoopClosed  chan struct{}
 
 	Error error // last error, nil if connection considered healthy
 
-	Connected             any            // *Future             		// signal channel for connection established
-	Disconnected          any            // *Future              	// future for disconnection
-	Rejections            map[string]any // map for rejection info
-	KeepAlive             any            // number in milliseconds or seconds
-	ConnectionTimeout     any            // e.g. *time.Timer or context.CancelFunc
-	Verbose               bool           // default false
+	Connected             interface{}            // *Future             		// signal channel for connection established
+	Disconnected          interface{}            // *Future              	// future for disconnection
+	Rejections            map[string]interface{} // map for rejection info
+	KeepAlive             interface{}            // number in milliseconds or seconds
+	ConnectionTimeout     interface{}            // e.g. *time.Timer or context.CancelFunc
+	Verbose               bool                   // default false
 	DecompressBinary      bool
-	ConnectionTimer       any                           // e.g. *time.Timer or custom timer
-	LastPong              any                           // time or timestamp type recommended
-	MaxPingPongMisses     any                           // int or counter type
-	PingInterval          any                           // time.Duration recommended
-	ConnectionEstablished any                           // signal or state variable
-	Gunzip                any                           // gzip decompressor (e.g. io.Reader)
-	Inflate               any                           // zlib inflater or similar
-	URL                   string                        // URL string
-	IsConnected           any                           // bool or state variable
-	OnConnectedCallback   func(client any, message any) // callback function signature - adjust as needed
-	OnMessageCallback     func(client any, message any) // example callback with message
-	OnErrorCallback       func(client any, err any)     // error callback
-	OnCloseCallback       func(client any, err any)     // connection closed callback
-	Ping                  any                           // e.g. timer or pong/ping state
-	Throttle              any                           // throttling mechanism (rate limiter, etc.)
-	// Owner any 											// pointer to the exchange that created the client
+	ConnectionTimer       interface{}                                   // e.g. *time.Timer or custom timer
+	LastPong              interface{}                                   // time or timestamp type recommended
+	MaxPingPongMisses     interface{}                                   // int or counter type
+	PingInterval          interface{}                                   // time.Duration recommended
+	ConnectionEstablished interface{}                                   // signal or state variable
+	Gunzip                interface{}                                   // gzip decompressor (e.g. io.Reader)
+	Inflate               interface{}                                   // zlib inflater or similar
+	URL                   string                                        // URL string
+	IsConnected           interface{}                                   // bool or state variable
+	OnConnectedCallback   func(client interface{}, message interface{}) // callback function signature - adjust as needed
+	OnMessageCallback     func(client interface{}, message interface{}) // example callback with message
+	OnErrorCallback       func(client interface{}, err interface{})     // error callback
+	OnCloseCallback       func(client interface{}, err interface{})     // connection closed callback
+	Ping                  interface{}                                   // e.g. timer or pong/ping state
+	Throttle              interface{}                                   // throttling mechanism (rate limiter, etc.)
+	// Owner interface{} 											// pointer to the exchange that created the client
 }
 
-func (this *Client) Resolve(data any, subHash any) any {
+func (this *Client) Resolve(data interface{}, subHash interface{}) interface{} {
 	hash, ok := subHash.(string)
 	if !ok {
 		panic(fmt.Sprintf("subHash must be a string, got %T: %v", subHash, subHash))
@@ -106,17 +106,17 @@ func (this *Client) Resolve(data any, subHash any) any {
 	return data
 }
 
-func (this *Client) Future(messageHash any) <-chan any {
+func (this *Client) Future(messageHash interface{}) <-chan interface{} {
 	future := this.NewFuture(messageHash)
 	return future.Await()
 }
 
-func (this *Client) ReusableFuture(messageHash any) *Future {
+func (this *Client) ReusableFuture(messageHash interface{}) *Future {
 	future := this.NewFuture(messageHash)
 	return future
 }
 
-func (this *Client) NewFuture(messageHash any) *Future {
+func (this *Client) NewFuture(messageHash interface{}) *Future {
 	hash, _ := messageHash.(string)
 	this.FuturesMu.Lock()
 	if _, ok := this.Futures[hash]; !ok {
@@ -132,7 +132,7 @@ func (this *Client) NewFuture(messageHash any) *Future {
 }
 
 // Reject rejects specific future or all
-func (this *Client) Reject(err any, messageHash ...any) {
+func (this *Client) Reject(err interface{}, messageHash ...interface{}) {
 	this.FuturesMu.Lock()
 	if len(messageHash) == 0 {
 		for hash := range this.Futures {
@@ -169,9 +169,9 @@ func (this *Client) Close() error {
 
 // NewClient creates a new WebSocket client with the given URL and callbacks
 // Matches the TypeScript constructor exactly with all the same properties
-func NewClient(url string, onMessageCallback func(client any, err any), onErrorCallback func(client any, err any), onCloseCallback func(client any, err any), onConnectedCallback func(client any, err any), config ...map[string]any) *Client {
+func NewClient(url string, onMessageCallback func(client interface{}, err interface{}), onErrorCallback func(client interface{}, err interface{}), onCloseCallback func(client interface{}, err interface{}), onConnectedCallback func(client interface{}, err interface{}), config ...map[string]interface{}) *Client {
 	// Set up defaults exactly like TypeScript constructor
-	defaults := map[string]any{
+	defaults := map[string]interface{}{
 		"Url":                   url,
 		"OnMessageCallback":     onMessageCallback,
 		"OnErrorCallback":       onErrorCallback,
@@ -180,9 +180,9 @@ func NewClient(url string, onMessageCallback func(client any, err any), onErrorC
 		"Verbose":               false,
 		"Protocols":             nil,
 		"Options":               nil,
-		"Futures":               make(map[string]any),
-		"Subscriptions":         make(map[string]any), // map[string]chan any
-		"Rejections":            make(map[string]any),
+		"Futures":               make(map[string]interface{}),
+		"Subscriptions":         make(map[string]interface{}), // map[string]chan interface{}
+		"Rejections":            make(map[string]interface{}),
 		"Connected":             nil,
 		"Error":                 nil,
 		"ConnectionStarted":     nil,
@@ -214,9 +214,9 @@ func NewClient(url string, onMessageCallback func(client any, err any), onErrorC
 	// Create the client with all properties from TypeScript constructor
 	c := &Client{
 		Url:                 url,
-		Futures:             finalConfig["Futures"].(map[string]any),
-		Subscriptions:       finalConfig["Subscriptions"].(map[string]any), // map[string]chan any
-		Rejections:          finalConfig["Rejections"].(map[string]any),
+		Futures:             finalConfig["Futures"].(map[string]interface{}),
+		Subscriptions:       finalConfig["Subscriptions"].(map[string]interface{}), // map[string]chan interface{}
+		Rejections:          finalConfig["Rejections"].(map[string]interface{}),
 		Verbose:             finalConfig["Verbose"].(bool),
 		KeepAlive:           ParseInt(finalConfig["keepAlive"]),
 		MaxPingPongMisses:   finalConfig["MaxPingPongMisses"],
@@ -284,9 +284,9 @@ func NewClient(url string, onMessageCallback func(client any, err any), onErrorC
 
 // 		// forward decoded JSON frames to exchange.HandleMessage
 // 		if this.Owner != nil {
-// 			var msg any
+// 			var msg interface{}
 // 			if err := json.Unmarshal(data, &msg); err == nil {
-// 				if h, ok := this.Owner.(interface{ HandleMessage(client any, message any) }); ok {
+// 				if h, ok := this.Owner.(interface{ HandleMessage(client interface{}, message interface{}) }); ok {
 // 					h.HandleMessage(this, msg)
 // 				}
 // 			}
@@ -304,7 +304,7 @@ func (this *Client) OnPong() {
 	}
 }
 
-func (this *Client) Reset(err any) {
+func (this *Client) Reset(err interface{}) {
 	// Stop any active timers/intervals
 	if t, ok := this.ConnectionTimer.(*time.Timer); ok {
 		t.Stop()
@@ -321,16 +321,16 @@ func (this *Client) Reset(err any) {
 	this.Reject(err)
 }
 
-func (this *Client) Log(args ...any) {
+func (this *Client) Log(args ...interface{}) {
 	fmt.Println(args...)
 	// fmt.Printf("%+v\n", args) // equivalent to console.dir with depth
 }
 
-func (this *Client) Connect(backoffDelay ...int) (any, error) {
+func (this *Client) Connect(backoffDelay ...int) (interface{}, error) {
 	return nil, NotSupported(this.Url + " connect() not implemented yet")
 }
 
-func (this *Client) IsOpen() (any, error) {
+func (this *Client) IsOpen() (interface{}, error) {
 	return nil, NotSupported(this.Url + " isOpen() not implemented yet")
 }
 
@@ -378,7 +378,7 @@ func (this *Client) OnPongTS() {
 	}
 }
 
-func (this *Client) OnError(err any) {
+func (this *Client) OnError(err interface{}) {
 	if this.Verbose {
 		this.Log(time.Now(), "onError", err)
 	}
@@ -393,7 +393,7 @@ func (this *Client) OnError(err any) {
 	}
 }
 
-func (this *Client) OnClose(event any) {
+func (this *Client) OnClose(event interface{}) {
 	if this.Verbose {
 		this.Log(time.Now(), "onClose", event)
 	}
@@ -414,13 +414,13 @@ func (this *Client) OnClose(event any) {
 
 // this method is not used at this time
 // but may be used to read protocol-level data like cookies, headers, etc
-func (this *Client) OnUpgrade(message any) {
+func (this *Client) OnUpgrade(message interface{}) {
 	if this.Verbose {
 		this.Log(time.Now(), "onUpgrade")
 	}
 }
 
-func (this *Client) Send(message any) <-chan any {
+func (this *Client) Send(message interface{}) <-chan interface{} {
 	var msgStr string
 	if str, ok := message.(string); ok {
 		msgStr = str
@@ -434,7 +434,7 @@ func (this *Client) Send(message any) <-chan any {
 	}
 
 	future := NewFuture()
-	ch := make(chan any)
+	ch := make(chan interface{})
 	go func() {
 		this.ConnectionMu.Lock()
 		// ? if (isNode)
@@ -458,7 +458,7 @@ func (this *Client) Send(message any) <-chan any {
 	return ch
 }
 
-func (this *Client) CloseConnection() (any, error) {
+func (this *Client) CloseConnection() (interface{}, error) {
 	return nil, NotSupported(this.Url + " close() not implemented yet")
 }
 
@@ -477,16 +477,16 @@ func gunzipData(data []byte) ([]byte, error) {
 }
 
 func IsJSON(b []byte) bool {
-	var js any
+	var js interface{}
 	return json.Unmarshal(b, &js) == nil
 }
 
-func (this *Client) OnMessage(messageEvent any) {
+func (this *Client) OnMessage(messageEvent interface{}) {
 	// if we use onmessage we get MessageEvent objects
 	// MessageEvent {isTrusted: true, data: "{"e":"depthUpdate","E":1581358737706,"s":"ETHBTC",…"0.06200000"]],"a":[["0.02261300","0.00000000"]]}", origin: "wss://stream.binance.com:9443", lastEventId: "", source: null, …}
 
-	var message any
-	if eventMap, ok := messageEvent.(map[string]any); ok {
+	var message interface{}
+	if eventMap, ok := messageEvent.(map[string]interface{}); ok {
 		if data, exists := eventMap["data"]; exists {
 			message = data
 		}
@@ -523,7 +523,7 @@ func (this *Client) OnMessage(messageEvent any) {
 	}
 
 	// Try to parse as JSON
-	var parsedMessage any
+	var parsedMessage interface{}
 	if this.IsJsonEncodedObject(messageStr) {
 		// Replace large numbers with strings to prevent precision loss
 		re := regexp.MustCompile(`:(\d{15,}),`)
@@ -577,30 +577,30 @@ func (this *Client) GetUrl() string {
 	return this.Url
 }
 
-func (this *Client) GetSubscriptions() map[string]any {
+func (this *Client) GetSubscriptions() map[string]interface{} {
 	return this.Subscriptions
 }
 
-func (this *Client) GetLastPong() any {
+func (this *Client) GetLastPong() interface{} {
 	this.PongSetMu.RLock()
 	defer this.PongSetMu.RUnlock()
 	return this.LastPong
 }
-func (this *Client) SetLastPong(lastPong any) {
+func (this *Client) SetLastPong(lastPong interface{}) {
 	this.PongSetMu.Lock()
 	defer this.PongSetMu.Unlock()
 	this.LastPong = lastPong
 }
-func (this *Client) SetKeepAlive(keepAlive any) {
+func (this *Client) SetKeepAlive(keepAlive interface{}) {
 	this.KeepAlive = keepAlive
 }
-func (this *Client) GetKeepAlive() any {
+func (this *Client) GetKeepAlive() interface{} {
 	return this.KeepAlive
 }
-func (this *Client) GetFutures() map[string]any {
+func (this *Client) GetFutures() map[string]interface{} {
 	return this.Futures
 }
 
 type wsMessageHandler interface {
-	HandleMessage(client *Client, msg any)
+	HandleMessage(client *Client, msg interface{})
 }

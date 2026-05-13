@@ -15,13 +15,13 @@ func NewZondaCore() *ZondaCore {
     return p
 }
 
-func  (this *ZondaCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *ZondaCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "zonda",
         "name": "Zonda",
-        "countries": []any{"EE"},
+        "countries": []interface{}{"EE"},
         "rateLimit": 1000,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": true,
             "spot": true,
             "margin": false,
@@ -129,7 +129,7 @@ func  (this *ZondaCore) Describe() any  {
             "transfer": true,
             "withdraw": true,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": "60",
             "3m": "180",
             "5m": "300",
@@ -145,70 +145,70 @@ func  (this *ZondaCore) Describe() any  {
             "1w": "604800",
         },
         "hostname": "zondacrypto.exchange",
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "referral": "https://auth.zondaglobal.com/ref/jHlbB4mIkdS1",
             "logo": "https://user-images.githubusercontent.com/1294454/159202310-a0e38007-5e7c-4ba9-a32f-c8263a0291fe.jpg",
             "www": "https://zondaglobal.com",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://{hostname}/API/Public",
                 "private": "https://{hostname}/API/Trading/tradingApi.php",
                 "v1_01Public": "https://api.{hostname}/rest",
                 "v1_01Private": "https://api.{hostname}/rest",
             },
-            "doc": []any{"https://docs.zondacrypto.exchange/", "https://github.com/BitBayNet/API"},
+            "doc": []interface{}{"https://docs.zondacrypto.exchange/", "https://github.com/BitBayNet/API"},
             "support": "https://zondaglobal.com/en/helpdesk/zonda-exchange",
             "fees": "https://zondaglobal.com/legal/zonda-exchange/fees",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": []any{"{id}/all", "{id}/market", "{id}/orderbook", "{id}/ticker", "{id}/trades"},
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": []interface{}{"{id}/all", "{id}/market", "{id}/orderbook", "{id}/ticker", "{id}/trades"},
             },
-            "private": map[string]any {
-                "post": []any{"info", "trade", "cancel", "orderbook", "orders", "transfer", "withdraw", "history", "transactions"},
+            "private": map[string]interface{} {
+                "post": []interface{}{"info", "trade", "cancel", "orderbook", "orders", "transfer", "withdraw", "history", "transactions"},
             },
-            "v1_01Public": map[string]any {
-                "get": []any{"trading/ticker", "trading/ticker/{symbol}", "trading/stats", "trading/stats/{symbol}", "trading/orderbook/{symbol}", "trading/transactions/{symbol}", "trading/candle/history/{symbol}/{resolution}"},
+            "v1_01Public": map[string]interface{} {
+                "get": []interface{}{"trading/ticker", "trading/ticker/{symbol}", "trading/stats", "trading/stats/{symbol}", "trading/orderbook/{symbol}", "trading/transactions/{symbol}", "trading/candle/history/{symbol}/{resolution}"},
             },
-            "v1_01Private": map[string]any {
-                "get": []any{"api_payments/deposits/crypto/addresses", "payments/withdrawal/{detailId}", "payments/deposit/{detailId}", "trading/offer", "trading/stop/offer", "trading/config/{symbol}", "trading/history/transactions", "balances/BITBAY/history", "balances/BITBAY/balance", "fiat_cantor/rate/{baseId}/{quoteId}", "fiat_cantor/history", "client_payments/v2/customer/crypto/{currency}/channels/deposit", "client_payments/v2/customer/crypto/{currency}/channels/withdrawal", "client_payments/v2/customer/crypto/deposit/fee", "client_payments/v2/customer/crypto/withdrawal/fee"},
-                "post": []any{"trading/offer/{symbol}", "trading/stop/offer/{symbol}", "trading/config/{symbol}", "balances/BITBAY/balance", "balances/BITBAY/balance/transfer/{source}/{destination}", "fiat_cantor/exchange", "api_payments/withdrawals/crypto", "api_payments/withdrawals/fiat", "client_payments/v2/customer/crypto/deposit", "client_payments/v2/customer/crypto/withdrawal"},
-                "delete": []any{"trading/offer/{symbol}/{id}/{side}/{price}", "trading/stop/offer/{symbol}/{id}/{side}/{price}"},
-                "put": []any{"balances/BITBAY/balance/{id}"},
+            "v1_01Private": map[string]interface{} {
+                "get": []interface{}{"api_payments/deposits/crypto/addresses", "payments/withdrawal/{detailId}", "payments/deposit/{detailId}", "trading/offer", "trading/stop/offer", "trading/config/{symbol}", "trading/history/transactions", "balances/BITBAY/history", "balances/BITBAY/balance", "fiat_cantor/rate/{baseId}/{quoteId}", "fiat_cantor/history", "client_payments/v2/customer/crypto/{currency}/channels/deposit", "client_payments/v2/customer/crypto/{currency}/channels/withdrawal", "client_payments/v2/customer/crypto/deposit/fee", "client_payments/v2/customer/crypto/withdrawal/fee"},
+                "post": []interface{}{"trading/offer/{symbol}", "trading/stop/offer/{symbol}", "trading/config/{symbol}", "balances/BITBAY/balance", "balances/BITBAY/balance/transfer/{source}/{destination}", "fiat_cantor/exchange", "api_payments/withdrawals/crypto", "api_payments/withdrawals/fiat", "client_payments/v2/customer/crypto/deposit", "client_payments/v2/customer/crypto/withdrawal"},
+                "delete": []interface{}{"trading/offer/{symbol}/{id}/{side}/{price}", "trading/stop/offer/{symbol}/{id}/{side}/{price}"},
+                "put": []interface{}{"balances/BITBAY/balance/{id}"},
             },
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "maker": this.ParseNumber("0.0"),
                 "taker": this.ParseNumber("0.001"),
                 "percentage": true,
                 "tierBased": false,
             },
-            "fiat": map[string]any {
+            "fiat": map[string]interface{} {
                 "maker": this.ParseNumber("0.0030"),
                 "taker": this.ParseNumber("0.0043"),
                 "percentage": true,
                 "tierBased": true,
-                "tiers": map[string]any {
-                    "taker": []any{[]any{this.ParseNumber("0.0043"), this.ParseNumber("0")}, []any{this.ParseNumber("0.0042"), this.ParseNumber("1250")}, []any{this.ParseNumber("0.0041"), this.ParseNumber("3750")}, []any{this.ParseNumber("0.0040"), this.ParseNumber("7500")}, []any{this.ParseNumber("0.0039"), this.ParseNumber("10000")}, []any{this.ParseNumber("0.0038"), this.ParseNumber("15000")}, []any{this.ParseNumber("0.0037"), this.ParseNumber("20000")}, []any{this.ParseNumber("0.0036"), this.ParseNumber("25000")}, []any{this.ParseNumber("0.0035"), this.ParseNumber("37500")}, []any{this.ParseNumber("0.0034"), this.ParseNumber("50000")}, []any{this.ParseNumber("0.0033"), this.ParseNumber("75000")}, []any{this.ParseNumber("0.0032"), this.ParseNumber("100000")}, []any{this.ParseNumber("0.0031"), this.ParseNumber("150000")}, []any{this.ParseNumber("0.0030"), this.ParseNumber("200000")}, []any{this.ParseNumber("0.0029"), this.ParseNumber("250000")}, []any{this.ParseNumber("0.0028"), this.ParseNumber("375000")}, []any{this.ParseNumber("0.0027"), this.ParseNumber("500000")}, []any{this.ParseNumber("0.0026"), this.ParseNumber("625000")}, []any{this.ParseNumber("0.0025"), this.ParseNumber("875000")}},
-                    "maker": []any{[]any{this.ParseNumber("0.0030"), this.ParseNumber("0")}, []any{this.ParseNumber("0.0029"), this.ParseNumber("1250")}, []any{this.ParseNumber("0.0028"), this.ParseNumber("3750")}, []any{this.ParseNumber("0.0028"), this.ParseNumber("7500")}, []any{this.ParseNumber("0.0027"), this.ParseNumber("10000")}, []any{this.ParseNumber("0.0026"), this.ParseNumber("15000")}, []any{this.ParseNumber("0.0025"), this.ParseNumber("20000")}, []any{this.ParseNumber("0.0025"), this.ParseNumber("25000")}, []any{this.ParseNumber("0.0024"), this.ParseNumber("37500")}, []any{this.ParseNumber("0.0023"), this.ParseNumber("50000")}, []any{this.ParseNumber("0.0023"), this.ParseNumber("75000")}, []any{this.ParseNumber("0.0022"), this.ParseNumber("100000")}, []any{this.ParseNumber("0.0021"), this.ParseNumber("150000")}, []any{this.ParseNumber("0.0021"), this.ParseNumber("200000")}, []any{this.ParseNumber("0.0020"), this.ParseNumber("250000")}, []any{this.ParseNumber("0.0019"), this.ParseNumber("375000")}, []any{this.ParseNumber("0.0018"), this.ParseNumber("500000")}, []any{this.ParseNumber("0.0018"), this.ParseNumber("625000")}, []any{this.ParseNumber("0.0017"), this.ParseNumber("875000")}},
+                "tiers": map[string]interface{} {
+                    "taker": []interface{}{[]interface{}{this.ParseNumber("0.0043"), this.ParseNumber("0")}, []interface{}{this.ParseNumber("0.0042"), this.ParseNumber("1250")}, []interface{}{this.ParseNumber("0.0041"), this.ParseNumber("3750")}, []interface{}{this.ParseNumber("0.0040"), this.ParseNumber("7500")}, []interface{}{this.ParseNumber("0.0039"), this.ParseNumber("10000")}, []interface{}{this.ParseNumber("0.0038"), this.ParseNumber("15000")}, []interface{}{this.ParseNumber("0.0037"), this.ParseNumber("20000")}, []interface{}{this.ParseNumber("0.0036"), this.ParseNumber("25000")}, []interface{}{this.ParseNumber("0.0035"), this.ParseNumber("37500")}, []interface{}{this.ParseNumber("0.0034"), this.ParseNumber("50000")}, []interface{}{this.ParseNumber("0.0033"), this.ParseNumber("75000")}, []interface{}{this.ParseNumber("0.0032"), this.ParseNumber("100000")}, []interface{}{this.ParseNumber("0.0031"), this.ParseNumber("150000")}, []interface{}{this.ParseNumber("0.0030"), this.ParseNumber("200000")}, []interface{}{this.ParseNumber("0.0029"), this.ParseNumber("250000")}, []interface{}{this.ParseNumber("0.0028"), this.ParseNumber("375000")}, []interface{}{this.ParseNumber("0.0027"), this.ParseNumber("500000")}, []interface{}{this.ParseNumber("0.0026"), this.ParseNumber("625000")}, []interface{}{this.ParseNumber("0.0025"), this.ParseNumber("875000")}},
+                    "maker": []interface{}{[]interface{}{this.ParseNumber("0.0030"), this.ParseNumber("0")}, []interface{}{this.ParseNumber("0.0029"), this.ParseNumber("1250")}, []interface{}{this.ParseNumber("0.0028"), this.ParseNumber("3750")}, []interface{}{this.ParseNumber("0.0028"), this.ParseNumber("7500")}, []interface{}{this.ParseNumber("0.0027"), this.ParseNumber("10000")}, []interface{}{this.ParseNumber("0.0026"), this.ParseNumber("15000")}, []interface{}{this.ParseNumber("0.0025"), this.ParseNumber("20000")}, []interface{}{this.ParseNumber("0.0025"), this.ParseNumber("25000")}, []interface{}{this.ParseNumber("0.0024"), this.ParseNumber("37500")}, []interface{}{this.ParseNumber("0.0023"), this.ParseNumber("50000")}, []interface{}{this.ParseNumber("0.0023"), this.ParseNumber("75000")}, []interface{}{this.ParseNumber("0.0022"), this.ParseNumber("100000")}, []interface{}{this.ParseNumber("0.0021"), this.ParseNumber("150000")}, []interface{}{this.ParseNumber("0.0021"), this.ParseNumber("200000")}, []interface{}{this.ParseNumber("0.0020"), this.ParseNumber("250000")}, []interface{}{this.ParseNumber("0.0019"), this.ParseNumber("375000")}, []interface{}{this.ParseNumber("0.0018"), this.ParseNumber("500000")}, []interface{}{this.ParseNumber("0.0018"), this.ParseNumber("625000")}, []interface{}{this.ParseNumber("0.0017"), this.ParseNumber("875000")}},
                 },
             },
-            "funding": map[string]any {
-                "withdraw": map[string]any {},
+            "funding": map[string]interface{} {
+                "withdraw": map[string]interface{} {},
             },
         },
-        "options": map[string]any {
+        "options": map[string]interface{} {
             "fetchTickerMethod": "v1_01PublicGetTradingTickerSymbol",
             "fetchTickersMethod": "v1_01PublicGetTradingTicker",
-            "fiatCurrencies": []any{"EUR", "USD", "GBP", "PLN"},
-            "transfer": map[string]any {
+            "fiatCurrencies": []interface{}{"EUR", "USD", "GBP", "PLN"},
+            "transfer": map[string]interface{} {
                 "fillResponseFromRequest": true,
             },
         },
-        "features": map[string]any {
-            "spot": map[string]any {
+        "features": map[string]interface{} {
+            "spot": map[string]interface{} {
                 "sandbox": false,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": true,
                     "triggerDirection": false,
@@ -216,7 +216,7 @@ func  (this *ZondaCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": true,
                         "PO": true,
@@ -231,7 +231,7 @@ func  (this *ZondaCore) Describe() any  {
                     "iceberg": false,
                 },
                 "createOrders": nil,
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": nil,
                     "daysBack": 100000,
@@ -239,7 +239,7 @@ func  (this *ZondaCore) Describe() any  {
                     "symbolRequired": false,
                 },
                 "fetchOrder": nil,
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "trigger": false,
@@ -248,21 +248,21 @@ func  (this *ZondaCore) Describe() any  {
                 },
                 "fetchOrders": nil,
                 "fetchClosedOrders": nil,
-                "fetchOHLCV": map[string]any {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": nil,
                 },
             },
-            "swap": map[string]any {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
         },
         "precisionMode": TICK_SIZE,
-        "exceptions": map[string]any {
+        "exceptions": map[string]interface{} {
             "400": ExchangeError,
             "401": InvalidOrder,
             "402": InvalidOrder,
@@ -293,7 +293,7 @@ func  (this *ZondaCore) Describe() any  {
             "ACTION_BLOCKED": PermissionDenied,
             "INVALID_HASH_SIGNATURE": AuthenticationError,
         },
-        "commonCurrencies": map[string]any {
+        "commonCurrencies": map[string]interface{} {
             "GGC": "Global Game Coin",
         },
     })
@@ -306,12 +306,12 @@ func  (this *ZondaCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *ZondaCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.V1_01PublicGetTradingTicker(params))
@@ -335,8 +335,8 @@ func  (this *ZondaCore) FetchMarkets(optionalArgs ...any) <- chan any {
             //         },
             //     }
             //
-            var items any = this.SafeValue(response, "items", map[string]any {})
-            var markets any = ObjectValues(items)
+            var items interface{} = this.SafeValue(response, "items", map[string]interface{} {})
+            var markets interface{} = ObjectValues(items)
         
             ch <- this.ParseMarkets(markets)
             return nil
@@ -344,22 +344,22 @@ func  (this *ZondaCore) FetchMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZondaCore) ParseMarket(item any) any  {
-    var market any = this.SafeValue(item, "market", map[string]any {})
-    var id any = this.SafeString(market, "code")
-    var first any = this.SafeValue(market, "first", map[string]any {})
-    var second any = this.SafeValue(market, "second", map[string]any {})
-    var baseId any = this.SafeString(first, "currency")
-    var quoteId any = this.SafeString(second, "currency")
-    var base any = this.SafeCurrencyCode(baseId)
-    var quote any = this.SafeCurrencyCode(quoteId)
-    var fees any = this.SafeValue(this.Fees, "trading", map[string]any {})
-    var fiatCurrencies any = this.SafeValue(this.Options, "fiatCurrencies", []any{})
+func  (this *ZondaCore) ParseMarket(item interface{}) interface{}  {
+    var market interface{} = this.SafeValue(item, "market", map[string]interface{} {})
+    var id interface{} = this.SafeString(market, "code")
+    var first interface{} = this.SafeValue(market, "first", map[string]interface{} {})
+    var second interface{} = this.SafeValue(market, "second", map[string]interface{} {})
+    var baseId interface{} = this.SafeString(first, "currency")
+    var quoteId interface{} = this.SafeString(second, "currency")
+    var base interface{} = this.SafeCurrencyCode(baseId)
+    var quote interface{} = this.SafeCurrencyCode(quoteId)
+    var fees interface{} = this.SafeValue(this.Fees, "trading", map[string]interface{} {})
+    var fiatCurrencies interface{} = this.SafeValue(this.Options, "fiatCurrencies", []interface{}{})
     if IsTrue(IsTrue(this.InArray(base, fiatCurrencies)) || IsTrue(this.InArray(quote, fiatCurrencies))) {
-        fees = this.SafeValue(this.Fees, "fiat", map[string]any {})
+        fees = this.SafeValue(this.Fees, "fiat", map[string]interface{} {})
     }
     // todo: check that the limits have ben interpreted correctly
-    return map[string]any {
+    return map[string]interface{} {
         "id": id,
         "symbol": Add(Add(base, "/"), quote),
         "base": base,
@@ -385,24 +385,24 @@ func  (this *ZondaCore) ParseMarket(item any) any  {
         "expiryDatetime": nil,
         "optionType": nil,
         "strike": nil,
-        "precision": map[string]any {
+        "precision": map[string]interface{} {
             "amount": this.ParseNumber(this.ParsePrecision(this.SafeString(first, "scale"))),
             "price": this.ParseNumber(this.ParsePrecision(this.SafeString(second, "scale"))),
         },
-        "limits": map[string]any {
-            "leverage": map[string]any {
+        "limits": map[string]interface{} {
+            "leverage": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "amount": map[string]any {
+            "amount": map[string]interface{} {
                 "min": this.SafeNumber(first, "minOffer"),
                 "max": nil,
             },
-            "price": map[string]any {
+            "price": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "cost": map[string]any {
+            "cost": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
@@ -422,9 +422,9 @@ func  (this *ZondaCore) ParseMarket(item any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZondaCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -433,19 +433,19 @@ func  (this *ZondaCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes5168 := (<-this.LoadMarkets())
             PanicOnError(retRes5168)
-            var request any = map[string]any {}
+            var request interface{} = map[string]interface{} {}
             // todo pair
         
             response:= (<-this.V1_01PrivateGetTradingOffer(this.Extend(request, params)))
             PanicOnError(response)
-            var items any = this.SafeList(response, "items", []any{})
+            var items interface{} = this.SafeList(response, "items", []interface{}{})
         
-            ch <- this.ParseOrders(items, nil, since, limit, map[string]any {
+            ch <- this.ParseOrders(items, nil, since, limit, map[string]interface{} {
                 "status": "open",
             })
             return nil
@@ -453,7 +453,7 @@ func  (this *ZondaCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZondaCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *ZondaCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "market": "ETH-EUR",
@@ -481,13 +481,13 @@ func  (this *ZondaCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(order, "market")
-    var symbol any = this.SafeSymbol(marketId, market, "-")
-    var timestamp any = this.SafeInteger(order, "time")
-    var amount any = this.SafeString(order, "startAmount")
-    var remaining any = this.SafeString(order, "currentAmount")
-    var postOnly any = this.SafeValue(order, "postOnly")
-    return this.SafeOrder(map[string]any {
+    var marketId interface{} = this.SafeString(order, "market")
+    var symbol interface{} = this.SafeSymbol(marketId, market, "-")
+    var timestamp interface{} = this.SafeInteger(order, "time")
+    var amount interface{} = this.SafeString(order, "startAmount")
+    var remaining interface{} = this.SafeString(order, "currentAmount")
+    var postOnly interface{} = this.SafeValue(order, "postOnly")
+    return this.SafeOrder(map[string]interface{} {
         "id": this.SafeString(order, "id"),
         "clientOrderId": nil,
         "info": order,
@@ -522,9 +522,9 @@ func  (this *ZondaCore) ParseOrder(order any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *ZondaCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -533,18 +533,18 @@ func  (this *ZondaCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes5938 := (<-this.LoadMarkets())
             PanicOnError(retRes5938)
-            var request any = map[string]any {}
+            var request interface{} = map[string]interface{} {}
             if IsTrue(symbol) {
-                var markets any = []any{this.MarketId(symbol)}
+                var markets interface{} = []interface{}{this.MarketId(symbol)}
                 symbol = this.Symbol(symbol)
                 AddElementToObject(request, "markets", markets)
             }
-            var query any = map[string]any {
+            var query interface{} = map[string]interface{} {
                 "query": this.Json(this.Extend(request, params)),
             }
         
@@ -570,8 +570,8 @@ func  (this *ZondaCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var items any = this.SafeValue(response, "items")
-            var result any = this.ParseTrades(items, nil, since, limit)
+            var items interface{} = this.SafeValue(response, "items")
+            var result interface{} = this.ParseTrades(items, nil, since, limit)
             if IsTrue(IsEqual(symbol, nil)) {
         
                 ch <- result
@@ -584,19 +584,19 @@ func  (this *ZondaCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZondaCore) ParseBalance(response any) any  {
-    var balances any = this.SafeValue(response, "balances")
+func  (this *ZondaCore) ParseBalance(response interface{}) interface{}  {
+    var balances interface{} = this.SafeValue(response, "balances")
     if IsTrue(IsEqual(balances, nil)) {
         panic(ExchangeError(Add(Add(this.Id, " empty balance response "), this.Json(response))))
     }
-    var result any = map[string]any {
+    var result interface{} = map[string]interface{} {
         "info": response,
     }
     for i := 0; IsLessThan(i, GetArrayLength(balances)); i++ {
-        var balance any = GetValue(balances, i)
-        var currencyId any = this.SafeString(balance, "currency")
-        var code any = this.SafeCurrencyCode(currencyId)
-        var account any = this.Account()
+        var balance interface{} = GetValue(balances, i)
+        var currencyId interface{} = this.SafeString(balance, "currency")
+        var code interface{} = this.SafeCurrencyCode(currencyId)
+        var account interface{} = this.Account()
         AddElementToObject(account, "used", this.SafeString(balance, "lockedFunds"))
         AddElementToObject(account, "free", this.SafeString(balance, "availableFunds"))
         AddElementToObject(result, code, account)
@@ -611,12 +611,12 @@ func  (this *ZondaCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *ZondaCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes6578 := (<-this.LoadMarkets())
@@ -641,20 +641,20 @@ func  (this *ZondaCore) FetchBalance(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *ZondaCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes6738 := (<-this.LoadMarkets())
             PanicOnError(retRes6738)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
         
@@ -677,11 +677,11 @@ func  (this *ZondaCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan 
             //         "seqNo":"27641254"
             //     }
             //
-            var rawBids any = this.SafeValue(response, "buy", []any{})
-            var rawAsks any = this.SafeValue(response, "sell", []any{})
-            var timestamp any = this.SafeInteger(response, "timestamp")
+            var rawBids interface{} = this.SafeValue(response, "buy", []interface{}{})
+            var rawAsks interface{} = this.SafeValue(response, "sell", []interface{}{})
+            var timestamp interface{} = this.SafeInteger(response, "timestamp")
         
-            ch <- map[string]any {
+            ch <- map[string]interface{} {
                 "symbol": GetValue(market, "symbol"),
                 "bids": this.ParseBidsAsks(rawBids, "ra", "ca"),
                 "asks": this.ParseBidsAsks(rawAsks, "ra", "ca"),
@@ -694,7 +694,7 @@ func  (this *ZondaCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan 
             }()
             return ch
         }
-func  (this *ZondaCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *ZondaCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // version 1
     //
@@ -734,12 +734,12 @@ func  (this *ZondaCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var tickerMarket any = this.SafeValue(ticker, "market")
-    var marketId any = this.SafeString2(tickerMarket, "code", "m")
+    var tickerMarket interface{} = this.SafeValue(ticker, "market")
+    var marketId interface{} = this.SafeString2(tickerMarket, "code", "m")
     market = this.SafeMarket(marketId, market)
-    var timestamp any = this.SafeInteger(ticker, "time")
-    var rate any = this.SafeValue(ticker, "rate")
-    return this.SafeTicker(map[string]any {
+    var timestamp interface{} = this.SafeInteger(ticker, "time")
+    var rate interface{} = this.SafeValue(ticker, "rate")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": this.SafeSymbol(marketId, market),
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -772,24 +772,24 @@ func  (this *ZondaCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {string} [params.method] v1_01PublicGetTradingTickerSymbol (default) or v1_01PublicGetTradingStatsSymbol
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *ZondaCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes7878 := (<-this.LoadMarkets())
             PanicOnError(retRes7878)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
             }
-            var method any = "v1_01PublicGetTradingTickerSymbol"
-            var defaultMethod any = this.SafeString(this.Options, "fetchTickerMethod", method)
-            var fetchTickerMethod any = this.SafeString2(params, "method", "fetchTickerMethod", defaultMethod)
-            var response any = nil
+            var method interface{} = "v1_01PublicGetTradingTickerSymbol"
+            var defaultMethod interface{} = this.SafeString(this.Options, "fetchTickerMethod", method)
+            var fetchTickerMethod interface{} = this.SafeString2(params, "method", "fetchTickerMethod", defaultMethod)
+            var response interface{} = nil
             if IsTrue(IsEqual(fetchTickerMethod, method)) {
                 
             response = (<-this.V1_01PublicGetTradingTickerSymbol(this.Extend(request, params)))
@@ -801,7 +801,7 @@ func  (this *ZondaCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any
             } else {
                 panic(BadRequest(Add(this.Id, " fetchTicker params[\"method\"] must be \"v1_01PublicGetTradingTickerSymbol\" or \"v1_01PublicGetTradingStatsSymbol\"")))
             }
-            var stats any = this.SafeValue2(response, "ticker", "stats")
+            var stats interface{} = this.SafeValue2(response, "ticker", "stats")
         
             ch <- this.ParseTicker(stats, market)
             return nil
@@ -820,22 +820,22 @@ func  (this *ZondaCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any
  * @param {string} [params.method] v1_01PublicGetTradingTicker (default) or v1_01PublicGetTradingStats
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *ZondaCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes8598 := (<-this.LoadMarkets())
             PanicOnError(retRes8598)
-            var method any = "v1_01PublicGetTradingTicker"
-            var defaultMethod any = this.SafeString(this.Options, "fetchTickersMethod", method)
-            var fetchTickersMethod any = this.SafeString2(params, "method", "fetchTickersMethod", defaultMethod)
-            var response any = nil
+            var method interface{} = "v1_01PublicGetTradingTicker"
+            var defaultMethod interface{} = this.SafeString(this.Options, "fetchTickersMethod", method)
+            var fetchTickersMethod interface{} = this.SafeString2(params, "method", "fetchTickersMethod", defaultMethod)
+            var response interface{} = nil
             if IsTrue(IsEqual(fetchTickersMethod, method)) {
                 
             response = (<-this.V1_01PublicGetTradingTicker(params))
@@ -847,7 +847,7 @@ func  (this *ZondaCore) FetchTickers(optionalArgs ...any) <- chan any {
             } else {
                 panic(BadRequest(Add(this.Id, " fetchTickers params[\"method\"] must be \"v1_01PublicGetTradingTicker\" or \"v1_01PublicGetTradingStats\"")))
             }
-            var items any = this.SafeDict(response, "items")
+            var items interface{} = this.SafeDict(response, "items")
         
             ch <- this.ParseTickers(items, symbols)
             return nil
@@ -866,9 +866,9 @@ func  (this *ZondaCore) FetchTickers(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ledger structure]{@link https://docs.ccxt.com/?id=ledger-entry-structure}
  */
-func  (this *ZondaCore) FetchLedger(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchLedger(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -877,14 +877,14 @@ func  (this *ZondaCore) FetchLedger(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
-            var balanceCurrencies any = []any{}
+            var balanceCurrencies interface{} = []interface{}{}
             if IsTrue(!IsEqual(code, nil)) {
-                var currency any = this.Currency(code)
+                var currency interface{} = this.Currency(code)
                 AppendToArray(&balanceCurrencies, GetValue(currency, "id"))
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "balanceCurrencies": balanceCurrencies,
             }
             if IsTrue(!IsEqual(since, nil)) {
@@ -895,11 +895,11 @@ func  (this *ZondaCore) FetchLedger(optionalArgs ...any) <- chan any {
             }
             request = this.Extend(request, params)
         
-            response:= (<-this.V1_01PrivateGetBalancesBITBAYHistory(map[string]any {
+            response:= (<-this.V1_01PrivateGetBalancesBITBAYHistory(map[string]interface{} {
             "query": this.Json(request),
         }))
             PanicOnError(response)
-            var items any = GetValue(response, "items")
+            var items interface{} = GetValue(response, "items")
         
             ch <- this.ParseLedger(items, nil, since, limit)
             return nil
@@ -907,7 +907,7 @@ func  (this *ZondaCore) FetchLedger(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZondaCore) ParseLedgerEntry(item any, optionalArgs ...any) any  {
+func  (this *ZondaCore) ParseLedgerEntry(item interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //    FUNDS_MIGRATION
     //    {
@@ -1177,22 +1177,22 @@ func  (this *ZondaCore) ParseLedgerEntry(item any, optionalArgs ...any) any  {
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var timestamp any = this.SafeInteger(item, "time")
-    var balance any = this.SafeValue(item, "balance", map[string]any {})
-    var currencyId any = this.SafeString(balance, "currency")
+    var timestamp interface{} = this.SafeInteger(item, "time")
+    var balance interface{} = this.SafeValue(item, "balance", map[string]interface{} {})
+    var currencyId interface{} = this.SafeString(balance, "currency")
     currency = this.SafeCurrency(currencyId, currency)
-    var change any = this.SafeValue(item, "change", map[string]any {})
-    var amount any = this.SafeString(change, "total")
-    var direction any = "in"
+    var change interface{} = this.SafeValue(item, "change", map[string]interface{} {})
+    var amount interface{} = this.SafeString(change, "total")
+    var direction interface{} = "in"
     if IsTrue(Precise.StringLt(amount, "0")) {
         direction = "out"
         amount = Precise.StringNeg(amount)
     }
     // there are 2 undocumented api calls: (v1_01PrivateGetPaymentsDepositDetailId and v1_01PrivateGetPaymentsWithdrawalDetailId)
     // that can be used to enrich the transfers with txid, address etc (you need to use info.detailId as a parameter)
-    var fundsBefore any = this.SafeValue(item, "fundsBefore", map[string]any {})
-    var fundsAfter any = this.SafeValue(item, "fundsAfter", map[string]any {})
-    return this.SafeLedgerEntry(map[string]any {
+    var fundsBefore interface{} = this.SafeValue(item, "fundsBefore", map[string]interface{} {})
+    var fundsAfter interface{} = this.SafeValue(item, "fundsAfter", map[string]interface{} {})
+    return this.SafeLedgerEntry(map[string]interface{} {
         "info": item,
         "id": this.SafeString(item, "historyId"),
         "direction": direction,
@@ -1210,8 +1210,8 @@ func  (this *ZondaCore) ParseLedgerEntry(item any, optionalArgs ...any) any  {
         "fee": nil,
     }, currency)
 }
-func  (this *ZondaCore) ParseLedgerEntryType(typeVar any) any  {
-    var types any = map[string]any {
+func  (this *ZondaCore) ParseLedgerEntryType(typeVar interface{}) interface{}  {
+    var types interface{} = map[string]interface{} {
         "ADD_FUNDS": "transaction",
         "BITCOIN_GOLD_FORK": "transaction",
         "CREATE_BALANCE": "transaction",
@@ -1229,7 +1229,7 @@ func  (this *ZondaCore) ParseLedgerEntryType(typeVar any) any  {
     }
     return this.SafeString(types, typeVar, typeVar)
 }
-func  (this *ZondaCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
+func  (this *ZondaCore) ParseOHLCV(ohlcv interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     [
     //         "1582399800000",
@@ -1245,8 +1245,8 @@ func  (this *ZondaCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var first any = this.SafeValue(ohlcv, 1, map[string]any {})
-    return []any{this.SafeInteger(ohlcv, 0), this.SafeNumber(first, "o"), this.SafeNumber(first, "h"), this.SafeNumber(first, "l"), this.SafeNumber(first, "c"), this.SafeNumber(first, "v")}
+    var first interface{} = this.SafeValue(ohlcv, 1, map[string]interface{} {})
+    return []interface{}{this.SafeInteger(ohlcv, 0), this.SafeNumber(first, "o"), this.SafeNumber(first, "h"), this.SafeNumber(first, "l"), this.SafeNumber(first, "c"), this.SafeNumber(first, "v")}
 }
 /**
  * @method
@@ -1260,9 +1260,9 @@ func  (this *ZondaCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *ZondaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -1271,14 +1271,14 @@ func  (this *ZondaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes13138 := (<-this.LoadMarkets())
             PanicOnError(retRes13138)
-            var market any = this.Market(symbol)
-            var tradingSymbol any = Add(Add(GetValue(market, "baseId"), "-"), GetValue(market, "quoteId"))
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var tradingSymbol interface{} = Add(Add(GetValue(market, "baseId"), "-"), GetValue(market, "quoteId"))
+            var request interface{} = map[string]interface{} {
                 "symbol": tradingSymbol,
                 "resolution": this.SafeString(this.Timeframes, timeframe, timeframe),
             }
@@ -1287,8 +1287,8 @@ func  (this *ZondaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any 
             } else {
                 limit = mathMin(limit, 11000) // supports up to 11k candles diapason
             }
-            var duration any = this.ParseTimeframe(timeframe)
-            var timerange any = Multiply(Multiply(limit, duration), 1000)
+            var duration interface{} = this.ParseTimeframe(timeframe)
+            var timerange interface{} = Multiply(Multiply(limit, duration), 1000)
             if IsTrue(IsEqual(since, nil)) {
                 AddElementToObject(request, "to", this.Milliseconds())
                 AddElementToObject(request, "from", Subtract(GetValue(request, "to"), timerange))
@@ -1309,7 +1309,7 @@ func  (this *ZondaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any 
             //         ]
             //     }
             //
-            var items any = this.SafeList(response, "items", []any{})
+            var items interface{} = this.SafeList(response, "items", []interface{}{})
         
             ch <- this.ParseOHLCVs(items, market, timeframe, since, limit)
             return nil
@@ -1317,7 +1317,7 @@ func  (this *ZondaCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any 
             }()
             return ch
         }
-func  (this *ZondaCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *ZondaCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // createOrder trades
     //
@@ -1353,34 +1353,34 @@ func  (this *ZondaCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeInteger2(trade, "time", "t")
-    var side any = this.SafeStringLower2(trade, "userAction", "ty")
-    var wasTaker any = this.SafeValue(trade, "wasTaker")
-    var takerOrMaker any = nil
+    var timestamp interface{} = this.SafeInteger2(trade, "time", "t")
+    var side interface{} = this.SafeStringLower2(trade, "userAction", "ty")
+    var wasTaker interface{} = this.SafeValue(trade, "wasTaker")
+    var takerOrMaker interface{} = nil
     if IsTrue(!IsEqual(wasTaker, nil)) {
         takerOrMaker = Ternary(IsTrue(wasTaker), "taker", "maker")
     }
-    var priceString any = this.SafeString2(trade, "rate", "r")
-    var amountString any = this.SafeString2(trade, "amount", "a")
-    var feeCostString any = this.SafeString(trade, "commissionValue")
-    var marketId any = this.SafeString(trade, "market")
+    var priceString interface{} = this.SafeString2(trade, "rate", "r")
+    var amountString interface{} = this.SafeString2(trade, "amount", "a")
+    var feeCostString interface{} = this.SafeString(trade, "commissionValue")
+    var marketId interface{} = this.SafeString(trade, "market")
     market = this.SafeMarket(marketId, market, "-")
-    var symbol any = GetValue(market, "symbol")
-    var fee any = nil
+    var symbol interface{} = GetValue(market, "symbol")
+    var fee interface{} = nil
     if IsTrue(!IsEqual(feeCostString, nil)) {
-        var feeCurrency any = Ternary(IsTrue((IsEqual(side, "buy"))), GetValue(market, "base"), GetValue(market, "quote"))
-        fee = map[string]any {
+        var feeCurrency interface{} = Ternary(IsTrue((IsEqual(side, "buy"))), GetValue(market, "base"), GetValue(market, "quote"))
+        fee = map[string]interface{} {
             "currency": feeCurrency,
             "cost": feeCostString,
         }
     }
-    var order any = this.SafeString(trade, "offerId")
+    var order interface{} = this.SafeString(trade, "offerId")
     // todo: check this logic
-    var typeVar any = nil
+    var typeVar interface{} = nil
     if IsTrue(!IsEqual(order, nil)) {
         typeVar = Ternary(IsTrue(order), "limit", "market")
     }
-    return this.SafeTrade(map[string]any {
+    return this.SafeTrade(map[string]interface{} {
         "id": this.SafeString(trade, "id"),
         "order": order,
         "timestamp": timestamp,
@@ -1407,23 +1407,23 @@ func  (this *ZondaCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *ZondaCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes14418 := (<-this.LoadMarkets())
             PanicOnError(retRes14418)
-            var market any = this.Market(symbol)
-            var tradingSymbol any = Add(Add(GetValue(market, "baseId"), "-"), GetValue(market, "quoteId"))
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var tradingSymbol interface{} = Add(Add(GetValue(market, "baseId"), "-"), GetValue(market, "quoteId"))
+            var request interface{} = map[string]interface{} {
                 "symbol": tradingSymbol,
             }
             if IsTrue(!IsEqual(since, nil)) {
@@ -1435,7 +1435,7 @@ func  (this *ZondaCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any
         
             response:= (<-this.V1_01PublicGetTradingTransactionsSymbol(this.Extend(request, params)))
             PanicOnError(response)
-            var items any = this.SafeList(response, "items")
+            var items interface{} = this.SafeList(response, "items")
         
             ch <- this.ParseTrades(items, market, since, limit)
             return nil
@@ -1456,33 +1456,33 @@ func  (this *ZondaCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZondaCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes14728 := (<-this.LoadMarkets())
             PanicOnError(retRes14728)
-            var market any = this.Market(symbol)
-            var tradingSymbol any = Add(Add(GetValue(market, "baseId"), "-"), GetValue(market, "quoteId"))
+            var market interface{} = this.Market(symbol)
+            var tradingSymbol interface{} = Add(Add(GetValue(market, "baseId"), "-"), GetValue(market, "quoteId"))
             amount = ParseFloat(this.AmountToPrecision(symbol, amount))
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "symbol": tradingSymbol,
                 "offerType": ToUpper(side),
                 "amount": amount,
             }
-            var stopLossPrice any = this.SafeValue2(params, "stopPrice", "stopLossPrice")
-            var isStopLossPrice any = !IsEqual(stopLossPrice, nil)
-            var isLimitOrder any = IsEqual(typeVar, "limit")
-            var isMarketOrder any = IsEqual(typeVar, "market")
-            var isStopLimit any = IsTrue((IsEqual(typeVar, "stop-limit"))) || IsTrue((IsTrue(isLimitOrder) && IsTrue(isStopLossPrice)))
-            var isStopMarket any = IsTrue(IsEqual(typeVar, "stop-market")) || IsTrue((IsTrue(isMarketOrder) && IsTrue(isStopLossPrice)))
-            var isStopOrder any = IsTrue(isStopLimit) || IsTrue(isStopMarket)
+            var stopLossPrice interface{} = this.SafeValue2(params, "stopPrice", "stopLossPrice")
+            var isStopLossPrice interface{} = !IsEqual(stopLossPrice, nil)
+            var isLimitOrder interface{} = IsEqual(typeVar, "limit")
+            var isMarketOrder interface{} = IsEqual(typeVar, "market")
+            var isStopLimit interface{} = IsTrue((IsEqual(typeVar, "stop-limit"))) || IsTrue((IsTrue(isLimitOrder) && IsTrue(isStopLossPrice)))
+            var isStopMarket interface{} = IsTrue(IsEqual(typeVar, "stop-market")) || IsTrue((IsTrue(isMarketOrder) && IsTrue(isStopLossPrice)))
+            var isStopOrder interface{} = IsTrue(isStopLimit) || IsTrue(isStopMarket)
             if IsTrue(IsTrue(isLimitOrder) || IsTrue(isStopLimit)) {
                 AddElementToObject(request, "rate", this.PriceToPrecision(symbol, price))
                 AddElementToObject(request, "mode", Ternary(IsTrue(isStopLimit), "stop-limit", "limit"))
@@ -1491,8 +1491,8 @@ func  (this *ZondaCore) CreateOrder(symbol any, typeVar any, side any, amount an
             } else {
                 panic(ExchangeError(Add(this.Id, " createOrder() invalid type")))
             }
-            params = this.Omit(params, []any{"stopPrice", "stopLossPrice"})
-            var response any = nil
+            params = this.Omit(params, []interface{}{"stopPrice", "stopLossPrice"})
+            var response interface{} = nil
             if IsTrue(isStopOrder) {
                 if !IsTrue(isStopLossPrice) {
                     panic(ExchangeError(Add(this.Id, " createOrder() zonda requires `triggerPrice` parameter for stop-limit or stop-market orders")))
@@ -1560,12 +1560,12 @@ func  (this *ZondaCore) CreateOrder(symbol any, typeVar any, side any, amount an
             //         ]
             //     }
             //
-            var id any = this.SafeString2(response, "offerId", "stopOfferId")
-            var completed any = this.SafeBool(response, "completed", false)
-            var status any = Ternary(IsTrue(completed), "closed", "open")
-            var transactions any = this.SafeValue(response, "transactions")
+            var id interface{} = this.SafeString2(response, "offerId", "stopOfferId")
+            var completed interface{} = this.SafeBool(response, "completed", false)
+            var status interface{} = Ternary(IsTrue(completed), "closed", "open")
+            var transactions interface{} = this.SafeValue(response, "transactions")
         
-            ch <- this.SafeOrder(map[string]any {
+            ch <- this.SafeOrder(map[string]interface{} {
                 "id": id,
                 "info": response,
                 "timestamp": nil,
@@ -1600,29 +1600,29 @@ func  (this *ZondaCore) CreateOrder(symbol any, typeVar any, side any, amount an
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZondaCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var side any = this.SafeString(params, "side")
+            var side interface{} = this.SafeString(params, "side")
             if IsTrue(IsEqual(side, nil)) {
                 panic(ExchangeError(Add(this.Id, " cancelOrder() requires a `side` parameter (\"buy\" or \"sell\")")))
             }
-            var price any = this.SafeValue(params, "price")
+            var price interface{} = this.SafeValue(params, "price")
             if IsTrue(IsEqual(price, nil)) {
                 panic(ExchangeError(Add(this.Id, " cancelOrder() requires a `price` parameter (float or string)")))
             }
         
             retRes16068 := (<-this.LoadMarkets())
             PanicOnError(retRes16068)
-            var market any = this.Market(symbol)
-            var tradingSymbol any = Add(Add(GetValue(market, "baseId"), "-"), GetValue(market, "quoteId"))
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var tradingSymbol interface{} = Add(Add(GetValue(market, "baseId"), "-"), GetValue(market, "quoteId"))
+            var request interface{} = map[string]interface{} {
                 "symbol": tradingSymbol,
                 "id": id,
                 "side": side,
@@ -1640,15 +1640,15 @@ func  (this *ZondaCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZondaCore) IsFiat(currency any) any  {
-    var fiatCurrencies any = map[string]any {
+func  (this *ZondaCore) IsFiat(currency interface{}) interface{}  {
+    var fiatCurrencies interface{} = map[string]interface{} {
         "USD": true,
         "EUR": true,
         "PLN": true,
     }
     return this.SafeBool(fiatCurrencies, currency, false)
 }
-func  (this *ZondaCore) ParseDepositAddress(depositAddress any, optionalArgs ...any) any  {
+func  (this *ZondaCore) ParseDepositAddress(depositAddress interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "address": "33u5YAEhQbYfjHHPsfMfCoSdEjfwYjVcBE",
@@ -1660,10 +1660,10 @@ func  (this *ZondaCore) ParseDepositAddress(depositAddress any, optionalArgs ...
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var currencyId any = this.SafeString(depositAddress, "currency")
-    var address any = this.SafeString(depositAddress, "address")
+    var currencyId interface{} = this.SafeString(depositAddress, "currency")
+    var address interface{} = this.SafeString(depositAddress, "address")
     this.CheckAddress(address)
-    return map[string]any {
+    return map[string]interface{} {
         "info": depositAddress,
         "currency": this.SafeCurrencyCode(currencyId, currency),
         "network": nil,
@@ -1681,18 +1681,18 @@ func  (this *ZondaCore) ParseDepositAddress(depositAddress any, optionalArgs ...
  * @param {string} [params.walletId] Wallet id to filter deposit adresses.
  * @returns {object} an [address structure]{@link https://docs.ccxt.com/?id=address-structure}
  */
-func  (this *ZondaCore) FetchDepositAddress(code any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchDepositAddress(code interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes16638 := (<-this.LoadMarkets())
             PanicOnError(retRes16638)
-            var currency any = this.Currency(code)
-            var request any = map[string]any {
+            var currency interface{} = this.Currency(code)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(currency, "id"),
             }
         
@@ -1711,8 +1711,8 @@ func  (this *ZondaCore) FetchDepositAddress(code any, optionalArgs ...any) <- ch
             //         ]
             //     }
             //
-            var data any = this.SafeValue(response, "data")
-            var first any = this.SafeDict(data, 0)
+            var data interface{} = this.SafeValue(response, "data")
+            var first interface{} = this.SafeDict(data, 0)
         
             ch <- this.ParseDepositAddress(first, currency)
             return nil
@@ -1729,14 +1729,14 @@ func  (this *ZondaCore) FetchDepositAddress(code any, optionalArgs ...any) <- ch
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a list of [address structures]{@link https://docs.ccxt.com/?id=address-structure}
  */
-func  (this *ZondaCore) FetchDepositAddresses(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) FetchDepositAddresses(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     codes := GetArg(optionalArgs, 0, nil)
             _ = codes
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes16978 := (<-this.LoadMarkets())
@@ -1757,7 +1757,7 @@ func  (this *ZondaCore) FetchDepositAddresses(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data")
+            var data interface{} = this.SafeList(response, "data")
         
             ch <- this.ParseDepositAddresses(data, codes)
             return nil
@@ -1777,18 +1777,18 @@ func  (this *ZondaCore) FetchDepositAddresses(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [transfer structure]{@link https://docs.ccxt.com/?id=transfer-structure}
  */
-func  (this *ZondaCore) Transfer(code any, amount any, fromAccount any, toAccount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) Transfer(code interface{}, amount interface{}, fromAccount interface{}, toAccount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes17298 := (<-this.LoadMarkets())
             PanicOnError(retRes17298)
-            var currency any = this.Currency(code)
-            var request any = map[string]any {
+            var currency interface{} = this.Currency(code)
+            var request interface{} = map[string]interface{} {
                 "source": fromAccount,
                 "destination": toAccount,
                 "currency": code,
@@ -1825,9 +1825,9 @@ func  (this *ZondaCore) Transfer(code any, amount any, fromAccount any, toAccoun
             //         "errors": null
             //     }
             //
-            var transfer any = this.ParseTransfer(response, currency)
-            var transferOptions any = this.SafeValue(this.Options, "transfer", map[string]any {})
-            var fillResponseFromRequest any = this.SafeBool(transferOptions, "fillResponseFromRequest", true)
+            var transfer interface{} = this.ParseTransfer(response, currency)
+            var transferOptions interface{} = this.SafeValue(this.Options, "transfer", map[string]interface{} {})
+            var fillResponseFromRequest interface{} = this.SafeBool(transferOptions, "fillResponseFromRequest", true)
             if IsTrue(fillResponseFromRequest) {
                 AddElementToObject(transfer, "amount", amount)
             }
@@ -1838,7 +1838,7 @@ func  (this *ZondaCore) Transfer(code any, amount any, fromAccount any, toAccoun
             }()
             return ch
         }
-func  (this *ZondaCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
+func  (this *ZondaCore) ParseTransfer(transfer interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "status": "Ok",
@@ -1869,13 +1869,13 @@ func  (this *ZondaCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var status any = this.SafeString(transfer, "status")
-    var fromAccount any = this.SafeValue(transfer, "from", map[string]any {})
-    var fromId any = this.SafeString(fromAccount, "id")
-    var to any = this.SafeValue(transfer, "to", map[string]any {})
-    var toId any = this.SafeString(to, "id")
-    var currencyId any = this.SafeString(fromAccount, "currency")
-    return map[string]any {
+    var status interface{} = this.SafeString(transfer, "status")
+    var fromAccount interface{} = this.SafeValue(transfer, "from", map[string]interface{} {})
+    var fromId interface{} = this.SafeString(fromAccount, "id")
+    var to interface{} = this.SafeValue(transfer, "to", map[string]interface{} {})
+    var toId interface{} = this.SafeString(to, "id")
+    var currencyId interface{} = this.SafeString(fromAccount, "currency")
+    return map[string]interface{} {
         "info": transfer,
         "id": nil,
         "timestamp": nil,
@@ -1887,8 +1887,8 @@ func  (this *ZondaCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
         "status": this.ParseTransferStatus(status),
     }
 }
-func  (this *ZondaCore) ParseTransferStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *ZondaCore) ParseTransferStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "Ok": "ok",
         "Fail": "failed",
     }
@@ -1906,14 +1906,14 @@ func  (this *ZondaCore) ParseTransferStatus(status any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *ZondaCore) Withdraw(code any, amount any, address any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZondaCore) Withdraw(code interface{}, amount interface{}, address interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     tag := GetArg(optionalArgs, 0, nil)
             _ = tag
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             tagparamsVariable := this.HandleWithdrawTagAndParams(tag, params);
             tag = GetValue(tagparamsVariable,0);
@@ -1922,9 +1922,9 @@ func  (this *ZondaCore) Withdraw(code any, amount any, address any, optionalArgs
         
             retRes18468 := (<-this.LoadMarkets())
             PanicOnError(retRes18468)
-            var response any = nil
-            var currency any = this.Currency(code)
-            var request any = map[string]any {
+            var response interface{} = nil
+            var currency interface{} = this.Currency(code)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(currency, "id"),
                 "amount": amount,
                 "address": address,
@@ -1950,7 +1950,7 @@ func  (this *ZondaCore) Withdraw(code any, amount any, address any, optionalArgs
             //         }
             //     }
             //
-            var data any = this.SafeDict(response, "data")
+            var data interface{} = this.SafeDict(response, "data")
         
             ch <- this.ParseTransaction(data, currency)
             return nil
@@ -1958,7 +1958,7 @@ func  (this *ZondaCore) Withdraw(code any, amount any, address any, optionalArgs
             }()
             return ch
         }
-func  (this *ZondaCore) ParseTransaction(transaction any, optionalArgs ...any) any  {
+func  (this *ZondaCore) ParseTransaction(transaction interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // withdraw
     //
@@ -1969,7 +1969,7 @@ func  (this *ZondaCore) ParseTransaction(transaction any, optionalArgs ...any) a
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
     currency = this.SafeCurrency(nil, currency)
-    return map[string]any {
+    return map[string]interface{} {
         "id": this.SafeString(transaction, "id"),
         "txid": nil,
         "timestamp": nil,
@@ -1992,36 +1992,36 @@ func  (this *ZondaCore) ParseTransaction(transaction any, optionalArgs ...any) a
         "info": transaction,
     }
 }
-func  (this *ZondaCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *ZondaCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = this.ImplodeHostname(GetValue(GetValue(this.Urls, "api"), api))
+    var url interface{} = this.ImplodeHostname(GetValue(GetValue(this.Urls, "api"), api))
     if IsTrue(IsEqual(api, "public")) {
-        var query any = this.Omit(params, this.ExtractParams(path))
+        var query interface{} = this.Omit(params, this.ExtractParams(path))
         url = Add(url, Add(Add("/", this.ImplodeParams(path, params)), ".json"))
         if IsTrue(GetArrayLength(ObjectKeys(query))) {
             url = Add(url, Add("?", this.Urlencode(query)))
         }
     } else if IsTrue(IsEqual(api, "v1_01Public")) {
-        var query any = this.Omit(params, this.ExtractParams(path))
+        var query interface{} = this.Omit(params, this.ExtractParams(path))
         url = Add(url, Add("/", this.ImplodeParams(path, params)))
         if IsTrue(GetArrayLength(ObjectKeys(query))) {
             url = Add(url, Add("?", this.Urlencode(query)))
         }
     } else if IsTrue(IsEqual(api, "v1_01Private")) {
         this.CheckRequiredCredentials()
-        var query any = this.Omit(params, this.ExtractParams(path))
+        var query interface{} = this.Omit(params, this.ExtractParams(path))
         url = Add(url, Add("/", this.ImplodeParams(path, params)))
-        var nonce any = ToString(this.Milliseconds())
-        var payload any = nil
+        var nonce interface{} = ToString(this.Milliseconds())
+        var payload interface{} = nil
         if IsTrue(!IsEqual(method, "POST")) {
             if IsTrue(GetArrayLength(ObjectKeys(query))) {
                 url = Add(url, Add("?", this.Urlencode(query)))
@@ -2031,7 +2031,7 @@ func  (this *ZondaCore) Sign(path any, optionalArgs ...any) any  {
             body = this.Json(query)
             payload = Add(Add(this.ApiKey, nonce), body)
         }
-        headers = map[string]any {
+        headers = map[string]interface{} {
             "Request-Timestamp": nonce,
             "Operation-Id": this.Uuid(),
             "API-Key": this.ApiKey,
@@ -2040,24 +2040,24 @@ func  (this *ZondaCore) Sign(path any, optionalArgs ...any) any  {
         }
     } else {
         this.CheckRequiredCredentials()
-        body = this.Urlencode(this.Extend(map[string]any {
+        body = this.Urlencode(this.Extend(map[string]interface{} {
             "method": path,
             "moment": this.Nonce(),
         }, params))
-        headers = map[string]any {
+        headers = map[string]interface{} {
             "Content-Type": "application/x-www-form-urlencoded",
             "API-Key": this.ApiKey,
             "API-Hash": this.Hmac(this.Encode(body), this.Encode(this.Secret), sha512),
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *ZondaCore) HandleErrors(httpCode any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *ZondaCore) HandleErrors(httpCode interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil  // fallback to default error handler
     }
@@ -2087,20 +2087,20 @@ func  (this *ZondaCore) HandleErrors(httpCode any, reason any, url any, method a
         //      509 The BIC/SWIFT is required for this currency
         //      510 Invalid market name
         //
-        var code any = this.SafeString(response, "code") // always an integer
-        var feedback any = Add(Add(this.Id, " "), body)
+        var code interface{} = this.SafeString(response, "code") // always an integer
+        var feedback interface{} = Add(Add(this.Id, " "), body)
         this.ThrowExactlyMatchedException(this.Exceptions, code, feedback)
         panic(ExchangeError(feedback))
     } else if IsTrue(InOp(response, "status")) {
         //
         //      {"status":"Fail","errors":["OFFER_FUNDS_NOT_EXCEEDING_MINIMUMS"]}
         //
-        var status any = this.SafeString(response, "status")
+        var status interface{} = this.SafeString(response, "status")
         if IsTrue(IsEqual(status, "Fail")) {
-            var errors any = this.SafeValue(response, "errors")
-            var feedback any = Add(Add(this.Id, " "), body)
+            var errors interface{} = this.SafeValue(response, "errors")
+            var feedback interface{} = Add(Add(this.Id, " "), body)
             for i := 0; IsLessThan(i, GetArrayLength(errors)); i++ {
-                var error any = GetValue(errors, i)
+                var error interface{} = GetValue(errors, i)
                 this.ThrowExactlyMatchedException(this.Exceptions, error, feedback)
             }
             panic(ExchangeError(feedback))
@@ -2110,8 +2110,8 @@ func  (this *ZondaCore) HandleErrors(httpCode any, reason any, url any, method a
 }
 
 
-func (this *ZondaCore) Init(userConfig map[string]any) {
+func (this *ZondaCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

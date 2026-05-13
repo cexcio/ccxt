@@ -546,9 +546,7 @@ class paradex(Exchange, ImplicitAPI):
         #  }
         #
         assetKind = self.safe_string(market, 'asset_kind')
-        isOptionPerpetual = (assetKind == 'PERP_OPTION')
-        isOptionDelivery = (assetKind == 'OPTION')
-        isOption = isOptionPerpetual or isOptionDelivery
+        isOption = (assetKind == 'PERP_OPTION')
         type = 'option' if (isOption) else 'swap'
         isSwap = (type == 'swap')
         marketId = self.safe_string(market, 'symbol')
@@ -566,8 +564,7 @@ class paradex(Exchange, ImplicitAPI):
         makerFee = self.parse_number('-0.00005')
         if isOption:
             optionTypeSuffix = 'C' if (optionType == 'CALL') else 'P'
-            deliveryValue = '' if (expiry == 0) else self.yymmdd(expiry) + '-'
-            symbol = symbol + '-' + deliveryValue + strikePrice + '-' + optionTypeSuffix
+            symbol = symbol + '-' + strikePrice + '-' + optionTypeSuffix
             makerFee = self.parse_number('0.0003')
         else:
             expiry = None

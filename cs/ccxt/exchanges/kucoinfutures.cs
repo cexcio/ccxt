@@ -31,6 +31,7 @@ public partial class kucoinfutures : kucoin
                 } },
                 { "defaultType", "swap" },
                 { "defaultAccountType", "contract" },
+                { "uta", false },
             } },
         });
     }

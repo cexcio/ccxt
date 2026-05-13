@@ -15,15 +15,15 @@ func NewYobitCore() *YobitCore {
     return p
 }
 
-func  (this *YobitCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *YobitCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "yobit",
         "name": "YoBit",
-        "countries": []any{"RU"},
+        "countries": []interface{}{"RU"},
         "rateLimit": 2000,
         "version": "3",
         "pro": false,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": false,
@@ -128,9 +128,9 @@ func  (this *YobitCore) Describe() any  {
             "withdraw": true,
             "ws": false,
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://user-images.githubusercontent.com/1294454/27766910-cdcbfdae-5eea-11e7-9859-03fea873272d.jpg",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://yobit.net/api",
                 "private": "https://yobit.net/tapi",
             },
@@ -138,17 +138,17 @@ func  (this *YobitCore) Describe() any  {
             "doc": "https://www.yobit.net/en/api/",
             "fees": "https://www.yobit.net/en/fees/",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "depth/{pair}": 1,
                     "info": 1,
                     "ticker/{pair}": 1,
                     "trades/{pair}": 1,
                 },
             },
-            "private": map[string]any {
-                "post": map[string]any {
+            "private": map[string]interface{} {
+                "post": map[string]interface{} {
                     "ActiveOrders": 1,
                     "CancelOrder": 1,
                     "GetDepositAddress": 1,
@@ -160,16 +160,16 @@ func  (this *YobitCore) Describe() any  {
                 },
             },
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "maker": 0.002,
                 "taker": 0.002,
             },
-            "funding": map[string]any {
-                "withdraw": map[string]any {},
+            "funding": map[string]interface{} {
+                "withdraw": map[string]interface{} {},
             },
         },
-        "commonCurrencies": map[string]any {
+        "commonCurrencies": map[string]interface{} {
             "AIR": "AirCoin",
             "ANI": "ANICoin",
             "ANT": "AntsCoin",
@@ -278,18 +278,18 @@ func  (this *YobitCore) Describe() any  {
             "XRA": "Ratecoin",
             "BCHN": "BSV",
         },
-        "options": map[string]any {
+        "options": map[string]interface{} {
             "maxUrlLength": 2048,
             "fetchOrdersRequiresSymbol": true,
-            "networks": map[string]any {
+            "networks": map[string]interface{} {
                 "ETH": "ERC20",
                 "TRX": "TRC20",
                 "BSC": "BEP20",
             },
         },
         "precisionMode": TICK_SIZE,
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "803": InvalidOrder,
                 "804": InvalidOrder,
                 "805": InvalidOrder,
@@ -299,7 +299,7 @@ func  (this *YobitCore) Describe() any  {
                 "832": InsufficientFunds,
                 "833": OrderNotFound,
             },
-            "broad": map[string]any {
+            "broad": map[string]interface{} {
                 "Invalid pair name": ExchangeError,
                 "invalid api key": AuthenticationError,
                 "invalid sign": AuthenticationError,
@@ -320,10 +320,10 @@ func  (this *YobitCore) Describe() any  {
                 "Rate Limited": RateLimitExceeded,
             },
         },
-        "features": map[string]any {
-            "spot": map[string]any {
+        "features": map[string]interface{} {
+            "spot": map[string]interface{} {
                 "sandbox": false,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": false,
                     "triggerDirection": false,
@@ -331,7 +331,7 @@ func  (this *YobitCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": false,
                         "FOK": false,
                         "PO": false,
@@ -346,20 +346,20 @@ func  (this *YobitCore) Describe() any  {
                     "iceberg": false,
                 },
                 "createOrders": nil,
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": 1000,
                     "daysBack": 100000,
                     "untilDays": 100000,
                     "symbolRequired": true,
                 },
-                "fetchOrder": map[string]any {
+                "fetchOrder": map[string]interface{} {
                     "marginMode": false,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": nil,
                     "trigger": false,
@@ -370,33 +370,33 @@ func  (this *YobitCore) Describe() any  {
                 "fetchClosedOrders": nil,
                 "fetchOHLCV": nil,
             },
-            "swap": map[string]any {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
         },
-        "orders": map[string]any {},
+        "orders": map[string]interface{} {},
     })
 }
-func  (this *YobitCore) ParseBalance(response any) any  {
-    var balances any = this.SafeDict(response, "return", map[string]any {})
-    var timestamp any = this.SafeInteger(balances, "server_time")
-    var result any = map[string]any {
+func  (this *YobitCore) ParseBalance(response interface{}) interface{}  {
+    var balances interface{} = this.SafeDict(response, "return", map[string]interface{} {})
+    var timestamp interface{} = this.SafeInteger(balances, "server_time")
+    var result interface{} = map[string]interface{} {
         "info": response,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
     }
-    var free any = this.SafeDict(balances, "funds", map[string]any {})
-    var total any = this.SafeDict(balances, "funds_incl_orders", map[string]any {})
-    var currencyIds any = ObjectKeys(this.Extend(free, total))
+    var free interface{} = this.SafeDict(balances, "funds", map[string]interface{} {})
+    var total interface{} = this.SafeDict(balances, "funds_incl_orders", map[string]interface{} {})
+    var currencyIds interface{} = ObjectKeys(this.Extend(free, total))
     for i := 0; IsLessThan(i, GetArrayLength(currencyIds)); i++ {
-        var currencyId any = GetValue(currencyIds, i)
-        var code any = this.SafeCurrencyCode(currencyId)
-        var account any = this.Account()
+        var currencyId interface{} = GetValue(currencyIds, i)
+        var code interface{} = this.SafeCurrencyCode(currencyId)
+        var account interface{} = this.Account()
         AddElementToObject(account, "free", this.SafeString(free, currencyId))
         AddElementToObject(account, "total", this.SafeString(total, currencyId))
         AddElementToObject(result, code, account)
@@ -411,12 +411,12 @@ func  (this *YobitCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *YobitCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes4168 := (<-this.LoadMarkets())
@@ -464,12 +464,12 @@ func  (this *YobitCore) FetchBalance(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *YobitCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetInfo(params))
@@ -492,24 +492,24 @@ func  (this *YobitCore) FetchMarkets(optionalArgs ...any) <- chan any {
             //         },
             //     }
             //
-            var markets any = this.SafeDict(response, "pairs", map[string]any {})
-            var keys any = ObjectKeys(markets)
-            var result any = []any{}
+            var markets interface{} = this.SafeDict(response, "pairs", map[string]interface{} {})
+            var keys interface{} = ObjectKeys(markets)
+            var result interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(keys)); i++ {
-                var id any = GetValue(keys, i)
-                var market any = GetValue(markets, id)
+                var id interface{} = GetValue(keys, i)
+                var market interface{} = GetValue(markets, id)
                 baseIdquoteIdVariable := Split(id, "_");
                 baseId := GetValue(baseIdquoteIdVariable,0);
                 quoteId := GetValue(baseIdquoteIdVariable,1)
-                var base any = ToUpper(baseId)
-                var quote any = ToUpper(quoteId)
+                var base interface{} = ToUpper(baseId)
+                var quote interface{} = ToUpper(quoteId)
                 base = this.SafeCurrencyCode(base)
                 quote = this.SafeCurrencyCode(quote)
-                var hidden any = this.SafeInteger(market, "hidden")
-                var feeString any = this.SafeString(market, "fee")
+                var hidden interface{} = this.SafeInteger(market, "hidden")
+                var feeString interface{} = this.SafeString(market, "fee")
                 feeString = Precise.StringDiv(feeString, "100")
                 // yobit maker = taker
-                AppendToArray(&result, map[string]any {
+                AppendToArray(&result, map[string]interface{} {
                     "id": id,
                     "symbol": Add(Add(base, "/"), quote),
                     "base": base,
@@ -535,24 +535,24 @@ func  (this *YobitCore) FetchMarkets(optionalArgs ...any) <- chan any {
                     "expiryDatetime": nil,
                     "strike": nil,
                     "optionType": nil,
-                    "precision": map[string]any {
+                    "precision": map[string]interface{} {
                         "amount": this.ParseNumber(this.ParsePrecision(this.SafeString(market, "decimal_places"))),
                         "price": this.ParseNumber(this.ParsePrecision(this.SafeString(market, "decimal_places"))),
                     },
-                    "limits": map[string]any {
-                        "leverage": map[string]any {
+                    "limits": map[string]interface{} {
+                        "leverage": map[string]interface{} {
                             "min": nil,
                             "max": nil,
                         },
-                        "amount": map[string]any {
+                        "amount": map[string]interface{} {
                             "min": this.SafeNumber(market, "min_amount"),
                             "max": this.SafeNumber(market, "max_amount"),
                         },
-                        "price": map[string]any {
+                        "price": map[string]interface{} {
                             "min": this.SafeNumber(market, "min_price"),
                             "max": this.SafeNumber(market, "max_price"),
                         },
-                        "cost": map[string]any {
+                        "cost": map[string]interface{} {
                             "min": this.SafeNumber(market, "min_total"),
                             "max": nil,
                         },
@@ -578,20 +578,20 @@ func  (this *YobitCore) FetchMarkets(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *YobitCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes5558 := (<-this.LoadMarkets())
             PanicOnError(retRes5558)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "pair": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -600,11 +600,11 @@ func  (this *YobitCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan 
         
             response:= (<-this.PublicGetDepthPair(this.Extend(request, params)))
             PanicOnError(response)
-            var market_id_in_reponse any =     (InOp(response, GetValue(market, "id")))
+            var market_id_in_reponse interface{} =     (InOp(response, GetValue(market, "id")))
             if !IsTrue(market_id_in_reponse) {
                 panic(ExchangeError(Add(Add(Add(this.Id, " "), GetValue(market, "symbol")), " order book is empty or not available")))
             }
-            var orderbook any = GetValue(response, GetValue(market, "id"))
+            var orderbook interface{} = GetValue(response, GetValue(market, "id"))
         
             ch <- this.ParseOrderBook(orderbook, symbol)
             return nil
@@ -622,33 +622,33 @@ func  (this *YobitCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbol
  */
-func  (this *YobitCore) FetchOrderBooks(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchOrderBooks(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes5838 := (<-this.LoadMarkets())
             PanicOnError(retRes5838)
-            var ids any = nil
+            var ids interface{} = nil
             if IsTrue(IsEqual(symbols, nil)) {
                 ids = Join(this.Ids, "-")
                 // max URL length is 2083 symbols, including http schema, hostname, tld, etc...
                 if IsTrue(IsGreaterThan(GetArrayLength(ids), 2048)) {
-                    var numIds any =             GetArrayLength(this.Ids)
+                    var numIds interface{} =             GetArrayLength(this.Ids)
                     panic(ExchangeError(Add(Add(Add(this.Id, " fetchOrderBooks() has "), ToString(numIds)), " symbols exceeding max URL length, you are required to specify a list of symbols in the first argument to fetchOrderBooks")))
                 }
             } else {
                 ids = this.MarketIds(symbols)
                 ids = Join(ids, "-")
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "pair": ids,
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -657,11 +657,11 @@ func  (this *YobitCore) FetchOrderBooks(optionalArgs ...any) <- chan any {
         
             response:= (<-this.PublicGetDepthPair(this.Extend(request, params)))
             PanicOnError(response)
-            var result any = map[string]any {}
+            var result interface{} = map[string]interface{} {}
             ids = ObjectKeys(response)
             for i := 0; IsLessThan(i, GetArrayLength(ids)); i++ {
-                var id any = GetValue(ids, i)
-                var symbol any = this.SafeSymbol(id)
+                var id interface{} = GetValue(ids, i)
+                var symbol interface{} = this.SafeSymbol(id)
                 AddElementToObject(result, symbol, this.ParseOrderBook(GetValue(response, id), symbol))
             }
         
@@ -671,7 +671,7 @@ func  (this *YobitCore) FetchOrderBooks(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *YobitCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *YobitCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "high": 0.03497582,
@@ -687,9 +687,9 @@ func  (this *YobitCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeTimestamp(ticker, "updated")
-    var last any = this.SafeString(ticker, "last")
-    return this.SafeTicker(map[string]any {
+    var timestamp interface{} = this.SafeTimestamp(ticker, "updated")
+    var last interface{} = this.SafeString(ticker, "last")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": this.SafeSymbol(nil, market),
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -712,26 +712,26 @@ func  (this *YobitCore) ParseTicker(ticker any, optionalArgs ...any) any  {
         "info": ticker,
     }, market)
 }
-func  (this *YobitCore) FetchTickersHelper(idsString any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchTickersHelper(idsString interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "pair": idsString,
             }
         
             tickers:= (<-this.PublicGetTickerPair(this.Extend(request, params)))
             PanicOnError(tickers)
-            var result any = map[string]any {}
-            var keys any = ObjectKeys(tickers)
+            var result interface{} = map[string]interface{} {}
+            var keys interface{} = ObjectKeys(tickers)
             for k := 0; IsLessThan(k, GetArrayLength(keys)); k++ {
-                var id any = GetValue(keys, k)
-                var ticker any = GetValue(tickers, id)
-                var market any = this.SafeMarket(id)
-                var symbol any = GetValue(market, "symbol")
+                var id interface{} = GetValue(keys, k)
+                var ticker interface{} = GetValue(tickers, id)
+                var market interface{} = this.SafeMarket(id)
+                var symbol interface{} = GetValue(market, "symbol")
                 AddElementToObject(result, symbol, this.ParseTicker(ticker, market))
             }
         
@@ -751,16 +751,16 @@ func  (this *YobitCore) FetchTickersHelper(idsString any, optionalArgs ...any) <
  * @param {object} [params.all] you can set to `true` for convenience to fetch all tickers from this exchange by sending multiple requests
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *YobitCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var allSymbols any = nil
+            var allSymbols interface{} = nil
             allSymbolsparamsVariable := this.HandleParamBool(params, "all", false);
             allSymbols = GetValue(allSymbolsparamsVariable,0);
             params = GetValue(allSymbolsparamsVariable,1)
@@ -770,16 +770,16 @@ func  (this *YobitCore) FetchTickers(optionalArgs ...any) <- chan any {
         
             retRes6878 := (<-this.LoadMarkets())
             PanicOnError(retRes6878)
-            var promises any = []any{}
-            var maxLength any = this.SafeInteger(this.Options, "maxUrlLength", 2048)
+            var promises interface{} = []interface{}{}
+            var maxLength interface{} = this.SafeInteger(this.Options, "maxUrlLength", 2048)
             // max URL length is 2048 symbols, including http schema, hostname, tld, etc...
-            var lenghtOfBaseUrl any = 40 // safe space for the url including api-base and endpoint dir is 30 chars
+            var lenghtOfBaseUrl interface{} = 40 // safe space for the url including api-base and endpoint dir is 30 chars
             if IsTrue(allSymbols) {
                 symbols = this.Symbols
-                var ids any = ""
+                var ids interface{} = ""
                 for i := 0; IsLessThan(i, GetArrayLength(this.Ids)); i++ {
-                    var id any = GetValue(this.Ids, i)
-                    var prefix any = Ternary(IsTrue((IsEqual(ids, ""))), "", "-")
+                    var id interface{} = GetValue(this.Ids, i)
+                    var prefix interface{} = Ternary(IsTrue((IsEqual(ids, ""))), "", "-")
                     ids = Add(ids, Add(prefix, id))
                     if IsTrue(IsGreaterThan(GetLength(ids), maxLength)) {
                         AppendToArray(&promises, this.FetchTickersHelper(ids, params))
@@ -791,10 +791,10 @@ func  (this *YobitCore) FetchTickers(optionalArgs ...any) <- chan any {
                 }
             } else {
                 symbols = this.MarketSymbols(symbols)
-                var ids any = this.MarketIds(symbols)
-                var idsLength any =         GetArrayLength(ids)
-                var idsString any = Join(ids, "-")
-                var actualLength any = Add(GetLength(idsString), lenghtOfBaseUrl)
+                var ids interface{} = this.MarketIds(symbols)
+                var idsLength interface{} =         GetArrayLength(ids)
+                var idsString interface{} = Join(ids, "-")
+                var actualLength interface{} = Add(GetLength(idsString), lenghtOfBaseUrl)
                 if IsTrue(IsGreaterThan(actualLength, maxLength)) {
                     panic(ArgumentsRequired(Add(Add(Add(Add(Add(Add(Add(this.Id, " fetchTickers() is being requested for "), ToString(idsLength)), " markets (which has an URL length of "), ToString(actualLength)), " characters), but it exceedes max URL length ("), ToString(maxLength)), "), please pass limisted symbols array to fetchTickers to fit in one request")))
                 }
@@ -803,9 +803,9 @@ func  (this *YobitCore) FetchTickers(optionalArgs ...any) <- chan any {
         
             resultAll:= (<-promiseAll(promises))
             PanicOnError(resultAll)
-            var finalResult any = map[string]any {}
+            var finalResult interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(resultAll)); i++ {
-                var result any = this.FilterByArrayTickers(GetValue(resultAll, i), "symbol", symbols)
+                var result interface{} = this.FilterByArrayTickers(GetValue(resultAll, i), "symbol", symbols)
                 finalResult = this.Extend(finalResult, result)
             }
         
@@ -824,15 +824,15 @@ func  (this *YobitCore) FetchTickers(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *YobitCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            tickers:= (<-this.FetchTickers([]any{symbol}, params))
+            tickers:= (<-this.FetchTickers([]interface{}{symbol}, params))
             PanicOnError(tickers)
         
             ch <- GetValue(tickers, symbol)
@@ -841,7 +841,7 @@ func  (this *YobitCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any
             }()
             return ch
         }
-func  (this *YobitCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *YobitCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTrades (public)
     //
@@ -867,45 +867,45 @@ func  (this *YobitCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeTimestamp(trade, "timestamp")
-    var side any = this.SafeString(trade, "type")
+    var timestamp interface{} = this.SafeTimestamp(trade, "timestamp")
+    var side interface{} = this.SafeString(trade, "type")
     if IsTrue(IsEqual(side, "ask")) {
         side = "sell"
     } else if IsTrue(IsEqual(side, "bid")) {
         side = "buy"
     }
-    var priceString any = this.SafeString2(trade, "rate", "price")
-    var id any = this.SafeString2(trade, "trade_id", "tid")
-    var order any = this.SafeString(trade, "order_id")
-    var marketId any = this.SafeString(trade, "pair")
-    var symbol any = this.SafeSymbol(marketId, market)
-    var amountString any = this.SafeString(trade, "amount")
+    var priceString interface{} = this.SafeString2(trade, "rate", "price")
+    var id interface{} = this.SafeString2(trade, "trade_id", "tid")
+    var order interface{} = this.SafeString(trade, "order_id")
+    var marketId interface{} = this.SafeString(trade, "pair")
+    var symbol interface{} = this.SafeSymbol(marketId, market)
+    var amountString interface{} = this.SafeString(trade, "amount")
     // arguments for calculateFee (need to be numbers)
-    var price any = this.ParseNumber(priceString)
-    var amount any = this.ParseNumber(amountString)
-    var typeVar any = "limit" // all trades are still limit trades
-    var fee any = nil
-    var feeCostString any = this.SafeNumber(trade, "commission")
+    var price interface{} = this.ParseNumber(priceString)
+    var amount interface{} = this.ParseNumber(amountString)
+    var typeVar interface{} = "limit" // all trades are still limit trades
+    var fee interface{} = nil
+    var feeCostString interface{} = this.SafeNumber(trade, "commission")
     if IsTrue(!IsEqual(feeCostString, nil)) {
-        var feeCurrencyId any = this.SafeString(trade, "commissionCurrency")
-        var feeCurrencyCode any = this.SafeCurrencyCode(feeCurrencyId)
-        fee = map[string]any {
+        var feeCurrencyId interface{} = this.SafeString(trade, "commissionCurrency")
+        var feeCurrencyCode interface{} = this.SafeCurrencyCode(feeCurrencyId)
+        fee = map[string]interface{} {
             "cost": feeCostString,
             "currency": feeCurrencyCode,
         }
     }
-    var isYourOrder any = this.SafeString(trade, "is_your_order")
+    var isYourOrder interface{} = this.SafeString(trade, "is_your_order")
     if IsTrue(!IsEqual(isYourOrder, nil)) {
         if IsTrue(IsEqual(fee, nil)) {
-            var feeInNumbers any = this.CalculateFee(symbol, typeVar, side, amount, price, "taker")
-            fee = map[string]any {
+            var feeInNumbers interface{} = this.CalculateFee(symbol, typeVar, side, amount, price, "taker")
+            fee = map[string]interface{} {
                 "currency": this.SafeString(feeInNumbers, "currency"),
                 "cost": this.SafeString(feeInNumbers, "cost"),
                 "rate": this.SafeString(feeInNumbers, "rate"),
             }
         }
     }
-    return this.SafeTrade(map[string]any {
+    return this.SafeTrade(map[string]interface{} {
         "id": id,
         "order": order,
         "timestamp": timestamp,
@@ -932,22 +932,22 @@ func  (this *YobitCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *YobitCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes8328 := (<-this.LoadMarkets())
             PanicOnError(retRes8328)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "pair": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -970,14 +970,14 @@ func  (this *YobitCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any
             //      }
             //
             if IsTrue(IsArray(response)) {
-                var numElements any =         GetArrayLength(response)
+                var numElements interface{} =         GetArrayLength(response)
                 if IsTrue(IsEqual(numElements, 0)) {
         
-                    ch <- []any{}
+                    ch <- []interface{}{}
                     return nil
                 }
             }
-            var result any = this.SafeList(response, GetValue(market, "id"), []any{})
+            var result interface{} = this.SafeList(response, GetValue(market, "id"), []interface{}{})
         
             ch <- this.ParseTrades(result, market, since, limit)
             return nil
@@ -993,12 +993,12 @@ func  (this *YobitCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [fee structures]{@link https://docs.ccxt.com/?id=fee-structure} indexed by market symbols
  */
-func  (this *YobitCore) FetchTradingFees(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchTradingFees(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes8738 := (<-this.LoadMarkets())
@@ -1025,18 +1025,18 @@ func  (this *YobitCore) FetchTradingFees(optionalArgs ...any) <- chan any {
             //         },
             //     }
             //
-            var pairs any = this.SafeDict(response, "pairs", map[string]any {})
-            var marketIds any = ObjectKeys(pairs)
-            var result any = map[string]any {}
+            var pairs interface{} = this.SafeDict(response, "pairs", map[string]interface{} {})
+            var marketIds interface{} = ObjectKeys(pairs)
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(marketIds)); i++ {
-                var marketId any = GetValue(marketIds, i)
-                var pair any = this.SafeDict(pairs, marketId, map[string]any {})
-                var symbol any = this.SafeSymbol(marketId, nil, "_")
-                var takerString any = this.SafeString(pair, "fee_buyer")
-                var makerString any = this.SafeString(pair, "fee_seller")
-                var taker any = this.ParseNumber(Precise.StringDiv(takerString, "100"))
-                var maker any = this.ParseNumber(Precise.StringDiv(makerString, "100"))
-                AddElementToObject(result, symbol, map[string]any {
+                var marketId interface{} = GetValue(marketIds, i)
+                var pair interface{} = this.SafeDict(pairs, marketId, map[string]interface{} {})
+                var symbol interface{} = this.SafeSymbol(marketId, nil, "_")
+                var takerString interface{} = this.SafeString(pair, "fee_buyer")
+                var makerString interface{} = this.SafeString(pair, "fee_seller")
+                var taker interface{} = this.ParseNumber(Precise.StringDiv(takerString, "100"))
+                var maker interface{} = this.ParseNumber(Precise.StringDiv(makerString, "100"))
+                AddElementToObject(result, symbol, map[string]interface{} {
             "info": pair,
             "symbol": symbol,
             "taker": taker,
@@ -1065,14 +1065,14 @@ func  (this *YobitCore) FetchTradingFees(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *YobitCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(typeVar, "market")) {
                 panic(ExchangeError(Add(this.Id, " createOrder() allows limit orders only")))
@@ -1080,8 +1080,8 @@ func  (this *YobitCore) CreateOrder(symbol any, typeVar any, side any, amount an
         
             retRes9348 := (<-this.LoadMarkets())
             PanicOnError(retRes9348)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "pair": GetValue(market, "id"),
                 "type": side,
                 "amount": this.AmountToPrecision(symbol, amount),
@@ -1111,7 +1111,7 @@ func  (this *YobitCore) CreateOrder(symbol any, typeVar any, side any, amount an
             //           }
             //       }
             //
-            var result any = this.SafeDict(response, "return")
+            var result interface{} = this.SafeDict(response, "return")
         
             ch <- this.ParseOrder(result, market)
             return nil
@@ -1129,19 +1129,19 @@ func  (this *YobitCore) CreateOrder(symbol any, typeVar any, side any, amount an
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *YobitCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes9798 := (<-this.LoadMarkets())
             PanicOnError(retRes9798)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "order_id": ParseInt(id),
             }
         
@@ -1166,7 +1166,7 @@ func  (this *YobitCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
             //          }
             //      }
             //
-            var result any = this.SafeDict(response, "return", map[string]any {})
+            var result interface{} = this.SafeDict(response, "return", map[string]interface{} {})
         
             ch <- this.ParseOrder(result)
             return nil
@@ -1174,8 +1174,8 @@ func  (this *YobitCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *YobitCore) ParseOrderStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *YobitCore) ParseOrderStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "0": "open",
         "1": "closed",
         "2": "canceled",
@@ -1183,7 +1183,7 @@ func  (this *YobitCore) ParseOrderStatus(status any) any  {
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *YobitCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *YobitCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // createOrder (private)
     //
@@ -1247,23 +1247,23 @@ func  (this *YobitCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var id any = this.SafeString2(order, "id", "order_id")
-    var status any = this.ParseOrderStatus(this.SafeString(order, "status", "open"))
+    var id interface{} = this.SafeString2(order, "id", "order_id")
+    var status interface{} = this.ParseOrderStatus(this.SafeString(order, "status", "open"))
     if IsTrue(IsEqual(id, "0")) {
         id = this.SafeString(order, "init_order_id")
         status = "closed"
     }
-    var timestamp any = this.SafeTimestamp2(order, "timestamp_created", "server_time")
-    var marketId any = this.SafeString(order, "pair")
-    var symbol any = this.SafeSymbol(marketId, market)
-    var amount any = this.SafeString(order, "start_amount")
-    var remaining any = this.SafeString2(order, "amount", "remains")
-    var filled any = this.SafeString(order, "received", "0.0")
-    var price any = this.SafeString(order, "rate")
-    var fee any = nil
-    var typeVar any = "limit"
-    var side any = this.SafeString(order, "type")
-    return this.SafeOrder(map[string]any {
+    var timestamp interface{} = this.SafeTimestamp2(order, "timestamp_created", "server_time")
+    var marketId interface{} = this.SafeString(order, "pair")
+    var symbol interface{} = this.SafeSymbol(marketId, market)
+    var amount interface{} = this.SafeString(order, "start_amount")
+    var remaining interface{} = this.SafeString2(order, "amount", "remains")
+    var filled interface{} = this.SafeString(order, "received", "0.0")
+    var price interface{} = this.SafeString(order, "rate")
+    var fee interface{} = nil
+    var typeVar interface{} = "limit"
+    var side interface{} = this.SafeString(order, "type")
+    return this.SafeOrder(map[string]interface{} {
         "info": order,
         "id": id,
         "clientOrderId": nil,
@@ -1297,26 +1297,26 @@ func  (this *YobitCore) ParseOrder(order any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *YobitCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes11318 := (<-this.LoadMarkets())
             PanicOnError(retRes11318)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "order_id": ParseInt(id),
             }
         
             response:= (<-this.PrivatePostOrderInfo(this.Extend(request, params)))
             PanicOnError(response)
             id = ToString(id)
-            var orders any = this.SafeDict(response, "return", map[string]any {})
+            var orders interface{} = this.SafeDict(response, "return", map[string]interface{} {})
         
                 //
             //      {
@@ -1334,7 +1334,7 @@ func  (this *YobitCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
             //          }
             //      }
             //
-        ch <- this.ParseOrder(this.Extend(map[string]any {
+        ch <- this.ParseOrder(this.Extend(map[string]interface{} {
                 "id": id,
             }, GetValue(orders, id)))
             return nil
@@ -1353,9 +1353,9 @@ func  (this *YobitCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *YobitCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1364,7 +1364,7 @@ func  (this *YobitCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOpenOrders() requires a symbol argument")))
@@ -1372,10 +1372,10 @@ func  (this *YobitCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
         
             retRes11728 := (<-this.LoadMarkets())
             PanicOnError(retRes11728)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
-                var marketInner any = this.Market(symbol)
+                var marketInner interface{} = this.Market(symbol)
                 AddElementToObject(request, "pair", GetValue(marketInner, "id"))
             }
         
@@ -1404,7 +1404,7 @@ func  (this *YobitCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             //          }
             //      }
             //
-            var result any = this.SafeDict(response, "return", map[string]any {})
+            var result interface{} = this.SafeDict(response, "return", map[string]interface{} {})
         
             ch <- this.ParseOrders(result, market, since, limit)
             return nil
@@ -1423,9 +1423,9 @@ func  (this *YobitCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *YobitCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1434,7 +1434,7 @@ func  (this *YobitCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchMyTrades() requires a symbol argument")))
@@ -1442,9 +1442,9 @@ func  (this *YobitCore) FetchMyTrades(optionalArgs ...any) <- chan any {
         
             retRes12228 := (<-this.LoadMarkets())
             PanicOnError(retRes12228)
-            var market any = this.Market(symbol)
+            var market interface{} = this.Market(symbol)
             // some derived classes use camelcase notation for request fields
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "pair": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -1472,12 +1472,12 @@ func  (this *YobitCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             //          }
             //      }
             //
-            var trades any = this.SafeDict(response, "return", map[string]any {})
-            var ids any = ObjectKeys(trades)
-            var result any = []any{}
+            var trades interface{} = this.SafeDict(response, "return", map[string]interface{} {})
+            var ids interface{} = ObjectKeys(trades)
+            var result interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(ids)); i++ {
-                var id any = this.SafeString(ids, i)
-                var trade any = this.ParseTrade(this.Extend(GetValue(trades, id), map[string]any {
+                var id interface{} = this.SafeString(ids, i)
+                var trade interface{} = this.ParseTrade(this.Extend(GetValue(trades, id), map[string]interface{} {
                     "trade_id": id,
                 }), market)
                 AppendToArray(&result, trade)
@@ -1498,23 +1498,23 @@ func  (this *YobitCore) FetchMyTrades(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [address structure]{@link https://docs.ccxt.com/?id=address-structure}
  */
-func  (this *YobitCore) CreateDepositAddress(code any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) CreateDepositAddress(code interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "need_new": 1,
             }
         
             response:= (<-this.FetchDepositAddress(code, this.Extend(request, params)))
             PanicOnError(response)
-            var address any = this.SafeString(response, "address")
+            var address interface{} = this.SafeString(response, "address")
             this.CheckAddress(address)
         
-            ch <- map[string]any {
+            ch <- map[string]interface{} {
                 "currency": code,
                 "address": address,
                 "tag": nil,
@@ -1535,20 +1535,20 @@ func  (this *YobitCore) CreateDepositAddress(code any, optionalArgs ...any) <- c
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [address structure]{@link https://docs.ccxt.com/?id=address-structure}
  */
-func  (this *YobitCore) FetchDepositAddress(code any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) FetchDepositAddress(code interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes13068 := (<-this.LoadMarkets())
             PanicOnError(retRes13068)
-            var currency any = this.Currency(code)
-            var currencyId any = GetValue(currency, "id")
-            var networks any = this.SafeDict(this.Options, "networks", map[string]any {})
-            var network any = this.SafeStringUpper(params, "network") // this line allows the user to specify either ERC20 or ETH
+            var currency interface{} = this.Currency(code)
+            var currencyId interface{} = GetValue(currency, "id")
+            var networks interface{} = this.SafeDict(this.Options, "networks", map[string]interface{} {})
+            var network interface{} = this.SafeStringUpper(params, "network") // this line allows the user to specify either ERC20 or ETH
             network = this.SafeString(networks, network, network) // handle ERC20>ETH alias
             if IsTrue(!IsEqual(network, nil)) {
                 if IsTrue(!IsEqual(network, "ERC20")) {
@@ -1556,17 +1556,17 @@ func  (this *YobitCore) FetchDepositAddress(code any, optionalArgs ...any) <- ch
                 }
                 params = this.Omit(params, "network")
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "coinName": currencyId,
                 "need_new": 0,
             }
         
             response:= (<-this.PrivatePostGetDepositAddress(this.Extend(request, params)))
             PanicOnError(response)
-            var address any = this.SafeString(GetValue(response, "return"), "address")
+            var address interface{} = this.SafeString(GetValue(response, "return"), "address")
             this.CheckAddress(address)
         
-            ch <- map[string]any {
+            ch <- map[string]interface{} {
                 "info": response,
                 "currency": code,
                 "network": nil,
@@ -1590,14 +1590,14 @@ func  (this *YobitCore) FetchDepositAddress(code any, optionalArgs ...any) <- ch
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *YobitCore) Withdraw(code any, amount any, address any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *YobitCore) Withdraw(code interface{}, amount interface{}, address interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     tag := GetArg(optionalArgs, 0, nil)
             _ = tag
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             tagparamsVariable := this.HandleWithdrawTagAndParams(tag, params);
             tag = GetValue(tagparamsVariable,0);
@@ -1606,8 +1606,8 @@ func  (this *YobitCore) Withdraw(code any, amount any, address any, optionalArgs
         
             retRes13498 := (<-this.LoadMarkets())
             PanicOnError(retRes13498)
-            var currency any = this.Currency(code)
-            var request any = map[string]any {
+            var currency interface{} = this.Currency(code)
+            var request interface{} = map[string]interface{} {
                 "coinName": GetValue(currency, "id"),
                 "amount": amount,
                 "address": address,
@@ -1620,7 +1620,7 @@ func  (this *YobitCore) Withdraw(code any, amount any, address any, optionalArgs
             response:= (<-this.PrivatePostWithdrawCoinsToAddress(this.Extend(request, params)))
             PanicOnError(response)
         
-            ch <- map[string]any {
+            ch <- map[string]interface{} {
                 "info": response,
                 "id": nil,
                 "txid": nil,
@@ -1639,7 +1639,7 @@ func  (this *YobitCore) Withdraw(code any, amount any, address any, optionalArgs
                 "tagTo": nil,
                 "updated": nil,
                 "comment": nil,
-                "fee": map[string]any {
+                "fee": map[string]interface{} {
                     "currency": nil,
                     "cost": nil,
                     "rate": nil,
@@ -1650,28 +1650,28 @@ func  (this *YobitCore) Withdraw(code any, amount any, address any, optionalArgs
             }()
             return ch
         }
-func  (this *YobitCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *YobitCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = GetValue(GetValue(this.Urls, "api"), api)
-    var query any = this.Omit(params, this.ExtractParams(path))
+    var url interface{} = GetValue(GetValue(this.Urls, "api"), api)
+    var query interface{} = this.Omit(params, this.ExtractParams(path))
     if IsTrue(IsEqual(api, "private")) {
         this.CheckRequiredCredentials()
-        var nonce any = this.Nonce()
-        body = this.Urlencode(this.Extend(map[string]any {
+        var nonce interface{} = this.Nonce()
+        body = this.Urlencode(this.Extend(map[string]interface{} {
             "nonce": nonce,
             "method": path,
         }, query))
-        var signature any = this.Hmac(this.Encode(body), this.Encode(this.Secret), sha512)
-        headers = map[string]any {
+        var signature interface{} = this.Hmac(this.Encode(body), this.Encode(this.Secret), sha512)
+        headers = map[string]interface{} {
             "Content-Type": "application/x-www-form-urlencoded",
             "Key": this.ApiKey,
             "Sign": signature,
@@ -1690,20 +1690,20 @@ func  (this *YobitCore) Sign(path any, optionalArgs ...any) any  {
         } else {
             if IsTrue(GetArrayLength(ObjectKeys(query))) {
                 body = this.Json(query)
-                headers = map[string]any {
+                headers = map[string]interface{} {
                     "Content-Type": "application/json",
                 }
             }
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *YobitCore) HandleErrors(httpCode any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *YobitCore) HandleErrors(httpCode interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil  // fallback to default error handler
     }
@@ -1734,7 +1734,7 @@ func  (this *YobitCore) HandleErrors(httpCode any, reason any, url any, method a
         //
         // To cover points 1, 2, 3 and 4 combined this handler should work like this:
         //
-        var success any = this.SafeValue(response, "success") // don't replace with safeBool here
+        var success interface{} = this.SafeValue(response, "success") // don't replace with safeBool here
         if IsTrue(IsString(success)) {
             if IsTrue(IsTrue((IsEqual(success, "true"))) || IsTrue((IsEqual(success, "1")))) {
                 success = true
@@ -1743,9 +1743,9 @@ func  (this *YobitCore) HandleErrors(httpCode any, reason any, url any, method a
             }
         }
         if !IsTrue(success) {
-            var code any = this.SafeString(response, "code")
-            var message any = this.SafeString(response, "error")
-            var feedback any = Add(Add(this.Id, " "), body)
+            var code interface{} = this.SafeString(response, "code")
+            var message interface{} = this.SafeString(response, "error")
+            var feedback interface{} = Add(Add(this.Id, " "), body)
             this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), code, feedback)
             this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), message, feedback)
             this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), message, feedback)
@@ -1756,8 +1756,8 @@ func  (this *YobitCore) HandleErrors(httpCode any, reason any, url any, method a
 }
 
 
-func (this *YobitCore) Init(userConfig map[string]any) {
+func (this *YobitCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

@@ -6,7 +6,7 @@ type Onetrading struct {
    exchangeTyped *ExchangeTyped
 }
 
-func NewOnetrading(userConfig map[string]any) *Onetrading {
+func NewOnetrading(userConfig map[string]interface{}) *Onetrading {
    p := NewOnetradingCore()
    p.Init(userConfig)
    return &Onetrading{
@@ -35,7 +35,7 @@ func NewOnetradingFromCore(core *OnetradingCore) *Onetrading {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func (this *Onetrading) FetchTime(params ...any) ( int64, error) {
+func (this *Onetrading) FetchTime(params ...interface{}) ( int64, error) {
     res := <- this.Core.FetchTime(params...)
     if IsError(res) {
         return -1, CreateReturnError(res)
@@ -50,7 +50,7 @@ func (this *Onetrading) FetchTime(params ...any) ( int64, error) {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an associative dictionary of currencies
  */
-func (this *Onetrading) FetchCurrencies(params ...any) (Currencies, error) {
+func (this *Onetrading) FetchCurrencies(params ...interface{}) (Currencies, error) {
     res := <- this.Core.FetchCurrencies(params...)
     if IsError(res) {
         return Currencies{}, CreateReturnError(res)
@@ -65,7 +65,7 @@ func (this *Onetrading) FetchCurrencies(params ...any) (Currencies, error) {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func (this *Onetrading) FetchMarkets(params ...any) ([]MarketInterface, error) {
+func (this *Onetrading) FetchMarkets(params ...interface{}) ([]MarketInterface, error) {
     res := <- this.Core.FetchMarkets(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -82,26 +82,26 @@ func (this *Onetrading) FetchMarkets(params ...any) ([]MarketInterface, error) {
  * @param {string} [params.method] fetchPrivateTradingFees or fetchPublicTradingFees
  * @returns {object} a dictionary of [fee structures]{@link https://docs.ccxt.com/?id=fee-structure} indexed by market symbols
  */
-func (this *Onetrading) FetchTradingFees(params ...any) (TradingFees, error) {
+func (this *Onetrading) FetchTradingFees(params ...interface{}) (TradingFees, error) {
     res := <- this.Core.FetchTradingFees(params...)
     if IsError(res) {
         return TradingFees{}, CreateReturnError(res)
     }
     return NewTradingFees(res), nil
 }
-func (this *Onetrading) FetchPublicTradingFees(params ...any) (map[string]any, error) {
+func (this *Onetrading) FetchPublicTradingFees(params ...interface{}) (map[string]interface{}, error) {
     res := <- this.Core.FetchPublicTradingFees(params...)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
-func (this *Onetrading) FetchPrivateTradingFees(params ...any) (map[string]any, error) {
+func (this *Onetrading) FetchPrivateTradingFees(params ...interface{}) (map[string]interface{}, error) {
     res := <- this.Core.FetchPrivateTradingFees(params...)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -120,7 +120,7 @@ func (this *Onetrading) FetchTicker(symbol string, options ...FetchTickerOptions
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -147,12 +147,12 @@ func (this *Onetrading) FetchTickers(options ...FetchTickersOptions) (Tickers, e
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -180,12 +180,12 @@ func (this *Onetrading) FetchOrderBook(symbol string, options ...FetchOrderBookO
         opt(&opts)
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -215,22 +215,22 @@ func (this *Onetrading) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) 
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -248,7 +248,7 @@ func (this *Onetrading) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func (this *Onetrading) FetchBalance(params ...any) (Balances, error) {
+func (this *Onetrading) FetchBalance(params ...interface{}) (Balances, error) {
     res := <- this.Core.FetchBalance(params...)
     if IsError(res) {
         return Balances{}, CreateReturnError(res)
@@ -277,12 +277,12 @@ func (this *Onetrading) CreateOrder(symbol string, typeVar string, side string, 
         opt(&opts)
     }
 
-    var price any = nil
+    var price interface{} = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -311,12 +311,12 @@ func (this *Onetrading) CancelOrder(id string, options ...CancelOrderOptions) (O
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -343,12 +343,12 @@ func (this *Onetrading) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Or
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -376,12 +376,12 @@ func (this *Onetrading) CancelOrders(ids []string, options ...CancelOrdersOption
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -409,12 +409,12 @@ func (this *Onetrading) FetchOrder(id string, options ...FetchOrderOptions) (Ord
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -443,22 +443,22 @@ func (this *Onetrading) FetchOpenOrders(options ...FetchOpenOrdersOptions) ([]Or
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -487,22 +487,22 @@ func (this *Onetrading) FetchClosedOrders(options ...FetchClosedOrdersOptions) (
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -532,22 +532,22 @@ func (this *Onetrading) FetchOrderTrades(id string, options ...FetchOrderTradesO
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -576,22 +576,22 @@ func (this *Onetrading) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade,
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -603,9 +603,9 @@ func (this *Onetrading) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade,
 }
 // missing typed methods from base
 //nolint
-func (this *Onetrading) LoadMarkets(params ...any) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
+func (this *Onetrading) LoadMarkets(params ...interface{}) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
 func (this *Onetrading) CancelOrdersWithClientOrderIds(clientOrderIds []string, options ...CancelOrdersWithClientOrderIdsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersWithClientOrderIds(clientOrderIds, options...)}
-func (this *Onetrading) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]any, error) {return this.exchangeTyped.CancelAllOrdersAfter(timeout, options...)}
+func (this *Onetrading) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]interface{}, error) {return this.exchangeTyped.CancelAllOrdersAfter(timeout, options...)}
 func (this *Onetrading) CancelOrderWithClientOrderId(clientOrderId string, options ...CancelOrderWithClientOrderIdOptions) (Order, error) {return this.exchangeTyped.CancelOrderWithClientOrderId(clientOrderId, options...)}
 func (this *Onetrading) CancelOrdersForSymbols(orders []CancellationRequest, options ...CancelOrdersForSymbolsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersForSymbols(orders, options...)}
 func (this *Onetrading) CreateConvertTrade(id string, fromCode string, toCode string, options ...CreateConvertTradeOptions) (Conversion, error) {return this.exchangeTyped.CreateConvertTrade(id, fromCode, toCode, options...)}
@@ -637,26 +637,26 @@ func (this *Onetrading) EditLimitSellOrder(id string, symbol string, amount floa
 func (this *Onetrading) EditOrder(id string, symbol string, typeVar string, side string, options ...EditOrderOptions) (Order, error) {return this.exchangeTyped.EditOrder(id, symbol, typeVar, side, options...)}
 func (this *Onetrading) EditOrderWithClientOrderId(clientOrderId string, symbol string, typeVar string, side string, options ...EditOrderWithClientOrderIdOptions) (Order, error) {return this.exchangeTyped.EditOrderWithClientOrderId(clientOrderId, symbol, typeVar, side, options...)}
 func (this *Onetrading) EditOrders(orders []OrderRequest, options ...EditOrdersOptions) ([]Order, error) {return this.exchangeTyped.EditOrders(orders, options...)}
-func (this *Onetrading) FetchAccounts(params ...any) ([]Account, error) {return this.exchangeTyped.FetchAccounts(params...)}
+func (this *Onetrading) FetchAccounts(params ...interface{}) ([]Account, error) {return this.exchangeTyped.FetchAccounts(params...)}
 func (this *Onetrading) FetchAllGreeks(options ...FetchAllGreeksOptions) ([]Greeks, error) {return this.exchangeTyped.FetchAllGreeks(options...)}
 func (this *Onetrading) FetchBidsAsks(options ...FetchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.FetchBidsAsks(options...)}
 func (this *Onetrading) FetchBorrowInterest(options ...FetchBorrowInterestOptions) ([]BorrowInterest, error) {return this.exchangeTyped.FetchBorrowInterest(options...)}
-func (this *Onetrading) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]any, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
+func (this *Onetrading) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
 func (this *Onetrading) FetchCanceledAndClosedOrders(options ...FetchCanceledAndClosedOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchCanceledAndClosedOrders(options...)}
-func (this *Onetrading) FetchConvertCurrencies(params ...any) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
+func (this *Onetrading) FetchConvertCurrencies(params ...interface{}) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
 func (this *Onetrading) FetchConvertQuote(fromCode string, toCode string, options ...FetchConvertQuoteOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertQuote(fromCode, toCode, options...)}
 func (this *Onetrading) FetchConvertTrade(id string, options ...FetchConvertTradeOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertTrade(id, options...)}
 func (this *Onetrading) FetchConvertTradeHistory(options ...FetchConvertTradeHistoryOptions) ([]Conversion, error) {return this.exchangeTyped.FetchConvertTradeHistory(options...)}
 func (this *Onetrading) FetchCrossBorrowRate(code string, options ...FetchCrossBorrowRateOptions) (CrossBorrowRate, error) {return this.exchangeTyped.FetchCrossBorrowRate(code, options...)}
-func (this *Onetrading) FetchCrossBorrowRates(params ...any) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
+func (this *Onetrading) FetchCrossBorrowRates(params ...interface{}) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
 func (this *Onetrading) FetchDepositAddress(code string, options ...FetchDepositAddressOptions) (DepositAddress, error) {return this.exchangeTyped.FetchDepositAddress(code, options...)}
 func (this *Onetrading) FetchDepositAddresses(options ...FetchDepositAddressesOptions) ([]DepositAddress, error) {return this.exchangeTyped.FetchDepositAddresses(options...)}
 func (this *Onetrading) FetchDepositAddressesByNetwork(code string, options ...FetchDepositAddressesByNetworkOptions) ([]DepositAddress, error) {return this.exchangeTyped.FetchDepositAddressesByNetwork(code, options...)}
 func (this *Onetrading) FetchDeposits(options ...FetchDepositsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchDeposits(options...)}
 func (this *Onetrading) FetchDepositsWithdrawals(options ...FetchDepositsWithdrawalsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchDepositsWithdrawals(options...)}
-func (this *Onetrading) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositWithdrawFee(code, options...)}
-func (this *Onetrading) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositWithdrawFees(options...)}
-func (this *Onetrading) FetchFreeBalance(params ...any) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
+func (this *Onetrading) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositWithdrawFee(code, options...)}
+func (this *Onetrading) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositWithdrawFees(options...)}
+func (this *Onetrading) FetchFreeBalance(params ...interface{}) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
 func (this *Onetrading) FetchFundingHistory(options ...FetchFundingHistoryOptions) ([]FundingHistory, error) {return this.exchangeTyped.FetchFundingHistory(options...)}
 func (this *Onetrading) FetchFundingInterval(symbol string, options ...FetchFundingIntervalOptions) (FundingRate, error) {return this.exchangeTyped.FetchFundingInterval(symbol, options...)}
 func (this *Onetrading) FetchFundingIntervals(options ...FetchFundingIntervalsOptions) (FundingRates, error) {return this.exchangeTyped.FetchFundingIntervals(options...)}
@@ -666,7 +666,7 @@ func (this *Onetrading) FetchFundingRates(options ...FetchFundingRatesOptions) (
 func (this *Onetrading) FetchGreeks(symbol string, options ...FetchGreeksOptions) (Greeks, error) {return this.exchangeTyped.FetchGreeks(symbol, options...)}
 func (this *Onetrading) FetchIndexOHLCV(symbol string, options ...FetchIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchIndexOHLCV(symbol, options...)}
 func (this *Onetrading) FetchIsolatedBorrowRate(symbol string, options ...FetchIsolatedBorrowRateOptions) (IsolatedBorrowRate, error) {return this.exchangeTyped.FetchIsolatedBorrowRate(symbol, options...)}
-func (this *Onetrading) FetchIsolatedBorrowRates(params ...any) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
+func (this *Onetrading) FetchIsolatedBorrowRates(params ...interface{}) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
 func (this *Onetrading) FetchLastPrices(options ...FetchLastPricesOptions) (LastPrices, error) {return this.exchangeTyped.FetchLastPrices(options...)}
 func (this *Onetrading) FetchLedger(options ...FetchLedgerOptions) ([]LedgerEntry, error) {return this.exchangeTyped.FetchLedger(options...)}
 func (this *Onetrading) FetchLedgerEntry(id string, options ...FetchLedgerEntryOptions) (LedgerEntry, error) {return this.exchangeTyped.FetchLedgerEntry(id, options...)}
@@ -693,28 +693,28 @@ func (this *Onetrading) FetchOrderWithClientOrderId(clientOrderId string, option
 func (this *Onetrading) FetchOrderBooks(options ...FetchOrderBooksOptions) (OrderBooks, error) {return this.exchangeTyped.FetchOrderBooks(options...)}
 func (this *Onetrading) FetchOrders(options ...FetchOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchOrders(options...)}
 func (this *Onetrading) FetchOrderStatus(id string, options ...FetchOrderStatusOptions) (string, error) {return this.exchangeTyped.FetchOrderStatus(id, options...)}
-func (this *Onetrading) FetchPaymentMethods(params ...any) (map[string]any, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
+func (this *Onetrading) FetchPaymentMethods(params ...interface{}) (map[string]interface{}, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
 func (this *Onetrading) FetchPosition(symbol string, options ...FetchPositionOptions) (Position, error) {return this.exchangeTyped.FetchPosition(symbol, options...)}
 func (this *Onetrading) FetchPositionHistory(symbol string, options ...FetchPositionHistoryOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionHistory(symbol, options...)}
-func (this *Onetrading) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]any, error) {return this.exchangeTyped.FetchPositionMode(options...)}
+func (this *Onetrading) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchPositionMode(options...)}
 func (this *Onetrading) FetchPositions(options ...FetchPositionsOptions) ([]Position, error) {return this.exchangeTyped.FetchPositions(options...)}
 func (this *Onetrading) FetchPositionsForSymbol(symbol string, options ...FetchPositionsForSymbolOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsForSymbol(symbol, options...)}
 func (this *Onetrading) FetchPositionsHistory(options ...FetchPositionsHistoryOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsHistory(options...)}
 func (this *Onetrading) FetchPositionsRisk(options ...FetchPositionsRiskOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsRisk(options...)}
 func (this *Onetrading) FetchPremiumIndexOHLCV(symbol string, options ...FetchPremiumIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchPremiumIndexOHLCV(symbol, options...)}
-func (this *Onetrading) FetchStatus(params ...any) (map[string]any, error) {return this.exchangeTyped.FetchStatus(params...)}
+func (this *Onetrading) FetchStatus(params ...interface{}) (map[string]interface{}, error) {return this.exchangeTyped.FetchStatus(params...)}
 func (this *Onetrading) FetchTrades(symbol string, options ...FetchTradesOptions) ([]Trade, error) {return this.exchangeTyped.FetchTrades(symbol, options...)}
 func (this *Onetrading) FetchTradingFee(symbol string, options ...FetchTradingFeeOptions) (TradingFeeInterface, error) {return this.exchangeTyped.FetchTradingFee(symbol, options...)}
-func (this *Onetrading) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]any, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
-func (this *Onetrading) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFee(code, options...)}
-func (this *Onetrading) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
+func (this *Onetrading) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
+func (this *Onetrading) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFee(code, options...)}
+func (this *Onetrading) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
 func (this *Onetrading) FetchTransactions(options ...FetchTransactionsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchTransactions(options...)}
 func (this *Onetrading) FetchTransfer(id string, options ...FetchTransferOptions) (TransferEntry, error) {return this.exchangeTyped.FetchTransfer(id, options...)}
 func (this *Onetrading) FetchTransfers(options ...FetchTransfersOptions) ([]TransferEntry, error) {return this.exchangeTyped.FetchTransfers(options...)}
 func (this *Onetrading) FetchWithdrawals(options ...FetchWithdrawalsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchWithdrawals(options...)}
 func (this *Onetrading) SetMargin(symbol string, amount float64, options ...SetMarginOptions) (MarginModification, error) {return this.exchangeTyped.SetMargin(symbol, amount, options...)}
-func (this *Onetrading) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]any, error) {return this.exchangeTyped.SetMarginMode(marginMode, options...)}
-func (this *Onetrading) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]any, error) {return this.exchangeTyped.SetPositionMode(hedged, options...)}
+func (this *Onetrading) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]interface{}, error) {return this.exchangeTyped.SetMarginMode(marginMode, options...)}
+func (this *Onetrading) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]interface{}, error) {return this.exchangeTyped.SetPositionMode(hedged, options...)}
 func (this *Onetrading) Transfer(code string, amount float64, fromAccount string, toAccount string, options ...TransferOptions) (TransferEntry, error) {return this.exchangeTyped.Transfer(code, amount, fromAccount, toAccount, options...)}
 func (this *Onetrading) Withdraw(code string, amount float64, address string, options ...WithdrawOptions) (Transaction, error) {return this.exchangeTyped.Withdraw(code, amount, address, options...)}
 func (this *Onetrading) CancelAllOrdersWs(options ...CancelAllOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.CancelAllOrdersWs(options...)}
@@ -741,9 +741,9 @@ func (this *Onetrading) CreateTrailingAmountOrderWs(symbol string, typeVar strin
 func (this *Onetrading) CreateTrailingPercentOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTrailingPercentOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTrailingPercentOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Onetrading) CreateTriggerOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTriggerOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTriggerOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Onetrading) EditOrderWs(id string, symbol string, typeVar string, side string, options ...EditOrderWsOptions) (Order, error) {return this.exchangeTyped.EditOrderWs(id, symbol, typeVar, side, options...)}
-func (this *Onetrading) FetchBalanceWs(params ...any) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
+func (this *Onetrading) FetchBalanceWs(params ...interface{}) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
 func (this *Onetrading) FetchClosedOrdersWs(options ...FetchClosedOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchClosedOrdersWs(options...)}
-func (this *Onetrading) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
+func (this *Onetrading) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
 func (this *Onetrading) FetchMyTradesWs(options ...FetchMyTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchMyTradesWs(options...)}
 func (this *Onetrading) FetchOHLCVWs(symbol string, options ...FetchOHLCVWsOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchOHLCVWs(symbol, options...)}
 func (this *Onetrading) FetchOpenOrdersWs(options ...FetchOpenOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchOpenOrdersWs(options...)}
@@ -757,20 +757,20 @@ func (this *Onetrading) FetchPositionWs(symbol string, options ...FetchPositionW
 func (this *Onetrading) FetchTickersWs(options ...FetchTickersWsOptions) (Tickers, error) {return this.exchangeTyped.FetchTickersWs(options...)}
 func (this *Onetrading) FetchTickerWs(symbol string, options ...FetchTickerWsOptions) (Ticker, error) {return this.exchangeTyped.FetchTickerWs(symbol, options...)}
 func (this *Onetrading) FetchTradesWs(symbol string, options ...FetchTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchTradesWs(symbol, options...)}
-func (this *Onetrading) FetchTradingFeesWs(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
-func (this *Onetrading) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
-func (this *Onetrading) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (any, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
-func (this *Onetrading) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (any, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
-func (this *Onetrading) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
-func (this *Onetrading) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
-func (this *Onetrading) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
-func (this *Onetrading) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
-func (this *Onetrading) UnWatchOrders(options ...UnWatchOrdersOptions) (any, error) {return this.exchangeTyped.UnWatchOrders(options...)}
-func (this *Onetrading) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (any, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
-func (this *Onetrading) UnWatchTickers(options ...UnWatchTickersOptions) (any, error) {return this.exchangeTyped.UnWatchTickers(options...)}
-func (this *Onetrading) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (any, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
-func (this *Onetrading) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
-func (this *Onetrading) WatchBalance(params ...any) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
+func (this *Onetrading) FetchTradingFeesWs(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
+func (this *Onetrading) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
+func (this *Onetrading) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (interface{}, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
+func (this *Onetrading) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
+func (this *Onetrading) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
+func (this *Onetrading) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
+func (this *Onetrading) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
+func (this *Onetrading) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
+func (this *Onetrading) UnWatchOrders(options ...UnWatchOrdersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrders(options...)}
+func (this *Onetrading) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
+func (this *Onetrading) UnWatchTickers(options ...UnWatchTickersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTickers(options...)}
+func (this *Onetrading) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
+func (this *Onetrading) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
+func (this *Onetrading) WatchBalance(params ...interface{}) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
 func (this *Onetrading) WatchBidsAsks(options ...WatchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.WatchBidsAsks(options...)}
 func (this *Onetrading) WatchLiquidations(symbol string, options ...WatchLiquidationsOptions) ([]Liquidation, error) {return this.exchangeTyped.WatchLiquidations(symbol, options...)}
 func (this *Onetrading) WatchMarkPrice(symbol string, options ...WatchMarkPriceOptions) (Ticker, error) {return this.exchangeTyped.WatchMarkPrice(symbol, options...)}

@@ -15,30 +15,30 @@ func NewMyokxCore() *MyokxCore {
     return p
 }
 
-func  (this *MyokxCore) Describe() any  {
-    return this.DeepExtend(this.OkxCore.Describe(), map[string]any {
+func  (this *MyokxCore) Describe() interface{}  {
+    return this.DeepExtend(this.OkxCore.Describe(), map[string]interface{} {
         "id": "myokx",
         "name": "MyOKX (EEA)",
         "certified": false,
         "pro": true,
         "hostname": "eea.okx.com",
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://user-images.githubusercontent.com/1294454/152485636-38b19e4a-bece-4dec-979a-5982859ffc04.jpg",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "rest": "https://{hostname}",
             },
             "www": "https://my.okx.com",
             "doc": "https://my.okx.com/docs-v5/en/#overview",
             "fees": "https://my.okx.com/pages/products/fees.html",
-            "referral": map[string]any {
+            "referral": map[string]interface{} {
                 "url": "https://www.my.okx.com/join/CCXT2023",
                 "discount": 0.2,
             },
-            "test": map[string]any {
+            "test": map[string]interface{} {
                 "rest": "https://{hostname}",
             },
         },
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": nil,
@@ -46,12 +46,12 @@ func  (this *MyokxCore) Describe() any  {
             "future": false,
             "option": false,
         },
-        "features": map[string]any {
-            "swap": map[string]any {
+        "features": map[string]interface{} {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
@@ -60,7 +60,7 @@ func  (this *MyokxCore) Describe() any  {
 }
 
 
-func (this *MyokxCore) Init(userConfig map[string]any) {
+func (this *MyokxCore) Init(userConfig map[string]interface{}) {
     this.OkxCore.Init(this.DeepExtend(this.Describe(), userConfig))
     this.Itf = this
     this.Exchange.DerivedExchange = this

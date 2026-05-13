@@ -6,7 +6,7 @@ import { AccountSuspended, ArgumentsRequired, AuthenticationError, BadRequest, B
 import { Precise } from './base/Precise.js';
 import { TICK_SIZE, TRUNCATE } from './base/functions/number.js';
 import { sha256 } from './static_dependencies/noble-hashes/sha256.js';
-import type { ADL, Account, Balances, Bool, BorrowInterest, CrossBorrowRate, Currency, Currencies, DepositAddress, Dict, FundingHistory, FundingRate, Int, int, LedgerEntry, Leverage, LeverageTier, LeverageTiers, MarginMode, MarginModification, Market, Num, OHLCV, Order, OrderBook, OrderRequest, OrderSide, OrderType, OpenInterest, OpenInterests, Position, Str, Strings, Ticker, Tickers, Trade, TradingFeeInterface, Transaction, TransferEntry } from './base/types.js';
+import type { ADL, Account, Balances, Bool, BorrowInterest, Currency, Currencies, DepositAddress, Dict, FundingHistory, FundingRate, Int, int, LedgerEntry, Leverage, LeverageTier, LeverageTiers, MarginMode, MarginModification, Market, Num, OHLCV, Order, OrderBook, OrderRequest, OrderSide, OrderType, OpenInterest, OpenInterests, Position, Str, Strings, Ticker, Tickers, Trade, TradingFeeInterface, Transaction, TransferEntry } from './base/types.js';
 
 //  ---------------------------------------------------------------------------
 
@@ -62,7 +62,7 @@ export default class kucoin extends Exchange {
                 'fetchBorrowRateHistories': true,
                 'fetchBorrowRateHistory': true,
                 'fetchClosedOrders': true,
-                'fetchCrossBorrowRate': true,
+                'fetchCrossBorrowRate': false,
                 'fetchCrossBorrowRates': false,
                 'fetchCurrencies': true,
                 'fetchDepositAddress': true,
@@ -551,7 +551,6 @@ export default class kucoin extends Exchange {
                         'market/position-tiers': 40,
                         'market/open-interest': 20,
                         'server/status': 6,
-                        'market/borrowable-currency': 30,
                     },
                 },
                 'utaPrivate': {
@@ -577,9 +576,6 @@ export default class kucoin extends Exchange {
                         'sub-account/balance': 10,
                         'user/fee-rate': 6,
                         'dcp/query': 4,
-                        'unified/account/leverage': 20, // returns {"code":"404","msg":"Not Found","retry":false,"success":false}
-                        'position/funding-history': 30,
-                        'account/interest-limits': 20,
                     },
                     'post': {
                         'account/transfer': 8,
@@ -592,7 +588,6 @@ export default class kucoin extends Exchange {
                         '{accountMode}/order/cancel-all': 40,
                         'sub-account/canTransferOut': 10,
                         'dcp/set': 4,
-                        '{accountMode}/account/modify-leverage-margin-cross': 40,
                     },
                 },
             },
@@ -912,9 +907,6 @@ export default class kucoin extends Exchange {
                 },
                 'fetchBalance': {
                     'code': 'USDT', // for contract endpoint
-                },
-                'setLeverage': {
-                    'code': 'USDT', // for uta margin endpoint
                 },
                 'timeInForce': {
                     'IOC': 'IOC',
@@ -1367,7 +1359,7 @@ export default class kucoin extends Exchange {
                         'symbolRequired': true,
                     },
                     'fetchOrder': {
-                        'marginMode': true,
+                        'marginMode': false,
                         'trigger': true,
                         'trailing': false,
                         'symbolRequired': true,
@@ -3699,13 +3691,10 @@ export default class kucoin extends Exchange {
         let type = undefined;
         [ type, params ] = this.handleMarketTypeAndParams ('fetchOrderBook', market, params);
         if (uta) {
-            let limitString = '20';
-            if ((limit === undefined) || (limit >= 100)) {
-                limitString = 'FULL';
-            } else if (limit > 20) {
-                limitString = '100';
+            if (limit === undefined) {
+                throw new ArgumentsRequired (this.id + ' fetchOrderBook() requires a limit argument for uta, either 20, 50, 100 or FULL');
             }
-            request['limit'] = limitString;
+            request['limit'] = limit;
             request['symbol'] = market['id'];
             if ((type === 'spot') || (type === 'margin')) {
                 request['tradeType'] = 'SPOT';
@@ -4302,12 +4291,16 @@ export default class kucoin extends Exchange {
         let marginMode = undefined;
         [ marginMode, params ] = this.handleMarginModeAndParams ('createOrder', params);
         const marginModeDefined = (marginMode !== undefined);
-        const tradeType = this.handleTradeType (isContract, marginMode, isUnified, params);
+        const isSpotMargin = (isSpot && marginModeDefined);
+        if (isSpotMargin && isUnified) {
+            throw new NotSupported (this.id + ' createOrder() does not support spot margin orders with unified accountMode');
+        }
+        const tradeType = this.handleTradeType (isContract, marginMode, params);
         const clientOrderId = this.safeString2 (params, 'clientOid', 'clientOrderId', this.uuid ());
         params = this.omit (params, [ 'clientOid', 'clientOrderId' ]);
         const request: Dict = {
             'accountMode': accountMode, // 'unified' or 'classic',
-            'tradeType': tradeType, // 'SPOT', 'FUTURES', 'MARGIN', 'ISOLATED' or 'CROSS'
+            'tradeType': tradeType, // 'SPOT', 'FUTURES', 'ISOLATED' or 'CROSS'
             'clientOid': clientOrderId,
             'symbol': market['id'],
             // 'triggerDirection'- 'UP' or 'DOWN (required for trigger orders, supported for classic-FUTURES and unified-SPOT and unified-FUTURES)
@@ -4970,7 +4963,7 @@ export default class kucoin extends Exchange {
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.accountMode] 'unified' or 'classic' (default is 'unified')
      * @param {string} [params.clientOrderId] client order id, required if id is not provided
-     * @param {string} [params.marginMode] 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin)
+     * @param {string} [params.marginMode] 'cross' or 'isolated', required if fetching a margin order
      * @returns Response from the exchange
      */
     async cancelUtaOrder (id: string, symbol: Str = undefined, params = {}) {
@@ -4997,8 +4990,7 @@ export default class kucoin extends Exchange {
         request['accountMode'] = accountMode;
         let marginMode = undefined;
         [ marginMode, params ] = this.handleMarginModeAndParams ('fetchOrder', params);
-        const isUnified = (accountMode === 'unified');
-        const tradeType = this.handleTradeType (market['contract'], marginMode, isUnified, params);
+        const tradeType = this.handleTradeType (market['contract'], marginMode, params);
         request['tradeType'] = tradeType;
         const response = await this.utaPrivatePostAccountModeOrderCancel (this.extend (request, params));
         //
@@ -5523,7 +5515,6 @@ export default class kucoin extends Exchange {
      * @param {int} [params.until] End time in ms
      * @param {string} [params.side] *closed orders only* 'BUY' or 'SELL'
      * @param {string} [params.accountMode] 'unified' or 'classic' (default is unified)
-     * @param {string} [params.marginMode] 'cross' or 'isolated', only for margin orders (unified accountMode supports only cross margin)
      * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
      * @returns An [array of order structures]{@link https://docs.ccxt.com/?id=order-structure}
      */
@@ -5556,8 +5547,7 @@ export default class kucoin extends Exchange {
         }
         let marginMode = undefined;
         [ marginMode, params ] = this.handleMarginModeAndParams ('fetchOrdersByStatus', params);
-        const isUnified = (accountMode === 'unified');
-        const tradeType = this.handleTradeType (isContract, marginMode, isUnified, params);
+        const tradeType = this.handleTradeType (isContract, marginMode, params);
         params['tradeType'] = tradeType;
         if (since !== undefined) {
             request['startAt'] = since;
@@ -5924,7 +5914,7 @@ export default class kucoin extends Exchange {
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.accountMode] 'unified' or 'classic' (default is 'unified')
      * @param {string} [params.clientOrderId] client order id, required if id is not provided
-     * @param {string} [params.marginMode] 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin)
+     * @param {string} [params.marginMode] 'cross' or 'isolated', required if fetching a margin order
      * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
      */
     async fetchUtaOrder (id: Str, symbol: Str = undefined, params = {}) {
@@ -5950,8 +5940,7 @@ export default class kucoin extends Exchange {
         request['accountMode'] = accountMode;
         let marginMode = undefined;
         [ marginMode, params ] = this.handleMarginModeAndParams ('fetchOrder', params);
-        const isUnified = (accountMode === 'unified');
-        const tradeType = this.handleTradeType (market['contract'], marginMode, isUnified, params);
+        const tradeType = this.handleTradeType (market['contract'], marginMode, params);
         request['tradeType'] = tradeType;
         const response = await this.utaPrivateGetAccountModeOrderDetail (this.extend (request, params));
         //
@@ -5999,20 +5988,13 @@ export default class kucoin extends Exchange {
         return this.parseOrder (data, market);
     }
 
-    handleTradeType (isContractMarket = false, marginMode = undefined, isUnified = false, params = {}) {
+    handleTradeType (isContractMarket = false, marginMode = undefined, params = {}) {
         let tradeType = this.safeString (params, 'tradeType');
         if (tradeType === undefined) {
             if (isContractMarket) {
                 tradeType = 'FUTURES';
             } else if (marginMode !== undefined) {
                 tradeType = marginMode.toUpperCase ();
-                if (isUnified) {
-                    if (tradeType === 'ISOLATED') {
-                        throw new NotSupported (this.id + ' spot isolated margin is not supported for unified accountMode');
-                    } else {
-                        tradeType = 'MARGIN';
-                    }
-                }
             } else {
                 tradeType = 'SPOT';
             }
@@ -6753,7 +6735,7 @@ export default class kucoin extends Exchange {
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {int} [params.until] the latest time in ms to fetch entries for
      * @param {string} [params.accountMode] 'unified' or 'classic', defaults to 'unified'
-     * @param {string} [params.marginMode] 'cross' or 'isolated', only for margin trades (unified accountMode support only cross margin)
+     * @param {string} [params.marginMode] 'cross' or 'isolated', only for margin trades
      * @param {string} [params.side] 'BUY' or 'SELL' (both if not provided)
      * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
      * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
@@ -6781,14 +6763,13 @@ export default class kucoin extends Exchange {
         } else {
             isContract = true;
         }
+        let marginMode = undefined;
+        [ marginMode, params ] = this.handleMarginModeAndParams ('fetchMyTrades', params);
+        const tradeType = this.handleTradeType (isContract, marginMode, params);
+        request['tradeType'] = tradeType;
         let accountMode = 'unified';
         [ accountMode, params ] = this.handleOptionAndParams (params, 'fetchMyTrades', 'accountMode', accountMode);
         request['accountMode'] = accountMode;
-        let marginMode = undefined;
-        [ marginMode, params ] = this.handleMarginModeAndParams ('fetchMyTrades', params);
-        const isUnified = (accountMode === 'unified');
-        const tradeType = this.handleTradeType (isContract, marginMode, isUnified, params);
-        request['tradeType'] = tradeType;
         if (since !== undefined) {
             request['startAt'] = since;
         }
@@ -8097,14 +8078,14 @@ export default class kucoin extends Exchange {
      * @see https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta
      * @see https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @param {string} [params.type] 'unified', 'spot', 'funding', 'cross', 'isolated' or 'swap' (default is 'unified')
+     * @param {string} [params.type] 'spot', 'unified', 'funding', 'cross', 'isolated' or 'swap' (default is 'spot')
      * @param {string} [params.marginMode] 'cross' or 'isolated', margin type for fetching margin balance, only applicable if type is margin (default is cross)
      * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
      */
     async fetchUtaBalance (params = {}): Promise<Balances> {
         await this.loadMarkets ();
-        let requestedType = 'unified';
-        [ requestedType, params ] = this.handleMarketTypeAndParams ('fetchUtaBalance', undefined, params, requestedType);
+        let requestedType = undefined;
+        [ requestedType, params ] = this.handleMarketTypeAndParams ('fetchUtaBalance', undefined, params);
         if (requestedType === 'margin') {
             // assume cross margin if margin is specified but marginMode is not specified
             let marginMode = 'cross';
@@ -8113,7 +8094,7 @@ export default class kucoin extends Exchange {
         }
         const utaAccountsByType = this.safeDict (this.options, 'utaAccountsByType', {});
         let type = undefined;
-        type = this.safeString (utaAccountsByType, requestedType, requestedType);
+        type = this.safeString (utaAccountsByType, requestedType, type);
         const isIsolated = (type === 'ISOLATED');
         const request: Dict = {};
         let response = undefined;
@@ -8764,10 +8745,7 @@ export default class kucoin extends Exchange {
         let hf = undefined;
         [ hf, params ] = this.handleHfAndParams (params);
         let requestedType = undefined;
-        if (uta) {
-            requestedType = 'UNIFIED';
-        }
-        [ requestedType, params ] = this.handleMarketTypeAndParams ('fetchLedger', undefined, params, requestedType);
+        [ requestedType, params ] = this.handleMarketTypeAndParams ('fetchLedger', undefined, params);
         let marginMode = undefined;
         [ marginMode, params ] = this.handleMarginModeAndParams ('fetchLedger', params);
         if (uta && (requestedType === 'margin')) {
@@ -8939,25 +8917,12 @@ export default class kucoin extends Exchange {
         //         "dayRatio": "0.001"
         //     }
         //
-        // fetchCrossBorrowRate
-        //     {
-        //         "currentRateHourly": "0.00000353",
-        //         "currentRateDaily": "0.00008466",
-        //         "borrowLimitTotal": "600.00000000000000000000",
-        //         "borrowLimitTotalHold": "0.00000000000000000000",
-        //         "borrowLimitHold": "0.00000000000000000000",
-        //         "interestFreeBorrowLimit": "0.60000000000000000000"
-        //     }
-        //
         const timestampId = this.safeString2 (info, 'createdAt', 'timestamp');
-        let timestamp = this.milliseconds ();
-        if (timestampId !== undefined) {
-            timestamp = this.parseToInt (timestampId.slice (0, 13));
-        }
+        const timestamp = this.parseToInt (timestampId.slice (0, 13));
         const currencyId = this.safeString (info, 'currency');
         return {
             'currency': this.safeCurrencyCode (currencyId, currency),
-            'rate': this.safeNumberN (info, [ 'dailyIntRate', 'dayRatio', 'currentRateDaily' ]),
+            'rate': this.safeNumber2 (info, 'dailyIntRate', 'dayRatio'),
             'period': 86400000,
             'timestamp': timestamp,
             'datetime': this.iso8601 (timestamp),
@@ -9297,39 +9262,6 @@ export default class kucoin extends Exchange {
 
     /**
      * @method
-     * @name kucoin#fetchCrossBorrowRate
-     * @description fetch the rate of interest to borrow a currency for margin trading
-     * @see https://www.kucoin.com/docs-new/rest/ua/get-borrowing-rates-and-limits
-     * @param {string} code unified currency code
-     * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @returns {object} a [borrow rate structure]{@link https://docs.ccxt.com/?id=borrow-rate-structure}
-     */
-    async fetchCrossBorrowRate (code: string, params = {}): Promise<CrossBorrowRate> {
-        await this.loadMarkets ();
-        const currency = this.currency (code);
-        const request: Dict = {
-            'currency': currency['id'],
-        };
-        const response = await this.utaPrivateGetAccountInterestLimits (this.extend (request, params));
-        //
-        //     {
-        //         "code": "200000",
-        //         "data": {
-        //             "currentRateHourly": "0.00000353",
-        //             "currentRateDaily": "0.00008466",
-        //             "borrowLimitTotal": "600.00000000000000000000",
-        //             "borrowLimitTotalHold": "0.00000000000000000000",
-        //             "borrowLimitHold": "0.00000000000000000000",
-        //             "interestFreeBorrowLimit": "0.60000000000000000000"
-        //         }
-        //     }
-        //
-        const data = this.safeDict (response, 'data', {});
-        return this.parseBorrowRate (data, currency);
-    }
-
-    /**
-     * @method
      * @name kucoin#borrowCrossMargin
      * @description create a loan to borrow margin
      * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/borrow
@@ -9574,16 +9506,13 @@ export default class kucoin extends Exchange {
      * @method
      * @name kucoin#setLeverage
      * @description set the level of leverage for a market
-     * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage // margin
-     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage // contract
-     * @see https://www.kucoin.com/docs-new/rest/ua/modify-cross-margin-leverage-uta // margin uta
-     * @see https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta // contract uta
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage
+     * @see https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta
      * @param {int } [leverage] New leverage multiplier. Must be greater than 1 and up to two decimal places, and cannot be less than the user's current debt leverage or greater than the system's maximum leverage
      * @param {string} [symbol] unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @param {boolean} [params.uta] set to true for the unified trading account (uta)
-     * @param {string} [params.marginMode] *spot non-uta only* 'cross' or 'isolated' default is 'cross'
-     * @param {string} [params.code] *uta margin only* the unified currency code for the margin to set the leverage for
+     * @param {boolean} [params.uta] *contract markets only* set to true for the unified trading account (uta)
      * @returns {object} response from the exchange
      */
     async setLeverage (leverage: int, symbol: Str = undefined, params = {}) {
@@ -9600,40 +9529,26 @@ export default class kucoin extends Exchange {
                 return await this.setContractLeverage (leverage, symbol, params);
             }
         }
-        const request: Dict = {
-            'leverage': this.numberToString (leverage),
-        };
-        let marginMode: Str = undefined;
-        [ marginMode, params ] = this.handleMarginModeAndParams ('setLeverage', params);
         let uta = await this.isUTAEnabled ();
         [ uta, params ] = this.handleOptionAndParams (params, 'setLeverage', 'uta', uta);
-        let response = undefined;
         if (uta) {
-            if (marginMode === 'isolated') {
-                throw new NotSupported (this.id + ' unified trading account does not support isolated margin');
-            }
-            request['accountMode'] = 'unified';
-            let code = undefined;
-            [ code, params ] = this.handleOptionAndParams2 (params, 'setLeverage', 'currency', 'code');
-            if (code === undefined) {
-                throw new ArgumentsRequired (this.id + ' setLeverage requires a currency code in the params["code"] for unified trading account');
-            }
-            request['currency'] = this.currencyId (code);
-            response = await this.utaPrivatePostAccountModeAccountModifyLeverageMarginCross (this.extend (request, params));
-        } else {
-            if (marginMode === undefined) {
-                throw new ArgumentsRequired (this.id + ' setLeverage requires a marginMode parameter');
-            }
-            if (marginMode === 'isolated' && symbol === undefined) {
-                throw new ArgumentsRequired (this.id + ' setLeverage requires a symbol parameter for isolated margin');
-            }
-            if (symbol !== undefined) {
-                request['symbol'] = market['id'];
-            }
-            request['isIsolated'] = (marginMode === 'isolated');
-            response = await this.privatePostPositionUpdateUserLeverage (this.extend (request, params));
+            throw new NotSupported (this.id + ' setLeverage with params["uta"] is supported for contract markets only');
         }
-        return response;
+        let marginMode: Str = undefined;
+        [ marginMode, params ] = this.handleMarginModeAndParams ('setLeverage', params);
+        if (marginMode === undefined) {
+            throw new ArgumentsRequired (this.id + ' setLeverage requires a marginMode parameter');
+        }
+        const request: Dict = {};
+        if (marginMode === 'isolated' && symbol === undefined) {
+            throw new ArgumentsRequired (this.id + ' setLeverage requires a symbol parameter for isolated margin');
+        }
+        if (symbol !== undefined) {
+            request['symbol'] = market['id'];
+        }
+        request['leverage'] = leverage.toString ();
+        request['isIsolated'] = (marginMode === 'isolated');
+        return await this.privatePostPositionUpdateUserLeverage (this.extend (request, params));
     }
 
     /**
@@ -9690,14 +9605,13 @@ export default class kucoin extends Exchange {
      * @method
      * @name kucoin#fetchFundingInterval
      * @description fetch the current funding rate interval
-     * @see https://www.kucoin.com/docs-new/rest/ua/get-current-funding-rate
      * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate
      * @param {string} symbol unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a [funding rate structure]{@link https://docs.ccxt.com/?id=funding-rate-structure}
      */
     async fetchFundingInterval (symbol: string, params = {}): Promise<FundingRate> {
-        return await this.fetchFundingRate (symbol, params);
+        return await this.fetchFundingRate (symbol, this.extend (params, { 'uta': false }));
     }
 
     /**
@@ -9725,14 +9639,11 @@ export default class kucoin extends Exchange {
             //     {
             //         "code": "200000",
             //         "data": {
-            //             "symbol": ".ETHUSDTMFPI8H",
-            //             "nextFundingRate": -3.4E-5,
-            //             "fundingTime": 1776700800000,
-            //             "fundingRateCap": 0.00375,
-            //             "fundingRateFloor": -0.00375,
-            //             "currentGranularity": 28800000,
-            //             "newGranularity": 28800000,
-            //             "newGranularityStartTime": 1750147200000
+            //             "symbol": ".XBTUSDTMFPI8H",
+            //             "nextFundingRate": 7.4E-5,
+            //             "fundingTime": 1762444800000,
+            //             "fundingRateCap": 0.003,
+            //             "fundingRateFloor": -0.003
             //         }
             //     }
             //
@@ -9744,13 +9655,13 @@ export default class kucoin extends Exchange {
             //         "data": {
             //             "symbol": ".ETHUSDTMFPI8H",
             //             "granularity": 28800000,
-            //             "timePoint": 1776672000000,
-            //             "value": -3.2E-5,
+            //             "timePoint": 1771747200000,
+            //             "value": 3.0E-6,
             //             "dailyInterestRate": 3.0E-4,
             //             "fundingRateCap": 0.00375,
             //             "fundingRateFloor": -0.00375,
             //             "period": 1,
-            //             "fundingTime": 1776700800000
+            //             "fundingTime": 1771776000000
             //         }
             //     }
             //
@@ -9763,34 +9674,29 @@ export default class kucoin extends Exchange {
     parseFundingRate (data, market: Market = undefined): FundingRate {
         // uta
         //     {
-        //         "symbol": ".ETHUSDTMFPI8H",
-        //         "nextFundingRate": -3.4E-5,
-        //         "fundingTime": 1776700800000,
-        //         "fundingRateCap": 0.00375,
-        //         "fundingRateFloor": -0.00375,
-        //         "currentGranularity": 28800000,
-        //         "newGranularity": 28800000,
-        //         "newGranularityStartTime": 1750147200000
+        //         "symbol": ".XBTUSDTMFPI8H",
+        //         "nextFundingRate": 7.4E-5,
+        //         "fundingTime": 1762444800000,
+        //         "fundingRateCap": 0.003,
+        //         "fundingRateFloor": -0.003
         //     }
         //
         // futures
         //     {
         //         "symbol": ".ETHUSDTMFPI8H",
         //         "granularity": 28800000,
-        //         "timePoint": 1776672000000,
-        //         "value": -3.2E-5,
+        //         "timePoint": 1771747200000,
+        //         "value": 3.0E-6,
         //         "dailyInterestRate": 3.0E-4,
         //         "fundingRateCap": 0.00375,
         //         "fundingRateFloor": -0.00375,
         //         "period": 1,
-        //         "fundingTime": 1776700800000
+        //         "fundingTime": 1771776000000
         //     }
         //
         const fundingTimestamp = this.safeInteger (data, 'fundingTime');
         const previousFundingTimestamp = this.safeInteger (data, 'timePoint');
-        const nextFundingTimestamp = this.safeInteger (data, 'newGranularityStartTime');
         const marketId = this.safeString (data, 'symbol');
-        const granularity = this.safeString2 (data, 'granularity', 'currentGranularity');
         return {
             'info': data,
             'symbol': this.safeSymbol (marketId, market, undefined, 'contract'),
@@ -9803,13 +9709,13 @@ export default class kucoin extends Exchange {
             'fundingRate': this.safeNumber2 (data, 'nextFundingRate', 'value'),
             'fundingTimestamp': fundingTimestamp,
             'fundingDatetime': this.iso8601 (fundingTimestamp),
-            'nextFundingRate': undefined,
-            'nextFundingTimestamp': nextFundingTimestamp,
-            'nextFundingDatetime': this.iso8601 (nextFundingTimestamp),
+            'nextFundingRate': this.safeNumber (data, 'predictedValue'),
+            'nextFundingTimestamp': undefined,
+            'nextFundingDatetime': undefined,
             'previousFundingRate': undefined,
             'previousFundingTimestamp': previousFundingTimestamp,
             'previousFundingDatetime': this.iso8601 (previousFundingTimestamp),
-            'interval': this.parseFundingInterval (granularity),
+            'interval': this.parseFundingInterval (this.safeString (data, 'granularity')),
         } as FundingRate;
     }
 
@@ -9937,101 +9843,65 @@ export default class kucoin extends Exchange {
      * @param {int} [since] the earliest time in ms to fetch funding history for
      * @param {int} [limit] the maximum number of funding history structures to retrieve
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
      * @returns {object} a [funding history structure]{@link https://docs.ccxt.com/?id=funding-history-structure}
      */
     async fetchFundingHistory (symbol: Str = undefined, since: Int = undefined, limit: Int = undefined, params = {}) {
-        await this.loadMarkets ();
-        let uta = await this.isUTAEnabled ();
-        [ uta, params ] = this.handleOptionAndParams (params, 'fetchFundingHistory', 'uta', uta);
-        let request: Dict = {};
-        let market = undefined;
-        if (symbol !== undefined) {
-            market = this.market (symbol);
-            request['symbol'] = market['id'];
-        } else if (!uta) {
+        if (symbol === undefined) {
             throw new ArgumentsRequired (this.id + ' fetchFundingHistory() requires a symbol argument');
         }
+        await this.loadMarkets ();
+        const market = this.market (symbol);
+        const request: Dict = {
+            'symbol': market['id'],
+        };
         if (since !== undefined) {
             request['startAt'] = since;
         }
-        let dataList = [];
-        if (uta) {
-            if (limit !== undefined) {
-                request['pageSize'] = limit;
-            }
-            [ request, params ] = this.handleUntilOption ('endAt', request, params);
-            const response = await this.utaPrivateGetPositionFundingHistory (this.extend (request, params));
-            //
-            //     {
-            //         "code": "200000",
-            //         "data": {
-            //             "lastId": 2125247170385112,
-            //             "items": [
-            //                 {
-            //                     "symbol": "DOGEUSDTM",
-            //                     "marginMode": "CROSS",
-            //                     "fundingRate": "0.000172",
-            //                     "markPrice": "0.09326",
-            //                     "size": "-1",
-            //                     "positionValue": "-9.326",
-            //                     "fundingFee": "0.00160407",
-            //                     "settleCurrency": "USDT",
-            //                     "settlementTime": 1775030400000
-            //                 }
-            //             ]
-            //         }
-            //     }
-            const data = this.safeDict (response, 'data');
-            dataList = this.safeList (data, 'items', []);
-        } else {
-            if (limit !== undefined) {
-                // * Since is ignored if limit is defined
-                request['maxCount'] = limit;
-            }
-            const response = await this.futuresPrivateGetFundingHistory (this.extend (request, params));
-            //
-            //    {
-            //        "code": "200000",
-            //        "data": {
-            //            "dataList": [
-            //                {
-            //                    "id": 239471298749817,
-            //                    "symbol": "ETHUSDTM",
-            //                    "timePoint": 1638532800000,
-            //                    "fundingRate": 0.000100,
-            //                    "markPrice": 4612.8300000000,
-            //                    "positionQty": 12,
-            //                    "positionCost": 553.5396000000,
-            //                    "funding": -0.0553539600,
-            //                    "settleCurrency": "USDT"
-            //                },
-            //                ...
-            //            ],
-            //            "hasMore": true
-            //        }
-            //    }
-            //
-            const data = this.safeValue (response, 'data');
-            dataList = this.safeList (data, 'dataList', []);
+        if (limit !== undefined) {
+            // * Since is ignored if limit is defined
+            request['maxCount'] = limit;
         }
+        const response = await this.futuresPrivateGetFundingHistory (this.extend (request, params));
+        //
+        //    {
+        //        "code": "200000",
+        //        "data": {
+        //            "dataList": [
+        //                {
+        //                    "id": 239471298749817,
+        //                    "symbol": "ETHUSDTM",
+        //                    "timePoint": 1638532800000,
+        //                    "fundingRate": 0.000100,
+        //                    "markPrice": 4612.8300000000,
+        //                    "positionQty": 12,
+        //                    "positionCost": 553.5396000000,
+        //                    "funding": -0.0553539600,
+        //                    "settleCurrency": "USDT"
+        //                },
+        //                ...
+        //            ],
+        //            "hasMore": true
+        //        }
+        //    }
+        //
+        const data = this.safeValue (response, 'data');
+        const dataList = this.safeList (data, 'dataList', []);
         const fees = [];
         for (let i = 0; i < dataList.length; i++) {
             const listItem = dataList[i];
-            const timestamp = this.safeInteger2 (listItem, 'timePoint', 'settlementTime');
-            const marketId = this.safeString (listItem, 'symbol');
+            const timestamp = this.safeInteger (listItem, 'timePoint');
             fees.push ({
                 'info': listItem,
-                'symbol': this.safeSymbol (marketId, market),
+                'symbol': symbol,
                 'code': this.safeCurrencyCode (this.safeString (listItem, 'settleCurrency')),
                 'timestamp': timestamp,
                 'datetime': this.iso8601 (timestamp),
                 'id': this.safeNumber (listItem, 'id'),
-                'amount': this.safeNumber2 (listItem, 'funding', 'fundingFee'),
+                'amount': this.safeNumber (listItem, 'funding'),
                 'fundingRate': this.safeNumber (listItem, 'fundingRate'),
                 'markPrice': this.safeNumber (listItem, 'markPrice'),
-                'positionQty': this.safeNumber2 (listItem, 'positionQty', 'size'),
-                'positionCost': this.safeNumber2 (listItem, 'positionCost', 'positionValue'),
+                'positionQty': this.safeNumber (listItem, 'positionQty'),
+                'positionCost': this.safeNumber (listItem, 'positionCost'),
             });
         }
         return fees as FundingHistory[];
@@ -10046,8 +9916,6 @@ export default class kucoin extends Exchange {
      * @param {string} symbol unified market symbol of the market the position is held in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
-     * @param {integer} [params.pageSize] *uta only* page size for the uta endpoint (default 50, max 200)
-     * @param {integer} [params.pageNumber] *uta only* page number for the uta endpoint (default 1)
      * @returns {object} a [position structure]{@link https://docs.ccxt.com/?id=position-structure}
      */
     async fetchPosition (symbol: string, params = {}) {
@@ -10148,8 +10016,6 @@ export default class kucoin extends Exchange {
      * @param {string[]|undefined} symbols list of unified market symbols
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
-     * @param {integer} [params.pageSize] *uta only* page size for the uta endpoint (default 50, max 200)
-     * @param {integer} [params.pageNumber] *uta only* page number for the uta endpoint (default 1)
      * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/?id=position-structure}
      */
     async fetchPositions (symbols: Strings = undefined, params = {}): Promise<Position[]> {
@@ -10158,7 +10024,7 @@ export default class kucoin extends Exchange {
         [ uta, params ] = this.handleOptionAndParams (params, 'fetchPositions', 'uta', uta);
         let response = undefined;
         if (uta) {
-            response = await this.utaPrivateGetAccountModePositionOpenList (this.extend ({ 'accountMode': 'unified', 'limit': 200 }, params));
+            response = await this.utaPrivateGetAccountModePositionOpenList (this.extend (params, { 'accountMode': 'unified' }));
         } else {
             response = await this.futuresPrivateGetPositions (params);
             //
@@ -10524,7 +10390,7 @@ export default class kucoin extends Exchange {
      * @param {string[]} [params.clientOrderIds] client order ids
      * @param {boolean} [params.uta] set to true to use the unified trading account (uta) endpoint, defaults to false for the contract orders
      * @param {string} [params.accountMode] *for uta endpoint only* 'unified' or 'classic' (default is 'unified')
-     * @param {string} [params.marginMode] *for margin orders only* 'cross' or 'isolated' (unified accountMode supports cross margin only)
+     * @param {string} [params.marginMode] *for margin orders only* 'cross' or 'isolated'
      * @returns {object} an list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
      */
     async cancelOrders (ids: string[], symbol: Str = undefined, params = {}) {
@@ -10576,8 +10442,7 @@ export default class kucoin extends Exchange {
             request['accountMode'] = accountMode;
             let marginMode = undefined;
             [ marginMode, params ] = this.handleMarginModeAndParams ('fetchOrder', params);
-            const isUnified = (accountMode === 'unified');
-            const tradeType = this.handleTradeType (isContractMarket, marginMode, isUnified, params);
+            const tradeType = this.handleTradeType (isContractMarket, marginMode, params);
             request['tradeType'] = tradeType;
             request['cancelOrderList'] = ordersRequests;
             response = await this.utaPrivatePostAccountModeOrderCancelBatch (this.extend (request, params));
@@ -11256,7 +11121,7 @@ export default class kucoin extends Exchange {
             if (((method === 'GET') || (method === 'DELETE')) && (path !== 'orders/multi-cancel')) {
                 endpoint += '?' + this.rawencode (query);
             } else {
-                if ((endpoint === '/api/ua/v1/classic/order/place') || (endpoint === '/api/ua/v1/classic/order/place/batch') || (endpoint === '/api/ua/v1/classic/order/cancel') || (endpoint === '/api/ua/v1/classic/order/cancel/batch')) {
+                if (endpoint === '/api/ua/v1/classic/order/place') {
                     endpoint += '?tradeType=' + tradeType;
                 }
                 body = this.json (query);

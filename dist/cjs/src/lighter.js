@@ -6,9 +6,6 @@ var lighter$1 = require('./abstract/lighter.js');
 var errors = require('./base/errors.js');
 var number = require('./base/functions/number.js');
 var Precise = require('./base/Precise.js');
-var crypto = require('./base/functions/crypto.js');
-var sha3 = require('./static_dependencies/noble-hashes/sha3.js');
-var secp256k1 = require('./static_dependencies/noble-curves/secp256k1.js');
 
 // ----------------------------------------------------------------------------
 //  ---------------------------------------------------------------------------
@@ -27,7 +24,6 @@ class lighter extends lighter$1["default"] {
             'certified': false,
             'pro': true,
             'dex': true,
-            'quoteJsonNumbers': false,
             'has': {
                 'CORS': undefined,
                 'spot': false,
@@ -250,7 +246,6 @@ class lighter extends lighter$1["default"] {
             'httpExceptions': {},
             'exceptions': {
                 'exact': {
-                    '21146': errors.ExchangeError,
                     '21500': errors.ExchangeError,
                     '21501': errors.ExchangeError,
                     '21502': errors.ExchangeError,
@@ -344,16 +339,11 @@ class lighter extends lighter$1["default"] {
             'commonCurrencies': {},
             'options': {
                 'defaultType': 'swap',
-                'builderFee': true,
                 'chainId': 304,
                 'accountIndex': undefined,
                 'apiKeyIndex': undefined,
-                'lighterPrivateKey': undefined,
                 'wasmExecPath': undefined,
                 'libraryPath': undefined,
-                'integratorAccountIndex': 718718,
-                'integratorMakerFee': 1000,
-                'integratorTakerFee': 1000,
                 'authDeadlineExpiry': 28800,
                 'authDeadlineMinimumRemaining': 60,
             },
@@ -379,65 +369,15 @@ class lighter extends lighter$1["default"] {
         });
     }
     async loadAccount(chainId, privateKey, apiKeyIndex, accountIndex, params = {}) {
-        this.initAuthObject(accountIndex, apiKeyIndex);
-        const cachedAuths = this.safeDict(this.options['auths'][accountIndex], apiKeyIndex);
-        let signer = this.safeValue(cachedAuths, 'signer');
+        let signer = this.safeDict(this.options, 'signer');
         if (signer !== undefined) {
             return signer;
         }
         let libraryPath = undefined;
         [libraryPath, params] = this.handleOptionAndParams(params, 'loadAccount', 'libraryPath');
-        const lighterPrivateKeyIsSet = (privateKey !== undefined) && (privateKey !== '');
-        if (lighterPrivateKeyIsSet && (libraryPath !== undefined) && (apiKeyIndex !== undefined) && (accountIndex !== undefined)) {
-            // load lighter library, and create lighter client
-            signer = await this.loadLighterLibrary(libraryPath, chainId, privateKey, this.parseToInt(apiKeyIndex), this.parseToInt(accountIndex), true);
-            this.options['auths'][accountIndex][apiKeyIndex]['signer'] = signer;
-            return signer;
-        }
-        const privateKeyIsSet = (this.privateKey !== undefined) && (this.privateKey !== '');
-        if (privateKeyIsSet && (apiKeyIndex !== undefined) && (accountIndex !== undefined)) {
-            if (this.privateKey.length > 66) {
-                throw new errors.NotSupported(this.id + ' after the latest update (v4.5.50), CCXT now expects the l1 private key to be provided in the credentials. Please check for more details: https://github.com/ccxt/ccxt/wiki/FAQ#how-to-use-the-lighter-exchange-in-ccxt');
-            }
-            // load lighter library without creating lighter client
-            signer = await this.loadLighterLibrary(libraryPath, chainId, '', this.parseToInt(apiKeyIndex), this.parseToInt(accountIndex), false);
-            this.options['auths'][accountIndex][apiKeyIndex]['signer'] = signer;
-            const res = await this.changeApiKey();
-            await this.handleBuilderFeeApproval(this.parseToInt(accountIndex), this.parseToInt(apiKeyIndex));
-            return res;
-        }
+        signer = await this.loadLighterLibrary(libraryPath, chainId, privateKey, apiKeyIndex, accountIndex);
+        this.options['signer'] = signer;
         return signer;
-    }
-    initAuthObject(strAccountIndex, strApiKeyIndex) {
-        if (!('auths' in this.options)) {
-            this.options['auths'] = {};
-        }
-        if (!(strAccountIndex in this.options['auths'])) {
-            this.options['auths'][strAccountIndex] = {};
-        }
-        if (!(strApiKeyIndex in this.options['auths'][strAccountIndex])) {
-            this.options['auths'][strAccountIndex][strApiKeyIndex] = {
-                'signer': undefined,
-                'lighterPrivateKey': undefined,
-                'deadline': undefined,
-                'token': undefined,
-            };
-        }
-    }
-    getLighterPrivateKey(strAccountIndex, strApiKeyIndex) {
-        if (!('auths' in this.options)) {
-            return undefined;
-        }
-        if (!(strAccountIndex in this.options['auths'])) {
-            return undefined;
-        }
-        if (!(strApiKeyIndex in this.options['auths'][strAccountIndex])) {
-            return undefined;
-        }
-        if (!('lighterPrivateKey' in this.options['auths'][strAccountIndex][strApiKeyIndex])) {
-            return undefined;
-        }
-        return this.options['auths'][strAccountIndex][strApiKeyIndex]['lighterPrivateKey'];
     }
     /**
      * @method
@@ -447,47 +387,31 @@ class lighter extends lighter$1["default"] {
      * @returns {boolean} true if the signer was loaded, false otherwise
      */
     async preLoadLighterLibrary(params = {}) {
-        let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'loadAccount', 'apiKeyIndex', 'api_key_index');
-        let accountIndex = undefined;
-        [accountIndex, params] = await this.handleAccountIndex(params, 'loadAccount', 'accountIndex', 'account_index');
-        if (accountIndex === undefined) {
-            throw new errors.ArgumentsRequired(this.id + ' requires accountIndex or account_index');
-        }
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        this.initAuthObject(strAccountIndex, strApiKeyIndex);
-        let signer = this.safeDict(this.options['auths'][strAccountIndex][strApiKeyIndex], 'signer');
+        let signer = this.safeDict(this.options, 'signer');
         if (signer !== undefined) {
             return true;
         }
-        signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex);
-        await this.handleBuilderFeeApproval(accountIndex, apiKeyIndex);
-        return (signer !== undefined);
-    }
-    handleApiKeyIndex(params, methodName1, optionName1, optionName2, defaultValue = undefined) {
+        let libraryPath = undefined;
+        [libraryPath, params] = this.handleOptionAndParams(params, 'loadAccount', 'libraryPath');
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleOptionAndParams2(params, methodName1, optionName1, optionName2, defaultValue);
-        if ((apiKeyIndex === undefined) || (apiKeyIndex < 4) || (apiKeyIndex > 254)) {
-            // apiKeyIndex = this.randNumber (2);
-            apiKeyIndex = 254;
-            this.options['apiKeyIndex'] = apiKeyIndex; // default to a value to avoid overriding other keys
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'loadAccount', 'apiKeyIndex', 'api_key_index');
+        let accountIndex = undefined;
+        [accountIndex, params] = this.handleOptionAndParams2(params, 'loadAccount', 'accountIndex', 'account_index');
+        const privateKeyIsSet = (this.privateKey !== undefined) && (this.privateKey !== '');
+        if (privateKeyIsSet && (libraryPath !== undefined) && (apiKeyIndex !== undefined) && (accountIndex !== undefined)) {
+            signer = await this.loadLighterLibrary(libraryPath, this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex);
+            this.options['signer'] = signer;
+            return true;
         }
-        return [this.parseToInt(apiKeyIndex), params];
+        return false;
     }
     async handleAccountIndex(params, methodName1, optionName1, optionName2, defaultValue = undefined) {
         let accountIndex = undefined;
         [accountIndex, params] = this.handleOptionAndParams2(params, methodName1, optionName1, optionName2, defaultValue);
         if (accountIndex === undefined) {
-            let walletAddress = this.walletAddress;
-            if (this.privateKey !== undefined) {
-                if (this.privateKey.length > 66) {
-                    throw new errors.NotSupported(this.id + ' after the latest update (v4.5.50), CCXT now expects the l1 private key to be provided in the credentials. Please check for more details: https://github.com/ccxt/ccxt/wiki/FAQ#how-to-use-the-lighter-exchange-in-ccxt');
-                }
-                walletAddress = this.ethGetAddressFromPrivateKey(this.privateKey);
-            }
+            const walletAddress = this.walletAddress;
             if (walletAddress === undefined || walletAddress === '') {
-                throw new errors.ArgumentsRequired(this.id + ' ' + methodName1 + '() requires an ' + optionName1 + '/' + optionName2 + ' parameter or walletAddress to fetch accountIndex. Alternatively set privateKey in credentials to enable automatic walletAddress detection.');
+                throw new errors.ArgumentsRequired(this.id + ' ' + methodName1 + '() requires an ' + optionName1 + '/' + optionName2 + ' parameter or walletAddress to fetch accountIndex');
             }
             const res = await this.publicGetAccountsByL1Address({ 'l1_address': walletAddress });
             //
@@ -527,18 +451,19 @@ class lighter extends lighter$1["default"] {
     }
     async createSubAccount(name, params = {}) {
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'createSubAccount', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'createSubAccount', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' createSubAccount() requires an apiKeyIndex parameter');
+        }
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'createSubAccount', 'accountIndex', 'account_index');
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, params);
+        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex);
         const signRaw = {
             'nonce': nonce,
             'api_key_index': apiKeyIndex,
             'account_index': accountIndex,
         };
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const [txType, txInfo] = this.lighterSignCreateSubAccount(signer, this.extend(signRaw, params));
         const request = {
             'tx_type': txType,
@@ -548,15 +473,15 @@ class lighter extends lighter$1["default"] {
     }
     createAuth(params = {}) {
         // don't omit [accountIndex, apiKeyIndex], request may need them
-        let apiKeyIndex = this.safeString2(params, 'apiKeyIndex', 'api_key_index');
+        let apiKeyIndex = this.safeInteger2(params, 'apiKeyIndex', 'api_key_index');
         if (apiKeyIndex === undefined) {
             const res = this.handleOptionAndParams2({}, 'createAuth', 'apiKeyIndex', 'api_key_index');
-            apiKeyIndex = this.safeString(res, 0);
+            apiKeyIndex = this.safeInteger(res, 0);
         }
-        let accountIndex = this.safeString2(params, 'accountIndex', 'account_index');
+        let accountIndex = this.safeInteger2(params, 'accountIndex', 'account_index');
         if (accountIndex === undefined) {
             const res = this.handleOptionAndParams2({}, 'createAuth', 'accountIndex', 'account_index');
-            accountIndex = this.safeString(res, 0);
+            accountIndex = this.safeInteger(res, 0);
         }
         const auths = this.safeDict(this.options, 'auths');
         const accountAuths = this.safeDict(auths, accountIndex);
@@ -571,12 +496,20 @@ class lighter extends lighter$1["default"] {
         const deadline = this.seconds() + this.safeInteger(this.options, 'authDeadlineExpiry');
         const request = {
             'deadline': deadline,
-            'api_key_index': this.parseToInt(apiKeyIndex),
-            'account_index': this.parseToInt(accountIndex),
+            'api_key_index': apiKeyIndex,
+            'account_index': accountIndex,
         };
-        const token = this.lighterCreateAuthToken(this.options['auths'][accountIndex][apiKeyIndex]['signer'], request);
-        this.options['auths'][accountIndex][apiKeyIndex]['deadline'] = deadline;
-        this.options['auths'][accountIndex][apiKeyIndex]['token'] = token;
+        const token = this.lighterCreateAuthToken(this.safeValue(this.options, 'signer'), request);
+        if (!('auths' in this.options)) {
+            this.options['auths'] = {};
+        }
+        if (!(accountIndex in this.options['auths'])) {
+            this.options['auths'][accountIndex] = {};
+        }
+        this.options['auths'][accountIndex][apiKeyIndex] = {
+            'deadline': deadline,
+            'token': token,
+        };
         return token;
     }
     pow(n, m) {
@@ -595,104 +528,6 @@ class lighter extends lighter$1["default"] {
             r = Precise["default"].stringMul(r, n);
         }
         return r;
-    }
-    hashMessage(message) {
-        const binaryMessage = this.encode(message);
-        const binaryMessageLength = this.binaryLength(binaryMessage);
-        const x19 = this.base16ToBinary('19');
-        const newline = this.base16ToBinary('0a');
-        const prefix = this.binaryConcat(x19, this.encode('Ethereum Signed Message:'), newline, this.encode(this.numberToString(binaryMessageLength)));
-        return '0x' + this.hash(this.binaryConcat(prefix, binaryMessage), sha3.keccak_256, 'hex');
-    }
-    signHash(hash, privateKey) {
-        this.checkRequiredCredentials();
-        const signature = crypto.ecdsa(hash.slice(-64), privateKey.slice(-64), secp256k1.secp256k1, undefined);
-        const r = signature['r'];
-        const s = signature['s'];
-        const v = this.intToBase16(this.sum(27, signature['v']));
-        return '0x' + r.padStart(64, '0') + s.padStart(64, '0') + v;
-    }
-    signL1AndPrepareTxInfo(txInfo, message, privateKey) {
-        const hashMessage = this.hashMessage(message);
-        const signature = this.signHash(hashMessage, privateKey);
-        const decTxInfo = this.parseJson(txInfo);
-        decTxInfo['L1Sig'] = signature;
-        return this.json(decTxInfo);
-    }
-    async handleBuilderFeeApproval(accountIndex, apiKeyIndex) {
-        const buildFee = this.safeBool(this.options, 'builderFee', true);
-        if (!buildFee) {
-            return false;
-        }
-        const approvedBuilderFee = this.safeBool(this.options, 'approvedBuilderFee', false);
-        if (approvedBuilderFee) {
-            return true;
-        }
-        try {
-            const builder = this.safeInteger(this.options, 'integratorAccountIndex', 718718);
-            const takerFeeRate = this.safeInteger(this.options, 'integratorTakerFee', 1000);
-            const makerFeeRate = this.safeInteger(this.options, 'integratorMakerFee', 1000);
-            await this.approveBuilderFee(builder, takerFeeRate, makerFeeRate, accountIndex, apiKeyIndex);
-            this.options['approvedBuilderFee'] = true;
-        }
-        catch (e) {
-            this.options['builderFee'] = false;
-        }
-        return true;
-    }
-    async approveBuilderFee(builder, takerFeeRate, makerFeeRate, accountIndex, apiKeyIndex, params = {}) {
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, this.extend(params, { 'skipNonce': false }));
-        const expiry = this.milliseconds() + 365 * 864000;
-        const signRaw = {
-            'integrator_account_index': builder,
-            'integrator_taker_fee': takerFeeRate,
-            'integrator_maker_fee': makerFeeRate,
-            'approval_expiry': expiry,
-            'nonce': nonce,
-            'api_key_index': apiKeyIndex,
-            'account_index': accountIndex,
-        };
-        const [txType, txInfo, messageToSign] = this.lighterSignApproveIntegrator(signer, this.extend(signRaw, params));
-        const newTxInfo = this.signL1AndPrepareTxInfo(txInfo, messageToSign, this.privateKey);
-        const request = {
-            'tx_type': txType,
-            'tx_info': newTxInfo,
-        };
-        const response = await this.publicPostSendTx(request);
-        return response;
-    }
-    async changeApiKey(params = {}) {
-        let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'changeApiKey', 'apiKeyIndex', 'api_key_index');
-        let accountIndex = undefined;
-        [accountIndex, params] = await this.handleAccountIndex(params, 'changeApiKey', 'accountIndex', 'account_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signerNotLoad = this.options['auths'][strAccountIndex][strApiKeyIndex]['signer'];
-        const [privateKey, publicKey] = this.lighterGenerateApiKey(signerNotLoad);
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, this.extend(params, { 'skipNonce': false }));
-        const signRaw = {
-            'pubkey': this.encode(publicKey),
-            'nonce': nonce,
-            'api_key_index': apiKeyIndex,
-            'account_index': accountIndex,
-        };
-        // create lighter client
-        const signer = this.lighterCreateClient(signerNotLoad, this.options['chainId'], privateKey, apiKeyIndex, accountIndex);
-        const [txType, txInfo, messageToSign] = this.lighterSignChangePubkey(signer, this.extend(signRaw, params));
-        const newTxInfo = this.signL1AndPrepareTxInfo(txInfo, messageToSign, this.privateKey);
-        const request = {
-            'tx_type': txType,
-            'tx_info': newTxInfo,
-        };
-        await this.publicPostSendTx(request);
-        this.options['auths'][strAccountIndex][strApiKeyIndex]['lighterPrivateKey'] = privateKey;
-        this.options['auths'][strAccountIndex][strApiKeyIndex]['signer'] = signer; // reassign signer in go
-        await this.handleBuilderFeeApproval(accountIndex, apiKeyIndex);
-        return signer;
     }
     setSandboxMode(enable) {
         super.setSandboxMode(enable);
@@ -731,13 +566,14 @@ class lighter extends lighter$1["default"] {
         let apiKeyIndex = undefined;
         let accountIndex = undefined;
         let orderExpiry = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'createOrder', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams(params, 'createOrder', 'apiKeyIndex', 255);
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' createOrder() requires an apiKeyIndex parameter');
+        }
         [accountIndex, params] = this.handleOptionAndParams2(params, 'createOrder', 'accountIndex', 'account_index');
         [nonce, params] = this.handleOptionAndParams(params, 'createOrder', 'nonce');
         [orderExpiry, params] = this.handleOptionAndParams(params, 'createOrder', 'orderExpiry', 0);
-        if (nonce !== undefined) {
-            request['nonce'] = nonce;
-        }
+        request['nonce'] = nonce;
         request['api_key_index'] = apiKeyIndex;
         request['account_index'] = this.parseToInt(accountIndex);
         const triggerPrice = this.safeString2(params, 'triggerPrice', 'stopPrice');
@@ -823,11 +659,6 @@ class lighter extends lighter$1["default"] {
         request['base_amount'] = this.parseToInt(Precise["default"].stringMul(amountStr, amountScale));
         request['avg_execution_price'] = this.parseToInt(Precise["default"].stringMul(priceStr, priceScale));
         request['trigger_price'] = this.parseToInt(Precise["default"].stringMul(triggerPriceStr, priceScale));
-        if (this.safeBool(this.options, 'builderFee', true)) {
-            request['integrator_account_index'] = this.options['integratorAccountIndex'];
-            request['integrator_taker_fee'] = this.options['integratorTakerFee'];
-            request['integrator_maker_fee'] = this.options['integratorMakerFee'];
-        }
         const orders = [];
         orders.push(this.extend(request, params));
         if (hasStopLoss || hasTakeProfit) {
@@ -877,12 +708,6 @@ class lighter extends lighter$1["default"] {
         if (nonceInOptions !== undefined) {
             return nonceInOptions;
         }
-        // avoid skipNonce for l1 operations
-        let skipNonce = true;
-        [skipNonce, params] = this.handleOptionAndParams(params, 'fetchNonce', 'skipNonce', true);
-        if (skipNonce) {
-            return this.milliseconds();
-        }
         const response = await this.publicGetNextNonce({ 'account_index': accountIndex, 'api_key_index': apiKeyIndex });
         return this.safeInteger(response, 'nonce');
     }
@@ -922,14 +747,17 @@ class lighter extends lighter$1["default"] {
         if (totalOrderRequests > 0) {
             order = orderRequests[0];
             apiKeyIndex = order['api_key_index'];
+            if (order['nonce'] === undefined) {
+                const nonceInOptions = this.safeInteger(this.options, 'nonce');
+                if (nonceInOptions !== undefined) {
+                    order['nonce'] = nonceInOptions;
+                }
+                else {
+                    order['nonce'] = await this.fetchNonce(accountIndex, apiKeyIndex);
+                }
+            }
         }
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
-        // the nonce could be updated
-        if (this.safeInteger(order, 'nonce') === undefined) {
-            order['nonce'] = await this.fetchNonce(accountIndex, apiKeyIndex);
-        }
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         let txType = undefined;
         let txInfo = undefined;
         if (totalOrderRequests < 2) {
@@ -943,11 +771,6 @@ class lighter extends lighter$1["default"] {
                 'api_key_index': apiKeyIndex,
                 'account_index': accountIndex,
             };
-            if (this.safeBool(this.options, 'builderFee', true)) {
-                signingPayload['integrator_account_index'] = order['integrator_account_index'];
-                signingPayload['integrator_taker_fee'] = order['integrator_taker_fee'];
-                signingPayload['integrator_maker_fee'] = order['integrator_maker_fee'];
-            }
             [txType, txInfo] = this.lighterSignCreateGroupedOrders(signer, signingPayload);
         }
         const request = {
@@ -981,16 +804,17 @@ class lighter extends lighter$1["default"] {
      * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
      */
     async editOrder(id, symbol, type, side, amount = undefined, price = undefined, params = {}) {
-        await this.loadMarkets();
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'editOrder', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'editOrder', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' editOrder() requires an apiKeyIndex parameter');
+        }
+        await this.loadMarkets();
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'editOrder', 'accountIndex', 'account_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
         const market = this.market(symbol);
         const marketInfo = this.safeDict(market, 'info');
+        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex);
         const amountScale = this.pow('10', marketInfo['size_decimals']);
         const priceScale = this.pow('10', marketInfo['price_decimals']);
         const triggerPrice = this.safeStringN(params, ['stopPrice', 'triggerPrice', 'stopLossPrice', 'takeProfitPrice']);
@@ -1005,7 +829,6 @@ class lighter extends lighter$1["default"] {
         else {
             amountStr = this.amountToPrecision(symbol, amount);
         }
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, params);
         const signRaw = {
             'market_index': this.parseToInt(market['id']),
             'index': this.parseToInt(id),
@@ -1015,10 +838,8 @@ class lighter extends lighter$1["default"] {
             'nonce': nonce,
             'api_key_index': apiKeyIndex,
             'account_index': accountIndex,
-            'integrator_account_index': this.options['integratorAccountIndex'],
-            'integrator_taker_fee': this.options['integratorTakerFee'],
-            'integrator_maker_fee': this.options['integratorMakerFee'],
         };
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const [txType, txInfo] = this.lighterSignModifyOrder(signer, this.extend(signRaw, params));
         const request = {
             'tx_type': txType,
@@ -1033,7 +854,7 @@ class lighter extends lighter$1["default"] {
      * @description the latest known information on the availability of the exchange API
      * @see https://apidocs.lighter.xyz/reference/status
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @returns {object} a [status structure]{@link https://docs.ccxt.com/?id=exchange-status-structure}
+     * @returns {object} a [status structure]{@link https://docs.ccxt.com/#/?id=exchange-status-structure}
      */
     async fetchStatus(params = {}) {
         const response = await this.rootGet(params);
@@ -1253,9 +1074,7 @@ class lighter extends lighter$1["default"] {
      */
     async fetchCurrencies(params = {}) {
         const response = await this.publicGetAssetDetails(params);
-        if (this.checkRequiredCredentials(false)) {
-            await this.preLoadLighterLibrary();
-        }
+        await this.preLoadLighterLibrary();
         //
         //     {
         //         "code": 200,
@@ -1322,7 +1141,7 @@ class lighter extends lighter$1["default"] {
      * @param {string} symbol unified symbol of the market to fetch the order book for
      * @param {int} [limit] the maximum amount of order book entries to return
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
+     * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/#/?id=order-book-structure} indexed by market symbols
      */
     async fetchOrderBook(symbol, limit = undefined, params = {}) {
         if (symbol === undefined) {
@@ -1350,7 +1169,7 @@ class lighter extends lighter$1["default"] {
         //                 "initial_base_amount": "0.2000",
         //                 "remaining_base_amount": "0.2000",
         //                 "price": "3430.00",
-        //                 "order_expiry": 1765419046808
+        //                 "order_expiry": 1765419046807
         //             }
         //         ],
         //         "total_bids": 1,
@@ -1474,7 +1293,7 @@ class lighter extends lighter$1["default"] {
      * @see https://apidocs.lighter.xyz/reference/orderbookdetails
      * @param {string} symbol unified symbol of the market to fetch the ticker for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
+     * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/#/?id=ticker-structure}
      */
     async fetchTicker(symbol, params = {}) {
         if (symbol === undefined) {
@@ -1543,7 +1362,7 @@ class lighter extends lighter$1["default"] {
      * @see https://apidocs.lighter.xyz/reference/orderbookdetails
      * @param {string[]|undefined} symbols unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
+     * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/#/?id=ticker-structure}
      */
     async fetchTickers(symbols = undefined, params = {}) {
         await this.loadMarkets();
@@ -1698,7 +1517,7 @@ class lighter extends lighter$1["default"] {
      * @see https://apidocs.lighter.xyz/reference/funding-rates
      * @param {string[]} [symbols] list of unified market symbols
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @returns {object[]} a list of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-structure}
+     * @returns {object[]} a list of [funding rate structures]{@link https://docs.ccxt.com/#/?id=funding-rate-structure}
      */
     async fetchFundingRates(symbols = undefined, params = {}) {
         await this.loadMarkets();
@@ -1734,7 +1553,6 @@ class lighter extends lighter$1["default"] {
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.by] fetch balance by 'index' or 'l1_address', defaults to 'index'
      * @param {string} [params.value] fetch balance value, account index or l1 address
-     * @param {string} [params.type] 'spot', 'swap', default is 'swap'
      * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
      */
     async fetchBalance(params = {}) {
@@ -1809,11 +1627,9 @@ class lighter extends lighter$1["default"] {
                 }
             }
             else {
-                const perpBalance = this.safeDict(result, 'USDC', this.account());
-                const perpUSDCTotal = this.safeString(account, 'collateral');
-                const perpUSDCFree = this.safeString(account, 'available_balance');
-                perpBalance['total'] = Precise["default"].stringAdd(perpBalance['total'], perpUSDCTotal);
-                perpBalance['free'] = Precise["default"].stringAdd(perpBalance['free'], perpUSDCFree);
+                const perpUSDC = this.safeString(account, 'collateral');
+                const perpBalance = this.safeDict(result, 'USDC(PERP)', this.account());
+                perpBalance['total'] = Precise["default"].stringAdd(perpBalance['total'], perpUSDC);
                 result['USDC'] = perpBalance;
             }
         }
@@ -2087,10 +1903,11 @@ class lighter extends lighter$1["default"] {
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'fetchOpenOrders', 'accountIndex', 'account_index');
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'fetchOpenOrders', 'apiKeyIndex', 'api_key_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'fetchOpenOrders', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' fetchOpenOrders() requires an apiKeyIndex parameter');
+        }
+        await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const market = this.market(symbol);
         const request = {
             'market_id': market['id'],
@@ -2162,10 +1979,11 @@ class lighter extends lighter$1["default"] {
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'fetchClosedOrders', 'accountIndex', 'account_index');
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'fetchClosedOrders', 'apiKeyIndex', 'api_key_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'fetchClosedOrders', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' fetchClosedOrders() requires an apiKeyIndex parameter');
+        }
+        await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const market = this.market(symbol);
         const request = {
             'market_id': market['id'],
@@ -2419,16 +2237,16 @@ class lighter extends lighter$1["default"] {
      * @returns {object} a [transfer structure]{@link https://docs.ccxt.com/?id=transfer-structure}
      */
     async transfer(code, amount, fromAccount, toAccount, params = {}) {
-        await this.loadMarkets();
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'transfer', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'transfer', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' transfer() requires an apiKeyIndex parameter');
+        }
+        await this.loadMarkets();
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'transfer', 'accountIndex', 'account_index');
         let toAccountIndex = undefined;
         [toAccountIndex, params] = this.handleOptionAndParams2(params, 'transfer', 'toAccountIndex', 'to_account_index', accountIndex);
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
         const currency = this.currency(code);
         if (currency['code'] === 'USDC') {
             amount = this.parseToInt(Precise["default"].stringMul(this.pow('10', '6'), this.currencyToPrecision(code, amount)));
@@ -2441,9 +2259,9 @@ class lighter extends lighter$1["default"] {
         }
         const fromRouteType = (fromAccount === 'perp') ? 0 : 1; // 0: perp, 1: spot
         const toRouteType = (toAccount === 'perp') ? 0 : 1;
+        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex);
         const memo = this.safeString(params, 'memo', '0x000000000000000000000000000000');
         params = this.omit(params, ['memo']);
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, params);
         const signRaw = {
             'to_account_index': toAccountIndex,
             'asset_index': this.parseToInt(currency['id']),
@@ -2456,6 +2274,7 @@ class lighter extends lighter$1["default"] {
             'api_key_index': apiKeyIndex,
             'account_index': accountIndex,
         };
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const [txType, txInfo] = this.lighterSignTransfer(signer, this.extend(signRaw, params));
         const request = {
             'tx_type': txType,
@@ -2478,7 +2297,6 @@ class lighter extends lighter$1["default"] {
      * @returns {object[]} a list of [transfer structures]{@link https://docs.ccxt.com/?id=transfer-structure}
      */
     async fetchTransfers(code = undefined, since = undefined, limit = undefined, params = {}) {
-        await this.loadMarkets();
         let paginate = false;
         [paginate, params] = this.handleOptionAndParams(params, 'fetchTransfers', 'paginate');
         if (paginate) {
@@ -2490,10 +2308,11 @@ class lighter extends lighter$1["default"] {
             'account_index': accountIndex,
         };
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'fetchTransfers', 'apiKeyIndex', 'api_key_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'fetchTransfers', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' fetchTransfers() requires an apiKeyIndex parameter');
+        }
+        await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         let currency = undefined;
         if (code !== undefined) {
             currency = this.currency(code);
@@ -2580,7 +2399,6 @@ class lighter extends lighter$1["default"] {
      * @returns {object[]} a list of [transaction structures]{@link https://docs.ccxt.com/?id=transaction-structure}
      */
     async fetchDeposits(code = undefined, since = undefined, limit = undefined, params = {}) {
-        await this.loadMarkets();
         let paginate = false;
         [paginate, params] = this.handleOptionAndParams(params, 'fetchDeposits', 'paginate');
         if (paginate) {
@@ -2591,6 +2409,7 @@ class lighter extends lighter$1["default"] {
         if (address === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' fetchDeposits() requires an address parameter');
         }
+        await this.loadMarkets();
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'fetchDeposits', 'accountIndex', 'account_index');
         const request = {
@@ -2598,10 +2417,11 @@ class lighter extends lighter$1["default"] {
             'l1_address': address,
         };
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'fetchDeposits', 'apiKeyIndex', 'api_key_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'fetchDeposits', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' fetchDeposits() requires an apiKeyIndex parameter');
+        }
+        await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         let currency = undefined;
         if (code !== undefined) {
             currency = this.currency(code);
@@ -2658,10 +2478,11 @@ class lighter extends lighter$1["default"] {
             'account_index': accountIndex,
         };
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'fetchWithdrawals', 'apiKeyIndex', 'api_key_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'fetchWithdrawals', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' fetchWithdrawals() requires an apiKeyIndex parameter');
+        }
+        await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         let currency = undefined;
         if (code !== undefined) {
             currency = this.currency(code);
@@ -2771,14 +2592,14 @@ class lighter extends lighter$1["default"] {
      * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
      */
     async withdraw(code, amount, address, tag = undefined, params = {}) {
-        await this.loadMarkets();
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'withdraw', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'withdraw', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' withdraw() requires an apiKeyIndex parameter');
+        }
+        await this.loadMarkets();
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'withdraw', 'accountIndex', 'account_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
         const currency = this.currency(code);
         if (currency['code'] === 'USDC') {
             amount = this.parseToInt(Precise["default"].stringMul(this.pow('10', '6'), this.currencyToPrecision(code, amount)));
@@ -2791,7 +2612,7 @@ class lighter extends lighter$1["default"] {
         }
         const routeType = this.safeInteger(params, 'routeType', 0); // 0: perp, 1: spot
         params = this.omit(params, 'routeType');
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, params);
+        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex);
         const signRaw = {
             'asset_index': this.parseToInt(currency['id']),
             'route_type': routeType,
@@ -2800,6 +2621,7 @@ class lighter extends lighter$1["default"] {
             'api_key_index': apiKeyIndex,
             'account_index': accountIndex,
         };
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const [txType, txInfo] = this.lighterSignWithdraw(signer, this.extend(signRaw, params));
         const request = {
             'tx_type': txType,
@@ -2832,10 +2654,11 @@ class lighter extends lighter$1["default"] {
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'fetchMyTrades', 'accountIndex', 'account_index');
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'fetchMyTrades', 'apiKeyIndex', 'api_key_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'fetchMyTrades', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' fetchMyTrades() requires an apiKeyIndex parameter');
+        }
+        await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const request = {
             'sort_by': 'timestamp',
             'limit': 100,
@@ -3011,22 +2834,22 @@ class lighter extends lighter$1["default"] {
         return await this.modifyLeverageAndMarginMode(leverage, marginMode, symbol, params);
     }
     async modifyLeverageAndMarginMode(leverage, marginMode, symbol = undefined, params = {}) {
-        await this.loadMarkets();
         if ((marginMode !== 'cross') && (marginMode !== 'isolated')) {
             throw new errors.BadRequest(this.id + ' modifyLeverageAndMarginMode() requires a marginMode parameter that must be either cross or isolated');
         }
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'modifyLeverageAndMarginMode', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'modifyLeverageAndMarginMode', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' modifyLeverageAndMarginMode() requires an apiKeyIndex parameter');
+        }
         if (symbol === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' modifyLeverageAndMarginMode() requires a symbol argument');
         }
+        await this.loadMarkets();
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'modifyLeverageAndMarginMode', 'accountIndex', 'account_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
         const market = this.market(symbol);
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, params);
+        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex);
         const signRaw = {
             'market_index': this.parseToInt(market['id']),
             'initial_margin_fraction': this.parseToInt(10000 / leverage),
@@ -3035,6 +2858,7 @@ class lighter extends lighter$1["default"] {
             'api_key_index': apiKeyIndex,
             'account_index': accountIndex,
         };
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const [txType, txInfo] = this.lighterSignUpdateLeverage(signer, this.extend(signRaw, params));
         const request = {
             'tx_type': txType,
@@ -3054,21 +2878,21 @@ class lighter extends lighter$1["default"] {
      * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
      */
     async cancelOrder(id, symbol = undefined, params = {}) {
-        await this.loadMarkets();
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'cancelOrder', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'cancelOrder', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' cancelOrder() requires an apiKeyIndex parameter');
+        }
         if (symbol === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' cancelOrder() requires a symbol argument');
         }
-        const market = this.market(symbol);
         const clientOrderId = this.safeString2(params, 'client_order_index', 'clientOrderId');
         params = this.omit(params, ['client_order_index', 'clientOrderId']);
+        await this.loadMarkets();
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'cancelOrder', 'accountIndex', 'account_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, params);
+        const market = this.market(symbol);
+        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex);
         const signRaw = {
             'market_index': this.parseToInt(market['id']),
             'nonce': nonce,
@@ -3084,6 +2908,7 @@ class lighter extends lighter$1["default"] {
         else {
             throw new errors.ArgumentsRequired(this.id + ' cancelOrder requires order id or client order id');
         }
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const [txType, txInfo] = this.lighterSignCancelOrder(signer, this.extend(signRaw, params));
         const request = {
             'tx_type': txType,
@@ -3103,14 +2928,13 @@ class lighter extends lighter$1["default"] {
      * @returns {object[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
      */
     async cancelAllOrders(symbol = undefined, params = {}) {
-        await this.loadMarkets();
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'cancelAllOrders', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'cancelAllOrders', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' cancelAllOrders() requires an apiKeyIndex parameter');
+        }
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'cancelAllOrders', 'accountIndex', 'account_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
         const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, params);
         const signRaw = {
             'time_in_force': 0,
@@ -3119,6 +2943,7 @@ class lighter extends lighter$1["default"] {
             'api_key_index': apiKeyIndex,
             'account_index': accountIndex,
         };
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const [txType, txInfo] = this.lighterSignCancelAllOrders(signer, this.extend(signRaw, params));
         const request = {
             'tx_type': txType,
@@ -3136,18 +2961,17 @@ class lighter extends lighter$1["default"] {
      * @returns {object} the api result
      */
     async cancelAllOrdersAfter(timeout, params = {}) {
-        await this.loadMarkets();
         if ((timeout < 300000) || (timeout > 1296000000)) {
             throw new errors.BadRequest(this.id + ' timeout should be between 5 minutes and 15 days.');
         }
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'cancelOrder', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'cancelOrder', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' cancelAllOrdersAfter() requires an apiKeyIndex parameter');
+        }
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'cancelAllOrdersAfter', 'accountIndex', 'account_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, params);
+        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex);
         const signRaw = {
             'time_in_force': 1,
             'time': this.milliseconds() + timeout,
@@ -3155,6 +2979,7 @@ class lighter extends lighter$1["default"] {
             'api_key_index': apiKeyIndex,
             'account_index': accountIndex,
         };
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const [txType, txInfo] = this.lighterSignCancelAllOrders(signer, this.extend(signRaw, params));
         const request = {
             'tx_type': txType,
@@ -3205,9 +3030,11 @@ class lighter extends lighter$1["default"] {
      * @returns {object} A [margin structure]{@link https://docs.ccxt.com/?id=add-margin-structure}
      */
     async setMargin(symbol, amount, params = {}) {
-        await this.loadMarkets();
         let apiKeyIndex = undefined;
-        [apiKeyIndex, params] = this.handleApiKeyIndex(params, 'setMargin', 'apiKeyIndex', 'api_key_index');
+        [apiKeyIndex, params] = this.handleOptionAndParams2(params, 'setMargin', 'apiKeyIndex', 'api_key_index');
+        if (apiKeyIndex === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' setMargin() requires an apiKeyIndex parameter');
+        }
         const direction = this.safeInteger(params, 'direction'); // 1 increase margin 0 decrease margin
         if (direction === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' setMargin() requires a direction parameter either 1 (increase margin) or 0 (decrease margin)');
@@ -3218,13 +3045,11 @@ class lighter extends lighter$1["default"] {
         if (symbol === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' setMargin() requires a symbol argument');
         }
+        await this.loadMarkets();
         let accountIndex = undefined;
         [accountIndex, params] = await this.handleAccountIndex(params, 'setMargin', 'accountIndex', 'account_index');
-        const strAccountIndex = this.numberToString(accountIndex);
-        const strApiKeyIndex = this.numberToString(apiKeyIndex);
-        const signer = await this.loadAccount(this.options['chainId'], this.getLighterPrivateKey(strAccountIndex, strApiKeyIndex), strApiKeyIndex, strAccountIndex, params);
         const market = this.market(symbol);
-        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex, params);
+        const nonce = await this.fetchNonce(accountIndex, apiKeyIndex);
         const signRaw = {
             'market_index': this.parseToInt(market['id']),
             'usdc_amount': this.parseToInt(Precise["default"].stringMul(this.pow('10', '6'), this.currencyToPrecision('USDC', amount))),
@@ -3233,6 +3058,7 @@ class lighter extends lighter$1["default"] {
             'api_key_index': apiKeyIndex,
             'account_index': accountIndex,
         };
+        const signer = await this.loadAccount(this.options['chainId'], this.privateKey, apiKeyIndex, accountIndex, params);
         const [txType, txInfo] = this.lighterSignUpdateMargin(signer, this.extend(signRaw, params));
         const request = {
             'tx_type': txType,

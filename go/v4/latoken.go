@@ -15,14 +15,14 @@ func NewLatokenCore() *LatokenCore {
     return p
 }
 
-func  (this *LatokenCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *LatokenCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "latoken",
         "name": "Latoken",
-        "countries": []any{"KY"},
+        "countries": []interface{}{"KY"},
         "version": "v2",
         "rateLimit": 1000,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": false,
@@ -124,19 +124,19 @@ func  (this *LatokenCore) Describe() any  {
             "setPositionMode": false,
             "transfer": true,
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://user-images.githubusercontent.com/1294454/61511972-24c39f00-aa01-11e9-9f7c-471f1d6e5214.jpg",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "rest": "https://api.latoken.com",
             },
             "www": "https://latoken.com",
-            "doc": []any{"https://api.latoken.com"},
+            "doc": []interface{}{"https://api.latoken.com"},
             "fees": "https://latoken.com/fees",
             "referral": "https://latoken.com/invite?r=mvgp2djk",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "book/{currency}/{quote}": 1,
                     "chart/week": 1,
                     "chart/week/{currency}/{quote}": 1,
@@ -155,8 +155,8 @@ func  (this *LatokenCore) Describe() any  {
                     "transaction/bindings": 1,
                 },
             },
-            "private": map[string]any {
-                "get": map[string]any {
+            "private": map[string]interface{} {
+                "get": map[string]interface{} {
                     "auth/account": 1,
                     "auth/account/currency/{currency}/{type}": 1,
                     "auth/order": 1,
@@ -176,7 +176,7 @@ func  (this *LatokenCore) Describe() any  {
                     "auth/transaction/{id}": 1,
                     "auth/transfer": 1,
                 },
-                "post": map[string]any {
+                "post": map[string]interface{} {
                     "auth/order/cancel": 1,
                     "auth/order/cancelAll": 1,
                     "auth/order/cancelAll/{currency}/{quote}": 1,
@@ -199,8 +199,8 @@ func  (this *LatokenCore) Describe() any  {
             },
         },
         "precisionMode": TICK_SIZE,
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "feeSide": "get",
                 "tierBased": false,
                 "percentage": true,
@@ -208,7 +208,7 @@ func  (this *LatokenCore) Describe() any  {
                 "taker": this.ParseNumber("0.0049"),
             },
         },
-        "commonCurrencies": map[string]any {
+        "commonCurrencies": map[string]interface{} {
             "BUX": "Buxcoin",
             "CBT": "Community Business Token",
             "CTC": "CyberTronchain",
@@ -226,8 +226,8 @@ func  (this *LatokenCore) Describe() any  {
             "UNO": "Unobtanium",
             "WAR": "Warrior Token",
         },
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "INTERNAL_ERROR": ExchangeError,
                 "SERVICE_UNAVAILABLE": ExchangeNotAvailable,
                 "NOT_AUTHORIZED": AuthenticationError,
@@ -251,7 +251,7 @@ func  (this *LatokenCore) Describe() any  {
                 "ORDER_VALIDATION": InvalidOrder,
                 "BAD_TICKS": InvalidOrder,
             },
-            "broad": map[string]any {
+            "broad": map[string]interface{} {
                 "invalid API key, signature or digest": AuthenticationError,
                 "The API key was revoked": AuthenticationError,
                 "request expired or bad": InvalidNonce,
@@ -262,27 +262,27 @@ func  (this *LatokenCore) Describe() any  {
                 "API keys are not available for": AccountSuspended,
             },
         },
-        "options": map[string]any {
+        "options": map[string]interface{} {
             "defaultType": "spot",
-            "types": map[string]any {
+            "types": map[string]interface{} {
                 "wallet": "ACCOUNT_TYPE_WALLET",
                 "funding": "ACCOUNT_TYPE_WALLET",
                 "spot": "ACCOUNT_TYPE_SPOT",
             },
-            "accounts": map[string]any {
+            "accounts": map[string]interface{} {
                 "ACCOUNT_TYPE_WALLET": "wallet",
                 "ACCOUNT_TYPE_SPOT": "spot",
             },
-            "fetchTradingFee": map[string]any {
+            "fetchTradingFee": map[string]interface{} {
                 "method": "fetchPrivateTradingFee",
             },
             "timeDifference": 0,
             "adjustForTimeDifference": true,
         },
-        "features": map[string]any {
-            "spot": map[string]any {
+        "features": map[string]interface{} {
+            "spot": map[string]interface{} {
                 "sandbox": false,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": true,
                     "triggerPriceType": nil,
@@ -290,7 +290,7 @@ func  (this *LatokenCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": true,
                         "PO": false,
@@ -305,20 +305,20 @@ func  (this *LatokenCore) Describe() any  {
                     "iceberg": false,
                 },
                 "createOrders": nil,
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": 1000,
                     "daysBack": 100000,
                     "untilDays": nil,
                     "symbolRequired": false,
                 },
-                "fetchOrder": map[string]any {
+                "fetchOrder": map[string]interface{} {
                     "marginMode": false,
                     "trigger": true,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": nil,
                     "trigger": false,
@@ -326,7 +326,7 @@ func  (this *LatokenCore) Describe() any  {
                     "symbolRequired": true,
                 },
                 "fetchOrders": nil,
-                "fetchClosedOrders": map[string]any {
+                "fetchClosedOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 1000,
                     "daysBack": 100000,
@@ -338,18 +338,18 @@ func  (this *LatokenCore) Describe() any  {
                 },
                 "fetchOHLCV": nil,
             },
-            "swap": map[string]any {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
         },
     })
 }
-func  (this *LatokenCore) Nonce() any  {
+func  (this *LatokenCore) Nonce() interface{}  {
     return Subtract(this.Milliseconds(), GetValue(this.Options, "timeDifference"))
 }
 /**
@@ -360,12 +360,12 @@ func  (this *LatokenCore) Nonce() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func  (this *LatokenCore) FetchTime(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchTime(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetTime(params))
@@ -390,12 +390,12 @@ func  (this *LatokenCore) FetchTime(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *LatokenCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetPair(params))
@@ -425,26 +425,26 @@ func  (this *LatokenCore) FetchMarkets(optionalArgs ...any) <- chan any {
                 retRes40612 := (<-this.LoadTimeDifference())
                 PanicOnError(retRes40612)
             }
-            var currencies any = this.SafeDict(this.Options, "cachedCurrencies", map[string]any {})
-            var currenciesById any = this.IndexBy(currencies, "id")
-            var result any = []any{}
+            var currencies interface{} = this.SafeDict(this.Options, "cachedCurrencies", map[string]interface{} {})
+            var currenciesById interface{} = this.IndexBy(currencies, "id")
+            var result interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(response)); i++ {
-                var market any = GetValue(response, i)
-                var id any = this.SafeString(market, "id")
+                var market interface{} = GetValue(response, i)
+                var id interface{} = this.SafeString(market, "id")
                 // the exchange shows them inverted
-                var baseId any = this.SafeString(market, "baseCurrency")
-                var quoteId any = this.SafeString(market, "quoteCurrency")
-                var baseCurrency any = this.SafeDict(currenciesById, baseId)
-                var quoteCurrency any = this.SafeDict(currenciesById, quoteId)
-                var baseCurrencyInfo any = this.SafeDict(baseCurrency, "info")
-                var quoteCurrencyInfo any = this.SafeDict(quoteCurrency, "info")
+                var baseId interface{} = this.SafeString(market, "baseCurrency")
+                var quoteId interface{} = this.SafeString(market, "quoteCurrency")
+                var baseCurrency interface{} = this.SafeDict(currenciesById, baseId)
+                var quoteCurrency interface{} = this.SafeDict(currenciesById, quoteId)
+                var baseCurrencyInfo interface{} = this.SafeDict(baseCurrency, "info")
+                var quoteCurrencyInfo interface{} = this.SafeDict(quoteCurrency, "info")
                 if IsTrue(IsTrue(!IsEqual(baseCurrencyInfo, nil)) && IsTrue(!IsEqual(quoteCurrencyInfo, nil))) {
-                    var base any = this.SafeCurrencyCode(this.SafeString(baseCurrencyInfo, "tag"))
-                    var quote any = this.SafeCurrencyCode(this.SafeString(quoteCurrencyInfo, "tag"))
-                    var lowercaseQuote any = ToLower(quote)
-                    var capitalizedQuote any = this.Capitalize(lowercaseQuote)
-                    var status any = this.SafeString(market, "status")
-                    AppendToArray(&result, map[string]any {
+                    var base interface{} = this.SafeCurrencyCode(this.SafeString(baseCurrencyInfo, "tag"))
+                    var quote interface{} = this.SafeCurrencyCode(this.SafeString(quoteCurrencyInfo, "tag"))
+                    var lowercaseQuote interface{} = ToLower(quote)
+                    var capitalizedQuote interface{} = this.Capitalize(lowercaseQuote)
+                    var status interface{} = this.SafeString(market, "status")
+                    AppendToArray(&result, map[string]interface{} {
                         "id": id,
                         "symbol": Add(Add(base, "/"), quote),
                         "base": base,
@@ -468,24 +468,24 @@ func  (this *LatokenCore) FetchMarkets(optionalArgs ...any) <- chan any {
                         "expiryDatetime": nil,
                         "strike": nil,
                         "optionType": nil,
-                        "precision": map[string]any {
+                        "precision": map[string]interface{} {
                             "amount": this.SafeNumber(market, "quantityTick"),
                             "price": this.SafeNumber(market, "priceTick"),
                         },
-                        "limits": map[string]any {
-                            "leverage": map[string]any {
+                        "limits": map[string]interface{} {
+                            "leverage": map[string]interface{} {
                                 "min": nil,
                                 "max": nil,
                             },
-                            "amount": map[string]any {
+                            "amount": map[string]interface{} {
                                 "min": this.SafeNumber(market, "minOrderQuantity"),
                                 "max": nil,
                             },
-                            "price": map[string]any {
+                            "price": map[string]interface{} {
                                 "min": nil,
                                 "max": nil,
                             },
-                            "cost": map[string]any {
+                            "cost": map[string]interface{} {
                                 "min": this.SafeNumber(market, Add("minOrderCost", capitalizedQuote)),
                                 "max": this.SafeNumber(market, Add("maxOrderCost", capitalizedQuote)),
                             },
@@ -509,12 +509,12 @@ func  (this *LatokenCore) FetchMarkets(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an associative dictionary of currencies
  */
-func  (this *LatokenCore) FetchCurrencies(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchCurrencies(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetCurrency(params))
@@ -551,15 +551,15 @@ func  (this *LatokenCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             //         },
             //     ]
             //
-            var result any = map[string]any {}
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(response)); i++ {
-                var currency any = GetValue(response, i)
-                var id any = this.SafeString(currency, "id")
-                var tag any = this.SafeString(currency, "tag")
-                var code any = this.SafeCurrencyCode(tag)
-                var currencyType any = this.SafeString(currency, "type")
-                var isCrypto any =         (IsTrue(IsEqual(currencyType, "CURRENCY_TYPE_CRYPTO")) || IsTrue(IsEqual(currencyType, "CURRENCY_TYPE_IEO")))
-                AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]any {
+                var currency interface{} = GetValue(response, i)
+                var id interface{} = this.SafeString(currency, "id")
+                var tag interface{} = this.SafeString(currency, "tag")
+                var code interface{} = this.SafeCurrencyCode(tag)
+                var currencyType interface{} = this.SafeString(currency, "type")
+                var isCrypto interface{} =         (IsTrue(IsEqual(currencyType, "CURRENCY_TYPE_CRYPTO")) || IsTrue(IsEqual(currencyType, "CURRENCY_TYPE_IEO")))
+                AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]interface{} {
             "id": id,
             "code": code,
             "info": currency,
@@ -570,17 +570,17 @@ func  (this *LatokenCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             "withdraw": nil,
             "fee": this.SafeNumber(currency, "fee"),
             "precision": this.ParseNumber(this.ParsePrecision(this.SafeString(currency, "decimals"))),
-            "limits": map[string]any {
-                "amount": map[string]any {
+            "limits": map[string]interface{} {
+                "amount": map[string]interface{} {
                     "min": this.SafeNumber(currency, "minTransferAmount"),
                     "max": nil,
                 },
-                "withdraw": map[string]any {
+                "withdraw": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
             },
-            "networks": map[string]any {},
+            "networks": map[string]interface{} {},
         }))
             }
         
@@ -598,12 +598,12 @@ func  (this *LatokenCore) FetchCurrencies(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *LatokenCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes5668 := (<-this.LoadMarkets())
@@ -633,22 +633,22 @@ func  (this *LatokenCore) FetchBalance(optionalArgs ...any) <- chan any {
             //         }
             //     ]
             //
-            var result any = map[string]any {
+            var result interface{} = map[string]interface{} {
                 "info": response,
                 "timestamp": nil,
                 "datetime": nil,
             }
-            var maxTimestamp any = nil
-            var defaultType any = this.SafeString2(this.Options, "fetchBalance", "defaultType", "spot")
-            var typeVar any = this.SafeString(params, "type", defaultType)
-            var types any = this.SafeValue(this.Options, "types", map[string]any {})
-            var accountType any = this.SafeString(types, typeVar, typeVar)
-            var balancesByType any = this.GroupBy(response, "type")
-            var balances any = this.SafeValue(balancesByType, accountType, []any{})
+            var maxTimestamp interface{} = nil
+            var defaultType interface{} = this.SafeString2(this.Options, "fetchBalance", "defaultType", "spot")
+            var typeVar interface{} = this.SafeString(params, "type", defaultType)
+            var types interface{} = this.SafeValue(this.Options, "types", map[string]interface{} {})
+            var accountType interface{} = this.SafeString(types, typeVar, typeVar)
+            var balancesByType interface{} = this.GroupBy(response, "type")
+            var balances interface{} = this.SafeValue(balancesByType, accountType, []interface{}{})
             for i := 0; IsLessThan(i, GetArrayLength(balances)); i++ {
-                var balance any = GetValue(balances, i)
-                var currencyId any = this.SafeString(balance, "currency")
-                var timestamp any = this.SafeInteger(balance, "timestamp")
+                var balance interface{} = GetValue(balances, i)
+                var currencyId interface{} = this.SafeString(balance, "currency")
+                var timestamp interface{} = this.SafeInteger(balance, "timestamp")
                 if IsTrue(!IsEqual(timestamp, nil)) {
                     if IsTrue(IsEqual(maxTimestamp, nil)) {
                         maxTimestamp = timestamp
@@ -656,8 +656,8 @@ func  (this *LatokenCore) FetchBalance(optionalArgs ...any) <- chan any {
                         maxTimestamp = mathMax(maxTimestamp, timestamp)
                     }
                 }
-                var code any = this.SafeCurrencyCode(currencyId)
-                var account any = this.Account()
+                var code interface{} = this.SafeCurrencyCode(currencyId)
+                var account interface{} = this.Account()
                 AddElementToObject(account, "free", this.SafeString(balance, "available"))
                 AddElementToObject(account, "used", this.SafeString(balance, "blocked"))
                 AddElementToObject(result, code, account)
@@ -681,20 +681,20 @@ func  (this *LatokenCore) FetchBalance(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *LatokenCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes6358 := (<-this.LoadMarkets())
             PanicOnError(retRes6358)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(market, "baseId"),
                 "quote": GetValue(market, "quoteId"),
             }
@@ -727,7 +727,7 @@ func  (this *LatokenCore) FetchOrderBook(symbol any, optionalArgs ...any) <- cha
             }()
             return ch
         }
-func  (this *LatokenCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *LatokenCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //    {
     //        "symbol": "92151d82-df98-4d88-9a4d-284fa9eca49f/0c3a106d-bde3-4c13-a26e-3fd2394529e5",
@@ -750,10 +750,10 @@ func  (this *LatokenCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(ticker, "symbol")
-    var last any = this.SafeString(ticker, "lastPrice")
-    var timestamp any = this.SafeIntegerOmitZero(ticker, "updateTimestamp") // sometimes latoken provided '0' ts from /ticker endpoint
-    return this.SafeTicker(map[string]any {
+    var marketId interface{} = this.SafeString(ticker, "symbol")
+    var last interface{} = this.SafeString(ticker, "lastPrice")
+    var timestamp interface{} = this.SafeIntegerOmitZero(ticker, "updateTimestamp") // sometimes latoken provided '0' ts from /ticker endpoint
+    return this.SafeTicker(map[string]interface{} {
         "symbol": this.SafeSymbol(marketId, market),
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -785,18 +785,18 @@ func  (this *LatokenCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *LatokenCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes7228 := (<-this.LoadMarkets())
             PanicOnError(retRes7228)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "base": GetValue(market, "baseId"),
                 "quote": GetValue(market, "quoteId"),
             }
@@ -839,14 +839,14 @@ func  (this *LatokenCore) FetchTicker(symbol any, optionalArgs ...any) <- chan a
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *LatokenCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes7628 := (<-this.LoadMarkets())
@@ -883,7 +883,7 @@ func  (this *LatokenCore) FetchTickers(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *LatokenCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *LatokenCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTrades (public)
     //
@@ -918,13 +918,13 @@ func  (this *LatokenCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var typeVar any = nil
-    var timestamp any = this.SafeInteger(trade, "timestamp")
-    var priceString any = this.SafeString(trade, "price")
-    var amountString any = this.SafeString(trade, "quantity")
-    var costString any = this.SafeString(trade, "cost")
-    var makerBuyer any = this.SafeValue(trade, "makerBuyer")
-    var side any = this.SafeString(trade, "direction")
+    var typeVar interface{} = nil
+    var timestamp interface{} = this.SafeInteger(trade, "timestamp")
+    var priceString interface{} = this.SafeString(trade, "price")
+    var amountString interface{} = this.SafeString(trade, "quantity")
+    var costString interface{} = this.SafeString(trade, "cost")
+    var makerBuyer interface{} = this.SafeValue(trade, "makerBuyer")
+    var side interface{} = this.SafeString(trade, "direction")
     if IsTrue(IsEqual(side, nil)) {
         side = Ternary(IsTrue(makerBuyer), "sell", "buy")
     } else {
@@ -934,27 +934,27 @@ func  (this *LatokenCore) ParseTrade(trade any, optionalArgs ...any) any  {
             side = "sell"
         }
     }
-    var isBuy any =     (IsEqual(side, "buy"))
-    var takerOrMaker any = Ternary(IsTrue((IsTrue(makerBuyer) && IsTrue(isBuy))), "maker", "taker")
-    var baseId any = this.SafeString(trade, "baseCurrency")
-    var quoteId any = this.SafeString(trade, "quoteCurrency")
-    var base any = this.SafeCurrencyCode(baseId)
-    var quote any = this.SafeCurrencyCode(quoteId)
-    var symbol any = Add(Add(base, "/"), quote)
+    var isBuy interface{} =     (IsEqual(side, "buy"))
+    var takerOrMaker interface{} = Ternary(IsTrue((IsTrue(makerBuyer) && IsTrue(isBuy))), "maker", "taker")
+    var baseId interface{} = this.SafeString(trade, "baseCurrency")
+    var quoteId interface{} = this.SafeString(trade, "quoteCurrency")
+    var base interface{} = this.SafeCurrencyCode(baseId)
+    var quote interface{} = this.SafeCurrencyCode(quoteId)
+    var symbol interface{} = Add(Add(base, "/"), quote)
     if IsTrue(InOp(this.Markets, symbol)) {
         market = this.Market(symbol)
     }
-    var id any = this.SafeString(trade, "id")
-    var orderId any = this.SafeString(trade, "order")
-    var feeCost any = this.SafeString(trade, "fee")
-    var fee any = nil
+    var id interface{} = this.SafeString(trade, "id")
+    var orderId interface{} = this.SafeString(trade, "order")
+    var feeCost interface{} = this.SafeString(trade, "fee")
+    var fee interface{} = nil
     if IsTrue(!IsEqual(feeCost, nil)) {
-        fee = map[string]any {
+        fee = map[string]interface{} {
             "cost": feeCost,
             "currency": quote,
         }
     }
-    return this.SafeTrade(map[string]any {
+    return this.SafeTrade(map[string]interface{} {
         "info": trade,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -981,22 +981,22 @@ func  (this *LatokenCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *LatokenCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes8878 := (<-this.LoadMarkets())
             PanicOnError(retRes8878)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(market, "baseId"),
                 "quote": GetValue(market, "quoteId"),
             }
@@ -1030,16 +1030,16 @@ func  (this *LatokenCore) FetchTrades(symbol any, optionalArgs ...any) <- chan a
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [fee structure]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func  (this *LatokenCore) FetchTradingFee(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchTradingFee(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var options any = this.SafeValue(this.Options, "fetchTradingFee", map[string]any {})
-            var defaultMethod any = this.SafeString(options, "method", "fetchPrivateTradingFee")
-            var method any = this.SafeString(params, "method", defaultMethod)
+            var options interface{} = this.SafeValue(this.Options, "fetchTradingFee", map[string]interface{} {})
+            var defaultMethod interface{} = this.SafeString(options, "method", "fetchPrivateTradingFee")
+            var method interface{} = this.SafeString(params, "method", defaultMethod)
             params = this.Omit(params, "method")
             if IsTrue(IsEqual(method, "fetchPrivateTradingFee")) {
         
@@ -1060,18 +1060,18 @@ func  (this *LatokenCore) FetchTradingFee(symbol any, optionalArgs ...any) <- ch
             }()
             return ch
         }
-func  (this *LatokenCore) FetchPublicTradingFee(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchPublicTradingFee(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes9348 := (<-this.LoadMarkets())
             PanicOnError(retRes9348)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(market, "baseId"),
                 "quote": GetValue(market, "quoteId"),
             }
@@ -1087,7 +1087,7 @@ func  (this *LatokenCore) FetchPublicTradingFee(symbol any, optionalArgs ...any)
             //         "take": "FEE_SCHEME_TAKE_PROPORTION"
             //     }
             //
-        ch <- map[string]any {
+        ch <- map[string]interface{} {
                 "info": response,
                 "symbol": GetValue(market, "symbol"),
                 "maker": this.SafeNumber(response, "makerFee"),
@@ -1100,18 +1100,18 @@ func  (this *LatokenCore) FetchPublicTradingFee(symbol any, optionalArgs ...any)
             }()
             return ch
         }
-func  (this *LatokenCore) FetchPrivateTradingFee(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchPrivateTradingFee(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes9608 := (<-this.LoadMarkets())
             PanicOnError(retRes9608)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(market, "baseId"),
                 "quote": GetValue(market, "quoteId"),
             }
@@ -1127,7 +1127,7 @@ func  (this *LatokenCore) FetchPrivateTradingFee(symbol any, optionalArgs ...any
             //         "take": "FEE_SCHEME_TAKE_PROPORTION"
             //     }
             //
-        ch <- map[string]any {
+        ch <- map[string]interface{} {
                 "info": response,
                 "symbol": GetValue(market, "symbol"),
                 "maker": this.SafeNumber(response, "makerFee"),
@@ -1152,9 +1152,9 @@ func  (this *LatokenCore) FetchPrivateTradingFee(symbol any, optionalArgs ...any
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *LatokenCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1163,17 +1163,17 @@ func  (this *LatokenCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes9988 := (<-this.LoadMarkets())
             PanicOnError(retRes9988)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit) // default 100
             }
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "currency", GetValue(market, "baseId"))
@@ -1211,30 +1211,30 @@ func  (this *LatokenCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *LatokenCore) ParseOrderStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *LatokenCore) ParseOrderStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "ORDER_STATUS_PLACED": "open",
         "ORDER_STATUS_CLOSED": "closed",
         "ORDER_STATUS_CANCELLED": "canceled",
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *LatokenCore) ParseOrderType(status any) any  {
-    var statuses any = map[string]any {
+func  (this *LatokenCore) ParseOrderType(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "ORDER_TYPE_MARKET": "market",
         "ORDER_TYPE_LIMIT": "limit",
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *LatokenCore) ParseTimeInForce(timeInForce any) any  {
-    var timeInForces any = map[string]any {
+func  (this *LatokenCore) ParseTimeInForce(timeInForce interface{}) interface{}  {
+    var timeInForces interface{} = map[string]interface{} {
         "ORDER_CONDITION_GOOD_TILL_CANCELLED": "GTC",
         "ORDER_CONDITION_IMMEDIATE_OR_CANCEL": "IOC",
         "ORDER_CONDITION_FILL_OR_KILL": "FOK",
     }
     return this.SafeString(timeInForces, timeInForce, timeInForce)
 }
-func  (this *LatokenCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *LatokenCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // createOrder
     //
@@ -1280,33 +1280,33 @@ func  (this *LatokenCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var id any = this.SafeString(order, "id")
-    var timestamp any = this.SafeInteger(order, "timestamp")
-    var baseId any = this.SafeString(order, "baseCurrency")
-    var quoteId any = this.SafeString(order, "quoteCurrency")
-    var base any = this.SafeCurrencyCode(baseId)
-    var quote any = this.SafeCurrencyCode(quoteId)
-    var symbol any = nil
+    var id interface{} = this.SafeString(order, "id")
+    var timestamp interface{} = this.SafeInteger(order, "timestamp")
+    var baseId interface{} = this.SafeString(order, "baseCurrency")
+    var quoteId interface{} = this.SafeString(order, "quoteCurrency")
+    var base interface{} = this.SafeCurrencyCode(baseId)
+    var quote interface{} = this.SafeCurrencyCode(quoteId)
+    var symbol interface{} = nil
     if IsTrue(IsTrue((!IsEqual(base, nil))) && IsTrue((!IsEqual(quote, nil)))) {
         symbol = Add(Add(base, "/"), quote)
         if IsTrue(InOp(this.Markets, symbol)) {
             market = this.Market(symbol)
         }
     }
-    var orderSide any = this.SafeString(order, "side")
-    var side any = nil
+    var orderSide interface{} = this.SafeString(order, "side")
+    var side interface{} = nil
     if IsTrue(!IsEqual(orderSide, nil)) {
-        var parts any = Split(orderSide, "_")
-        var partsLength any =         GetArrayLength(parts)
+        var parts interface{} = Split(orderSide, "_")
+        var partsLength interface{} =         GetArrayLength(parts)
         side = this.SafeStringLower(parts, Subtract(partsLength, 1))
     }
-    var typeVar any = this.ParseOrderType(this.SafeString(order, "type"))
-    var price any = this.SafeString(order, "price")
-    var amount any = this.SafeString(order, "quantity")
-    var filled any = this.SafeString(order, "filled")
-    var cost any = this.SafeString(order, "cost")
-    var status any = this.ParseOrderStatus(this.SafeString(order, "status"))
-    var message any = this.SafeString(order, "message")
+    var typeVar interface{} = this.ParseOrderType(this.SafeString(order, "type"))
+    var price interface{} = this.SafeString(order, "price")
+    var amount interface{} = this.SafeString(order, "quantity")
+    var filled interface{} = this.SafeString(order, "filled")
+    var cost interface{} = this.SafeString(order, "cost")
+    var status interface{} = this.ParseOrderStatus(this.SafeString(order, "status"))
+    var message interface{} = this.SafeString(order, "message")
     if IsTrue(!IsEqual(message, nil)) {
         if IsTrue(IsGreaterThanOrEqual(GetIndexOf(message, "cancel"), 0)) {
             status = "canceled"
@@ -1314,9 +1314,9 @@ func  (this *LatokenCore) ParseOrder(order any, optionalArgs ...any) any  {
             status = "open"
         }
     }
-    var clientOrderId any = this.SafeString(order, "clientOrderId")
-    var timeInForce any = this.ParseTimeInForce(this.SafeString(order, "condition"))
-    return this.SafeOrder(map[string]any {
+    var clientOrderId interface{} = this.SafeString(order, "clientOrderId")
+    var timeInForce interface{} = this.ParseTimeInForce(this.SafeString(order, "condition"))
+    return this.SafeOrder(map[string]interface{} {
         "id": id,
         "clientOrderId": clientOrderId,
         "info": order,
@@ -1353,9 +1353,9 @@ func  (this *LatokenCore) ParseOrder(order any, optionalArgs ...any) any  {
  * @param {boolean} [params.trigger] true if fetching trigger orders
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *LatokenCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1364,7 +1364,7 @@ func  (this *LatokenCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOpenOrders() requires a symbol argument")))
@@ -1372,12 +1372,12 @@ func  (this *LatokenCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
         
             retRes11878 := (<-this.LoadMarkets())
             PanicOnError(retRes11878)
-            var response any = nil
-            var isTrigger any = this.SafeValue2(params, "trigger", "stop")
+            var response interface{} = nil
+            var isTrigger interface{} = this.SafeValue2(params, "trigger", "stop")
             params = this.Omit(params, "stop")
             // privateGetAuthOrderActive doesn't work even though its listed at https://api.latoken.com/doc/v2/#tag/Order/operation/getMyActiveOrders
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(market, "baseId"),
                 "quote": GetValue(market, "quoteId"),
             }
@@ -1434,9 +1434,9 @@ func  (this *LatokenCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {boolean} [params.trigger] true if fetching trigger orders
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *LatokenCore) FetchOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1445,19 +1445,19 @@ func  (this *LatokenCore) FetchOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes12438 := (<-this.LoadMarkets())
             PanicOnError(retRes12438)
-            var request any = map[string]any {}
-            var market any = nil
-            var isTrigger any = this.SafeValue2(params, "trigger", "stop")
-            params = this.Omit(params, []any{"stop", "trigger"})
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
+            var isTrigger interface{} = this.SafeValue2(params, "trigger", "stop")
+            params = this.Omit(params, []interface{}{"stop", "trigger"})
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit) // default 100
             }
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "currency", GetValue(market, "baseId"))
@@ -1523,24 +1523,24 @@ func  (this *LatokenCore) FetchOrders(optionalArgs ...any) <- chan any {
  * @param {boolean} [params.trigger] true if fetching a trigger order
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *LatokenCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes13118 := (<-this.LoadMarkets())
             PanicOnError(retRes13118)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "id": id,
             }
-            var isTrigger any = this.SafeValue2(params, "trigger", "stop")
-            params = this.Omit(params, []any{"stop", "trigger"})
-            var response any = nil
+            var isTrigger interface{} = this.SafeValue2(params, "trigger", "stop")
+            params = this.Omit(params, []interface{}{"stop", "trigger"})
+            var response interface{} = nil
             if IsTrue(isTrigger) {
                 
             response = (<-this.PrivateGetAuthStopOrderGetOrderId(this.Extend(request, params)))
@@ -1596,21 +1596,21 @@ func  (this *LatokenCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
  * @param {string} [params.clientOrderId] [ 0 .. 50 ] characters, client's custom order id (free field for your convenience)
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *LatokenCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes13668 := (<-this.LoadMarkets())
             PanicOnError(retRes13668)
-            var market any = this.Market(symbol)
-            var uppercaseType any = ToUpper(typeVar)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var uppercaseType interface{} = ToUpper(typeVar)
+            var request interface{} = map[string]interface{} {
                 "baseCurrency": GetValue(market, "baseId"),
                 "quoteCurrency": GetValue(market, "quoteId"),
                 "side": ToUpper(side),
@@ -1623,9 +1623,9 @@ func  (this *LatokenCore) CreateOrder(symbol any, typeVar any, side any, amount 
             if IsTrue(IsEqual(uppercaseType, "LIMIT")) {
                 AddElementToObject(request, "price", this.PriceToPrecision(symbol, price))
             }
-            var triggerPrice any = this.SafeString2(params, "triggerPrice", "stopPrice")
-            params = this.Omit(params, []any{"triggerPrice", "stopPrice"})
-            var response any = nil
+            var triggerPrice interface{} = this.SafeString2(params, "triggerPrice", "stopPrice")
+            params = this.Omit(params, []interface{}{"triggerPrice", "stopPrice"})
+            var response interface{} = nil
             if IsTrue(!IsEqual(triggerPrice, nil)) {
                 AddElementToObject(request, "stopPrice", this.PriceToPrecision(symbol, triggerPrice))
                 
@@ -1667,24 +1667,24 @@ func  (this *LatokenCore) CreateOrder(symbol any, typeVar any, side any, amount 
  * @param {boolean} [params.trigger] true if cancelling a trigger order
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *LatokenCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes14218 := (<-this.LoadMarkets())
             PanicOnError(retRes14218)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "id": id,
             }
-            var isTrigger any = this.SafeValue2(params, "trigger", "stop")
-            params = this.Omit(params, []any{"stop", "trigger"})
-            var response any = nil
+            var isTrigger interface{} = this.SafeValue2(params, "trigger", "stop")
+            params = this.Omit(params, []interface{}{"stop", "trigger"})
+            var response interface{} = nil
             if IsTrue(isTrigger) {
                 
             response = (<-this.PrivatePostAuthStopOrderCancel(this.Extend(request, params)))
@@ -1721,23 +1721,23 @@ func  (this *LatokenCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
  * @param {boolean} [params.trigger] true if cancelling trigger orders
  * @returns {object[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *LatokenCore) CancelAllOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) CancelAllOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes14578 := (<-this.LoadMarkets())
             PanicOnError(retRes14578)
-            var request any = map[string]any {}
-            var market any = nil
-            var isTrigger any = this.SafeValue2(params, "trigger", "stop")
-            params = this.Omit(params, []any{"stop", "trigger"})
-            var response any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
+            var isTrigger interface{} = this.SafeValue2(params, "trigger", "stop")
+            params = this.Omit(params, []interface{}{"stop", "trigger"})
+            var response interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "currency", GetValue(market, "baseId"))
@@ -1769,7 +1769,7 @@ func  (this *LatokenCore) CancelAllOrders(optionalArgs ...any) <- chan any {
             //         "status":"SUCCESS"
             //     }
             //
-        ch <- []any{this.SafeOrder(map[string]any {
+        ch <- []interface{}{this.SafeOrder(map[string]interface{} {
             "info": response,
         })}
             return nil
@@ -1789,9 +1789,9 @@ func  (this *LatokenCore) CancelAllOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a list of [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *LatokenCore) FetchTransactions(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchTransactions(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -1800,12 +1800,12 @@ func  (this *LatokenCore) FetchTransactions(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes15088 := (<-this.LoadMarkets())
             PanicOnError(retRes15088)
-            var request any = map[string]any {}
+            var request interface{} = map[string]interface{} {}
         
             response:= (<-this.PrivateGetAuthTransaction(this.Extend(request, params)))
             PanicOnError(response)
@@ -1835,11 +1835,11 @@ func  (this *LatokenCore) FetchTransactions(optionalArgs ...any) <- chan any {
             //         "pageSize":10
             //     }
             //
-            var currency any = nil
+            var currency interface{} = nil
             if IsTrue(!IsEqual(code, nil)) {
                 currency = this.Currency(code)
             }
-            var content any = this.SafeList(response, "content", []any{})
+            var content interface{} = this.SafeList(response, "content", []interface{}{})
         
             ch <- this.ParseTransactions(content, currency, since, limit)
             return nil
@@ -1847,7 +1847,7 @@ func  (this *LatokenCore) FetchTransactions(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *LatokenCore) ParseTransaction(transaction any, optionalArgs ...any) any  {
+func  (this *LatokenCore) ParseTransaction(transaction interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "id":"fbf7d0d1-2629-4ad8-9def-7a1dba423362",
@@ -1868,28 +1868,28 @@ func  (this *LatokenCore) ParseTransaction(transaction any, optionalArgs ...any)
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var id any = this.SafeString(transaction, "id")
-    var timestamp any = this.SafeInteger(transaction, "timestamp")
-    var currencyId any = this.SafeString(transaction, "currency")
-    var code any = this.SafeCurrencyCode(currencyId, currency)
-    var status any = this.ParseTransactionStatus(this.SafeString(transaction, "status"))
-    var amount any = this.SafeNumber(transaction, "amount")
-    var addressFrom any = this.SafeString(transaction, "senderAddress")
-    var addressTo any = this.SafeString(transaction, "recipientAddress")
-    var txid any = this.SafeString(transaction, "transactionHash")
-    var tagTo any = this.SafeString(transaction, "memo")
-    var fee any = map[string]any {
+    var id interface{} = this.SafeString(transaction, "id")
+    var timestamp interface{} = this.SafeInteger(transaction, "timestamp")
+    var currencyId interface{} = this.SafeString(transaction, "currency")
+    var code interface{} = this.SafeCurrencyCode(currencyId, currency)
+    var status interface{} = this.ParseTransactionStatus(this.SafeString(transaction, "status"))
+    var amount interface{} = this.SafeNumber(transaction, "amount")
+    var addressFrom interface{} = this.SafeString(transaction, "senderAddress")
+    var addressTo interface{} = this.SafeString(transaction, "recipientAddress")
+    var txid interface{} = this.SafeString(transaction, "transactionHash")
+    var tagTo interface{} = this.SafeString(transaction, "memo")
+    var fee interface{} = map[string]interface{} {
         "currency": nil,
         "cost": nil,
         "rate": nil,
     }
-    var feeCost any = this.SafeNumber(transaction, "transactionFee")
+    var feeCost interface{} = this.SafeNumber(transaction, "transactionFee")
     if IsTrue(!IsEqual(feeCost, nil)) {
         AddElementToObject(fee, "cost", feeCost)
         AddElementToObject(fee, "currency", code)
     }
-    var typeVar any = this.ParseTransactionType(this.SafeString(transaction, "type"))
-    return map[string]any {
+    var typeVar interface{} = this.ParseTransactionType(this.SafeString(transaction, "type"))
+    return map[string]interface{} {
         "info": transaction,
         "id": id,
         "txid": txid,
@@ -1912,8 +1912,8 @@ func  (this *LatokenCore) ParseTransaction(transaction any, optionalArgs ...any)
         "fee": fee,
     }
 }
-func  (this *LatokenCore) ParseTransactionStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *LatokenCore) ParseTransactionStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "TRANSACTION_STATUS_CONFIRMED": "ok",
         "TRANSACTION_STATUS_EXECUTED": "ok",
         "TRANSACTION_STATUS_CHECKING": "pending",
@@ -1923,8 +1923,8 @@ func  (this *LatokenCore) ParseTransactionStatus(status any) any  {
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *LatokenCore) ParseTransactionType(typeVar any) any  {
-    var types any = map[string]any {
+func  (this *LatokenCore) ParseTransactionType(typeVar interface{}) interface{}  {
+    var types interface{} = map[string]interface{} {
         "TRANSACTION_TYPE_DEPOSIT": "deposit",
         "TRANSACTION_TYPE_WITHDRAWAL": "withdrawal",
     }
@@ -1941,9 +1941,9 @@ func  (this *LatokenCore) ParseTransactionType(typeVar any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [transfer structures]{@link https://docs.ccxt.com/?id=transfer-structure}
  */
-func  (this *LatokenCore) FetchTransfers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) FetchTransfers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -1952,12 +1952,12 @@ func  (this *LatokenCore) FetchTransfers(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes16448 := (<-this.LoadMarkets())
             PanicOnError(retRes16448)
-            var currency any = this.Currency(code)
+            var currency interface{} = this.Currency(code)
         
             response:= (<-this.PrivateGetAuthTransfer(params))
             PanicOnError(response)
@@ -1992,7 +1992,7 @@ func  (this *LatokenCore) FetchTransfers(optionalArgs ...any) <- chan any {
             //         "hasContent": true
             //     }
             //
-            var transfers any = this.SafeList(response, "content", []any{})
+            var transfers interface{} = this.SafeList(response, "content", []interface{}{})
         
             ch <- this.ParseTransfers(transfers, currency, since, limit)
             return nil
@@ -2014,23 +2014,23 @@ func  (this *LatokenCore) FetchTransfers(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [transfer structure]{@link https://docs.ccxt.com/?id=transfer-structure}
  */
-func  (this *LatokenCore) Transfer(code any, amount any, fromAccount any, toAccount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *LatokenCore) Transfer(code interface{}, amount interface{}, fromAccount interface{}, toAccount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes16978 := (<-this.LoadMarkets())
             PanicOnError(retRes16978)
-            var currency any = this.Currency(code)
-            var request any = map[string]any {
+            var currency interface{} = this.Currency(code)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(currency, "id"),
                 "recipient": toAccount,
                 "value": this.CurrencyToPrecision(code, amount),
             }
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(IsGreaterThanOrEqual(GetIndexOf(toAccount, "@"), 0)) {
                 
             response = (<-this.PrivatePostAuthTransferEmail(this.Extend(request, params)))
@@ -2073,7 +2073,7 @@ func  (this *LatokenCore) Transfer(code any, amount any, fromAccount any, toAcco
             }()
             return ch
         }
-func  (this *LatokenCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
+func  (this *LatokenCore) ParseTransfer(transfer interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "id": "e6fc4ace-7750-44e4-b7e9-6af038ac7107",
@@ -2098,10 +2098,10 @@ func  (this *LatokenCore) ParseTransfer(transfer any, optionalArgs ...any) any  
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var timestamp any = this.SafeTimestamp(transfer, "timestamp")
-    var currencyId any = this.SafeString(transfer, "currency")
-    var status any = this.SafeString(transfer, "status")
-    return map[string]any {
+    var timestamp interface{} = this.SafeTimestamp(transfer, "timestamp")
+    var currencyId interface{} = this.SafeString(transfer, "currency")
+    var status interface{} = this.SafeString(transfer, "status")
+    return map[string]interface{} {
         "info": transfer,
         "id": this.SafeString(transfer, "id"),
         "timestamp": this.SafeInteger(transfer, "timestamp"),
@@ -2113,8 +2113,8 @@ func  (this *LatokenCore) ParseTransfer(transfer any, optionalArgs ...any) any  
         "status": this.ParseTransferStatus(status),
     }
 }
-func  (this *LatokenCore) ParseTransferStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *LatokenCore) ParseTransferStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "TRANSFER_STATUS_COMPLETED": "ok",
         "TRANSFER_STATUS_PENDING": "pending",
         "TRANSFER_STATUS_REJECTED": "failed",
@@ -2123,7 +2123,7 @@ func  (this *LatokenCore) ParseTransferStatus(status any) any  {
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *LatokenCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *LatokenCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
@@ -2134,10 +2134,10 @@ func  (this *LatokenCore) Sign(path any, optionalArgs ...any) any  {
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var request any = Add(Add(Add("/", this.Version), "/"), this.ImplodeParams(path, params))
-    var requestString any = request
-    var query any = this.Omit(params, this.ExtractParams(path))
-    var urlencodedQuery any = this.Urlencode(query)
+    var request interface{} = Add(Add(Add("/", this.Version), "/"), this.ImplodeParams(path, params))
+    var requestString interface{} = request
+    var query interface{} = this.Omit(params, this.ExtractParams(path))
+    var urlencodedQuery interface{} = this.Urlencode(query)
     if IsTrue(IsEqual(method, "GET")) {
         if IsTrue(GetArrayLength(ObjectKeys(query))) {
             requestString = Add(requestString, Add("?", urlencodedQuery))
@@ -2145,9 +2145,9 @@ func  (this *LatokenCore) Sign(path any, optionalArgs ...any) any  {
     }
     if IsTrue(IsEqual(api, "private")) {
         this.CheckRequiredCredentials()
-        var auth any = Add(Add(method, request), urlencodedQuery)
-        var signature any = this.Hmac(this.Encode(auth), this.Encode(this.Secret), sha512)
-        headers = map[string]any {
+        var auth interface{} = Add(Add(method, request), urlencodedQuery)
+        var signature interface{} = this.Hmac(this.Encode(auth), this.Encode(this.Secret), sha512)
+        headers = map[string]interface{} {
             "X-LA-APIKEY": this.ApiKey,
             "X-LA-SIGNATURE": signature,
             "X-LA-DIGEST": "HMAC-SHA512",
@@ -2157,15 +2157,15 @@ func  (this *LatokenCore) Sign(path any, optionalArgs ...any) any  {
             body = this.Json(query)
         }
     }
-    var url any = Add(GetValue(GetValue(this.Urls, "api"), "rest"), requestString)
-    return map[string]any {
+    var url interface{} = Add(GetValue(GetValue(this.Urls, "api"), "rest"), requestString)
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *LatokenCore) HandleErrors(code any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *LatokenCore) HandleErrors(code interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if !IsTrue(response) {
         return nil
     }
@@ -2175,14 +2175,14 @@ func  (this *LatokenCore) HandleErrors(code any, reason any, url any, method any
     // {"message":"Internal Server Error","error":"INTERNAL_ERROR","status":"FAILURE"}
     // {"result":false,"message":"Internal error","error":"For input string: \"NaN\"","status":"FAILURE"}
     //
-    var message any = this.SafeString(response, "message")
-    var feedback any = Add(Add(this.Id, " "), body)
+    var message interface{} = this.SafeString(response, "message")
+    var feedback interface{} = Add(Add(this.Id, " "), body)
     if IsTrue(!IsEqual(message, nil)) {
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), message, feedback)
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), message, feedback)
     }
-    var error any = this.SafeValue(response, "error")
-    var errorMessage any = this.SafeString(error, "message")
+    var error interface{} = this.SafeValue(response, "error")
+    var errorMessage interface{} = this.SafeString(error, "message")
     if IsTrue(IsTrue((!IsEqual(error, nil))) || IsTrue((!IsEqual(errorMessage, nil)))) {
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), error, feedback)
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), body, feedback)
@@ -2192,8 +2192,8 @@ func  (this *LatokenCore) HandleErrors(code any, reason any, url any, method any
 }
 
 
-func (this *LatokenCore) Init(userConfig map[string]any) {
+func (this *LatokenCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

@@ -708,7 +708,7 @@ export default class coinbase extends coinbaseRest {
             const currentEvent = events[i];
             const currentTrades = this.safeList (currentEvent, 'trades');
             for (let j = 0; j < currentTrades.length; j++) {
-                const item = currentTrades[j];
+                const item = currentTrades[i];
                 tradesArray.append (this.parseTrade (item));
             }
         }

@@ -28,13 +28,13 @@ function example() {
             'secret' => 'YOUR_API_SECRET',
         ));
         while (true) {
-            $trades = \React\Async\await($exchange->watch_positions());
+            $trades = Async\await($exchange->watch_positions());
             var_dump($trades);
         }
     }) ();
 }
 
 
-\React\Async\await(example());
+Async\await(example());
  
 ```

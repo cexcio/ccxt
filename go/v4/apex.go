@@ -15,17 +15,17 @@ func NewApexCore() *ApexCore {
     return p
 }
 
-func  (this *ApexCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *ApexCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "apex",
         "name": "Apex",
-        "countries": []any{},
+        "countries": []interface{}{},
         "version": "v3",
         "rateLimit": 20,
         "certified": false,
         "pro": true,
         "dex": true,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": false,
             "margin": false,
@@ -128,7 +128,7 @@ func  (this *ApexCore) Describe() any  {
             "transfer": false,
             "withdraw": false,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": "1",
             "5m": "5",
             "15m": "15",
@@ -143,13 +143,13 @@ func  (this *ApexCore) Describe() any  {
             "1M": "M",
         },
         "hostname": "omni.apex.exchange",
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/user-attachments/assets/fef8f2f7-4265-46aa-965e-33a91881cb00",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://{hostname}/api",
                 "private": "https://{hostname}/api",
             },
-            "test": map[string]any {
+            "test": map[string]interface{} {
                 "public": "https://testnet.omni.apex.exchange/api",
                 "private": "https://testnet.omni.apex.exchange/api",
             },
@@ -158,9 +158,9 @@ func  (this *ApexCore) Describe() any  {
             "fees": "https://apex-pro.gitbook.io/apex-pro/apex-omni-live-now/trading-perpetual-contracts/trading-fees",
             "referral": "https://omni.apex.exchange/trade",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "v3/symbols": 1,
                     "v3/history-funding": 1,
                     "v3/ticker": 1,
@@ -171,8 +171,8 @@ func  (this *ApexCore) Describe() any  {
                     "v3/data/all-ticker-info": 1,
                 },
             },
-            "private": map[string]any {
-                "get": map[string]any {
+            "private": map[string]interface{} {
+                "get": map[string]interface{} {
                     "v3/account": 1,
                     "v3/account-balance": 1,
                     "v3/fills": 1,
@@ -186,7 +186,7 @@ func  (this *ApexCore) Describe() any  {
                     "v3/transfers": 1,
                     "v3/transfer": 1,
                 },
-                "post": map[string]any {
+                "post": map[string]interface{} {
                     "v3/delete-open-orders": 1,
                     "v3/delete-client-order-id": 1,
                     "v3/delete-order": 1,
@@ -197,28 +197,28 @@ func  (this *ApexCore) Describe() any  {
                 },
             },
         },
-        "httpExceptions": map[string]any {
+        "httpExceptions": map[string]interface{} {
             "403": RateLimitExceeded,
         },
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "20006": "apikey sign error",
                 "20016": "request para error",
                 "10001": BadRequest,
             },
-            "broad": map[string]any {
+            "broad": map[string]interface{} {
                 "ORDER_PRICE_MUST_GREETER_ZERO": InvalidOrder,
                 "ORDER_POSSIBLE_LEAD_TO_ACCOUNT_LIQUIDATED": InvalidOrder,
                 "ORDER_WITH_THIS_PRICE_CANNOT_REDUCE_POSITION_ONLY": InvalidOrder,
             },
         },
-        "fees": map[string]any {
-            "swap": map[string]any {
+        "fees": map[string]interface{} {
+            "swap": map[string]interface{} {
                 "taker": this.ParseNumber("0.0005"),
                 "maker": this.ParseNumber("0.0002"),
             },
         },
-        "requiredCredentials": map[string]any {
+        "requiredCredentials": map[string]interface{} {
             "apiKey": true,
             "secret": true,
             "walletAddress": false,
@@ -226,16 +226,16 @@ func  (this *ApexCore) Describe() any  {
             "password": true,
         },
         "precisionMode": TICK_SIZE,
-        "commonCurrencies": map[string]any {},
-        "options": map[string]any {
+        "commonCurrencies": map[string]interface{} {},
+        "options": map[string]interface{} {
             "defaultType": "swap",
             "defaultSlippage": 0.05,
             "brokerId": "6956",
         },
-        "features": map[string]any {
-            "default": map[string]any {
+        "features": map[string]interface{} {
+            "default": map[string]interface{} {
                 "sandbox": true,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": true,
                     "triggerPriceType": nil,
@@ -243,7 +243,7 @@ func  (this *ApexCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": true,
                         "PO": true,
@@ -258,27 +258,27 @@ func  (this *ApexCore) Describe() any  {
                     "iceberg": false,
                 },
                 "createOrders": nil,
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": 500,
                     "daysBack": 100000,
                     "untilDays": 100000,
                     "symbolRequired": false,
                 },
-                "fetchOrder": map[string]any {
+                "fetchOrder": map[string]interface{} {
                     "marginMode": false,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": nil,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOrders": map[string]any {
+                "fetchOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": 100000,
@@ -288,12 +288,12 @@ func  (this *ApexCore) Describe() any  {
                     "symbolRequired": false,
                 },
                 "fetchClosedOrders": nil,
-                "fetchOHLCV": map[string]any {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": 200,
                 },
             },
-            "swap": map[string]any {
-                "linear": map[string]any {
+            "swap": map[string]interface{} {
+                "linear": map[string]interface{} {
                     "extends": "default",
                 },
                 "inverse": nil,
@@ -309,17 +309,17 @@ func  (this *ApexCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func  (this *ApexCore) FetchTime(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchTime(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetV3Time(params))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
                 //
             // {
@@ -333,7 +333,7 @@ func  (this *ApexCore) FetchTime(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ApexCore) ParseBalance(response any) any  {
+func  (this *ApexCore) ParseBalance(response interface{}) interface{}  {
     //
     // {
     //     "totalEquityValue": "100.000000",
@@ -348,14 +348,14 @@ func  (this *ApexCore) ParseBalance(response any) any  {
     // }
     // }
     //
-    var timestamp any = this.Milliseconds()
-    var result any = map[string]any {
+    var timestamp interface{} = this.Milliseconds()
+    var result interface{} = map[string]interface{} {
         "info": response,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
     }
-    var code any = "USDT"
-    var account any = this.Account()
+    var code interface{} = "USDT"
+    var account interface{} = this.Account()
     AddElementToObject(account, "free", this.SafeString(response, "availableBalance"))
     AddElementToObject(account, "total", this.SafeString(response, "totalEquityValue"))
     AddElementToObject(result, code, account)
@@ -369,12 +369,12 @@ func  (this *ApexCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *ApexCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes3658 := (<-this.LoadMarkets())
@@ -382,7 +382,7 @@ func  (this *ApexCore) FetchBalance(optionalArgs ...any) <- chan any {
         
             response:= (<-this.PrivateGetV3AccountBalance(params))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseBalance(data)
             return nil
@@ -390,9 +390,9 @@ func  (this *ApexCore) FetchBalance(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ApexCore) ParseAccount(account any) any  {
-    var accountId any = this.SafeString(account, "id", "0")
-    return map[string]any {
+func  (this *ApexCore) ParseAccount(account interface{}) interface{}  {
+    var accountId interface{} = this.SafeString(account, "id", "0")
+    return map[string]interface{} {
         "id": accountId,
         "type": nil,
         "code": nil,
@@ -407,12 +407,12 @@ func  (this *ApexCore) ParseAccount(account any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *ApexCore) FetchAccount(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchAccount(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes3908 := (<-this.LoadMarkets())
@@ -420,7 +420,7 @@ func  (this *ApexCore) FetchAccount(optionalArgs ...any) <- chan any {
         
             response:= (<-this.PrivateGetV3Account(params))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseAccount(data)
             return nil
@@ -436,19 +436,19 @@ func  (this *ApexCore) FetchAccount(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an associative dictionary of currencies
  */
-func  (this *ApexCore) FetchCurrencies(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchCurrencies(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetV3Symbols(params))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var spotConfig any = this.SafeDict(data, "spotConfig", map[string]any {})
-            var multiChain any = this.SafeDict(spotConfig, "multiChain", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var spotConfig interface{} = this.SafeDict(data, "spotConfig", map[string]interface{} {})
+            var multiChain interface{} = this.SafeDict(spotConfig, "multiChain", map[string]interface{} {})
             // "spotConfig": {
             //     "assets": [
             //         {
@@ -538,25 +538,25 @@ func  (this *ApexCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             //        }
             //     ]
             // }
-            var rows any = this.SafeList(spotConfig, "assets", []any{})
-            var chains any = this.SafeList(multiChain, "chains", []any{})
-            var result any = map[string]any {}
+            var rows interface{} = this.SafeList(spotConfig, "assets", []interface{}{})
+            var chains interface{} = this.SafeList(multiChain, "chains", []interface{}{})
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(rows)); i++ {
-                var currency any = GetValue(rows, i)
-                var currencyId any = this.SafeString(currency, "token")
-                var code any = this.SafeCurrencyCode(currencyId)
-                var name any = this.SafeString(currency, "displayName")
-                var networks any = map[string]any {}
+                var currency interface{} = GetValue(rows, i)
+                var currencyId interface{} = this.SafeString(currency, "token")
+                var code interface{} = this.SafeCurrencyCode(currencyId)
+                var name interface{} = this.SafeString(currency, "displayName")
+                var networks interface{} = map[string]interface{} {}
                 for j := 0; IsLessThan(j, GetArrayLength(chains)); j++ {
-                    var chain any = GetValue(chains, j)
-                    var tokens any = this.SafeList(chain, "tokens", []any{})
+                    var chain interface{} = GetValue(chains, j)
+                    var tokens interface{} = this.SafeList(chain, "tokens", []interface{}{})
                     for f := 0; IsLessThan(f, GetArrayLength(tokens)); f++ {
-                        var token any = GetValue(tokens, f)
-                        var tokenName any = this.SafeString(token, "token")
+                        var token interface{} = GetValue(tokens, f)
+                        var tokenName interface{} = this.SafeString(token, "token")
                         if IsTrue(IsEqual(tokenName, currencyId)) {
-                            var networkId any = this.SafeString(chain, "chainId")
-                            var networkCode any = this.NetworkIdToCode(networkId)
-                            AddElementToObject(networks, networkCode, map[string]any {
+                            var networkId interface{} = this.SafeString(chain, "chainId")
+                            var networkCode interface{} = this.NetworkIdToCode(networkId)
+                            AddElementToObject(networks, networkCode, map[string]interface{} {
             "info": chain,
             "id": networkId,
             "network": networkCode,
@@ -565,12 +565,12 @@ func  (this *ApexCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             "withdraw": this.SafeBool(token, "withdrawEnable"),
             "fee": this.SafeNumber(token, "minFee"),
             "precision": this.ParseNumber(this.ParsePrecision(this.SafeString(token, "decimals"))),
-            "limits": map[string]any {
-                "withdraw": map[string]any {
+            "limits": map[string]interface{} {
+                "withdraw": map[string]interface{} {
                     "min": this.SafeNumber(token, "minWithdraw"),
                     "max": nil,
                 },
-                "deposit": map[string]any {
+                "deposit": map[string]interface{} {
                     "min": this.SafeNumber(chain, "minDeposit"),
                     "max": nil,
                 },
@@ -579,11 +579,11 @@ func  (this *ApexCore) FetchCurrencies(optionalArgs ...any) <- chan any {
                         }
                     }
                 }
-                var networkKeys any = ObjectKeys(networks)
-                var networksLength any =         GetArrayLength(networkKeys)
-                var emptyChains any = IsEqual(networksLength, 0) // non-functional coins
-                var valueForEmpty any = Ternary(IsTrue(emptyChains), false, nil)
-                AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]any {
+                var networkKeys interface{} = ObjectKeys(networks)
+                var networksLength interface{} =         GetArrayLength(networkKeys)
+                var emptyChains interface{} = IsEqual(networksLength, 0) // non-functional coins
+                var valueForEmpty interface{} = Ternary(IsTrue(emptyChains), false, nil)
+                AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]interface{} {
             "info": currency,
             "code": code,
             "id": currencyId,
@@ -594,16 +594,16 @@ func  (this *ApexCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             "withdraw": valueForEmpty,
             "fee": nil,
             "precision": nil,
-            "limits": map[string]any {
-                "amount": map[string]any {
+            "limits": map[string]interface{} {
+                "amount": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
-                "withdraw": map[string]any {
+                "withdraw": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
-                "deposit": map[string]any {
+                "deposit": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
@@ -626,19 +626,19 @@ func  (this *ApexCore) FetchCurrencies(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *ApexCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetV3Symbols(params))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var contractConfig any = this.SafeDict(data, "contractConfig", map[string]any {})
-            var perpetualContract any = this.SafeList(contractConfig, "perpetualContract", []any{})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var contractConfig interface{} = this.SafeDict(data, "contractConfig", map[string]interface{} {})
+            var perpetualContract interface{} = this.SafeList(contractConfig, "perpetualContract", []interface{}{})
         
                 // {
             //     "perpetualContract":[
@@ -700,20 +700,20 @@ func  (this *ApexCore) FetchMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ApexCore) ParseMarket(market any) any  {
-    var id any = this.SafeString(market, "symbol")
-    var id2 any = this.SafeString(market, "crossSymbolName")
-    var quoteId any = this.SafeString(market, "l2PairId")
-    var baseId any = this.SafeString(market, "baseTokenId")
-    var quote any = this.SafeString(market, "settleAssetId")
-    var base any = this.SafeCurrencyCode(baseId)
-    var settleId any = this.SafeString(market, "settleAssetId")
-    var settle any = this.SafeCurrencyCode(settleId)
-    var symbol any = Add(Add(Add(Add(baseId, "/"), quote), ":"), settle)
-    var expiry any = 0
-    var takerFee any = this.ParseNumber("0.0002")
-    var makerFee any = this.ParseNumber("0.0005")
-    return this.SafeMarketStructure(map[string]any {
+func  (this *ApexCore) ParseMarket(market interface{}) interface{}  {
+    var id interface{} = this.SafeString(market, "symbol")
+    var id2 interface{} = this.SafeString(market, "crossSymbolName")
+    var quoteId interface{} = this.SafeString(market, "l2PairId")
+    var baseId interface{} = this.SafeString(market, "baseTokenId")
+    var quote interface{} = this.SafeString(market, "settleAssetId")
+    var base interface{} = this.SafeCurrencyCode(baseId)
+    var settleId interface{} = this.SafeString(market, "settleAssetId")
+    var settle interface{} = this.SafeCurrencyCode(settleId)
+    var symbol interface{} = Add(Add(Add(Add(baseId, "/"), quote), ":"), settle)
+    var expiry interface{} = 0
+    var takerFee interface{} = this.ParseNumber("0.0002")
+    var makerFee interface{} = this.ParseNumber("0.0005")
+    return this.SafeMarketStructure(map[string]interface{} {
         "id": id,
         "id2": id2,
         "symbol": symbol,
@@ -740,24 +740,24 @@ func  (this *ApexCore) ParseMarket(market any) any  {
         "expiryDatetime": Ternary(IsTrue((IsEqual(expiry, 0))), nil, this.Iso8601(expiry)),
         "strike": nil,
         "optionType": nil,
-        "precision": map[string]any {
+        "precision": map[string]interface{} {
             "amount": this.SafeNumber(market, "stepSize"),
             "price": this.SafeNumber(market, "tickSize"),
         },
-        "limits": map[string]any {
-            "leverage": map[string]any {
+        "limits": map[string]interface{} {
+            "leverage": map[string]interface{} {
                 "min": this.SafeNumber(market, "displayMinLeverage"),
                 "max": this.SafeNumber(market, "displayMaxLeverage"),
             },
-            "amount": map[string]any {
+            "amount": map[string]interface{} {
                 "min": this.SafeNumber(market, "minOrderSize"),
                 "max": this.SafeNumber(market, "maxOrderSize"),
             },
-            "price": map[string]any {
+            "price": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "cost": map[string]any {
+            "cost": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
@@ -766,7 +766,7 @@ func  (this *ApexCore) ParseMarket(market any) any  {
         "info": market,
     })
 }
-func  (this *ApexCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *ApexCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // {
     //     "symbol": "BTCUSDT",
@@ -787,17 +787,17 @@ func  (this *ApexCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.Milliseconds()
-    var marketId any = this.SafeString(ticker, "symbol")
+    var timestamp interface{} = this.Milliseconds()
+    var marketId interface{} = this.SafeString(ticker, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = this.SafeSymbol(marketId, market)
-    var last any = this.SafeString(ticker, "lastPrice")
-    var percentage any = this.SafeString(ticker, "price24hPcnt")
-    var quoteVolume any = this.SafeString(ticker, "turnover24h")
-    var baseVolume any = this.SafeString(ticker, "volume24h")
-    var high any = this.SafeString(ticker, "highPrice24h")
-    var low any = this.SafeString(ticker, "lowPrice24h")
-    return this.SafeTicker(map[string]any {
+    var symbol interface{} = this.SafeSymbol(marketId, market)
+    var last interface{} = this.SafeString(ticker, "lastPrice")
+    var percentage interface{} = this.SafeString(ticker, "price24hPcnt")
+    var quoteVolume interface{} = this.SafeString(ticker, "turnover24h")
+    var baseVolume interface{} = this.SafeString(ticker, "volume24h")
+    var high interface{} = this.SafeString(ticker, "highPrice24h")
+    var low interface{} = this.SafeString(ticker, "lowPrice24h")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": symbol,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -831,25 +831,25 @@ func  (this *ApexCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *ApexCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes7768 := (<-this.LoadMarkets())
             PanicOnError(retRes7768)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id2"),
             }
         
             response:= (<-this.PublicGetV3Ticker(this.Extend(request, params)))
             PanicOnError(response)
-            var tickers any = this.SafeList(response, "data", []any{})
-            var rawTicker any = this.SafeDict(tickers, 0, map[string]any {})
+            var tickers interface{} = this.SafeList(response, "data", []interface{}{})
+            var rawTicker interface{} = this.SafeDict(tickers, 0, map[string]interface{} {})
         
             ch <- this.ParseTicker(rawTicker, market)
             return nil
@@ -866,14 +866,14 @@ func  (this *ApexCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *ApexCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes7978 := (<-this.LoadMarkets())
@@ -881,7 +881,7 @@ func  (this *ApexCore) FetchTickers(optionalArgs ...any) <- chan any {
         
             response:= (<-this.PublicGetV3DataAllTickerInfo(params))
             PanicOnError(response)
-            var tickers any = this.SafeList(response, "data", []any{})
+            var tickers interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseTickers(tickers, symbols)
             return nil
@@ -902,9 +902,9 @@ func  (this *ApexCore) FetchTickers(optionalArgs ...any) <- chan any {
  * @param {int} [params.until] timestamp in ms of the latest candle to fetch
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *ApexCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -913,13 +913,13 @@ func  (this *ApexCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes8178 := (<-this.LoadMarkets())
             PanicOnError(retRes8178)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "interval": this.SafeString(this.Timeframes, timeframe, timeframe),
                 "symbol": GetValue(market, "id2"),
             }
@@ -936,8 +936,8 @@ func  (this *ApexCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
         
             response:= (<-this.PublicGetV3Klines(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var OHLCVs any = this.SafeList(data, GetValue(market, "id2"), []any{})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var OHLCVs interface{} = this.SafeList(data, GetValue(market, "id2"), []interface{}{})
         
             ch <- this.ParseOHLCVs(OHLCVs, market, timeframe, since, limit)
             return nil
@@ -945,7 +945,7 @@ func  (this *ApexCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ApexCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
+func  (this *ApexCore) ParseOHLCV(ohlcv interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //  {
     //     "start": 1647511440000,
@@ -961,7 +961,7 @@ func  (this *ApexCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    return []any{this.SafeIntegerN(ohlcv, []any{"start", "t"}), this.SafeNumberN(ohlcv, []any{"open", "o"}), this.SafeNumberN(ohlcv, []any{"high", "h"}), this.SafeNumberN(ohlcv, []any{"low", "l"}), this.SafeNumberN(ohlcv, []any{"close", "c"}), this.SafeNumberN(ohlcv, []any{"volume", "v"})}
+    return []interface{}{this.SafeIntegerN(ohlcv, []interface{}{"start", "t"}), this.SafeNumberN(ohlcv, []interface{}{"open", "o"}), this.SafeNumberN(ohlcv, []interface{}{"high", "h"}), this.SafeNumberN(ohlcv, []interface{}{"low", "l"}), this.SafeNumberN(ohlcv, []interface{}{"close", "c"}), this.SafeNumberN(ohlcv, []interface{}{"volume", "v"})}
 }
 /**
  * @method
@@ -973,20 +973,20 @@ func  (this *ApexCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *ApexCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes8728 := (<-this.LoadMarkets())
             PanicOnError(retRes8728)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id2"),
             }
             if IsTrue(IsEqual(limit, nil)) {
@@ -1022,9 +1022,9 @@ func  (this *ApexCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan a
             //     "u": 18665465
             // }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var timestamp any = this.Milliseconds()
-            var orderbook any = this.ParseOrderBook(data, GetValue(market, "symbol"), timestamp, "b", "a")
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var timestamp interface{} = this.Milliseconds()
+            var orderbook interface{} = this.ParseOrderBook(data, GetValue(market, "symbol"), timestamp, "b", "a")
             AddElementToObject(orderbook, "nonce", this.SafeInteger(data, "u"))
         
             ch <- orderbook
@@ -1046,22 +1046,22 @@ func  (this *ApexCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan a
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *ApexCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes9298 := (<-this.LoadMarkets())
             PanicOnError(retRes9298)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id2"),
             }
             if IsTrue(IsEqual(limit, nil)) {
@@ -1091,7 +1091,7 @@ func  (this *ApexCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any 
             //  }
             //  ]
             //
-            var trades any = this.SafeList(response, "data", []any{})
+            var trades interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseTrades(trades, market, since, limit)
             return nil
@@ -1099,7 +1099,7 @@ func  (this *ApexCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any 
             }()
             return ch
         }
-func  (this *ApexCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *ApexCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // [
     //  {
@@ -1114,16 +1114,16 @@ func  (this *ApexCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeStringN(trade, []any{"s", "symbol"})
+    var marketId interface{} = this.SafeStringN(trade, []interface{}{"s", "symbol"})
     market = this.SafeMarket(marketId, market)
-    var id any = this.SafeStringN(trade, []any{"i", "id"})
-    var timestamp any = this.SafeIntegerN(trade, []any{"t", "T", "createdAt"})
-    var priceString any = this.SafeStringN(trade, []any{"p", "price"})
-    var amountString any = this.SafeStringN(trade, []any{"v", "size"})
-    var side any = this.SafeStringLowerN(trade, []any{"S", "side"})
-    var typeVar any = this.SafeStringN(trade, []any{"type"})
-    var fee any = this.SafeStringN(trade, []any{"fee"})
-    return this.SafeTrade(map[string]any {
+    var id interface{} = this.SafeStringN(trade, []interface{}{"i", "id"})
+    var timestamp interface{} = this.SafeIntegerN(trade, []interface{}{"t", "T", "createdAt"})
+    var priceString interface{} = this.SafeStringN(trade, []interface{}{"p", "price"})
+    var amountString interface{} = this.SafeStringN(trade, []interface{}{"v", "size"})
+    var side interface{} = this.SafeStringLowerN(trade, []interface{}{"S", "side"})
+    var typeVar interface{} = this.SafeStringN(trade, []interface{}{"type"})
+    var fee interface{} = this.SafeStringN(trade, []interface{}{"fee"})
+    return this.SafeTrade(map[string]interface{} {
         "info": trade,
         "id": id,
         "order": nil,
@@ -1148,25 +1148,25 @@ func  (this *ApexCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] exchange specific parameters
  * @returns {object} an open interest structure{@link https://docs.ccxt.com/?id=open-interest-structure}
  */
-func  (this *ApexCore) FetchOpenInterest(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchOpenInterest(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes10128 := (<-this.LoadMarkets())
             PanicOnError(retRes10128)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id2"),
             }
         
             response:= (<-this.PublicGetV3Ticker(this.Extend(request, params)))
             PanicOnError(response)
-            var tickers any = this.SafeList(response, "data", []any{})
-            var rawTicker any = this.SafeDict(tickers, 0, map[string]any {})
+            var tickers interface{} = this.SafeList(response, "data", []interface{}{})
+            var rawTicker interface{} = this.SafeDict(tickers, 0, map[string]interface{} {})
         
             ch <- this.ParseOpenInterest(rawTicker, market)
             return nil
@@ -1174,7 +1174,7 @@ func  (this *ApexCore) FetchOpenInterest(symbol any, optionalArgs ...any) <- cha
             }()
             return ch
         }
-func  (this *ApexCore) ParseOpenInterest(interest any, optionalArgs ...any) any  {
+func  (this *ApexCore) ParseOpenInterest(interest interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // {
     //     "symbol": "BTCUSDT",
@@ -1195,11 +1195,11 @@ func  (this *ApexCore) ParseOpenInterest(interest any, optionalArgs ...any) any 
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.Milliseconds()
-    var marketId any = this.SafeString(interest, "symbol")
+    var timestamp interface{} = this.Milliseconds()
+    var marketId interface{} = this.SafeString(interest, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = this.SafeSymbol(marketId, market)
-    return this.SafeOpenInterest(map[string]any {
+    var symbol interface{} = this.SafeSymbol(marketId, market)
+    return this.SafeOpenInterest(map[string]interface{} {
         "symbol": symbol,
         "openInterestAmount": this.SafeString(interest, "openInterest"),
         "openInterestValue": nil,
@@ -1221,9 +1221,9 @@ func  (this *ApexCore) ParseOpenInterest(interest any, optionalArgs ...any) any 
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {object[]} a list of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-history-structure}
  */
-func  (this *ApexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchFundingRateHistory(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1232,7 +1232,7 @@ func  (this *ApexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchFundingRateHistory() requires a symbol argument")))
@@ -1240,8 +1240,8 @@ func  (this *ApexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any 
         
             retRes10738 := (<-this.LoadMarkets())
             PanicOnError(retRes10738)
-            var request any = map[string]any {}
-            var market any = this.Market(symbol)
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = this.Market(symbol)
             AddElementToObject(request, "symbol", GetValue(market, "id"))
             if IsTrue(!IsEqual(since, nil)) {
                 AddElementToObject(request, "beginTimeInclusive", since)
@@ -1249,11 +1249,11 @@ func  (this *ApexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any 
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var page any = this.SafeInteger(params, "page")
+            var page interface{} = this.SafeInteger(params, "page")
             if IsTrue(!IsEqual(page, nil)) {
                 AddElementToObject(request, "page", page)
             }
-            var endTimeExclusive any = this.SafeIntegerN(params, []any{"endTime", "endTimeExclusive", "until"})
+            var endTimeExclusive interface{} = this.SafeIntegerN(params, []interface{}{"endTime", "endTimeExclusive", "until"})
             if IsTrue(!IsEqual(endTimeExclusive, nil)) {
                 AddElementToObject(request, "endTimeExclusive", endTimeExclusive)
             }
@@ -1274,14 +1274,14 @@ func  (this *ApexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any 
             //     "totalSize": 11
             // }
             //
-            var rates any = []any{}
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var resultList any = this.SafeList(data, "historyFunds", []any{})
+            var rates interface{} = []interface{}{}
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var resultList interface{} = this.SafeList(data, "historyFunds", []interface{}{})
             for i := 0; IsLessThan(i, GetArrayLength(resultList)); i++ {
-                var entry any = GetValue(resultList, i)
-                var timestamp any = this.SafeInteger(entry, "fundingTimestamp")
-                var marketId any = this.SafeString(entry, "symbol")
-                AppendToArray(&rates, map[string]any {
+                var entry interface{} = GetValue(resultList, i)
+                var timestamp interface{} = this.SafeInteger(entry, "fundingTimestamp")
+                var marketId interface{} = this.SafeString(entry, "symbol")
+                AppendToArray(&rates, map[string]interface{} {
                     "info": entry,
                     "symbol": this.SafeSymbol(marketId, market),
                     "fundingRate": this.SafeNumber(entry, "rate"),
@@ -1289,7 +1289,7 @@ func  (this *ApexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any 
                     "datetime": this.Iso8601(timestamp),
                 })
             }
-            var sorted any = this.SortBy(rates, "timestamp")
+            var sorted interface{} = this.SortBy(rates, "timestamp")
         
             ch <- this.FilterBySymbolSinceLimit(sorted, symbol, since, limit)
             return nil
@@ -1297,7 +1297,7 @@ func  (this *ApexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any 
             }()
             return ch
         }
-func  (this *ApexCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *ApexCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // {
     //     "id": "1234",
@@ -1354,21 +1354,21 @@ func  (this *ApexCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeInteger(order, "createdAt")
-    var orderId any = this.SafeString(order, "id")
-    var clientOrderId any = this.SafeString(order, "clientId")
-    var marketId any = this.SafeString(order, "symbol")
+    var timestamp interface{} = this.SafeInteger(order, "createdAt")
+    var orderId interface{} = this.SafeString(order, "id")
+    var clientOrderId interface{} = this.SafeString(order, "clientId")
+    var marketId interface{} = this.SafeString(order, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var price any = this.SafeString(order, "price")
-    var amount any = this.SafeString(order, "size")
-    var orderType any = this.SafeString(order, "type")
-    var status any = this.SafeString(order, "status")
-    var side any = this.SafeStringLower(order, "side")
+    var symbol interface{} = GetValue(market, "symbol")
+    var price interface{} = this.SafeString(order, "price")
+    var amount interface{} = this.SafeString(order, "size")
+    var orderType interface{} = this.SafeString(order, "type")
+    var status interface{} = this.SafeString(order, "status")
+    var side interface{} = this.SafeStringLower(order, "side")
     // const average = this.omitZero (this.safeString (order, 'avg_fill_price'));
-    var remaining any = this.OmitZero(this.SafeString(order, "remainingSize"))
-    var lastUpdateTimestamp any = this.SafeInteger(order, "updatedTime")
-    return this.SafeOrder(map[string]any {
+    var remaining interface{} = this.OmitZero(this.SafeString(order, "remainingSize"))
+    var lastUpdateTimestamp interface{} = this.SafeInteger(order, "updatedTime")
+    return this.SafeOrder(map[string]interface{} {
         "id": orderId,
         "clientOrderId": clientOrderId,
         "timestamp": timestamp,
@@ -1392,15 +1392,15 @@ func  (this *ApexCore) ParseOrder(order any, optionalArgs ...any) any  {
         "remaining": remaining,
         "cost": nil,
         "trades": nil,
-        "fee": map[string]any {
+        "fee": map[string]interface{} {
             "cost": this.SafeString(order, "fee"),
             "currency": GetValue(market, "settleId"),
         },
         "info": order,
     }, market)
 }
-func  (this *ApexCore) ParseTimeInForce(timeInForce any) any  {
-    var timeInForces any = map[string]any {
+func  (this *ApexCore) ParseTimeInForce(timeInForce interface{}) interface{}  {
+    var timeInForces interface{} = map[string]interface{} {
         "GOOD_TIL_CANCEL": "GOOD_TIL_CANCEL",
         "FILL_OR_KILL": "FILL_OR_KILL",
         "IMMEDIATE_OR_CANCEL": "IMMEDIATE_OR_CANCEL",
@@ -1408,9 +1408,9 @@ func  (this *ApexCore) ParseTimeInForce(timeInForce any) any  {
     }
     return this.SafeString(timeInForces, timeInForce, nil)
 }
-func  (this *ApexCore) ParseOrderStatus(status any) any  {
+func  (this *ApexCore) ParseOrderStatus(status interface{}) interface{}  {
     if IsTrue(!IsEqual(status, nil)) {
-        var statuses any = map[string]any {
+        var statuses interface{} = map[string]interface{} {
             "PENDING": "open",
             "OPEN": "open",
             "FILLED": "filled",
@@ -1422,8 +1422,8 @@ func  (this *ApexCore) ParseOrderStatus(status any) any  {
     }
     return status
 }
-func  (this *ApexCore) ParseOrderType(typeVar any) any  {
-    var types any = map[string]any {
+func  (this *ApexCore) ParseOrderType(typeVar interface{}) interface{}  {
+    var types interface{} = map[string]interface{} {
         "LIMIT": "limit",
         "MARKET": "market",
         "STOP_LIMIT": "limit",
@@ -1433,7 +1433,7 @@ func  (this *ApexCore) ParseOrderType(typeVar any) any  {
     }
     return this.SafeString(types, typeVar, typeVar)
 }
-func  (this *ApexCore) SafeMarket(optionalArgs ...any) any  {
+func  (this *ApexCore) SafeMarket(optionalArgs ...interface{}) interface{}  {
     marketId := GetArg(optionalArgs, 0, nil)
     _ = marketId
     market := GetArg(optionalArgs, 1, nil)
@@ -1448,10 +1448,10 @@ func  (this *ApexCore) SafeMarket(optionalArgs ...any) any  {
         } else if IsTrue(InOp(this.Markets_by_id, marketId)) {
             market = GetValue(this.Markets_by_id, marketId)
         } else {
-            var newMarketId any = this.AddHyphenBeforeUsdt(marketId)
+            var newMarketId interface{} = this.AddHyphenBeforeUsdt(marketId)
             if IsTrue(InOp(this.Markets_by_id, newMarketId)) {
-                var markets any = GetValue(this.Markets_by_id, newMarketId)
-                var numMarkets any =                 GetArrayLength(markets)
+                var markets interface{} = GetValue(this.Markets_by_id, newMarketId)
+                var numMarkets interface{} =                 GetArrayLength(markets)
                 if IsTrue(IsGreaterThan(numMarkets, 0)) {
                     if IsTrue(IsEqual(GetValue(GetValue(GetValue(this.Markets_by_id, newMarketId), 0), "id2"), marketId)) {
                         market = GetValue(GetValue(this.Markets_by_id, newMarketId), 0)
@@ -1462,32 +1462,32 @@ func  (this *ApexCore) SafeMarket(optionalArgs ...any) any  {
     }
     return this.Exchange.SafeMarket(marketId, market, delimiter, marketType)
 }
-func  (this *ApexCore) GenerateRandomClientIdOmni(_accountId any) any  {
-    var accountId any = IsTrue(_accountId) || IsTrue(ToString(this.RandNumber(12)))
+func  (this *ApexCore) GenerateRandomClientIdOmni(_accountId interface{}) interface{}  {
+    var accountId interface{} = IsTrue(_accountId) || IsTrue(ToString(this.RandNumber(12)))
     return Add(Add(Add(Add(Add("apexomni-", accountId), "-"), ToString(this.Milliseconds())), "-"), ToString(this.RandNumber(6)))
 }
-func  (this *ApexCore) AddHyphenBeforeUsdt(symbol any) any  {
-    var uppercaseSymbol any = ToUpper(symbol)
-    var index any = GetIndexOf(uppercaseSymbol, "USDT")
-    var symbolChar any = this.SafeString(symbol, Subtract(index, 1))
+func  (this *ApexCore) AddHyphenBeforeUsdt(symbol interface{}) interface{}  {
+    var uppercaseSymbol interface{} = ToUpper(symbol)
+    var index interface{} = GetIndexOf(uppercaseSymbol, "USDT")
+    var symbolChar interface{} = this.SafeString(symbol, Subtract(index, 1))
     if IsTrue(IsTrue(IsGreaterThan(index, 0)) && IsTrue(!IsEqual(symbolChar, "-"))) {
         return Add(Add(Slice(symbol, 0, index), "-"), Slice(symbol, index, nil))
     }
     return symbol
 }
-func  (this *ApexCore) GetSeeds() any  {
-    var seeds any = this.SafeString(this.Options, "seeds")
+func  (this *ApexCore) GetSeeds() interface{}  {
+    var seeds interface{} = this.SafeString(this.Options, "seeds")
     if IsTrue(IsEqual(seeds, nil)) {
         panic(ArgumentsRequired(Add(this.Id, " the \"seeds\" key is required in the options to access private endpoints. You can find it in API Management > Omni Key, and then set it as exchange.options[\"seeds\"] = XXXX")))
     }
     return seeds
 }
-func  (this *ApexCore) GetAccountId() <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) GetAccountId() <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                var accountId any = this.SafeString(this.Options, "accountId", "0")
+                var accountId interface{} = this.SafeString(this.Options, "accountId", "0")
         if IsTrue(IsEqual(accountId, "0")) {
         
             accountData:= (<-this.FetchAccount())
@@ -1521,34 +1521,34 @@ func  (this *ApexCore) GetAccountId() <- chan any {
  * @param {string} [params.clientOrderId] a unique id for the order
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ApexCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes13388 := (<-this.LoadMarkets())
             PanicOnError(retRes13388)
-            var market any = this.Market(symbol)
-            var orderType any = ToUpper(typeVar)
-            var orderSide any = ToUpper(side)
-            var orderSize any = this.AmountToPrecision(symbol, amount)
-            var orderPrice any = "0"
+            var market interface{} = this.Market(symbol)
+            var orderType interface{} = ToUpper(typeVar)
+            var orderSide interface{} = ToUpper(side)
+            var orderSize interface{} = this.AmountToPrecision(symbol, amount)
+            var orderPrice interface{} = "0"
             if IsTrue(!IsEqual(price, nil)) {
                 orderPrice = this.PriceToPrecision(symbol, price)
             }
-            var fees any = this.SafeDict(this.Fees, "swap", map[string]any {})
-            var taker any = this.SafeString(fees, "taker", "0.0005")
-            var maker any = this.SafeString(fees, "maker", "0.0002")
-            var limitFee any = this.DecimalToPrecision(Precise.StringAdd(Precise.StringMul(Precise.StringMul(orderPrice, orderSize), taker), this.NumberToString(GetValue(GetValue(market, "precision"), "price"))), TRUNCATE, GetValue(GetValue(market, "precision"), "price"), this.PrecisionMode, this.PaddingMode)
-            var timeNow any = this.Milliseconds()
-            var triggerPrice any = this.SafeString(params, "triggerPrice")
-            var stopLossPrice any = this.SafeString(params, "stopLossPrice")
-            var takeProfitPrice any = this.SafeString(params, "takeProfitPrice")
+            var fees interface{} = this.SafeDict(this.Fees, "swap", map[string]interface{} {})
+            var taker interface{} = this.SafeString(fees, "taker", "0.0005")
+            var maker interface{} = this.SafeString(fees, "maker", "0.0002")
+            var limitFee interface{} = this.DecimalToPrecision(Precise.StringAdd(Precise.StringMul(Precise.StringMul(orderPrice, orderSize), taker), this.NumberToString(GetValue(GetValue(market, "precision"), "price"))), TRUNCATE, GetValue(GetValue(market, "precision"), "price"), this.PrecisionMode, this.PaddingMode)
+            var timeNow interface{} = this.Milliseconds()
+            var triggerPrice interface{} = this.SafeString(params, "triggerPrice")
+            var stopLossPrice interface{} = this.SafeString(params, "stopLossPrice")
+            var takeProfitPrice interface{} = this.SafeString(params, "takeProfitPrice")
             if IsTrue(!IsEqual(stopLossPrice, nil)) {
                 orderType = Ternary(IsTrue((IsEqual(orderType, "MARKET"))), "STOP_MARKET", "STOP_LIMIT")
                 triggerPrice = stopLossPrice
@@ -1556,12 +1556,12 @@ func  (this *ApexCore) CreateOrder(symbol any, typeVar any, side any, amount any
                 orderType = Ternary(IsTrue((IsEqual(orderType, "MARKET"))), "TAKE_PROFIT_MARKET", "TAKE_PROFIT_LIMIT")
                 triggerPrice = takeProfitPrice
             }
-            var isMarket any = IsEqual(orderType, "MARKET")
+            var isMarket interface{} = IsEqual(orderType, "MARKET")
             if IsTrue(IsTrue(isMarket) && IsTrue((IsEqual(price, nil)))) {
                 panic(ArgumentsRequired(Add(this.Id, " createOrder() requires a price argument for market orders")))
             }
-            var timeInForce any = this.SafeStringUpper(params, "timeInForce")
-            var postOnly any = this.IsPostOnly(isMarket, nil, params)
+            var timeInForce interface{} = this.SafeStringUpper(params, "timeInForce")
+            var postOnly interface{} = this.IsPostOnly(isMarket, nil, params)
             if IsTrue(IsEqual(timeInForce, nil)) {
                 timeInForce = "GOOD_TIL_CANCEL"
             }
@@ -1574,15 +1574,15 @@ func  (this *ApexCore) CreateOrder(symbol any, typeVar any, side any, amount any
             }
             params = this.Omit(params, "timeInForce")
             params = this.Omit(params, "postOnly")
-            var clientOrderId any = this.SafeStringN(params, []any{"clientId", "clientOrderId", "client_order_id"})
+            var clientOrderId interface{} = this.SafeStringN(params, []interface{}{"clientId", "clientOrderId", "client_order_id"})
         
             accountId:= (<-this.GetAccountId())
             PanicOnError(accountId)
             if IsTrue(IsEqual(clientOrderId, nil)) {
                 clientOrderId = this.GenerateRandomClientIdOmni(accountId)
             }
-            params = this.Omit(params, []any{"clientId", "clientOrderId", "client_order_id", "stopLossPrice", "takeProfitPrice", "triggerPrice"})
-            var orderToSign any = map[string]any {
+            params = this.Omit(params, []interface{}{"clientId", "clientOrderId", "client_order_id", "stopLossPrice", "takeProfitPrice", "triggerPrice"})
+            var orderToSign interface{} = map[string]interface{} {
                 "accountId": accountId,
                 "slotId": clientOrderId,
                 "nonce": clientOrderId,
@@ -1599,7 +1599,7 @@ func  (this *ApexCore) CreateOrder(symbol any, typeVar any, side any, amount any
         
             signature:= (<-this.GetZKContractSignatureObj(this.Remove0xPrefix(this.GetSeeds()), orderToSign))
             PanicOnError(signature)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
                 "side": orderSide,
                 "type": orderType,
@@ -1618,7 +1618,7 @@ func  (this *ApexCore) CreateOrder(symbol any, typeVar any, side any, amount any
         
             response:= (<-this.PrivatePostV3Order(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseOrder(data, market)
             return nil
@@ -1638,12 +1638,12 @@ func  (this *ApexCore) CreateOrder(symbol any, typeVar any, side any, amount any
  * @param {string} [params.transferId] UUID, which is unique across the platform
  * @returns {object} a [transfer structure]{@link https://docs.ccxt.com/?id=transfer-structure}
  */
-func  (this *ApexCore) Transfer(code any, amount any, fromAccount any, toAccount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) Transfer(code interface{}, amount interface{}, fromAccount interface{}, toAccount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes14358 := (<-this.LoadMarkets())
@@ -1651,32 +1651,32 @@ func  (this *ApexCore) Transfer(code any, amount any, fromAccount any, toAccount
         
             configResponse:= (<-this.PublicGetV3Symbols(params))
             PanicOnError(configResponse)
-            var configData any = this.SafeDict(configResponse, "data", map[string]any {})
-            var contractConfig any = this.SafeDict(configData, "contractConfig", map[string]any {})
-            var contractAssets any = this.SafeList(contractConfig, "assets", []any{})
-            var spotConfig any = this.SafeDict(configData, "spotConfig", map[string]any {})
-            var spotAssets any = this.SafeList(spotConfig, "assets", []any{})
-            var globalConfig any = this.SafeDict(spotConfig, "global", map[string]any {})
-            var receiverAddress any = this.SafeString(globalConfig, "contractAssetPoolEthAddress", "")
-            var receiverZkAccountId any = this.SafeString(globalConfig, "contractAssetPoolZkAccountId", "")
-            var receiverSubAccountId any = this.SafeString(globalConfig, "contractAssetPoolSubAccount", "")
-            var receiverAccountId any = this.SafeString(globalConfig, "contractAssetPoolAccountId", "")
+            var configData interface{} = this.SafeDict(configResponse, "data", map[string]interface{} {})
+            var contractConfig interface{} = this.SafeDict(configData, "contractConfig", map[string]interface{} {})
+            var contractAssets interface{} = this.SafeList(contractConfig, "assets", []interface{}{})
+            var spotConfig interface{} = this.SafeDict(configData, "spotConfig", map[string]interface{} {})
+            var spotAssets interface{} = this.SafeList(spotConfig, "assets", []interface{}{})
+            var globalConfig interface{} = this.SafeDict(spotConfig, "global", map[string]interface{} {})
+            var receiverAddress interface{} = this.SafeString(globalConfig, "contractAssetPoolEthAddress", "")
+            var receiverZkAccountId interface{} = this.SafeString(globalConfig, "contractAssetPoolZkAccountId", "")
+            var receiverSubAccountId interface{} = this.SafeString(globalConfig, "contractAssetPoolSubAccount", "")
+            var receiverAccountId interface{} = this.SafeString(globalConfig, "contractAssetPoolAccountId", "")
         
             accountResponse:= (<-this.PrivateGetV3Account(params))
             PanicOnError(accountResponse)
-            var accountData any = this.SafeDict(accountResponse, "data", map[string]any {})
-            var spotAccount any = this.SafeDict(accountData, "spotAccount", map[string]any {})
-            var zkAccountId any = this.SafeString(spotAccount, "zkAccountId", "")
-            var subAccountId any = this.SafeString(spotAccount, "defaultSubAccountId", "0")
-            var subAccounts any = this.SafeList(spotAccount, "subAccounts", []any{})
-            var nonce any = "0"
+            var accountData interface{} = this.SafeDict(accountResponse, "data", map[string]interface{} {})
+            var spotAccount interface{} = this.SafeDict(accountData, "spotAccount", map[string]interface{} {})
+            var zkAccountId interface{} = this.SafeString(spotAccount, "zkAccountId", "")
+            var subAccountId interface{} = this.SafeString(spotAccount, "defaultSubAccountId", "0")
+            var subAccounts interface{} = this.SafeList(spotAccount, "subAccounts", []interface{}{})
+            var nonce interface{} = "0"
             if IsTrue(IsGreaterThan(GetArrayLength(subAccounts), 0)) {
                 nonce = this.SafeString(GetValue(subAccounts, 0), "nonce", "0")
             }
-            var ethAddress any = this.SafeString(accountData, "ethereumAddress", "")
-            var accountId any = this.SafeString(accountData, "id", "")
-            var currency any = map[string]any {}
-            var assets any = []any{}
+            var ethAddress interface{} = this.SafeString(accountData, "ethereumAddress", "")
+            var accountId interface{} = this.SafeString(accountData, "id", "")
+            var currency interface{} = map[string]interface{} {}
+            var assets interface{} = []interface{}{}
             if IsTrue(IsTrue(!IsEqual(fromAccount, nil)) && IsTrue(IsEqual(ToLower(fromAccount), "contract"))) {
                 assets = contractAssets
             } else {
@@ -1687,19 +1687,19 @@ func  (this *ApexCore) Transfer(code any, amount any, fromAccount any, toAccount
                     currency = GetValue(assets, i)
                 }
             }
-            var tokenId any = this.SafeString(currency, "tokenId", "")
-            var amountNumber any = this.ParseToInt(Multiply(amount, (MathPow(10, this.SafeNumber(currency, "decimals", 0)))))
-            var timestampSeconds any = this.ParseToInt(Divide(this.Milliseconds(), 1000))
-            var clientOrderId any = this.SafeStringN(params, []any{"clientId", "clientOrderId", "client_order_id"})
+            var tokenId interface{} = this.SafeString(currency, "tokenId", "")
+            var amountNumber interface{} = this.ParseToInt(Multiply(amount, (MathPow(10, this.SafeNumber(currency, "decimals", 0)))))
+            var timestampSeconds interface{} = this.ParseToInt(Divide(this.Milliseconds(), 1000))
+            var clientOrderId interface{} = this.SafeStringN(params, []interface{}{"clientId", "clientOrderId", "client_order_id"})
             if IsTrue(IsEqual(clientOrderId, nil)) {
                 clientOrderId = this.GenerateRandomClientIdOmni(this.SafeString(this.Options, "accountId"))
             }
-            params = this.Omit(params, []any{"clientId", "clientOrderId", "client_order_id"})
+            params = this.Omit(params, []interface{}{"clientId", "clientOrderId", "client_order_id"})
             if IsTrue(IsTrue(!IsEqual(fromAccount, nil)) && IsTrue(IsEqual(ToLower(fromAccount), "contract"))) {
-                var formattedUint32 any = "4294967295"
-                var zkSignAccountId any = Precise.StringMod(accountId, formattedUint32)
-                var expireTime any = Add(timestampSeconds, Multiply(Multiply(3600, 24), 28))
-                var orderToSign any = map[string]any {
+                var formattedUint32 interface{} = "4294967295"
+                var zkSignAccountId interface{} = Precise.StringMod(accountId, formattedUint32)
+                var expireTime interface{} = Add(timestampSeconds, Multiply(Multiply(3600, 24), 28))
+                var orderToSign interface{} = map[string]interface{} {
                     "zkAccountId": zkSignAccountId,
                     "receiverAddress": ethAddress,
                     "subAccountId": subAccountId,
@@ -1714,7 +1714,7 @@ func  (this *ApexCore) Transfer(code any, amount any, fromAccount any, toAccount
         
                 signature:= (<-this.GetZKTransferSignatureObj(this.Remove0xPrefix(this.GetSeeds()), orderToSign))
                 PanicOnError(signature)
-                var request any = map[string]any {
+                var request interface{} = map[string]interface{} {
                     "amount": amount,
                     "expireTime": expireTime,
                     "clientWithdrawId": clientOrderId,
@@ -1725,10 +1725,10 @@ func  (this *ApexCore) Transfer(code any, amount any, fromAccount any, toAccount
         
                 response:= (<-this.PrivatePostV3ContractTransferOut(this.Extend(request, params)))
                 PanicOnError(response)
-                var data any = this.SafeDict(response, "data", map[string]any {})
-                var currentTime any = this.Milliseconds()
+                var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+                var currentTime interface{} = this.Milliseconds()
         
-                ch <- this.Extend(this.ParseTransfer(data, this.Currency(code)), map[string]any {
+                ch <- this.Extend(this.ParseTransfer(data, this.Currency(code)), map[string]interface{} {
                     "timestamp": currentTime,
                     "datetime": this.Iso8601(currentTime),
                     "amount": this.ParseNumber(amount),
@@ -1737,7 +1737,7 @@ func  (this *ApexCore) Transfer(code any, amount any, fromAccount any, toAccount
                 })
                 return nil
             } else {
-                var orderToSign any = map[string]any {
+                var orderToSign interface{} = map[string]interface{} {
                     "zkAccountId": zkAccountId,
                     "receiverAddress": receiverAddress,
                     "subAccountId": subAccountId,
@@ -1751,7 +1751,7 @@ func  (this *ApexCore) Transfer(code any, amount any, fromAccount any, toAccount
         
                 signature:= (<-this.GetZKTransferSignatureObj(this.Remove0xPrefix(this.GetSeeds()), orderToSign))
                 PanicOnError(signature)
-                var request any = map[string]any {
+                var request interface{} = map[string]interface{} {
                     "amount": ToString(amount),
                     "timestamp": timestampSeconds,
                     "clientTransferId": clientOrderId,
@@ -1770,10 +1770,10 @@ func  (this *ApexCore) Transfer(code any, amount any, fromAccount any, toAccount
         
                 response:= (<-this.PrivatePostV3TransferOut(this.Extend(request, params)))
                 PanicOnError(response)
-                var data any = this.SafeDict(response, "data", map[string]any {})
-                var currentTime any = this.Milliseconds()
+                var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+                var currentTime interface{} = this.Milliseconds()
         
-                ch <- this.Extend(this.ParseTransfer(data, this.Currency(code)), map[string]any {
+                ch <- this.Extend(this.ParseTransfer(data, this.Currency(code)), map[string]interface{} {
                     "timestamp": currentTime,
                     "datetime": this.Iso8601(currentTime),
                     "amount": this.ParseNumber(amount),
@@ -1786,16 +1786,16 @@ func  (this *ApexCore) Transfer(code any, amount any, fromAccount any, toAccount
             }()
             return ch
         }
-func  (this *ApexCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
+func  (this *ApexCore) ParseTransfer(transfer interface{}, optionalArgs ...interface{}) interface{}  {
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var currencyId any = this.SafeString(transfer, "coin")
-    var timestamp any = this.SafeInteger(transfer, "timestamp")
-    var fromAccount any = this.SafeString(transfer, "fromAccount")
-    var toAccount any = this.SafeString(transfer, "toAccount")
-    return map[string]any {
+    var currencyId interface{} = this.SafeString(transfer, "coin")
+    var timestamp interface{} = this.SafeInteger(transfer, "timestamp")
+    var fromAccount interface{} = this.SafeString(transfer, "fromAccount")
+    var toAccount interface{} = this.SafeString(transfer, "toAccount")
+    return map[string]interface{} {
         "info": transfer,
-        "id": this.SafeStringN(transfer, []any{"transferId", "id"}),
+        "id": this.SafeStringN(transfer, []interface{}{"transferId", "id"}),
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
         "currency": this.SafeCurrencyCode(currencyId, currency),
@@ -1814,20 +1814,20 @@ func  (this *ApexCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ApexCore) CancelAllOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) CancelAllOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes15848 := (<-this.LoadMarkets())
             PanicOnError(retRes15848)
-            var market any = nil
-            var request any = map[string]any {}
+            var market interface{} = nil
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "symbol", GetValue(market, "id"))
@@ -1835,9 +1835,9 @@ func  (this *ApexCore) CancelAllOrders(optionalArgs ...any) <- chan any {
         
             response:= (<-this.PrivatePostV3DeleteOpenOrders(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
-            ch <- []any{this.ParseOrder(data, market)}
+            ch <- []interface{}{this.ParseOrder(data, market)}
             return nil
         
             }()
@@ -1853,21 +1853,21 @@ func  (this *ApexCore) CancelAllOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ApexCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var request any = map[string]any {}
-            var clientOrderId any = this.SafeStringN(params, []any{"clientId", "clientOrderId", "client_order_id"})
-            var response any = nil
+            var request interface{} = map[string]interface{} {}
+            var clientOrderId interface{} = this.SafeStringN(params, []interface{}{"clientId", "clientOrderId", "client_order_id"})
+            var response interface{} = nil
             if IsTrue(!IsEqual(clientOrderId, nil)) {
                 AddElementToObject(request, "id", clientOrderId)
-                params = this.Omit(params, []any{"clientId", "clientOrderId", "client_order_id"})
+                params = this.Omit(params, []interface{}{"clientId", "clientOrderId", "client_order_id"})
                 
             response = (<-this.PrivatePostV3DeleteClientOrderId(this.Extend(request, params)))
                     PanicOnError(response)
@@ -1877,7 +1877,7 @@ func  (this *ApexCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
             response = (<-this.PrivatePostV3DeleteOrder(this.Extend(request, params)))
                     PanicOnError(response)
             }
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.SafeOrder(data)
             return nil
@@ -1897,24 +1897,24 @@ func  (this *ApexCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
  * @param {string} [params.clientOrderId] a unique id for the order
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ApexCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes16358 := (<-this.LoadMarkets())
             PanicOnError(retRes16358)
-            var request any = map[string]any {}
-            var clientOrderId any = this.SafeStringN(params, []any{"clientId", "clientOrderId", "client_order_id"})
-            var response any = nil
+            var request interface{} = map[string]interface{} {}
+            var clientOrderId interface{} = this.SafeStringN(params, []interface{}{"clientId", "clientOrderId", "client_order_id"})
+            var response interface{} = nil
             if IsTrue(!IsEqual(clientOrderId, nil)) {
                 AddElementToObject(request, "id", clientOrderId)
-                params = this.Omit(params, []any{"clientId", "clientOrderId", "client_order_id"})
+                params = this.Omit(params, []interface{}{"clientId", "clientOrderId", "client_order_id"})
                 
             response = (<-this.PrivateGetV3OrderByClientOrderId(this.Extend(request, params)))
                     PanicOnError(response)
@@ -1924,7 +1924,7 @@ func  (this *ApexCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
             response = (<-this.PrivateGetV3Order(this.Extend(request, params)))
                     PanicOnError(response)
             }
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseOrder(data)
             return nil
@@ -1943,9 +1943,9 @@ func  (this *ApexCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ApexCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1954,7 +1954,7 @@ func  (this *ApexCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes16638 := (<-this.LoadMarkets())
@@ -1962,7 +1962,7 @@ func  (this *ApexCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
         
             response:= (<-this.PrivateGetV3OpenOrders(params))
             PanicOnError(response)
-            var orders any = this.SafeList(response, "data", []any{})
+            var orders interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseOrders(orders, nil, since, limit)
             return nil
@@ -1987,9 +1987,9 @@ func  (this *ApexCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {boolean} [params.page] Page numbers start from 0
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ApexCore) FetchOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1998,13 +1998,13 @@ func  (this *ApexCore) FetchOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes16878 := (<-this.LoadMarkets())
             PanicOnError(retRes16878)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "symbol", GetValue(market, "id"))
@@ -2015,16 +2015,16 @@ func  (this *ApexCore) FetchOrders(optionalArgs ...any) <- chan any {
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var endTimeExclusive any = this.SafeIntegerN(params, []any{"endTime", "endTimeExclusive", "until"})
+            var endTimeExclusive interface{} = this.SafeIntegerN(params, []interface{}{"endTime", "endTimeExclusive", "until"})
             if IsTrue(!IsEqual(endTimeExclusive, nil)) {
                 AddElementToObject(request, "endTimeExclusive", endTimeExclusive)
-                params = this.Omit(params, []any{"endTime", "endTimeExclusive", "until"})
+                params = this.Omit(params, []interface{}{"endTime", "endTimeExclusive", "until"})
             }
         
             response:= (<-this.PrivateGetV3HistoryOrders(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var orders any = this.SafeList(data, "orders", []any{})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var orders interface{} = this.SafeList(data, "orders", []interface{}{})
         
             ch <- this.ParseOrders(orders, market, since, limit)
             return nil
@@ -2044,9 +2044,9 @@ func  (this *ApexCore) FetchOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *ApexCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchOrderTrades(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2055,24 +2055,24 @@ func  (this *ApexCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan any
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes17248 := (<-this.LoadMarkets())
             PanicOnError(retRes17248)
-            var request any = map[string]any {}
-            var clientOrderId any = this.SafeString2(params, "clientOrderId", "clientId")
+            var request interface{} = map[string]interface{} {}
+            var clientOrderId interface{} = this.SafeString2(params, "clientOrderId", "clientId")
             if IsTrue(!IsEqual(clientOrderId, nil)) {
                 AddElementToObject(request, "clientOrderId", clientOrderId)
             } else {
                 AddElementToObject(request, "orderId", id)
             }
-            params = this.Omit(params, []any{"clientOrderId", "clientId"})
+            params = this.Omit(params, []interface{}{"clientOrderId", "clientId"})
         
             response:= (<-this.PrivateGetV3OrderFills(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var orders any = this.SafeList(data, "orders", []any{})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var orders interface{} = this.SafeList(data, "orders", []interface{}{})
         
             ch <- this.ParseTrades(orders, nil, since, limit)
             return nil
@@ -2095,9 +2095,9 @@ func  (this *ApexCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan any
  * @param {boolean} [params.page] Page numbers start from 0
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *ApexCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2106,13 +2106,13 @@ func  (this *ApexCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes17558 := (<-this.LoadMarkets())
             PanicOnError(retRes17558)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "symbol", GetValue(market, "id"))
@@ -2123,16 +2123,16 @@ func  (this *ApexCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var endTimeExclusive any = this.SafeIntegerN(params, []any{"endTime", "endTimeExclusive", "until"})
+            var endTimeExclusive interface{} = this.SafeIntegerN(params, []interface{}{"endTime", "endTimeExclusive", "until"})
             if IsTrue(!IsEqual(endTimeExclusive, nil)) {
                 AddElementToObject(request, "endTimeExclusive", endTimeExclusive)
-                params = this.Omit(params, []any{"endTime", "endTimeExclusive", "until"})
+                params = this.Omit(params, []interface{}{"endTime", "endTimeExclusive", "until"})
             }
         
             response:= (<-this.PrivateGetV3Fills(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var orders any = this.SafeList(data, "orders", []any{})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var orders interface{} = this.SafeList(data, "orders", []interface{}{})
         
             ch <- this.ParseTrades(orders, market, since, limit)
             return nil
@@ -2154,9 +2154,9 @@ func  (this *ApexCore) FetchMyTrades(optionalArgs ...any) <- chan any {
  * @param {boolean} [params.page] Page numbers start from 0
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=funding-history-structure}
  */
-func  (this *ApexCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchFundingHistory(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2165,13 +2165,13 @@ func  (this *ApexCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes17948 := (<-this.LoadMarkets())
             PanicOnError(retRes17948)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "symbol", GetValue(market, "id"))
@@ -2182,16 +2182,16 @@ func  (this *ApexCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var endTimeExclusive any = this.SafeIntegerN(params, []any{"endTime", "endTimeExclusive", "until"})
+            var endTimeExclusive interface{} = this.SafeIntegerN(params, []interface{}{"endTime", "endTimeExclusive", "until"})
             if IsTrue(!IsEqual(endTimeExclusive, nil)) {
-                params = this.Omit(params, []any{"endTime", "endTimeExclusive", "until"})
+                params = this.Omit(params, []interface{}{"endTime", "endTimeExclusive", "until"})
                 AddElementToObject(request, "endTimeExclusive", endTimeExclusive)
             }
         
             response:= (<-this.PrivateGetV3Funding(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var fundingValues any = this.SafeList(data, "fundingValues", []any{})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var fundingValues interface{} = this.SafeList(data, "fundingValues", []interface{}{})
         
             ch <- this.ParseIncomes(fundingValues, market, since, limit)
             return nil
@@ -2199,7 +2199,7 @@ func  (this *ApexCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ApexCore) ParseIncome(income any, optionalArgs ...any) any  {
+func  (this *ApexCore) ParseIncome(income interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // {
     //     "id": "1234",
@@ -2216,11 +2216,11 @@ func  (this *ApexCore) ParseIncome(income any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(income, "symbol")
+    var marketId interface{} = this.SafeString(income, "symbol")
     market = this.SafeMarket(marketId, market, nil, "contract")
-    var code any = "USDT"
-    var timestamp any = this.SafeInteger(income, "fundingTime")
-    return map[string]any {
+    var code interface{} = "USDT"
+    var timestamp interface{} = this.SafeInteger(income, "fundingTime")
+    return map[string]interface{} {
         "info": income,
         "symbol": this.SafeSymbol(marketId, market),
         "code": code,
@@ -2241,14 +2241,14 @@ func  (this *ApexCore) ParseIncome(income any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} response from the exchange
  */
-func  (this *ApexCore) SetLeverage(leverage any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) SetLeverage(leverage interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " setLeverage() requires a symbol argument")))
@@ -2256,17 +2256,17 @@ func  (this *ApexCore) SetLeverage(leverage any, optionalArgs ...any) <- chan an
         
             retRes18638 := (<-this.LoadMarkets())
             PanicOnError(retRes18638)
-            var market any = this.Market(symbol)
-            var leverageString any = this.NumberToString(leverage)
-            var initialMarginRate any = Precise.StringDiv("1", leverageString, 4)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var leverageString interface{} = this.NumberToString(leverage)
+            var initialMarginRate interface{} = Precise.StringDiv("1", leverageString, 4)
+            var request interface{} = map[string]interface{} {
                 "symbol": GetValue(market, "id"),
                 "initialMarginRate": initialMarginRate,
             }
         
             response:= (<-this.PrivatePostV3SetInitialMarginRate(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- data
             return nil
@@ -2283,14 +2283,14 @@ func  (this *ApexCore) SetLeverage(leverage any, optionalArgs ...any) <- chan an
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
-func  (this *ApexCore) FetchPositions(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ApexCore) FetchPositions(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes18868 := (<-this.LoadMarkets())
@@ -2298,8 +2298,8 @@ func  (this *ApexCore) FetchPositions(optionalArgs ...any) <- chan any {
         
             response:= (<-this.PrivateGetV3Account(params))
             PanicOnError(response)
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var positions any = this.SafeList(data, "positions", []any{})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var positions interface{} = this.SafeList(data, "positions", []interface{}{})
         
             ch <- this.ParsePositions(positions, symbols)
             return nil
@@ -2307,7 +2307,7 @@ func  (this *ApexCore) FetchPositions(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ApexCore) ParsePosition(position any, optionalArgs ...any) any  {
+func  (this *ApexCore) ParsePosition(position interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // {
     //     "symbol": "BTC-USDT",
@@ -2325,18 +2325,18 @@ func  (this *ApexCore) ParsePosition(position any, optionalArgs ...any) any  {
     // }
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(position, "symbol")
+    var marketId interface{} = this.SafeString(position, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var side any = this.SafeStringLower(position, "side")
-    var quantity any = this.SafeString(position, "size")
-    var timestamp any = this.SafeInteger(position, "updatedTime")
-    var leverage any = 20
-    var customInitialMarginRate any = this.SafeStringN(position, []any{"customInitialMarginRate", "customImr"}, "0")
+    var symbol interface{} = GetValue(market, "symbol")
+    var side interface{} = this.SafeStringLower(position, "side")
+    var quantity interface{} = this.SafeString(position, "size")
+    var timestamp interface{} = this.SafeInteger(position, "updatedTime")
+    var leverage interface{} = 20
+    var customInitialMarginRate interface{} = this.SafeStringN(position, []interface{}{"customInitialMarginRate", "customImr"}, "0")
     if IsTrue(!IsEqual(this.PrecisionFromString(customInitialMarginRate), 0)) {
         leverage = this.ParseToInt(Precise.StringDiv("1", customInitialMarginRate, 4))
     }
-    return this.SafePosition(map[string]any {
+    return this.SafePosition(map[string]interface{} {
         "info": position,
         "id": this.SafeString(position, "id"),
         "symbol": symbol,
@@ -2362,55 +2362,55 @@ func  (this *ApexCore) ParsePosition(position any, optionalArgs ...any) any  {
         "percentage": nil,
     })
 }
-func  (this *ApexCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *ApexCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = Add(Add(this.ImplodeHostname(GetValue(GetValue(this.Urls, "api"), api)), "/"), path)
-    headers = map[string]any {
+    var url interface{} = Add(Add(this.ImplodeHostname(GetValue(GetValue(this.Urls, "api"), api)), "/"), path)
+    headers = map[string]interface{} {
         "User-Agent": "apex-CCXT",
         "Accept": "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
     }
-    var signPath any = Add("/api/", path)
-    var signBody any = body
+    var signPath interface{} = Add("/api/", path)
+    var signBody interface{} = body
     if IsTrue(!IsEqual(ToUpper(method), "POST")) {
         if IsTrue(GetArrayLength(ObjectKeys(params))) {
             signPath = Add(signPath, Add("?", this.Rawencode(params)))
             url = Add(url, Add("?", this.Rawencode(params)))
         }
     } else {
-        var sortedQuery any = this.Keysort(params)
+        var sortedQuery interface{} = this.Keysort(params)
         signBody = this.Rawencode(sortedQuery)
     }
     if IsTrue(IsEqual(api, "private")) {
         this.CheckRequiredCredentials()
-        var timestamp any = ToString(this.Milliseconds())
-        var messageString any = Add(Add(timestamp, ToUpper(method)), signPath)
+        var timestamp interface{} = ToString(this.Milliseconds())
+        var messageString interface{} = Add(Add(timestamp, ToUpper(method)), signPath)
         if IsTrue(!IsEqual(signBody, nil)) {
             messageString = Add(messageString, signBody)
         }
-        var signature any = this.Hmac(this.Encode(messageString), this.Encode(this.StringToBase64(this.Secret)), sha256, "base64")
+        var signature interface{} = this.Hmac(this.Encode(messageString), this.Encode(this.StringToBase64(this.Secret)), sha256, "base64")
         AddElementToObject(headers, "APEX-SIGNATURE", signature)
         AddElementToObject(headers, "APEX-API-KEY", this.ApiKey)
         AddElementToObject(headers, "APEX-TIMESTAMP", timestamp)
         AddElementToObject(headers, "APEX-PASSPHRASE", this.Password)
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": signBody,
         "headers": headers,
     }
 }
-func  (this *ApexCore) HandleErrors(code any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *ApexCore) HandleErrors(code interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     //
     // {"code":3,"msg":"Order price must be greater than 0. Order price is 0.","key":"ORDER_PRICE_MUST_GREETER_ZERO","detail":{"price":"0"}}
     // {"code":400,"msg":"strconv.ParseInt: parsing \"dsfdfsd\": invalid syntax","timeCost":5320995}
@@ -2418,12 +2418,12 @@ func  (this *ApexCore) HandleErrors(code any, reason any, url any, method any, h
     if IsTrue(IsEqual(response, nil)) {
         return nil
     }
-    var errorCode any = this.SafeInteger(response, "code")
+    var errorCode interface{} = this.SafeInteger(response, "code")
     if IsTrue(IsTrue(!IsEqual(errorCode, nil)) && IsTrue(!IsEqual(errorCode, 0))) {
-        var feedback any = Add(Add(this.Id, " "), body)
-        var message any = this.SafeString2(response, "key", "msg")
+        var feedback interface{} = Add(Add(this.Id, " "), body)
+        var message interface{} = this.SafeString2(response, "key", "msg")
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), message, feedback)
-        var status any = ToString(code)
+        var status interface{} = ToString(code)
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), status, feedback)
         panic(ExchangeError(feedback))
     }
@@ -2431,8 +2431,8 @@ func  (this *ApexCore) HandleErrors(code any, reason any, url any, method any, h
 }
 
 
-func (this *ApexCore) Init(userConfig map[string]any) {
+func (this *ApexCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

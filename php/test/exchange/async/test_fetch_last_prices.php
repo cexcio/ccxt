@@ -18,9 +18,9 @@ function test_fetch_last_prices($exchange, $skipped_properties, $symbol) {
         $response = null;
         $checked_symbol = null;
         try {
-            $response = \React\Async\await($exchange->fetch_last_prices());
+            $response = Async\await($exchange->fetch_last_prices());
         } catch(\Throwable $e) {
-            $response = \React\Async\await($exchange->fetch_last_prices([$symbol]));
+            $response = Async\await($exchange->fetch_last_prices([$symbol]));
             $checked_symbol = $symbol;
         }
         assert(is_array($response), $exchange->id . ' ' . $method . ' ' . $checked_symbol . ' must return an object. ' . $exchange->json($response));

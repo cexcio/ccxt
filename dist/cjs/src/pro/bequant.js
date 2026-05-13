@@ -3,6 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var hitbtc = require('./hitbtc.js');
+var hitbtc$1 = require('../hitbtc.js');
 var bequant$1 = require('../bequant.js');
 
 // ----------------------------------------------------------------------------
@@ -10,10 +11,8 @@ var bequant$1 = require('../bequant.js');
 class bequant extends hitbtc["default"] {
     describe() {
         // eslint-disable-next-line new-cap
-        const restInstance = new bequant$1["default"]();
-        const restDescribe = restInstance.describe();
-        const extended = this.deepExtend(super.describe(), restDescribe);
-        return this.deepExtend(extended, {
+        const describeExtended = this.getDescribeForExtendedWsExchange(new bequant$1["default"](), new hitbtc$1["default"](), super.describe());
+        return this.deepExtend(describeExtended, {
             'id': 'bequant',
             'name': 'Bequant',
             'countries': ['MT'],

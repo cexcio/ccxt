@@ -27,10 +27,9 @@ async function testWatchTrades (exchange: Exchange, skippedProperties: object, s
             for (let i = 0; i < response.length; i++) {
                 testTrade (exchange, skippedProperties, method, response[i], symbol, now);
             }
-            // temporarily disabled, bcz of neverending breaks
-            // if (!('timestampSort' in skippedProperties)) {
-            //     testSharedMethods.assertTimestampOrder (exchange, method, symbol, response);
-            // }
+            if (!('timestampSort' in skippedProperties)) {
+                testSharedMethods.assertTimestampOrder (exchange, method, symbol, response);
+            }
         }
 
     }

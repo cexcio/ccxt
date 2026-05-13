@@ -15,14 +15,14 @@ func NewMercadoCore() *MercadoCore {
     return p
 }
 
-func  (this *MercadoCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *MercadoCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "mercado",
         "name": "Mercado Bitcoin",
-        "countries": []any{"BR"},
+        "countries": []interface{}{"BR"},
         "rateLimit": 1000,
         "version": "v3",
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": true,
             "spot": true,
             "margin": false,
@@ -119,7 +119,7 @@ func  (this *MercadoCore) Describe() any  {
             "setPositionMode": false,
             "withdraw": true,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "15m": "15m",
             "1h": "1h",
             "3h": "3h",
@@ -127,39 +127,39 @@ func  (this *MercadoCore) Describe() any  {
             "1w": "1w",
             "1M": "1M",
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://user-images.githubusercontent.com/1294454/27837060-e7c58714-60ea-11e7-9192-f05e86adb83f.jpg",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://www.mercadobitcoin.net/api",
                 "private": "https://www.mercadobitcoin.net/tapi",
                 "v4Public": "https://www.mercadobitcoin.com.br/v4",
                 "v4PublicNet": "https://api.mercadobitcoin.net/api/v4",
             },
             "www": "https://www.mercadobitcoin.com.br",
-            "doc": []any{"https://www.mercadobitcoin.com.br/api-doc", "https://www.mercadobitcoin.com.br/trade-api"},
+            "doc": []interface{}{"https://www.mercadobitcoin.com.br/api-doc", "https://www.mercadobitcoin.com.br/trade-api"},
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": []any{"coins", "{coin}/orderbook/", "{coin}/ticker/", "{coin}/trades/", "{coin}/trades/{from}/", "{coin}/trades/{from}/{to}", "{coin}/day-summary/{year}/{month}/{day}/"},
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": []interface{}{"coins", "{coin}/orderbook/", "{coin}/ticker/", "{coin}/trades/", "{coin}/trades/{from}/", "{coin}/trades/{from}/{to}", "{coin}/day-summary/{year}/{month}/{day}/"},
             },
-            "private": map[string]any {
-                "post": []any{"cancel_order", "get_account_info", "get_order", "get_withdrawal", "list_system_messages", "list_orders", "list_orderbook", "place_buy_order", "place_sell_order", "place_market_buy_order", "place_market_sell_order", "withdraw_coin"},
+            "private": map[string]interface{} {
+                "post": []interface{}{"cancel_order", "get_account_info", "get_order", "get_withdrawal", "list_system_messages", "list_orders", "list_orderbook", "place_buy_order", "place_sell_order", "place_market_buy_order", "place_market_sell_order", "withdraw_coin"},
             },
-            "v4Public": map[string]any {
-                "get": []any{"{coin}/candle/"},
+            "v4Public": map[string]interface{} {
+                "get": []interface{}{"{coin}/candle/"},
             },
-            "v4PublicNet": map[string]any {
-                "get": []any{"candles"},
+            "v4PublicNet": map[string]interface{} {
+                "get": []interface{}{"candles"},
             },
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "maker": 0.003,
                 "taker": 0.007,
             },
         },
-        "options": map[string]any {
-            "limits": map[string]any {
+        "options": map[string]interface{} {
+            "limits": map[string]interface{} {
                 "BTC": 0.001,
                 "BCH": 0.001,
                 "ETH": 0.01,
@@ -167,10 +167,10 @@ func  (this *MercadoCore) Describe() any  {
                 "XRP": 0.1,
             },
         },
-        "features": map[string]any {
-            "spot": map[string]any {
+        "features": map[string]interface{} {
+            "spot": map[string]interface{} {
                 "sandbox": false,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": false,
                     "triggerPriceType": nil,
@@ -178,7 +178,7 @@ func  (this *MercadoCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": false,
                         "FOK": false,
                         "PO": true,
@@ -193,27 +193,27 @@ func  (this *MercadoCore) Describe() any  {
                     "iceberg": false,
                 },
                 "createOrders": nil,
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": nil,
                     "daysBack": 100000,
                     "untilDays": 100000,
                     "symbolRequired": true,
                 },
-                "fetchOrder": map[string]any {
+                "fetchOrder": map[string]interface{} {
                     "marginMode": false,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": true,
                 },
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": nil,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": true,
                 },
-                "fetchOrders": map[string]any {
+                "fetchOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 500,
                     "daysBack": 100000,
@@ -223,15 +223,15 @@ func  (this *MercadoCore) Describe() any  {
                     "symbolRequired": true,
                 },
                 "fetchClosedOrders": nil,
-                "fetchOHLCV": map[string]any {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": 1000,
                 },
             },
-            "swap": map[string]any {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
@@ -246,12 +246,12 @@ func  (this *MercadoCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *MercadoCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetCoins(params))
@@ -277,16 +277,16 @@ func  (this *MercadoCore) FetchMarkets(optionalArgs ...any) <- chan any {
             //         "LINK"
             //     ]
             //
-            var result any = []any{}
-            var amountLimits any = this.SafeValue(this.Options, "limits", map[string]any {})
+            var result interface{} = []interface{}{}
+            var amountLimits interface{} = this.SafeValue(this.Options, "limits", map[string]interface{} {})
             for i := 0; IsLessThan(i, GetArrayLength(response)); i++ {
-                var coin any = GetValue(response, i)
-                var baseId any = coin
-                var quoteId any = "BRL"
-                var base any = this.SafeCurrencyCode(baseId)
-                var quote any = this.SafeCurrencyCode(quoteId)
-                var id any = Add(quote, base)
-                AppendToArray(&result, map[string]any {
+                var coin interface{} = GetValue(response, i)
+                var baseId interface{} = coin
+                var quoteId interface{} = "BRL"
+                var base interface{} = this.SafeCurrencyCode(baseId)
+                var quote interface{} = this.SafeCurrencyCode(quoteId)
+                var id interface{} = Add(quote, base)
+                AppendToArray(&result, map[string]interface{} {
                     "id": id,
                     "symbol": Add(Add(base, "/"), quote),
                     "base": base,
@@ -310,24 +310,24 @@ func  (this *MercadoCore) FetchMarkets(optionalArgs ...any) <- chan any {
                     "expiryDatetime": nil,
                     "strike": nil,
                     "optionType": nil,
-                    "precision": map[string]any {
+                    "precision": map[string]interface{} {
                         "amount": this.ParseNumber("1e-8"),
                         "price": this.ParseNumber("1e-5"),
                     },
-                    "limits": map[string]any {
-                        "leverage": map[string]any {
+                    "limits": map[string]interface{} {
+                        "leverage": map[string]interface{} {
                             "min": nil,
                             "max": nil,
                         },
-                        "amount": map[string]any {
+                        "amount": map[string]interface{} {
                             "min": this.SafeNumber(amountLimits, baseId),
                             "max": nil,
                         },
-                        "price": map[string]any {
+                        "price": map[string]interface{} {
                             "min": this.ParseNumber("1e-5"),
                             "max": nil,
                         },
-                        "cost": map[string]any {
+                        "cost": map[string]interface{} {
                             "min": nil,
                             "max": nil,
                         },
@@ -352,20 +352,20 @@ func  (this *MercadoCore) FetchMarkets(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *MercadoCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes3728 := (<-this.LoadMarkets())
             PanicOnError(retRes3728)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "coin": GetValue(market, "base"),
             }
         
@@ -378,7 +378,7 @@ func  (this *MercadoCore) FetchOrderBook(symbol any, optionalArgs ...any) <- cha
             }()
             return ch
         }
-func  (this *MercadoCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *MercadoCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "high":"103.96000000",
@@ -393,10 +393,10 @@ func  (this *MercadoCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var symbol any = this.SafeSymbol(nil, market)
-    var timestamp any = this.SafeTimestamp(ticker, "date")
-    var last any = this.SafeString(ticker, "last")
-    return this.SafeTicker(map[string]any {
+    var symbol interface{} = this.SafeSymbol(nil, market)
+    var timestamp interface{} = this.SafeTimestamp(ticker, "date")
+    var last interface{} = this.SafeString(ticker, "last")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": symbol,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -427,24 +427,24 @@ func  (this *MercadoCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *MercadoCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes4308 := (<-this.LoadMarkets())
             PanicOnError(retRes4308)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "coin": GetValue(market, "base"),
             }
         
             response:= (<-this.PublicGetCoinTicker(this.Extend(request, params)))
             PanicOnError(response)
-            var ticker any = this.SafeValue(response, "ticker", map[string]any {})
+            var ticker interface{} = this.SafeValue(response, "ticker", map[string]interface{} {})
         
                 //
             //     {
@@ -466,25 +466,25 @@ func  (this *MercadoCore) FetchTicker(symbol any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *MercadoCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *MercadoCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeTimestamp2(trade, "date", "executed_timestamp")
+    var timestamp interface{} = this.SafeTimestamp2(trade, "date", "executed_timestamp")
     market = this.SafeMarket(nil, market)
-    var id any = this.SafeString2(trade, "tid", "operation_id")
-    var typeVar any = nil
-    var side any = this.SafeString(trade, "type")
-    var price any = this.SafeString(trade, "price")
-    var amount any = this.SafeString2(trade, "amount", "quantity")
-    var feeCost any = this.SafeString(trade, "fee_rate")
-    var fee any = nil
+    var id interface{} = this.SafeString2(trade, "tid", "operation_id")
+    var typeVar interface{} = nil
+    var side interface{} = this.SafeString(trade, "type")
+    var price interface{} = this.SafeString(trade, "price")
+    var amount interface{} = this.SafeString2(trade, "amount", "quantity")
+    var feeCost interface{} = this.SafeString(trade, "fee_rate")
+    var fee interface{} = nil
     if IsTrue(!IsEqual(feeCost, nil)) {
-        fee = map[string]any {
+        fee = map[string]interface{} {
             "cost": feeCost,
             "currency": nil,
         }
     }
-    return this.SafeTrade(map[string]any {
+    return this.SafeTrade(map[string]interface{} {
         "id": id,
         "info": trade,
         "timestamp": timestamp,
@@ -510,30 +510,30 @@ func  (this *MercadoCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *MercadoCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes4988 := (<-this.LoadMarkets())
             PanicOnError(retRes4988)
-            var market any = this.Market(symbol)
-            var method any = "publicGetCoinTrades"
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var method interface{} = "publicGetCoinTrades"
+            var request interface{} = map[string]interface{} {
                 "coin": GetValue(market, "base"),
             }
             if IsTrue(!IsEqual(since, nil)) {
                 method = Add(method, "From")
                 AddElementToObject(request, "from", this.ParseToInt(Divide(since, 1000)))
             }
-            var to any = this.SafeInteger(params, "to")
+            var to interface{} = this.SafeInteger(params, "to")
             if IsTrue(!IsEqual(to, nil)) {
                 method = Add(method, "To")
             }
@@ -547,19 +547,19 @@ func  (this *MercadoCore) FetchTrades(symbol any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *MercadoCore) ParseBalance(response any) any  {
-    var data any = this.SafeValue(response, "response_data", map[string]any {})
-    var balances any = this.SafeValue(data, "balance", map[string]any {})
-    var result any = map[string]any {
+func  (this *MercadoCore) ParseBalance(response interface{}) interface{}  {
+    var data interface{} = this.SafeValue(response, "response_data", map[string]interface{} {})
+    var balances interface{} = this.SafeValue(data, "balance", map[string]interface{} {})
+    var result interface{} = map[string]interface{} {
         "info": response,
     }
-    var currencyIds any = ObjectKeys(balances)
+    var currencyIds interface{} = ObjectKeys(balances)
     for i := 0; IsLessThan(i, GetArrayLength(currencyIds)); i++ {
-        var currencyId any = GetValue(currencyIds, i)
-        var code any = this.SafeCurrencyCode(currencyId)
+        var currencyId interface{} = GetValue(currencyIds, i)
+        var code interface{} = this.SafeCurrencyCode(currencyId)
         if IsTrue(InOp(balances, currencyId)) {
-            var balance any = this.SafeValue(balances, currencyId, map[string]any {})
-            var account any = this.Account()
+            var balance interface{} = this.SafeValue(balances, currencyId, map[string]interface{} {})
+            var account interface{} = this.Account()
             AddElementToObject(account, "free", this.SafeString(balance, "available"))
             AddElementToObject(account, "total", this.SafeString(balance, "total"))
             AddElementToObject(result, code, account)
@@ -574,12 +574,12 @@ func  (this *MercadoCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *MercadoCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes5438 := (<-this.LoadMarkets())
@@ -606,23 +606,23 @@ func  (this *MercadoCore) FetchBalance(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *MercadoCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes5618 := (<-this.LoadMarkets())
             PanicOnError(retRes5618)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "coin_pair": GetValue(market, "id"),
             }
-            var method any = Add(this.Capitalize(side), "Order")
+            var method interface{} = Add(this.Capitalize(side), "Order")
             if IsTrue(IsEqual(typeVar, "limit")) {
                 method = Add("privatePostPlace", method)
                 AddElementToObject(request, "limit_price", this.PriceToPrecision(GetValue(market, "symbol"), price))
@@ -633,9 +633,9 @@ func  (this *MercadoCore) CreateOrder(symbol any, typeVar any, side any, amount 
                     if IsTrue(IsEqual(price, nil)) {
                         panic(InvalidOrder(Add(this.Id, " createOrder() requires the price argument with market buy orders to calculate total order cost (amount to spend), where cost = amount * price. Supply a price argument to createOrder() call if you want the cost to be calculated for you from price and amount")))
                     }
-                    var amountString any = this.NumberToString(amount)
-                    var priceString any = this.NumberToString(price)
-                    var cost any = this.ParseToNumeric(Precise.StringMul(amountString, priceString))
+                    var amountString interface{} = this.NumberToString(amount)
+                    var priceString interface{} = this.NumberToString(price)
+                    var cost interface{} = this.ParseToNumeric(Precise.StringMul(amountString, priceString))
                     AddElementToObject(request, "cost", this.PriceToPrecision(GetValue(market, "symbol"), cost))
                 } else {
                     AddElementToObject(request, "quantity", this.AmountToPrecision(GetValue(market, "symbol"), amount))
@@ -646,7 +646,7 @@ func  (this *MercadoCore) CreateOrder(symbol any, typeVar any, side any, amount 
             PanicOnError(response)
         
                 // TODO: replace this with a call to parseOrder for unification
-        ch <- this.SafeOrder(map[string]any {
+        ch <- this.SafeOrder(map[string]interface{} {
                 "info": response,
                 "id": ToString(GetValue(GetValue(GetValue(response, "response_data"), "order"), "order_id")),
             }, market)
@@ -664,14 +664,14 @@ func  (this *MercadoCore) CreateOrder(symbol any, typeVar any, side any, amount 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *MercadoCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " cancelOrder() requires a symbol argument")))
@@ -679,8 +679,8 @@ func  (this *MercadoCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
         
             retRes6068 := (<-this.LoadMarkets())
             PanicOnError(retRes6068)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "coin_pair": GetValue(market, "id"),
                 "order_id": id,
             }
@@ -710,8 +710,8 @@ func  (this *MercadoCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
             //         "server_unix_timestamp": "1536956499"
             //     }
             //
-            var responseData any = this.SafeValue(response, "response_data", map[string]any {})
-            var order any = this.SafeDict(responseData, "order", map[string]any {})
+            var responseData interface{} = this.SafeValue(response, "response_data", map[string]interface{} {})
+            var order interface{} = this.SafeDict(responseData, "order", map[string]interface{} {})
         
             ch <- this.ParseOrder(order, market)
             return nil
@@ -719,15 +719,15 @@ func  (this *MercadoCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *MercadoCore) ParseOrderStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *MercadoCore) ParseOrderStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "2": "open",
         "3": "canceled",
         "4": "closed",
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *MercadoCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *MercadoCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "order_id": 4,
@@ -755,28 +755,28 @@ func  (this *MercadoCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var id any = this.SafeString(order, "order_id")
-    var order_type any = this.SafeString(order, "order_type")
-    var side any = nil
+    var id interface{} = this.SafeString(order, "order_id")
+    var order_type interface{} = this.SafeString(order, "order_type")
+    var side interface{} = nil
     if IsTrue(InOp(order, "order_type")) {
         side = Ternary(IsTrue((IsEqual(order_type, "1"))), "buy", "sell")
     }
-    var status any = this.ParseOrderStatus(this.SafeString(order, "status"))
-    var marketId any = this.SafeString(order, "coin_pair")
+    var status interface{} = this.ParseOrderStatus(this.SafeString(order, "status"))
+    var marketId interface{} = this.SafeString(order, "coin_pair")
     market = this.SafeMarket(marketId, market)
-    var timestamp any = this.SafeTimestamp(order, "created_timestamp")
-    var fee any = map[string]any {
+    var timestamp interface{} = this.SafeTimestamp(order, "created_timestamp")
+    var fee interface{} = map[string]interface{} {
         "cost": this.SafeString(order, "fee"),
         "currency": GetValue(market, "quote"),
     }
-    var price any = this.SafeString(order, "limit_price")
+    var price interface{} = this.SafeString(order, "limit_price")
     // price = this.safeNumber (order, 'executed_price_avg', price);
-    var average any = this.SafeString(order, "executed_price_avg")
-    var amount any = this.SafeString(order, "quantity")
-    var filled any = this.SafeString(order, "executed_quantity")
-    var lastTradeTimestamp any = this.SafeTimestamp(order, "updated_timestamp")
-    var rawTrades any = this.SafeValue(order, "operations", []any{})
-    return this.SafeOrder(map[string]any {
+    var average interface{} = this.SafeString(order, "executed_price_avg")
+    var amount interface{} = this.SafeString(order, "quantity")
+    var filled interface{} = this.SafeString(order, "executed_quantity")
+    var lastTradeTimestamp interface{} = this.SafeTimestamp(order, "updated_timestamp")
+    var rawTrades interface{} = this.SafeValue(order, "operations", []interface{}{})
+    return this.SafeOrder(map[string]interface{} {
         "info": order,
         "id": id,
         "clientOrderId": nil,
@@ -809,14 +809,14 @@ func  (this *MercadoCore) ParseOrder(order any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *MercadoCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOrder() requires a symbol argument")))
@@ -824,16 +824,16 @@ func  (this *MercadoCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
         
             retRes7358 := (<-this.LoadMarkets())
             PanicOnError(retRes7358)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "coin_pair": GetValue(market, "id"),
                 "order_id": ParseInt(id),
             }
         
             response:= (<-this.PrivatePostGetOrder(this.Extend(request, params)))
             PanicOnError(response)
-            var responseData any = this.SafeValue(response, "response_data", map[string]any {})
-            var order any = this.SafeDict(responseData, "order")
+            var responseData interface{} = this.SafeValue(response, "response_data", map[string]interface{} {})
+            var order interface{} = this.SafeDict(responseData, "order")
         
             ch <- this.ParseOrder(order, market)
             return nil
@@ -852,14 +852,14 @@ func  (this *MercadoCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *MercadoCore) Withdraw(code any, amount any, address any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) Withdraw(code interface{}, amount interface{}, address interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     tag := GetArg(optionalArgs, 0, nil)
             _ = tag
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             tagparamsVariable := this.HandleWithdrawTagAndParams(tag, params);
             tag = GetValue(tagparamsVariable,0);
@@ -868,19 +868,19 @@ func  (this *MercadoCore) Withdraw(code any, amount any, address any, optionalAr
         
             retRes7618 := (<-this.LoadMarkets())
             PanicOnError(retRes7618)
-            var currency any = this.Currency(code)
-            var request any = map[string]any {
+            var currency interface{} = this.Currency(code)
+            var request interface{} = map[string]interface{} {
                 "coin": GetValue(currency, "id"),
                 "quantity": ToFixed(amount, 10),
                 "address": address,
             }
             if IsTrue(IsEqual(code, "BRL")) {
-                var account_ref any =         (InOp(params, "account_ref"))
+                var account_ref interface{} =         (InOp(params, "account_ref"))
                 if !IsTrue(account_ref) {
                     panic(ArgumentsRequired(Add(Add(this.Id, " withdraw() requires account_ref parameter to withdraw "), code)))
                 }
             } else if IsTrue(!IsEqual(code, "LTC")) {
-                var tx_fee any =         (InOp(params, "tx_fee"))
+                var tx_fee interface{} =         (InOp(params, "tx_fee"))
                 if !IsTrue(tx_fee) {
                     panic(ArgumentsRequired(Add(Add(this.Id, " withdraw() requires tx_fee parameter to withdraw "), code)))
                 }
@@ -916,8 +916,8 @@ func  (this *MercadoCore) Withdraw(code any, amount any, address any, optionalAr
             //         "server_unix_timestamp": "1453912088"
             //     }
             //
-            var responseData any = this.SafeValue(response, "response_data", map[string]any {})
-            var withdrawal any = this.SafeDict(responseData, "withdrawal")
+            var responseData interface{} = this.SafeValue(response, "response_data", map[string]interface{} {})
+            var withdrawal interface{} = this.SafeDict(responseData, "withdrawal")
         
             ch <- this.ParseTransaction(withdrawal, currency)
             return nil
@@ -925,7 +925,7 @@ func  (this *MercadoCore) Withdraw(code any, amount any, address any, optionalAr
             }()
             return ch
         }
-func  (this *MercadoCore) ParseTransaction(transaction any, optionalArgs ...any) any  {
+func  (this *MercadoCore) ParseTransaction(transaction interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "id": 1,
@@ -942,7 +942,7 @@ func  (this *MercadoCore) ParseTransaction(transaction any, optionalArgs ...any)
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
     currency = this.SafeCurrency(nil, currency)
-    return map[string]any {
+    return map[string]interface{} {
         "id": this.SafeString(transaction, "id"),
         "txid": nil,
         "timestamp": nil,
@@ -965,10 +965,10 @@ func  (this *MercadoCore) ParseTransaction(transaction any, optionalArgs ...any)
         "info": transaction,
     }
 }
-func  (this *MercadoCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
+func  (this *MercadoCore) ParseOHLCV(ohlcv interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    return []any{this.SafeInteger(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 5)}
+    return []interface{}{this.SafeInteger(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 5)}
 }
 /**
  * @method
@@ -981,9 +981,9 @@ func  (this *MercadoCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *MercadoCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "15m")
@@ -992,13 +992,13 @@ func  (this *MercadoCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan an
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes8758 := (<-this.LoadMarkets())
             PanicOnError(retRes8758)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "resolution": this.SafeString(this.Timeframes, timeframe, timeframe),
                 "symbol": Add(Add(GetValue(market, "base"), "-"), GetValue(market, "quote")),
             }
@@ -1015,7 +1015,7 @@ func  (this *MercadoCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan an
         
             response:= (<-this.V4PublicNetGetCandles(this.Extend(request, params)))
             PanicOnError(response)
-            var candles any = this.ConvertTradingViewToOHLCV(response, "t", "o", "h", "l", "c", "v")
+            var candles interface{} = this.ConvertTradingViewToOHLCV(response, "t", "o", "h", "l", "c", "v")
         
             ch <- this.ParseOHLCVs(candles, market, timeframe, since, limit)
             return nil
@@ -1033,9 +1033,9 @@ func  (this *MercadoCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan an
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *MercadoCore) FetchOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1044,7 +1044,7 @@ func  (this *MercadoCore) FetchOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOrders() requires a symbol argument")))
@@ -1052,15 +1052,15 @@ func  (this *MercadoCore) FetchOrders(optionalArgs ...any) <- chan any {
         
             retRes9108 := (<-this.LoadMarkets())
             PanicOnError(retRes9108)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "coin_pair": GetValue(market, "id"),
             }
         
             response:= (<-this.PrivatePostListOrders(this.Extend(request, params)))
             PanicOnError(response)
-            var responseData any = this.SafeValue(response, "response_data", map[string]any {})
-            var orders any = this.SafeList(responseData, "orders", []any{})
+            var responseData interface{} = this.SafeValue(response, "response_data", map[string]interface{} {})
+            var orders interface{} = this.SafeList(responseData, "orders", []interface{}{})
         
             ch <- this.ParseOrders(orders, market, since, limit)
             return nil
@@ -1078,9 +1078,9 @@ func  (this *MercadoCore) FetchOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *MercadoCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1089,7 +1089,7 @@ func  (this *MercadoCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOpenOrders() requires a symbol argument")))
@@ -1097,16 +1097,16 @@ func  (this *MercadoCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
         
             retRes9358 := (<-this.LoadMarkets())
             PanicOnError(retRes9358)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "coin_pair": GetValue(market, "id"),
                 "status_list": "[2]",
             }
         
             response:= (<-this.PrivatePostListOrders(this.Extend(request, params)))
             PanicOnError(response)
-            var responseData any = this.SafeValue(response, "response_data", map[string]any {})
-            var orders any = this.SafeList(responseData, "orders", []any{})
+            var responseData interface{} = this.SafeValue(response, "response_data", map[string]interface{} {})
+            var orders interface{} = this.SafeList(responseData, "orders", []interface{}{})
         
             ch <- this.ParseOrders(orders, market, since, limit)
             return nil
@@ -1124,9 +1124,9 @@ func  (this *MercadoCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *MercadoCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *MercadoCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1135,7 +1135,7 @@ func  (this *MercadoCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchMyTrades() requires a symbol argument")))
@@ -1143,18 +1143,18 @@ func  (this *MercadoCore) FetchMyTrades(optionalArgs ...any) <- chan any {
         
             retRes9618 := (<-this.LoadMarkets())
             PanicOnError(retRes9618)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "coin_pair": GetValue(market, "id"),
                 "has_fills": true,
             }
         
             response:= (<-this.PrivatePostListOrders(this.Extend(request, params)))
             PanicOnError(response)
-            var responseData any = this.SafeValue(response, "response_data", map[string]any {})
-            var ordersRaw any = this.SafeValue(responseData, "orders", []any{})
-            var orders any = this.ParseOrders(ordersRaw, market, since, limit)
-            var trades any = this.OrdersToTrades(orders)
+            var responseData interface{} = this.SafeValue(response, "response_data", map[string]interface{} {})
+            var ordersRaw interface{} = this.SafeValue(responseData, "orders", []interface{}{})
+            var orders interface{} = this.ParseOrders(ordersRaw, market, since, limit)
+            var trades interface{} = this.OrdersToTrades(orders)
         
             ch <- this.FilterBySymbolSinceLimit(trades, GetValue(market, "symbol"), since, limit)
             return nil
@@ -1162,29 +1162,29 @@ func  (this *MercadoCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *MercadoCore) OrdersToTrades(orders any) any  {
-    var result any = []any{}
+func  (this *MercadoCore) OrdersToTrades(orders interface{}) interface{}  {
+    var result interface{} = []interface{}{}
     for i := 0; IsLessThan(i, GetArrayLength(orders)); i++ {
-        var trades any = this.SafeValue(GetValue(orders, i), "trades", []any{})
+        var trades interface{} = this.SafeValue(GetValue(orders, i), "trades", []interface{}{})
         for y := 0; IsLessThan(y, GetArrayLength(trades)); y++ {
             AppendToArray(&result, GetValue(trades, y))
         }
     }
     return result
 }
-func  (this *MercadoCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *MercadoCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = Add(GetValue(GetValue(this.Urls, "api"), api), "/")
-    var query any = this.Omit(params, this.ExtractParams(path))
+    var url interface{} = Add(GetValue(GetValue(this.Urls, "api"), api), "/")
+    var query interface{} = this.Omit(params, this.ExtractParams(path))
     if IsTrue(IsTrue(IsTrue((IsEqual(api, "public"))) || IsTrue((IsEqual(api, "v4Public")))) || IsTrue((IsEqual(api, "v4PublicNet")))) {
         url = Add(url, this.ImplodeParams(path, params))
         if IsTrue(GetArrayLength(ObjectKeys(query))) {
@@ -1193,26 +1193,26 @@ func  (this *MercadoCore) Sign(path any, optionalArgs ...any) any  {
     } else {
         this.CheckRequiredCredentials()
         url = Add(url, Add(this.Version, "/"))
-        var nonce any = this.Nonce()
-        body = this.Urlencode(this.Extend(map[string]any {
+        var nonce interface{} = this.Nonce()
+        body = this.Urlencode(this.Extend(map[string]interface{} {
             "tapi_method": path,
             "tapi_nonce": nonce,
         }, params))
-        var auth any = Add(Add(Add(Add("/tapi/", this.Version), "/"), "?"), body)
-        headers = map[string]any {
+        var auth interface{} = Add(Add(Add(Add("/tapi/", this.Version), "/"), "?"), body)
+        headers = map[string]interface{} {
             "Content-Type": "application/x-www-form-urlencoded",
             "TAPI-ID": this.ApiKey,
             "TAPI-MAC": this.Hmac(this.Encode(auth), this.Encode(this.Secret), sha512),
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *MercadoCore) HandleErrors(httpCode any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *MercadoCore) HandleErrors(httpCode interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil
     }
@@ -1221,7 +1221,7 @@ func  (this *MercadoCore) HandleErrors(httpCode any, reason any, url any, method
     //
     //     {"status":503,"message":"Maintenancing, try again later","result":null}
     //
-    var errorMessage any = this.SafeValue(response, "error_message")
+    var errorMessage interface{} = this.SafeValue(response, "error_message")
     if IsTrue(!IsEqual(errorMessage, nil)) {
         panic(ExchangeError(Add(Add(this.Id, " "), this.Json(response))))
     }
@@ -1229,8 +1229,8 @@ func  (this *MercadoCore) HandleErrors(httpCode any, reason any, url any, method
 }
 
 
-func (this *MercadoCore) Init(userConfig map[string]any) {
+func (this *MercadoCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

@@ -15,15 +15,15 @@ func NewOnetradingCore() *OnetradingCore {
     return p
 }
 
-func  (this *OnetradingCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *OnetradingCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "onetrading",
         "name": "One Trading",
-        "countries": []any{"AT"},
+        "countries": []interface{}{"AT"},
         "rateLimit": 300,
         "version": "v1",
         "pro": true,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": false,
@@ -138,7 +138,7 @@ func  (this *OnetradingCore) Describe() any  {
             "transfer": false,
             "withdraw": false,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": "1/MINUTES",
             "5m": "5/MINUTES",
             "15m": "15/MINUTES",
@@ -149,45 +149,45 @@ func  (this *OnetradingCore) Describe() any  {
             "1w": "1/WEEKS",
             "1M": "1/MONTHS",
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/ccxt/ccxt/assets/43336371/bdbc26fd-02f2-4ca7-9f1e-17333690bb1c",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://api.onetrading.com/fast",
                 "private": "https://api.onetrading.com/fast",
             },
             "www": "https://onetrading.com/",
-            "doc": []any{"https://docs.onetrading.com"},
+            "doc": []interface{}{"https://docs.onetrading.com"},
             "fees": "https://onetrading.com/fees",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": []any{"currencies", "candlesticks/{instrument_code}", "fees", "instruments", "order-book/{instrument_code}", "market-ticker", "market-ticker/{instrument_code}", "time"},
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": []interface{}{"currencies", "candlesticks/{instrument_code}", "fees", "instruments", "order-book/{instrument_code}", "market-ticker", "market-ticker/{instrument_code}", "time"},
             },
-            "private": map[string]any {
-                "get": []any{"account/balances", "account/fees", "account/orders", "account/orders/{order_id}", "account/orders/{order_id}/trades", "account/trades", "account/trades/{trade_id}"},
-                "post": []any{"account/orders"},
-                "delete": []any{"account/orders", "account/orders/{order_id}", "account/orders/client/{client_id}"},
+            "private": map[string]interface{} {
+                "get": []interface{}{"account/balances", "account/fees", "account/orders", "account/orders/{order_id}", "account/orders/{order_id}/trades", "account/trades", "account/trades/{trade_id}"},
+                "post": []interface{}{"account/orders"},
+                "delete": []interface{}{"account/orders", "account/orders/{order_id}", "account/orders/client/{client_id}"},
             },
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "tierBased": true,
                 "percentage": true,
                 "taker": this.ParseNumber("0.0015"),
                 "maker": this.ParseNumber("0.001"),
-                "tiers": []any{map[string]any {
-    "taker": []any{[]any{this.ParseNumber("0"), this.ParseNumber("0.0015")}, []any{this.ParseNumber("100"), this.ParseNumber("0.0013")}, []any{this.ParseNumber("250"), this.ParseNumber("0.0013")}, []any{this.ParseNumber("1000"), this.ParseNumber("0.001")}, []any{this.ParseNumber("5000"), this.ParseNumber("0.0009")}, []any{this.ParseNumber("10000"), this.ParseNumber("0.00075")}, []any{this.ParseNumber("20000"), this.ParseNumber("0.00065")}},
-    "maker": []any{[]any{this.ParseNumber("0"), this.ParseNumber("0.001")}, []any{this.ParseNumber("100"), this.ParseNumber("0.001")}, []any{this.ParseNumber("250"), this.ParseNumber("0.0009")}, []any{this.ParseNumber("1000"), this.ParseNumber("0.00075")}, []any{this.ParseNumber("5000"), this.ParseNumber("0.0006")}, []any{this.ParseNumber("10000"), this.ParseNumber("0.0005")}, []any{this.ParseNumber("20000"), this.ParseNumber("0.0005")}},
+                "tiers": []interface{}{map[string]interface{} {
+    "taker": []interface{}{[]interface{}{this.ParseNumber("0"), this.ParseNumber("0.0015")}, []interface{}{this.ParseNumber("100"), this.ParseNumber("0.0013")}, []interface{}{this.ParseNumber("250"), this.ParseNumber("0.0013")}, []interface{}{this.ParseNumber("1000"), this.ParseNumber("0.001")}, []interface{}{this.ParseNumber("5000"), this.ParseNumber("0.0009")}, []interface{}{this.ParseNumber("10000"), this.ParseNumber("0.00075")}, []interface{}{this.ParseNumber("20000"), this.ParseNumber("0.00065")}},
+    "maker": []interface{}{[]interface{}{this.ParseNumber("0"), this.ParseNumber("0.001")}, []interface{}{this.ParseNumber("100"), this.ParseNumber("0.001")}, []interface{}{this.ParseNumber("250"), this.ParseNumber("0.0009")}, []interface{}{this.ParseNumber("1000"), this.ParseNumber("0.00075")}, []interface{}{this.ParseNumber("5000"), this.ParseNumber("0.0006")}, []interface{}{this.ParseNumber("10000"), this.ParseNumber("0.0005")}, []interface{}{this.ParseNumber("20000"), this.ParseNumber("0.0005")}},
 }},
             },
         },
-        "requiredCredentials": map[string]any {
+        "requiredCredentials": map[string]interface{} {
             "apiKey": true,
             "secret": false,
         },
         "precisionMode": TICK_SIZE,
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "INVALID_CLIENT_UUID": InvalidOrder,
                 "ORDER_NOT_FOUND": OrderNotFound,
                 "ONLY_ONE_ERC20_ADDRESS_ALLOWED": InvalidAddress,
@@ -266,23 +266,23 @@ func  (this *OnetradingCore) Describe() any  {
                 "CF_RATELIMIT": DDoSProtection,
                 "INTERNAL_SERVER_ERROR": ExchangeError,
             },
-            "broad": map[string]any {
+            "broad": map[string]interface{} {
                 "Order not found.": OrderNotFound,
             },
         },
-        "commonCurrencies": map[string]any {
+        "commonCurrencies": map[string]interface{} {
             "MIOTA": "IOTA",
         },
-        "options": map[string]any {
-            "fetchTradingFees": map[string]any {
+        "options": map[string]interface{} {
+            "fetchTradingFees": map[string]interface{} {
                 "method": "fetchPrivateTradingFees",
             },
-            "fiat": []any{"EUR", "CHF"},
+            "fiat": []interface{}{"EUR", "CHF"},
         },
-        "features": map[string]any {
-            "spot": map[string]any {
+        "features": map[string]interface{} {
+            "spot": map[string]interface{} {
                 "sandbox": false,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": false,
                     "triggerDirection": false,
@@ -290,7 +290,7 @@ func  (this *OnetradingCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": true,
                         "PO": true,
@@ -305,20 +305,20 @@ func  (this *OnetradingCore) Describe() any  {
                     "iceberg": false,
                 },
                 "createOrders": nil,
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": 100000,
                     "untilDays": 100000,
                     "symbolRequired": false,
                 },
-                "fetchOrder": map[string]any {
+                "fetchOrder": map[string]interface{} {
                     "marginMode": false,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "trigger": false,
@@ -326,7 +326,7 @@ func  (this *OnetradingCore) Describe() any  {
                     "symbolRequired": false,
                 },
                 "fetchOrders": nil,
-                "fetchClosedOrders": map[string]any {
+                "fetchClosedOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": 100000,
@@ -336,15 +336,15 @@ func  (this *OnetradingCore) Describe() any  {
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOHLCV": map[string]any {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": 5000,
                 },
             },
-            "swap": map[string]any {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
@@ -359,12 +359,12 @@ func  (this *OnetradingCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func  (this *OnetradingCore) FetchTime(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchTime(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetTime(params))
@@ -390,12 +390,12 @@ func  (this *OnetradingCore) FetchTime(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an associative dictionary of currencies
  */
-func  (this *OnetradingCore) FetchCurrencies(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchCurrencies(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetCurrencies(params))
@@ -411,12 +411,12 @@ func  (this *OnetradingCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             //         },
             //     ]
             //
-            var result any = map[string]any {}
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(response)); i++ {
-                var currency any = GetValue(response, i)
-                var id any = this.SafeString(currency, "code")
-                var code any = this.SafeCurrencyCode(id)
-                AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]any {
+                var currency interface{} = GetValue(response, i)
+                var id interface{} = this.SafeString(currency, "code")
+                var code interface{} = this.SafeCurrencyCode(id)
+                AddElementToObject(result, code, this.SafeCurrencyStructure(map[string]interface{} {
             "id": id,
             "code": code,
             "name": this.SafeString(currency, "name"),
@@ -426,17 +426,17 @@ func  (this *OnetradingCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             "precision": this.ParseNumber(this.ParsePrecision(this.SafeString(currency, "precision"))),
             "withdraw": nil,
             "deposit": nil,
-            "limits": map[string]any {
-                "amount": map[string]any {
+            "limits": map[string]interface{} {
+                "amount": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
-                "withdraw": map[string]any {
+                "withdraw": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
             },
-            "networks": map[string]any {},
+            "networks": map[string]interface{} {},
         }))
             }
         
@@ -454,12 +454,12 @@ func  (this *OnetradingCore) FetchCurrencies(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *OnetradingCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetInstruments(params))
@@ -483,7 +483,7 @@ func  (this *OnetradingCore) FetchMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OnetradingCore) ParseMarket(market any) any  {
+func  (this *OnetradingCore) ParseMarket(market interface{}) interface{}  {
     //
     //   {
     //      "base":{
@@ -524,21 +524,21 @@ func  (this *OnetradingCore) ParseMarket(market any) any  {
     //      "state": "ACTIVE"
     //  }
     //
-    var baseAsset any = this.SafeDict(market, "base", map[string]any {})
-    var quoteAsset any = this.SafeDict(market, "quote", map[string]any {})
-    var baseId any = this.SafeString(baseAsset, "code")
-    var quoteId any = this.SafeString(quoteAsset, "code")
-    var id any = this.SafeString(market, "id")
-    var base any = this.SafeCurrencyCode(baseId)
-    var quote any = this.SafeCurrencyCode(quoteId)
-    var state any = this.SafeString(market, "state")
-    var typeVar any = this.SafeString(market, "type")
-    var isPerp any = IsEqual(typeVar, "PERP")
-    var symbol any = Add(Add(base, "/"), quote)
+    var baseAsset interface{} = this.SafeDict(market, "base", map[string]interface{} {})
+    var quoteAsset interface{} = this.SafeDict(market, "quote", map[string]interface{} {})
+    var baseId interface{} = this.SafeString(baseAsset, "code")
+    var quoteId interface{} = this.SafeString(quoteAsset, "code")
+    var id interface{} = this.SafeString(market, "id")
+    var base interface{} = this.SafeCurrencyCode(baseId)
+    var quote interface{} = this.SafeCurrencyCode(quoteId)
+    var state interface{} = this.SafeString(market, "state")
+    var typeVar interface{} = this.SafeString(market, "type")
+    var isPerp interface{} = IsEqual(typeVar, "PERP")
+    var symbol interface{} = Add(Add(base, "/"), quote)
     if IsTrue(isPerp) {
         symbol = Add(Add(symbol, ":"), quote)
     }
-    return map[string]any {
+    return map[string]interface{} {
         "id": id,
         "symbol": symbol,
         "base": base,
@@ -562,24 +562,24 @@ func  (this *OnetradingCore) ParseMarket(market any) any  {
         "expiryDatetime": nil,
         "strike": nil,
         "optionType": nil,
-        "precision": map[string]any {
+        "precision": map[string]interface{} {
             "amount": this.ParseNumber(this.ParsePrecision(this.SafeString(market, "amount_precision"))),
             "price": this.ParseNumber(this.ParsePrecision(this.SafeString(market, "market_precision"))),
         },
-        "limits": map[string]any {
-            "leverage": map[string]any {
+        "limits": map[string]interface{} {
+            "leverage": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "amount": map[string]any {
+            "amount": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "price": map[string]any {
+            "price": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "cost": map[string]any {
+            "cost": map[string]interface{} {
                 "min": this.SafeNumber(market, "min_size"),
                 "max": nil,
             },
@@ -598,17 +598,17 @@ func  (this *OnetradingCore) ParseMarket(market any) any  {
  * @param {string} [params.method] fetchPrivateTradingFees or fetchPublicTradingFees
  * @returns {object} a dictionary of [fee structures]{@link https://docs.ccxt.com/?id=fee-structure} indexed by market symbols
  */
-func  (this *OnetradingCore) FetchTradingFees(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchTradingFees(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var method any = this.SafeString(params, "method")
+            var method interface{} = this.SafeString(params, "method")
             params = this.Omit(params, "method")
             if IsTrue(IsEqual(method, nil)) {
-                var options any = this.SafeValue(this.Options, "fetchTradingFees", map[string]any {})
+                var options interface{} = this.SafeValue(this.Options, "fetchTradingFees", map[string]interface{} {})
                 method = this.SafeString(options, "method", "fetchPrivateTradingFees")
             }
             if IsTrue(IsEqual(method, "fetchPrivateTradingFees")) {
@@ -630,12 +630,12 @@ func  (this *OnetradingCore) FetchTradingFees(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OnetradingCore) FetchPublicTradingFees(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchPublicTradingFees(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes6228 := (<-this.LoadMarkets())
@@ -685,20 +685,20 @@ func  (this *OnetradingCore) FetchPublicTradingFees(optionalArgs ...any) <- chan
             //     },
             // ];
             //
-            var spotFees any = this.SafeDict(response, 0, map[string]any {})
-            var futuresFees any = this.SafeDict(response, 1, map[string]any {})
-            var spotFeeTiers any = this.SafeList(spotFees, "fee_tiers", []any{})
-            var futuresFeeTiers any = this.SafeList(futuresFees, "fee_tiers", []any{})
-            var spotTiers any = this.ParseFeeTiers(spotFeeTiers)
-            var futuresTiers any = this.ParseFeeTiers(futuresFeeTiers)
-            var firstSpotTier any = this.SafeDict(spotTiers, 0, map[string]any {})
-            var firstFuturesTier any = this.SafeDict(futuresTiers, 0, map[string]any {})
-            var result any = map[string]any {}
+            var spotFees interface{} = this.SafeDict(response, 0, map[string]interface{} {})
+            var futuresFees interface{} = this.SafeDict(response, 1, map[string]interface{} {})
+            var spotFeeTiers interface{} = this.SafeList(spotFees, "fee_tiers", []interface{}{})
+            var futuresFeeTiers interface{} = this.SafeList(futuresFees, "fee_tiers", []interface{}{})
+            var spotTiers interface{} = this.ParseFeeTiers(spotFeeTiers)
+            var futuresTiers interface{} = this.ParseFeeTiers(futuresFeeTiers)
+            var firstSpotTier interface{} = this.SafeDict(spotTiers, 0, map[string]interface{} {})
+            var firstFuturesTier interface{} = this.SafeDict(futuresTiers, 0, map[string]interface{} {})
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(this.Symbols)); i++ {
-                var symbol any = GetValue(this.Symbols, i)
-                var market any = this.Market(symbol)
-                var tierObject any = Ternary(IsTrue((GetValue(market, "spot"))), firstSpotTier, firstFuturesTier)
-                AddElementToObject(result, symbol, map[string]any {
+                var symbol interface{} = GetValue(this.Symbols, i)
+                var market interface{} = this.Market(symbol)
+                var tierObject interface{} = Ternary(IsTrue((GetValue(market, "spot"))), firstSpotTier, firstFuturesTier)
+                AddElementToObject(result, symbol, map[string]interface{} {
             "info": spotFees,
             "symbol": symbol,
             "maker": this.SafeNumber(tierObject, "maker_fee"),
@@ -715,12 +715,12 @@ func  (this *OnetradingCore) FetchPublicTradingFees(optionalArgs ...any) <- chan
             }()
             return ch
         }
-func  (this *OnetradingCore) FetchPrivateTradingFees(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchPrivateTradingFees(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes6938 := (<-this.LoadMarkets())
@@ -759,26 +759,26 @@ func  (this *OnetradingCore) FetchPrivateTradingFees(optionalArgs ...any) <- cha
             //    ]
             // }
             //
-            var activeFeeTier any = this.SafeList(response, "active_fee_tiers")
-            var spotFees any = this.SafeDict(activeFeeTier, 0, map[string]any {})
-            var futuresFees any = this.SafeDict(activeFeeTier, 1, map[string]any {})
-            var spotMakerFee any = this.SafeString(spotFees, "maker_fee")
-            var spotTakerFee any = this.SafeString(spotFees, "taker_fee")
+            var activeFeeTier interface{} = this.SafeList(response, "active_fee_tiers")
+            var spotFees interface{} = this.SafeDict(activeFeeTier, 0, map[string]interface{} {})
+            var futuresFees interface{} = this.SafeDict(activeFeeTier, 1, map[string]interface{} {})
+            var spotMakerFee interface{} = this.SafeString(spotFees, "maker_fee")
+            var spotTakerFee interface{} = this.SafeString(spotFees, "taker_fee")
             spotMakerFee = Precise.StringDiv(spotMakerFee, "100")
             spotTakerFee = Precise.StringDiv(spotTakerFee, "100")
             // const feeTiers = this.safeValue (response, 'fee_tiers');
-            var futuresMakerFee any = this.SafeString(futuresFees, "maker_fee")
-            var futuresTakerFee any = this.SafeString(futuresFees, "taker_fee")
+            var futuresMakerFee interface{} = this.SafeString(futuresFees, "maker_fee")
+            var futuresTakerFee interface{} = this.SafeString(futuresFees, "taker_fee")
             futuresMakerFee = Precise.StringDiv(futuresMakerFee, "100")
             futuresTakerFee = Precise.StringDiv(futuresTakerFee, "100")
-            var result any = map[string]any {}
+            var result interface{} = map[string]interface{} {}
             // const tiers = this.parseFeeTiers (feeTiers);
             for i := 0; IsLessThan(i, GetArrayLength(this.Symbols)); i++ {
-                var symbol any = GetValue(this.Symbols, i)
-                var market any = this.Market(symbol)
-                var makerFee any = Ternary(IsTrue((GetValue(market, "spot"))), spotMakerFee, futuresMakerFee)
-                var takerFee any = Ternary(IsTrue((GetValue(market, "spot"))), spotTakerFee, futuresTakerFee)
-                AddElementToObject(result, symbol, map[string]any {
+                var symbol interface{} = GetValue(this.Symbols, i)
+                var market interface{} = this.Market(symbol)
+                var makerFee interface{} = Ternary(IsTrue((GetValue(market, "spot"))), spotMakerFee, futuresMakerFee)
+                var takerFee interface{} = Ternary(IsTrue((GetValue(market, "spot"))), spotTakerFee, futuresTakerFee)
+                AddElementToObject(result, symbol, map[string]interface{} {
             "info": response,
             "symbol": symbol,
             "maker": this.ParseNumber(makerFee),
@@ -795,27 +795,27 @@ func  (this *OnetradingCore) FetchPrivateTradingFees(optionalArgs ...any) <- cha
             }()
             return ch
         }
-func  (this *OnetradingCore) ParseFeeTiers(feeTiers any, optionalArgs ...any) any  {
+func  (this *OnetradingCore) ParseFeeTiers(feeTiers interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var takerFees any = []any{}
-    var makerFees any = []any{}
+    var takerFees interface{} = []interface{}{}
+    var makerFees interface{} = []interface{}{}
     for i := 0; IsLessThan(i, GetArrayLength(feeTiers)); i++ {
-        var tier any = GetValue(feeTiers, i)
-        var volume any = this.SafeNumber(tier, "volume")
-        var taker any = this.SafeString(tier, "taker_fee")
-        var maker any = this.SafeString(tier, "maker_fee")
+        var tier interface{} = GetValue(feeTiers, i)
+        var volume interface{} = this.SafeNumber(tier, "volume")
+        var taker interface{} = this.SafeString(tier, "taker_fee")
+        var maker interface{} = this.SafeString(tier, "maker_fee")
         maker = Precise.StringDiv(maker, "100")
         taker = Precise.StringDiv(taker, "100")
-        AppendToArray(&makerFees, []any{volume, this.ParseNumber(maker)})
-        AppendToArray(&takerFees, []any{volume, this.ParseNumber(taker)})
+        AppendToArray(&makerFees, []interface{}{volume, this.ParseNumber(maker)})
+        AppendToArray(&takerFees, []interface{}{volume, this.ParseNumber(taker)})
     }
-    return map[string]any {
+    return map[string]interface{} {
         "maker": makerFees,
         "taker": takerFees,
     }
 }
-func  (this *OnetradingCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *OnetradingCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTicker, fetchTickers
     //
@@ -838,15 +838,15 @@ func  (this *OnetradingCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.Parse8601(this.SafeString(ticker, "time"))
-    var marketId any = this.SafeString(ticker, "instrument_code")
-    var symbol any = this.SafeSymbol(marketId, market, "_")
-    var last any = this.SafeString(ticker, "last_price")
-    var percentage any = this.SafeString(ticker, "price_change_percentage")
-    var change any = this.SafeString(ticker, "price_change")
-    var baseVolume any = this.SafeString(ticker, "base_volume")
-    var quoteVolume any = this.SafeString(ticker, "quote_volume")
-    return this.SafeTicker(map[string]any {
+    var timestamp interface{} = this.Parse8601(this.SafeString(ticker, "time"))
+    var marketId interface{} = this.SafeString(ticker, "instrument_code")
+    var symbol interface{} = this.SafeSymbol(marketId, market, "_")
+    var last interface{} = this.SafeString(ticker, "last_price")
+    var percentage interface{} = this.SafeString(ticker, "price_change_percentage")
+    var change interface{} = this.SafeString(ticker, "price_change")
+    var baseVolume interface{} = this.SafeString(ticker, "base_volume")
+    var quoteVolume interface{} = this.SafeString(ticker, "quote_volume")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": symbol,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -878,18 +878,18 @@ func  (this *OnetradingCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *OnetradingCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes8408 := (<-this.LoadMarkets())
             PanicOnError(retRes8408)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "instrument_code": GetValue(market, "id"),
             }
         
@@ -929,14 +929,14 @@ func  (this *OnetradingCore) FetchTicker(symbol any, optionalArgs ...any) <- cha
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *OnetradingCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes8778 := (<-this.LoadMarkets())
@@ -965,10 +965,10 @@ func  (this *OnetradingCore) FetchTickers(optionalArgs ...any) <- chan any {
             //         }
             //     ]
             //
-            var result any = map[string]any {}
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(response)); i++ {
-                var ticker any = this.ParseTicker(GetValue(response, i))
-                var symbol any = GetValue(ticker, "symbol")
+                var ticker interface{} = this.ParseTicker(GetValue(response, i))
+                var symbol interface{} = GetValue(ticker, "symbol")
                 AddElementToObject(result, symbol, ticker)
             }
         
@@ -988,20 +988,20 @@ func  (this *OnetradingCore) FetchTickers(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *OnetradingCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes9208 := (<-this.LoadMarkets())
             PanicOnError(retRes9208)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "instrument_code": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -1065,7 +1065,7 @@ func  (this *OnetradingCore) FetchOrderBook(symbol any, optionalArgs ...any) <- 
             //         ]
             //     }
             //
-            var timestamp any = this.Parse8601(this.SafeString(response, "time"))
+            var timestamp interface{} = this.Parse8601(this.SafeString(response, "time"))
         
             ch <- this.ParseOrderBook(response, GetValue(market, "symbol"), timestamp, "bids", "asks", "price", "amount")
             return nil
@@ -1073,7 +1073,7 @@ func  (this *OnetradingCore) FetchOrderBook(symbol any, optionalArgs ...any) <- 
             }()
             return ch
         }
-func  (this *OnetradingCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
+func  (this *OnetradingCore) ParseOHLCV(ohlcv interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "instrument_code":"BTC_EUR",
@@ -1090,25 +1090,25 @@ func  (this *OnetradingCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var granularity any = this.SafeValue(ohlcv, "granularity")
-    var unit any = this.SafeString(granularity, "unit")
-    var period any = this.SafeString(granularity, "period")
-    var units any = map[string]any {
+    var granularity interface{} = this.SafeValue(ohlcv, "granularity")
+    var unit interface{} = this.SafeString(granularity, "unit")
+    var period interface{} = this.SafeString(granularity, "period")
+    var units interface{} = map[string]interface{} {
         "MINUTES": "m",
         "HOURS": "h",
         "DAYS": "d",
         "WEEKS": "w",
         "MONTHS": "M",
     }
-    var lowercaseUnit any = this.SafeString(units, unit)
-    var timeframe any = Add(period, lowercaseUnit)
-    var durationInSeconds any = this.ParseTimeframe(timeframe)
-    var duration any = Multiply(durationInSeconds, 1000)
-    var timestamp any = this.Parse8601(this.SafeString(ohlcv, "time"))
-    var alignedTimestamp any = Multiply(duration, this.ParseToInt(Divide(timestamp, duration)))
-    var options any = this.SafeValue(this.Options, "fetchOHLCV", map[string]any {})
-    var volumeField any = this.SafeString(options, "volume", "total_amount")
-    return []any{alignedTimestamp, this.SafeNumber(ohlcv, "open"), this.SafeNumber(ohlcv, "high"), this.SafeNumber(ohlcv, "low"), this.SafeNumber(ohlcv, "close"), this.SafeNumber(ohlcv, volumeField)}
+    var lowercaseUnit interface{} = this.SafeString(units, unit)
+    var timeframe interface{} = Add(period, lowercaseUnit)
+    var durationInSeconds interface{} = this.ParseTimeframe(timeframe)
+    var duration interface{} = Multiply(durationInSeconds, 1000)
+    var timestamp interface{} = this.Parse8601(this.SafeString(ohlcv, "time"))
+    var alignedTimestamp interface{} = Multiply(duration, this.ParseToInt(Divide(timestamp, duration)))
+    var options interface{} = this.SafeValue(this.Options, "fetchOHLCV", map[string]interface{} {})
+    var volumeField interface{} = this.SafeString(options, "volume", "total_amount")
+    return []interface{}{alignedTimestamp, this.SafeNumber(ohlcv, "open"), this.SafeNumber(ohlcv, "high"), this.SafeNumber(ohlcv, "low"), this.SafeNumber(ohlcv, "close"), this.SafeNumber(ohlcv, volumeField)}
 }
 /**
  * @method
@@ -1122,9 +1122,9 @@ func  (this *OnetradingCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *OnetradingCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -1133,28 +1133,28 @@ func  (this *OnetradingCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes10508 := (<-this.LoadMarkets())
             PanicOnError(retRes10508)
-            var market any = this.Market(symbol)
-            var periodUnit any = this.SafeString(this.Timeframes, timeframe)
+            var market interface{} = this.Market(symbol)
+            var periodUnit interface{} = this.SafeString(this.Timeframes, timeframe)
             periodunitVariable := Split(periodUnit, "/");
             period := GetValue(periodunitVariable,0);
             unit := GetValue(periodunitVariable,1)
-            var durationInSeconds any = this.ParseTimeframe(timeframe)
-            var duration any = Multiply(durationInSeconds, 1000)
+            var durationInSeconds interface{} = this.ParseTimeframe(timeframe)
+            var duration interface{} = Multiply(durationInSeconds, 1000)
             if IsTrue(IsEqual(limit, nil)) {
                 limit = 1500
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "instrument_code": GetValue(market, "id"),
                 "period": period,
                 "unit": unit,
             }
             if IsTrue(IsEqual(since, nil)) {
-                var now any = this.Milliseconds()
+                var now interface{} = this.Milliseconds()
                 AddElementToObject(request, "to", this.Iso8601(now))
                 AddElementToObject(request, "from", this.Iso8601(Subtract(now, Multiply(limit, duration))))
             } else {
@@ -1171,7 +1171,7 @@ func  (this *OnetradingCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan
             //         {"instrument_code":"BTC_EUR","granularity":{"unit":"HOURS","period":1},"high":"9135.7","low":"9002.59","open":"9055.45","close":"9133.98","total_amount":"26.21919","volume":"238278.8724959","time":"2020-05-09T00:59:59.999Z","last_sequence":461521},
             //     ]
             //
-            var ohlcv any = this.SafeList(response, "candlesticks")
+            var ohlcv interface{} = this.SafeList(response, "candlesticks")
         
             ch <- this.ParseOHLCVs(ohlcv, market, timeframe, since, limit)
             return nil
@@ -1179,7 +1179,7 @@ func  (this *OnetradingCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan
             }()
             return ch
         }
-func  (this *OnetradingCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *OnetradingCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTrades (public)
     //
@@ -1220,33 +1220,33 @@ func  (this *OnetradingCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var feeInfo any = this.SafeValue(trade, "fee", map[string]any {})
+    var feeInfo interface{} = this.SafeValue(trade, "fee", map[string]interface{} {})
     trade = this.SafeValue(trade, "trade", trade)
-    var timestamp any = this.SafeInteger(trade, "trade_timestamp")
+    var timestamp interface{} = this.SafeInteger(trade, "trade_timestamp")
     if IsTrue(IsEqual(timestamp, nil)) {
         timestamp = this.Parse8601(this.SafeString(trade, "time"))
     }
-    var side any = this.SafeStringLower2(trade, "side", "taker_side")
-    var priceString any = this.SafeString(trade, "price")
-    var amountString any = this.SafeString(trade, "amount")
-    var costString any = this.SafeString(trade, "volume")
-    var marketId any = this.SafeString(trade, "instrument_code")
-    var symbol any = this.SafeSymbol(marketId, market, "_")
-    var feeCostString any = this.SafeString(feeInfo, "fee_amount")
-    var takerOrMaker any = nil
-    var fee any = nil
+    var side interface{} = this.SafeStringLower2(trade, "side", "taker_side")
+    var priceString interface{} = this.SafeString(trade, "price")
+    var amountString interface{} = this.SafeString(trade, "amount")
+    var costString interface{} = this.SafeString(trade, "volume")
+    var marketId interface{} = this.SafeString(trade, "instrument_code")
+    var symbol interface{} = this.SafeSymbol(marketId, market, "_")
+    var feeCostString interface{} = this.SafeString(feeInfo, "fee_amount")
+    var takerOrMaker interface{} = nil
+    var fee interface{} = nil
     if IsTrue(!IsEqual(feeCostString, nil)) {
-        var feeCurrencyId any = this.SafeString(feeInfo, "fee_currency")
-        var feeCurrencyCode any = this.SafeCurrencyCode(feeCurrencyId)
-        var feeRateString any = this.SafeString(feeInfo, "fee_percentage")
-        fee = map[string]any {
+        var feeCurrencyId interface{} = this.SafeString(feeInfo, "fee_currency")
+        var feeCurrencyCode interface{} = this.SafeCurrencyCode(feeCurrencyId)
+        var feeRateString interface{} = this.SafeString(feeInfo, "fee_percentage")
+        fee = map[string]interface{} {
             "cost": feeCostString,
             "currency": feeCurrencyCode,
             "rate": feeRateString,
         }
         takerOrMaker = this.SafeStringLower(feeInfo, "fee_type")
     }
-    return this.SafeTrade(map[string]any {
+    return this.SafeTrade(map[string]interface{} {
         "id": this.SafeString2(trade, "trade_id", "sequence"),
         "order": this.SafeString(trade, "order_id"),
         "timestamp": timestamp,
@@ -1262,16 +1262,16 @@ func  (this *OnetradingCore) ParseTrade(trade any, optionalArgs ...any) any  {
         "info": trade,
     }, market)
 }
-func  (this *OnetradingCore) ParseBalance(response any) any  {
-    var balances any = this.SafeValue(response, "balances", []any{})
-    var result any = map[string]any {
+func  (this *OnetradingCore) ParseBalance(response interface{}) interface{}  {
+    var balances interface{} = this.SafeValue(response, "balances", []interface{}{})
+    var result interface{} = map[string]interface{} {
         "info": response,
     }
     for i := 0; IsLessThan(i, GetArrayLength(balances)); i++ {
-        var balance any = GetValue(balances, i)
-        var currencyId any = this.SafeString(balance, "currency_code")
-        var code any = this.SafeCurrencyCode(currencyId)
-        var account any = this.Account()
+        var balance interface{} = GetValue(balances, i)
+        var currencyId interface{} = this.SafeString(balance, "currency_code")
+        var code interface{} = this.SafeCurrencyCode(currencyId)
+        var account interface{} = this.Account()
         AddElementToObject(account, "free", this.SafeString(balance, "available"))
         AddElementToObject(account, "used", this.SafeString(balance, "locked"))
         AddElementToObject(result, code, account)
@@ -1286,12 +1286,12 @@ func  (this *OnetradingCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *OnetradingCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes11928 := (<-this.LoadMarkets())
@@ -1322,8 +1322,8 @@ func  (this *OnetradingCore) FetchBalance(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OnetradingCore) ParseOrderStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *OnetradingCore) ParseOrderStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "FILLED": "open",
         "FILLED_FULLY": "closed",
         "FILLED_CLOSED": "canceled",
@@ -1337,7 +1337,7 @@ func  (this *OnetradingCore) ParseOrderStatus(status any) any  {
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *OnetradingCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *OnetradingCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // createOrder
     //
@@ -1406,23 +1406,23 @@ func  (this *OnetradingCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var rawOrder any = this.SafeValue(order, "order", order)
-    var id any = this.SafeString(rawOrder, "order_id")
-    var clientOrderId any = this.SafeString(rawOrder, "client_id")
-    var timestamp any = this.Parse8601(this.SafeString(rawOrder, "time"))
-    var rawStatus any = this.ParseOrderStatus(this.SafeString(rawOrder, "status"))
-    var status any = this.ParseOrderStatus(rawStatus)
-    var marketId any = this.SafeString(rawOrder, "instrument_code")
-    var symbol any = this.SafeSymbol(marketId, market, "_")
-    var price any = this.SafeString(rawOrder, "price")
-    var amount any = this.SafeString(rawOrder, "amount")
-    var filled any = this.SafeString(rawOrder, "filled_amount")
-    var side any = this.SafeStringLower(rawOrder, "side")
-    var typeVar any = this.SafeStringLower(rawOrder, "type")
-    var timeInForce any = this.ParseTimeInForce(this.SafeString(rawOrder, "time_in_force"))
-    var postOnly any = this.SafeValue(rawOrder, "is_post_only")
-    var rawTrades any = this.SafeValue(order, "trades", []any{})
-    return this.SafeOrder(map[string]any {
+    var rawOrder interface{} = this.SafeValue(order, "order", order)
+    var id interface{} = this.SafeString(rawOrder, "order_id")
+    var clientOrderId interface{} = this.SafeString(rawOrder, "client_id")
+    var timestamp interface{} = this.Parse8601(this.SafeString(rawOrder, "time"))
+    var rawStatus interface{} = this.ParseOrderStatus(this.SafeString(rawOrder, "status"))
+    var status interface{} = this.ParseOrderStatus(rawStatus)
+    var marketId interface{} = this.SafeString(rawOrder, "instrument_code")
+    var symbol interface{} = this.SafeSymbol(marketId, market, "_")
+    var price interface{} = this.SafeString(rawOrder, "price")
+    var amount interface{} = this.SafeString(rawOrder, "amount")
+    var filled interface{} = this.SafeString(rawOrder, "filled_amount")
+    var side interface{} = this.SafeStringLower(rawOrder, "side")
+    var typeVar interface{} = this.SafeStringLower(rawOrder, "type")
+    var timeInForce interface{} = this.ParseTimeInForce(this.SafeString(rawOrder, "time_in_force"))
+    var postOnly interface{} = this.SafeValue(rawOrder, "is_post_only")
+    var rawTrades interface{} = this.SafeValue(order, "trades", []interface{}{})
+    return this.SafeOrder(map[string]interface{} {
         "id": id,
         "clientOrderId": clientOrderId,
         "info": order,
@@ -1445,14 +1445,14 @@ func  (this *OnetradingCore) ParseOrder(order any, optionalArgs ...any) any  {
         "trades": rawTrades,
     }, market)
 }
-func  (this *OnetradingCore) ParseOrderType(typeVar any) any  {
-    var types any = map[string]any {
+func  (this *OnetradingCore) ParseOrderType(typeVar interface{}) interface{}  {
+    var types interface{} = map[string]interface{} {
         "booked": "limit",
     }
     return this.SafeString(types, typeVar, typeVar)
 }
-func  (this *OnetradingCore) ParseTimeInForce(timeInForce any) any  {
-    var timeInForces any = map[string]any {
+func  (this *OnetradingCore) ParseTimeInForce(timeInForce interface{}) interface{}  {
+    var timeInForces interface{} = map[string]interface{} {
         "GOOD_TILL_CANCELLED": "GTC",
         "GOOD_TILL_TIME": "GTT",
         "IMMEDIATE_OR_CANCELLED": "IOC",
@@ -1474,50 +1474,50 @@ func  (this *OnetradingCore) ParseTimeInForce(timeInForce any) any  {
  * @param {float} [params.triggerPrice] onetrading only does stop limit orders and does not do stop market
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OnetradingCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes13698 := (<-this.LoadMarkets())
             PanicOnError(retRes13698)
-            var market any = this.Market(symbol)
-            var uppercaseType any = ToUpper(typeVar)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var uppercaseType interface{} = ToUpper(typeVar)
+            var request interface{} = map[string]interface{} {
                 "instrument_code": GetValue(market, "id"),
                 "type": uppercaseType,
                 "side": ToUpper(side),
                 "amount": this.AmountToPrecision(symbol, amount),
             }
-            var priceIsRequired any = false
+            var priceIsRequired interface{} = false
             if IsTrue(IsTrue(IsEqual(uppercaseType, "LIMIT")) || IsTrue(IsEqual(uppercaseType, "STOP"))) {
                 priceIsRequired = true
             }
-            var triggerPrice any = this.SafeNumberN(params, []any{"triggerPrice", "trigger_price", "stopPrice"})
+            var triggerPrice interface{} = this.SafeNumberN(params, []interface{}{"triggerPrice", "trigger_price", "stopPrice"})
             if IsTrue(!IsEqual(triggerPrice, nil)) {
                 if IsTrue(IsEqual(uppercaseType, "MARKET")) {
                     panic(BadRequest(Add(this.Id, " createOrder() cannot place stop market orders, only stop limit")))
                 }
                 AddElementToObject(request, "trigger_price", this.PriceToPrecision(symbol, triggerPrice))
                 AddElementToObject(request, "type", "STOP")
-                params = this.Omit(params, []any{"triggerPrice", "trigger_price", "stopPrice"})
+                params = this.Omit(params, []interface{}{"triggerPrice", "trigger_price", "stopPrice"})
             } else if IsTrue(IsEqual(uppercaseType, "STOP")) {
                 panic(ArgumentsRequired(Add(Add(Add(this.Id, " createOrder() requires a triggerPrice param for "), typeVar), " orders")))
             }
             if IsTrue(priceIsRequired) {
                 AddElementToObject(request, "price", this.PriceToPrecision(symbol, price))
             }
-            var clientOrderId any = this.SafeString2(params, "clientOrderId", "client_id")
+            var clientOrderId interface{} = this.SafeString2(params, "clientOrderId", "client_id")
             if IsTrue(!IsEqual(clientOrderId, nil)) {
                 AddElementToObject(request, "client_id", clientOrderId)
-                params = this.Omit(params, []any{"clientOrderId", "client_id"})
+                params = this.Omit(params, []interface{}{"clientOrderId", "client_id"})
             }
-            var timeInForce any = this.SafeString2(params, "timeInForce", "time_in_force", "GOOD_TILL_CANCELLED")
+            var timeInForce interface{} = this.SafeString2(params, "timeInForce", "time_in_force", "GOOD_TILL_CANCELLED")
             params = this.Omit(params, "timeInForce")
             AddElementToObject(request, "time_in_force", timeInForce)
         
@@ -1556,29 +1556,29 @@ func  (this *OnetradingCore) CreateOrder(symbol any, typeVar any, side any, amou
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OnetradingCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes14418 := (<-this.LoadMarkets())
             PanicOnError(retRes14418)
-            var clientOrderId any = this.SafeString2(params, "clientOrderId", "client_id")
-            params = this.Omit(params, []any{"clientOrderId", "client_id"})
-            var method any = "privateDeleteAccountOrdersOrderId"
-            var request any = map[string]any {}
+            var clientOrderId interface{} = this.SafeString2(params, "clientOrderId", "client_id")
+            params = this.Omit(params, []interface{}{"clientOrderId", "client_id"})
+            var method interface{} = "privateDeleteAccountOrdersOrderId"
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(clientOrderId, nil)) {
                 method = "privateDeleteAccountOrdersClientClientId"
                 AddElementToObject(request, "client_id", clientOrderId)
             } else {
                 AddElementToObject(request, "order_id", id)
             }
-            var response any = nil
+            var response interface{} = nil
             if IsTrue(IsEqual(method, "privateDeleteAccountOrdersOrderId")) {
                 
             response = (<-this.PrivateDeleteAccountOrdersOrderId(this.Extend(request, params)))
@@ -1607,21 +1607,21 @@ func  (this *OnetradingCore) CancelOrder(id any, optionalArgs ...any) <- chan an
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OnetradingCore) CancelAllOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) CancelAllOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes14748 := (<-this.LoadMarkets())
             PanicOnError(retRes14748)
-            var request any = map[string]any {}
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(symbol, nil)) {
-                var market any = this.Market(symbol)
+                var market interface{} = this.Market(symbol)
                 AddElementToObject(request, "instrument_code", GetValue(market, "id"))
             }
         
@@ -1633,7 +1633,7 @@ func  (this *OnetradingCore) CancelAllOrders(optionalArgs ...any) <- chan any {
             //         "a10e9bd1-8f72-4cfe-9f1b-7f1c8a9bd8ee"
             //     ]
             //
-        ch <- []any{this.SafeOrder(map[string]any {
+        ch <- []interface{}{this.SafeOrder(map[string]interface{} {
             "info": response,
         })}
             return nil
@@ -1651,19 +1651,19 @@ func  (this *OnetradingCore) CancelAllOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OnetradingCore) CancelOrders(ids any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) CancelOrders(ids interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes15008 := (<-this.LoadMarkets())
             PanicOnError(retRes15008)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "ids": Join(ids, ","),
             }
         
@@ -1674,11 +1674,11 @@ func  (this *OnetradingCore) CancelOrders(ids any, optionalArgs ...any) <- chan 
             //         "a10e9bd1-8f72-4cfe-9f1b-7f1c8a9bd8ee"
             //     ]
             //
-            var order any = this.SafeOrder(map[string]any {
+            var order interface{} = this.SafeOrder(map[string]interface{} {
                 "info": response,
             })
         
-            ch <- []any{order}
+            ch <- []interface{}{order}
             return nil
         
             }()
@@ -1694,19 +1694,19 @@ func  (this *OnetradingCore) CancelOrders(ids any, optionalArgs ...any) <- chan 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OnetradingCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes15258 := (<-this.LoadMarkets())
             PanicOnError(retRes15258)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "order_id": id,
             }
         
@@ -1771,9 +1771,9 @@ func  (this *OnetradingCore) FetchOrder(id any, optionalArgs ...any) <- chan any
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OnetradingCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1782,19 +1782,19 @@ func  (this *OnetradingCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes15868 := (<-this.LoadMarkets())
             PanicOnError(retRes15868)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "instrument_code", GetValue(market, "id"))
             }
             if IsTrue(!IsEqual(since, nil)) {
-                var to any = this.SafeString(params, "to")
+                var to interface{} = this.SafeString(params, "to")
                 if IsTrue(IsEqual(to, nil)) {
                     panic(ArgumentsRequired(Add(this.Id, " fetchOpenOrders() requires a \"to\" iso8601 string param with the since argument is specified, max range is 100 days")))
                 }
@@ -1885,7 +1885,7 @@ func  (this *OnetradingCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             //         "max_page_size": 100
             //     }
             //
-            var orderHistory any = this.SafeList(response, "order_history", []any{})
+            var orderHistory interface{} = this.SafeList(response, "order_history", []interface{}{})
         
             ch <- this.ParseOrders(orderHistory, market, since, limit)
             return nil
@@ -1904,9 +1904,9 @@ func  (this *OnetradingCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OnetradingCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchClosedOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1915,9 +1915,9 @@ func  (this *OnetradingCore) FetchClosedOrders(optionalArgs ...any) <- chan any 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "with_cancelled_and_rejected": true,
             }
         
@@ -1941,9 +1941,9 @@ func  (this *OnetradingCore) FetchClosedOrders(optionalArgs ...any) <- chan any 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *OnetradingCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchOrderTrades(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1952,12 +1952,12 @@ func  (this *OnetradingCore) FetchOrderTrades(id any, optionalArgs ...any) <- ch
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes17278 := (<-this.LoadMarkets())
             PanicOnError(retRes17278)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "order_id": id,
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -1996,8 +1996,8 @@ func  (this *OnetradingCore) FetchOrderTrades(id any, optionalArgs ...any) <- ch
             //         "cursor": "string"
             //     }
             //
-            var tradeHistory any = this.SafeValue(response, "trade_history", []any{})
-            var market any = nil
+            var tradeHistory interface{} = this.SafeValue(response, "trade_history", []interface{}{})
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
             }
@@ -2019,9 +2019,9 @@ func  (this *OnetradingCore) FetchOrderTrades(id any, optionalArgs ...any) <- ch
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *OnetradingCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OnetradingCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2030,19 +2030,19 @@ func  (this *OnetradingCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes17878 := (<-this.LoadMarkets())
             PanicOnError(retRes17878)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "instrument_code", GetValue(market, "id"))
             }
             if IsTrue(!IsEqual(since, nil)) {
-                var to any = this.SafeString(params, "to")
+                var to interface{} = this.SafeString(params, "to")
                 if IsTrue(IsEqual(to, nil)) {
                     panic(ArgumentsRequired(Add(this.Id, " fetchMyTrades() requires a \"to\" iso8601 string param with the since argument is specified, max range is 100 days")))
                 }
@@ -2084,7 +2084,7 @@ func  (this *OnetradingCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             //         "cursor": "string"
             //     }
             //
-            var tradeHistory any = this.SafeList(response, "trade_history", []any{})
+            var tradeHistory interface{} = this.SafeList(response, "trade_history", []interface{}{})
         
             ch <- this.ParseTrades(tradeHistory, market, since, limit)
             return nil
@@ -2092,26 +2092,26 @@ func  (this *OnetradingCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OnetradingCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *OnetradingCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = Add(Add(Add(Add(GetValue(GetValue(this.Urls, "api"), api), "/"), this.Version), "/"), this.ImplodeParams(path, params))
-    var query any = this.Omit(params, this.ExtractParams(path))
+    var url interface{} = Add(Add(Add(Add(GetValue(GetValue(this.Urls, "api"), api), "/"), this.Version), "/"), this.ImplodeParams(path, params))
+    var query interface{} = this.Omit(params, this.ExtractParams(path))
     if IsTrue(IsEqual(api, "public")) {
         if IsTrue(GetArrayLength(ObjectKeys(query))) {
             url = Add(url, Add("?", this.Urlencode(query)))
         }
     } else if IsTrue(IsEqual(api, "private")) {
         this.CheckRequiredCredentials()
-        headers = map[string]any {
+        headers = map[string]interface{} {
             "Accept": "application/json",
             "Authorization": Add("Bearer ", this.ApiKey),
         }
@@ -2124,14 +2124,14 @@ func  (this *OnetradingCore) Sign(path any, optionalArgs ...any) any  {
             }
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *OnetradingCore) HandleErrors(code any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *OnetradingCore) HandleErrors(code interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil
     }
@@ -2140,9 +2140,9 @@ func  (this *OnetradingCore) HandleErrors(code any, reason any, url any, method 
     //     {"error":"MISSING_TO_PARAM"}
     //     {"error":"CANDLESTICKS_TIME_RANGE_TOO_BIG"}
     //
-    var message any = this.SafeString(response, "error")
+    var message interface{} = this.SafeString(response, "error")
     if IsTrue(!IsEqual(message, nil)) {
-        var feedback any = Add(Add(this.Id, " "), body)
+        var feedback interface{} = Add(Add(this.Id, " "), body)
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), message, feedback)
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), message, feedback)
         panic(ExchangeError(feedback))
@@ -2151,8 +2151,8 @@ func  (this *OnetradingCore) HandleErrors(code any, reason any, url any, method 
 }
 
 
-func (this *OnetradingCore) Init(userConfig map[string]any) {
+func (this *OnetradingCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

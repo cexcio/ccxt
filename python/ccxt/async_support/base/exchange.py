@@ -2,7 +2,7 @@
 
 # -----------------------------------------------------------------------------
 
-__version__ = '4.5.52'
+__version__ = '4.5.48'
 
 # -----------------------------------------------------------------------------
 
@@ -88,8 +88,8 @@ class Exchange(BaseExchange):
         self.markets_loading = None
         self.reloading_markets = False
 
-    async def load_lighter_library(self, path, chainId, privateKey, apiKeyIndex, accountIndex, createClient):
-        return self.load_lighter_library_helper(path, chainId, privateKey, apiKeyIndex, accountIndex, createClient)
+    async def load_lighter_library(self, path, chainId, privateKey, apiKeyIndex, accountIndex):
+        return self.load_lighter_library_helper(path, chainId, privateKey, apiKeyIndex, accountIndex)
 
     def get_event_loop(self):
         return self.asyncio_loop
@@ -486,13 +486,8 @@ class Exchange(BaseExchange):
                     missing_subscriptions.append(subscribe_hash)
                     client.subscriptions[subscribe_hash] = subscription or True
 
-        selected_session = self.session
-        # http/s proxy is being set in other places
-        httpProxy, httpsProxy, socksProxy = self.check_ws_proxy_settings()
-        if (socksProxy):
-            selected_session = self.get_socks_proxy_session(socksProxy)
         connected = client.connected if client.connected.done() \
-            else asyncio.ensure_future(client.connect(selected_session, backoff_delay))
+            else asyncio.ensure_future(client.connect(self.session, backoff_delay))
 
         def after(fut):
             # todo: decouple signing from subscriptions
@@ -1471,7 +1466,7 @@ class Exchange(BaseExchange):
         """
         if triggerPrice is None:
             raise ArgumentsRequired(self.id + ' createTriggerOrder() requires a triggerPrice argument')
-        params = self.extend(params, {'triggerPrice': triggerPrice})
+        params['triggerPrice'] = triggerPrice
         if self.has['createTriggerOrder']:
             return await self.create_order(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createTriggerOrder() is not supported yet')
@@ -1490,7 +1485,7 @@ class Exchange(BaseExchange):
         """
         if triggerPrice is None:
             raise ArgumentsRequired(self.id + ' createTriggerOrderWs() requires a triggerPrice argument')
-        params = self.extend(params, {'triggerPrice': triggerPrice})
+        params['triggerPrice'] = triggerPrice
         if self.has['createTriggerOrderWs']:
             return await self.create_order_ws(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createTriggerOrderWs() is not supported yet')
@@ -1509,7 +1504,7 @@ class Exchange(BaseExchange):
         """
         if stopLossPrice is None:
             raise ArgumentsRequired(self.id + ' createStopLossOrder() requires a stopLossPrice argument')
-        params = self.extend(params, {'stopLossPrice': stopLossPrice})
+        params['stopLossPrice'] = stopLossPrice
         if self.has['createStopLossOrder']:
             return await self.create_order(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createStopLossOrder() is not supported yet')
@@ -1528,7 +1523,7 @@ class Exchange(BaseExchange):
         """
         if stopLossPrice is None:
             raise ArgumentsRequired(self.id + ' createStopLossOrderWs() requires a stopLossPrice argument')
-        params = self.extend(params, {'stopLossPrice': stopLossPrice})
+        params['stopLossPrice'] = stopLossPrice
         if self.has['createStopLossOrderWs']:
             return await self.create_order_ws(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createStopLossOrderWs() is not supported yet')
@@ -1547,7 +1542,7 @@ class Exchange(BaseExchange):
         """
         if takeProfitPrice is None:
             raise ArgumentsRequired(self.id + ' createTakeProfitOrder() requires a takeProfitPrice argument')
-        params = self.extend(params, {'takeProfitPrice': takeProfitPrice})
+        params['takeProfitPrice'] = takeProfitPrice
         if self.has['createTakeProfitOrder']:
             return await self.create_order(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createTakeProfitOrder() is not supported yet')
@@ -1566,7 +1561,7 @@ class Exchange(BaseExchange):
         """
         if takeProfitPrice is None:
             raise ArgumentsRequired(self.id + ' createTakeProfitOrderWs() requires a takeProfitPrice argument')
-        params = self.extend(params, {'takeProfitPrice': takeProfitPrice})
+        params['takeProfitPrice'] = takeProfitPrice
         if self.has['createTakeProfitOrderWs']:
             return await self.create_order_ws(symbol, type, side, amount, price, params)
         raise NotSupported(self.id + ' createTakeProfitOrderWs() is not supported yet')
@@ -2413,6 +2408,3 @@ class Exchange(BaseExchange):
         :returns dict: a `ticker structure <https://docs.ccxt.com/?id=ticker-structure>`
         """
         raise NotSupported(self.id + ' unWatchBidsAsks() is not supported yet')
-
-    async def is_uta_enabled(self, params={}):
-        return False  # stub

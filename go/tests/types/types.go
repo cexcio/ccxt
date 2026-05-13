@@ -8,7 +8,7 @@ import (
 	"strings"
 	"sync"
 
-	ccxt "github.com/cexcio/ccxt/go/v4"
+	ccxt "github.com/ccxt/ccxt/go/v4"
 )
 
 const (
@@ -41,9 +41,9 @@ func Assert(cond bool) {
 	}
 }
 
-func JsonParse(jsonStr2 any) any {
+func JsonParse(jsonStr2 interface{}) interface{} {
 	jsonStr := jsonStr2.(string)
-	var result any
+	var result interface{}
 	err := json.Unmarshal([]byte(jsonStr), &result)
 	if err != nil {
 		return nil
@@ -63,7 +63,7 @@ func GetRootDir() string {
 	return res
 }
 
-func IoFileRead(path any, decode ...any) any {
+func IoFileRead(path interface{}, decode ...interface{}) interface{} {
 	var shouldDecode bool
 	if len(decode) > 0 {
 		shouldDecode = decode[0].(bool)
@@ -77,7 +77,7 @@ func IoFileRead(path any, decode ...any) any {
 		}
 
 		if shouldDecode {
-			var result any
+			var result interface{}
 			err := json.Unmarshal(content, &result)
 			if err != nil {
 				panic(err)
@@ -174,10 +174,10 @@ func testOrder(exchange *ccxt.Binance) {
 func testPosition(exchange *ccxt.Binance) {
 	Blue("Testing Position type")
 	file := GetRootDir() + BASE_DIR + "positions.json"
-	content := IoFileRead(file, true).([]any)
+	content := IoFileRead(file, true).([]interface{})
 
 	// parsed := exchange.ParsePositions(content) // binance has multiple parsers :/
-	parsedPositions := []any{}
+	parsedPositions := []interface{}{}
 	for _, item := range content {
 		parsed := exchange.ParsePositionRisk(item)
 		parsedPositions = append(parsedPositions, parsed)
@@ -231,7 +231,7 @@ func initExchangeOffline() *ccxt.Binance {
 	exchange := ccxt.NewBinance(nil)
 	marketsFile := GetRootDir() + "ts/src/test/static/markets/binance.json"
 	marketsContent := IoFileRead(marketsFile, true)
-	exchange.Markets = MapToSafeMap(marketsContent.(map[string]any))
+	exchange.Markets = MapToSafeMap(marketsContent.(map[string]interface{}))
 	exchange.LoadMarkets()
 	return exchange
 }
@@ -251,7 +251,7 @@ func main() {
 	Green("All tests passed")
 }
 
-func MapToSafeMap(input map[string]any) *sync.Map {
+func MapToSafeMap(input map[string]interface{}) *sync.Map {
 	var sm sync.Map
 	for k, v := range input {
 		sm.Store(k, v)
@@ -259,9 +259,9 @@ func MapToSafeMap(input map[string]any) *sync.Map {
 	return &sm
 }
 
-func SafeMapToMap(sm *sync.Map) map[string]any {
-	result := make(map[string]any)
-	sm.Range(func(key, value any) bool {
+func SafeMapToMap(sm *sync.Map) map[string]interface{} {
+	result := make(map[string]interface{})
+	sm.Range(func(key, value interface{}) bool {
 		if strKey, ok := key.(string); ok {
 			result[strKey] = value
 		}

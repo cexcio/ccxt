@@ -165,7 +165,6 @@ export default class gate extends gateRest {
      */
     unWatchOrderBook(symbol: string, params?: {}): Promise<any>;
     handleOrderBookSubscription(client: Client, message: any, subscription: any): void;
-    handleNewSpotOrderBook(client: Client, message: any): void;
     handleOrderBook(client: Client, message: any): void;
     getCacheIndex(orderBook: any, cache: any): any;
     handleBidAsks(bookSide: any, bidAsks: any): void;
@@ -375,7 +374,7 @@ export default class gate extends gateRest {
     handleUnSubscribe(client: Client, message: any): void;
     handleMessage(client: Client, message: any): void;
     getUrlByMarket(market: any): any;
-    getTypeByMarket(market: Market): "futures" | "spot" | "options";
+    getTypeByMarket(market: Market): "spot" | "futures" | "options";
     getUrlByMarketType(type: MarketType, isInverse?: boolean): any;
     getMarketTypeByUrl(url: string): any;
     requestId(): any;

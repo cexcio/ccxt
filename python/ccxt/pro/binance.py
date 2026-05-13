@@ -247,7 +247,7 @@ class binance(ccxt.async_support.binance):
         return baseUrl
 
     def get_future_ws_category(self, channel):
-        if channel == 'depth' or channel == 'rpiDepth' or channel == 'bookTicker' or channel == 'trade':
+        if channel == 'depth' or channel == 'rpiDepth' or channel == 'bookTicker' or channel == 'trade' or channel == 'aggTrade':
             return 'public'
         return 'market'
 
@@ -3283,8 +3283,6 @@ class binance(ccxt.async_support.binance):
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :returns dict[]: a list of `order structures <https://docs.ccxt.com/?id=order-structure>`
         """
-        if symbol is None:
-            raise ArgumentsRequired(self.id + ' cancelAllOrdersWs() requires a symbol argument')
         await self.load_markets()
         market = self.market(symbol)
         type = self.get_market_type('cancelAllOrdersWs', market, params)
@@ -3660,7 +3658,7 @@ class binance(ccxt.async_support.binance):
             'datetime': self.iso8601(timestamp),
             'lastTradeTimestamp': lastTradeTimestamp,
             'lastUpdateTimestamp': lastUpdateTimestamp,
-            'type': self.parseOrderTypeByMarket(self.safe_string_lower(order, 'o'), marketType),
+            'type': self.parseOrderType(self.safe_string_lower(order, 'o')),
             'timeInForce': timeInForce,
             'postOnly': None,
             'reduceOnly': self.safe_bool(order, 'R'),

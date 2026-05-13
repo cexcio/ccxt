@@ -72,7 +72,7 @@ include_once __DIR__ . '/test_encode_decode.php';
 
 function base_tests_init() {
     return Async\async(function () {
-        \React\Async\await(test_language_specific());
+        Async\await(test_language_specific());
         test_constants();
         test_after_constructor();
         test_aggregate();
@@ -121,13 +121,13 @@ function base_tests_init() {
         test_array_concat();
         test_arrays_concat();
         test_uuid();
-        \React\Async\await(test_set_markets_from_exchange());
+        Async\await(test_set_markets_from_exchange());
         test_eth_methods();
         test_keysort();
         test_implode_params();
         test_unique();
         test_urlencode_nested();
-        \React\Async\await(test_sleep());
+        Async\await(test_sleep());
         test_io();
         test_is_json_encoded_object();
         test_encode_decode();

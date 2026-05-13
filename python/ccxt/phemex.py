@@ -234,7 +234,6 @@ class phemex(Exchange, ImplicitAPI):
                         'api-data/futures/trading-fees': 5,  # ?symbol=<symbol>
                         'api-data/g-futures/trading-fees': 5,  # ?symbol=<symbol>
                         'api-data/futures/v2/tradeAccountDetail': 5,  # ?currency=<currecny>&type=<type>&limit=<limit>&offset=<offset>&start=<start>&end=<end>&withCount=<withCount>
-                        'api-data/g-futures/closedPosition': 5,
                         'g-orders/activeList': 1,  # ?symbol=<symbol>
                         'orders/activeList': 1,  # ?symbol=<symbol>
                         'exchange/order/list': 5,  # ?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>&limit=<limit>&ordStatus=<ordStatus>&withCount=<withCount>
@@ -3737,59 +3736,6 @@ class phemex(Exchange, ImplicitAPI):
             result.append(self.parse_position(position))
         return self.filter_by_array_positions(result, 'symbol', symbols, False)
 
-    def fetch_position_history(self, symbol: str, since: Int = None, limit: Int = None, params={}) -> List[Position]:
-        """
-        fetches historical positions
-
-        https://phemex-docs.github.io/#query-closed-positions
-
-        :param str symbol: unified contract symbol
-        :param int [since]: the earliest time in ms to fetch positions for
-        :param int [limit]: the maximum amount of records to fetch
-        :param dict [params]: extra parameters specific to the exchange api endpoint
-        :param int [params.until]: the latest time in ms to fetch positions for
-        :returns dict[]: a list of `position structures <https://docs.ccxt.com/?id=position-structure>`
-        """
-        self.load_markets()
-        market = self.market(symbol)
-        symbol = market['symbol']
-        request: dict = {
-            'symbol': market['id'],
-        }
-        if limit is not None:
-            request['limit'] = min(200, limit)
-        response = self.privateGetApiDataGFuturesClosedPosition(self.extend(request, params))
-        #
-        #    {
-        #        "code": "0",
-        #        "msg": "OK",
-        #        "data": [
-        #            {
-        #                "symbol": "ETHUSDT",
-        #                "currency": "USDT",
-        #                "term": "0",
-        #                "closedSizeRq": "0.09",
-        #                "side": "1",
-        #                "cumEntryValueRv": null,
-        #                "closedPnlRv": "-0.1385",
-        #                "exchangeFeeRv": "0.2561889",
-        #                "fundingFeeRv": "0",
-        #                "realizedPnlRv": "-0.3946889",
-        #                "finished": "0",
-        #                "openedTimeNs": "1777998771316",
-        #                "updatedTimeNs": "1777998802592",
-        #                "openPrice": "2372.88888889",
-        #                "closePrice": "2371.35000000",
-        #                "roi": "-0.09702738",
-        #                "leverage": "-52.5"
-        #            },
-        #        ]
-        #    }
-        #
-        data = self.safe_list(response, 'data', [])
-        positions = self.parse_positions(data, [symbol])
-        return self.filter_by_symbol_since_limit(positions, symbol, since, limit)
-
     def parse_position(self, position: dict, market: Market = None):
         #
         #    {
@@ -3862,29 +3808,6 @@ class phemex(Exchange, ImplicitAPI):
         #        "execSeq": "12112761561"
         #    }
         #
-        #
-        # fetchPositionsHistory
-        #
-        #            {
-        #                "symbol": "ETHUSDT",
-        #                "currency": "USDT",
-        #                "term": "0",
-        #                "closedSizeRq": "0.09",
-        #                "side": "1",
-        #                "cumEntryValueRv": null,
-        #                "closedPnlRv": "-0.1385",
-        #                "exchangeFeeRv": "0.2561889",
-        #                "fundingFeeRv": "0",
-        #                "realizedPnlRv": "-0.3946889",
-        #                "finished": "0",
-        #                "openedTimeNs": "1777998771316",
-        #                "updatedTimeNs": "1777998802592",
-        #                "openPrice": "2372.88888889",
-        #                "closePrice": "2371.35000000",
-        #                "roi": "-0.09702738",  # todo: check if percentage or not
-        #                "leverage": "-52.5"
-        #            },
-        #
         marketId = self.safe_string(position, 'symbol')
         market = self.safe_market(marketId, market)
         symbol = market['symbol']
@@ -3896,16 +3819,15 @@ class phemex(Exchange, ImplicitAPI):
         initialMarginPercentageString = Precise.string_div(initialMarginString, notionalString)
         liquidationPrice = self.safe_number_2(position, 'liquidationPrice', 'liquidationPriceRp')
         markPriceString = self.safe_string_2(position, 'markPrice', 'markPriceRp')
-        contracts = self.safe_string_n(position, ['size', 'sizeRq', 'closedSizeRq'])
+        contracts = self.safe_string_2(position, 'size', 'sizeRq')
         contractSize = self.safe_value(market, 'contractSize')
         contractSizeString = self.number_to_string(contractSize)
         leverage = self.parse_number(Precise.string_abs((self.safe_string_2(position, 'leverage', 'leverageRr'))))
-        entryPriceString = self.safe_string_n(position, ['avgEntryPrice', 'avgEntryPriceRp', 'openPrice'])
+        entryPriceString = self.safe_string_2(position, 'avgEntryPrice', 'avgEntryPriceRp')
         rawSide = self.safe_string(position, 'side')
         side = None
         if rawSide is not None:
-            isLong = (rawSide == 'Buy' or rawSide == '1')
-            side = 'long' if isLong else 'short'
+            side = 'long' if (rawSide == 'Buy') else 'short'
         # Inverse long contract: unRealizedPnl = (posSize * contractSize) / avgEntryPrice - (posSize * contractSize) / markPrice
         # Inverse short contract: unRealizedPnl =  (posSize *contractSize) / markPrice - (posSize * contractSize) / avgEntryPrice
         # Linear long contract:  unRealizedPnl = (posSize * contractSize) * markPrice - (posSize * contractSize) * avgEntryPrice
@@ -3927,15 +3849,13 @@ class phemex(Exchange, ImplicitAPI):
         apiUnrealizedPnl = self.safe_string(position, 'unRealisedPnlRv', unrealizedPnl)
         marginRatio = Precise.string_div(maintenanceMarginString, collateral)
         isCross = self.safe_value(position, 'crossMargin')
-        timestamp = self.safe_integer(position, 'openedTimeNs')
-        lastUpdateTimestamp = self.safe_integer(position, 'updatedTimeNs', self.safe_integer_product(position, 'transactTimeNs', 0.000001))
         return self.safe_position({
             'info': position,
             'id': self.safe_string(position, 'execSeq'),
             'symbol': symbol,
             'contracts': self.parse_number(contracts),
             'contractSize': contractSize,
-            'realizedPnl': self.safe_number_2(position, 'curTermRealisedPnlRv', 'realizedPnlRv'),
+            'realizedPnl': self.safe_number(position, 'curTermRealisedPnlRv'),
             'unrealizedPnl': self.parse_number(apiUnrealizedPnl),
             'leverage': leverage,
             'liquidationPrice': liquidationPrice,
@@ -3944,15 +3864,14 @@ class phemex(Exchange, ImplicitAPI):
             'markPrice': self.parse_number(markPriceString),  # markPrice lags a bit ¯\_(ツ)_/¯
             'lastPrice': None,
             'entryPrice': self.parse_number(entryPriceString),
-            'exitPrice': self.safe_number(position, 'closePrice'),
-            'lastUpdateTimestamp': lastUpdateTimestamp,
+            'timestamp': None,
+            'lastUpdateTimestamp': self.safe_integer_product(position, 'transactTimeNs', 0.000001),
             'initialMargin': self.parse_number(initialMarginString),
             'initialMarginPercentage': self.parse_number(initialMarginPercentageString),
             'maintenanceMargin': self.parse_number(maintenanceMarginString),
             'maintenanceMarginPercentage': self.parse_number(maintenanceMarginPercentageString),
             'marginRatio': self.parse_number(marginRatio),
-            'timestamp': timestamp,
-            'datetime': self.iso8601(timestamp),
+            'datetime': None,
             'marginMode': 'cross' if isCross else 'isolated',
             'side': side,
             'hedged': self.safe_string(position, 'posMode') == 'Hedged',

@@ -818,8 +818,7 @@ class bullish extends Exchange {
                 $expiryDatetime = $this->safe_string($market, 'expiryDatetime');
                 $idParts = explode('-', $id);
                 $datePart = $this->safe_string($idParts, 2);
-                $dateYmd = mb_substr($datePart, 2);
-                $symbol .= '-' . $dateYmd;
+                $symbol .= '-' . $datePart;
                 if ($type === 'future') {
                     $future = true;
                 } elseif ($type === 'option') {

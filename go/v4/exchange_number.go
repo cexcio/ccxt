@@ -32,7 +32,7 @@ var precisionConstants = map[string]int{
 	"PAD_WITH_ZERO":      PAD_WITH_ZERO,
 }
 
-func (this *Exchange) NumberToString(x any) any {
+func (this *Exchange) NumberToString(x interface{}) interface{} {
 	res := NumberToString(x)
 	if res == "" {
 		return nil
@@ -40,7 +40,7 @@ func (this *Exchange) NumberToString(x any) any {
 	return res
 }
 
-func NumberToString(x any) string {
+func NumberToString(x interface{}) string {
 	switch v := x.(type) {
 	case nil:
 		return ""
@@ -96,7 +96,7 @@ func NumberToString(x any) string {
 	}
 }
 
-func (this *Exchange) NumberToString2(x any) string {
+func (this *Exchange) NumberToString2(x interface{}) string {
 	switch v := x.(type) {
 	case nil:
 		return ""
@@ -130,7 +130,7 @@ func (this *Exchange) NumberToString2(x any) string {
 	}
 }
 
-// func (this *Exchange) NumberToString(x any) string {
+// func (this *Exchange) NumberToString(x interface{}) string {
 // 	switch v := x.(type) {
 // 	case nil:
 // 		return ""
@@ -165,7 +165,7 @@ func (this *Exchange) NumberToString2(x any) string {
 
 var truncateRegExpCache = make(map[int]*regexp.Regexp)
 
-func (this *Exchange) truncateToString(num any, precision int) string {
+func (this *Exchange) truncateToString(num interface{}, precision int) string {
 	numStr := NumberToString(num)
 	if precision > 0 {
 		re, exists := truncateRegExpCache[precision]
@@ -189,12 +189,12 @@ func (this *Exchange) truncateToString(num any, precision int) string {
 	return strconv.Itoa(intNum)
 }
 
-func (this *Exchange) truncate(num any, precision int) float64 {
+func (this *Exchange) truncate(num interface{}, precision int) float64 {
 	result, _ := strconv.ParseFloat(this.truncateToString(num, precision), 64)
 	return result
 }
 
-func (this *Exchange) PrecisionFromString(str2 any) int {
+func (this *Exchange) PrecisionFromString(str2 interface{}) int {
 	str := str2.(string)
 	if strings.ContainsAny(str, "eE") {
 		numStr := regexp.MustCompile(`\d\.?\d*[eE]`).ReplaceAllString(str, "")
@@ -224,13 +224,13 @@ func roundToDecimalPlaces(num float64, decimalPlaces int) float64 {
 	return math.Round(num*shift) / shift
 }
 
-func (this *Exchange) DecimalToPrecision(value any, roundingMode any, numPrecisionDigits any, args ...any) any {
+func (this *Exchange) DecimalToPrecision(value interface{}, roundingMode interface{}, numPrecisionDigits interface{}, args ...interface{}) interface{} {
 	countingMode := GetArg(args, 0, nil)
 	paddingMode := GetArg(args, 1, nil)
 	return this._decimalToPrecision(value, roundingMode, numPrecisionDigits, countingMode, paddingMode)
 }
 
-func (this *Exchange) _decimalToPrecision(x any, roundingMode2, numPrecisionDigits2 any, countmode2, paddingMode any) string {
+func (this *Exchange) _decimalToPrecision(x interface{}, roundingMode2, numPrecisionDigits2 interface{}, countmode2, paddingMode interface{}) string {
 	if countmode2 == nil {
 		countmode2 = DECIMAL_PLACES
 	}
@@ -489,7 +489,7 @@ func (this *Exchange) _decimalToPrecision(x any, roundingMode2, numPrecisionDigi
 	return string(outArray)
 }
 
-// func (this *Exchange) _decimalToPrecision(x any, roundingMode any, numPrecisionDigits2 any, countingMode2 any, paddingMode2 any) string {
+// func (this *Exchange) _decimalToPrecision(x interface{}, roundingMode interface{}, numPrecisionDigits2 interface{}, countingMode2 interface{}, paddingMode2 interface{}) string {
 // 	countingMode := countingMode2.(int)
 // 	paddingMode := paddingMode2.(int)
 // 	numPrecisionDigits := numPrecisionDigits2

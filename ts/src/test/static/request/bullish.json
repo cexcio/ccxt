@@ -334,13 +334,6 @@
         ],
         "fetchMarkets": [
             {
-                "description": "default",
-                "method": "fetchMarkets",
-                "url": "https://api.exchange.bullish.com/trading-api/v1/markets",
-                "input": [],
-                "output": null
-            },
-            {
                 "description": "Fetch markets",
                 "method": "fetchMarkets",
                 "url": "https://api.simnext.bullish-test.com/trading-api/v1/markets",

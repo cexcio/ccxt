@@ -314,7 +314,6 @@ interface kucoin {
     utaGetMarketPositionTiers(params?: {}): Promise<implicitReturnType>;
     utaGetMarketOpenInterest(params?: {}): Promise<implicitReturnType>;
     utaGetServerStatus(params?: {}): Promise<implicitReturnType>;
-    utaGetMarketBorrowableCurrency(params?: {}): Promise<implicitReturnType>;
     utaPrivateGetMarketOrderbook(params?: {}): Promise<implicitReturnType>;
     utaPrivateGetAccountBalance(params?: {}): Promise<implicitReturnType>;
     utaPrivateGetAccountTransferQuota(params?: {}): Promise<implicitReturnType>;
@@ -336,9 +335,6 @@ interface kucoin {
     utaPrivateGetSubAccountBalance(params?: {}): Promise<implicitReturnType>;
     utaPrivateGetUserFeeRate(params?: {}): Promise<implicitReturnType>;
     utaPrivateGetDcpQuery(params?: {}): Promise<implicitReturnType>;
-    utaPrivateGetUnifiedAccountLeverage(params?: {}): Promise<implicitReturnType>;
-    utaPrivateGetPositionFundingHistory(params?: {}): Promise<implicitReturnType>;
-    utaPrivateGetAccountInterestLimits(params?: {}): Promise<implicitReturnType>;
     utaPrivatePostAccountTransfer(params?: {}): Promise<implicitReturnType>;
     utaPrivatePostAccountMode(params?: {}): Promise<implicitReturnType>;
     utaPrivatePostAccountModeAccountModifyLeverage(params?: {}): Promise<implicitReturnType>;
@@ -349,7 +345,6 @@ interface kucoin {
     utaPrivatePostAccountModeOrderCancelAll(params?: {}): Promise<implicitReturnType>;
     utaPrivatePostSubAccountCanTransferOut(params?: {}): Promise<implicitReturnType>;
     utaPrivatePostDcpSet(params?: {}): Promise<implicitReturnType>;
-    utaPrivatePostAccountModeAccountModifyLeverageMarginCross(params?: {}): Promise<implicitReturnType>;
 }
 declare abstract class kucoin extends _kucoin {
 }

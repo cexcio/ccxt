@@ -44,7 +44,7 @@ use BN\BN;
 use Sop\ASN1\Type\UnspecifiedType;
 use Exception;
 
-$version = '4.5.52';
+$version = '4.5.48';
 
 // rounding mode
 const TRUNCATE = 0;
@@ -63,7 +63,7 @@ const PAD_WITH_ZERO = 6;
 
 class Exchange {
 
-    const VERSION = '4.5.52';
+    const VERSION = '4.5.48';
 
     private static $base58_alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
     private static $base58_encoder = null;
@@ -76,7 +76,7 @@ class Exchange {
     public $curl_reset = true;
     public $curl_close = false;
 
-    public $id = 'Exchange';
+    public $id = null;
 
     public $validateServerSsl = true;
     public $validateClientSsl = false;
@@ -131,7 +131,13 @@ class Exchange {
     public $quoteJsonNumbers = true; // treat numbers in json as quoted precise strings
 
     public $name = null;
-    public $status = null;
+    public $status = array(
+        'status' => 'ok',
+        'updated' => null,
+        'eta' => null,
+        'url' => null,
+        'info' => null,
+    );
     public $countries = null;
     public $version = null;
     public $certified = false; // if certified by the CCXT dev team
@@ -182,7 +188,13 @@ class Exchange {
         ),
     );
 
-    public $precision = null;
+    public $precision = array(
+        'amount'=> null,
+        'price'=> null,
+        'cost'=> null,
+        'base'=> null,
+        'quote'=> null,
+    );
     public $liquidations = null;
     public $orders = null;
     public $triggerOrders = null;
@@ -193,15 +205,11 @@ class Exchange {
     public $positions = null;
     public $ohlcvs = array();
     public $exceptions = array();
-    public $accounts = null;
-    public $accountsById = null;
+    public $accounts = array();
+    public $accountsById = array();
 
     public $limits = array(
-        'leverage' => array(
-            'min' => null,
-            'max' => null,
-        ),
-        'amount' => array(
+        'cost' => array(
             'min' => null,
             'max' => null,
         ),
@@ -209,7 +217,11 @@ class Exchange {
             'min' => null,
             'max' => null,
         ),
-        'cost' => array(
+        'amount' => array(
+            'min' => null,
+            'max' => null,
+        ),
+        'leverage' => array(
             'min' => null,
             'max' => null,
         ),
@@ -242,18 +254,17 @@ class Exchange {
         '511' => 'AuthenticationError',
     );
     public $verbose = false;
+    public $apiKey = '';
+    public $secret = '';
+    public $password = '';
+    public $login = '';
+    public $uid = '';
+    public $accountId = null;
+    public $privateKey = '';
+    public $walletAddress = '';
+    public $token = ''; // reserved for HTTP auth in some cases
 
-    public $apiKey;
-    public $secret;
-    public $password;
-    public $login;
-    public $uid;
-    public $accountId;
-    public $privateKey;
-    public $walletAddress;
-    public $token; // reserved for HTTP auth in some cases
-    public $twofa;
-
+    public $twofa = null;
     public $markets_by_id = null;
     public $currencies_by_id = null;
     public $minFundingAddressLength = 1; // used in check_address
@@ -279,7 +290,7 @@ class Exchange {
 
     // API methods metainfo
     public $has = array();
-    public $features = null;
+    public $features = array();
 
     public $precisionMode = DECIMAL_PLACES;
     public $paddingMode = NO_PADDING;
@@ -304,11 +315,13 @@ class Exchange {
     public $last_request_body = null;
     public $last_request_url = null;
 
+    public $requiresWeb3 = false;
     public $requiresEddsa = false;
     public $rateLimit = 2000;
 
     public $commonCurrencies = array(
         'XBT' => 'BTC',
+        'BCC' => 'BCH',
         'BCHSV' => 'BSV',
     );
 
@@ -432,7 +445,6 @@ class Exchange {
         'toobit',
         'upbit',
         'wavesexchange',
-        'weex',
         'whitebit',
         'woo',
         'woofipro',
@@ -1488,38 +1500,25 @@ class Exchange {
         return true;
     }
 
-    public function load_lighter_library_helper($path, $chainId, $privateKey, $apiKeyIndex, $accountIndex, $createClient = false) {
+    public function load_lighter_library_helper($path, $chainId, $privateKey, $apiKeyIndex, $accountIndex) {
         if ($path == null || $path == '') {
             throw new ExchangeError($this->id . ' load_lighter_library() requires a path to the lighter library. You can find it here https://github.com/elliottech/lighter-python/tree/main/lighter/signers. Please download the appropriate library for your system and provide the path to it.\nExample: exchange.options["libraryPath"] = "path/to/lighter-signer-linux-arm64.so"');
         }
         $lighterSigner = Signer::getInstance($path);
 
-        if ($createClient) {
-            $this->lighter_create_client(
-                $lighterSigner,
-                $chainId,
-                $privateKey,
-                $apiKeyIndex,
-                $accountIndex
-            );
-        }
-        return $lighterSigner;
-    }
-
-    public function lighter_create_client($signer, $chainId, $privateKey, $apiKeyIndex, $accountIndex) {
         $url = $this->implode_hostname($this->urls['api']['public']);
-        $signer->createClient(
+        $lighterSigner->createClient(
             $url,
             $privateKey,
             $chainId,
             $apiKeyIndex,
             $accountIndex
         );
-        return $signer;
+        return $lighterSigner;
     }
 
-    public function load_lighter_library($path, $chainId, $privateKey, $apiKeyIndex, $accountIndex, $createClient = false) {
-        return $this->load_lighter_library_helper($path, $chainId, $privateKey, $apiKeyIndex, $accountIndex, $createClient);
+    public function load_lighter_library($path, $chainId, $privateKey, $apiKeyIndex, $accountIndex) {
+        return $this->load_lighter_library_helper($path, $chainId, $privateKey, $apiKeyIndex, $accountIndex);
     }
 
     public function lighter_sign_create_grouped_orders($signer, $request) {
@@ -1542,10 +1541,6 @@ class Exchange {
         $result = $signer->signCreateGroupedOrders(
             $request['grouping_type'],
             $orders_arr,
-            $request['integrator_account_index'],
-            $request['integrator_taker_fee'],
-            $request['integrator_maker_fee'],
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
@@ -1565,10 +1560,6 @@ class Exchange {
             $request['reduce_only'],
             $request['trigger_price'],
             $request['order_expiry'],
-            $request['integrator_account_index'],
-            $request['integrator_taker_fee'],
-            $request['integrator_maker_fee'],
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
@@ -1580,7 +1571,6 @@ class Exchange {
         $result = $signer->signCancelOrder(
             $request['market_index'],
             $request['order_index'],
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
@@ -1593,7 +1583,6 @@ class Exchange {
             $request['asset_index'],
             $request['route_type'],
             $request['amount'],
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
@@ -1603,7 +1592,6 @@ class Exchange {
 
     public function lighter_sign_create_sub_account($signer, $request) {
         $result = $signer->signCreateSubAccount(
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
@@ -1615,7 +1603,6 @@ class Exchange {
         $result = $signer->signCancelAllOrders(
             $request['time_in_force'],
             $request['time'],
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
@@ -1630,7 +1617,6 @@ class Exchange {
             $request['base_amount'],
             $request['price'],
             $request['trigger_price'],
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
@@ -1647,7 +1633,6 @@ class Exchange {
             $request['amount'],
             $request['usdc_fee'],
             $request['memo'],
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
@@ -1660,7 +1645,6 @@ class Exchange {
             $request['market_index'],
             $request['initial_margin_fraction'],
             $request['margin_mode'],
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
@@ -1682,44 +1666,11 @@ class Exchange {
             $request['market_index'],
             $request['usdc_amount'],
             $request['direction'],
-            true, // skip nonce
             $request['nonce'],
             $request['api_key_index'],
             $request['account_index']
         );
         return [ $result['txType'], $result['txInfo'] ];
-    }
-
-    public function lighter_sign_approve_integrator($signer, $request) {
-        $result = $signer->signApproveIntegrator(
-            $request['integrator_account_index'],
-            $request['integrator_taker_fee'],
-            $request['integrator_maker_fee'],
-            $request['integrator_taker_fee'],
-            $request['integrator_maker_fee'],
-            $request['approval_expiry'],
-            True, # skip nonce
-            $request['nonce'],
-            $request['api_key_index'],
-            $request['account_index'],
-        );
-        return [ $result['txType'], $result['txInfo'], $result['messageToSign'] ];
-    }
-
-    public function lighter_generate_api_key($signer) {
-        $result = $signer->generateAPIKey();
-        return [ $result['privateKey'], $result['publicKey'] ];
-    }
-
-    public function lighter_sign_change_pubkey($signer, $request) {
-        $result = $signer->signChangePubKey(
-            $request['pubkey'],
-            True, # skip nonce
-            $request['nonce'],
-            $request['api_key_index'],
-            $request['account_index'],
-        );
-        return [ $result['txType'], $result['txInfo'], $result['messageToSign'] ];
     }
 
     public function packb($data) {
@@ -2773,16 +2724,15 @@ class Exchange {
 
     public function describe(): mixed {
         return array(
-            'id' => $this->id,
-            'name' => $this->name,
-            'countries' => $this->countries,
-            'enableRateLimit' => $this->enableRateLimit,
-            'rateLimit' => $this->rateLimit, // milliseconds = seconds * 1000
-            'rateLimiterAlgorithm' => $this->rateLimiterAlgorithm,
+            'id' => null,
+            'name' => null,
+            'countries' => null,
+            'enableRateLimit' => true,
+            'rateLimit' => 2000, // milliseconds = seconds * 1000
             'timeout' => $this->timeout, // milliseconds = seconds * 1000
-            'certified' => $this->certified, // if certified by the CCXT dev team
-            'pro' => $this->pro, // if it is integrated with CCXT Pro for WebSocket support
-            'alias' => $this->alias, // whether this exchange is an alias to another exchange
+            'certified' => false, // if certified by the CCXT dev team
+            'pro' => false, // if it is integrated with CCXT Pro for WebSocket support
+            'alias' => false, // whether this exchange is an alias to another exchange
             'dex' => false,
             'has' => array(
                 'publicAPI' => true,
@@ -3028,12 +2978,9 @@ class Exchange {
             'urls' => array(
                 'logo' => null,
                 'api' => null,
-                'test' => null,
                 'www' => null,
                 'doc' => null,
-                'api_management' => null,
                 'fees' => null,
-                'referral' => null,
             ),
             'api' => null,
             'requiredCredentials' => array(
@@ -3070,7 +3017,6 @@ class Exchange {
                 'updated' => null,
                 'eta' => null,
                 'url' => null,
-                'info' => null,
             ),
             'exceptions' => null,
             'httpExceptions' => array(
@@ -3161,7 +3107,7 @@ class Exchange {
         if ($value === null) {
             return $defaultValue;
         }
-        if ($this->is_dictionary($value)) {
+        if ((gettype($value) === 'array') && (gettype($value) !== 'array' || array_keys($value) !== array_keys(array_keys($value)))) {
             return $value;
         }
         return $defaultValue;
@@ -3177,7 +3123,7 @@ class Exchange {
         if ($value === null) {
             return $defaultValue;
         }
-        if ($this->is_dictionary($value)) {
+        if ((gettype($value) === 'array') && (gettype($value) !== 'array' || array_keys($value) !== array_keys(array_keys($value)))) {
             return $value;
         }
         return $defaultValue;
@@ -3206,10 +3152,6 @@ class Exchange {
             return $value;
         }
         return $defaultValue;
-    }
-
-    public function is_dictionary(mixed $value) {
-        return ($value !== null) && (gettype($value) === 'array') && (gettype($value) !== 'array' || array_keys($value) !== array_keys(array_keys($value)));
     }
 
     public function safe_list_2($dictionaryOrList, int|string $key1, string $key2, ?array $defaultValue = null) {
@@ -4143,7 +4085,7 @@ class Exchange {
         /**
          * this method is a very deterministic to help users to know what feature is supported by the exchange
          * @param {string} [$symbol] unified $symbol
-         * @param {string} [$methodName] view currently supported methods => https://docs.ccxt.com/README?id=features
+         * @param {string} [$methodName] view currently supported methods => https://docs.ccxt.com/#/README?id=features
          * @param {string} [$paramName] unified param value, like => `triggerPrice`, `stopLoss.triggerPrice` (check docs for supported param names)
          * @param {array} [$defaultValue] return default value if no result found
          * @return {array} returns feature value
@@ -4157,7 +4099,7 @@ class Exchange {
          * this method is a very deterministic to help users to know what feature is supported by the exchange
          * @param {string} [$marketType] supported only => "spot", "swap", "future"
          * @param {string} [$subType] supported only => "linear", "inverse"
-         * @param {string} [$methodName] view currently supported methods => https://docs.ccxt.com/README?id=features
+         * @param {string} [$methodName] view currently supported methods => https://docs.ccxt.com/#/README?id=features
          * @param {string} [$paramName] unified param value (check docs for supported param names)
          * @param {array} [$defaultValue] return default value if no result found
          * @return {array} returns feature value
@@ -7131,7 +7073,7 @@ class Exchange {
         if ($triggerPrice === null) {
             throw new ArgumentsRequired($this->id . ' createTriggerOrder() requires a $triggerPrice argument');
         }
-        $params = $this->extend($params, array( 'triggerPrice' => $triggerPrice ));
+        $params['triggerPrice'] = $triggerPrice;
         if ($this->has['createTriggerOrder']) {
             return $this->create_order($symbol, $type, $side, $amount, $price, $params);
         }
@@ -7153,7 +7095,7 @@ class Exchange {
         if ($triggerPrice === null) {
             throw new ArgumentsRequired($this->id . ' createTriggerOrderWs() requires a $triggerPrice argument');
         }
-        $params = $this->extend($params, array( 'triggerPrice' => $triggerPrice ));
+        $params['triggerPrice'] = $triggerPrice;
         if ($this->has['createTriggerOrderWs']) {
             return $this->create_order_ws($symbol, $type, $side, $amount, $price, $params);
         }
@@ -7175,7 +7117,7 @@ class Exchange {
         if ($stopLossPrice === null) {
             throw new ArgumentsRequired($this->id . ' createStopLossOrder() requires a $stopLossPrice argument');
         }
-        $params = $this->extend($params, array( 'stopLossPrice' => $stopLossPrice ));
+        $params['stopLossPrice'] = $stopLossPrice;
         if ($this->has['createStopLossOrder']) {
             return $this->create_order($symbol, $type, $side, $amount, $price, $params);
         }
@@ -7197,7 +7139,7 @@ class Exchange {
         if ($stopLossPrice === null) {
             throw new ArgumentsRequired($this->id . ' createStopLossOrderWs() requires a $stopLossPrice argument');
         }
-        $params = $this->extend($params, array( 'stopLossPrice' => $stopLossPrice ));
+        $params['stopLossPrice'] = $stopLossPrice;
         if ($this->has['createStopLossOrderWs']) {
             return $this->create_order_ws($symbol, $type, $side, $amount, $price, $params);
         }
@@ -7219,7 +7161,7 @@ class Exchange {
         if ($takeProfitPrice === null) {
             throw new ArgumentsRequired($this->id . ' createTakeProfitOrder() requires a $takeProfitPrice argument');
         }
-        $params = $this->extend($params, array( 'takeProfitPrice' => $takeProfitPrice ));
+        $params['takeProfitPrice'] = $takeProfitPrice;
         if ($this->has['createTakeProfitOrder']) {
             return $this->create_order($symbol, $type, $side, $amount, $price, $params);
         }
@@ -7241,7 +7183,7 @@ class Exchange {
         if ($takeProfitPrice === null) {
             throw new ArgumentsRequired($this->id . ' createTakeProfitOrderWs() requires a $takeProfitPrice argument');
         }
-        $params = $this->extend($params, array( 'takeProfitPrice' => $takeProfitPrice ));
+        $params['takeProfitPrice'] = $takeProfitPrice;
         if ($this->has['createTakeProfitOrderWs']) {
             return $this->create_order_ws($symbol, $type, $side, $amount, $price, $params);
         }
@@ -7711,7 +7653,7 @@ class Exchange {
     }
 
     public function handle_withdraw_tag_and_params($tag, $params) {
-        if ($this->is_dictionary($tag)) {
+        if (($tag !== null) && (gettype($tag) === 'array')) {
             $params = $this->extend($tag, $params);
             $tag = null;
         }
@@ -7777,7 +7719,7 @@ class Exchange {
             return null;
         }
         $market = $this->market($symbol);
-        return $this->decimal_to_precision($cost, TRUNCATE, $this->safe_string_2($market['precision'], 'cost', 'price'), $this->precisionMode, $this->paddingMode);
+        return $this->decimal_to_precision($cost, TRUNCATE, $market['precision']['price'], $this->precisionMode, $this->paddingMode);
     }
 
     public function price_to_precision(string $symbol, $price) {
@@ -9599,9 +9541,5 @@ class Exchange {
             return ($ms / $second) . 's';
         }
         return '';
-    }
-
-    public function is_uta_enabled($params = array ()) {
-        return false; // stub
     }
 }

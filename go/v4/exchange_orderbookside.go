@@ -43,30 +43,30 @@ func init() {
 }
 
 type IOrderBookSide interface {
-	Store(price any, size any) error
-	StoreArray(delta any)
+	Store(price interface{}, size interface{}) error
+	StoreArray(delta interface{})
 	Limit()
 	Len() int
 	SetLen(length int)
-	GetData() [][]any
-	GetDataCopy() [][]any
-	SetData(data [][]any)
+	GetData() [][]interface{}
+	GetDataCopy() [][]interface{}
+	SetData(data [][]interface{})
 	GetIndex() *[]float64
 	String() string
 	SetDepth(depth int)
-	GetValue(key string, defaultValue any) any
+	GetValue(key string, defaultValue interface{}) interface{}
 }
 
 type OrderBookSide struct {
-	Data   [][]any      `json:"data"` // equivalent to extending Array
-	Index  []float64    `json:"-"`    // string-keyed dictionary of price levels / ids / indices
-	Depth  int          `json:"-"`    // depth limit
-	Length int          `json:"-"`    // current Length
-	Side   bool         `json:"-"`    // false is asks, true is bids
-	Mutex  sync.RWMutex `json:"-"`    // protects concurrent access
+	Data   [][]interface{} `json:"data"` // equivalent to extending Array
+	Index  []float64       `json:"-"`    // string-keyed dictionary of price levels / ids / indices
+	Depth  int             `json:"-"`    // depth limit
+	Length int             `json:"-"`    // current Length
+	Side   bool            `json:"-"`    // false is asks, true is bids
+	Mutex  sync.RWMutex    `json:"-"`    // protects concurrent access
 }
 
-func (obs *OrderBookSide) GetValue(key string, defaultValue any) any {
+func (obs *OrderBookSide) GetValue(key string, defaultValue interface{}) interface{} {
 	switch key {
 	case "Data":
 		return obs.Data
@@ -83,10 +83,10 @@ func (obs *OrderBookSide) GetValue(key string, defaultValue any) any {
 	}
 }
 
-func NewOrderBookSide(side bool, deltas any, depth any) *OrderBookSide {
+func NewOrderBookSide(side bool, deltas interface{}, depth interface{}) *OrderBookSide {
 
 	orderBookSide := &OrderBookSide{
-		Data:   make([][]any, 0),
+		Data:   make([][]interface{}, 0),
 		Index:  make([]float64, len(SEED)),
 		Length: 0,
 		Depth:  math.MaxInt32,
@@ -96,7 +96,7 @@ func NewOrderBookSide(side bool, deltas any, depth any) *OrderBookSide {
 	return result.(*OrderBookSide)
 }
 
-func Init(obs IOrderBookSide, deltas any, depth any) IOrderBookSide {
+func Init(obs IOrderBookSide, deltas interface{}, depth interface{}) IOrderBookSide {
 	copy(*obs.GetIndex(), SEED)
 
 	// Set depth
@@ -127,26 +127,26 @@ func Init(obs IOrderBookSide, deltas any, depth any) IOrderBookSide {
 			// 		iobs.SetLen(i)
 			// 	}
 			original := (d.GetData())[i]
-			deltaCopy := append([]any(nil), original...)
+			deltaCopy := append([]interface{}(nil), original...)
 			obs.StoreArray(deltaCopy)
 		}
-	case [][]any:
+	case [][]interface{}:
 		for i := 0; i < len(d); i++ {
 			// 	if iobs, ok := obs.(*IndexedOrderBookSide); ok {
 			// 		iobs.SetLen(i)
 			// 	}
 			original := d[i]
-			deltaCopy := append([]any(nil), original...)
+			deltaCopy := append([]interface{}(nil), original...)
 			obs.StoreArray(deltaCopy)
 		}
-	case []any:
+	case []interface{}:
 		for i := 0; i < len(d); i++ {
 			// if iobs, ok := obs.(*IndexedOrderBookSide); ok {
 			// 	iobs.SetLen(i)
 			// }
 			original := d[i]
-			if originalArray, ok := original.([]any); ok {
-				deltaCopy := append([]any(nil), originalArray...)
+			if originalArray, ok := original.([]interface{}); ok {
+				deltaCopy := append([]interface{}(nil), originalArray...)
 				obs.StoreArray(deltaCopy)
 			}
 			//     panic(fmt.Sprintf("NewOrderBookSide: invalid delta type %v", reflect.TypeOf(original)))
@@ -156,14 +156,14 @@ func Init(obs IOrderBookSide, deltas any, depth any) IOrderBookSide {
 	return obs
 }
 
-func (obs *OrderBookSide) StoreArray(delta any) {
+func (obs *OrderBookSide) StoreArray(delta interface{}) {
 
 	obs.Mutex.Lock()
 	defer obs.Mutex.Unlock()
 
 	deltaArray, isArray := delta.([]float64)
 	deltaOB, isOB := delta.(IOrderBookSide)
-	deltaInterface, isInterface := delta.([]any)
+	deltaInterface, isInterface := delta.([]interface{})
 	var price float64
 	var size float64
 	if isArray {
@@ -200,9 +200,9 @@ func (obs *OrderBookSide) StoreArray(delta any) {
 			obs.Data = append(obs.Data, nil)
 			copy(obs.Data[index+1:], obs.Data[index:obs.Len()-1])
 			if isArray {
-				obs.Data[index] = []any{deltaArray[0], deltaArray[1]}
+				obs.Data[index] = []interface{}{deltaArray[0], deltaArray[1]}
 			} else if isOB {
-				obs.Data[index] = []any{(deltaOB.GetData())[0][0], (deltaOB.GetData())[0][1]}
+				obs.Data[index] = []interface{}{(deltaOB.GetData())[0][0], (deltaOB.GetData())[0][1]}
 			} else if isInterface {
 				obs.Data[index] = deltaInterface
 			}
@@ -228,7 +228,7 @@ func (obs *OrderBookSide) StoreArray(delta any) {
 	}
 }
 
-func normalizeNumber(value any) float64 {
+func normalizeNumber(value interface{}) float64 {
 	switch v := value.(type) {
 	case float64:
 		return v
@@ -248,7 +248,7 @@ func normalizeNumber(value any) float64 {
 }
 
 // Store indexes an incoming delta in the string-price-keyed dictionary
-func (obs *OrderBookSide) Store(price any, size any) error {
+func (obs *OrderBookSide) Store(price interface{}, size interface{}) error {
 	obs.StoreArray([]float64{normalizeNumber(price), normalizeNumber(size)})
 	return nil
 }
@@ -276,13 +276,13 @@ type CountedOrderBookSide struct {
 }
 
 // NewCountedOrderBookSide constructor
-func NewCountedOrderBookSide(side bool, deltas any, depth any) *CountedOrderBookSide {
+func NewCountedOrderBookSide(side bool, deltas interface{}, depth interface{}) *CountedOrderBookSide {
 
 	// orderBookSide := &CountedOrderBookSide{
 	// 	OrderBookSide: NewOrderBookSide(side, deltas, depth),
 	// }
 	orderBookSide := &OrderBookSide{
-		Data:   make([][]any, 0),
+		Data:   make([][]interface{}, 0),
 		Index:  make([]float64, len(SEED)),
 		Length: 0,
 		Depth:  math.MaxInt32,
@@ -296,22 +296,22 @@ func NewCountedOrderBookSide(side bool, deltas any, depth any) *CountedOrderBook
 	return result.(*CountedOrderBookSide)
 }
 
-func (cobs *CountedOrderBookSide) Store(price any, size any) error {
+func (cobs *CountedOrderBookSide) Store(price interface{}, size interface{}) error {
 	return errors.New("CountedOrderBookSide.Store() is not supported, use StoreArray([price, size, count]) instead")
 }
 
 // StoreArray handles deltas with count (3 elements: price, size, count)
-func (obs *CountedOrderBookSide) StoreArray(delta any) {
+func (obs *CountedOrderBookSide) StoreArray(delta interface{}) {
 
 	obs.OrderBookSide.Mutex.Lock()
 	defer obs.OrderBookSide.Mutex.Unlock()
 
-	deltaArray, isArray := delta.([]any)
+	deltaArray, isArray := delta.([]interface{})
 	deltaOB, isOB := delta.(IOrderBookSide)
-	deltaInterface, isInterface := delta.([]any)
+	deltaInterface, isInterface := delta.([]interface{})
 	var price float64
 	var size float64
-	var count any
+	var count interface{}
 	if isArray {
 		price = normalizeNumber(deltaArray[0])
 		size = normalizeNumber(deltaArray[1])
@@ -348,9 +348,9 @@ func (obs *CountedOrderBookSide) StoreArray(delta any) {
 			obs.Data = append(obs.Data, nil)
 			copy(obs.Data[index+1:], obs.Data[index:obs.Len()-1])
 			if isArray {
-				obs.Data[index] = []any{deltaArray[0], deltaArray[1], deltaArray[2]}
+				obs.Data[index] = []interface{}{deltaArray[0], deltaArray[1], deltaArray[2]}
 			} else if isOB {
-				obs.Data[index] = []any{(deltaOB.GetData())[0][0], (deltaOB.GetData())[0][1], (deltaOB.GetData())[0][2]}
+				obs.Data[index] = []interface{}{(deltaOB.GetData())[0][0], (deltaOB.GetData())[0][1], (deltaOB.GetData())[0][2]}
 			} else if isInterface {
 				obs.Data[index] = deltaInterface
 			}
@@ -378,55 +378,55 @@ func (obs *CountedOrderBookSide) StoreArray(delta any) {
 
 type IndexedOrderBookSide struct {
 	*OrderBookSide
-	Hashmap map[any]float64 // string-keyed dictionary of price levels / ids / indices
-	Data    [][]any         // equivalent to extending Array
-	Index   []float64       // string-keyed dictionary of price levels / ids / indices
-	Depth   int             // depth limit
-	Length  int             // current Length
-	Side    bool            // false is asks, true is bids
-	Mutex   sync.RWMutex    // protects concurrent access
+	Hashmap map[interface{}]float64 // string-keyed dictionary of price levels / ids / indices
+	Data    [][]interface{}         // equivalent to extending Array
+	Index   []float64               // string-keyed dictionary of price levels / ids / indices
+	Depth   int                     // depth limit
+	Length  int                     // current Length
+	Side    bool                    // false is asks, true is bids
+	Mutex   sync.RWMutex            // protects concurrent access
 }
 
-func NewIndexedOrderBookSide(side bool, deltas any, depth any) *IndexedOrderBookSide {
+func NewIndexedOrderBookSide(side bool, deltas interface{}, depth interface{}) *IndexedOrderBookSide {
 	dataLength := 0
 	switch d := deltas.(type) {
 	case []float64:
 		dataLength = len(d)
-	case []any:
+	case []interface{}:
 		dataLength = len(d)
 	case IOrderBookSide:
 		dataLength = d.Len()
 	}
 
 	orderBookSide := &IndexedOrderBookSide{
-		Data:    make([][]any, dataLength),
+		Data:    make([][]interface{}, dataLength),
 		Index:   make([]float64, len(SEED)),
 		Length:  0,
 		Depth:   math.MaxInt32,
-		Hashmap: make(map[any]float64),
+		Hashmap: make(map[interface{}]float64),
 		Side:    side,
 	}
 	result := Init(orderBookSide, deltas, depth)
 	return result.(*IndexedOrderBookSide)
 }
 
-func (iobs *IndexedOrderBookSide) Store(price any, size any) error {
+func (iobs *IndexedOrderBookSide) Store(price interface{}, size interface{}) error {
 	return errors.New("IndexedOrderBook.Store() is not supported, use StoreArray([price, size, id]) instead")
 }
 
 // StoreArray handles deltas with id (3 elements: price, size, id)
 // StoreArray handles deltas with id (3 elements: price, size, id)
-func (obs *IndexedOrderBookSide) StoreArray(delta any) {
+func (obs *IndexedOrderBookSide) StoreArray(delta interface{}) {
 
 	obs.Mutex.Lock()
 	defer obs.Mutex.Unlock()
 
-	deltaArray, isArray := delta.([]any)
+	deltaArray, isArray := delta.([]interface{})
 	deltaOB, isOB := delta.(IOrderBookSide)
-	deltaInterface, isInterface := delta.([]any)
+	deltaInterface, isInterface := delta.([]interface{})
 	var price float64
 	var size float64
-	var id any
+	var id interface{}
 	if isArray {
 		price = normalizeNumber(deltaArray[0])
 		size = normalizeNumber(deltaArray[1])
@@ -468,7 +468,7 @@ func (obs *IndexedOrderBookSide) StoreArray(delta any) {
 				obs.Index[index] = indexPrice
 				// Store the entire delta array like TypeScript does
 				if isArray {
-					obs.Data[index] = []any{deltaArray[0], deltaArray[1], deltaArray[2]}
+					obs.Data[index] = []interface{}{deltaArray[0], deltaArray[1], deltaArray[2]}
 				} else if isInterface {
 					obs.Data[index] = deltaInterface
 				} else if isOB {
@@ -504,13 +504,13 @@ func (obs *IndexedOrderBookSide) StoreArray(delta any) {
 		copy(obs.Data[index+1:], obs.Data[index:obs.Length-1])
 		// Store the entire delta array like TypeScript does
 		if isArray {
-			obs.Data[index] = []any{deltaArray[0], deltaArray[1], deltaArray[2]}
+			obs.Data[index] = []interface{}{deltaArray[0], deltaArray[1], deltaArray[2]}
 		} else if isInterface {
 			obs.Data[index] = deltaInterface
 		} else if isOB {
 			// Convert interface array to float64 array
 			data := deltaOB.GetData()
-			floatArray := make([]any, len(data))
+			floatArray := make([]interface{}, len(data))
 			for i, v := range data[0] { // TODO: correct?
 				if f, ok := v.(float64); ok {
 					floatArray[i] = f
@@ -586,34 +586,34 @@ type IndexedBids struct {
 	*IndexedOrderBookSide
 }
 
-func NewAsks(deltas any, depth any) *OrderBookSide {
+func NewAsks(deltas interface{}, depth interface{}) *OrderBookSide {
 	obs := NewOrderBookSide(false, deltas, depth)
 	return obs
 }
 
-func NewBids(deltas any, depth any) *OrderBookSide {
+func NewBids(deltas interface{}, depth interface{}) *OrderBookSide {
 	obs := NewOrderBookSide(true, deltas, depth)
 	return obs
 }
 
-func NewCountedAsks(deltas any, depth any) *CountedOrderBookSide {
+func NewCountedAsks(deltas interface{}, depth interface{}) *CountedOrderBookSide {
 	cobs := NewCountedOrderBookSide(false, deltas, depth)
 	// cobs.Side = false
 	return cobs
 }
 
-func NewCountedBids(deltas any, depth any) *CountedOrderBookSide {
+func NewCountedBids(deltas interface{}, depth interface{}) *CountedOrderBookSide {
 	cobs := NewCountedOrderBookSide(true, deltas, depth)
 	return cobs
 }
 
-func NewIndexedAsks(deltas any, depth any) *IndexedOrderBookSide {
+func NewIndexedAsks(deltas interface{}, depth interface{}) *IndexedOrderBookSide {
 	iobs := NewIndexedOrderBookSide(false, deltas, depth)
 	// iobs.Side = false
 	return iobs
 }
 
-func NewIndexedBids(deltas any, depth any) *IndexedOrderBookSide {
+func NewIndexedBids(deltas interface{}, depth interface{}) *IndexedOrderBookSide {
 	iobs := NewIndexedOrderBookSide(true, deltas, depth)
 	// iobs.Side = true
 	return iobs
@@ -657,42 +657,42 @@ func (obs *OrderBookSide) String() string {
 func (obs *OrderBookSide) Len() int {
 	return obs.Length
 }
-func (obs *OrderBookSide) GetData() [][]any {
+func (obs *OrderBookSide) GetData() [][]interface{} {
 	return obs.Data
 }
 
 // assumes the first two elements are float64 and the third element is a primitive
-func (obs *OrderBookSide) GetDataCopy() [][]any {
+func (obs *OrderBookSide) GetDataCopy() [][]interface{} {
 	if obs == nil {
-		return [][]any{}
+		return [][]interface{}{}
 	}
 
 	obs.Mutex.RLock() // read lock prevents writes while copying
 	defer obs.Mutex.RUnlock()
 
 	if obs.Data == nil {
-		return [][]any{}
+		return [][]interface{}{}
 	}
 
-	out := make([][]any, len(obs.Data))
+	out := make([][]interface{}, len(obs.Data))
 
 	for i, slice := range obs.Data {
 		if slice == nil {
-			out[i] = []any{}
+			out[i] = []interface{}{}
 			continue
 		}
 
-		newSlice := make([]any, len(slice))
+		newSlice := make([]interface{}, len(slice))
 		for j, val := range slice {
 			switch v := val.(type) {
-			case map[string]any:
-				newMap := make(map[string]any, len(v))
+			case map[string]interface{}:
+				newMap := make(map[string]interface{}, len(v))
 				for key, value := range v {
 					newMap[key] = value
 				}
 				newSlice[j] = newMap
-			case []any:
-				newSlice[j] = append([]any{}, v...)
+			case []interface{}:
+				newSlice[j] = append([]interface{}{}, v...)
 			default:
 				newSlice[j] = v
 			}
@@ -709,7 +709,7 @@ func (ords *OrderBookSide) GetSide() bool {
 func (obs *OrderBookSide) SetLen(length int) {
 	obs.Length = length
 }
-func (obs *OrderBookSide) SetData(data [][]any) {
+func (obs *OrderBookSide) SetData(data [][]interface{}) {
 	obs.Data = data
 }
 func (obs *OrderBookSide) GetIndex() *[]float64 {
@@ -722,13 +722,13 @@ func (obs *OrderBookSide) SetDepth(depth int) {
 func (obs *CountedOrderBookSide) SetLen(length int) {
 	obs.OrderBookSide.SetLen(length)
 }
-func (obs *CountedOrderBookSide) GetData() [][]any {
+func (obs *CountedOrderBookSide) GetData() [][]interface{} {
 	return obs.OrderBookSide.GetData()
 }
-func (obs *CountedOrderBookSide) GetDataCopy() [][]any {
+func (obs *CountedOrderBookSide) GetDataCopy() [][]interface{} {
 	return obs.OrderBookSide.GetDataCopy()
 }
-func (obs *CountedOrderBookSide) SetData(data [][]any) {
+func (obs *CountedOrderBookSide) SetData(data [][]interface{}) {
 	obs.OrderBookSide.SetData(data)
 }
 func (obs *CountedOrderBookSide) GetIndex() *[]float64 {
@@ -743,13 +743,13 @@ func (obs *CountedOrderBookSide) Len() int {
 func (obs *CountedOrderBookSide) SetDepth(depth int) {
 	obs.OrderBookSide.SetDepth(depth)
 }
-func (obs *CountedOrderBookSide) GetValue(key string, defaultValue any) any {
+func (obs *CountedOrderBookSide) GetValue(key string, defaultValue interface{}) interface{} {
 	return obs.OrderBookSide.GetValue(key, defaultValue)
 }
 func (obs *IndexedOrderBookSide) SetLen(length int) {
 	obs.Length = length
 }
-func (obs *IndexedOrderBookSide) SetData(data [][]any) {
+func (obs *IndexedOrderBookSide) SetData(data [][]interface{}) {
 	obs.Data = data
 }
 func (obs *IndexedOrderBookSide) GetIndex() *[]float64 {
@@ -758,10 +758,10 @@ func (obs *IndexedOrderBookSide) GetIndex() *[]float64 {
 func (obs *IndexedOrderBookSide) String() string {
 	return obs.OrderBookSide.String()
 }
-func (obs *IndexedOrderBookSide) GetData() [][]any {
+func (obs *IndexedOrderBookSide) GetData() [][]interface{} {
 	return obs.Data
 }
-func (obs *IndexedOrderBookSide) GetDataCopy() [][]any {
+func (obs *IndexedOrderBookSide) GetDataCopy() [][]interface{} {
 	return obs.OrderBookSide.GetDataCopy()
 }
 func (obs *IndexedOrderBookSide) Len() int {
@@ -770,7 +770,7 @@ func (obs *IndexedOrderBookSide) Len() int {
 func (obs *IndexedOrderBookSide) SetDepth(depth int) {
 	obs.Depth = depth
 }
-func (iobs *IndexedOrderBookSide) GetValue(key string, defaultValue any) any {
+func (iobs *IndexedOrderBookSide) GetValue(key string, defaultValue interface{}) interface{} {
 	switch key {
 	case "Data":
 		return iobs.Data

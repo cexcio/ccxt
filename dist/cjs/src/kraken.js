@@ -561,7 +561,6 @@ class kraken extends kraken$1["default"] {
                     'EFunding:No funding method': errors.BadRequest,
                     'EFunding:Unknown asset': errors.BadSymbol,
                     'EService:Market in post_only mode': errors.OnMaintenance,
-                    'EService:Market in cancel_only mode': errors.OnMaintenance,
                     'EGeneral:Too many requests': errors.DDoSProtection,
                     'ETrade:User Locked': errors.AccountSuspended, // {"error":["ETrade:User Locked"]}
                 },
@@ -649,10 +648,6 @@ class kraken extends kraken$1["default"] {
         const result = [];
         for (let i = 0; i < keys.length; i++) {
             const id = keys[i];
-            let isSynthetic = false;
-            if (id.indexOf(':BTNL') >= 0) {
-                isSynthetic = true;
-            }
             const market = markets[id];
             const baseIdRaw = this.safeString(market, 'base');
             const quoteIdRaw = this.safeString(market, 'quote');
@@ -690,11 +685,10 @@ class kraken extends kraken$1["default"] {
             }
             const status = this.safeString(market, 'status');
             const isActive = status === 'online';
-            const symbol = (!isSynthetic) ? (base + '/' + quote) : id;
             result.push({
                 'id': id,
                 'wsId': this.safeString(market, 'wsname'),
-                'symbol': symbol,
+                'symbol': base + '/' + quote,
                 'base': base,
                 'quote': quote,
                 'settle': undefined,

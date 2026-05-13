@@ -3,15 +3,6 @@
     "skipKeys": [],
     "outputType": "both",
     "methods": {
-        "fetchPositionsHistory": [
-            {
-                "description": "default",
-                "method": "fetchPositionsHistory",
-                "url": "https://openapi.blofin.com/api/v1/account/positions-history",
-                "input": [],
-                "output": null
-            }
-        ],
         "fetchOpenOrders": [
             {
                 "description": "fetch tpsl  orders",
@@ -44,24 +35,23 @@
         ],
         "createOrder": [
             {
-                "description": "perp, exit tp & sl combined",
+                "description": "regular stopLossPrice order",
                 "method": "createOrder",
                 "url": "https://openapi.blofin.com/api/v1/trade/order-tpsl",
                 "input": [
-                    "ETH/USDT:USDT",
+                    "LTC/USDT:USDT",
                     "market",
                     "sell",
-                    0.1,
-                    null,
+                    0.2,
+                    50,
                     {
-                        "takeProfitPrice": 2555,
-                        "stopLossPrice": 2000
+                        "stopLossPrice": 51
                     }
                 ],
-                "output": "{\"instId\":\"ETH-USDT\",\"side\":\"sell\",\"positionSide\":\"net\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"reduceOnly\":true,\"size\":\"0.1\",\"marginMode\":\"cross\",\"slTriggerPrice\":\"2000\",\"slOrderPrice\":\"-1\",\"tpTriggerPrice\":\"2555\",\"tpOrderPrice\":\"-1\"}"
+                "output": "{\"instId\":\"LTC-USDT\",\"side\":\"sell\",\"positionSide\":\"net\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"size\":\"0.2\",\"slTriggerPrice\":\"51\",\"slOrderPrice\":\"-1\",\"marginMode\":\"cross\"}"
             },
             {
-                "description": "triger limit order",
+                "description": "triger order",
                 "method": "createOrder",
                 "url": "https://openapi.blofin.com/api/v1/trade/order-algo",
                 "input": [
@@ -74,7 +64,7 @@
                         "triggerPrice": 91
                     }
                 ],
-                "output": "{\"instId\":\"LTC-USDT\",\"side\":\"buy\",\"orderType\":\"trigger\",\"size\":\"1\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"marginMode\":\"cross\",\"orderPrice\":\"90\",\"triggerPrice\":\"91\"}"
+                "output": "{\"instId\":\"LTC-USDT\",\"side\":\"buy\",\"orderType\":\"trigger\",\"size\":\"1\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"marginMode\":\"cross\",\"orderPrice\":\"90\",\"triggerPrice\":91}"
             },
             {
                 "description": "trigger market order",
@@ -93,6 +83,22 @@
                     }
                 ],
                 "output": "{\"instId\":\"ADA-USDT\",\"side\":\"sell\",\"orderType\":\"trigger\",\"size\":\"1\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"marginMode\":\"isolated\",\"triggerPrice\":\"4\",\"orderPrice\":\"-1\",\"positionSide\":\"short\"}"
+            },
+            {
+                "description": "--report",
+                "method": "createOrder",
+                "url": "https://openapi.blofin.com/api/v1/trade/order-algo",
+                "input": [
+                    "LTC/USDT:USDT",
+                    "limit",
+                    "buy",
+                    1,
+                    90,
+                    {
+                        "triggerPrice": 91
+                    }
+                ],
+                "output": "{\"instId\":\"LTC-USDT\",\"side\":\"buy\",\"orderType\":\"trigger\",\"size\":\"1\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"marginMode\":\"cross\",\"orderPrice\":\"90\",\"triggerPrice\":91}"
             },
             {
                 "description": "open position with tp+sl",
@@ -160,9 +166,9 @@
                 "output": "{\"instId\":\"LTC-USDT\",\"side\":\"buy\",\"orderType\":\"market\",\"size\":\"1\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"marginMode\":\"cross\",\"reduceOnly\":\"true\"}"
             },
             {
-                "description": "takeProfitPrice",
+                "description": "create take profit (type2) order",
                 "method": "createOrder",
-                "url": "https://openapi.blofin.com/api/v1/trade/order-algo",
+                "url": "https://openapi.blofin.com/api/v1/trade/order-tpsl",
                 "input": [
                     "LTC/USDT:USDT",
                     "market",
@@ -170,15 +176,18 @@
                     1,
                     null,
                     {
-                        "takeProfitPrice": 200
+                        "takeProfitPrice": 200,
+                        "clientOrderId": "84c4ac9afce249e0aef35631382928f6",
+                        "marginMode": "isolated",
+                        "reduceOnly": true
                     }
                 ],
-                "output": "{\"instId\":\"LTC-USDT\",\"side\":\"sell\",\"orderType\":\"trigger\",\"size\":\"1\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"marginMode\":\"cross\",\"triggerPrice\":\"200\",\"orderPrice\":\"-1\",\"reduceOnly\":true}"
+                "output": "{\"instId\":\"LTC-USDT\",\"side\":\"sell\",\"positionSide\":\"net\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"size\":\"1\",\"tpTriggerPrice\":\"200\",\"tpOrderPrice\":\"-1\",\"marginMode\":\"isolated\", \"reduceOnly\":\"true\", \"clientOrderId\":\"84c4ac9afce249e0aef35631382928f6\"}"
             },
             {
-                "description": "stopLossPrice",
+                "description": "create stop loss (type2) order",
                 "method": "createOrder",
-                "url": "https://openapi.blofin.com/api/v1/trade/order-algo",
+                "url": "https://openapi.blofin.com/api/v1/trade/order-tpsl",
                 "input": [
                     "LTC/USDT:USDT",
                     "market",
@@ -186,10 +195,11 @@
                     1,
                     null,
                     {
-                        "stopLossPrice": 50
+                        "stopLossPrice": 50,
+                        "clientOrderId": "84c4ac9afce249e0aef35631382928f6"
                     }
                 ],
-                "output": "{\"instId\":\"LTC-USDT\",\"side\":\"sell\",\"orderType\":\"trigger\",\"size\":\"1\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"marginMode\":\"cross\",\"triggerPrice\":\"50\",\"orderPrice\":\"-1\",\"reduceOnly\":true}"
+                "output": "{\"instId\":\"LTC-USDT\",\"side\":\"sell\",\"positionSide\":\"net\",\"brokerId\":\"ec6dd3a7dd982d0b\",\"size\":\"1\",\"slTriggerPrice\":\"50\",\"slOrderPrice\":\"-1\",\"marginMode\":\"cross\", \"clientOrderId\":\"84c4ac9afce249e0aef35631382928f6\"}"
             }
         ],
         "cancelOrder": [

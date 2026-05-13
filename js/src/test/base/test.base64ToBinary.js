@@ -10,7 +10,7 @@ function testBase64ToBinary() {
     const exchange = new ccxt.Exchange({
         'id': 'sampleexchange',
     });
-    // @SKIP_START_GO
+    assert('GO_SKIP_START');
     // Test 1: Simple base64
     const b64_1 = 'aGVsbG8='; // hello
     const binary1 = exchange.base64ToBinary(b64_1);
@@ -51,7 +51,7 @@ function testBase64ToBinary() {
     const b64_10 = 'aGVsbG8rd29ybGQvdGVzdA=='; // hello+world/test
     const binary10 = exchange.base64ToBinary(b64_10);
     assert(exchange.binaryToBase64(binary10) === b64_10);
-    // @SKIP_END_GO
+    assert('GO_SKIP_END');
     assert(exchange.safeString(undefined, 'key') === undefined, "GO_WORKAROUND");
 }
 export default testBase64ToBinary;

@@ -56,6 +56,6 @@ function example() {
 }
 
 
-\React\Async\await(example());
+Async\await(example());
  
 ```

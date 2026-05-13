@@ -351,7 +351,6 @@ class testMainClass {
                 const isAuthError = (e instanceof AuthenticationError);
                 const isNotSupported = (e instanceof NotSupported);
                 const isOperationFailed = (e instanceof OperationFailed); // includes "DDoSProtection", "RateLimitExceeded", "RequestTimeout", "ExchangeNotAvailable", "OperationFailed", "InvalidNonce", ...
-                const lastUrlMsg = this.wsTests ? '' : ' (Last url: ' + exchange.last_request_url + ' )';
                 if (isOperationFailed) {
                     // if last retry was gone with same `tempFailure` error, then let's eventually return false
                     if (i === maxRetries - 1) {
@@ -385,7 +384,7 @@ class testMainClass {
                         }
                         // output the message
                         const failType = shouldFail ? '[TEST_FAILURE]' : '[TEST_WARNING]';
-                        dump(failType, exchange.id, methodName, argsStringified, lastUrlMsg, 'Method could not be tested due to a repeated Network/Availability issues', ' | ', exceptionMessage(e));
+                        dump(failType, 'Method could not be tested due to a repeated Network/Availability issues', ' | ', exchange.id, methodName, argsStringified, exceptionMessage(e));
                         return retSuccess;
                     }
                     else {
@@ -400,14 +399,14 @@ class testMainClass {
                 else {
                     // if it's loadMarkets, then fail test, because it's mandatory for tests
                     if (isLoadMarkets) {
-                        dump('[TEST_FAILURE]', exchange.id, methodName, argsStringified, lastUrlMsg, 'Exchange can not load markets', exceptionMessage(e));
+                        dump('[TEST_FAILURE]', 'Exchange can not load markets', exceptionMessage(e), exchange.id, methodName, argsStringified);
                         return false;
                     }
                     // if the specific arguments to the test method throws "NotSupported" exception
                     // then let's don't fail the test
                     if (isNotSupported) {
                         if (this.info) {
-                            dump('[INFO] NOT_SUPPORTED', exchange.id, methodName, argsStringified, lastUrlMsg, exceptionMessage(e));
+                            dump('[INFO] NOT_SUPPORTED', exceptionMessage(e), exchange.id, methodName, argsStringified);
                         }
                         return true;
                     }
@@ -415,13 +414,13 @@ class testMainClass {
                     if (isPublic && isAuthError) {
                         if (this.info) {
                             // todo - turn into warning
-                            dump('[INFO]', exchange.id, methodName, argsStringified, lastUrlMsg, 'Authentication problem for public method', exceptionMessage(e));
+                            dump('[INFO]', 'Authentication problem for public method', exceptionMessage(e), exchange.id, methodName, argsStringified);
                         }
                         return true;
                     }
                     // in rest of the cases, fail the test
                     else {
-                        dump('[TEST_FAILURE]', exchange.id, methodName, argsStringified, lastUrlMsg, exceptionMessage(e));
+                        dump('[TEST_FAILURE]', exceptionMessage(e), exchange.id, methodName, argsStringified);
                         return false;
                     }
                 }
@@ -429,17 +428,16 @@ class testMainClass {
         }
         return true;
     }
-    async runPublicTests(exchange, symbols) {
-        const primarySymbol = symbols[0];
+    async runPublicTests(exchange, symbol) {
         let tests = {
             'features': [],
             'fetchCurrencies': [],
-            'fetchTicker': [primarySymbol],
-            'fetchTickers': [primarySymbol],
-            'fetchLastPrices': [primarySymbol],
-            'fetchOHLCV': [primarySymbol],
-            'fetchTrades': [primarySymbol],
-            'fetchOrderBook': [primarySymbol],
+            'fetchTicker': [symbol],
+            'fetchTickers': [symbol],
+            'fetchLastPrices': [symbol],
+            'fetchOHLCV': [symbol],
+            'fetchTrades': [symbol],
+            'fetchOrderBook': [symbol],
             // 'fetchL2OrderBook': [ symbol ],
             'fetchOrderBooks': [],
             'fetchBidsAsks': [],
@@ -449,30 +447,30 @@ class testMainClass {
         if (this.wsTests) {
             tests = {
                 // @ts-ignore
-                'watchOHLCV': [primarySymbol],
-                'watchOHLCVForSymbols': [primarySymbol],
-                'watchTicker': [primarySymbol],
-                'watchTickers': [primarySymbol],
-                'watchBidsAsks': [primarySymbol],
-                'watchOrderBook': [primarySymbol],
-                'watchOrderBookForSymbols': [symbols],
-                'watchTrades': [primarySymbol],
-                'watchTradesForSymbols': [symbols],
+                'watchOHLCV': [symbol],
+                'watchOHLCVForSymbols': [symbol],
+                'watchTicker': [symbol],
+                'watchTickers': [symbol],
+                'watchBidsAsks': [symbol],
+                'watchOrderBook': [symbol],
+                'watchOrderBookForSymbols': [[symbol]],
+                'watchTrades': [symbol],
+                'watchTradesForSymbols': [[symbol]],
             };
         }
-        const market = exchange.market(primarySymbol);
+        const market = exchange.market(symbol);
         const isSpot = market['spot'];
         if (!this.wsTests) {
             if (isSpot) {
                 tests['fetchCurrencies'] = [];
             }
             else {
-                tests['fetchFundingRates'] = [primarySymbol];
-                tests['fetchFundingRate'] = [primarySymbol];
-                tests['fetchFundingRateHistory'] = [primarySymbol];
-                tests['fetchIndexOHLCV'] = [primarySymbol];
-                tests['fetchMarkOHLCV'] = [primarySymbol];
-                tests['fetchPremiumIndexOHLCV'] = [primarySymbol];
+                tests['fetchFundingRates'] = [symbol];
+                tests['fetchFundingRate'] = [symbol];
+                tests['fetchFundingRateHistory'] = [symbol];
+                tests['fetchIndexOHLCV'] = [symbol];
+                tests['fetchMarkOHLCV'] = [symbol];
+                tests['fetchPremiumIndexOHLCV'] = [symbol];
             }
         }
         this.publicTests = tests;
@@ -670,60 +668,56 @@ class testMainClass {
         return symbol;
     }
     async testExchange(exchange, providedSymbol = undefined) {
-        let spotSymbols = undefined;
-        let swapSymbols = undefined;
+        let spotSymbol = undefined;
+        let swapSymbol = undefined;
         if (providedSymbol !== undefined) {
             const market = exchange.market(providedSymbol);
             if (market['spot']) {
-                spotSymbols = [providedSymbol];
+                spotSymbol = providedSymbol;
             }
             else {
-                swapSymbols = [providedSymbol];
+                swapSymbol = providedSymbol;
             }
         }
         else {
             if (exchange.has['spot']) {
-                const primarySymbol = this.getValidSymbol(exchange, true);
-                const secondarySymbol = primarySymbol.replace('BTC', 'ETH'); // this should work any exchange
-                spotSymbols = [primarySymbol, secondarySymbol];
+                spotSymbol = this.getValidSymbol(exchange, true);
             }
             if (exchange.has['swap']) {
-                const primarySymbol = this.getValidSymbol(exchange, false);
-                const secondarySymbol = primarySymbol.replace('BTC', 'ETH'); // this should work any exchange
-                swapSymbols = [primarySymbol, secondarySymbol];
+                swapSymbol = this.getValidSymbol(exchange, false);
             }
         }
-        if (spotSymbols !== undefined) {
-            dump('[INFO:MAIN] Selected SPOT SYMBOL:', exchange.json(spotSymbols));
+        if (spotSymbol !== undefined) {
+            dump('[INFO:MAIN] Selected SPOT SYMBOL:', spotSymbol);
         }
-        if (swapSymbols !== undefined) {
-            dump('[INFO:MAIN] Selected SWAP SYMBOL:', exchange.json(swapSymbols));
+        if (swapSymbol !== undefined) {
+            dump('[INFO:MAIN] Selected SWAP SYMBOL:', swapSymbol);
         }
         if (!this.privateTestOnly) {
             // note, spot & swap tests should run sequentially, because of conflicting `exchange.options['defaultType']` setting
-            if (exchange.has['spot'] && spotSymbols !== undefined) {
+            if (exchange.has['spot'] && spotSymbol !== undefined) {
                 if (this.info) {
                     dump('[INFO] ### SPOT TESTS ###');
                 }
                 exchange.options['defaultType'] = 'spot';
-                await this.runPublicTests(exchange, spotSymbols);
+                await this.runPublicTests(exchange, spotSymbol);
             }
-            if (exchange.has['swap'] && swapSymbols !== undefined) {
+            if (exchange.has['swap'] && swapSymbol !== undefined) {
                 if (this.info) {
                     dump('[INFO] ### SWAP TESTS ###');
                 }
                 exchange.options['defaultType'] = 'swap';
-                await this.runPublicTests(exchange, swapSymbols);
+                await this.runPublicTests(exchange, swapSymbol);
             }
         }
         if (this.privateTest || this.privateTestOnly) {
-            if (exchange.has['spot'] && spotSymbols !== undefined) {
+            if (exchange.has['spot'] && spotSymbol !== undefined) {
                 exchange.options['defaultType'] = 'spot';
-                await this.runPrivateTests(exchange, spotSymbols);
+                await this.runPrivateTests(exchange, spotSymbol);
             }
-            if (exchange.has['swap'] && swapSymbols !== undefined) {
+            if (exchange.has['swap'] && swapSymbol !== undefined) {
                 exchange.options['defaultType'] = 'swap';
-                await this.runPrivateTests(exchange, swapSymbols);
+                await this.runPrivateTests(exchange, swapSymbol);
             }
         }
         return true;
@@ -877,7 +871,7 @@ class testMainClass {
         exchange.returnResponseHeaders = false;
         return true;
     }
-    async startTest(exchange, symbolArgv) {
+    async startTest(exchange, symbol) {
         // we do not need to test aliases
         if (exchange.alias) {
             return true;
@@ -900,7 +894,7 @@ class testMainClass {
             //     // we test proxies functionality just for one random exchange on each build, because proxy functionality is not exchange-specific, instead it's all done from base methods, so just one working sample would mean it works for all ccxt exchanges
             //     // await this.testProxies (exchange);
             // }
-            await this.testExchange(exchange, symbolArgv);
+            await this.testExchange(exchange, symbol);
             if (!isSync()) {
                 await close(exchange);
             }
@@ -1299,12 +1293,8 @@ class testMainClass {
                     }
                 }
                 else {
-                    if (isAmd64()) {
-                        libraryPath = basePath + 'lighter-signer-darwin-x86.dylib';
-                    }
-                    else {
-                        libraryPath = basePath + 'lighter-signer-darwin-arm64.dylib';
-                    }
+                    // assume macos arm64
+                    libraryPath = basePath + 'lighter-signer-darwin-arm64.dylib';
                 }
             }
         }
@@ -1634,8 +1624,7 @@ class testMainClass {
             this.testDerive(),
             this.testModeTrade(),
             this.testBackpack(),
-            this.testToobit(),
-            this.testWeex()
+            this.testToobit()
         ];
         await Promise.all(promises);
         const successMessage = '[' + this.lang + '][TEST_SUCCESS] brokerId tests passed.';
@@ -1850,7 +1839,6 @@ class testMainClass {
         assert(futureId === id, 'kucoinfutures - id: ' + futureId + ' not in options.');
         assert(futureKey === '1b327198-f30c-4f14-a0ac-918871282f15', 'kucoinfutures - key: ' + futureKey + ' not in options.');
         try {
-            exchange.options['uta'] = false;
             await exchange.createOrder('BTC/USDT:USDT', 'limit', 'buy', 1, 20000);
         }
         catch (e) {
@@ -1858,8 +1846,7 @@ class testMainClass {
         }
         assert(reqHeaders['KC-API-PARTNER'] === id, 'kucoinfutures - id: ' + id + ' not in headers.');
         try {
-            exchange.options['uta'] = true;
-            await exchange.createOrder('BTC/USDT:USDT', 'limit', 'buy', 1, 20000);
+            await exchange.createOrder('BTC/USDT:USDT', 'limit', 'buy', 1, 20000, { 'uta': true });
         }
         catch (e) {
             reqHeaders = exchange.last_request_headers;
@@ -2313,28 +2300,6 @@ class testMainClass {
             await close(exchange);
         }
         return true;
-    }
-    async testWeex() {
-        const exchange = this.initOfflineExchange('weex');
-        const id = 'b-WEEX111125';
-        assert(exchange.options['partner'] === id, 'weex - id: ' + id + ' not in options');
-        let request = undefined;
-        try {
-            await exchange.createOrder('BTC/USDT', 'limit', 'buy', 1, 20000);
-        }
-        catch (e) {
-            request = jsonParse(exchange.last_request_body);
-        }
-        let clientOrderId = request['newClientOrderId'];
-        assert(clientOrderId.startsWith(id), 'weex - newClientOrderId: ' + clientOrderId + ' for spot order does not start with id: ' + id);
-        try {
-            await exchange.createOrder('BTC/USDT:USDT', 'limit', 'buy', 1, 20000);
-        }
-        catch (e) {
-            request = jsonParse(exchange.last_request_body);
-        }
-        clientOrderId = request['newClientOrderId'];
-        assert(clientOrderId.startsWith(id), 'weex - newClientOrderId: ' + clientOrderId + ' for swap order does not start with id: ' + id);
     }
 }
 export default testMainClass;

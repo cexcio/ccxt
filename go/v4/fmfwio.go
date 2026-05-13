@@ -15,14 +15,14 @@ func NewFmfwioCore() *FmfwioCore {
     return p
 }
 
-func  (this *FmfwioCore) Describe() any  {
-    return this.DeepExtend(this.HitbtcCore.Describe(), map[string]any {
+func  (this *FmfwioCore) Describe() interface{}  {
+    return this.DeepExtend(this.HitbtcCore.Describe(), map[string]interface{} {
         "id": "fmfwio",
         "name": "FMFW.io",
-        "countries": []any{"KN"},
-        "urls": map[string]any {
+        "countries": []interface{}{"KN"},
+        "urls": map[string]interface{} {
             "logo": "https://user-images.githubusercontent.com/1294454/159177712-b685b40c-5269-4cea-ac83-f7894c49525d.jpg",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://api.fmfw.io/api/3",
                 "private": "https://api.fmfw.io/api/3",
             },
@@ -31,8 +31,8 @@ func  (this *FmfwioCore) Describe() any  {
             "fees": "https://fmfw.io/fees-and-limits",
             "referral": "https://fmfw.io/referral/da948b21d6c92d69",
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "maker": this.ParseNumber("0.005"),
                 "taker": this.ParseNumber("0.005"),
             },
@@ -41,7 +41,7 @@ func  (this *FmfwioCore) Describe() any  {
 }
 
 
-func (this *FmfwioCore) Init(userConfig map[string]any) {
+func (this *FmfwioCore) Init(userConfig map[string]interface{}) {
     this.HitbtcCore.Init(this.DeepExtend(this.Describe(), userConfig))
     this.Itf = this
     this.Exchange.DerivedExchange = this

@@ -9,7 +9,7 @@ import asyncio
 import hashlib
 import math
 import json
-from ccxt.base.types import Account, Any, ADL, Balances, BorrowInterest, Bool, CrossBorrowRate, Currencies, Currency, DepositAddress, Int, LedgerEntry, Leverage, LeverageTier, LeverageTiers, MarginMode, MarginModification, Market, Num, Order, OrderBook, OrderRequest, OrderSide, OrderType, Position, Str, Strings, Ticker, Tickers, FundingRate, Trade, TradingFeeInterface, Transaction, TransferEntry
+from ccxt.base.types import Account, Any, ADL, Balances, BorrowInterest, Bool, Currencies, Currency, DepositAddress, Int, LedgerEntry, Leverage, LeverageTier, LeverageTiers, MarginMode, MarginModification, Market, Num, Order, OrderBook, OrderRequest, OrderSide, OrderType, Position, Str, Strings, Ticker, Tickers, FundingRate, Trade, TradingFeeInterface, Transaction, TransferEntry
 from typing import List
 from ccxt.base.errors import ExchangeError
 from ccxt.base.errors import AuthenticationError
@@ -48,13 +48,13 @@ class cexc(Exchange, ImplicitAPI):
             'has': {
                 'CORS': None,
                 'spot': True,
-                'margin': False,
-                'swap': False,
+                'margin': True,
+                'swap': True,
                 'future': False,
                 'option': False,
-                'addMargin': False,
-                'borrowCrossMargin': False,
-                'borrowIsolatedMargin': False,
+                'addMargin': True,
+                'borrowCrossMargin': True,
+                'borrowIsolatedMargin': True,
                 'cancelAllOrders': True,
                 'cancelOrder': True,
                 'cancelOrders': True,
@@ -81,7 +81,7 @@ class cexc(Exchange, ImplicitAPI):
                 'fetchBorrowRateHistories': True,
                 'fetchBorrowRateHistory': True,
                 'fetchClosedOrders': True,
-                'fetchCrossBorrowRate': True,
+                'fetchCrossBorrowRate': False,
                 'fetchCrossBorrowRates': False,
                 'fetchCurrencies': True,
                 'fetchDepositAddress': True,
@@ -141,7 +141,7 @@ class cexc(Exchange, ImplicitAPI):
                 'repayCrossMargin': True,
                 'repayIsolatedMargin': True,
                 'setLeverage': True,
-                'setMarginMode': False,
+                'setMarginMode': True,
                 'setPositionMode': True,
                 'signIn': False,
                 'transfer': True,
@@ -161,9 +161,9 @@ class cexc(Exchange, ImplicitAPI):
                     'uta': 'https://exchange-broker.cexc.io',
                     'utaPrivate': 'https://exchange-broker.cexc.io',
                 },
-                'www': 'https://cexc.io',
+                'www': 'https://exchange-broker.cexc.io',
                 'doc': [
-                    'https://cexc.io/api/v1/documentation',
+                    'https://exchange-broker.cexc.io/api/v1/documentation',
                 ],
             },
             'requiredCredentials': {
@@ -570,7 +570,6 @@ class cexc(Exchange, ImplicitAPI):
                         'market/position-tiers': 40,
                         'market/open-interest': 20,
                         'server/status': 6,
-                        'market/borrowable-currency': 30,
                     },
                 },
                 'utaPrivate': {
@@ -596,9 +595,6 @@ class cexc(Exchange, ImplicitAPI):
                         'sub-account/balance': 10,
                         'user/fee-rate': 6,
                         'dcp/query': 4,
-                        'unified/account/leverage': 20,  # returns {"code":"404","msg":"Not Found","retry":false,"success":false}
-                        'position/funding-history': 30,
-                        'account/interest-limits': 20,
                     },
                     'post': {
                         'account/transfer': 8,
@@ -611,7 +607,6 @@ class cexc(Exchange, ImplicitAPI):
                         '{accountMode}/order/cancel-all': 40,
                         'sub-account/canTransferOut': 10,
                         'dcp/set': 4,
-                        '{accountMode}/account/modify-leverage-margin-cross': 40,
                     },
                 },
             },
@@ -932,9 +927,6 @@ class cexc(Exchange, ImplicitAPI):
                 'fetchBalance': {
                     'code': 'USDT',  # for contract endpoint
                 },
-                'setLeverage': {
-                    'code': 'USDT',  # for uta margin endpoint
-                },
                 'timeInForce': {
                     'IOC': 'IOC',
                     'FOK': 'FOK',
@@ -1133,7 +1125,7 @@ class cexc(Exchange, ImplicitAPI):
                     'HECO': 'heco',
                     'HRC20': 'heco',
                     'MATIC': 'matic',
-                    'KCC': 'kcc',  # community chain
+                    'KCC': 'kcc',  # kucoin community chain
                     'SOL': 'sol',
                     'ALGO': 'algo',
                     'EOS': 'eos',
@@ -1322,7 +1314,7 @@ class cexc(Exchange, ImplicitAPI):
                     # 'ENECUUM': 'enq',
                     # 'HAVEN': 'xhv',
                     # 'CHAINX': 'pcx',
-                    #  # 'FLUXOLD': 'zel',  # zel seems old chain(with uppercase FLUX in UI and with id 'zel')
+                    #  # 'FLUXOLD': 'zel',  # zel seems old chain(with uppercase FLUX in kucoin UI and with id 'zel')
                     # 'BUMO': 'bu',
                     # 'DEEPONION': 'onion',
                     # 'ULORD': 'ut',
@@ -1386,7 +1378,7 @@ class cexc(Exchange, ImplicitAPI):
                         'symbolRequired': True,
                     },
                     'fetchOrder': {
-                        'marginMode': True,
+                        'marginMode': False,
                         'trigger': True,
                         'trailing': False,
                         'symbolRequired': True,
@@ -1503,7 +1495,7 @@ class cexc(Exchange, ImplicitAPI):
                     },
                 },
             },
-            'rollingWindowSize': 30000.0,  # https://exchange-broker.cexc.io/api/v1/documentationrate-limit
+            'rollingWindowSize': 30000.0,  # https://www.kucoin.com/docs-new/rate-limit
         })
 
     def nonce(self):
@@ -1513,8 +1505,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches the current integer timestamp in milliseconds from the exchange server
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-server-time
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-server-time
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-server-time
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-server-time
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :returns int: the current integer timestamp in milliseconds from the exchange server
@@ -1545,9 +1537,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         the latest known information on the availability of the exchange API
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-service-status
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-service-status
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-service-status
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-service-status
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-service-status
+        https://www.kucoin.com/docs-new/rest/ua/get-service-status
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param str [params.type]: spot or swap
@@ -1614,9 +1606,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         retrieves data on all markets for kucoin
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-symbols
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-symbol
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-all-symbols
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-symbols
+        https://www.kucoin.com/docs-new/rest/ua/get-symbol
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-symbols
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param boolean [params.uta]: set to True for the unified trading account(uta), defaults to False
@@ -2168,7 +2160,7 @@ class cexc(Exchange, ImplicitAPI):
         :param boolean force: load account state for non hf
         loads the migration status for the account(hf or not)
 
-        https://exchange-broker.cexc.io/api/v1/documentation/rest/spot-trading/spot-hf-trade-pro-account/get-user-type
+        https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-user-type
 
         :returns any: ignore
         """
@@ -2193,8 +2185,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches all available currencies on an exchange
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-currencies
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-currencies
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-currencies
+        https://www.kucoin.com/docs-new/rest/ua/get-currencies
 
         :param dict params: extra parameters specific to the exchange API endpoint
         :param boolean [params.uta]: set to True for the unified trading account(uta), defaults to False
@@ -2317,7 +2309,7 @@ class cexc(Exchange, ImplicitAPI):
                     },
                 },
             }
-        # cexchas determined 'fiat' currencies with below logic
+        # kucoin has determined 'fiat' currencies with below logic
         rawPrecision = self.safe_string(entry, 'precision')
         precision = self.parse_number(self.parse_precision(rawPrecision))
         isFiat = chainsLength == 0
@@ -2340,7 +2332,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch all the accounts associated with a profile
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-list-spot
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-list-spot
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param boolean [params.uta]: set to True for the unified trading account(uta), defaults to False
@@ -2444,7 +2436,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the fee for deposits and withdrawals
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/get-withdrawal-quotas
+        https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-quotas
 
         :param str code: unified currency code
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -2813,9 +2805,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches price tickers for multiple markets, statistical information calculated over the past 24 hours for each market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-tickers
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-all-tickers
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-ticker
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-tickers
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-tickers
+        https://www.kucoin.com/docs-new/rest/ua/get-ticker
 
         :param str[]|None [symbols]: unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -2989,7 +2981,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches the mark price for multiple markets
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/market-data/get-mark-price-list
+        https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-list
 
         :param str[] [symbols]: unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -3005,9 +2997,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-24hr-stats
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-ticker
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-ticker
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-24hr-stats
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-ticker
+        https://www.kucoin.com/docs-new/rest/ua/get-ticker
 
         :param str symbol: unified symbol of the market to fetch the ticker for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -3111,8 +3103,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches the mark price for a specific market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/market-data/get-mark-price-detail
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-mark-price
+        https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-detail
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-mark-price
 
         :param str symbol: unified symbol of the market to fetch the ticker for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -3147,7 +3139,7 @@ class cexc(Exchange, ImplicitAPI):
         #
         timestampString = self.safe_string(ohlcv, 0)
         if timestampString is not None and len(timestampString) <= 10:
-            # cexcspot and uta return seconds timestamps
+            # kucoin spot and uta return seconds timestamps
             return [
                 self.safe_timestamp(ohlcv, 0),
                 self.safe_number(ohlcv, 1),
@@ -3157,7 +3149,7 @@ class cexc(Exchange, ImplicitAPI):
                 self.safe_number(ohlcv, 5),
             ]
         else:
-            # cexcfutures return milliseconds timestamps
+            # kucoin futures return milliseconds timestamps
             return [
                 self.safe_integer(ohlcv, 0),
                 self.safe_number(ohlcv, 1),
@@ -3171,9 +3163,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches historical candlestick data containing the open, high, low, and close price, and the volume of a market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-klines
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-klines
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-klines
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-klines
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines
+        https://www.kucoin.com/docs-new/rest/ua/get-klines
 
         :param str symbol: unified symbol of the market to fetch OHLCV data for
         :param str timeframe: the length of time each candle represents
@@ -3200,7 +3192,7 @@ class cexc(Exchange, ImplicitAPI):
  @ignore
         helper method for fetchOHLCV
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-klines
+        https://www.kucoin.com/docs-new/rest/ua/get-klines
 
         :param str symbol: unified symbol of the market to fetch OHLCV data for
         :param str timeframe: the length of time each candle represents
@@ -3264,7 +3256,7 @@ class cexc(Exchange, ImplicitAPI):
  @ignore
         helper method for fetchOHLCV
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-klines
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-klines
 
         :param str symbol: unified symbol of the market to fetch OHLCV data for
         :param str timeframe: the length of time each candle represents
@@ -3317,7 +3309,7 @@ class cexc(Exchange, ImplicitAPI):
  @ignore
         helper method for fetchOHLCV
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-klines
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines
 
         :param str symbol: unified symbol of the market to fetch OHLCV data for
         :param str timeframe: the length of time each candle represents
@@ -3373,7 +3365,7 @@ class cexc(Exchange, ImplicitAPI):
     async def create_deposit_address(self, code: str, params={}) -> DepositAddress:
         """
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/add-deposit-address-v3
+        https://www.kucoin.com/docs-new/rest/account-info/deposit/add-deposit-address-v3
 
         create a currency deposit address
         :param str code: unified currency code of the currency for the deposit address
@@ -3413,8 +3405,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the deposit address for a currency associated with self account
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-address-v3/en
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-deposit-address
+        https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3/en
+        https://www.kucoin.com/docs-new/rest/ua/get-deposit-address
 
         :param str code: unified currency code
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -3460,7 +3452,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the deposit address for a currency associated with self account
 
-        https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-deposit-address
+        https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-address
 
         :param str code: unified currency code
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -3478,7 +3470,7 @@ class cexc(Exchange, ImplicitAPI):
         #        "code": "200000",
         #        "data": {
         #            "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",//Deposit address
-        #            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to Cexc Futures and if the token to be  #transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent  #to the address you specified.
+        #            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to KuCoin Futures and if the token to be  #transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent  #to the address you specified.
         #        }
         #    }
         #
@@ -3518,8 +3510,8 @@ class cexc(Exchange, ImplicitAPI):
     async def fetch_deposit_addresses_by_network(self, code: str, params={}) -> List[DepositAddress]:
         """
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-address-v3/en
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-deposit-address
+        https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3/en
+        https://www.kucoin.com/docs-new/rest/ua/get-deposit-address
 
         fetch the deposit address for a currency associated with self account
         :param str code: unified currency code
@@ -3589,10 +3581,10 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches information on open orders with bid(buy) and ask(sell) prices, volumes and other data
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-part-orderbook
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-full-orderbook
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-part-orderbook
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-orderbook
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-part-orderbook
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-full-orderbook
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-part-orderbook
+        https://www.kucoin.com/docs-new/rest/ua/get-orderbook
 
         :param str symbol: unified symbol of the market to fetch the order book for
         :param int [limit]: the maximum amount of order book entries to return
@@ -3611,12 +3603,9 @@ class cexc(Exchange, ImplicitAPI):
         type = None
         type, params = self.handle_market_type_and_params('fetchOrderBook', market, params)
         if uta:
-            limitString = '20'
-            if (limit is None) or (limit >= 100):
-                limitString = 'FULL'
-            elif limit > 20:
-                limitString = '100'
-            request['limit'] = limitString
+            if limit is None:
+                raise ArgumentsRequired(self.id + ' fetchOrderBook() requires a limit argument for uta, either 20, 50, 100 or FULL')
+            request['limit'] = limit
             request['symbol'] = market['id']
             if (type == 'spot') or (type == 'margin'):
                 request['tradeType'] = 'SPOT'
@@ -3735,17 +3724,17 @@ class cexc(Exchange, ImplicitAPI):
         """
         Create an order on the exchange
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-sync
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-test
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-stop-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order-test
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-stop-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order-test
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-take-profit-and-stop-loss-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/place-order
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-sync
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-test
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-stop-order
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order-test
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-stop-order
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order
+        https://www.kucoin.com/docs-new/rest/ua/place-order
 
         :param str symbol: Unified CCXT market symbol
         :param str type: 'limit' or 'market'
@@ -3774,13 +3763,13 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for creating spot orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-sync
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-test
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-stop-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order-test
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-stop-order
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-sync
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-test
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-stop-order
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order-test
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-stop-order
 
         :param str symbol: Unified CCXT market symbol
         :param str type: 'limit' or 'market'
@@ -3888,7 +3877,7 @@ class cexc(Exchange, ImplicitAPI):
         if type == 'market':
             if quoteAmount is not None:
                 params = self.omit(params, ['cost', 'funds'])
-                # cexcuses base precision even for quote values
+                # kucoin uses base precision even for quote values
                 costString = self.market_order_amount_to_precision(symbol, quoteAmount)
                 request['funds'] = costString
             else:
@@ -3937,9 +3926,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for creating contract orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order-test
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-take-profit-and-stop-loss-order
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order
 
         :param str symbol: Unified CCXT market symbol
         :param str type: 'limit' or 'market'
@@ -4100,7 +4089,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for creating uta orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/place-order
+        https://www.kucoin.com/docs-new/rest/ua/place-order
 
         :param str symbol: Unified CCXT market symbol
         :param str type: 'limit' or 'market'
@@ -4160,12 +4149,15 @@ class cexc(Exchange, ImplicitAPI):
         marginMode = None
         marginMode, params = self.handle_margin_mode_and_params('createOrder', params)
         marginModeDefined = (marginMode is not None)
-        tradeType = self.handle_trade_type(isContract, marginMode, isUnified, params)
+        isSpotMargin = (isSpot and marginModeDefined)
+        if isSpotMargin and isUnified:
+            raise NotSupported(self.id + ' createOrder() does not support spot margin orders with unified accountMode')
+        tradeType = self.handle_trade_type(isContract, marginMode, params)
         clientOrderId = self.safe_string_2(params, 'clientOid', 'clientOrderId', self.uuid())
         params = self.omit(params, ['clientOid', 'clientOrderId'])
         request: dict = {
             'accountMode': accountMode,  # 'unified' or 'classic',
-            'tradeType': tradeType,  # 'SPOT', 'FUTURES', 'MARGIN', 'ISOLATED' or 'CROSS'
+            'tradeType': tradeType,  # 'SPOT', 'FUTURES', 'ISOLATED' or 'CROSS'
             'clientOid': clientOrderId,
             'symbol': market['id'],
             # 'triggerDirection'- 'UP' or 'DOWN(required for trigger orders, supported for classic-FUTURES and unified-SPOT and unified-FUTURES)
@@ -4286,8 +4278,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         create a market order by providing the symbol, side and cost
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
 
         :param str symbol: unified symbol of the market to create an order in
         :param str side: 'buy' or 'sell'
@@ -4305,8 +4297,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         create a market buy order by providing the symbol and cost
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
 
         :param str symbol: unified symbol of the market to create an order in
         :param float cost: how much you want to trade in units of the quote currency
@@ -4320,8 +4312,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         create a market sell order by providing the symbol and cost
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
 
         :param str symbol: unified symbol of the market to create an order in
         :param float cost: how much you want to trade in units of the quote currency
@@ -4335,8 +4327,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         create a list of trade orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders-sync
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders-sync
 
         :param Array orders: list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
         :param dict [params]:  extra parameters specific to the exchange API endpoint
@@ -4367,9 +4359,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for creating spot orders in batch
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders-sync
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/batch-add-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders-sync
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/batch-add-orders
 
         :param Array orders: list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
         :param dict [params]:  extra parameters specific to the exchange API endpoint
@@ -4451,7 +4443,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for creating contract orders in batch
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/batch-add-orders
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/batch-add-orders
 
         :param Array orders: list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
         :param dict [params]:  extra parameters specific to the exchange API endpoint
@@ -4497,9 +4489,9 @@ class cexc(Exchange, ImplicitAPI):
 
     async def edit_order(self, id: str, symbol: str, type: OrderType, side: OrderSide, amount: Num = None, price: Num = None, params={}):
         """
-        edit an order, cexccurrently only supports the modification of HF orders
+        edit an order, kucoin currently only supports the modification of HF orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/modify-order
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/modify-order
 
         :param str id: order id
         :param str symbol: unified symbol of the market to create an order in
@@ -4541,19 +4533,19 @@ class cexc(Exchange, ImplicitAPI):
         """
         cancels an open order
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld-sync
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid-sync
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/cancel-order
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld-sync
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid-sync
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/ua/cancel-order
 
         :param str id: order id
         :param str symbol: unified symbol of the market the order was made in
@@ -4583,16 +4575,16 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for cancelling spot orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld-sync
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid-sync
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld-sync
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid-sync
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-clientoid
 
         :param str id: order id
         :param str symbol: unified symbol of the market the order was made in
@@ -4724,8 +4716,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for cancelling contract orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-clientoid
 
         :param str id: order id
         :param str symbol: unified symbol of the market the order was made in
@@ -4764,14 +4756,14 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for cancelling uta orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/cancel-order
+        https://www.kucoin.com/docs-new/rest/ua/cancel-order
 
         :param str id: order id
         :param str symbol: unified symbol of the market the order was made in
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param str [params.accountMode]: 'unified' or 'classic'(default is 'unified')
         :param str [params.clientOrderId]: client order id, required if id is not provided
-        :param str [params.marginMode]: 'cross' or 'isolated', required if fetching a margin order(unified accountMode supports only cross margin)
+        :param str [params.marginMode]: 'cross' or 'isolated', required if fetching a margin order
         :returns: Response from the exchange
         """
         if symbol is None:
@@ -4794,8 +4786,7 @@ class cexc(Exchange, ImplicitAPI):
         request['accountMode'] = accountMode
         marginMode = None
         marginMode, params = self.handle_margin_mode_and_params('fetchOrder', params)
-        isUnified = (accountMode == 'unified')
-        tradeType = self.handle_trade_type(market['contract'], marginMode, isUnified, params)
+        tradeType = self.handle_trade_type(market['contract'], marginMode, params)
         request['tradeType'] = tradeType
         response = await self.utaPrivatePostAccountModeOrderCancel(self.extend(request, params))
         #
@@ -4816,14 +4807,14 @@ class cexc(Exchange, ImplicitAPI):
         """
         cancel all open orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders-by-symbol
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-cancel-stop-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-all-orders-by-symbol
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/batch-cancel-stop-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-stop-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-symbol
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders-by-symbol
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-cancel-stop-orders
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-all-orders-by-symbol
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/batch-cancel-stop-orders
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-orders
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-stop-orders
+        https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-symbol
 
         :param str symbol: unified market symbol, only orders in the market of self symbol are cancelled when symbol is not None
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -4852,11 +4843,11 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for cancelling all spot orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders-by-symbol
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-cancel-stop-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-all-orders-by-symbol
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/batch-cancel-stop-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders-by-symbol
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-cancel-stop-orders
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-all-orders-by-symbol
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/batch-cancel-stop-orders
 
         :param str symbol: unified market symbol, only orders in the market of self symbol are cancelled when symbol is not None
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -4903,8 +4894,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for cancelling all contract orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-stop-orders
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-orders
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-stop-orders
 
         :param str symbol: unified market symbol, only orders in the market of self symbol are cancelled when symbol is not None
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -4939,7 +4930,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for cancelling all uta orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-symbol
+        https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-symbol
 
         :param str symbol: unified market symbol, only orders in the market of self symbol are cancelled when symbol is not None
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -4985,16 +4976,16 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches a list of orders placed on the exchange
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
+        https://www.kucoin.com/docs-new/rest/ua/get-open-order-list
+        https://www.kucoin.com/docs-new/rest/ua/get-order-history
 
         :param str status: 'active' or 'closed', only 'active' is valid for stop orders
         :param str symbol: unified symbol for the market to retrieve orders from
@@ -5038,12 +5029,12 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch a list of spot orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list
 
         :param str status: *not used for stop orders* 'open' or 'closed'
         :param str symbol: unified market symbol
@@ -5163,8 +5154,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches a list of contract orders placed on the exchange
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
 
         :param str status: 'active' or 'closed', only 'active' is valid for stop orders
         :param str symbol: unified symbol for the market to retrieve orders from
@@ -5267,8 +5258,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for fetching orders by status with uta endpoint
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history
+        https://www.kucoin.com/docs-new/rest/ua/get-open-order-list
+        https://www.kucoin.com/docs-new/rest/ua/get-order-history
 
         :param str status: 'active' or 'closed', only 'active' is valid for stop orders
         :param str symbol: unified symbol for the market to retrieve orders from
@@ -5278,7 +5269,6 @@ class cexc(Exchange, ImplicitAPI):
         :param int [params.until]: End time in ms
         :param str [params.side]: *closed orders only* 'BUY' or 'SELL'
         :param str [params.accountMode]: 'unified' or 'classic'(default is unified)
-        :param str [params.marginMode]: 'cross' or 'isolated', only for margin orders(unified accountMode supports only cross margin)
         :param boolean [params.paginate]: default False, when True will automatically paginate by calling self endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
         :returns: An `array of order structures <https://docs.ccxt.com/?id=order-structure>`
         """
@@ -5307,8 +5297,7 @@ class cexc(Exchange, ImplicitAPI):
             raise ArgumentsRequired(self.id + ' fetchOrdersByStatus() requires a symbol argument for spot and margin markets when using uta endpoint')
         marginMode = None
         marginMode, params = self.handle_margin_mode_and_params('fetchOrdersByStatus', params)
-        isUnified = (accountMode == 'unified')
-        tradeType = self.handle_trade_type(isContract, marginMode, isUnified, params)
+        tradeType = self.handle_trade_type(isContract, marginMode, params)
         params['tradeType'] = tradeType
         if since is not None:
             request['startAt'] = since
@@ -5381,13 +5370,13 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches information on multiple closed orders made by the user
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+        https://www.kucoin.com/docs-new/rest/ua/get-order-history
 
         :param str symbol: unified market symbol of the market orders were made in
         :param int [since]: the earliest time in ms to fetch orders for
@@ -5413,14 +5402,14 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch all unfilled currently open orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list
+        https://www.kucoin.com/docs-new/rest/ua/get-open-order-list
 
         :param str symbol: unified market symbol
         :param int [since]: the earliest time in ms to fetch open orders for
@@ -5448,17 +5437,17 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches information on an order made by the user
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/get-stop-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/get-stop-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-details
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/spot-trading/get-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/futures-trading/get-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/ua/get-order-details
 
         :param str id: order id
         :param str symbol: unified symbol of the market the order was made in
@@ -5489,14 +5478,14 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch a spot order
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/get-stop-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-clientoid
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/spot-trading/get-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-clientoid
 
         :param str id: Order id
         :param str symbol: not sent to exchange except for trigger orders with clientOid, but used internally by CCXT to filter
@@ -5568,8 +5557,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetc contract order
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-by-orderld
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/get-stop-order-by-clientoid
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-by-orderld
+        https://www.kucoin.com/docs-new/rest/futures-trading/get-stop-order-by-clientoid
 
         :param str id: order id
         :param str symbol: unified symbol of the market the order was made in
@@ -5640,14 +5629,14 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch uta order
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-details
+        https://www.kucoin.com/docs-new/rest/ua/get-order-details
 
         :param str id: order id
         :param str symbol: unified symbol of the market the order was made in
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param str [params.accountMode]: 'unified' or 'classic'(default is 'unified')
         :param str [params.clientOrderId]: client order id, required if id is not provided
-        :param str [params.marginMode]: 'cross' or 'isolated', required if fetching a margin order(unified accountMode supports only cross margin)
+        :param str [params.marginMode]: 'cross' or 'isolated', required if fetching a margin order
         :returns dict: An `order structure <https://docs.ccxt.com/?id=order-structure>`
         """
         if symbol is None:
@@ -5669,8 +5658,7 @@ class cexc(Exchange, ImplicitAPI):
         request['accountMode'] = accountMode
         marginMode = None
         marginMode, params = self.handle_margin_mode_and_params('fetchOrder', params)
-        isUnified = (accountMode == 'unified')
-        tradeType = self.handle_trade_type(market['contract'], marginMode, isUnified, params)
+        tradeType = self.handle_trade_type(market['contract'], marginMode, params)
         request['tradeType'] = tradeType
         response = await self.utaPrivateGetAccountModeOrderDetail(self.extend(request, params))
         #
@@ -5717,18 +5705,13 @@ class cexc(Exchange, ImplicitAPI):
         data = self.safe_dict(response, 'data', {})
         return self.parse_order(data, market)
 
-    def handle_trade_type(self, isContractMarket=False, marginMode=None, isUnified=False, params={}):
+    def handle_trade_type(self, isContractMarket=False, marginMode=None, params={}):
         tradeType = self.safe_string(params, 'tradeType')
         if tradeType is None:
             if isContractMarket:
                 tradeType = 'FUTURES'
             elif marginMode is not None:
                 tradeType = marginMode.upper()
-                if isUnified:
-                    if tradeType == 'ISOLATED':
-                        raise NotSupported(self.id + ' spot isolated margin is not supported for unified accountMode')
-                    else:
-                        tradeType = 'MARGIN'
             else:
                 tradeType = 'SPOT'
         return tradeType
@@ -6175,9 +6158,9 @@ class cexc(Exchange, ImplicitAPI):
         fetch all the trades made from a single order
 
         https://docs.kucoin.com/#list-fills
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-trade-history
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-trade-history
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history
+        https://www.kucoin.com/docs-new/rest/ua/get-trade-history
 
         :param str id: order id
         :param str symbol: unified market symbol
@@ -6196,9 +6179,9 @@ class cexc(Exchange, ImplicitAPI):
     async def fetch_my_trades(self, symbol: Str = None, since: Int = None, limit: Int = None, params={}):
         """
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-trade-history
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-trade-history
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history
+        https://www.kucoin.com/docs-new/rest/ua/get-trade-history
 
         fetch all trades made by the user
         :param str symbol: unified market symbol
@@ -6229,8 +6212,8 @@ class cexc(Exchange, ImplicitAPI):
     async def fetch_my_spot_trades(self, symbol: Str = None, since: Int = None, limit: Int = None, params={}):
         """
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-trade-history
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history
+        https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-trade-history
+        https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history
 
         fetch all spot trades made by the user
         :param str symbol: unified market symbol
@@ -6343,7 +6326,7 @@ class cexc(Exchange, ImplicitAPI):
     async def fetch_my_contract_trades(self, symbol: Str = None, since: Int = None, limit: Int = None, params={}):
         """
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-trade-history
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-trade-history
 
         fetch all contract trades made by the user
         :param str symbol: unified market symbol
@@ -6417,7 +6400,7 @@ class cexc(Exchange, ImplicitAPI):
     async def fetch_my_uta_trades(self, symbol: Str = None, since: Int = None, limit: Int = None, params={}):
         """
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history
+        https://www.kucoin.com/docs-new/rest/ua/get-trade-history
 
         fetch all trades made by the user
         :param str symbol: unified market symbol
@@ -6426,7 +6409,7 @@ class cexc(Exchange, ImplicitAPI):
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param int [params.until]: the latest time in ms to fetch entries for
         :param str [params.accountMode]: 'unified' or 'classic', defaults to 'unified'
-        :param str [params.marginMode]: 'cross' or 'isolated', only for margin trades(unified accountMode support only cross margin)
+        :param str [params.marginMode]: 'cross' or 'isolated', only for margin trades
         :param str [params.side]: 'BUY' or 'SELL'(both if not provided)
         :param boolean [params.paginate]: default False, when True will automatically paginate by calling self endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
         :returns Trade[]: a list of `trade structures <https://docs.ccxt.com/?id=trade-structure>`
@@ -6450,14 +6433,13 @@ class cexc(Exchange, ImplicitAPI):
             raise ArgumentsRequired(self.id + ' fetchMyTrades() requires a symbol parameter for uta spot or margin trades')
         else:
             isContract = True
+        marginMode = None
+        marginMode, params = self.handle_margin_mode_and_params('fetchMyTrades', params)
+        tradeType = self.handle_trade_type(isContract, marginMode, params)
+        request['tradeType'] = tradeType
         accountMode = 'unified'
         accountMode, params = self.handle_option_and_params(params, 'fetchMyTrades', 'accountMode', accountMode)
         request['accountMode'] = accountMode
-        marginMode = None
-        marginMode, params = self.handle_margin_mode_and_params('fetchMyTrades', params)
-        isUnified = (accountMode == 'unified')
-        tradeType = self.handle_trade_type(isContract, marginMode, isUnified, params)
-        request['tradeType'] = tradeType
         if since is not None:
             request['startAt'] = since
         if limit is not None:
@@ -6499,9 +6481,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         get the list of most recent trades for a particular symbol
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-trade-history
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trades
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-trade-history
+        https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-trade-history
+        https://www.kucoin.com/docs-new/rest/ua/get-trades
+        https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-trade-history
 
         :param str symbol: unified symbol of the market to fetch trades for
         :param int [since]: timestamp in ms of the earliest trade to fetch
@@ -6913,9 +6895,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the trading fees for a market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/trade-fee/get-actual-fee-spot-margin
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/trade-fee/get-actual-fee-futures
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-actual-fee
+        https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-spot-margin
+        https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-futures
+        https://www.kucoin.com/docs-new/rest/ua/get-actual-fee
 
         :param str symbol: unified market symbol
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -7000,7 +6982,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         make a withdrawal
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/withdraw-v3
+        https://www.kucoin.com/docs-new/rest/account-info/withdrawals/withdraw-v3
 
         :param str code: unified currency code
         :param float amount: the amount to withdraw
@@ -7165,9 +7147,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch all deposits made to an account
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-history
-        https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-deposit-list
-        https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-v1-historical-deposits-list
+        https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-history
+        https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-list
+        https://www.kucoin.com/docs/rest/funding/deposit/get-v1-historical-deposits-list
 
         :param str code: unified currency code
         :param int [since]: the earliest time in ms to fetch deposits for
@@ -7302,9 +7284,9 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch all withdrawals made from an account
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/get-withdrawal-history
-        https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/withdrawals/get-withdrawals-list
-        https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/withdrawals/get-v1-historical-withdrawals-list
+        https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-history
+        https://www.kucoin.com/docs/rest/funding/withdrawals/get-withdrawals-list
+        https://www.kucoin.com/docs/rest/funding/withdrawals/get-v1-historical-withdrawals-list
 
         :param str code: unified currency code
         :param int [since]: the earliest time in ms to fetch withdrawals for
@@ -7451,12 +7433,12 @@ class cexc(Exchange, ImplicitAPI):
         """
         query for balance and get the amount of funds available for trading or funds locked in orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-detail-spot
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-cross-margin
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-isolated-margin
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-futures
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-uta
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-classic
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-detail-spot
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures
+        https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta
+        https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param dict [params.marginMode]: 'cross' or 'isolated', margin type for fetching margin balance
@@ -7630,7 +7612,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         query for balance and get the amount of funds available for trading or funds locked in orders
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-futures
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param dict [params.code]: the unified currency code to fetch the balance for, if not provided, the default .options['fetchBalance']['code'] will be used
@@ -7680,17 +7662,17 @@ class cexc(Exchange, ImplicitAPI):
         """
         helper method for fetching balance with unified trading account(uta) endpoint
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-uta
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-classic
+        https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta
+        https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
-        :param str [params.type]: 'unified', 'spot', 'funding', 'cross', 'isolated' or 'swap'(default is 'unified')
+        :param str [params.type]: 'spot', 'unified', 'funding', 'cross', 'isolated' or 'swap'(default is 'spot')
         :param str [params.marginMode]: 'cross' or 'isolated', margin type for fetching margin balance, only applicable if type is margin(default is cross)
         :returns dict: a `balance structure <https://docs.ccxt.com/?id=balance-structure>`
         """
         await self.load_markets()
-        requestedType = 'unified'
-        requestedType, params = self.handle_market_type_and_params('fetchUtaBalance', None, params, requestedType)
+        requestedType = None
+        requestedType, params = self.handle_market_type_and_params('fetchUtaBalance', None, params)
         if requestedType == 'margin':
             # assume cross margin if margin is specified but marginMode is not specified
             marginMode = 'cross'
@@ -7698,7 +7680,7 @@ class cexc(Exchange, ImplicitAPI):
             requestedType = marginMode
         utaAccountsByType = self.safe_dict(self.options, 'utaAccountsByType', {})
         type = None
-        type = self.safe_string(utaAccountsByType, requestedType, requestedType)
+        type = self.safe_string(utaAccountsByType, requestedType, type)
         isIsolated = (type == 'ISOLATED')
         request: dict = {}
         response = None
@@ -7809,8 +7791,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         transfer currency internally between wallets on the same account
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/transfer/flex-transfer?lang=en_US&
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/flex-transfer
+        https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer?lang=en_US&
+        https://www.kucoin.com/docs-new/rest/ua/flex-transfer
 
         :param str code: unified currency code
         :param float amount: amount to transfer
@@ -7832,7 +7814,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         transfer currency internally between wallets on the same account with uta endpoint
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/flex-transfer
+        https://www.kucoin.com/docs-new/rest/ua/flex-transfer
 
         :param str code: unified currency code
         :param float amount: amount to transfer
@@ -7910,7 +7892,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         transfer currency internally between wallets on the same account with classic endpoints
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/transfer/flex-transfer?lang=en_US&
+        https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer?lang=en_US&
 
         :param str code: unified currency code
         :param float amount: amount to transfer
@@ -8094,7 +8076,7 @@ class cexc(Exchange, ImplicitAPI):
             'Transfer': 'transfer',  # Transfer
             'Trade_Exchange': 'trade',  # Trade
             # 'Vote for Coin': 'Vote for Coin',  # Vote for Coin
-            'Cexc Bonus': 'bonus',  # Cexc Bonus
+            'KuCoin Bonus': 'bonus',  # KuCoin Bonus
             'Referral Bonus': 'referral',  # Referral Bonus
             'Rewards': 'bonus',  # Activities Rewards
             # 'Distribution': 'Distribution',  # Distribution, such GAS by holding NEO
@@ -8285,11 +8267,11 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the history of changes, actions done by the user or operations that altered the balance of the user
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-spot-margin
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-tradehf
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-marginhf
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-futures
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-ledger
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-tradehf
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-marginhf
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-futures
+        https://www.kucoin.com/docs-new/rest/ua/get-account-ledger
 
         :param str [code]: unified currency code, default is None
         :param int [since]: timestamp in ms of the earliest ledger entry, default is None
@@ -8309,9 +8291,7 @@ class cexc(Exchange, ImplicitAPI):
         hf = None
         hf, params = self.handle_hf_and_params(params)
         requestedType = None
-        if uta:
-            requestedType = 'UNIFIED'
-        requestedType, params = self.handle_market_type_and_params('fetchLedger', None, params, requestedType)
+        requestedType, params = self.handle_market_type_and_params('fetchLedger', None, params)
         marginMode = None
         marginMode, params = self.handle_margin_mode_and_params('fetchLedger', params)
         if uta and (requestedType == 'margin'):
@@ -8468,24 +8448,12 @@ class cexc(Exchange, ImplicitAPI):
         #         "dayRatio": "0.001"
         #     }
         #
-        # fetchCrossBorrowRate
-        #     {
-        #         "currentRateHourly": "0.00000353",
-        #         "currentRateDaily": "0.00008466",
-        #         "borrowLimitTotal": "600.00000000000000000000",
-        #         "borrowLimitTotalHold": "0.00000000000000000000",
-        #         "borrowLimitHold": "0.00000000000000000000",
-        #         "interestFreeBorrowLimit": "0.60000000000000000000"
-        #     }
-        #
         timestampId = self.safe_string_2(info, 'createdAt', 'timestamp')
-        timestamp = self.milliseconds()
-        if timestampId is not None:
-            timestamp = self.parse_to_int(timestampId[0:13])
+        timestamp = self.parse_to_int(timestampId[0:13])
         currencyId = self.safe_string(info, 'currency')
         return {
             'currency': self.safe_currency_code(currencyId, currency),
-            'rate': self.safe_number_n(info, ['dailyIntRate', 'dayRatio', 'currentRateDaily']),
+            'rate': self.safe_number_2(info, 'dailyIntRate', 'dayRatio'),
             'period': 86400000,
             'timestamp': timestamp,
             'datetime': self.iso8601(timestamp),
@@ -8496,8 +8464,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the interest owed by the user for borrowing currency for margin trading
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-cross-margin
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-isolated-margin
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin
 
         :param str [code]: unified currency code
         :param str [symbol]: unified market symbol, required for isolated margin
@@ -8677,7 +8645,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         retrieves a history of a multiple currencies borrow interest rate at specific time slots, returns all currencies if no symbols passed, default is None
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/get-interest-history
+        https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-interest-history
 
         :param str[]|None codes: list of unified currency codes, default is None
         :param int [since]: timestamp in ms of the earliest borrowRate, default is None
@@ -8728,7 +8696,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         retrieves a history of a currencies borrow interest rate at specific time slots
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/get-interest-history
+        https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-interest-history
 
         :param str code: unified currency code
         :param int [since]: timestamp for the earliest borrow rate
@@ -8804,43 +8772,11 @@ class cexc(Exchange, ImplicitAPI):
             borrowRateHistories[code] = self.filter_by_currency_since_limit(borrowRateHistories[code], code, since, limit)
         return borrowRateHistories
 
-    async def fetch_cross_borrow_rate(self, code: str, params={}) -> CrossBorrowRate:
-        """
-        fetch the rate of interest to borrow a currency for margin trading
-
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-borrowing-rates-and-limits
-
-        :param str code: unified currency code
-        :param dict [params]: extra parameters specific to the exchange API endpoint
-        :returns dict: a `borrow rate structure <https://docs.ccxt.com/?id=borrow-rate-structure>`
-        """
-        await self.load_markets()
-        currency = self.currency(code)
-        request: dict = {
-            'currency': currency['id'],
-        }
-        response = await self.utaPrivateGetAccountInterestLimits(self.extend(request, params))
-        #
-        #     {
-        #         "code": "200000",
-        #         "data": {
-        #             "currentRateHourly": "0.00000353",
-        #             "currentRateDaily": "0.00008466",
-        #             "borrowLimitTotal": "600.00000000000000000000",
-        #             "borrowLimitTotalHold": "0.00000000000000000000",
-        #             "borrowLimitHold": "0.00000000000000000000",
-        #             "interestFreeBorrowLimit": "0.60000000000000000000"
-        #         }
-        #     }
-        #
-        data = self.safe_dict(response, 'data', {})
-        return self.parse_borrow_rate(data, currency)
-
     async def borrow_cross_margin(self, code: str, amount: float, params={}):
         """
         create a loan to borrow margin
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/borrow
+        https://www.kucoin.com/docs-new/rest/margin-trading/debit/borrow
 
         :param str code: unified currency code of the currency to borrow
         :param float amount: the amount to borrow
@@ -8875,7 +8811,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         create a loan to borrow margin
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/borrow
+        https://www.kucoin.com/docs-new/rest/margin-trading/debit/borrow
 
         :param str symbol: unified market symbol, required for isolated margin
         :param str code: unified currency code of the currency to borrow
@@ -8914,7 +8850,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         repay borrowed margin and interest
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/repay
+        https://www.kucoin.com/docs-new/rest/margin-trading/debit/repay
 
         :param str code: unified currency code of the currency to repay
         :param float amount: the amount to repay
@@ -8947,7 +8883,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         repay borrowed margin and interest
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/repay
+        https://www.kucoin.com/docs-new/rest/margin-trading/debit/repay
 
         :param str symbol: unified market symbol
         :param str code: unified currency code of the currency to repay
@@ -9036,7 +8972,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the set leverage for a market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-cross-margin-leverage
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-leverage
 
         :param str symbol: unified market symbol
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -9073,17 +9009,14 @@ class cexc(Exchange, ImplicitAPI):
         """
         set the level of leverage for a market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/modify-leverage  # margin
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/modify-cross-margin-leverage  # contract
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-cross-margin-leverage-uta  # margin uta
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-leverage-uta  # contract uta
+        https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage
+        https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta
 
         :param int [leverage]: New leverage multiplier. Must be greater than 1 and up to two decimal places, and cannot be less than the user's current debt leverage or greater than the system's maximum leverage
         :param str [symbol]: unified market symbol
         :param dict [params]: extra parameters specific to the exchange API endpoint
-        :param boolean [params.uta]: set to True for the unified trading account(uta)
-        :param str [params.marginMode]: *spot non-uta only* 'cross' or 'isolated' default is 'cross'
-        :param str [params.code]: *uta margin only* the unified currency code for the margin to set the leverage for
+        :param boolean [params.uta]: *contract markets only* set to True for the unified trading account(uta)
         :returns dict: response from the exchange
         """
         await self.load_markets()
@@ -9096,41 +9029,29 @@ class cexc(Exchange, ImplicitAPI):
             market = self.market(symbol)
             if market['contract']:
                 return await self.set_contract_leverage(leverage, symbol, params)
-        request: dict = {
-            'leverage': self.number_to_string(leverage),
-        }
-        marginMode: Str = None
-        marginMode, params = self.handle_margin_mode_and_params('setLeverage', params)
         uta = await self.is_uta_enabled()
         uta, params = self.handle_option_and_params(params, 'setLeverage', 'uta', uta)
-        response = None
         if uta:
-            if marginMode == 'isolated':
-                raise NotSupported(self.id + ' unified trading account does not support isolated margin')
-            request['accountMode'] = 'unified'
-            code = None
-            code, params = self.handle_option_and_params_2(params, 'setLeverage', 'currency', 'code')
-            if code is None:
-                raise ArgumentsRequired(self.id + ' setLeverage requires a currency code in the params["code"] for unified trading account')
-            request['currency'] = self.currency_id(code)
-            response = await self.utaPrivatePostAccountModeAccountModifyLeverageMarginCross(self.extend(request, params))
-        else:
-            if marginMode is None:
-                raise ArgumentsRequired(self.id + ' setLeverage requires a marginMode parameter')
-            if marginMode == 'isolated' and symbol is None:
-                raise ArgumentsRequired(self.id + ' setLeverage requires a symbol parameter for isolated margin')
-            if symbol is not None:
-                request['symbol'] = market['id']
-            request['isIsolated'] = (marginMode == 'isolated')
-            response = await self.privatePostPositionUpdateUserLeverage(self.extend(request, params))
-        return response
+            raise NotSupported(self.id + ' setLeverage with params["uta"] is supported for contract markets only')
+        marginMode: Str = None
+        marginMode, params = self.handle_margin_mode_and_params('setLeverage', params)
+        if marginMode is None:
+            raise ArgumentsRequired(self.id + ' setLeverage requires a marginMode parameter')
+        request: dict = {}
+        if marginMode == 'isolated' and symbol is None:
+            raise ArgumentsRequired(self.id + ' setLeverage requires a symbol parameter for isolated margin')
+        if symbol is not None:
+            request['symbol'] = market['id']
+        request['leverage'] = str(leverage)
+        request['isIsolated'] = (marginMode == 'isolated')
+        return await self.privatePostPositionUpdateUserLeverage(self.extend(request, params))
 
     async def set_contract_leverage(self, leverage: int, symbol: Str = None, params={}):
         """
         set the level of leverage for a market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/modify-cross-margin-leverage
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-leverage-uta
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage
+        https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta
 
         :param float leverage: the rate of leverage
         :param str symbol: unified market symbol
@@ -9176,21 +9097,20 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the current funding rate interval
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-current-funding-rate
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-current-funding-rate
+        https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate
 
         :param str symbol: unified market symbol
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :returns dict: a `funding rate structure <https://docs.ccxt.com/?id=funding-rate-structure>`
         """
-        return await self.fetch_funding_rate(symbol, params)
+        return await self.fetch_funding_rate(symbol, self.extend(params, {'uta': False}))
 
     async def fetch_funding_rate(self, symbol: str, params={}) -> FundingRate:
         """
         fetch the current funding rate
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-current-funding-rate
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-current-funding-rate
+        https://www.kucoin.com/docs-new/rest/ua/get-current-funding-rate
+        https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate
 
         :param str symbol: unified market symbol
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -9210,14 +9130,11 @@ class cexc(Exchange, ImplicitAPI):
             #     {
             #         "code": "200000",
             #         "data": {
-            #             "symbol": ".ETHUSDTMFPI8H",
-            #             "nextFundingRate": -3.4E-5,
-            #             "fundingTime": 1776700800000,
-            #             "fundingRateCap": 0.00375,
-            #             "fundingRateFloor": -0.00375,
-            #             "currentGranularity": 28800000,
-            #             "newGranularity": 28800000,
-            #             "newGranularityStartTime": 1750147200000
+            #             "symbol": ".XBTUSDTMFPI8H",
+            #             "nextFundingRate": 7.4E-5,
+            #             "fundingTime": 1762444800000,
+            #             "fundingRateCap": 0.003,
+            #             "fundingRateFloor": -0.003
             #         }
             #     }
             #
@@ -9229,13 +9146,13 @@ class cexc(Exchange, ImplicitAPI):
             #         "data": {
             #             "symbol": ".ETHUSDTMFPI8H",
             #             "granularity": 28800000,
-            #             "timePoint": 1776672000000,
-            #             "value": -3.2E-5,
+            #             "timePoint": 1771747200000,
+            #             "value": 3.0E-6,
             #             "dailyInterestRate": 3.0E-4,
             #             "fundingRateCap": 0.00375,
             #             "fundingRateFloor": -0.00375,
             #             "period": 1,
-            #             "fundingTime": 1776700800000
+            #             "fundingTime": 1771776000000
             #         }
             #     }
             #
@@ -9246,34 +9163,29 @@ class cexc(Exchange, ImplicitAPI):
     def parse_funding_rate(self, data, market: Market = None) -> FundingRate:
         # uta
         #     {
-        #         "symbol": ".ETHUSDTMFPI8H",
-        #         "nextFundingRate": -3.4E-5,
-        #         "fundingTime": 1776700800000,
-        #         "fundingRateCap": 0.00375,
-        #         "fundingRateFloor": -0.00375,
-        #         "currentGranularity": 28800000,
-        #         "newGranularity": 28800000,
-        #         "newGranularityStartTime": 1750147200000
+        #         "symbol": ".XBTUSDTMFPI8H",
+        #         "nextFundingRate": 7.4E-5,
+        #         "fundingTime": 1762444800000,
+        #         "fundingRateCap": 0.003,
+        #         "fundingRateFloor": -0.003
         #     }
         #
         # futures
         #     {
         #         "symbol": ".ETHUSDTMFPI8H",
         #         "granularity": 28800000,
-        #         "timePoint": 1776672000000,
-        #         "value": -3.2E-5,
+        #         "timePoint": 1771747200000,
+        #         "value": 3.0E-6,
         #         "dailyInterestRate": 3.0E-4,
         #         "fundingRateCap": 0.00375,
         #         "fundingRateFloor": -0.00375,
         #         "period": 1,
-        #         "fundingTime": 1776700800000
+        #         "fundingTime": 1771776000000
         #     }
         #
         fundingTimestamp = self.safe_integer(data, 'fundingTime')
         previousFundingTimestamp = self.safe_integer(data, 'timePoint')
-        nextFundingTimestamp = self.safe_integer(data, 'newGranularityStartTime')
         marketId = self.safe_string(data, 'symbol')
-        granularity = self.safe_string_2(data, 'granularity', 'currentGranularity')
         return {
             'info': data,
             'symbol': self.safe_symbol(marketId, market, None, 'contract'),
@@ -9286,13 +9198,13 @@ class cexc(Exchange, ImplicitAPI):
             'fundingRate': self.safe_number_2(data, 'nextFundingRate', 'value'),
             'fundingTimestamp': fundingTimestamp,
             'fundingDatetime': self.iso8601(fundingTimestamp),
-            'nextFundingRate': None,
-            'nextFundingTimestamp': nextFundingTimestamp,
-            'nextFundingDatetime': self.iso8601(nextFundingTimestamp),
+            'nextFundingRate': self.safe_number(data, 'predictedValue'),
+            'nextFundingTimestamp': None,
+            'nextFundingDatetime': None,
             'previousFundingRate': None,
             'previousFundingTimestamp': previousFundingTimestamp,
             'previousFundingDatetime': self.iso8601(previousFundingTimestamp),
-            'interval': self.parse_funding_interval(granularity),
+            'interval': self.parse_funding_interval(self.safe_string(data, 'granularity')),
         }
 
     def parse_funding_interval(self, interval):
@@ -9309,8 +9221,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches historical funding rate prices
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-public-funding-history
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-history-funding-rate
+        https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-public-funding-history
+        https://www.kucoin.com/docs-new/rest/ua/get-history-funding-rate
 
         :param str symbol: unified symbol of the market to fetch the funding rate history for
         :param int [since]: not used by kucuoinfutures
@@ -9407,116 +9319,80 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch the history of funding payments paid and received on self account
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-private-funding-history
+        https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-private-funding-history
 
         :param str symbol: unified market symbol
         :param int [since]: the earliest time in ms to fetch funding history for
         :param int [limit]: the maximum number of funding history structures to retrieve
         :param dict [params]: extra parameters specific to the exchange API endpoint
-        :param boolean [params.uta]: set to True for the unified trading account(uta), defaults to False
         :returns dict: a `funding history structure <https://docs.ccxt.com/?id=funding-history-structure>`
         """
-        await self.load_markets()
-        uta = await self.is_uta_enabled()
-        uta, params = self.handle_option_and_params(params, 'fetchFundingHistory', 'uta', uta)
-        request: dict = {}
-        market = None
-        if symbol is not None:
-            market = self.market(symbol)
-            request['symbol'] = market['id']
-        elif not uta:
+        if symbol is None:
             raise ArgumentsRequired(self.id + ' fetchFundingHistory() requires a symbol argument')
+        await self.load_markets()
+        market = self.market(symbol)
+        request: dict = {
+            'symbol': market['id'],
+        }
         if since is not None:
             request['startAt'] = since
-        dataList = []
-        if uta:
-            if limit is not None:
-                request['pageSize'] = limit
-            request, params = self.handle_until_option('endAt', request, params)
-            response = await self.utaPrivateGetPositionFundingHistory(self.extend(request, params))
-            #
-            #     {
-            #         "code": "200000",
-            #         "data": {
-            #             "lastId": 2125247170385112,
-            #             "items": [
-            #                 {
-            #                     "symbol": "DOGEUSDTM",
-            #                     "marginMode": "CROSS",
-            #                     "fundingRate": "0.000172",
-            #                     "markPrice": "0.09326",
-            #                     "size": "-1",
-            #                     "positionValue": "-9.326",
-            #                     "fundingFee": "0.00160407",
-            #                     "settleCurrency": "USDT",
-            #                     "settlementTime": 1775030400000
-            #                 }
-            #             ]
-            #         }
-            #     }
-            data = self.safe_dict(response, 'data')
-            dataList = self.safe_list(data, 'items', [])
-        else:
-            if limit is not None:
-                # * Since is ignored if limit is defined
-                request['maxCount'] = limit
-            response = await self.futuresPrivateGetFundingHistory(self.extend(request, params))
-            #
-            #    {
-            #        "code": "200000",
-            #        "data": {
-            #            "dataList": [
-            #                {
-            #                    "id": 239471298749817,
-            #                    "symbol": "ETHUSDTM",
-            #                    "timePoint": 1638532800000,
-            #                    "fundingRate": 0.000100,
-            #                    "markPrice": 4612.8300000000,
-            #                    "positionQty": 12,
-            #                    "positionCost": 553.5396000000,
-            #                    "funding": -0.0553539600,
-            #                    "settleCurrency": "USDT"
-            #                },
-            #                ...
-            #            ],
-            #            "hasMore": True
-            #        }
-            #    }
-            #
-            data = self.safe_value(response, 'data')
-            dataList = self.safe_list(data, 'dataList', [])
+        if limit is not None:
+            # * Since is ignored if limit is defined
+            request['maxCount'] = limit
+        response = await self.futuresPrivateGetFundingHistory(self.extend(request, params))
+        #
+        #    {
+        #        "code": "200000",
+        #        "data": {
+        #            "dataList": [
+        #                {
+        #                    "id": 239471298749817,
+        #                    "symbol": "ETHUSDTM",
+        #                    "timePoint": 1638532800000,
+        #                    "fundingRate": 0.000100,
+        #                    "markPrice": 4612.8300000000,
+        #                    "positionQty": 12,
+        #                    "positionCost": 553.5396000000,
+        #                    "funding": -0.0553539600,
+        #                    "settleCurrency": "USDT"
+        #                },
+        #                ...
+        #            ],
+        #            "hasMore": True
+        #        }
+        #    }
+        #
+        data = self.safe_value(response, 'data')
+        dataList = self.safe_list(data, 'dataList', [])
         fees = []
         for i in range(0, len(dataList)):
             listItem = dataList[i]
-            timestamp = self.safe_integer_2(listItem, 'timePoint', 'settlementTime')
-            marketId = self.safe_string(listItem, 'symbol')
+            timestamp = self.safe_integer(listItem, 'timePoint')
             fees.append({
                 'info': listItem,
-                'symbol': self.safe_symbol(marketId, market),
+                'symbol': symbol,
                 'code': self.safe_currency_code(self.safe_string(listItem, 'settleCurrency')),
                 'timestamp': timestamp,
                 'datetime': self.iso8601(timestamp),
                 'id': self.safe_number(listItem, 'id'),
-                'amount': self.safe_number_2(listItem, 'funding', 'fundingFee'),
+                'amount': self.safe_number(listItem, 'funding'),
                 'fundingRate': self.safe_number(listItem, 'fundingRate'),
                 'markPrice': self.safe_number(listItem, 'markPrice'),
-                'positionQty': self.safe_number_2(listItem, 'positionQty', 'size'),
-                'positionCost': self.safe_number_2(listItem, 'positionCost', 'positionValue'),
+                'positionQty': self.safe_number(listItem, 'positionQty'),
+                'positionCost': self.safe_number(listItem, 'positionCost'),
             })
         return fees
 
     async def fetch_position(self, symbol: str, params={}):
         """
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-details
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-list-uta
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-details
+        https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta
 
         fetch data on an open position
         :param str symbol: unified market symbol of the market the position is held in
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param boolean [params.uta]: set to True for the unified trading account(uta), defaults to False
-        :param integer [params.pageSize]: *uta only* page size for the uta endpoint(default 50, max 200)
-        :param integer [params.pageNumber]: *uta only* page number for the uta endpoint(default 1)
         :returns dict: a `position structure <https://docs.ccxt.com/?id=position-structure>`
         """
         await self.load_markets()
@@ -9609,14 +9485,12 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch all open positions
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-list
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-list-uta
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-list
+        https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta
 
         :param str[]|None symbols: list of unified market symbols
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param boolean [params.uta]: set to True for the unified trading account(uta), defaults to False
-        :param integer [params.pageSize]: *uta only* page size for the uta endpoint(default 50, max 200)
-        :param integer [params.pageNumber]: *uta only* page number for the uta endpoint(default 1)
         :returns dict[]: a list of `position structure <https://docs.ccxt.com/?id=position-structure>`
         """
         await self.load_markets()
@@ -9624,7 +9498,7 @@ class cexc(Exchange, ImplicitAPI):
         uta, params = self.handle_option_and_params(params, 'fetchPositions', 'uta', uta)
         response = None
         if uta:
-            response = await self.utaPrivateGetAccountModePositionOpenList(self.extend({'accountMode': 'unified', 'limit': 200}, params))
+            response = await self.utaPrivateGetAccountModePositionOpenList(self.extend(params, {'accountMode': 'unified'}))
         else:
             response = await self.futuresPrivateGetPositions(params)
             #
@@ -9680,8 +9554,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches historical positions
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-positions-history
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-history-uta
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-positions-history
+        https://www.kucoin.com/docs-new/rest/ua/get-position-history-uta
 
         :param str[] [symbols]: list of unified market symbols
         :param int [since]: the earliest time in ms to fetch position history for
@@ -9963,8 +9837,8 @@ class cexc(Exchange, ImplicitAPI):
         """
         cancel multiple orders for contract markets
 
-        https://exchange-broker.cexc.io/api/v1/documentation3470241e0
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-id
+        https://www.kucoin.com/docs-new/3470241e0
+        https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id
 
         :param str[] ids: order ids
         :param str symbol: unified symbol of the market the order was made in
@@ -9972,7 +9846,7 @@ class cexc(Exchange, ImplicitAPI):
         :param str[] [params.clientOrderIds]: client order ids
         :param boolean [params.uta]: set to True to use the unified trading account(uta) endpoint, defaults to False for the contract orders
         :param str [params.accountMode]: *for uta endpoint only* 'unified' or 'classic'(default is 'unified')
-        :param str [params.marginMode]: *for margin orders only* 'cross' or 'isolated'(unified accountMode supports cross margin only)
+        :param str [params.marginMode]: *for margin orders only* 'cross' or 'isolated'
         :returns dict: an list of `order structures <https://docs.ccxt.com/?id=order-structure>`
         """
         await self.load_markets()
@@ -10017,8 +9891,7 @@ class cexc(Exchange, ImplicitAPI):
             request['accountMode'] = accountMode
             marginMode = None
             marginMode, params = self.handle_margin_mode_and_params('fetchOrder', params)
-            isUnified = (accountMode == 'unified')
-            tradeType = self.handle_trade_type(isContractMarket, marginMode, isUnified, params)
+            tradeType = self.handle_trade_type(isContractMarket, marginMode, params)
             request['tradeType'] = tradeType
             request['cancelOrderList'] = ordersRequests
             response = await self.utaPrivatePostAccountModeOrderCancelBatch(self.extend(request, params))
@@ -10055,7 +9928,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         add margin
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/add-isolated-margin
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/add-isolated-margin
 
         :param str symbol: unified market symbol
         :param float amount: amount of margin to add
@@ -10197,7 +10070,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches the margin mode of a trading pair
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-margin-mode
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-margin-mode
 
         :param str symbol: unified symbol of the market to fetch the margin mode for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -10234,7 +10107,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         set margin mode to 'cross' or 'isolated'
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/switch-margin-mode
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-margin-mode
 
         :param str marginMode: 'cross' or 'isolated'
         :param str symbol: unified market symbol
@@ -10269,7 +10142,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         set hedged to True or False for a market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/switch-position-mode
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-position-mode
 
         :param bool hedged: set to True to use two way position
         :param str [symbol]: not used by bybit setPositionMode()
@@ -10296,7 +10169,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetchs the position mode, hedged or one way
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-mode
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-mode
 
         :param str [symbol]: unified symbol of the market to fetch the position mode for(not used in blofin fetchPositionMode)
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -10314,11 +10187,11 @@ class cexc(Exchange, ImplicitAPI):
         """
         closes open positions for a market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order-test
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
+        https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test
 
         :param str symbol: Unified CCXT market symbol
-        :param str side: not used by cexcclosePositions
+        :param str side: not used by kucoin closePositions
         :param dict [params]: extra parameters specific to the okx api endpoint
         :param str [params.clientOrderId]: client order id of the order
         :returns dict[]: `A list of position structures <https://docs.ccxt.com/?id=position-structure>`
@@ -10347,7 +10220,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         retrieve information on the maximum leverage, and maintenance margin for trades of varying trade sizes for a single market
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-isolated-margin-risk-limit
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-isolated-margin-risk-limit
 
         :param str symbol: unified market symbol
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -10437,7 +10310,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         retrieve information on the maximum leverage, and maintenance margin for trades of varying trade sizes
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-tiers
+        https://www.kucoin.com/docs-new/rest/ua/get-position-tiers
 
         :param str[] symbols: list of unified market symbols
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -10502,7 +10375,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         Retrieves the open interest for a list of symbols
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-futures-open-interset
+        https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset
 
         :param str[] [symbols]: Unified CCXT market symbol
         :param dict [params]: exchange specific parameters
@@ -10558,7 +10431,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         Retrieves the open interest history of a currency
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-futures-open-interset
+        https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset
 
         :param str symbol: Unified CCXT market symbol
         :param str timeframe: '5m', '15m', '30m', '1h', '4h' or '1d'
@@ -10609,7 +10482,7 @@ class cexc(Exchange, ImplicitAPI):
     async def is_uta_enabled(self, params={}):
         """
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-mode
+        https://www.kucoin.com/docs-new/rest/ua/get-account-mode
 
         returns True or False so the user can check if unified account is enabled
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -10655,7 +10528,7 @@ class cexc(Exchange, ImplicitAPI):
             if ((method == 'GET') or (method == 'DELETE')) and (path != 'orders/multi-cancel'):
                 endpoint += '?' + self.rawencode(query)
             else:
-                if (endpoint == '/api/ua/v1/classic/order/place') or (endpoint == '/api/ua/v1/classic/order/place/batch') or (endpoint == '/api/ua/v1/classic/order/cancel') or (endpoint == '/api/ua/v1/classic/order/cancel/batch'):
+                if endpoint == '/api/ua/v1/classic/order/place':
                     endpoint += '?tradeType=' + tradeType
                 body = self.json(query)
                 endpart = body
@@ -10669,19 +10542,19 @@ class cexc(Exchange, ImplicitAPI):
             self.check_required_credentials()
             timestamp = str(self.nonce())
             headers = self.extend({
-                'CEXC-API-KEY-VERSION': '2',
-                'CEXC-API-KEY': self.apiKey,
-                'CEXC-API-TIMESTAMP': timestamp,
+                'KC-API-KEY-VERSION': '2',
+                'KC-API-KEY': self.apiKey,
+                'KC-API-TIMESTAMP': timestamp,
             }, headers)
-            apiKeyVersion = self.safe_string(headers, 'CEXC-API-KEY-VERSION')
+            apiKeyVersion = self.safe_string(headers, 'KC-API-KEY-VERSION')
             if apiKeyVersion == '2':
                 passphrase = self.hmac(self.encode(self.password), self.encode(self.secret), hashlib.sha256, 'base64')
-                headers['CEXC-API-PASSPHRASE'] = passphrase
+                headers['KC-API-PASSPHRASE'] = passphrase
             else:
-                headers['CEXC-API-PASSPHRASE'] = self.password
+                headers['KC-API-PASSPHRASE'] = self.password
             payload = timestamp + method + endpoint + endpart
             signature = self.hmac(self.encode(payload), self.encode(self.secret), hashlib.sha256, 'base64')
-            headers['CEXC-API-SIGN'] = signature
+            headers['KC-API-SIGN'] = signature
             partner = self.safe_dict(self.options, 'partner', {})
             isUtaFuturePrivate = isUtaPrivate and (tradeType == 'FUTURES')
             isFuturePartner = isFuturePrivate or isUtaFuturePrivate
@@ -10691,13 +10564,13 @@ class cexc(Exchange, ImplicitAPI):
             if (partnerId is not None) and (partnerSecret is not None):
                 partnerPayload = timestamp + partnerId + self.apiKey
                 partnerSignature = self.hmac(self.encode(partnerPayload), self.encode(partnerSecret), hashlib.sha256, 'base64')
-                headers['CEXC-API-PARTNER-SIGN'] = partnerSignature
-                headers['CEXC-API-PARTNER'] = partnerId
-                headers['CEXC-API-PARTNER-VERIFY'] = 'true'
+                headers['KC-API-PARTNER-SIGN'] = partnerSignature
+                headers['KC-API-PARTNER'] = partnerId
+                headers['KC-API-PARTNER-VERIFY'] = 'true'
             if isBroker:
                 brokerName = self.safe_string(partner, 'name')
                 if brokerName is not None:
-                    headers['CEXC-BROKER-NAME'] = brokerName
+                    headers['KC-BROKER-NAME'] = brokerName
         return {'url': url, 'method': method, 'body': body, 'headers': headers}
 
     def handle_errors(self, code: int, reason: str, url: str, method: str, headers: dict, body: str, response, requestHeaders, requestBody):
@@ -10724,7 +10597,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetch a history of internal transfers made on an account
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-spot-margin
+        https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin
 
         :param str [code]: unified currency code of the currency transferred
         :param int [since]: the earliest time in ms to fetch transfers for
@@ -10791,7 +10664,7 @@ class cexc(Exchange, ImplicitAPI):
         """
         fetches the auto deleveraging rank and risk percentage for a list of symbols
 
-        https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-list
+        https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-list
 
         :param str[] [symbols]: list of unified market symbols
         :param dict [params]: extra parameters specific to the exchange API endpoint

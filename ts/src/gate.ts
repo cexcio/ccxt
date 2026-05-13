@@ -717,6 +717,7 @@ export default class gate extends Exchange {
                 'MPH': 'MORPHER', // conflict with 88MPH
                 'POINT': 'GATEPOINT',
                 'RAI': 'RAIREFLEXINDEX', // conflict with RAI Finance
+                'RED': 'RedLang',
                 'SBTC': 'SUPERBITCOIN',
                 'TNC': 'TRINITYNETWORKCREDIT',
                 'VAI': 'VAIOT',
@@ -1735,10 +1736,6 @@ export default class gate extends Exchange {
                 const maxMultiplier = Precise.stringAdd ('1', priceDeviate);
                 const minPrice = Precise.stringMul (minMultiplier, markPrice);
                 const maxPrice = Precise.stringMul (maxMultiplier, markPrice);
-                let createdTs = this.safeTimestamp (market, 'create_time');
-                if (createdTs === 0) {
-                    createdTs = undefined;
-                }
                 result.push ({
                     'id': id,
                     'symbol': symbol,
@@ -1787,7 +1784,7 @@ export default class gate extends Exchange {
                             'max': undefined,
                         },
                     },
-                    'created': createdTs,
+                    'created': this.safeTimestamp (market, 'create_time'),
                     'info': market,
                 });
             }

@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var cexc$1 = require('./abstract/cexc.js');
+var kucoin = require('./abstract/kucoin.js');
 var errors = require('./base/errors.js');
 var Precise = require('./base/Precise.js');
 var number = require('./base/functions/number.js');
@@ -11,10 +11,10 @@ var sha256 = require('./static_dependencies/noble-hashes/sha256.js');
 // ----------------------------------------------------------------------------
 //  ---------------------------------------------------------------------------
 /**
- * @class kucoin
+ * @class cexc
  * @augments Exchange
  */
-class cexc extends cexc$1["default"] {
+class cexc extends kucoin["default"] {
     describe() {
         return this.deepExtend(super.describe(), {
             'id': 'cexc',
@@ -29,13 +29,13 @@ class cexc extends cexc$1["default"] {
             'has': {
                 'CORS': undefined,
                 'spot': true,
-                'margin': false,
-                'swap': false,
+                'margin': true,
+                'swap': true,
                 'future': false,
                 'option': false,
-                'addMargin': false,
-                'borrowCrossMargin': false,
-                'borrowIsolatedMargin': false,
+                'addMargin': true,
+                'borrowCrossMargin': true,
+                'borrowIsolatedMargin': true,
                 'cancelAllOrders': true,
                 'cancelOrder': true,
                 'cancelOrders': true,
@@ -62,7 +62,7 @@ class cexc extends cexc$1["default"] {
                 'fetchBorrowRateHistories': true,
                 'fetchBorrowRateHistory': true,
                 'fetchClosedOrders': true,
-                'fetchCrossBorrowRate': true,
+                'fetchCrossBorrowRate': false,
                 'fetchCrossBorrowRates': false,
                 'fetchCurrencies': true,
                 'fetchDepositAddress': true,
@@ -122,7 +122,7 @@ class cexc extends cexc$1["default"] {
                 'repayCrossMargin': true,
                 'repayIsolatedMargin': true,
                 'setLeverage': true,
-                'setMarginMode': false,
+                'setMarginMode': true,
                 'setPositionMode': true,
                 'signIn': false,
                 'transfer': true,
@@ -142,9 +142,9 @@ class cexc extends cexc$1["default"] {
                     'uta': 'https://exchange-broker.cexc.io',
                     'utaPrivate': 'https://exchange-broker.cexc.io',
                 },
-                'www': 'https://cexc.io',
+                'www': 'https://exchange-broker.cexc.io',
                 'doc': [
-                    'https://cexc.io/api/v1/documentation',
+                    'https://exchange-broker.cexc.io/api/v1/documentation',
                 ],
             },
             'requiredCredentials': {
@@ -551,7 +551,6 @@ class cexc extends cexc$1["default"] {
                         'market/position-tiers': 40,
                         'market/open-interest': 20,
                         'server/status': 6,
-                        'market/borrowable-currency': 30,
                     },
                 },
                 'utaPrivate': {
@@ -577,9 +576,6 @@ class cexc extends cexc$1["default"] {
                         'sub-account/balance': 10,
                         'user/fee-rate': 6,
                         'dcp/query': 4,
-                        'unified/account/leverage': 20,
-                        'position/funding-history': 30,
-                        'account/interest-limits': 20,
                     },
                     'post': {
                         'account/transfer': 8,
@@ -592,7 +588,6 @@ class cexc extends cexc$1["default"] {
                         '{accountMode}/order/cancel-all': 40,
                         'sub-account/canTransferOut': 10,
                         'dcp/set': 4,
-                        '{accountMode}/account/modify-leverage-margin-cross': 40,
                     },
                 },
             },
@@ -912,9 +907,6 @@ class cexc extends cexc$1["default"] {
                 },
                 'fetchBalance': {
                     'code': 'USDT', // for contract endpoint
-                },
-                'setLeverage': {
-                    'code': 'USDT', // for uta margin endpoint
                 },
                 'timeInForce': {
                     'IOC': 'IOC',
@@ -1303,7 +1295,7 @@ class cexc extends cexc$1["default"] {
                     // 'ENECUUM': 'enq',
                     // 'HAVEN': 'xhv',
                     // 'CHAINX': 'pcx',
-                    // // 'FLUXOLD': 'zel', // zel seems old chain (with uppercase FLUX in UI and with id 'zel')
+                    // // 'FLUXOLD': 'zel', // zel seems old chain (with uppercase FLUX in kucoin UI and with id 'zel')
                     // 'BUMO': 'bu',
                     // 'DEEPONION': 'onion',
                     // 'ULORD': 'ut',
@@ -1367,7 +1359,7 @@ class cexc extends cexc$1["default"] {
                         'symbolRequired': true,
                     },
                     'fetchOrder': {
-                        'marginMode': true,
+                        'marginMode': false,
                         'trigger': true,
                         'trailing': false,
                         'symbolRequired': true,
@@ -1484,7 +1476,7 @@ class cexc extends cexc$1["default"] {
                     },
                 },
             },
-            'rollingWindowSize': 30000.0, // https://exchange-broker.cexc.io/api/v1/documentationrate-limit
+            'rollingWindowSize': 30000.0, // https://www.kucoin.com/docs-new/rate-limit
         });
     }
     nonce() {
@@ -1494,8 +1486,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchTime
      * @description fetches the current integer timestamp in milliseconds from the exchange server
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-server-time
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-server-time
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-server-time
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-server-time
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {int} the current integer timestamp in milliseconds from the exchange server
      */
@@ -1528,9 +1520,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchStatus
      * @description the latest known information on the availability of the exchange API
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-service-status
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-service-status
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-service-status
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-service-status
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-service-status
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-service-status
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.type] spot or swap
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
@@ -1600,9 +1592,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchMarkets
      * @description retrieves data on all markets for kucoin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-symbols
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-symbol
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-all-symbols
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-symbols
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-symbol
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-symbols
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
      * @returns {object[]} an array of objects representing market data
@@ -2182,7 +2174,7 @@ class cexc extends cexc$1["default"] {
      * @name cexc#loadMigrationStatus
      * @param {boolean} force load account state for non hf
      * @description loads the migration status for the account (hf or not)
-     * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/spot-trading/spot-hf-trade-pro-account/get-user-type
+     * @see https://www.kucoin.com/docs/rest/spot-trading/spot-hf-trade-pro-account/get-user-type
      * @returns {any} ignore
      */
     async loadMigrationStatus(force = false) {
@@ -2211,8 +2203,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchCurrencies
      * @description fetches all available currencies on an exchange
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-currencies
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-currencies
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-currencies
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-currencies
      * @param {object} params extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
      * @returns {object} an associative dictionary of currencies
@@ -2339,7 +2331,7 @@ class cexc extends cexc$1["default"] {
                 },
             };
         }
-        // cexchas determined 'fiat' currencies with below logic
+        // kucoin has determined 'fiat' currencies with below logic
         const rawPrecision = this.safeString(entry, 'precision');
         const precision = this.parseNumber(this.parsePrecision(rawPrecision));
         const isFiat = chainsLength === 0;
@@ -2362,7 +2354,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchAccounts
      * @description fetch all the accounts associated with a profile
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-list-spot
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-list-spot
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
      * @returns {object} a dictionary of [account structures]{@link https://docs.ccxt.com/?id=account-structure} indexed by the account type
@@ -2470,7 +2462,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchDepositWithdrawFee
      * @description fetch the fee for deposits and withdrawals
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/get-withdrawal-quotas
+     * @see https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-quotas
      * @param {string} code unified currency code
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.network] The chain of currency. This only apply for multi-chain currency, and there is no need for single chain currency; you can query the chain through the response of the GET /api/v2/currencies/{currency} interface
@@ -2844,9 +2836,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchTickers
      * @description fetches price tickers for multiple markets, statistical information calculated over the past 24 hours for each market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-tickers
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-all-tickers
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-ticker
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-tickers
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-tickers
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-ticker
      * @param {string[]|undefined} [symbols] unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
@@ -3029,7 +3021,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchMarkPrices
      * @description fetches the mark price for multiple markets
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/market-data/get-mark-price-list
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-list
      * @param {string[]} [symbols] unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
@@ -3045,9 +3037,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchTicker
      * @description fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-24hr-stats
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-ticker
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-ticker
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-24hr-stats
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-ticker
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-ticker
      * @param {string} symbol unified symbol of the market to fetch the ticker for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
@@ -3154,8 +3146,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchMarkPrice
      * @description fetches the mark price for a specific market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/market-data/get-mark-price-detail
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-mark-price
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-detail
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-mark-price
      * @param {string} symbol unified symbol of the market to fetch the ticker for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
@@ -3192,7 +3184,7 @@ class cexc extends cexc$1["default"] {
         //
         const timestampString = this.safeString(ohlcv, 0);
         if (timestampString !== undefined && timestampString.length <= 10) {
-            // cexcspot and uta return seconds timestamps
+            // kucoin spot and uta return seconds timestamps
             return [
                 this.safeTimestamp(ohlcv, 0),
                 this.safeNumber(ohlcv, 1),
@@ -3203,7 +3195,7 @@ class cexc extends cexc$1["default"] {
             ];
         }
         else {
-            // cexcfutures return milliseconds timestamps
+            // kucoin futures return milliseconds timestamps
             return [
                 this.safeInteger(ohlcv, 0),
                 this.safeNumber(ohlcv, 1),
@@ -3218,9 +3210,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchOHLCV
      * @description fetches historical candlestick data containing the open, high, low, and close price, and the volume of a market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-klines
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-klines
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-klines
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-klines
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-klines
      * @param {string} symbol unified symbol of the market to fetch OHLCV data for
      * @param {string} timeframe the length of time each candle represents
      * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -3250,7 +3242,7 @@ class cexc extends cexc$1["default"] {
      * @ignore
      * @name cexc#fetchUTAOHLCV
      * @description helper method for fetchOHLCV
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-klines
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-klines
      * @param {string} symbol unified symbol of the market to fetch OHLCV data for
      * @param {string} timeframe the length of time each candle represents
      * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -3320,7 +3312,7 @@ class cexc extends cexc$1["default"] {
      * @ignore
      * @name cexc#fetchSpotOHLCV
      * @description helper method for fetchOHLCV
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-klines
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-klines
      * @param {string} symbol unified symbol of the market to fetch OHLCV data for
      * @param {string} timeframe the length of time each candle represents
      * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -3377,7 +3369,7 @@ class cexc extends cexc$1["default"] {
      * @ignore
      * @name cexc#fetchContractOHLCV
      * @description helper method for fetchOHLCV
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-klines
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines
      * @param {string} symbol unified symbol of the market to fetch OHLCV data for
      * @param {string} timeframe the length of time each candle represents
      * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -3439,7 +3431,7 @@ class cexc extends cexc$1["default"] {
     /**
      * @method
      * @name cexc#createDepositAddress
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/add-deposit-address-v3
+     * @see https://www.kucoin.com/docs-new/rest/account-info/deposit/add-deposit-address-v3
      * @description create a currency deposit address
      * @param {string} code unified currency code of the currency for the deposit address
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -3480,8 +3472,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchDepositAddress
      * @description fetch the deposit address for a currency associated with this account
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-address-v3/en
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-deposit-address
+     * @see https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3/en
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-deposit-address
      * @param {string} code unified currency code
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.network] the blockchain network name
@@ -3531,7 +3523,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchContractDepositAddress
      * @description fetch the deposit address for a currency associated with this account
-     * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-deposit-address
+     * @see https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-address
      * @param {string} code unified currency code
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} an [address structure]{@link https://docs.ccxt.com/?id=address-structure}
@@ -3549,7 +3541,7 @@ class cexc extends cexc$1["default"] {
         //        "code": "200000",
         //        "data": {
         //            "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",//Deposit address
-        //            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to Cexc Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
+        //            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to KuCoin Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
         //        }
         //    }
         //
@@ -3593,8 +3585,8 @@ class cexc extends cexc$1["default"] {
     /**
      * @method
      * @name cexc#fetchDepositAddressesByNetwork
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-address-v3/en
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-deposit-address
+     * @see https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3/en
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-deposit-address
      * @description fetch the deposit address for a currency associated with this account
      * @param {string} code unified currency code
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -3667,10 +3659,10 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchOrderBook
      * @description fetches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-part-orderbook
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-full-orderbook
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-part-orderbook
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-orderbook
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-part-orderbook
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-full-orderbook
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-part-orderbook
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-orderbook
      * @param {string} symbol unified symbol of the market to fetch the order book for
      * @param {int} [limit] the maximum amount of order book entries to return
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -3689,14 +3681,10 @@ class cexc extends cexc$1["default"] {
         let type = undefined;
         [type, params] = this.handleMarketTypeAndParams('fetchOrderBook', market, params);
         if (uta) {
-            let limitString = '20';
-            if ((limit === undefined) || (limit >= 100)) {
-                limitString = 'FULL';
+            if (limit === undefined) {
+                throw new errors.ArgumentsRequired(this.id + ' fetchOrderBook() requires a limit argument for uta, either 20, 50, 100 or FULL');
             }
-            else if (limit > 20) {
-                limitString = '100';
-            }
-            request['limit'] = limitString;
+            request['limit'] = limit;
             request['symbol'] = market['id'];
             if ((type === 'spot') || (type === 'margin')) {
                 request['tradeType'] = 'SPOT';
@@ -3832,17 +3820,17 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createOrder
      * @description Create an order on the exchange
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-sync
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-test
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-stop-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order-test
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-stop-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order-test
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-take-profit-and-stop-loss-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/place-order
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-sync
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-test
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-stop-order
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order-test
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-stop-order
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order
+     * @see https://www.kucoin.com/docs-new/rest/ua/place-order
      * @param {string} symbol Unified CCXT market symbol
      * @param {string} type 'limit' or 'market'
      * @param {string} side 'buy' or 'sell'
@@ -3875,13 +3863,13 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createSpotOrder
      * @description helper method for creating spot orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-sync
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-test
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-stop-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order-test
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-stop-order
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-sync
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-test
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-stop-order
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order-test
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-stop-order
      * @param {string} symbol Unified CCXT market symbol
      * @param {string} type 'limit' or 'market'
      * @param {string} side 'buy' or 'sell'
@@ -4004,7 +3992,7 @@ class cexc extends cexc$1["default"] {
         if (type === 'market') {
             if (quoteAmount !== undefined) {
                 params = this.omit(params, ['cost', 'funds']);
-                // cexcuses base precision even for quote values
+                // kucoin uses base precision even for quote values
                 costString = this.marketOrderAmountToPrecision(symbol, quoteAmount);
                 request['funds'] = costString;
             }
@@ -4068,9 +4056,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createContractOrder
      * @description helper method for creating contract orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order-test
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-take-profit-and-stop-loss-order
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order
      * @param {string} symbol Unified CCXT market symbol
      * @param {string} type 'limit' or 'market'
      * @param {string} side 'buy' or 'sell'
@@ -4258,7 +4246,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createUtaOrder
      * @description helper method for creating uta orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/place-order
+     * @see https://www.kucoin.com/docs-new/rest/ua/place-order
      * @param {string} symbol Unified CCXT market symbol
      * @param {string} type 'limit' or 'market'
      * @param {string} side 'buy' or 'sell'
@@ -4318,7 +4306,11 @@ class cexc extends cexc$1["default"] {
         let marginMode = undefined;
         [marginMode, params] = this.handleMarginModeAndParams('createOrder', params);
         const marginModeDefined = (marginMode !== undefined);
-        const tradeType = this.handleTradeType(isContract, marginMode, isUnified, params);
+        const isSpotMargin = (isSpot && marginModeDefined);
+        if (isSpotMargin && isUnified) {
+            throw new errors.NotSupported(this.id + ' createOrder() does not support spot margin orders with unified accountMode');
+        }
+        const tradeType = this.handleTradeType(isContract, marginMode, params);
         const clientOrderId = this.safeString2(params, 'clientOid', 'clientOrderId', this.uuid());
         params = this.omit(params, ['clientOid', 'clientOrderId']);
         const request = {
@@ -4471,8 +4463,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createMarketOrderWithCost
      * @description create a market order by providing the symbol, side and cost
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
      * @param {string} symbol unified symbol of the market to create an order in
      * @param {string} side 'buy' or 'sell'
      * @param {float} cost how much you want to trade in units of the quote currency
@@ -4490,8 +4482,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createMarketBuyOrderWithCost
      * @description create a market buy order by providing the symbol and cost
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
      * @param {string} symbol unified symbol of the market to create an order in
      * @param {float} cost how much you want to trade in units of the quote currency
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -4505,8 +4497,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createMarketSellOrderWithCost
      * @description create a market sell order by providing the symbol and cost
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
      * @param {string} symbol unified symbol of the market to create an order in
      * @param {float} cost how much you want to trade in units of the quote currency
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -4520,8 +4512,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createOrders
      * @description create a list of trade orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders-sync
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders-sync
      * @param {Array} orders list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
      * @param {object} [params]  extra parameters specific to the exchange API endpoint
      * Check createSpotOrders() and createContractOrders() for more details on the extra parameters that can be used in params
@@ -4559,9 +4551,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createSpotOrders
      * @description helper method for creating spot orders in batch
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders-sync
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/batch-add-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders-sync
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/batch-add-orders
      * @param {Array} orders list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
      * @param {object} [params]  extra parameters specific to the exchange API endpoint
      * @param {bool} [params.hf] false, // true for hf orders
@@ -4651,7 +4643,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#createContractOrders
      * @description helper method for creating contract orders in batch
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/batch-add-orders
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/batch-add-orders
      * @param {Array} orders list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
      * @param {object} [params]  extra parameters specific to the exchange API endpoint
      * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
@@ -4699,8 +4691,8 @@ class cexc extends cexc$1["default"] {
     /**
      * @method
      * @name cexc#editOrder
-     * @description edit an order, cexccurrently only supports the modification of HF orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/modify-order
+     * @description edit an order, kucoin currently only supports the modification of HF orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/modify-order
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market to create an order in
      * @param {string} type not used
@@ -4746,19 +4738,19 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#cancelOrder
      * @description cancels an open order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld-sync
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid-sync
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/cancel-order
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld-sync
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid-sync
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/ua/cancel-order
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market the order was made in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -4792,16 +4784,16 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#cancelSpotOrder
      * @description helper method for cancelling spot orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld-sync
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid-sync
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld-sync
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid-sync
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-clientoid
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market the order was made in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -4952,8 +4944,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#cancelContractOrder
      * @description helper method for cancelling contract orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-clientoid
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market the order was made in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -4995,13 +4987,13 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#cancelUtaOrder
      * @description helper method for cancelling uta orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/cancel-order
+     * @see https://www.kucoin.com/docs-new/rest/ua/cancel-order
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market the order was made in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.accountMode] 'unified' or 'classic' (default is 'unified')
      * @param {string} [params.clientOrderId] client order id, required if id is not provided
-     * @param {string} [params.marginMode] 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin)
+     * @param {string} [params.marginMode] 'cross' or 'isolated', required if fetching a margin order
      * @returns Response from the exchange
      */
     async cancelUtaOrder(id, symbol = undefined, params = {}) {
@@ -5029,8 +5021,7 @@ class cexc extends cexc$1["default"] {
         request['accountMode'] = accountMode;
         let marginMode = undefined;
         [marginMode, params] = this.handleMarginModeAndParams('fetchOrder', params);
-        const isUnified = (accountMode === 'unified');
-        const tradeType = this.handleTradeType(market['contract'], marginMode, isUnified, params);
+        const tradeType = this.handleTradeType(market['contract'], marginMode, params);
         request['tradeType'] = tradeType;
         const response = await this.utaPrivatePostAccountModeOrderCancel(this.extend(request, params));
         //
@@ -5051,14 +5042,14 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#cancelAllOrders
      * @description cancel all open orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders-by-symbol
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-cancel-stop-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-all-orders-by-symbol
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/batch-cancel-stop-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-stop-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-symbol
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders-by-symbol
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-cancel-stop-orders
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-all-orders-by-symbol
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/batch-cancel-stop-orders
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-orders
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-stop-orders
+     * @see https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-symbol
      * @param {string} symbol unified market symbol, only orders in the market of this symbol are cancelled when symbol is not undefined
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.type] 'spot' or 'swap', used if symbol is not provided (default is 'spot')
@@ -5091,11 +5082,11 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#cancelAllSpotOrders
      * @description helper method for cancelling all spot orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders-by-symbol
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-cancel-stop-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-all-orders-by-symbol
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/batch-cancel-stop-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders-by-symbol
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-cancel-stop-orders
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-all-orders-by-symbol
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/batch-cancel-stop-orders
      * @param {string} symbol unified market symbol, only orders in the market of this symbol are cancelled when symbol is not undefined
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {bool} [params.trigger] *invalid for isolated margin* true if cancelling all stop orders
@@ -5154,8 +5145,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#cancelAllContractOrders
      * @description helper method for cancelling all contract orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-stop-orders
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-orders
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-stop-orders
      * @param {string} symbol unified market symbol, only orders in the market of this symbol are cancelled when symbol is not undefined
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {object} [params.trigger] When true, all the trigger orders will be cancelled
@@ -5193,7 +5184,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#cancelAllUtaOrders
      * @description helper method for cancelling all uta orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-symbol
+     * @see https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-symbol
      * @param {string} symbol unified market symbol, only orders in the market of this symbol are cancelled when symbol is not undefined
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {bool} [params.trigger] true if cancelling all stop orders
@@ -5240,16 +5231,16 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchOrdersByStatus
      * @description fetches a list of orders placed on the exchange
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-open-order-list
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-order-history
      * @param {string} status 'active' or 'closed', only 'active' is valid for stop orders
      * @param {string} symbol unified symbol for the market to retrieve orders from
      * @param {int} [since] timestamp in ms of the earliest order to retrieve
@@ -5302,12 +5293,12 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchSpotOrdersByStatus
      * @description fetch a list of spot orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list
      * @param {string} status *not used for stop orders* 'open' or 'closed'
      * @param {string} symbol unified market symbol
      * @param {int} [since] timestamp in ms of the earliest order
@@ -5446,8 +5437,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchContractOrdersByStatus
      * @description fetches a list of contract orders placed on the exchange
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
      * @param {string} status 'active' or 'closed', only 'active' is valid for stop orders
      * @param {string} symbol unified symbol for the market to retrieve orders from
      * @param {int} [since] timestamp in ms of the earliest order to retrieve
@@ -5560,8 +5551,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchUtaOrdersByStatus
      * @description helper method for fetching orders by status with uta endpoint
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-open-order-list
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-order-history
      * @param {string} status 'active' or 'closed', only 'active' is valid for stop orders
      * @param {string} symbol unified symbol for the market to retrieve orders from
      * @param {int} [since] timestamp in ms of the earliest order to retrieve
@@ -5570,7 +5561,6 @@ class cexc extends cexc$1["default"] {
      * @param {int} [params.until] End time in ms
      * @param {string} [params.side] *closed orders only* 'BUY' or 'SELL'
      * @param {string} [params.accountMode] 'unified' or 'classic' (default is unified)
-     * @param {string} [params.marginMode] 'cross' or 'isolated', only for margin orders (unified accountMode supports only cross margin)
      * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
      * @returns An [array of order structures]{@link https://docs.ccxt.com/?id=order-structure}
      */
@@ -5604,8 +5594,7 @@ class cexc extends cexc$1["default"] {
         }
         let marginMode = undefined;
         [marginMode, params] = this.handleMarginModeAndParams('fetchOrdersByStatus', params);
-        const isUnified = (accountMode === 'unified');
-        const tradeType = this.handleTradeType(isContract, marginMode, isUnified, params);
+        const tradeType = this.handleTradeType(isContract, marginMode, params);
         params['tradeType'] = tradeType;
         if (since !== undefined) {
             request['startAt'] = since;
@@ -5684,13 +5673,13 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchClosedOrders
      * @description fetches information on multiple closed orders made by the user
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-order-history
      * @param {string} symbol unified market symbol of the market orders were made in
      * @param {int} [since] the earliest time in ms to fetch orders for
      * @param {int} [limit] the maximum number of order structures to retrieve
@@ -5717,14 +5706,14 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchOpenOrders
      * @description fetch all unfilled currently open orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-open-order-list
      * @param {string} symbol unified market symbol
      * @param {int} [since] the earliest time in ms to fetch open orders for
      * @param {int} [limit] the maximum number of  open orders structures to retrieve
@@ -5753,17 +5742,17 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchOrder
      * @description fetches information on an order made by the user
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/get-stop-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/get-stop-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-details
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/get-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/get-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-order-details
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market the order was made in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -5799,14 +5788,14 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchSpotOrder
      * @description fetch a spot order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/get-stop-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-clientoid
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/get-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-clientoid
      * @param {string} id Order id
      * @param {string} symbol not sent to exchange except for trigger orders with clientOid, but used internally by CCXT to filter
      * @param {object} [params] exchange specific parameters
@@ -5899,8 +5888,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchContractOrder
      * @description fetc contract order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-by-orderld
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/get-stop-order-by-clientoid
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-by-orderld
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/get-stop-order-by-clientoid
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market the order was made in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -5974,13 +5963,13 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchUtaOrder
      * @description fetch uta order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-details
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-order-details
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market the order was made in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.accountMode] 'unified' or 'classic' (default is 'unified')
      * @param {string} [params.clientOrderId] client order id, required if id is not provided
-     * @param {string} [params.marginMode] 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin)
+     * @param {string} [params.marginMode] 'cross' or 'isolated', required if fetching a margin order
      * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
      */
     async fetchUtaOrder(id, symbol = undefined, params = {}) {
@@ -6007,8 +5996,7 @@ class cexc extends cexc$1["default"] {
         request['accountMode'] = accountMode;
         let marginMode = undefined;
         [marginMode, params] = this.handleMarginModeAndParams('fetchOrder', params);
-        const isUnified = (accountMode === 'unified');
-        const tradeType = this.handleTradeType(market['contract'], marginMode, isUnified, params);
+        const tradeType = this.handleTradeType(market['contract'], marginMode, params);
         request['tradeType'] = tradeType;
         const response = await this.utaPrivateGetAccountModeOrderDetail(this.extend(request, params));
         //
@@ -6055,7 +6043,7 @@ class cexc extends cexc$1["default"] {
         const data = this.safeDict(response, 'data', {});
         return this.parseOrder(data, market);
     }
-    handleTradeType(isContractMarket = false, marginMode = undefined, isUnified = false, params = {}) {
+    handleTradeType(isContractMarket = false, marginMode = undefined, params = {}) {
         let tradeType = this.safeString(params, 'tradeType');
         if (tradeType === undefined) {
             if (isContractMarket) {
@@ -6063,14 +6051,6 @@ class cexc extends cexc$1["default"] {
             }
             else if (marginMode !== undefined) {
                 tradeType = marginMode.toUpperCase();
-                if (isUnified) {
-                    if (tradeType === 'ISOLATED') {
-                        throw new errors.NotSupported(this.id + ' spot isolated margin is not supported for unified accountMode');
-                    }
-                    else {
-                        tradeType = 'MARGIN';
-                    }
-                }
             }
             else {
                 tradeType = 'SPOT';
@@ -6539,9 +6519,9 @@ class cexc extends cexc$1["default"] {
      * @name cexc#fetchOrderTrades
      * @description fetch all the trades made from a single order
      * @see https://docs.kucoin.com/#list-fills
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-trade-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-trade-history
      * @param {string} id order id
      * @param {string} symbol unified market symbol
      * @param {int} [since] the earliest time in ms to fetch trades for
@@ -6560,9 +6540,9 @@ class cexc extends cexc$1["default"] {
     /**
      * @method
      * @name cexc#fetchMyTrades
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-trade-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-trade-history
      * @description fetch all trades made by the user
      * @param {string} symbol unified market symbol
      * @param {int} [since] the earliest time in ms to fetch trades for
@@ -6597,8 +6577,8 @@ class cexc extends cexc$1["default"] {
     /**
      * @method
      * @name cexc#fetchMySpotTrades
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-trade-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history
      * @description fetch all spot trades made by the user
      * @param {string} symbol unified market symbol
      * @param {int} [since] the earliest time in ms to fetch trades for
@@ -6726,7 +6706,7 @@ class cexc extends cexc$1["default"] {
     /**
      * @method
      * @name cexc#fetchMyContractTrades
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-trade-history
      * @description fetch all contract trades made by the user
      * @param {string} symbol unified market symbol
      * @param {int} [since] the earliest time in ms to fetch trades for
@@ -6804,7 +6784,7 @@ class cexc extends cexc$1["default"] {
     /**
      * @method
      * @name cexc#fetchMyUtaTrades
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-trade-history
      * @description fetch all trades made by the user
      * @param {string} symbol unified market symbol
      * @param {int} [since] the earliest time in ms to fetch trades for
@@ -6812,7 +6792,7 @@ class cexc extends cexc$1["default"] {
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {int} [params.until] the latest time in ms to fetch entries for
      * @param {string} [params.accountMode] 'unified' or 'classic', defaults to 'unified'
-     * @param {string} [params.marginMode] 'cross' or 'isolated', only for margin trades (unified accountMode support only cross margin)
+     * @param {string} [params.marginMode] 'cross' or 'isolated', only for margin trades
      * @param {string} [params.side] 'BUY' or 'SELL' (both if not provided)
      * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
      * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
@@ -6842,14 +6822,13 @@ class cexc extends cexc$1["default"] {
         else {
             isContract = true;
         }
+        let marginMode = undefined;
+        [marginMode, params] = this.handleMarginModeAndParams('fetchMyTrades', params);
+        const tradeType = this.handleTradeType(isContract, marginMode, params);
+        request['tradeType'] = tradeType;
         let accountMode = 'unified';
         [accountMode, params] = this.handleOptionAndParams(params, 'fetchMyTrades', 'accountMode', accountMode);
         request['accountMode'] = accountMode;
-        let marginMode = undefined;
-        [marginMode, params] = this.handleMarginModeAndParams('fetchMyTrades', params);
-        const isUnified = (accountMode === 'unified');
-        const tradeType = this.handleTradeType(isContract, marginMode, isUnified, params);
-        request['tradeType'] = tradeType;
         if (since !== undefined) {
             request['startAt'] = since;
         }
@@ -6893,9 +6872,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchTrades
      * @description get the list of most recent trades for a particular symbol
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-trade-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trades
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-trade-history
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-trades
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-trade-history
      * @param {string} symbol unified symbol of the market to fetch trades for
      * @param {int} [since] timestamp in ms of the earliest trade to fetch
      * @param {int} [limit] the maximum amount of trades to fetch
@@ -7328,9 +7307,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchTradingFee
      * @description fetch the trading fees for a market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/trade-fee/get-actual-fee-spot-margin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/trade-fee/get-actual-fee-futures
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-actual-fee
+     * @see https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-spot-margin
+     * @see https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-futures
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-actual-fee
      * @param {string} symbol unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta) endpoint, defaults to false
@@ -7420,7 +7399,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#withdraw
      * @description make a withdrawal
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/withdraw-v3
+     * @see https://www.kucoin.com/docs-new/rest/account-info/withdrawals/withdraw-v3
      * @param {string} code unified currency code
      * @param {float} amount the amount to withdraw
      * @param {string} address the address to withdraw to
@@ -7597,9 +7576,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchDeposits
      * @description fetch all deposits made to an account
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-deposit-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-v1-historical-deposits-list
+     * @see https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-history
+     * @see https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-list
+     * @see https://www.kucoin.com/docs/rest/funding/deposit/get-v1-historical-deposits-list
      * @param {string} code unified currency code
      * @param {int} [since] the earliest time in ms to fetch deposits for
      * @param {int} [limit] the maximum number of deposits structures to retrieve
@@ -7746,9 +7725,9 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchWithdrawals
      * @description fetch all withdrawals made from an account
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/get-withdrawal-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/withdrawals/get-withdrawals-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/withdrawals/get-v1-historical-withdrawals-list
+     * @see https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-history
+     * @see https://www.kucoin.com/docs/rest/funding/withdrawals/get-withdrawals-list
+     * @see https://www.kucoin.com/docs/rest/funding/withdrawals/get-v1-historical-withdrawals-list
      * @param {string} code unified currency code
      * @param {int} [since] the earliest time in ms to fetch withdrawals for
      * @param {int} [limit] the maximum number of withdrawals structures to retrieve
@@ -7907,12 +7886,12 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchBalance
      * @description query for balance and get the amount of funds available for trading or funds locked in orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-detail-spot
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-cross-margin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-isolated-margin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-futures
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-uta
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-classic
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-detail-spot
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {object} [params.marginMode] 'cross' or 'isolated', margin type for fetching margin balance
      * @param {object} [params.type] extra parameters specific to the exchange API endpoint
@@ -8103,7 +8082,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchContractBalance
      * @description query for balance and get the amount of funds available for trading or funds locked in orders
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-futures
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {object} [params.code] the unified currency code to fetch the balance for, if not provided, the default .options['fetchBalance']['code'] will be used
      * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
@@ -8153,17 +8132,17 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchUtaBalance
      * @description helper method for fetching balance with unified trading account (uta) endpoint
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-uta
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-classic
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @param {string} [params.type] 'unified', 'spot', 'funding', 'cross', 'isolated' or 'swap' (default is 'unified')
+     * @param {string} [params.type] 'spot', 'unified', 'funding', 'cross', 'isolated' or 'swap' (default is 'spot')
      * @param {string} [params.marginMode] 'cross' or 'isolated', margin type for fetching margin balance, only applicable if type is margin (default is cross)
      * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
      */
     async fetchUtaBalance(params = {}) {
         await this.loadMarkets();
-        let requestedType = 'unified';
-        [requestedType, params] = this.handleMarketTypeAndParams('fetchUtaBalance', undefined, params, requestedType);
+        let requestedType = undefined;
+        [requestedType, params] = this.handleMarketTypeAndParams('fetchUtaBalance', undefined, params);
         if (requestedType === 'margin') {
             // assume cross margin if margin is specified but marginMode is not specified
             let marginMode = 'cross';
@@ -8172,7 +8151,7 @@ class cexc extends cexc$1["default"] {
         }
         const utaAccountsByType = this.safeDict(this.options, 'utaAccountsByType', {});
         let type = undefined;
-        type = this.safeString(utaAccountsByType, requestedType, requestedType);
+        type = this.safeString(utaAccountsByType, requestedType, type);
         const isIsolated = (type === 'ISOLATED');
         const request = {};
         let response = undefined;
@@ -8291,8 +8270,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#transfer
      * @description transfer currency internally between wallets on the same account
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/transfer/flex-transfer?lang=en_US&
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/flex-transfer
+     * @see https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer?lang=en_US&
+     * @see https://www.kucoin.com/docs-new/rest/ua/flex-transfer
      * @param {string} code unified currency code
      * @param {float} amount amount to transfer
      * @param {string} fromAccount account to transfer from
@@ -8315,7 +8294,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#transferUta
      * @description transfer currency internally between wallets on the same account with uta endpoint
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/flex-transfer
+     * @see https://www.kucoin.com/docs-new/rest/ua/flex-transfer
      * @param {string} code unified currency code
      * @param {float} amount amount to transfer
      * @param {string} fromAccount account to transfer from
@@ -8402,7 +8381,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#transferClassic
      * @description transfer currency internally between wallets on the same account with classic endpoints
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/transfer/flex-transfer?lang=en_US&
+     * @see https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer?lang=en_US&
      * @param {string} code unified currency code
      * @param {float} amount amount to transfer
      * @param {string} fromAccount account to transfer from
@@ -8600,7 +8579,7 @@ class cexc extends cexc$1["default"] {
             'Transfer': 'transfer',
             'Trade_Exchange': 'trade',
             // 'Vote for Coin': 'Vote for Coin', // Vote for Coin
-            'Cexc Bonus': 'bonus',
+            'KuCoin Bonus': 'bonus',
             'Referral Bonus': 'referral',
             'Rewards': 'bonus',
             // 'Distribution': 'Distribution', // Distribution, such as get GAS by holding NEO
@@ -8800,11 +8779,11 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchLedger
      * @description fetch the history of changes, actions done by the user or operations that altered the balance of the user
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-spot-margin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-tradehf
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-marginhf
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-futures
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-ledger
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-tradehf
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-marginhf
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-futures
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-account-ledger
      * @param {string} [code] unified currency code, default is undefined
      * @param {int} [since] timestamp in ms of the earliest ledger entry, default is undefined
      * @param {int} [limit] max number of ledger entries to return, default is undefined
@@ -8824,10 +8803,7 @@ class cexc extends cexc$1["default"] {
         let hf = undefined;
         [hf, params] = this.handleHfAndParams(params);
         let requestedType = undefined;
-        if (uta) {
-            requestedType = 'UNIFIED';
-        }
-        [requestedType, params] = this.handleMarketTypeAndParams('fetchLedger', undefined, params, requestedType);
+        [requestedType, params] = this.handleMarketTypeAndParams('fetchLedger', undefined, params);
         let marginMode = undefined;
         [marginMode, params] = this.handleMarginModeAndParams('fetchLedger', params);
         if (uta && (requestedType === 'margin')) {
@@ -9008,25 +8984,12 @@ class cexc extends cexc$1["default"] {
         //         "dayRatio": "0.001"
         //     }
         //
-        // fetchCrossBorrowRate
-        //     {
-        //         "currentRateHourly": "0.00000353",
-        //         "currentRateDaily": "0.00008466",
-        //         "borrowLimitTotal": "600.00000000000000000000",
-        //         "borrowLimitTotalHold": "0.00000000000000000000",
-        //         "borrowLimitHold": "0.00000000000000000000",
-        //         "interestFreeBorrowLimit": "0.60000000000000000000"
-        //     }
-        //
         const timestampId = this.safeString2(info, 'createdAt', 'timestamp');
-        let timestamp = this.milliseconds();
-        if (timestampId !== undefined) {
-            timestamp = this.parseToInt(timestampId.slice(0, 13));
-        }
+        const timestamp = this.parseToInt(timestampId.slice(0, 13));
         const currencyId = this.safeString(info, 'currency');
         return {
             'currency': this.safeCurrencyCode(currencyId, currency),
-            'rate': this.safeNumberN(info, ['dailyIntRate', 'dayRatio', 'currentRateDaily']),
+            'rate': this.safeNumber2(info, 'dailyIntRate', 'dayRatio'),
             'period': 86400000,
             'timestamp': timestamp,
             'datetime': this.iso8601(timestamp),
@@ -9037,8 +9000,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchBorrowInterest
      * @description fetch the interest owed by the user for borrowing currency for margin trading
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-cross-margin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-isolated-margin
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin
      * @param {string} [code] unified currency code
      * @param {string} [symbol] unified market symbol, required for isolated margin
      * @param {int} [since] the earliest time in ms to fetch borrrow interest for
@@ -9226,7 +9189,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchBorrowRateHistories
      * @description retrieves a history of a multiple currencies borrow interest rate at specific time slots, returns all currencies if no symbols passed, default is undefined
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/get-interest-history
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-interest-history
      * @param {string[]|undefined} codes list of unified currency codes, default is undefined
      * @param {int} [since] timestamp in ms of the earliest borrowRate, default is undefined
      * @param {int} [limit] max number of borrow rate prices to return, default is undefined
@@ -9279,7 +9242,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchBorrowRateHistory
      * @description retrieves a history of a currencies borrow interest rate at specific time slots
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/get-interest-history
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-interest-history
      * @param {string} code unified currency code
      * @param {int} [since] timestamp for the earliest borrow rate
      * @param {int} [limit] the maximum number of [borrow rate structures]{@link https://docs.ccxt.com/?id=borrow-rate-structure} to retrieve
@@ -9363,41 +9326,9 @@ class cexc extends cexc$1["default"] {
     }
     /**
      * @method
-     * @name cexc#fetchCrossBorrowRate
-     * @description fetch the rate of interest to borrow a currency for margin trading
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-borrowing-rates-and-limits
-     * @param {string} code unified currency code
-     * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @returns {object} a [borrow rate structure]{@link https://docs.ccxt.com/?id=borrow-rate-structure}
-     */
-    async fetchCrossBorrowRate(code, params = {}) {
-        await this.loadMarkets();
-        const currency = this.currency(code);
-        const request = {
-            'currency': currency['id'],
-        };
-        const response = await this.utaPrivateGetAccountInterestLimits(this.extend(request, params));
-        //
-        //     {
-        //         "code": "200000",
-        //         "data": {
-        //             "currentRateHourly": "0.00000353",
-        //             "currentRateDaily": "0.00008466",
-        //             "borrowLimitTotal": "600.00000000000000000000",
-        //             "borrowLimitTotalHold": "0.00000000000000000000",
-        //             "borrowLimitHold": "0.00000000000000000000",
-        //             "interestFreeBorrowLimit": "0.60000000000000000000"
-        //         }
-        //     }
-        //
-        const data = this.safeDict(response, 'data', {});
-        return this.parseBorrowRate(data, currency);
-    }
-    /**
-     * @method
      * @name cexc#borrowCrossMargin
      * @description create a loan to borrow margin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/borrow
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/borrow
      * @param {string} code unified currency code of the currency to borrow
      * @param {float} amount the amount to borrow
      * @param {object} [params] extra parameters specific to the exchange API endpoints
@@ -9432,7 +9363,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#borrowIsolatedMargin
      * @description create a loan to borrow margin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/borrow
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/borrow
      * @param {string} symbol unified market symbol, required for isolated margin
      * @param {string} code unified currency code of the currency to borrow
      * @param {float} amount the amount to borrow
@@ -9471,7 +9402,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#repayCrossMargin
      * @description repay borrowed margin and interest
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/repay
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/repay
      * @param {string} code unified currency code of the currency to repay
      * @param {float} amount the amount to repay
      * @param {object} [params] extra parameters specific to the exchange API endpoints
@@ -9504,7 +9435,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#repayIsolatedMargin
      * @description repay borrowed margin and interest
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/repay
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/repay
      * @param {string} symbol unified market symbol
      * @param {string} code unified currency code of the currency to repay
      * @param {float} amount the amount to repay
@@ -9593,7 +9524,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchLeverage
      * @description fetch the set leverage for a market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-cross-margin-leverage
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-leverage
      * @param {string} symbol unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a [leverage structure]{@link https://docs.ccxt.com/?id=leverage-structure}
@@ -9632,16 +9563,13 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#setLeverage
      * @description set the level of leverage for a market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/modify-leverage // margin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/modify-cross-margin-leverage // contract
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-cross-margin-leverage-uta // margin uta
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-leverage-uta // contract uta
+     * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage
+     * @see https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta
      * @param {int } [leverage] New leverage multiplier. Must be greater than 1 and up to two decimal places, and cannot be less than the user's current debt leverage or greater than the system's maximum leverage
      * @param {string} [symbol] unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @param {boolean} [params.uta] set to true for the unified trading account (uta)
-     * @param {string} [params.marginMode] *spot non-uta only* 'cross' or 'isolated' default is 'cross'
-     * @param {string} [params.code] *uta margin only* the unified currency code for the margin to set the leverage for
+     * @param {boolean} [params.uta] *contract markets only* set to true for the unified trading account (uta)
      * @returns {object} response from the exchange
      */
     async setLeverage(leverage, symbol = undefined, params = {}) {
@@ -9658,48 +9586,33 @@ class cexc extends cexc$1["default"] {
                 return await this.setContractLeverage(leverage, symbol, params);
             }
         }
-        const request = {
-            'leverage': this.numberToString(leverage),
-        };
-        let marginMode = undefined;
-        [marginMode, params] = this.handleMarginModeAndParams('setLeverage', params);
         let uta = await this.isUTAEnabled();
         [uta, params] = this.handleOptionAndParams(params, 'setLeverage', 'uta', uta);
-        let response = undefined;
         if (uta) {
-            if (marginMode === 'isolated') {
-                throw new errors.NotSupported(this.id + ' unified trading account does not support isolated margin');
-            }
-            request['accountMode'] = 'unified';
-            let code = undefined;
-            [code, params] = this.handleOptionAndParams2(params, 'setLeverage', 'currency', 'code');
-            if (code === undefined) {
-                throw new errors.ArgumentsRequired(this.id + ' setLeverage requires a currency code in the params["code"] for unified trading account');
-            }
-            request['currency'] = this.currencyId(code);
-            response = await this.utaPrivatePostAccountModeAccountModifyLeverageMarginCross(this.extend(request, params));
+            throw new errors.NotSupported(this.id + ' setLeverage with params["uta"] is supported for contract markets only');
         }
-        else {
-            if (marginMode === undefined) {
-                throw new errors.ArgumentsRequired(this.id + ' setLeverage requires a marginMode parameter');
-            }
-            if (marginMode === 'isolated' && symbol === undefined) {
-                throw new errors.ArgumentsRequired(this.id + ' setLeverage requires a symbol parameter for isolated margin');
-            }
-            if (symbol !== undefined) {
-                request['symbol'] = market['id'];
-            }
-            request['isIsolated'] = (marginMode === 'isolated');
-            response = await this.privatePostPositionUpdateUserLeverage(this.extend(request, params));
+        let marginMode = undefined;
+        [marginMode, params] = this.handleMarginModeAndParams('setLeverage', params);
+        if (marginMode === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' setLeverage requires a marginMode parameter');
         }
-        return response;
+        const request = {};
+        if (marginMode === 'isolated' && symbol === undefined) {
+            throw new errors.ArgumentsRequired(this.id + ' setLeverage requires a symbol parameter for isolated margin');
+        }
+        if (symbol !== undefined) {
+            request['symbol'] = market['id'];
+        }
+        request['leverage'] = leverage.toString();
+        request['isIsolated'] = (marginMode === 'isolated');
+        return await this.privatePostPositionUpdateUserLeverage(this.extend(request, params));
     }
     /**
      * @method
      * @name cexc#setContractLeverage
      * @description set the level of leverage for a market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/modify-cross-margin-leverage
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-leverage-uta
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage
+     * @see https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta
      * @param {float} leverage the rate of leverage
      * @param {string} symbol unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -9748,21 +9661,20 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchFundingInterval
      * @description fetch the current funding rate interval
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-current-funding-rate
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-current-funding-rate
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate
      * @param {string} symbol unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a [funding rate structure]{@link https://docs.ccxt.com/?id=funding-rate-structure}
      */
     async fetchFundingInterval(symbol, params = {}) {
-        return await this.fetchFundingRate(symbol, params);
+        return await this.fetchFundingRate(symbol, this.extend(params, { 'uta': false }));
     }
     /**
      * @method
      * @name cexc#fetchFundingRate
      * @description fetch the current funding rate
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-current-funding-rate
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-current-funding-rate
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-current-funding-rate
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate
      * @param {string} symbol unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta)
@@ -9782,14 +9694,11 @@ class cexc extends cexc$1["default"] {
             //     {
             //         "code": "200000",
             //         "data": {
-            //             "symbol": ".ETHUSDTMFPI8H",
-            //             "nextFundingRate": -3.4E-5,
-            //             "fundingTime": 1776700800000,
-            //             "fundingRateCap": 0.00375,
-            //             "fundingRateFloor": -0.00375,
-            //             "currentGranularity": 28800000,
-            //             "newGranularity": 28800000,
-            //             "newGranularityStartTime": 1750147200000
+            //             "symbol": ".XBTUSDTMFPI8H",
+            //             "nextFundingRate": 7.4E-5,
+            //             "fundingTime": 1762444800000,
+            //             "fundingRateCap": 0.003,
+            //             "fundingRateFloor": -0.003
             //         }
             //     }
             //
@@ -9802,13 +9711,13 @@ class cexc extends cexc$1["default"] {
             //         "data": {
             //             "symbol": ".ETHUSDTMFPI8H",
             //             "granularity": 28800000,
-            //             "timePoint": 1776672000000,
-            //             "value": -3.2E-5,
+            //             "timePoint": 1771747200000,
+            //             "value": 3.0E-6,
             //             "dailyInterestRate": 3.0E-4,
             //             "fundingRateCap": 0.00375,
             //             "fundingRateFloor": -0.00375,
             //             "period": 1,
-            //             "fundingTime": 1776700800000
+            //             "fundingTime": 1771776000000
             //         }
             //     }
             //
@@ -9820,34 +9729,29 @@ class cexc extends cexc$1["default"] {
     parseFundingRate(data, market = undefined) {
         // uta
         //     {
-        //         "symbol": ".ETHUSDTMFPI8H",
-        //         "nextFundingRate": -3.4E-5,
-        //         "fundingTime": 1776700800000,
-        //         "fundingRateCap": 0.00375,
-        //         "fundingRateFloor": -0.00375,
-        //         "currentGranularity": 28800000,
-        //         "newGranularity": 28800000,
-        //         "newGranularityStartTime": 1750147200000
+        //         "symbol": ".XBTUSDTMFPI8H",
+        //         "nextFundingRate": 7.4E-5,
+        //         "fundingTime": 1762444800000,
+        //         "fundingRateCap": 0.003,
+        //         "fundingRateFloor": -0.003
         //     }
         //
         // futures
         //     {
         //         "symbol": ".ETHUSDTMFPI8H",
         //         "granularity": 28800000,
-        //         "timePoint": 1776672000000,
-        //         "value": -3.2E-5,
+        //         "timePoint": 1771747200000,
+        //         "value": 3.0E-6,
         //         "dailyInterestRate": 3.0E-4,
         //         "fundingRateCap": 0.00375,
         //         "fundingRateFloor": -0.00375,
         //         "period": 1,
-        //         "fundingTime": 1776700800000
+        //         "fundingTime": 1771776000000
         //     }
         //
         const fundingTimestamp = this.safeInteger(data, 'fundingTime');
         const previousFundingTimestamp = this.safeInteger(data, 'timePoint');
-        const nextFundingTimestamp = this.safeInteger(data, 'newGranularityStartTime');
         const marketId = this.safeString(data, 'symbol');
-        const granularity = this.safeString2(data, 'granularity', 'currentGranularity');
         return {
             'info': data,
             'symbol': this.safeSymbol(marketId, market, undefined, 'contract'),
@@ -9860,13 +9764,13 @@ class cexc extends cexc$1["default"] {
             'fundingRate': this.safeNumber2(data, 'nextFundingRate', 'value'),
             'fundingTimestamp': fundingTimestamp,
             'fundingDatetime': this.iso8601(fundingTimestamp),
-            'nextFundingRate': undefined,
-            'nextFundingTimestamp': nextFundingTimestamp,
-            'nextFundingDatetime': this.iso8601(nextFundingTimestamp),
+            'nextFundingRate': this.safeNumber(data, 'predictedValue'),
+            'nextFundingTimestamp': undefined,
+            'nextFundingDatetime': undefined,
             'previousFundingRate': undefined,
             'previousFundingTimestamp': previousFundingTimestamp,
             'previousFundingDatetime': this.iso8601(previousFundingTimestamp),
-            'interval': this.parseFundingInterval(granularity),
+            'interval': this.parseFundingInterval(this.safeString(data, 'granularity')),
         };
     }
     parseFundingInterval(interval) {
@@ -9883,8 +9787,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchFundingRateHistory
      * @description fetches historical funding rate prices
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-public-funding-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-history-funding-rate
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-public-funding-history
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-history-funding-rate
      * @param {string} symbol unified symbol of the market to fetch the funding rate history for
      * @param {int} [since] not used by kucuoinfutures
      * @param {int} [limit] the maximum amount of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-history-structure} to fetch
@@ -9986,108 +9890,70 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchFundingHistory
      * @description fetch the history of funding payments paid and received on this account
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-private-funding-history
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-private-funding-history
      * @param {string} symbol unified market symbol
      * @param {int} [since] the earliest time in ms to fetch funding history for
      * @param {int} [limit] the maximum number of funding history structures to retrieve
      * @param {object} [params] extra parameters specific to the exchange API endpoint
-     * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
      * @returns {object} a [funding history structure]{@link https://docs.ccxt.com/?id=funding-history-structure}
      */
     async fetchFundingHistory(symbol = undefined, since = undefined, limit = undefined, params = {}) {
-        await this.loadMarkets();
-        let uta = await this.isUTAEnabled();
-        [uta, params] = this.handleOptionAndParams(params, 'fetchFundingHistory', 'uta', uta);
-        let request = {};
-        let market = undefined;
-        if (symbol !== undefined) {
-            market = this.market(symbol);
-            request['symbol'] = market['id'];
-        }
-        else if (!uta) {
+        if (symbol === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' fetchFundingHistory() requires a symbol argument');
         }
+        await this.loadMarkets();
+        const market = this.market(symbol);
+        const request = {
+            'symbol': market['id'],
+        };
         if (since !== undefined) {
             request['startAt'] = since;
         }
-        let dataList = [];
-        if (uta) {
-            if (limit !== undefined) {
-                request['pageSize'] = limit;
-            }
-            [request, params] = this.handleUntilOption('endAt', request, params);
-            const response = await this.utaPrivateGetPositionFundingHistory(this.extend(request, params));
-            //
-            //     {
-            //         "code": "200000",
-            //         "data": {
-            //             "lastId": 2125247170385112,
-            //             "items": [
-            //                 {
-            //                     "symbol": "DOGEUSDTM",
-            //                     "marginMode": "CROSS",
-            //                     "fundingRate": "0.000172",
-            //                     "markPrice": "0.09326",
-            //                     "size": "-1",
-            //                     "positionValue": "-9.326",
-            //                     "fundingFee": "0.00160407",
-            //                     "settleCurrency": "USDT",
-            //                     "settlementTime": 1775030400000
-            //                 }
-            //             ]
-            //         }
-            //     }
-            const data = this.safeDict(response, 'data');
-            dataList = this.safeList(data, 'items', []);
+        if (limit !== undefined) {
+            // * Since is ignored if limit is defined
+            request['maxCount'] = limit;
         }
-        else {
-            if (limit !== undefined) {
-                // * Since is ignored if limit is defined
-                request['maxCount'] = limit;
-            }
-            const response = await this.futuresPrivateGetFundingHistory(this.extend(request, params));
-            //
-            //    {
-            //        "code": "200000",
-            //        "data": {
-            //            "dataList": [
-            //                {
-            //                    "id": 239471298749817,
-            //                    "symbol": "ETHUSDTM",
-            //                    "timePoint": 1638532800000,
-            //                    "fundingRate": 0.000100,
-            //                    "markPrice": 4612.8300000000,
-            //                    "positionQty": 12,
-            //                    "positionCost": 553.5396000000,
-            //                    "funding": -0.0553539600,
-            //                    "settleCurrency": "USDT"
-            //                },
-            //                ...
-            //            ],
-            //            "hasMore": true
-            //        }
-            //    }
-            //
-            const data = this.safeValue(response, 'data');
-            dataList = this.safeList(data, 'dataList', []);
-        }
+        const response = await this.futuresPrivateGetFundingHistory(this.extend(request, params));
+        //
+        //    {
+        //        "code": "200000",
+        //        "data": {
+        //            "dataList": [
+        //                {
+        //                    "id": 239471298749817,
+        //                    "symbol": "ETHUSDTM",
+        //                    "timePoint": 1638532800000,
+        //                    "fundingRate": 0.000100,
+        //                    "markPrice": 4612.8300000000,
+        //                    "positionQty": 12,
+        //                    "positionCost": 553.5396000000,
+        //                    "funding": -0.0553539600,
+        //                    "settleCurrency": "USDT"
+        //                },
+        //                ...
+        //            ],
+        //            "hasMore": true
+        //        }
+        //    }
+        //
+        const data = this.safeValue(response, 'data');
+        const dataList = this.safeList(data, 'dataList', []);
         const fees = [];
         for (let i = 0; i < dataList.length; i++) {
             const listItem = dataList[i];
-            const timestamp = this.safeInteger2(listItem, 'timePoint', 'settlementTime');
-            const marketId = this.safeString(listItem, 'symbol');
+            const timestamp = this.safeInteger(listItem, 'timePoint');
             fees.push({
                 'info': listItem,
-                'symbol': this.safeSymbol(marketId, market),
+                'symbol': symbol,
                 'code': this.safeCurrencyCode(this.safeString(listItem, 'settleCurrency')),
                 'timestamp': timestamp,
                 'datetime': this.iso8601(timestamp),
                 'id': this.safeNumber(listItem, 'id'),
-                'amount': this.safeNumber2(listItem, 'funding', 'fundingFee'),
+                'amount': this.safeNumber(listItem, 'funding'),
                 'fundingRate': this.safeNumber(listItem, 'fundingRate'),
                 'markPrice': this.safeNumber(listItem, 'markPrice'),
-                'positionQty': this.safeNumber2(listItem, 'positionQty', 'size'),
-                'positionCost': this.safeNumber2(listItem, 'positionCost', 'positionValue'),
+                'positionQty': this.safeNumber(listItem, 'positionQty'),
+                'positionCost': this.safeNumber(listItem, 'positionCost'),
             });
         }
         return fees;
@@ -10095,14 +9961,12 @@ class cexc extends cexc$1["default"] {
     /**
      * @method
      * @name cexc#fetchPosition
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-details
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-list-uta
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-details
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta
      * @description fetch data on an open position
      * @param {string} symbol unified market symbol of the market the position is held in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
-     * @param {integer} [params.pageSize] *uta only* page size for the uta endpoint (default 50, max 200)
-     * @param {integer} [params.pageNumber] *uta only* page number for the uta endpoint (default 1)
      * @returns {object} a [position structure]{@link https://docs.ccxt.com/?id=position-structure}
      */
     async fetchPosition(symbol, params = {}) {
@@ -10198,13 +10062,11 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchPositions
      * @description fetch all open positions
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-list
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-list-uta
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-list
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta
      * @param {string[]|undefined} symbols list of unified market symbols
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
-     * @param {integer} [params.pageSize] *uta only* page size for the uta endpoint (default 50, max 200)
-     * @param {integer} [params.pageNumber] *uta only* page number for the uta endpoint (default 1)
      * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/?id=position-structure}
      */
     async fetchPositions(symbols = undefined, params = {}) {
@@ -10213,7 +10075,7 @@ class cexc extends cexc$1["default"] {
         [uta, params] = this.handleOptionAndParams(params, 'fetchPositions', 'uta', uta);
         let response = undefined;
         if (uta) {
-            response = await this.utaPrivateGetAccountModePositionOpenList(this.extend({ 'accountMode': 'unified', 'limit': 200 }, params));
+            response = await this.utaPrivateGetAccountModePositionOpenList(this.extend(params, { 'accountMode': 'unified' }));
         }
         else {
             response = await this.futuresPrivateGetPositions(params);
@@ -10271,8 +10133,8 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchPositionsHistory
      * @description fetches historical positions
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-positions-history
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-history-uta
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-positions-history
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-position-history-uta
      * @param {string[]} [symbols] list of unified market symbols
      * @param {int} [since] the earliest time in ms to fetch position history for
      * @param {int} [limit] the maximum number of entries to retrieve
@@ -10573,15 +10435,15 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#cancelOrders
      * @description cancel multiple orders for contract markets
-     * @see https://exchange-broker.cexc.io/api/v1/documentation3470241e0
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-id
+     * @see https://www.kucoin.com/docs-new/3470241e0
+     * @see https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id
      * @param {string[]} ids order ids
      * @param {string} symbol unified symbol of the market the order was made in
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string[]} [params.clientOrderIds] client order ids
      * @param {boolean} [params.uta] set to true to use the unified trading account (uta) endpoint, defaults to false for the contract orders
      * @param {string} [params.accountMode] *for uta endpoint only* 'unified' or 'classic' (default is 'unified')
-     * @param {string} [params.marginMode] *for margin orders only* 'cross' or 'isolated' (unified accountMode supports cross margin only)
+     * @param {string} [params.marginMode] *for margin orders only* 'cross' or 'isolated'
      * @returns {object} an list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
      */
     async cancelOrders(ids, symbol = undefined, params = {}) {
@@ -10635,8 +10497,7 @@ class cexc extends cexc$1["default"] {
             request['accountMode'] = accountMode;
             let marginMode = undefined;
             [marginMode, params] = this.handleMarginModeAndParams('fetchOrder', params);
-            const isUnified = (accountMode === 'unified');
-            const tradeType = this.handleTradeType(isContractMarket, marginMode, isUnified, params);
+            const tradeType = this.handleTradeType(isContractMarket, marginMode, params);
             request['tradeType'] = tradeType;
             request['cancelOrderList'] = ordersRequests;
             response = await this.utaPrivatePostAccountModeOrderCancelBatch(this.extend(request, params));
@@ -10675,7 +10536,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#addMargin
      * @description add margin
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/add-isolated-margin
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/add-isolated-margin
      * @param {string} symbol unified market symbol
      * @param {float} amount amount of margin to add
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -10817,7 +10678,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchMarginMode
      * @description fetches the margin mode of a trading pair
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-margin-mode
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-margin-mode
      * @param {string} symbol unified symbol of the market to fetch the margin mode for
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a [margin mode structure]{@link https://docs.ccxt.com/?id=margin-mode-structure}
@@ -10854,7 +10715,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#setMarginMode
      * @description set margin mode to 'cross' or 'isolated'
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/switch-margin-mode
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-margin-mode
      * @param {string} marginMode 'cross' or 'isolated'
      * @param {string} symbol unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -10891,7 +10752,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#setPositionMode
      * @description set hedged to true or false for a market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/switch-position-mode
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-position-mode
      * @param {bool} hedged set to true to use two way position
      * @param {string} [symbol] not used by bybit setPositionMode ()
      * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -10918,7 +10779,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchPositionMode
      * @description fetchs the position mode, hedged or one way
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-mode
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-mode
      * @param {string} [symbol] unified symbol of the market to fetch the position mode for (not used in blofin fetchPositionMode)
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} an object detailing whether the market is in hedged or one-way mode
@@ -10936,10 +10797,10 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#closePosition
      * @description closes open positions for a market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order-test
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test
      * @param {string} symbol Unified CCXT market symbol
-     * @param {string} side not used by cexcclosePositions
+     * @param {string} side not used by kucoin closePositions
      * @param {object} [params] extra parameters specific to the okx api endpoint
      * @param {string} [params.clientOrderId] client order id of the order
      * @returns {object[]} [A list of position structures]{@link https://docs.ccxt.com/?id=position-structure}
@@ -10972,7 +10833,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchMarketLeverageTiers
      * @description retrieve information on the maximum leverage, and maintenance margin for trades of varying trade sizes for a single market
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-isolated-margin-risk-limit
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-isolated-margin-risk-limit
      * @param {string} symbol unified market symbol
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {boolean} [params.uta] set to true to fetch leverage tiers for unified trading account instead of futures account (default is false)
@@ -11067,7 +10928,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchLeverageTiers
      * @description retrieve information on the maximum leverage, and maintenance margin for trades of varying trade sizes
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-tiers
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-position-tiers
      * @param {string[]} symbols list of unified market symbols
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object} a dictionary of [leverage tiers structures]{@link https://docs.ccxt.com/?id=leverage-tiers-structure}, indexed by market symbols
@@ -11137,7 +10998,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchOpenInterests
      * @description Retrieves the open interest for a list of symbols
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-futures-open-interset
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset
      * @param {string[]} [symbols] Unified CCXT market symbol
      * @param {object} [params] exchange specific parameters
      * @returns {object} an open interest structure{@link https://docs.ccxt.com/?id=open-interest-structure}
@@ -11195,7 +11056,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchOpenInterestHistory
      * @description Retrieves the open interest history of a currency
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-futures-open-interset
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset
      * @param {string} symbol Unified CCXT market symbol
      * @param {string} timeframe '5m', '15m', '30m', '1h', '4h' or '1d'
      * @param {int} [since] the time(ms) of the earliest record to retrieve as a unix timestamp
@@ -11250,7 +11111,7 @@ class cexc extends cexc$1["default"] {
     /**
      * @method
      * @name cexc#isUTAEnabled
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-mode
+     * @see https://www.kucoin.com/docs-new/rest/ua/get-account-mode
      * @description returns true or false so the user can check if unified account is enabled
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {boolean} true if unified account is enabled, false otherwise
@@ -11302,7 +11163,7 @@ class cexc extends cexc$1["default"] {
                 endpoint += '?' + this.rawencode(query);
             }
             else {
-                if ((endpoint === '/api/ua/v1/classic/order/place') || (endpoint === '/api/ua/v1/classic/order/place/batch') || (endpoint === '/api/ua/v1/classic/order/cancel') || (endpoint === '/api/ua/v1/classic/order/cancel/batch')) {
+                if (endpoint === '/api/ua/v1/classic/order/place') {
                     endpoint += '?tradeType=' + tradeType;
                 }
                 body = this.json(query);
@@ -11319,21 +11180,21 @@ class cexc extends cexc$1["default"] {
             this.checkRequiredCredentials();
             const timestamp = this.nonce().toString();
             headers = this.extend({
-                'CEXC-API-KEY-VERSION': '2',
-                'CEXC-API-KEY': this.apiKey,
-                'CEXC-API-TIMESTAMP': timestamp,
+                'KC-API-KEY-VERSION': '2',
+                'KC-API-KEY': this.apiKey,
+                'KC-API-TIMESTAMP': timestamp,
             }, headers);
-            const apiKeyVersion = this.safeString(headers, 'CEXC-API-KEY-VERSION');
+            const apiKeyVersion = this.safeString(headers, 'KC-API-KEY-VERSION');
             if (apiKeyVersion === '2') {
                 const passphrase = this.hmac(this.encode(this.password), this.encode(this.secret), sha256.sha256, 'base64');
-                headers['CEXC-API-PASSPHRASE'] = passphrase;
+                headers['KC-API-PASSPHRASE'] = passphrase;
             }
             else {
-                headers['CEXC-API-PASSPHRASE'] = this.password;
+                headers['KC-API-PASSPHRASE'] = this.password;
             }
             const payload = timestamp + method + endpoint + endpart;
             const signature = this.hmac(this.encode(payload), this.encode(this.secret), sha256.sha256, 'base64');
-            headers['CEXC-API-SIGN'] = signature;
+            headers['KC-API-SIGN'] = signature;
             let partner = this.safeDict(this.options, 'partner', {});
             const isUtaFuturePrivate = isUtaPrivate && (tradeType === 'FUTURES');
             const isFuturePartner = isFuturePrivate || isUtaFuturePrivate;
@@ -11343,14 +11204,14 @@ class cexc extends cexc$1["default"] {
             if ((partnerId !== undefined) && (partnerSecret !== undefined)) {
                 const partnerPayload = timestamp + partnerId + this.apiKey;
                 const partnerSignature = this.hmac(this.encode(partnerPayload), this.encode(partnerSecret), sha256.sha256, 'base64');
-                headers['CEXC-API-PARTNER-SIGN'] = partnerSignature;
-                headers['CEXC-API-PARTNER'] = partnerId;
-                headers['CEXC-API-PARTNER-VERIFY'] = 'true';
+                headers['KC-API-PARTNER-SIGN'] = partnerSignature;
+                headers['KC-API-PARTNER'] = partnerId;
+                headers['KC-API-PARTNER-VERIFY'] = 'true';
             }
             if (isBroker) {
                 const brokerName = this.safeString(partner, 'name');
                 if (brokerName !== undefined) {
-                    headers['CEXC-BROKER-NAME'] = brokerName;
+                    headers['KC-BROKER-NAME'] = brokerName;
                 }
             }
         }
@@ -11382,7 +11243,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexc#fetchTransfers
      * @description fetch a history of internal transfers made on an account
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-spot-margin
+     * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin
      * @param {string} [code] unified currency code of the currency transferred
      * @param {int} [since] the earliest time in ms to fetch transfers for
      * @param {int} [limit] the maximum number of transfer structures to retrieve
@@ -11455,7 +11316,7 @@ class cexc extends cexc$1["default"] {
      * @method
      * @name cexcfutures#fetchPositionsADLRank
      * @description fetches the auto deleveraging rank and risk percentage for a list of symbols
-     * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-list
+     * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-list
      * @param {string[]} [symbols] list of unified market symbols
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @returns {object[]} an array of [auto de leverage structures]{@link https://docs.ccxt.com/?id=auto-de-leverage-structure}

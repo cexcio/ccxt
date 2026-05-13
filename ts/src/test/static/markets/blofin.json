@@ -195,7 +195,6 @@
     },
     "ETH/USDT:USDT": {
         "id": "ETH-USDT",
-        "lowercaseId": null,
         "symbol": "ETH/USDT:USDT",
         "base": "ETH",
         "quote": "USDT",
@@ -209,7 +208,6 @@
         "swap": true,
         "future": false,
         "option": false,
-        "index": null,
         "active": true,
         "contract": true,
         "linear": true,
@@ -218,12 +216,8 @@
         "taker": 0.0006,
         "maker": 0.0002,
         "contractSize": 0.01,
-        "expiry": null,
-        "expiryDatetime": null,
-        "strike": null,
-        "optionType": null,
         "precision": {
-            "amount": 0.1,
+            "amount": 1,
             "price": 0.01
         },
         "limits": {
@@ -232,45 +226,28 @@
                 "max": 150
             },
             "amount": {
-                "min": 0.1,
-                "max": null
+                "min": 1
             },
-            "price": {
-                "min": null,
-                "max": null
-            },
-            "cost": {
-                "min": null,
-                "max": null
-            }
+            "price": {},
+            "cost": {}
         },
-        "marginModes": {
-            "cross": null,
-            "isolated": null
-        },
-        "created": 1673517600000,
+        "created": 1669869031395,
         "info": {
             "instId": "ETH-USDT",
             "baseCurrency": "ETH",
             "quoteCurrency": "USDT",
             "contractValue": "0.01",
-            "listTime": "1673517600000",
-            "expireTime": "4918462716651",
+            "listTime": "1669869031395",
+            "expireTime": "1890748800000",
             "maxLeverage": "150",
-            "minSize": "0.1",
-            "lotSize": "0.1",
+            "minSize": "1",
+            "lotSize": "1",
             "tickSize": "0.01",
             "instType": "SWAP",
             "contractType": "linear",
-            "maxLimitSize": "600000",
-            "maxMarketSize": "200000",
-            "state": "live",
-            "thresholdX": "0.02",
-            "thresholdY": "0.02",
-            "thresholdZ": "0.05",
-            "settleCurrency": "USDT"
-        },
-        "tierBased": null,
-        "percentage": null
+            "maxLimitSize": "100000000",
+            "maxMarketSize": "150000",
+            "state": "live"
+        }
     }
 }

@@ -10,7 +10,8 @@ function testNumberToBE() {
     const exchange = new ccxt.Exchange({
         'id': 'sampleexchange',
     });
-    // @SKIP_START_GO
+    assert(exchange.parseNumber(undefined) === undefined, 'GO skip trick');
+    assert('GO_SKIP_START');
     // 1234567890 (decimal) = 0x499602D2 (hex)
     // BE: 00 00 00 00 49 96 02 D2
     const num1 = 1234567890;
@@ -70,7 +71,6 @@ function testNumberToBE() {
     assert(exchange.binaryLength(result9) === 4);
     const expectedBinary9 = exchange.base16ToBinary('01020304');
     assert(exchange.binaryToBase64(result9) === exchange.binaryToBase64(expectedBinary9), '0x01020304 4-byte failed');
-    // @SKIP_END_GO
-    exchange.describe(); // avoid unused var
+    assert('GO_SKIP_END');
 }
 export default testNumberToBE;

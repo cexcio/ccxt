@@ -18,7 +18,7 @@ public partial class BaseTest
             });
             // In JavaScript, we use Uint8Array or Buffer for binary data
             // The encode() method converts string to bytes
-            // @SKIP_START_GO
+            Assert("GO_SKIP_START");
             // Test 1: Simple binary from string
             object binary1 = helperStrToBinary(exchange, "hello");
             Assert(isEqual(exchange.binaryToBase64(binary1), "aGVsbG8="));
@@ -49,7 +49,7 @@ public partial class BaseTest
             // Test 10: Special characters
             object binary10 = helperStrToBinary(exchange, "hello+world/test");
             Assert(isEqual(exchange.binaryToBase64(binary10), "aGVsbG8rd29ybGQvdGVzdA=="));
-            // @SKIP_END_GO
+            Assert("GO_SKIP_END");
             Assert(isEqual(exchange.safeString(null, "key"), null), "GO_WORKAROUND");
         }
 }

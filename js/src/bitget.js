@@ -1394,7 +1394,6 @@ export default class bitget extends Exchange {
                     '43115': OnMaintenance,
                     '45110': InvalidOrder,
                     '40774': InvalidOrder,
-                    '40917': InvalidOrder,
                     '45122': InvalidOrder,
                     // spot
                     'invalid sign': AuthenticationError,
@@ -3597,11 +3596,9 @@ export default class bitget extends Exchange {
         let uta = undefined;
         [uta, params] = this.handleOptionAndParams(params, 'fetchTickers', 'uta', false);
         if (uta) {
-            if (symbols !== undefined) {
-                const symbolsLength = symbols.length;
-                if (symbolsLength === 1) {
-                    request['symbol'] = market['id'];
-                }
+            const symbolsLength = symbols.length;
+            if ((symbols !== undefined) && (symbolsLength === 1)) {
+                request['symbol'] = market['id'];
             }
             request['category'] = productType;
             response = await this.publicUtaGetV3MarketTickers(this.extend(request, params));

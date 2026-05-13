@@ -429,8 +429,6 @@ export default class whitebit extends Exchange {
                 },
                 'broad': {
                     'limit must be less than or equal to': BadRequest,
-                    'The Price should be less than or equal to': InvalidOrder,
-                    'The Price should be greater than or equal to': InvalidOrder,
                     'This action is unauthorized': PermissionDenied,
                     'Given amount is less than min amount': InvalidOrder,
                     'Min amount step': InvalidOrder,

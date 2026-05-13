@@ -66,16 +66,16 @@ export default class Exchange {
     validateClientSsl: boolean;
     timeout: Int;
     verbose: boolean;
+    twofa: string;
     apiKey: string;
     secret: string;
     uid: string;
+    accountId: string;
     login: string;
     password: string;
     privateKey: string;
     walletAddress: string;
     token: string;
-    twofa: string;
-    accountId: string;
     balance: any;
     liquidations: any;
     orderbooks: Dictionary<Ob>;
@@ -187,9 +187,11 @@ export default class Exchange {
     exceptions: Dictionary<string>;
     timeframes: Dictionary<number | string>;
     version: Str;
+    marketsByAltname: Dictionary<Market>;
     name: Str;
     lastRestRequestTimestamp: int;
     targetAccount: string;
+    stablePairs: Dictionary<boolean>;
     httpProxyAgentModule: any;
     httpsProxyAgentModule: any;
     socksProxyAgentModule: any;
@@ -246,7 +248,7 @@ export default class Exchange {
         outputLen: number;
         blockLen: number;
         create(): import("../static_dependencies/noble-hashes/utils.js").Hash<import("../static_dependencies/noble-hashes/utils.js").Hash<any>>;
-    }, digest?: "binary" | "hex" | "base64") => any;
+    }, digest?: "hex" | "base64" | "binary") => any;
     arrayConcat: (a: any[], b: any[]) => any[];
     encode: (str: string) => Uint8Array;
     urlencode: (object: object, sort?: boolean) => string;
@@ -255,7 +257,7 @@ export default class Exchange {
         outputLen: number;
         blockLen: number;
         create(): import("../static_dependencies/noble-hashes/utils.js").Hash<import("../static_dependencies/noble-hashes/utils.js").Hash<any>>;
-    }, digest?: "binary" | "hex" | "base64") => any;
+    }, digest?: "hex" | "base64" | "binary") => any;
     numberToString: typeof functions.numberToString;
     parseTimeframe: (timeframe: string) => number;
     safeInteger2: (o: any, k1: IndexType, k2: IndexType, $default?: number) => number;
@@ -412,8 +414,7 @@ export default class Exchange {
     binaryLength(binary: Uint8Array): number;
     lockId(): any;
     unlockId(): any;
-    loadLighterLibrary(libraryPath: any, chainId: any, privateKey: any, apiKeyIndex: any, accountIndex: any, createClient?: boolean): Promise<{}>;
-    lighterCreateClient(signer: any, chainId: any, privateKey: any, apiKeyIndex: any, accountIndex: any): any;
+    loadLighterLibrary(libraryPath: any, chainId: any, privateKey: any, apiKeyIndex: any, accountIndex: any): Promise<{}>;
     lighterSignCreateGroupedOrders(signer: any, request: any): any[];
     lighterSignCreateOrder(signer: any, request: any): any[];
     checkLighterSignedError(result: any): void;
@@ -426,9 +427,6 @@ export default class Exchange {
     lighterSignUpdateLeverage(signer: any, request: any): any[];
     lighterCreateAuthToken(signer: any, request: any): string;
     lighterSignUpdateMargin(signer: any, request: any): any[];
-    lighterSignApproveIntegrator(signer: any, request: any): any[];
-    lighterGenerateApiKey(signer: any): any[];
-    lighterSignChangePubkey(signer: any, request: any): any[];
     describe(): any;
     safeBoolN(dictionaryOrList: any, keys: IndexType[], defaultValue?: boolean): boolean | undefined;
     safeBool2(dictionary: any, key1: IndexType, key2: IndexType, defaultValue?: boolean): boolean | undefined;
@@ -437,7 +435,6 @@ export default class Exchange {
     safeDict(dictionary: any, key: IndexType, defaultValue?: Dictionary<any>): Dictionary<any> | undefined;
     safeDict2(dictionary: any, key1: IndexType, key2: string, defaultValue?: Dictionary<any>): Dictionary<any> | undefined;
     safeListN(dictionaryOrList: any, keys: IndexType[], defaultValue?: any[]): any[] | undefined;
-    isDictionary(value: any): boolean;
     safeList2(dictionaryOrList: any, key1: IndexType, key2: string, defaultValue?: any[]): any[] | undefined;
     safeList(dictionaryOrList: any, key: IndexType, defaultValue?: any[]): any[] | undefined;
     handleDeltas(orderbook: any, deltas: any): void;
@@ -1029,6 +1026,5 @@ export default class Exchange {
     cleanUnsubscription(client: any, subHash: string, unsubHash: string, subHashIsPrefix?: boolean): void;
     cleanCache(subscription: Dict): void;
     timeframeFromMilliseconds(ms: number): string;
-    isUTAEnabled(params?: {}): Promise<boolean>;
 }
 export { Exchange, };

@@ -22,11 +22,11 @@ function example() {
         $binance = new \ccxt\pro\binance(array());
         $subscriptions = [['BTC/USDT', '5m'], ['ETH/USDT', '5m'], ['BTC/USDT', '1h']];
         while (true) {
-            $ohlcv = \React\Async\await($binance->watch_ohlcv_for_symbols($subscriptions));
+            $ohlcv = Async\await($binance->watch_ohlcv_for_symbols($subscriptions));
             var_dump($ohlcv);
         }
     }) ();
 }
 
 
-\React\Async\await(example());
+Async\await(example());

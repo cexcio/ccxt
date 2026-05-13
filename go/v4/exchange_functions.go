@@ -10,31 +10,31 @@ import (
 )
 
 // keysort sorts the keys of a map and returns a new map with the sorted keys.
-// func (this *Exchange) Keysort(parameters2 any) map[string]any {
-// 	parameters := parameters2.(map[string]any)
+// func (this *Exchange) Keysort(parameters2 interface{}) map[string]interface{} {
+// 	parameters := parameters2.(map[string]interface{})
 // 	keys := make([]string, 0, len(parameters))
 // 	for k := range parameters {
 // 		keys = append(keys, k)
 // 	}
 // 	sort.Strings(keys)
 
-// 	outDict := make(map[string]any)
+// 	outDict := make(map[string]interface{})
 // 	for _, key := range keys {
 // 		outDict[key] = parameters[key]
 // 	}
 // 	return outDict
 // }
 
-func (this *Exchange) Keysort(parameters2 any) map[string]any {
-	var tempMap map[string]any
+func (this *Exchange) Keysort(parameters2 interface{}) map[string]interface{} {
+	var tempMap map[string]interface{}
 
 	switch v := parameters2.(type) {
-	case map[string]any:
+	case map[string]interface{}:
 		tempMap = v
 
 	case *sync.Map:
-		tempMap = make(map[string]any)
-		v.Range(func(k, val any) bool {
+		tempMap = make(map[string]interface{})
+		v.Range(func(k, val interface{}) bool {
 			keyStr, ok := k.(string)
 			if ok {
 				tempMap[keyStr] = val
@@ -44,7 +44,7 @@ func (this *Exchange) Keysort(parameters2 any) map[string]any {
 
 	default:
 		// Unsupported type; return empty map
-		return map[string]any{}
+		return map[string]interface{}{}
 	}
 
 	keys := make([]string, 0, len(tempMap))
@@ -53,25 +53,25 @@ func (this *Exchange) Keysort(parameters2 any) map[string]any {
 	}
 	sort.Strings(keys)
 
-	outDict := make(map[string]any, len(keys))
+	outDict := make(map[string]interface{}, len(keys))
 	for _, key := range keys {
 		outDict[key] = tempMap[key]
 	}
 	return outDict
 }
 
-func (this *Exchange) Sort(input any) []any {
-	var list []any
+func (this *Exchange) Sort(input interface{}) []interface{} {
+	var list []interface{}
 
 	switch v := input.(type) {
 	case []string:
 		for _, item := range v {
 			list = append(list, item)
 		}
-	case []any:
-		list = append([]any{}, v...)
+	case []interface{}:
+		list = append([]interface{}{}, v...)
 	default:
-		return []any{}
+		return []interface{}{}
 	}
 
 	sort.Slice(list, func(i, j int) bool {
@@ -85,7 +85,7 @@ func (this *Exchange) Sort(input any) []any {
 	return list
 }
 
-func toFloat64(v any) (float64, bool) {
+func toFloat64(v interface{}) (float64, bool) {
 	switch n := v.(type) {
 	case int:
 		return float64(n), true
@@ -102,29 +102,29 @@ func toFloat64(v any) (float64, bool) {
 }
 
 // omit removes specified keys from a map.
-// func (this *Exchange) Omit(a any, parameters ...any) any {
+// func (this *Exchange) Omit(a interface{}, parameters ...interface{}) interface{} {
 // 	if len(parameters) == 1 {
-// 		// maybe we got []any as the only variadic argument, handle it
+// 		// maybe we got []interface{} as the only variadic argument, handle it
 // 		if reflect.TypeOf(parameters[0]).Kind() == reflect.Slice {
-// 			return this.OmitN(a, parameters[0].([]any))
+// 			return this.OmitN(a, parameters[0].([]interface{}))
 // 		}
 // 	}
-// 	keys := make([]any, len(parameters))
+// 	keys := make([]interface{}, len(parameters))
 // 	for i, parameter := range parameters {
 // 		keys[i] = parameter
 // 	}
 // 	return this.OmitMap(a, keys)
 // }
 
-func (this *Exchange) Omit(a any, parameters ...any) any {
+func (this *Exchange) Omit(a interface{}, parameters ...interface{}) interface{} {
 	if len(parameters) == 1 {
 		// Handle single argument which could be a slice of various types
 		switch keys := parameters[0].(type) {
-		case []any:
+		case []interface{}:
 			return this.OmitN(a, keys)
 		case []string:
-			// Convert []string to []any
-			interfaceKeys := make([]any, len(keys))
+			// Convert []string to []interface{}
+			interfaceKeys := make([]interface{}, len(keys))
 			for i, key := range keys {
 				interfaceKeys[i] = key
 			}
@@ -133,13 +133,13 @@ func (this *Exchange) Omit(a any, parameters ...any) any {
 	}
 
 	// Handle variadic parameters as individual keys
-	keys := make([]any, len(parameters))
+	keys := make([]interface{}, len(parameters))
 	copy(keys, parameters)
 	return this.OmitMap(a, keys)
 }
 
 // omitMap removes specified keys from a map.
-func (this *Exchange) OmitMap(aa any, k any) any {
+func (this *Exchange) OmitMap(aa interface{}, k interface{}) interface{} {
 	// if reflect.TypeOf(aa).Kind() == reflect.Slice {
 	// 	return aa
 	// 	//  if ok {
@@ -149,7 +149,7 @@ func (this *Exchange) OmitMap(aa any, k any) any {
 	// }
 
 	switch aa.(type) {
-	case []any, []string, []bool, []int, []int64, []float64, []map[string]any:
+	case []interface{}, []string, []bool, []int, []int64, []float64, []map[string]interface{}:
 		return aa
 	}
 
@@ -159,23 +159,23 @@ func (this *Exchange) OmitMap(aa any, k any) any {
 	}
 
 	// Try to convert to map, if it fails, return the original value
-	a, ok := aa.(map[string]any)
+	a, ok := aa.(map[string]interface{})
 	if !ok {
 		// If it's not a map, return the original value
 		return aa
 	}
 
-	var keys []any
+	var keys []interface{}
 	switch k.(type) {
 	case string:
 		// keys = []string{k.(string)}
-	case []any:
-		for _, v := range k.([]any) {
+	case []interface{}:
+		for _, v := range k.([]interface{}) {
 			keys = append(keys, v.(string))
 		}
 	}
 
-	outDict := make(map[string]any)
+	outDict := make(map[string]interface{})
 	for key, value := range a {
 		if !this.Contains(keys, key) {
 			outDict[key] = value
@@ -185,9 +185,9 @@ func (this *Exchange) OmitMap(aa any, k any) any {
 }
 
 // omitN removes specified keys from a map.
-func (this *Exchange) OmitN(aa any, keys []any) any {
-	outDict := make(map[string]any)
-	a, ok := aa.(map[string]any)
+func (this *Exchange) OmitN(aa interface{}, keys []interface{}) interface{} {
+	outDict := make(map[string]interface{})
+	a, ok := aa.(map[string]interface{})
 	if ok {
 		for key, value := range a {
 			if !this.Contains(keys, key) {
@@ -200,7 +200,7 @@ func (this *Exchange) OmitN(aa any, keys []any) any {
 }
 
 // contains checks if a slice contains a specific element.
-func (this *Exchange) Contains(slice []any, elem string) bool {
+func (this *Exchange) Contains(slice []interface{}, elem string) bool {
 	for _, s := range slice {
 		if s.(string) == elem {
 			return true
@@ -210,18 +210,18 @@ func (this *Exchange) Contains(slice []any, elem string) bool {
 }
 
 // toArray converts a map to a slice of its values.
-// func (this *Exchange) ToArray(a any) []any {
+// func (this *Exchange) ToArray(a interface{}) []interface{} {
 // 	if a == nil {
 // 		return nil
 // 	}
 
 // 	if reflect.TypeOf(a).Kind() == reflect.Slice {
-// 		return a.([]any)
+// 		return a.([]interface{})
 // 	}
 
 // 	if reflect.TypeOf(a).Kind() == reflect.Map {
-// 		b := a.(map[string]any)
-// 		outList := make([]any, 0, len(b))
+// 		b := a.(map[string]interface{})
+// 		outList := make([]interface{}, 0, len(b))
 // 		for _, value := range b {
 // 			outList = append(outList, value)
 // 		}
@@ -231,13 +231,13 @@ func (this *Exchange) Contains(slice []any, elem string) bool {
 // 	return nil
 // }
 
-func (this *Exchange) ToArray(a any) []any {
+func (this *Exchange) ToArray(a interface{}) []interface{} {
 	if a == nil {
 		return nil
 	}
 
-	// Check if `a` is a slice of `[]any`
-	if slice, ok := a.([]any); ok {
+	// Check if `a` is a slice of `[]interface{}`
+	if slice, ok := a.([]interface{}); ok {
 		return slice
 	}
 
@@ -246,16 +246,16 @@ func (this *Exchange) ToArray(a any) []any {
 		return cache.ToArray()
 	}
 
-	// Check if `a` is a map of `map[string]any`
-	if m, ok := a.(map[string]any); ok {
-		outList := make([]any, 0, len(m))
+	// Check if `a` is a map of `map[string]interface{}`
+	if m, ok := a.(map[string]interface{}); ok {
+		outList := make([]interface{}, 0, len(m))
 		for _, value := range m {
 			outList = append(outList, value)
 		}
 		return outList
 	} else if m, ok := a.(*sync.Map); ok {
-		outList := make([]any, 0)
-		m.Range(func(key, value any) bool {
+		outList := make([]interface{}, 0)
+		m.Range(func(key, value interface{}) bool {
 			outList = append(outList, value)
 			return true
 		})
@@ -267,20 +267,20 @@ func (this *Exchange) ToArray(a any) []any {
 }
 
 // arrayConcat concatenates two slices.
-func (this *Exchange) ArrayConcat(aa, bb any) any {
+func (this *Exchange) ArrayConcat(aa, bb interface{}) interface{} {
 	if reflect.TypeOf(aa).Kind() == reflect.Slice && reflect.TypeOf(bb).Kind() == reflect.Slice {
-		a := aa.([]any)
-		b := bb.([]any)
-		outList := make([]any, len(a)+len(b))
+		a := aa.([]interface{})
+		b := bb.([]interface{})
+		outList := make([]interface{}, len(a)+len(b))
 		copy(outList, a)
 		copy(outList[len(a):], b)
 		return outList
 	}
 
 	if reflect.TypeOf(aa).Kind() == reflect.Slice && reflect.TypeOf(bb).Kind() == reflect.Slice {
-		a := aa.([]any)
-		b := bb.([]any)
-		outList := make([]any, len(a)+len(b))
+		a := aa.([]interface{})
+		b := bb.([]interface{})
+		outList := make([]interface{}, len(a)+len(b))
 		copy(outList, a)
 		copy(outList[len(a):], b)
 		return outList
@@ -289,15 +289,15 @@ func (this *Exchange) ArrayConcat(aa, bb any) any {
 }
 
 // aggregate is a stub function that returns an empty slice.
-// func (this *Exchange) Aggregate(bidasks any) []any {
-// 	var outList []any
+// func (this *Exchange) Aggregate(bidasks interface{}) []interface{} {
+// 	var outList []interface{}
 // 	return outList
 // }
 
-func (this *Exchange) Aggregate(bidasks any) []any {
+func (this *Exchange) Aggregate(bidasks interface{}) []interface{} {
 	result := make(map[float64]float64)
 
-	for _, pair := range bidasks.([][]any) {
+	for _, pair := range bidasks.([][]interface{}) {
 		if len(pair) >= 2 {
 			price := ToFloat64(pair[0])
 			volume := ToFloat64(pair[1])
@@ -305,16 +305,16 @@ func (this *Exchange) Aggregate(bidasks any) []any {
 		}
 	}
 
-	// Convert map back to [][]any
-	res := make([]any, 0, len(result))
+	// Convert map back to [][]interface{}
+	res := make([]interface{}, 0, len(result))
 	for price, volume := range result {
-		res = append(res, []any{price, volume})
+		res = append(res, []interface{}{price, volume})
 	}
 
 	return res
 }
 
-func (this *Exchange) ExtractParams(str2 any) []any {
+func (this *Exchange) ExtractParams(str2 interface{}) []interface{} {
 	str := str2.(string)
 	// Compile the regular expression
 	regex := regexp.MustCompile(`\{([^\}]+)\}`)
@@ -323,7 +323,7 @@ func (this *Exchange) ExtractParams(str2 any) []any {
 	matches := regex.FindAllStringSubmatch(str, -1)
 
 	// Create a list to store the extracted parameters
-	outList := make([]any, 0, len(matches))
+	outList := make([]interface{}, 0, len(matches))
 
 	// Iterate over the matches and add the captured groups to the list
 	for _, match := range matches {
@@ -335,7 +335,7 @@ func (this *Exchange) ExtractParams(str2 any) []any {
 	return outList
 }
 
-func Json(obj any) string {
+func Json(obj interface{}) string {
 	if obj == nil {
 		return ""
 	}

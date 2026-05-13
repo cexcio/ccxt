@@ -1416,7 +1416,7 @@ public partial class kucoin
     /// <item>
     /// <term>params.marginMode</term>
     /// <description>
-    /// string : 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin)
+    /// string : 'cross' or 'isolated', required if fetching a margin order
     /// </description>
     /// </item>
     /// </list>
@@ -1830,12 +1830,6 @@ public partial class kucoin
     /// </description>
     /// </item>
     /// <item>
-    /// <term>params.marginMode</term>
-    /// <description>
-    /// string : 'cross' or 'isolated', only for margin orders (unified accountMode supports only cross margin)
-    /// </description>
-    /// </item>
-    /// <item>
     /// <term>params.paginate</term>
     /// <description>
     /// boolean : default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
@@ -2169,7 +2163,7 @@ public partial class kucoin
     /// <item>
     /// <term>params.marginMode</term>
     /// <description>
-    /// string : 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin)
+    /// string : 'cross' or 'isolated', required if fetching a margin order
     /// </description>
     /// </item>
     /// </list>
@@ -2421,7 +2415,7 @@ public partial class kucoin
     /// <item>
     /// <term>params.marginMode</term>
     /// <description>
-    /// string : 'cross' or 'isolated', only for margin trades (unified accountMode support only cross margin)
+    /// string : 'cross' or 'isolated', only for margin trades
     /// </description>
     /// </item>
     /// <item>
@@ -2801,7 +2795,7 @@ public partial class kucoin
     /// <item>
     /// <term>params.type</term>
     /// <description>
-    /// string : 'unified', 'spot', 'funding', 'cross', 'isolated' or 'swap' (default is 'unified')
+    /// string : 'spot', 'unified', 'funding', 'cross', 'isolated' or 'swap' (default is 'spot')
     /// </description>
     /// </item>
     /// <item>
@@ -3141,26 +3135,6 @@ public partial class kucoin
         return ((Dictionary<string, object>)res);
     }
     /// <summary>
-    /// fetch the rate of interest to borrow a currency for margin trading
-    /// </summary>
-    /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-borrowing-rates-and-limits"/>  <br/>
-    /// <list type="table">
-    /// <item>
-    /// <term>params</term>
-    /// <description>
-    /// object : extra parameters specific to the exchange API endpoint
-    /// </description>
-    /// </item>
-    /// </list>
-    /// </remarks>
-    /// <returns> <term>object</term> a [borrow rate structure]{@link https://docs.ccxt.com/?id=borrow-rate-structure}.</returns>
-    public async Task<CrossBorrowRate> FetchCrossBorrowRate(string code, Dictionary<string, object> parameters = null)
-    {
-        var res = await this.fetchCrossBorrowRate(code, parameters);
-        return new CrossBorrowRate(res);
-    }
-    /// <summary>
     /// fetch deposit and withdraw fees - *IMPORTANT* use fetchDepositWithdrawFee to get more in-depth info
     /// </summary>
     /// <remarks>
@@ -3206,7 +3180,6 @@ public partial class kucoin
     /// <remarks>
     /// See <see href="https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage"/>  <br/>
     /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/modify-cross-margin-leverage-uta"/>  <br/>
     /// See <see href="https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta"/>  <br/>
     /// <list type="table">
     /// <item>
@@ -3224,19 +3197,7 @@ public partial class kucoin
     /// <item>
     /// <term>params.uta</term>
     /// <description>
-    /// boolean : set to true for the unified trading account (uta)
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.marginMode</term>
-    /// <description>
-    /// string : *spot non-uta only* 'cross' or 'isolated' default is 'cross'
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.code</term>
-    /// <description>
-    /// string : *uta margin only* the unified currency code for the margin to set the leverage for
+    /// boolean : *contract markets only* set to true for the unified trading account (uta)
     /// </description>
     /// </item>
     /// </list>
@@ -3251,7 +3212,6 @@ public partial class kucoin
     /// fetch the current funding rate interval
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/rest/ua/get-current-funding-rate"/>  <br/>
     /// See <see href="https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate"/>  <br/>
     /// <list type="table">
     /// <item>
@@ -3366,12 +3326,6 @@ public partial class kucoin
     /// object : extra parameters specific to the exchange API endpoint
     /// </description>
     /// </item>
-    /// <item>
-    /// <term>params.uta</term>
-    /// <description>
-    /// boolean : set to true for the unified trading account (uta), defaults to false
-    /// </description>
-    /// </item>
     /// </list>
     /// </remarks>
     /// <returns> <term>object</term> a [funding history structure]{@link https://docs.ccxt.com/?id=funding-history-structure}.</returns>
@@ -3401,18 +3355,6 @@ public partial class kucoin
     /// boolean : set to true for the unified trading account (uta), defaults to false
     /// </description>
     /// </item>
-    /// <item>
-    /// <term>params.pageSize</term>
-    /// <description>
-    /// integer : *uta only* page size for the uta endpoint (default 50, max 200)
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.pageNumber</term>
-    /// <description>
-    /// integer : *uta only* page number for the uta endpoint (default 1)
-    /// </description>
-    /// </item>
     /// </list>
     /// </remarks>
     /// <returns> <term>object</term> a [position structure]{@link https://docs.ccxt.com/?id=position-structure}.</returns>
@@ -3438,18 +3380,6 @@ public partial class kucoin
     /// <term>params.uta</term>
     /// <description>
     /// boolean : set to true for the unified trading account (uta), defaults to false
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.pageSize</term>
-    /// <description>
-    /// integer : *uta only* page size for the uta endpoint (default 50, max 200)
-    /// </description>
-    /// </item>
-    /// <item>
-    /// <term>params.pageNumber</term>
-    /// <description>
-    /// integer : *uta only* page number for the uta endpoint (default 1)
     /// </description>
     /// </item>
     /// </list>
@@ -3541,7 +3471,7 @@ public partial class kucoin
     /// <item>
     /// <term>params.marginMode</term>
     /// <description>
-    /// string : *for margin orders only* 'cross' or 'isolated' (unified accountMode supports cross margin only)
+    /// string : *for margin orders only* 'cross' or 'isolated'
     /// </description>
     /// </item>
     /// </list>

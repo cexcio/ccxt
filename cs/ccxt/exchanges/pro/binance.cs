@@ -259,7 +259,7 @@ public partial class binance : ccxt.binance
 
     public virtual object getFutureWsCategory(object channel)
     {
-        if (isTrue(isTrue(isTrue(isTrue(isEqual(channel, "depth")) || isTrue(isEqual(channel, "rpiDepth"))) || isTrue(isEqual(channel, "bookTicker"))) || isTrue(isEqual(channel, "trade"))))
+        if (isTrue(isTrue(isTrue(isTrue(isTrue(isEqual(channel, "depth")) || isTrue(isEqual(channel, "rpiDepth"))) || isTrue(isEqual(channel, "bookTicker"))) || isTrue(isEqual(channel, "trade"))) || isTrue(isEqual(channel, "aggTrade"))))
         {
             return "public";
         }
@@ -3994,10 +3994,6 @@ public partial class binance : ccxt.binance
     public async override Task<object> cancelAllOrdersWs(object symbol = null, object parameters = null)
     {
         parameters ??= new Dictionary<string, object>();
-        if (isTrue(isEqual(symbol, null)))
-        {
-            throw new ArgumentsRequired ((string)add(this.id, " cancelAllOrdersWs() requires a symbol argument")) ;
-        }
         await this.loadMarkets();
         object market = this.market(symbol);
         object type = this.getMarketType("cancelAllOrdersWs", market, parameters);
@@ -4456,7 +4452,7 @@ public partial class binance : ccxt.binance
             { "datetime", this.iso8601(timestamp) },
             { "lastTradeTimestamp", lastTradeTimestamp },
             { "lastUpdateTimestamp", lastUpdateTimestamp },
-            { "type", this.parseOrderTypeByMarket(this.safeStringLower(order, "o"), marketType) },
+            { "type", this.parseOrderType(this.safeStringLower(order, "o")) },
             { "timeInForce", timeInForce },
             { "postOnly", null },
             { "reduceOnly", this.safeBool(order, "R") },

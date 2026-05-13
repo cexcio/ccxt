@@ -15,36 +15,28 @@ func NewBequantCore() *BequantCore {
     return p
 }
 
-func  (this *BequantCore) Describe() any  {
-    return this.DeepExtend(this.HitbtcCore.Describe(), map[string]any {
+func  (this *BequantCore) Describe() interface{}  {
+    return this.DeepExtend(this.HitbtcCore.Describe(), map[string]interface{} {
         "id": "bequant",
         "name": "Bequant",
         "pro": true,
-        "countries": []any{"MT"},
-        "has": map[string]any {
-            "CORS": nil,
-            "spot": true,
-            "margin": nil,
-            "swap": false,
-            "future": nil,
-            "option": nil,
-        },
-        "urls": map[string]any {
+        "countries": []interface{}{"MT"},
+        "urls": map[string]interface{} {
             "logo": "https://github.com/user-attachments/assets/0583ef1f-29fe-4b7c-8189-63565a0e2867",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://api.bequant.io/api/3",
                 "private": "https://api.bequant.io/api/3",
             },
             "www": "https://bequant.io",
-            "doc": []any{"https://api.bequant.io/"},
-            "fees": []any{"https://bequant.io/fees-and-limits"},
+            "doc": []interface{}{"https://api.bequant.io/"},
+            "fees": []interface{}{"https://bequant.io/fees-and-limits"},
             "referral": "https://bequant.io/referral/dd104e3bee7634ec",
         },
     })
 }
 
 
-func (this *BequantCore) Init(userConfig map[string]any) {
+func (this *BequantCore) Init(userConfig map[string]interface{}) {
     this.HitbtcCore.Init(this.DeepExtend(this.Describe(), userConfig))
     this.Itf = this
     this.Exchange.DerivedExchange = this

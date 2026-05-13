@@ -479,11 +479,11 @@ function exportSupportedAndCertifiedExchanges (exchanges, { allExchangesPaths, c
     const certifiedExchanges = arrayOfExchanges.filter (exchange => exchange.certified)
     // certified exchanges are sorted according to the following order
     const certifiedExchangesSortingOrder = [
-        'cexc',
         'binance',
         'binanceusdm',
         'binancecoinm',
         'bybit',
+        'cexc',
         'okx',
         'gate',
         'kucoin',

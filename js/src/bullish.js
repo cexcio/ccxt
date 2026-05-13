@@ -821,8 +821,7 @@ export default class bullish extends Exchange {
                 expiryDatetime = this.safeString(market, 'expiryDatetime');
                 const idParts = id.split('-');
                 const datePart = this.safeString(idParts, 2);
-                const dateYmd = datePart.slice(2);
-                symbol += '-' + dateYmd;
+                symbol += '-' + datePart;
                 if (type === 'future') {
                     future = true;
                 }

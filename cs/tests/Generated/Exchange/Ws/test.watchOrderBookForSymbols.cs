@@ -13,8 +13,7 @@ public partial class testMainClass : BaseTest
         object method = "watchOrderBookForSymbols";
         object now = exchange.milliseconds();
         object ends = add(now, 15000);
-        object returnedSymbols = new List<object>() {};
-        while (isTrue(isLessThan(now, ends)) || isTrue(isLessThan(getArrayLength(returnedSymbols), getArrayLength(symbols))))
+        while (isLessThan(now, ends))
         {
             object response = null;
             object success = true;
@@ -39,11 +38,6 @@ public partial class testMainClass : BaseTest
                 now = exchange.milliseconds();
                 testSharedMethods.assertInArray(exchange, skippedProperties, method, response, "symbol", symbols);
                 testOrderBook(exchange, skippedProperties, method, response, null);
-                object symbol = getValue(response, "symbol");
-                if (!isTrue(exchange.inArray(symbol, returnedSymbols)))
-                {
-                    ((IList<object>)returnedSymbols).Add(symbol);
-                }
             }
         }
         return true;

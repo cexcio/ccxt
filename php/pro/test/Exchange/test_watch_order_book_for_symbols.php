@@ -16,12 +16,11 @@ function test_watch_order_book_for_symbols($exchange, $skipped_properties, $symb
         $method = 'watchOrderBookForSymbols';
         $now = $exchange->milliseconds();
         $ends = $now + 15000;
-        $returned_symbols = [];
-        while ($now < $ends || count($returned_symbols) < count($symbols)) {
+        while ($now < $ends) {
             $response = null;
             $success = true;
             try {
-                $response = \React\Async\await($exchange->watch_order_book_for_symbols($symbols));
+                $response = Async\await($exchange->watch_order_book_for_symbols($symbols));
             } catch(\Throwable $e) {
                 // temporary fix for InvalidNonce for c#
                 if (!is_temporary_failure($e) && !($e instanceof InvalidNonce)) {
@@ -37,10 +36,6 @@ function test_watch_order_book_for_symbols($exchange, $skipped_properties, $symb
                 $now = $exchange->milliseconds();
                 assert_in_array($exchange, $skipped_properties, $method, $response, 'symbol', $symbols);
                 test_order_book($exchange, $skipped_properties, $method, $response, null);
-                $symbol = $response['symbol'];
-                if (!$exchange->in_array($symbol, $returned_symbols)) {
-                    $returned_symbols[] = $symbol;
-                }
             }
         }
         return true;

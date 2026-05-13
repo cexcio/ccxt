@@ -4,7 +4,7 @@ package base
 // https://github.com/ccxt/ccxt/blob/master/CONTRIBUTING.md#how-to-contribute-code
 
 
-var FunctionsMap = map[string]any{
+var FunctionsMap = map[string]interface{}{
     "afterConstructor": TestAfterConstructor,
     "aggregate": TestAggregate,
     "arrayConcat": TestArrayConcat,
@@ -125,7 +125,7 @@ var FunctionsMap = map[string]any{
     "signIn": TestSignIn,
 }
 
-var WsFunctionsMap = map[string]any{
+var WsFunctionsMap = map[string]interface{}{
     "unWatchPositions": TestUnWatchPositions,
     "watchBalance": TestWatchBalance,
     "watchBidsAsks": TestWatchBidsAsks,

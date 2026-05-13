@@ -15,15 +15,15 @@ func NewBinanceusdmCore() *BinanceusdmCore {
     return p
 }
 
-func  (this *BinanceusdmCore) Describe() any  {
-    return this.DeepExtend(this.BinanceCore.Describe(), map[string]any {
+func  (this *BinanceusdmCore) Describe() interface{}  {
+    return this.DeepExtend(this.BinanceCore.Describe(), map[string]interface{} {
         "id": "binanceusdm",
         "name": "Binance USDⓈ-M",
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/user-attachments/assets/871cbea7-eebb-4b28-b260-c1c91df0487a",
-            "doc": []any{"https://binance-docs.github.io/apidocs/futures/en/", "https://binance-docs.github.io/apidocs/spot/en", "https://developers.binance.com/en"},
+            "doc": []interface{}{"https://binance-docs.github.io/apidocs/futures/en/", "https://binance-docs.github.io/apidocs/spot/en", "https://developers.binance.com/en"},
         },
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": false,
             "margin": false,
@@ -32,18 +32,17 @@ func  (this *BinanceusdmCore) Describe() any  {
             "option": nil,
             "createStopMarketOrder": true,
         },
-        "options": map[string]any {
-            "fetchMarkets": map[string]any {
-                "types": []any{"linear"},
+        "options": map[string]interface{} {
+            "fetchMarkets": map[string]interface{} {
+                "types": []interface{}{"linear"},
             },
-            "defaultType": "swap",
             "defaultSubType": "linear",
             "leverageBrackets": nil,
-            "marginTypes": map[string]any {},
-            "marginModes": map[string]any {},
+            "marginTypes": map[string]interface{} {},
+            "marginModes": map[string]interface{} {},
         },
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "-5021": InvalidOrder,
                 "-5022": InvalidOrder,
                 "-5028": InvalidOrder,
@@ -51,35 +50,35 @@ func  (this *BinanceusdmCore) Describe() any  {
         },
     })
 }
-func  (this *BinanceusdmCore) TransferIn(code any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BinanceusdmCore) TransferIn(code interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     // transfer from spot wallet to usdm futures wallet
-            params := GetArg(optionalArgs, 0, map[string]any {})
+            params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-                retRes5615 :=  (<-this.FuturesTransfer(code, amount, 1, params))
-                PanicOnError(retRes5615)
-        ch <- retRes5615
+                retRes5515 :=  (<-this.FuturesTransfer(code, amount, 1, params))
+                PanicOnError(retRes5515)
+        ch <- retRes5515
                 return nil
         
             }()
             return ch
         }
-func  (this *BinanceusdmCore) TransferOut(code any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *BinanceusdmCore) TransferOut(code interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     // transfer from usdm futures wallet to spot wallet
-            params := GetArg(optionalArgs, 0, map[string]any {})
+            params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-                retRes6115 :=  (<-this.FuturesTransfer(code, amount, 2, params))
-                PanicOnError(retRes6115)
-        ch <- retRes6115
+                retRes6015 :=  (<-this.FuturesTransfer(code, amount, 2, params))
+                PanicOnError(retRes6015)
+        ch <- retRes6015
                 return nil
         
             }()
@@ -87,7 +86,7 @@ func  (this *BinanceusdmCore) TransferOut(code any, amount any, optionalArgs ...
         }
 
 
-func (this *BinanceusdmCore) Init(userConfig map[string]any) {
+func (this *BinanceusdmCore) Init(userConfig map[string]interface{}) {
     this.BinanceCore.Init(this.DeepExtend(this.Describe(), userConfig))
     this.Itf = this
     this.Exchange.DerivedExchange = this

@@ -1497,7 +1497,6 @@ export default class binance extends Exchange {
                     'BUSD': 'USD',
                 },
                 'defaultWithdrawPrecision': 0.00000001,
-                'defaultFiatWithdrawPrecision': 0.01,
             },
             'features': {
                 'spot': {
@@ -3061,33 +3060,29 @@ export default class binance extends Exchange {
             //        ]
             //    }
             //
-            //     some coins (e.g. ETH, BIGTIME, SONIC, etc) return extra fields under network entry
-            //
-            //                "specialTips": "",
-            //                "specialWithdrawTips": "",
-            //                "withdrawInternalMin": "0",
-            //                "contractAddressUrl": "https://etherscan.io/address/",
-            //                "contractAddress": "0x64bc2ca1be492be7185faa2c8835d9b824c8a194"
-            //
             const entry = responseCurrencies[i];
             const id = this.safeString(entry, 'coin');
             const name = this.safeString(entry, 'name');
             const code = this.safeCurrencyCode(id);
             const isFiat = this.safeBool(entry, 'isLegalMoney');
+            let minPrecision = undefined;
+            let isWithdrawEnabled = true;
+            let isDepositEnabled = true;
             const networkList = this.safeList(entry, 'networkList', []);
             const fees = {};
             let fee = undefined;
             const networks = {};
-            let isETF = false;
             for (let j = 0; j < networkList.length; j++) {
                 const networkItem = networkList[j];
                 const network = this.safeString(networkItem, 'network');
                 const networkCode = this.networkIdToCode(network, code);
-                isETF = (network === 'ETF'); // ETF currencies (e.g. BTCUP, ETHDOWN) have only 1 "network" entry and are deterministic to set
+                const isETF = (network === 'ETF'); // e.g. BTCUP, ETHDOWN
                 // const name = this.safeString (networkItem, 'name');
                 const withdrawFee = this.safeNumber(networkItem, 'withdrawFee');
                 const depositEnable = this.safeBool(networkItem, 'depositEnable');
                 const withdrawEnable = this.safeBool(networkItem, 'withdrawEnable');
+                isDepositEnabled = isDepositEnabled || depositEnable;
+                isWithdrawEnabled = isWithdrawEnabled || withdrawEnable;
                 fees[network] = withdrawFee;
                 const isDefault = this.safeBool(networkItem, 'isDefault');
                 if (isDefault || (fee === undefined)) {
@@ -3097,16 +3092,27 @@ export default class binance extends Exchange {
                 // if (isDefault) {
                 //     this.options['defaultNetworkCodesForCurrencies'][code] = networkCode;
                 // }
-                let withdrawPrecision = this.omitZero(this.safeString2(networkItem, 'withdrawIntegerMultiple', 'withdrawInternalMin'));
-                // zero values happen only on fiat or leveraged(ETF) tokens: https://t.me/binance_api_english/393075
-                if (withdrawPrecision === undefined && isFiat) {
-                    withdrawPrecision = this.safeString(this.options, 'defaultFiatWithdrawPrecision');
+                const precisionTick = this.safeString(networkItem, 'withdrawIntegerMultiple');
+                let withdrawPrecision = precisionTick;
+                // avoid zero values, which are mostly from fiat or leveraged tokens or some abandoned coins : https://github.com/ccxt/ccxt/pull/14902#issuecomment-1271636731
+                if (!Precise.stringEq(precisionTick, '0')) {
+                    minPrecision = (minPrecision === undefined) ? precisionTick : Precise.stringMin(minPrecision, precisionTick);
+                }
+                else {
+                    if (!isFiat && !isETF) {
+                        // non-fiat and non-ETF currency, there are many cases when precision is set to zero (probably bug, we've reported to binance already)
+                        // in such cases, we can set default precision of 8 (which is in UI for such coins)
+                        withdrawPrecision = this.omitZero(this.safeString(networkItem, 'withdrawInternalMin'));
+                        if (withdrawPrecision === undefined) {
+                            withdrawPrecision = this.safeString(this.options, 'defaultWithdrawPrecision');
+                        }
+                    }
                 }
                 networks[networkCode] = {
                     'info': networkItem,
                     'id': network,
                     'network': networkCode,
-                    'active': undefined,
+                    'active': depositEnable && withdrawEnable,
                     'deposit': depositEnable,
                     'withdraw': withdrawEnable,
                     'fee': withdrawFee,
@@ -3123,17 +3129,8 @@ export default class binance extends Exchange {
                     },
                 };
             }
-            let type = undefined;
-            if (isETF) {
-                type = 'other';
-            }
-            else if (isFiat) {
-                type = 'fiat';
-            }
-            else {
-                type = 'crypto';
-            }
             const trading = this.safeBool(entry, 'trading');
+            const active = (isWithdrawEnabled && isDepositEnabled && trading);
             const marginEntry = this.safeDict(marginablesById, id, {});
             //
             //     {
@@ -3145,22 +3142,22 @@ export default class binance extends Exchange {
             //         userMinRepay: "0",
             //     }
             //
-            result[code] = this.safeCurrencyStructure({
+            result[code] = {
                 'id': id,
                 'name': name,
                 'code': code,
-                'type': type,
-                'precision': undefined,
+                'type': isFiat ? 'fiat' : 'crypto',
+                'precision': this.parseNumber(minPrecision),
                 'info': entry,
-                'active': trading,
-                'deposit': undefined,
-                'withdraw': undefined,
+                'active': active,
+                'deposit': isDepositEnabled,
+                'withdraw': isWithdrawEnabled,
                 'networks': networks,
-                'fee': undefined,
+                'fee': fee,
                 'fees': fees,
-                'limits': undefined,
+                'limits': this.limits,
                 'margin': this.safeBool(marginEntry, 'isBorrowable'),
-            });
+            };
         }
         return result;
     }
@@ -5743,27 +5740,15 @@ export default class binance extends Exchange {
         };
         return this.safeString(statuses, status, status);
     }
-    parseOrderTypeByMarket(type, marketType) {
-        let types = {};
-        if ((marketType !== undefined) && marketType === 'spot') {
-            types = {
-                'limit_maker': 'limit',
-                'stop_loss_limit': 'limit',
-                'stop_loss': 'market',
-                'take_profit_limit': 'limit',
-                'take_profit': 'market',
-            };
-        }
-        else {
-            types = {
-                'limit_maker': 'limit',
-                'stop': 'limit',
-                'stop_market': 'market',
-                'take_profit': 'limit',
-                'take_profit_market': 'market',
-                'trailing_stop_market': 'market',
-            };
-        }
+    parseOrderType(type) {
+        const types = {
+            'limit_maker': 'limit',
+            'stop': 'limit',
+            'stop_market': 'market',
+            'take_profit': 'limit',
+            'take_profit_market': 'market',
+            'trailing_stop_market': 'market',
+        };
         return this.safeString(types, type, type);
     }
     parseOrder(order, market = undefined) {
@@ -6351,7 +6336,7 @@ export default class binance extends Exchange {
             'lastTradeTimestamp': lastTradeTimestamp,
             'lastUpdateTimestamp': lastUpdateTimestamp,
             'symbol': symbol,
-            'type': this.parseOrderTypeByMarket(type, marketType),
+            'type': this.parseOrderType(type),
             'timeInForce': timeInForce,
             'postOnly': postOnly,
             'reduceOnly': this.safeBool(order, 'reduceOnly'),

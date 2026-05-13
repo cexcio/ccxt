@@ -11,28 +11,14 @@
         }
     },
     "ETH": {
-        "info": null,
         "id": "ETH",
-        "numericId": null,
         "code": "ETH",
-        "precision": 0.1,
-        "type": null,
-        "name": null,
-        "active": null,
-        "deposit": null,
-        "withdraw": null,
-        "fee": null,
+        "precision": 0.01,
         "fees": {},
         "networks": {},
         "limits": {
-            "deposit": {
-                "min": null,
-                "max": null
-            },
-            "withdraw": {
-                "min": null,
-                "max": null
-            }
+            "deposit": {},
+            "withdraw": {}
         }
     },
     "USDT": {

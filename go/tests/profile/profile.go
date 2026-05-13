@@ -12,7 +12,7 @@ import (
 
 	_ "net/http/pprof"
 
-	ccxt "github.com/cexcio/ccxt/go/v4"
+	ccxt "github.com/ccxt/ccxt/go/v4"
 )
 
 func printMemStats(label string) {
@@ -105,7 +105,7 @@ func main() {
 	printMemStats("Initial State")
 
 	// Create exchange
-	binance := ccxt.NewBinance(map[string]any{
+	binance := ccxt.NewBinance(map[string]interface{}{
 		"verbose": false,
 	})
 
@@ -144,7 +144,7 @@ func main() {
 		// Create channels for results
 		type OrderBookResult struct {
 			Symbol    string
-			OrderBook any
+			OrderBook interface{}
 			Error     error
 		}
 		results := make(chan OrderBookResult, len(symbols))

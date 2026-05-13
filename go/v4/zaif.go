@@ -15,14 +15,14 @@ func NewZaifCore() *ZaifCore {
     return p
 }
 
-func  (this *ZaifCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *ZaifCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "zaif",
         "name": "Zaif",
-        "countries": []any{"JP"},
+        "countries": []interface{}{"JP"},
         "rateLimit": 100,
         "version": "1",
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": nil,
@@ -81,25 +81,25 @@ func  (this *ZaifCore) Describe() any  {
             "setMarginMode": false,
             "withdraw": true,
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://user-images.githubusercontent.com/1294454/27766927-39ca2ada-5eeb-11e7-972f-1b4199518ca6.jpg",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "rest": "https://api.zaif.jp",
             },
             "www": "https://zaif.jp",
-            "doc": []any{"https://techbureau-api-document.readthedocs.io/ja/latest/index.html", "https://corp.zaif.jp/api-docs", "https://corp.zaif.jp/api-docs/api_links", "https://www.npmjs.com/package/zaif.jp", "https://github.com/you21979/node-zaif"},
+            "doc": []interface{}{"https://techbureau-api-document.readthedocs.io/ja/latest/index.html", "https://corp.zaif.jp/api-docs", "https://corp.zaif.jp/api-docs/api_links", "https://www.npmjs.com/package/zaif.jp", "https://github.com/you21979/node-zaif"},
             "fees": "https://zaif.jp/fee?lang=en",
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "percentage": true,
                 "taker": this.ParseNumber("0.001"),
                 "maker": this.ParseNumber("0"),
             },
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "depth/{pair}": 1,
                     "currencies/{pair}": 1,
                     "currencies/all": 1,
@@ -110,8 +110,8 @@ func  (this *ZaifCore) Describe() any  {
                     "trades/{pair}": 1,
                 },
             },
-            "private": map[string]any {
-                "post": map[string]any {
+            "private": map[string]interface{} {
+                "post": map[string]interface{} {
                     "active_orders": 5,
                     "cancel_order": 5,
                     "deposit_history": 5,
@@ -125,16 +125,16 @@ func  (this *ZaifCore) Describe() any  {
                     "withdraw_history": 5,
                 },
             },
-            "ecapi": map[string]any {
-                "post": map[string]any {
+            "ecapi": map[string]interface{} {
+                "post": map[string]interface{} {
                     "createInvoice": 1,
                     "getInvoice": 1,
                     "getInvoiceIdsByOrderNumber": 1,
                     "cancelInvoice": 1,
                 },
             },
-            "tlapi": map[string]any {
-                "post": map[string]any {
+            "tlapi": map[string]interface{} {
+                "post": map[string]interface{} {
                     "get_positions": 66,
                     "position_history": 66,
                     "active_positions": 5,
@@ -143,8 +143,8 @@ func  (this *ZaifCore) Describe() any  {
                     "cancel_position": 33,
                 },
             },
-            "fapi": map[string]any {
-                "get": map[string]any {
+            "fapi": map[string]interface{} {
+                "get": map[string]interface{} {
                     "groups/{group_id}": 1,
                     "last_price/{group_id}/{pair}": 1,
                     "ticker/{group_id}/{pair}": 1,
@@ -153,11 +153,11 @@ func  (this *ZaifCore) Describe() any  {
                 },
             },
         },
-        "options": map[string]any {},
-        "features": map[string]any {
-            "spot": map[string]any {
+        "options": map[string]interface{} {},
+        "features": map[string]interface{} {
+            "spot": map[string]interface{} {
                 "sandbox": false,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": true,
                     "triggerPrice": true,
                     "triggerDirection": false,
@@ -165,7 +165,7 @@ func  (this *ZaifCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": false,
                         "FOK": false,
                         "PO": false,
@@ -182,7 +182,7 @@ func  (this *ZaifCore) Describe() any  {
                 "createOrders": nil,
                 "fetchMyTrades": nil,
                 "fetchOrder": nil,
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": true,
                     "limit": nil,
                     "trigger": false,
@@ -190,7 +190,7 @@ func  (this *ZaifCore) Describe() any  {
                     "symbolRequired": false,
                 },
                 "fetchOrders": nil,
-                "fetchClosedOrders": map[string]any {
+                "fetchClosedOrders": map[string]interface{} {
                     "marginMode": true,
                     "limit": 1000,
                     "daysBack": 100000,
@@ -202,21 +202,21 @@ func  (this *ZaifCore) Describe() any  {
                 },
                 "fetchOHLCV": nil,
             },
-            "swap": map[string]any {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
         },
         "precisionMode": TICK_SIZE,
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "unsupported currency_pair": BadRequest,
             },
-            "broad": map[string]any {},
+            "broad": map[string]interface{} {},
         },
     })
 }
@@ -228,12 +228,12 @@ func  (this *ZaifCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *ZaifCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             markets:= (<-this.PublicGetCurrencyPairsAll(params))
@@ -266,16 +266,16 @@ func  (this *ZaifCore) FetchMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZaifCore) ParseMarket(market any) any  {
-    var id any = this.SafeString(market, "currency_pair")
-    var name any = this.SafeString(market, "name")
+func  (this *ZaifCore) ParseMarket(market interface{}) interface{}  {
+    var id interface{} = this.SafeString(market, "currency_pair")
+    var name interface{} = this.SafeString(market, "name")
     baseIdquoteIdVariable := Split(name, "/");
     baseId := GetValue(baseIdquoteIdVariable,0);
     quoteId := GetValue(baseIdquoteIdVariable,1)
-    var base any = this.SafeCurrencyCode(baseId)
-    var quote any = this.SafeCurrencyCode(quoteId)
-    var symbol any = Add(Add(base, "/"), quote)
-    return map[string]any {
+    var base interface{} = this.SafeCurrencyCode(baseId)
+    var quote interface{} = this.SafeCurrencyCode(quoteId)
+    var symbol interface{} = Add(Add(base, "/"), quote)
+    return map[string]interface{} {
         "id": id,
         "symbol": symbol,
         "base": base,
@@ -299,24 +299,24 @@ func  (this *ZaifCore) ParseMarket(market any) any  {
         "expiryDatetime": nil,
         "strike": nil,
         "optionType": nil,
-        "precision": map[string]any {
+        "precision": map[string]interface{} {
             "amount": this.SafeNumber(market, "item_unit_step"),
             "price": this.ParseNumber(this.ParsePrecision(this.SafeString(market, "aux_unit_point"))),
         },
-        "limits": map[string]any {
-            "leverage": map[string]any {
+        "limits": map[string]interface{} {
+            "leverage": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "amount": map[string]any {
+            "amount": map[string]interface{} {
                 "min": this.SafeNumber(market, "item_unit_min"),
                 "max": nil,
             },
-            "price": map[string]any {
+            "price": map[string]interface{} {
                 "min": this.SafeNumber(market, "aux_unit_min"),
                 "max": nil,
             },
-            "cost": map[string]any {
+            "cost": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
@@ -325,21 +325,21 @@ func  (this *ZaifCore) ParseMarket(market any) any  {
         "info": market,
     }
 }
-func  (this *ZaifCore) ParseBalance(response any) any  {
-    var balances any = this.SafeValue(response, "return", map[string]any {})
-    var deposit any = this.SafeValue(balances, "deposit")
-    var result any = map[string]any {
+func  (this *ZaifCore) ParseBalance(response interface{}) interface{}  {
+    var balances interface{} = this.SafeValue(response, "return", map[string]interface{} {})
+    var deposit interface{} = this.SafeValue(balances, "deposit")
+    var result interface{} = map[string]interface{} {
         "info": response,
         "timestamp": nil,
         "datetime": nil,
     }
-    var funds any = this.SafeValue(balances, "funds", map[string]any {})
-    var currencyIds any = ObjectKeys(funds)
+    var funds interface{} = this.SafeValue(balances, "funds", map[string]interface{} {})
+    var currencyIds interface{} = ObjectKeys(funds)
     for i := 0; IsLessThan(i, GetArrayLength(currencyIds)); i++ {
-        var currencyId any = GetValue(currencyIds, i)
-        var code any = this.SafeCurrencyCode(currencyId)
-        var balance any = this.SafeString(funds, currencyId)
-        var account any = this.Account()
+        var currencyId interface{} = GetValue(currencyIds, i)
+        var code interface{} = this.SafeCurrencyCode(currencyId)
+        var balance interface{} = this.SafeString(funds, currencyId)
+        var account interface{} = this.Account()
         AddElementToObject(account, "free", balance)
         AddElementToObject(account, "total", balance)
         if IsTrue(!IsEqual(deposit, nil)) {
@@ -359,12 +359,12 @@ func  (this *ZaifCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *ZaifCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes3608 := (<-this.LoadMarkets())
@@ -389,20 +389,20 @@ func  (this *ZaifCore) FetchBalance(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *ZaifCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes3768 := (<-this.LoadMarkets())
             PanicOnError(retRes3768)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "pair": GetValue(market, "id"),
             }
         
@@ -415,7 +415,7 @@ func  (this *ZaifCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *ZaifCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *ZaifCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // {
     //     "last": 9e-08,
@@ -429,12 +429,12 @@ func  (this *ZaifCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var symbol any = this.SafeSymbol(nil, market)
-    var vwap any = this.SafeString(ticker, "vwap")
-    var baseVolume any = this.SafeString(ticker, "volume")
-    var quoteVolume any = Precise.StringMul(baseVolume, vwap)
-    var last any = this.SafeString(ticker, "last")
-    return this.SafeTicker(map[string]any {
+    var symbol interface{} = this.SafeSymbol(nil, market)
+    var vwap interface{} = this.SafeString(ticker, "vwap")
+    var baseVolume interface{} = this.SafeString(ticker, "volume")
+    var quoteVolume interface{} = Precise.StringMul(baseVolume, vwap)
+    var last interface{} = this.SafeString(ticker, "last")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": symbol,
         "timestamp": nil,
         "datetime": nil,
@@ -466,18 +466,18 @@ func  (this *ZaifCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *ZaifCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes4368 := (<-this.LoadMarkets())
             PanicOnError(retRes4368)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "pair": GetValue(market, "id"),
             }
         
@@ -501,7 +501,7 @@ func  (this *ZaifCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any 
             }()
             return ch
         }
-func  (this *ZaifCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *ZaifCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTrades (public)
     //
@@ -516,15 +516,15 @@ func  (this *ZaifCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var side any = this.SafeString(trade, "trade_type")
+    var side interface{} = this.SafeString(trade, "trade_type")
     side = Ternary(IsTrue((IsEqual(side, "bid"))), "buy", "sell")
-    var timestamp any = this.SafeTimestamp(trade, "date")
-    var id any = this.SafeString2(trade, "id", "tid")
-    var priceString any = this.SafeString(trade, "price")
-    var amountString any = this.SafeString(trade, "amount")
-    var marketId any = this.SafeString(trade, "currency_pair")
-    var symbol any = this.SafeSymbol(marketId, market, "_")
-    return this.SafeTrade(map[string]any {
+    var timestamp interface{} = this.SafeTimestamp(trade, "date")
+    var id interface{} = this.SafeString2(trade, "id", "tid")
+    var priceString interface{} = this.SafeString(trade, "price")
+    var amountString interface{} = this.SafeString(trade, "amount")
+    var marketId interface{} = this.SafeString(trade, "currency_pair")
+    var symbol interface{} = this.SafeSymbol(marketId, market, "_")
+    return this.SafeTrade(map[string]interface{} {
         "id": id,
         "info": trade,
         "timestamp": timestamp,
@@ -551,22 +551,22 @@ func  (this *ZaifCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *ZaifCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes5068 := (<-this.LoadMarkets())
             PanicOnError(retRes5068)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "pair": GetValue(market, "id"),
             }
         
@@ -584,11 +584,11 @@ func  (this *ZaifCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any 
             //          }, ...
             //      ]
             //
-            var numTrades any =     GetArrayLength(response)
+            var numTrades interface{} =     GetArrayLength(response)
             if IsTrue(IsEqual(numTrades, 1)) {
-                var firstTrade any = GetValue(response, 0)
+                var firstTrade interface{} = GetValue(response, 0)
                 if !IsTrue(GetArrayLength(ObjectKeys(firstTrade))) {
-                    response = []any{}
+                    response = []interface{}{}
                 }
             }
         
@@ -611,14 +611,14 @@ func  (this *ZaifCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZaifCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes5488 := (<-this.LoadMarkets())
@@ -626,8 +626,8 @@ func  (this *ZaifCore) CreateOrder(symbol any, typeVar any, side any, amount any
             if IsTrue(!IsEqual(typeVar, "limit")) {
                 panic(ExchangeError(Add(this.Id, " createOrder() allows limit orders only")))
             }
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "currency_pair": GetValue(market, "id"),
                 "action": Ternary(IsTrue((IsEqual(side, "buy"))), "bid", "ask"),
                 "amount": amount,
@@ -637,7 +637,7 @@ func  (this *ZaifCore) CreateOrder(symbol any, typeVar any, side any, amount any
             response:= (<-this.PrivatePostTrade(this.Extend(request, params)))
             PanicOnError(response)
         
-            ch <- this.SafeOrder(map[string]any {
+            ch <- this.SafeOrder(map[string]interface{} {
                 "info": response,
                 "id": ToString(GetValue(GetValue(response, "return"), "order_id")),
             }, market)
@@ -656,16 +656,16 @@ func  (this *ZaifCore) CreateOrder(symbol any, typeVar any, side any, amount any
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZaifCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "order_id": id,
             }
         
@@ -685,7 +685,7 @@ func  (this *ZaifCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
             //        }
             //    }
             //
-            var data any = this.SafeDict(response, "return")
+            var data interface{} = this.SafeDict(response, "return")
         
             ch <- this.ParseOrder(data)
             return nil
@@ -693,7 +693,7 @@ func  (this *ZaifCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ZaifCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *ZaifCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "currency_pair": "btc_jpy",
@@ -718,15 +718,15 @@ func  (this *ZaifCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var side any = this.SafeString(order, "action")
+    var side interface{} = this.SafeString(order, "action")
     side = Ternary(IsTrue((IsEqual(side, "bid"))), "buy", "sell")
-    var timestamp any = this.SafeTimestamp(order, "timestamp")
-    var marketId any = this.SafeString(order, "currency_pair")
-    var symbol any = this.SafeSymbol(marketId, market, "_")
-    var price any = this.SafeString(order, "price")
-    var amount any = this.SafeString(order, "amount")
-    var id any = this.SafeString2(order, "id", "order_id")
-    return this.SafeOrder(map[string]any {
+    var timestamp interface{} = this.SafeTimestamp(order, "timestamp")
+    var marketId interface{} = this.SafeString(order, "currency_pair")
+    var symbol interface{} = this.SafeSymbol(marketId, market, "_")
+    var price interface{} = this.SafeString(order, "price")
+    var amount interface{} = this.SafeString(order, "amount")
+    var id interface{} = this.SafeString2(order, "id", "order_id")
+    return this.SafeOrder(map[string]interface{} {
         "id": id,
         "clientOrderId": nil,
         "timestamp": timestamp,
@@ -761,9 +761,9 @@ func  (this *ZaifCore) ParseOrder(order any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZaifCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -772,13 +772,13 @@ func  (this *ZaifCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes6678 := (<-this.LoadMarkets())
             PanicOnError(retRes6678)
-            var market any = nil
-            var request any = map[string]any {}
+            var market interface{} = nil
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "currency_pair", GetValue(market, "id"))
@@ -804,9 +804,9 @@ func  (this *ZaifCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ZaifCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) FetchClosedOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -815,13 +815,13 @@ func  (this *ZaifCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes6938 := (<-this.LoadMarkets())
             PanicOnError(retRes6938)
-            var market any = nil
-            var request any = map[string]any {}
+            var market interface{} = nil
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "currency_pair", GetValue(market, "id"))
@@ -848,14 +848,14 @@ func  (this *ZaifCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *ZaifCore) Withdraw(code any, amount any, address any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ZaifCore) Withdraw(code interface{}, amount interface{}, address interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     tag := GetArg(optionalArgs, 0, nil)
             _ = tag
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             tagparamsVariable := this.HandleWithdrawTagAndParams(tag, params);
             tag = GetValue(tagparamsVariable,0);
@@ -864,11 +864,11 @@ func  (this *ZaifCore) Withdraw(code any, amount any, address any, optionalArgs 
         
             retRes7288 := (<-this.LoadMarkets())
             PanicOnError(retRes7288)
-            var currency any = this.Currency(code)
+            var currency interface{} = this.Currency(code)
             if IsTrue(IsEqual(code, "JPY")) {
                 panic(ExchangeError(Add(Add(Add(this.Id, " withdraw() does not allow "), code), " withdrawals")))
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(currency, "id"),
                 "amount": amount,
                 "address": address,
@@ -895,7 +895,7 @@ func  (this *ZaifCore) Withdraw(code any, amount any, address any, optionalArgs 
             //         }
             //     }
             //
-            var returnData any = this.SafeDict(result, "return")
+            var returnData interface{} = this.SafeDict(result, "return")
         
             ch <- this.ParseTransaction(returnData, currency)
             return nil
@@ -903,7 +903,7 @@ func  (this *ZaifCore) Withdraw(code any, amount any, address any, optionalArgs 
             }()
             return ch
         }
-func  (this *ZaifCore) ParseTransaction(transaction any, optionalArgs ...any) any  {
+func  (this *ZaifCore) ParseTransaction(transaction interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "id": 23634,
@@ -920,15 +920,15 @@ func  (this *ZaifCore) ParseTransaction(transaction any, optionalArgs ...any) an
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
     currency = this.SafeCurrency(nil, currency)
-    var fee any = nil
-    var feeCost any = this.SafeValue(transaction, "fee")
+    var fee interface{} = nil
+    var feeCost interface{} = this.SafeValue(transaction, "fee")
     if IsTrue(!IsEqual(feeCost, nil)) {
-        fee = map[string]any {
+        fee = map[string]interface{} {
             "cost": feeCost,
             "currency": GetValue(currency, "code"),
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "id": this.SafeString(transaction, "id"),
         "txid": this.SafeString(transaction, "txid"),
         "timestamp": nil,
@@ -951,23 +951,23 @@ func  (this *ZaifCore) ParseTransaction(transaction any, optionalArgs ...any) an
         "info": transaction,
     }
 }
-func  (this *ZaifCore) CustomNonce() any  {
-    var num any = this.NumberToString(Divide(this.Milliseconds(), 1000))
-    var nonce any = ParseFloat(num)
+func  (this *ZaifCore) CustomNonce() interface{}  {
+    var num interface{} = this.NumberToString(Divide(this.Milliseconds(), 1000))
+    var nonce interface{} = ParseFloat(num)
     return ToFixed(nonce, 8)
 }
-func  (this *ZaifCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *ZaifCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = Add(GetValue(GetValue(this.Urls, "api"), "rest"), "/")
+    var url interface{} = Add(GetValue(GetValue(this.Urls, "api"), "rest"), "/")
     if IsTrue(IsEqual(api, "public")) {
         url = Add(url, Add(Add(Add("api/", this.Version), "/"), this.ImplodeParams(path, params)))
     } else if IsTrue(IsEqual(api, "fapi")) {
@@ -981,39 +981,39 @@ func  (this *ZaifCore) Sign(path any, optionalArgs ...any) any  {
         } else {
             url = Add(url, "tapi")
         }
-        var nonce any = this.CustomNonce()
-        body = this.Urlencode(this.Extend(map[string]any {
+        var nonce interface{} = this.CustomNonce()
+        body = this.Urlencode(this.Extend(map[string]interface{} {
             "method": path,
             "nonce": nonce,
         }, params))
-        headers = map[string]any {
+        headers = map[string]interface{} {
             "Content-Type": "application/x-www-form-urlencoded",
             "Key": this.ApiKey,
             "Sign": this.Hmac(this.Encode(body), this.Encode(this.Secret), sha512),
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *ZaifCore) HandleErrors(httpCode any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *ZaifCore) HandleErrors(httpCode interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil
     }
     //
     //     {"error": "unsupported currency_pair"}
     //
-    var feedback any = Add(Add(this.Id, " "), body)
-    var error any = this.SafeString(response, "error")
+    var feedback interface{} = Add(Add(this.Id, " "), body)
+    var error interface{} = this.SafeString(response, "error")
     if IsTrue(!IsEqual(error, nil)) {
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), error, feedback)
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), error, feedback)
         panic(ExchangeError(feedback))
     }
-    var success any = this.SafeBool(response, "success", true)
+    var success interface{} = this.SafeBool(response, "success", true)
     if !IsTrue(success) {
         panic(ExchangeError(feedback))
     }
@@ -1021,8 +1021,8 @@ func  (this *ZaifCore) HandleErrors(httpCode any, reason any, url any, method an
 }
 
 
-func (this *ZaifCore) Init(userConfig map[string]any) {
+func (this *ZaifCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

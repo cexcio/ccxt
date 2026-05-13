@@ -15,18 +15,18 @@ func NewBinanceusCore() *BinanceusCore {
     return p
 }
 
-func  (this *BinanceusCore) Describe() any  {
-    return this.DeepExtend(this.BinanceCore.Describe(), map[string]any {
+func  (this *BinanceusCore) Describe() interface{}  {
+    return this.DeepExtend(this.BinanceCore.Describe(), map[string]interface{} {
         "id": "binanceus",
         "name": "Binance US",
-        "countries": []any{"US"},
+        "countries": []interface{}{"US"},
         "hostname": "binance.us",
         "rateLimit": 50,
         "certified": false,
         "pro": true,
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/user-attachments/assets/a9667919-b632-4d52-a832-df89f8a35e8c",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "web": "https://www.binance.us",
                 "public": "https://api.binance.us/api/v3",
                 "private": "https://api.binance.us/api/v3",
@@ -39,23 +39,23 @@ func  (this *BinanceusCore) Describe() any  {
             "doc": "https://github.com/binance-us/binance-official-api-docs",
             "fees": "https://www.binance.us/en/fee/schedule",
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "tierBased": true,
                 "percentage": true,
                 "taker": this.ParseNumber("0.001"),
                 "maker": this.ParseNumber("0.001"),
             },
         },
-        "options": map[string]any {
-            "fetchMarkets": map[string]any {
-                "types": []any{"spot"},
+        "options": map[string]interface{} {
+            "fetchMarkets": map[string]interface{} {
+                "types": []interface{}{"spot"},
             },
             "defaultType": "spot",
             "fetchMargins": false,
             "quoteOrderQty": false,
         },
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": false,
@@ -123,45 +123,45 @@ func  (this *BinanceusCore) Describe() any  {
             "setMarginMode": false,
             "setPositionMode": false,
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "ping": 1,
                     "time": 1,
                     "exchangeInfo": 10,
                     "trades": 1,
                     "historicalTrades": 5,
                     "aggTrades": 1,
-                    "depth": map[string]any {
+                    "depth": map[string]interface{} {
                         "cost": 1,
-                        "byLimit": []any{[]any{100, 1}, []any{500, 5}, []any{1000, 10}, []any{5000, 50}},
+                        "byLimit": []interface{}{[]interface{}{100, 1}, []interface{}{500, 5}, []interface{}{1000, 10}, []interface{}{5000, 50}},
                     },
                     "klines": 1,
-                    "ticker/price": map[string]any {
+                    "ticker/price": map[string]interface{} {
                         "cost": 1,
                         "noSymbol": 2,
                     },
                     "avgPrice": 1,
-                    "ticker/bookTicker": map[string]any {
+                    "ticker/bookTicker": map[string]interface{} {
                         "cost": 1,
                         "noSymbol": 2,
                     },
-                    "ticker/24hr": map[string]any {
+                    "ticker/24hr": map[string]interface{} {
                         "cost": 1,
                         "noSymbol": 40,
                     },
-                    "ticker": map[string]any {
+                    "ticker": map[string]interface{} {
                         "cost": 2,
                         "noSymbol": 100,
                     },
                 },
             },
-            "private": map[string]any {
-                "get": map[string]any {
+            "private": map[string]interface{} {
+                "get": map[string]interface{} {
                     "account": 10,
                     "rateLimit/order": 20,
                     "order": 2,
-                    "openOrders": map[string]any {
+                    "openOrders": map[string]interface{} {
                         "cost": 3,
                         "noSymbol": 40,
                     },
@@ -172,20 +172,20 @@ func  (this *BinanceusCore) Describe() any  {
                     "allOrderList": 10,
                     "openOrderList": 3,
                 },
-                "post": map[string]any {
+                "post": map[string]interface{} {
                     "order": 1,
                     "order/test": 1,
                     "order/cancelReplace": 1,
                     "order/oco": 1,
                 },
-                "delete": map[string]any {
+                "delete": map[string]interface{} {
                     "order": 1,
                     "openOrders": 1,
                     "orderList": 1,
                 },
             },
-            "sapi": map[string]any {
-                "get": map[string]any {
+            "sapi": map[string]interface{} {
+                "get": map[string]interface{} {
                     "system/status": 1,
                     "asset/assetDistributionHistory": 1,
                     "asset/query/trading-fee": 1,
@@ -225,7 +225,7 @@ func  (this *BinanceusCore) Describe() any  {
                     "apipartner/checkEligibility": 1,
                     "apipartner/rebateHistory": 1,
                 },
-                "post": map[string]any {
+                "post": map[string]interface{} {
                     "otc/quotes": 1,
                     "otc/orders": 1,
                     "fiatpayment/withdraw/apply": 1,
@@ -240,37 +240,37 @@ func  (this *BinanceusCore) Describe() any  {
                     "custodian/ocoOrder": 1,
                     "cl/transfer": 1,
                 },
-                "delete": map[string]any {
+                "delete": map[string]interface{} {
                     "custodian/cancelOrder": 1,
                     "custodian/cancelOrdersBySymbol": 1,
                     "custodian/cancelOcoOrder": 1,
                 },
             },
-            "sapiV2": map[string]any {
-                "get": map[string]any {
+            "sapiV2": map[string]interface{} {
+                "get": map[string]interface{} {
                     "cl/account": 10,
                     "cl/alertHistory": 1,
                 },
             },
-            "sapiV3": map[string]any {
-                "get": map[string]any {
+            "sapiV3": map[string]interface{} {
+                "get": map[string]interface{} {
                     "accountStatus": 1,
                     "apiTradingStatus": 1,
                     "sub-account/list": 1,
                     "sub-account/transfer/history": 1,
                     "sub-account/assets": 1,
                 },
-                "post": map[string]any {
+                "post": map[string]interface{} {
                     "sub-account/transfer": 1,
                 },
             },
         },
-        "features": map[string]any {
-            "swap": map[string]any {
+        "features": map[string]interface{} {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
@@ -279,7 +279,7 @@ func  (this *BinanceusCore) Describe() any  {
 }
 
 
-func (this *BinanceusCore) Init(userConfig map[string]any) {
+func (this *BinanceusCore) Init(userConfig map[string]interface{}) {
     this.BinanceCore.Init(this.DeepExtend(this.Describe(), userConfig))
     this.Itf = this
     this.Exchange.DerivedExchange = this

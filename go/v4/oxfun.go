@@ -15,15 +15,15 @@ func NewOxfunCore() *OxfunCore {
     return p
 }
 
-func  (this *OxfunCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *OxfunCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "oxfun",
         "name": "OXFUN",
-        "countries": []any{"PA"},
+        "countries": []interface{}{"PA"},
         "version": "v3",
         "rateLimit": 120,
         "pro": true,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": false,
@@ -128,7 +128,7 @@ func  (this *OxfunCore) Describe() any  {
             "withdraw": true,
             "ws": true,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": "60s",
             "5m": "300s",
             "15m": "900s",
@@ -138,14 +138,14 @@ func  (this *OxfunCore) Describe() any  {
             "4h": "14400s",
             "1d": "86400s",
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/ccxt/ccxt/assets/43336371/6a196124-c1ee-4fae-8573-962071b61a85",
             "referral": "https://ox.fun/register?shareAccountId=5ZUD4a7G",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://api.ox.fun",
                 "private": "https://api.ox.fun",
             },
-            "test": map[string]any {
+            "test": map[string]interface{} {
                 "public": "https://stgapi.ox.fun",
                 "private": "https://stgapi.ox.fun",
             },
@@ -153,9 +153,9 @@ func  (this *OxfunCore) Describe() any  {
             "doc": "https://docs.ox.fun/",
             "fees": "https://support.ox.fun/en/articles/8819866-trading-fees",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "v3/markets": 1,
                     "v3/assets": 1,
                     "v3/tickers": 1,
@@ -168,8 +168,8 @@ func  (this *OxfunCore) Describe() any  {
                     "v3/leverage/tiers": 1,
                 },
             },
-            "private": map[string]any {
-                "get": map[string]any {
+            "private": map[string]interface{} {
+                "get": map[string]interface{} {
                     "v3/account": 1,
                     "v3/account/names": 1,
                     "v3/wallet": 1,
@@ -186,33 +186,33 @@ func  (this *OxfunCore) Describe() any  {
                     "v3/orders/working": 1,
                     "v3/trades": 1,
                 },
-                "post": map[string]any {
+                "post": map[string]interface{} {
                     "v3/transfer": 1,
                     "v3/withdrawal": 1,
                     "v3/orders/place": 1,
                 },
-                "delete": map[string]any {
+                "delete": map[string]interface{} {
                     "v3/orders/cancel": 1,
                     "v3/orders/cancel-all": 1,
                 },
             },
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "tierBased": true,
                 "percentage": true,
                 "maker": this.ParseNumber("0.00020"),
                 "taker": this.ParseNumber("0.00070"),
-                "tiers": map[string]any {
-                    "maker": []any{[]any{this.ParseNumber("0"), this.ParseNumber("0.00020")}, []any{this.ParseNumber("2500000"), this.ParseNumber("0.00010")}, []any{this.ParseNumber("25000000"), this.ParseNumber("0")}},
-                    "taker": []any{[]any{this.ParseNumber("0"), this.ParseNumber("0.00070")}, []any{this.ParseNumber("2500000"), this.ParseNumber("0.00050")}, []any{this.ParseNumber("25000000"), this.ParseNumber("0.00040")}},
+                "tiers": map[string]interface{} {
+                    "maker": []interface{}{[]interface{}{this.ParseNumber("0"), this.ParseNumber("0.00020")}, []interface{}{this.ParseNumber("2500000"), this.ParseNumber("0.00010")}, []interface{}{this.ParseNumber("25000000"), this.ParseNumber("0")}},
+                    "taker": []interface{}{[]interface{}{this.ParseNumber("0"), this.ParseNumber("0.00070")}, []interface{}{this.ParseNumber("2500000"), this.ParseNumber("0.00050")}, []interface{}{this.ParseNumber("25000000"), this.ParseNumber("0.00040")}},
                 },
             },
         },
         "precisionMode": TICK_SIZE,
-        "options": map[string]any {
+        "options": map[string]interface{} {
             "sandboxMode": false,
-            "networks": map[string]any {
+            "networks": map[string]interface{} {
                 "BTC": "Bitcoin",
                 "ERC20": "Ethereum",
                 "AVAX": "Avalanche",
@@ -223,7 +223,7 @@ func  (this *OxfunCore) Describe() any  {
                 "BNB": "BNBSmartChain",
                 "OPTIMISM": "Optimism",
             },
-            "networksById": map[string]any {
+            "networksById": map[string]interface{} {
                 "Bitcoin": "BTC",
                 "Ethereum": "ERC20",
                 "Avalanche": "AVAX",
@@ -236,10 +236,10 @@ func  (this *OxfunCore) Describe() any  {
                 "Optimism": "OPTIMISM",
             },
         },
-        "features": map[string]any {
-            "default": map[string]any {
+        "features": map[string]interface{} {
+            "default": map[string]interface{} {
                 "sandbox": true,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": true,
                     "triggerDirection": false,
@@ -247,7 +247,7 @@ func  (this *OxfunCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": true,
                         "PO": true,
@@ -258,7 +258,7 @@ func  (this *OxfunCore) Describe() any  {
                     "leverage": false,
                     "marketBuyByCost": true,
                     "marketBuyRequiresPrice": false,
-                    "selfTradePrevention": map[string]any {
+                    "selfTradePrevention": map[string]interface{} {
                         "EXPIRE_MAKER": true,
                         "EXPIRE_TAKER": true,
                         "EXPIRE_BOTH": true,
@@ -266,23 +266,23 @@ func  (this *OxfunCore) Describe() any  {
                     },
                     "iceberg": true,
                 },
-                "createOrders": map[string]any {
+                "createOrders": map[string]interface{} {
                     "max": 10,
                 },
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": 500,
                     "daysBack": 100000,
                     "untilDays": 7,
                     "symbolRequired": false,
                 },
-                "fetchOrder": map[string]any {
+                "fetchOrder": map[string]interface{} {
                     "marginMode": false,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": nil,
                     "trigger": false,
@@ -291,26 +291,26 @@ func  (this *OxfunCore) Describe() any  {
                 },
                 "fetchOrders": nil,
                 "fetchClosedOrders": nil,
-                "fetchOHLCV": map[string]any {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": 500,
                 },
             },
-            "spot": map[string]any {
+            "spot": map[string]interface{} {
                 "extends": "default",
             },
-            "swap": map[string]any {
-                "linear": map[string]any {
+            "swap": map[string]interface{} {
+                "linear": map[string]interface{} {
                     "extends": "default",
                 },
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
         },
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "-0010": OperationFailed,
                 "-429": RateLimitExceeded,
                 "-05001": AuthenticationError,
@@ -372,7 +372,7 @@ func  (this *OxfunCore) Describe() any  {
                 "-000101": NetworkError,
                 "-000201": NetworkError,
             },
-            "broad": map[string]any {
+            "broad": map[string]interface{} {
                 "-20001": OperationFailed,
                 "-200050": RequestTimeout,
             },
@@ -387,17 +387,17 @@ func  (this *OxfunCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *OxfunCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            responseFromMarketsresponseFromTickersVariable := (<-promiseAll([]any{this.PublicGetV3Markets(params), this.PublicGetV3Tickers(params)}));
+            responseFromMarketsresponseFromTickersVariable := (<-promiseAll([]interface{}{this.PublicGetV3Markets(params), this.PublicGetV3Tickers(params)}));
             responseFromMarkets := GetValue(responseFromMarketsresponseFromTickersVariable,0);
             responseFromTickers := GetValue(responseFromMarketsresponseFromTickersVariable,1)
-            var marketsFromMarkets any = this.SafeList(responseFromMarkets, "data", []any{})
+            var marketsFromMarkets interface{} = this.SafeList(responseFromMarkets, "data", []interface{}{})
             //
             //         {
             //             success: true,
@@ -454,7 +454,7 @@ func  (this *OxfunCore) FetchMarkets(optionalArgs ...any) <- chan any {
             //             ]
             //         }
             //
-            var marketsFromTickers any = this.SafeList(responseFromTickers, "data", []any{})
+            var marketsFromTickers interface{} = this.SafeList(responseFromTickers, "data", []interface{}{})
             //
             //     {
             //         "success": true,
@@ -476,7 +476,7 @@ func  (this *OxfunCore) FetchMarkets(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var markets any = this.ArrayConcat(marketsFromMarkets, marketsFromTickers)
+            var markets interface{} = this.ArrayConcat(marketsFromMarkets, marketsFromTickers)
         
             ch <- this.ParseMarkets(markets)
             return nil
@@ -484,12 +484,12 @@ func  (this *OxfunCore) FetchMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParseMarkets(markets any) any  {
-    var marketIds any = []any{}
-    var result any = []any{}
+func  (this *OxfunCore) ParseMarkets(markets interface{}) interface{}  {
+    var marketIds interface{} = []interface{}{}
+    var result interface{} = []interface{}{}
     for i := 0; IsLessThan(i, GetArrayLength(markets)); i++ {
-        var market any = GetValue(markets, i)
-        var marketId any = this.SafeString(market, "marketCode")
+        var market interface{} = GetValue(markets, i)
+        var marketId interface{} = this.SafeString(market, "marketCode")
         if !IsTrue((this.InArray(marketId, marketIds))) {
             AppendToArray(&marketIds, marketId)
             AppendToArray(&result, this.ParseMarket(market))
@@ -497,26 +497,26 @@ func  (this *OxfunCore) ParseMarkets(markets any) any  {
     }
     return result
 }
-func  (this *OxfunCore) ParseMarket(market any) any  {
-    var id any = this.SafeString(market, "marketCode", "")
-    var parts any = Split(id, "-")
-    var baseId any = this.SafeString(parts, 0)
-    var quoteId any = this.SafeString(parts, 1)
-    var base any = this.SafeCurrencyCode(baseId)
-    var quote any = this.SafeCurrencyCode(quoteId)
-    var symbol any = Add(Add(base, "/"), quote)
-    var typeVar any = this.SafeStringLower(market, "type", "spot") // markets from v3/tickers are spot and have no type
-    var settleId any = nil
-    var settle any = nil
-    var isFuture any =     (IsEqual(typeVar, "future")) // the exchange has only perpetual futures
+func  (this *OxfunCore) ParseMarket(market interface{}) interface{}  {
+    var id interface{} = this.SafeString(market, "marketCode", "")
+    var parts interface{} = Split(id, "-")
+    var baseId interface{} = this.SafeString(parts, 0)
+    var quoteId interface{} = this.SafeString(parts, 1)
+    var base interface{} = this.SafeCurrencyCode(baseId)
+    var quote interface{} = this.SafeCurrencyCode(quoteId)
+    var symbol interface{} = Add(Add(base, "/"), quote)
+    var typeVar interface{} = this.SafeStringLower(market, "type", "spot") // markets from v3/tickers are spot and have no type
+    var settleId interface{} = nil
+    var settle interface{} = nil
+    var isFuture interface{} =     (IsEqual(typeVar, "future")) // the exchange has only perpetual futures
     if IsTrue(isFuture) {
         typeVar = "swap"
         settleId = "OX"
         settle = this.SafeCurrencyCode("OX")
         symbol = Add(Add(symbol, ":"), settle)
     }
-    var isSpot any = IsEqual(typeVar, "spot")
-    return this.SafeMarketStructure(map[string]any {
+    var isSpot interface{} = IsEqual(typeVar, "spot")
+    return this.SafeMarketStructure(map[string]interface{} {
         "id": id,
         "numericId": nil,
         "symbol": symbol,
@@ -543,24 +543,24 @@ func  (this *OxfunCore) ParseMarket(market any) any  {
         "expiryDatetime": nil,
         "strike": nil,
         "optionType": nil,
-        "precision": map[string]any {
+        "precision": map[string]interface{} {
             "amount": nil,
             "price": this.SafeNumber(market, "tickSize"),
         },
-        "limits": map[string]any {
-            "leverage": map[string]any {
+        "limits": map[string]interface{} {
+            "leverage": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "amount": map[string]any {
+            "amount": map[string]interface{} {
                 "min": this.SafeNumber(market, "minSize"),
                 "max": nil,
             },
-            "price": map[string]any {
+            "price": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "cost": map[string]any {
+            "cost": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
@@ -578,12 +578,12 @@ func  (this *OxfunCore) ParseMarket(market any) any  {
  * @param {dict} [params] extra parameters specific to the exchange API endpoint
  * @returns {dict} an associative dictionary of currencies
  */
-func  (this *OxfunCore) FetchCurrencies(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchCurrencies(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetV3Assets(params))
@@ -660,16 +660,16 @@ func  (this *OxfunCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
-            var result any = map[string]any {}
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
+            var result interface{} = map[string]interface{} {}
             for i := 0; IsLessThan(i, GetArrayLength(data)); i++ {
-                var currency any = GetValue(data, i)
-                var fullId any = this.SafeString(currency, "asset", "")
-                var parts any = Split(fullId, ".")
-                var id any = GetValue(parts, 0)
-                var code any = this.SafeCurrencyCode(id)
+                var currency interface{} = GetValue(data, i)
+                var fullId interface{} = this.SafeString(currency, "asset", "")
+                var parts interface{} = Split(fullId, ".")
+                var id interface{} = GetValue(parts, 0)
+                var code interface{} = this.SafeCurrencyCode(id)
                 if !IsTrue((InOp(result, code))) {
-                    AddElementToObject(result, code, map[string]any {
+                    AddElementToObject(result, code, map[string]interface{} {
             "id": id,
             "code": code,
             "precision": nil,
@@ -679,26 +679,26 @@ func  (this *OxfunCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             "deposit": nil,
             "withdraw": nil,
             "fee": nil,
-            "limits": map[string]any {
-                "withdraw": map[string]any {
+            "limits": map[string]interface{} {
+                "withdraw": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
-                "deposit": map[string]any {
+                "deposit": map[string]interface{} {
                     "min": nil,
                     "max": nil,
                 },
             },
-            "networks": map[string]any {},
-            "info": []any{},
+            "networks": map[string]interface{} {},
+            "info": []interface{}{},
         })
                 }
-                var chains any = this.SafeList(currency, "networkList", []any{})
+                var chains interface{} = this.SafeList(currency, "networkList", []interface{}{})
                 for j := 0; IsLessThan(j, GetArrayLength(chains)); j++ {
-                    var chain any = GetValue(chains, j)
-                    var networkId any = this.SafeString(chain, "network")
-                    var networkCode any = this.NetworkIdToCode(networkId)
-                    AddElementToObject(GetValue(GetValue(result, code), "networks"), networkCode, map[string]any {
+                    var chain interface{} = GetValue(chains, j)
+                    var networkId interface{} = this.SafeString(chain, "network")
+                    var networkCode interface{} = this.NetworkIdToCode(networkId)
+                    AddElementToObject(GetValue(GetValue(result, code), "networks"), networkCode, map[string]interface{} {
             "id": networkId,
             "network": networkCode,
             "margin": nil,
@@ -707,12 +707,12 @@ func  (this *OxfunCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             "active": nil,
             "fee": nil,
             "precision": this.ParseNumber(this.ParsePrecision(this.SafeString(chain, "transactionPrecision"))),
-            "limits": map[string]any {
-                "deposit": map[string]any {
+            "limits": map[string]interface{} {
+                "deposit": map[string]interface{} {
                     "min": this.SafeNumber(chain, "minDeposit"),
                     "max": nil,
                 },
-                "withdraw": map[string]any {
+                "withdraw": map[string]interface{} {
                     "min": this.SafeNumber(chain, "minWithdrawal"),
                     "max": nil,
                 },
@@ -720,14 +720,14 @@ func  (this *OxfunCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             "info": chain,
         })
                 }
-                var infos any = this.SafeList(GetValue(result, code), "info", []any{})
+                var infos interface{} = this.SafeList(GetValue(result, code), "info", []interface{}{})
                 AppendToArray(&infos, currency)
                 AddElementToObject(GetValue(result, code), "info", infos)
             }
             // only after all entries are formed in currencies, restructure each entry
-            var allKeys any = ObjectKeys(result)
+            var allKeys interface{} = ObjectKeys(result)
             for i := 0; IsLessThan(i, GetArrayLength(allKeys)); i++ {
-                var code any = GetValue(allKeys, i)
+                var code interface{} = GetValue(allKeys, i)
                 AddElementToObject(result, code, this.SafeCurrencyStructure(GetValue(result, code))) // this is needed after adding network entry
             }
         
@@ -746,14 +746,14 @@ func  (this *OxfunCore) FetchCurrencies(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *OxfunCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes7368 := (<-this.LoadMarkets())
@@ -809,7 +809,7 @@ func  (this *OxfunCore) FetchTickers(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var tickers any = this.SafeList(response, "data", []any{})
+            var tickers interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseTickers(tickers, symbols)
             return nil
@@ -826,18 +826,18 @@ func  (this *OxfunCore) FetchTickers(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *OxfunCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes8008 := (<-this.LoadMarkets())
             PanicOnError(retRes8008)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "marketCode": GetValue(market, "id"),
             }
         
@@ -863,8 +863,8 @@ func  (this *OxfunCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
-            var ticker any = this.SafeDict(data, 0, map[string]any {})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
+            var ticker interface{} = this.SafeDict(data, 0, map[string]interface{} {})
         
             ch <- this.ParseTicker(ticker, market)
             return nil
@@ -872,7 +872,7 @@ func  (this *OxfunCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any
             }()
             return ch
         }
-func  (this *OxfunCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "marketCode": "BTC-USD-SWAP-LIN",
@@ -890,12 +890,12 @@ func  (this *OxfunCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeInteger(ticker, "lastUpdatedAt")
-    var marketId any = this.SafeString(ticker, "marketCode")
+    var timestamp interface{} = this.SafeInteger(ticker, "lastUpdatedAt")
+    var marketId interface{} = this.SafeString(ticker, "marketCode")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var last any = this.SafeString(ticker, "lastTradedPrice")
-    return this.SafeTicker(map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var last interface{} = this.SafeString(ticker, "lastTradedPrice")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": symbol,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -932,9 +932,9 @@ func  (this *OxfunCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {int} [params.until] timestamp in ms of the latest candle to fetch (default now)
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *OxfunCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -943,14 +943,14 @@ func  (this *OxfunCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes8918 := (<-this.LoadMarkets())
             PanicOnError(retRes8918)
-            var market any = this.Market(symbol)
+            var market interface{} = this.Market(symbol)
             timeframe = this.SafeString(this.Timeframes, timeframe, timeframe)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "marketCode": GetValue(market, "id"),
                 "timeframe": timeframe,
             }
@@ -960,7 +960,7 @@ func  (this *OxfunCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any 
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             if IsTrue(!IsEqual(until, nil)) {
                 AddElementToObject(request, "endTime", until)
                 params = this.Omit(params, "until")
@@ -997,7 +997,7 @@ func  (this *OxfunCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any 
             //         ]
             //     }
             //
-            var result any = this.SafeList(response, "data", []any{})
+            var result interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseOHLCVs(result, market, timeframe, since, limit)
             return nil
@@ -1005,7 +1005,7 @@ func  (this *OxfunCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any 
             }()
             return ch
         }
-func  (this *OxfunCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseOHLCV(ohlcv interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "open": "0.03240000",
@@ -1019,7 +1019,7 @@ func  (this *OxfunCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    return []any{this.SafeInteger(ohlcv, "openedAt"), this.SafeNumber(ohlcv, "open"), this.SafeNumber(ohlcv, "high"), this.SafeNumber(ohlcv, "low"), this.SafeNumber(ohlcv, "close"), this.SafeNumber(ohlcv, "currencyVolume")}
+    return []interface{}{this.SafeInteger(ohlcv, "openedAt"), this.SafeNumber(ohlcv, "open"), this.SafeNumber(ohlcv, "high"), this.SafeNumber(ohlcv, "low"), this.SafeNumber(ohlcv, "close"), this.SafeNumber(ohlcv, "currencyVolume")}
 }
 /**
  * @method
@@ -1031,20 +1031,20 @@ func  (this *OxfunCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *OxfunCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes9768 := (<-this.LoadMarkets())
             PanicOnError(retRes9768)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "marketCode": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -1077,8 +1077,8 @@ func  (this *OxfunCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan 
             //         }
             //     }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
-            var timestamp any = this.SafeInteger(data, "lastUpdatedAt")
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
+            var timestamp interface{} = this.SafeInteger(data, "lastUpdatedAt")
         
             ch <- this.ParseOrderBook(data, GetValue(market, "symbol"), timestamp)
             return nil
@@ -1095,14 +1095,14 @@ func  (this *OxfunCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} an array of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-structure}
  */
-func  (this *OxfunCore) FetchFundingRates(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchFundingRates(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes10248 := (<-this.LoadMarkets())
@@ -1129,7 +1129,7 @@ func  (this *OxfunCore) FetchFundingRates(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseFundingRates(data, symbols)
             return nil
@@ -1146,25 +1146,25 @@ func  (this *OxfunCore) FetchFundingRates(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} an array of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-structure}
  */
-func  (this *OxfunCore) FetchFundingRate(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchFundingRate(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes10598 := (<-this.LoadMarkets())
             PanicOnError(retRes10598)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "marketCode": this.MarketId(symbol),
             }
         
             response:= (<-this.PublicGetV3FundingEstimates(this.Extend(request, params)))
             PanicOnError(response)
             //
-            var data any = this.SafeList(response, "data", []any{})
-            var first any = this.SafeDict(data, 0, map[string]any {})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
+            var first interface{} = this.SafeDict(data, 0, map[string]interface{} {})
         
             ch <- this.ParseFundingRate(first, this.Market(symbol))
             return nil
@@ -1172,7 +1172,7 @@ func  (this *OxfunCore) FetchFundingRate(symbol any, optionalArgs ...any) <- cha
             }()
             return ch
         }
-func  (this *OxfunCore) ParseFundingRate(fundingRate any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseFundingRate(fundingRate interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "marketCode": "OX-USD-SWAP-LIN",
@@ -1182,10 +1182,10 @@ func  (this *OxfunCore) ParseFundingRate(fundingRate any, optionalArgs ...any) a
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var symbol any = this.SafeString(fundingRate, "marketCode")
+    var symbol interface{} = this.SafeString(fundingRate, "marketCode")
     market = this.Market(symbol)
-    var estFundingRateTimestamp any = this.SafeInteger(fundingRate, "fundingAt")
-    return map[string]any {
+    var estFundingRateTimestamp interface{} = this.SafeInteger(fundingRate, "fundingAt")
+    return map[string]interface{} {
         "info": fundingRate,
         "symbol": GetValue(market, "symbol"),
         "markPrice": nil,
@@ -1218,9 +1218,9 @@ func  (this *OxfunCore) ParseFundingRate(fundingRate any, optionalArgs ...any) a
  * @param {int} [params.until] timestamp in ms of the latest trade to fetch (default now)
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *OxfunCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchFundingRateHistory(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1229,13 +1229,13 @@ func  (this *OxfunCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes11168 := (<-this.LoadMarkets())
             PanicOnError(retRes11168)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "marketCode": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(since, nil)) {
@@ -1244,7 +1244,7 @@ func  (this *OxfunCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             if IsTrue(!IsEqual(until, nil)) {
                 AddElementToObject(request, "endTime", until)
                 params = this.Omit(params, "until")
@@ -1269,7 +1269,7 @@ func  (this *OxfunCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any
             //         ...
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseFundingRateHistories(data, market, since, limit)
             return nil
@@ -1277,7 +1277,7 @@ func  (this *OxfunCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any
             }()
             return ch
         }
-func  (this *OxfunCore) ParseFundingRateHistory(info any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseFundingRateHistory(info interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         success: true,
@@ -1297,11 +1297,11 @@ func  (this *OxfunCore) ParseFundingRateHistory(info any, optionalArgs ...any) a
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(info, "marketCode")
+    var marketId interface{} = this.SafeString(info, "marketCode")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var timestamp any = this.SafeInteger(info, "createdAt")
-    return map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var timestamp interface{} = this.SafeInteger(info, "createdAt")
+    return map[string]interface{} {
         "info": info,
         "symbol": symbol,
         "fundingRate": this.SafeNumber(info, "fundingRate"),
@@ -1321,9 +1321,9 @@ func  (this *OxfunCore) ParseFundingRateHistory(info any, optionalArgs ...any) a
  * @param {int} [params.until] timestamp in ms of the latest trade to fetch (default now)
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *OxfunCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchFundingHistory(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1332,13 +1332,13 @@ func  (this *OxfunCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes11988 := (<-this.LoadMarkets())
             PanicOnError(retRes11988)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "marketCode": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(since, nil)) {
@@ -1347,7 +1347,7 @@ func  (this *OxfunCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             if IsTrue(!IsEqual(until, nil)) {
                 AddElementToObject(request, "endTime", until)
                 params = this.Omit(params, "until")
@@ -1381,7 +1381,7 @@ func  (this *OxfunCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var result any = this.SafeList(response, "data", []any{})
+            var result interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseIncomes(result, market, since, limit)
             return nil
@@ -1389,7 +1389,7 @@ func  (this *OxfunCore) FetchFundingHistory(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParseIncome(income any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseIncome(income interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         id: '966709913041305605',
@@ -1403,14 +1403,14 @@ func  (this *OxfunCore) ParseIncome(income any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(income, "marketCode")
-    var symbol any = this.SafeSymbol(marketId, market)
-    var amount any = this.SafeNumber(income, "payment")
-    var code any = this.SafeCurrencyCode("OX")
-    var id any = this.SafeString(income, "id")
-    var timestamp any = this.SafeTimestamp(income, "createdAt")
-    var rate any = this.SafeNumber(income, "fundingRate")
-    return map[string]any {
+    var marketId interface{} = this.SafeString(income, "marketCode")
+    var symbol interface{} = this.SafeSymbol(marketId, market)
+    var amount interface{} = this.SafeNumber(income, "payment")
+    var code interface{} = this.SafeCurrencyCode("OX")
+    var id interface{} = this.SafeString(income, "id")
+    var timestamp interface{} = this.SafeTimestamp(income, "createdAt")
+    var rate interface{} = this.SafeNumber(income, "fundingRate")
+    return map[string]interface{} {
         "info": income,
         "symbol": symbol,
         "code": code,
@@ -1430,14 +1430,14 @@ func  (this *OxfunCore) ParseIncome(income any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [leverage tiers structures]{@link https://docs.ccxt.com/?id=leverage-tiers-structure}, indexed by market symbols
  */
-func  (this *OxfunCore) FetchLeverageTiers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchLeverageTiers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes12868 := (<-this.LoadMarkets())
@@ -1486,7 +1486,7 @@ func  (this *OxfunCore) FetchLeverageTiers(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseLeverageTiers(data, symbols, "marketCode")
             return nil
@@ -1494,7 +1494,7 @@ func  (this *OxfunCore) FetchLeverageTiers(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParseMarketLeverageTiers(info any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseMarketLeverageTiers(info interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         marketCode: 'SOL-USD-SWAP-LIN',
@@ -1513,13 +1513,13 @@ func  (this *OxfunCore) ParseMarketLeverageTiers(info any, optionalArgs ...any) 
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(info, "marketCode")
+    var marketId interface{} = this.SafeString(info, "marketCode")
     market = this.SafeMarket(marketId, market)
-    var listOfTiers any = this.SafeList(info, "tiers", []any{})
-    var tiers any = []any{}
+    var listOfTiers interface{} = this.SafeList(info, "tiers", []interface{}{})
+    var tiers interface{} = []interface{}{}
     for j := 0; IsLessThan(j, GetArrayLength(listOfTiers)); j++ {
-        var tier any = GetValue(listOfTiers, j)
-        AppendToArray(&tiers, map[string]any {
+        var tier interface{} = GetValue(listOfTiers, j)
+        AppendToArray(&tiers, map[string]interface{} {
             "tier": this.SafeNumber(tier, "tier"),
             "symbol": this.SafeSymbol(marketId, market),
             "currency": GetValue(market, "settle"),
@@ -1544,22 +1544,22 @@ func  (this *OxfunCore) ParseMarketLeverageTiers(info any, optionalArgs ...any) 
  * @param {int} [params.until] timestamp in ms of the latest trade to fetch (default now)
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *OxfunCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes13838 := (<-this.LoadMarkets())
             PanicOnError(retRes13838)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "marketCode": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(since, nil)) {
@@ -1568,7 +1568,7 @@ func  (this *OxfunCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             if IsTrue(!IsEqual(until, nil)) {
                 AddElementToObject(request, "endTime", until)
                 params = this.Omit(params, "until")
@@ -1594,7 +1594,7 @@ func  (this *OxfunCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseTrades(data, market, since, limit)
             return nil
@@ -1614,9 +1614,9 @@ func  (this *OxfunCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any
  * @param {int} [params.until] timestamp in ms of the latest trade to fetch (default now)
  * @returns {Trade[]} a list of [trade structures]{@link https://github.com/ccxt/ccxt/wiki/Manual#trade-structure}
  */
-func  (this *OxfunCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1625,13 +1625,13 @@ func  (this *OxfunCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes14358 := (<-this.LoadMarkets())
             PanicOnError(retRes14358)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "marketCode", GetValue(market, "id"))
@@ -1642,7 +1642,7 @@ func  (this *OxfunCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             if IsTrue(!IsEqual(until, nil)) {
                 AddElementToObject(request, "endTime", until)
                 params = this.Omit(params, "until")
@@ -1674,7 +1674,7 @@ func  (this *OxfunCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var result any = this.SafeList(response, "data", []any{})
+            var result interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseTrades(result, market, since, limit)
             return nil
@@ -1682,7 +1682,7 @@ func  (this *OxfunCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // public fetchTrades
     //
@@ -1716,15 +1716,15 @@ func  (this *OxfunCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(trade, "marketCode")
+    var marketId interface{} = this.SafeString(trade, "marketCode")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var timestamp any = this.SafeInteger(trade, "matchedAt")
-    var fee any = map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var timestamp interface{} = this.SafeInteger(trade, "matchedAt")
+    var fee interface{} = map[string]interface{} {
         "cost": this.SafeString(trade, "fee"),
         "currency": this.SafeCurrencyCode(this.SafeString(trade, "feeAsset")),
     }
-    return this.SafeTrade(map[string]any {
+    return this.SafeTrade(map[string]interface{} {
         "id": this.SafeString(trade, "matchId"),
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -1750,12 +1750,12 @@ func  (this *OxfunCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {string} [params.subAcc] Name of sub account. If no subAcc is given, then the response contains only the account linked to the API-Key.
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *OxfunCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes15508 := (<-this.LoadMarkets())
@@ -1792,13 +1792,13 @@ func  (this *OxfunCore) FetchBalance(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
-            var balance any = GetValue(data, 0)
-            var subAcc any = this.SafeString(params, "subAcc")
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
+            var balance interface{} = GetValue(data, 0)
+            var subAcc interface{} = this.SafeString(params, "subAcc")
             if IsTrue(!IsEqual(subAcc, nil)) {
                 for i := 0; IsLessThan(i, GetArrayLength(data)); i++ {
-                    var b any = GetValue(data, i)
-                    var name any = this.SafeString(b, "name")
+                    var b interface{} = GetValue(data, i)
+                    var name interface{} = this.SafeString(b, "name")
                     if IsTrue(IsEqual(name, subAcc)) {
                         balance = b
                         break
@@ -1812,7 +1812,7 @@ func  (this *OxfunCore) FetchBalance(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParseBalance(balance any) any  {
+func  (this *OxfunCore) ParseBalance(balance interface{}) interface{}  {
     //
     //     {
     //         "accountId": "106490",
@@ -1836,15 +1836,15 @@ func  (this *OxfunCore) ParseBalance(balance any) any  {
     //         ]
     //     }
     //
-    var result any = map[string]any {
+    var result interface{} = map[string]interface{} {
         "info": balance,
     }
-    var balances any = this.SafeList(balance, "balances", []any{})
+    var balances interface{} = this.SafeList(balance, "balances", []interface{}{})
     for i := 0; IsLessThan(i, GetArrayLength(balances)); i++ {
-        var balanceEntry any = GetValue(balances, i)
-        var currencyId any = this.SafeString(balanceEntry, "asset")
-        var code any = this.SafeCurrencyCode(currencyId)
-        var account any = this.Account()
+        var balanceEntry interface{} = GetValue(balances, i)
+        var currencyId interface{} = this.SafeString(balanceEntry, "asset")
+        var code interface{} = this.SafeCurrencyCode(currencyId)
+        var account interface{} = this.Account()
         AddElementToObject(account, "total", this.SafeString(balanceEntry, "total"))
         AddElementToObject(account, "free", this.SafeString(balanceEntry, "available"))
         AddElementToObject(account, "used", this.SafeString(balanceEntry, "reserved"))
@@ -1860,12 +1860,12 @@ func  (this *OxfunCore) ParseBalance(balance any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [account structures]{@link https://docs.ccxt.com/?id=account-structure} indexed by the account type
  */
-func  (this *OxfunCore) FetchAccounts(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchAccounts(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes16478 := (<-this.LoadMarkets())
@@ -1886,7 +1886,7 @@ func  (this *OxfunCore) FetchAccounts(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseAccounts(data, params)
             return nil
@@ -1894,14 +1894,14 @@ func  (this *OxfunCore) FetchAccounts(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParseAccount(account any) any  {
+func  (this *OxfunCore) ParseAccount(account interface{}) interface{}  {
     //
     //     {
     //         "accountId": "106526",
     //         "name": "testSubAccount"
     //     },
     //
-    return map[string]any {
+    return map[string]interface{} {
         "id": this.SafeString(account, "accountId"),
         "type": nil,
         "code": nil,
@@ -1920,19 +1920,19 @@ func  (this *OxfunCore) ParseAccount(account any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [transfer structure]{@link https://docs.ccxt.com/?id=transfer-structure}
  */
-func  (this *OxfunCore) Transfer(code any, amount any, fromAccount any, toAccount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) Transfer(code interface{}, amount interface{}, fromAccount interface{}, toAccount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     // transferring funds between sub-accounts is restricted to API keys linked to the parent account.
-            params := GetArg(optionalArgs, 0, map[string]any {})
+            params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes16958 := (<-this.LoadMarkets())
             PanicOnError(retRes16958)
-            var currency any = this.Currency(code)
-            var request any = map[string]any {
+            var currency interface{} = this.Currency(code)
+            var request interface{} = map[string]interface{} {
                 "asset": GetValue(currency, "id"),
                 "quantity": this.CurrencyToPrecision(code, amount),
                 "fromAccount": fromAccount,
@@ -1958,7 +1958,7 @@ func  (this *OxfunCore) Transfer(code any, amount any, fromAccount any, toAccoun
             //         }
             //     }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseTransfer(data, currency)
             return nil
@@ -1978,9 +1978,9 @@ func  (this *OxfunCore) Transfer(code any, amount any, fromAccount any, toAccoun
  * @param {int} [params.until] the latest time in ms to fetch transfers for (default time now)
  * @returns {object[]} a list of [transfer structures]{@link https://docs.ccxt.com/?id=transfer-structure}
  */
-func  (this *OxfunCore) FetchTransfers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchTransfers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     // API keys linked to the parent account can get all account transfers, while API keys linked to a sub-account can only see transfers where the sub-account is either the "fromAccount" or "toAccount"
@@ -1990,13 +1990,13 @@ func  (this *OxfunCore) FetchTransfers(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes17398 := (<-this.LoadMarkets())
             PanicOnError(retRes17398)
-            var request any = map[string]any {}
-            var currency any = nil
+            var request interface{} = map[string]interface{} {}
+            var currency interface{} = nil
             if IsTrue(!IsEqual(code, nil)) {
                 currency = this.Currency(code)
                 AddElementToObject(request, "asset", GetValue(currency, "id"))
@@ -2007,7 +2007,7 @@ func  (this *OxfunCore) FetchTransfers(optionalArgs ...any) <- chan any {
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             if IsTrue(!IsEqual(until, nil)) {
                 AddElementToObject(request, "endTime", until)
                 params = this.Omit(params, "until")
@@ -2034,7 +2034,7 @@ func  (this *OxfunCore) FetchTransfers(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseTransfers(data, currency, since, limit)
             return nil
@@ -2042,7 +2042,7 @@ func  (this *OxfunCore) FetchTransfers(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseTransfer(transfer interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTransfers
     //
@@ -2058,9 +2058,9 @@ func  (this *OxfunCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var timestamp any = this.SafeInteger(transfer, "transferredAt")
-    var currencyId any = this.SafeString(transfer, "asset")
-    return map[string]any {
+    var timestamp interface{} = this.SafeInteger(transfer, "transferredAt")
+    var currencyId interface{} = this.SafeString(transfer, "asset")
+    return map[string]interface{} {
         "id": this.SafeString(transfer, "id"),
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -2072,8 +2072,8 @@ func  (this *OxfunCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
         "info": transfer,
     }
 }
-func  (this *OxfunCore) ParseTransferStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *OxfunCore) ParseTransferStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "COMPLETED": "ok",
     }
     return this.SafeString(statuses, status, status)
@@ -2088,23 +2088,23 @@ func  (this *OxfunCore) ParseTransferStatus(status any) any  {
  * @param {string} [params.network] network for fetch deposit address
  * @returns {object} an [address structure]{@link https://docs.ccxt.com/?id=address-structure}
  */
-func  (this *OxfunCore) FetchDepositAddress(code any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchDepositAddress(code interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var networkCode any = this.SafeString(params, "network")
-            var networkId any = this.NetworkCodeToId(networkCode, code)
+            var networkCode interface{} = this.SafeString(params, "network")
+            var networkId interface{} = this.NetworkCodeToId(networkCode, code)
             if IsTrue(IsEqual(networkId, nil)) {
                 panic(BadRequest(Add(this.Id, " fetchDepositAddress() require network parameter")))
             }
         
             retRes18338 := (<-this.LoadMarkets())
             PanicOnError(retRes18338)
-            var currency any = this.Currency(code)
-            var request any = map[string]any {
+            var currency interface{} = this.Currency(code)
+            var request interface{} = map[string]interface{} {
                 "asset": GetValue(currency, "id"),
                 "network": networkId,
             }
@@ -2115,7 +2115,7 @@ func  (this *OxfunCore) FetchDepositAddress(code any, optionalArgs ...any) <- ch
             //
             //     {"success":true,"data":{"address":"0x998dEc76151FB723963Bd8AFD517687b38D33dE8"}}
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseDepositAddress(data, currency)
             return nil
@@ -2123,15 +2123,15 @@ func  (this *OxfunCore) FetchDepositAddress(code any, optionalArgs ...any) <- ch
             }()
             return ch
         }
-func  (this *OxfunCore) ParseDepositAddress(depositAddress any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseDepositAddress(depositAddress interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {"address":"0x998dEc76151FB723963Bd8AFD517687b38D33dE8"}
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var address any = this.SafeString(depositAddress, "address")
+    var address interface{} = this.SafeString(depositAddress, "address")
     this.CheckAddress(address)
-    return map[string]any {
+    return map[string]interface{} {
         "info": depositAddress,
         "currency": GetValue(currency, "code"),
         "network": nil,
@@ -2151,9 +2151,9 @@ func  (this *OxfunCore) ParseDepositAddress(depositAddress any, optionalArgs ...
  * @param {int} [params.until] the latest time in ms to fetch transfers for (default time now)
  * @returns {object[]} a list of [transfer structures]{@link https://docs.ccxt.com/?id=transfer-structure}
  */
-func  (this *OxfunCore) FetchDeposits(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchDeposits(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -2162,13 +2162,13 @@ func  (this *OxfunCore) FetchDeposits(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes18768 := (<-this.LoadMarkets())
             PanicOnError(retRes18768)
-            var request any = map[string]any {}
-            var currency any = nil
+            var request interface{} = map[string]interface{} {}
+            var currency interface{} = nil
             if IsTrue(!IsEqual(code, nil)) {
                 currency = this.Currency(code)
                 AddElementToObject(request, "asset", GetValue(currency, "id"))
@@ -2179,7 +2179,7 @@ func  (this *OxfunCore) FetchDeposits(optionalArgs ...any) <- chan any {
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             if IsTrue(!IsEqual(until, nil)) {
                 AddElementToObject(request, "endTime", until)
                 params = this.Omit(params, "until")
@@ -2204,7 +2204,7 @@ func  (this *OxfunCore) FetchDeposits(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
             for i := 0; IsLessThan(i, GetArrayLength(data)); i++ {
                 AddElementToObject(GetValue(data, i), "type", "deposit")
             }
@@ -2227,9 +2227,9 @@ func  (this *OxfunCore) FetchDeposits(optionalArgs ...any) <- chan any {
  * @param {int} [params.until] the latest time in ms to fetch transfers for (default time now)
  * @returns {object[]} a list of [transaction structures]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *OxfunCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchWithdrawals(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -2238,13 +2238,13 @@ func  (this *OxfunCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes19328 := (<-this.LoadMarkets())
             PanicOnError(retRes19328)
-            var request any = map[string]any {}
-            var currency any = nil
+            var request interface{} = map[string]interface{} {}
+            var currency interface{} = nil
             if IsTrue(!IsEqual(code, nil)) {
                 currency = this.Currency(code)
                 AddElementToObject(request, "asset", GetValue(currency, "id"))
@@ -2255,7 +2255,7 @@ func  (this *OxfunCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "limit", limit)
             }
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             if IsTrue(!IsEqual(until, nil)) {
                 AddElementToObject(request, "endTime", until)
                 params = this.Omit(params, "until")
@@ -2282,7 +2282,7 @@ func  (this *OxfunCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
             for i := 0; IsLessThan(i, GetArrayLength(data)); i++ {
                 AddElementToObject(GetValue(data, i), "type", "withdrawal")
             }
@@ -2293,26 +2293,26 @@ func  (this *OxfunCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParseTransactions(transactions any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseTransactions(transactions interface{}, optionalArgs ...interface{}) interface{}  {
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
     since := GetArg(optionalArgs, 1, nil)
     _ = since
     limit := GetArg(optionalArgs, 2, nil)
     _ = limit
-    params := GetArg(optionalArgs, 3, map[string]any {})
+    params := GetArg(optionalArgs, 3, map[string]interface{} {})
     _ = params
-    var result any = []any{}
+    var result interface{} = []interface{}{}
     for i := 0; IsLessThan(i, GetArrayLength(transactions)); i++ {
         AddElementToObject(transactions, i, this.Extend(GetValue(transactions, i), params))
-        var transaction any = this.ParseTransaction(GetValue(transactions, i), currency)
+        var transaction interface{} = this.ParseTransaction(GetValue(transactions, i), currency)
         AppendToArray(&result, transaction)
     }
     result = this.SortBy(result, "timestamp")
-    var code any = Ternary(IsTrue((!IsEqual(currency, nil))), GetValue(currency, "code"), nil)
+    var code interface{} = Ternary(IsTrue((!IsEqual(currency, nil))), GetValue(currency, "code"), nil)
     return this.FilterByCurrencySinceLimit(result, code, since, limit)
 }
-func  (this *OxfunCore) ParseTransaction(transaction any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseTransaction(transaction interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //  fetchDeposits
     //     {
@@ -2355,12 +2355,12 @@ func  (this *OxfunCore) ParseTransaction(transaction any, optionalArgs ...any) a
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var id any = this.SafeString(transaction, "id")
-    var typeVar any = this.SafeString(transaction, "type")
+    var id interface{} = this.SafeString(transaction, "id")
+    var typeVar interface{} = this.SafeString(transaction, "type")
     transaction = this.Omit(transaction, "type")
-    var address any = nil
-    var addressTo any = nil
-    var status any = nil
+    var address interface{} = nil
+    var addressTo interface{} = nil
+    var status interface{} = nil
     if IsTrue(IsEqual(typeVar, "deposit")) {
         address = this.SafeString(transaction, "address")
         status = this.ParseDepositStatus(this.SafeString(transaction, "status"))
@@ -2368,22 +2368,22 @@ func  (this *OxfunCore) ParseTransaction(transaction any, optionalArgs ...any) a
         addressTo = this.SafeString(transaction, "address")
         status = this.ParseWithdrawalStatus(this.SafeString(transaction, "status"))
     }
-    var txid any = this.SafeString(transaction, "txId")
-    var currencyId any = this.SafeString(transaction, "asset")
-    var code any = this.SafeCurrencyCode(currencyId, currency)
-    var network any = this.SafeString(transaction, "network")
-    var networkCode any = this.NetworkIdToCode(network)
-    var timestamp any = this.SafeInteger2(transaction, "creditedAt", "requestedAt")
-    var amount any = this.SafeNumber(transaction, "quantity")
-    var feeCost any = this.SafeNumber(transaction, "fee")
-    var fee any = nil
+    var txid interface{} = this.SafeString(transaction, "txId")
+    var currencyId interface{} = this.SafeString(transaction, "asset")
+    var code interface{} = this.SafeCurrencyCode(currencyId, currency)
+    var network interface{} = this.SafeString(transaction, "network")
+    var networkCode interface{} = this.NetworkIdToCode(network)
+    var timestamp interface{} = this.SafeInteger2(transaction, "creditedAt", "requestedAt")
+    var amount interface{} = this.SafeNumber(transaction, "quantity")
+    var feeCost interface{} = this.SafeNumber(transaction, "fee")
+    var fee interface{} = nil
     if IsTrue(!IsEqual(feeCost, nil)) {
-        fee = map[string]any {
+        fee = map[string]interface{} {
             "cost": feeCost,
             "currency": code,
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "info": transaction,
         "id": id,
         "txid": txid,
@@ -2406,14 +2406,14 @@ func  (this *OxfunCore) ParseTransaction(transaction any, optionalArgs ...any) a
         "fee": fee,
     }
 }
-func  (this *OxfunCore) ParseDepositStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *OxfunCore) ParseDepositStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "COMPLETED": "ok",
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *OxfunCore) ParseWithdrawalStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *OxfunCore) ParseWithdrawalStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "COMPLETED": "ok",
         "PROCESSING": "pending",
         "IN SWEEPING": "pending",
@@ -2442,14 +2442,14 @@ func  (this *OxfunCore) ParseWithdrawalStatus(status any) any  {
  * @param {string} [params.code] 2FA code
  * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *OxfunCore) Withdraw(code any, amount any, address any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) Withdraw(code interface{}, amount interface{}, address interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     tag := GetArg(optionalArgs, 0, nil)
             _ = tag
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             tagparamsVariable := this.HandleWithdrawTagAndParams(tag, params);
             tag = GetValue(tagparamsVariable,0);
@@ -2457,9 +2457,9 @@ func  (this *OxfunCore) Withdraw(code any, amount any, address any, optionalArgs
         
             retRes21228 := (<-this.LoadMarkets())
             PanicOnError(retRes21228)
-            var currency any = this.Currency(code)
-            var stringAmount any = this.CurrencyToPrecision(code, amount)
-            var request any = map[string]any {
+            var currency interface{} = this.Currency(code)
+            var stringAmount interface{} = this.CurrencyToPrecision(code, amount)
+            var request interface{} = map[string]interface{} {
                 "asset": GetValue(currency, "id"),
                 "address": address,
                 "quantity": stringAmount,
@@ -2467,7 +2467,7 @@ func  (this *OxfunCore) Withdraw(code any, amount any, address any, optionalArgs
             if IsTrue(!IsEqual(tag, nil)) {
                 AddElementToObject(request, "memo", tag)
             }
-            var networkCode any = nil
+            var networkCode interface{} = nil
             networkCodeparamsVariable := this.HandleNetworkCodeAndParams(params);
             networkCode = GetValue(networkCodeparamsVariable,0);
             params = GetValue(networkCodeparamsVariable,1)
@@ -2494,7 +2494,7 @@ func  (this *OxfunCore) Withdraw(code any, amount any, address any, optionalArgs
             //         }
             //     }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
             AddElementToObject(data, "type", "withdrawal")
         
             ch <- this.ParseTransaction(data, currency)
@@ -2513,9 +2513,9 @@ func  (this *OxfunCore) Withdraw(code any, amount any, address any, optionalArgs
  * @param {boolean} [params.subAcc]
  * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
-func  (this *OxfunCore) FetchPositions(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchPositions(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     // Calling this endpoint using an API key pair linked to the parent account with the parameter "subAcc"
@@ -2523,7 +2523,7 @@ func  (this *OxfunCore) FetchPositions(optionalArgs ...any) <- chan any {
             // This feature does not work when using API key pairs linked to a sub-account
             symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes21758 := (<-this.LoadMarkets())
@@ -2575,11 +2575,11 @@ func  (this *OxfunCore) FetchPositions(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
-            var allPositions any = []any{}
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
+            var allPositions interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(data)); i++ {
-                var account any = GetValue(data, i)
-                var positions any = this.SafeList(account, "positions", []any{})
+                var account interface{} = GetValue(data, i)
+                var positions interface{} = this.SafeList(account, "positions", []interface{}{})
                 allPositions = this.ArrayConcat(allPositions, positions)
             }
         
@@ -2589,7 +2589,7 @@ func  (this *OxfunCore) FetchPositions(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParsePosition(position any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParsePosition(position interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "marketCode": "ETH-USD-SWAP-LIN",
@@ -2605,9 +2605,9 @@ func  (this *OxfunCore) ParsePosition(position any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(position, "marketCode")
+    var marketId interface{} = this.SafeString(position, "marketCode")
     market = this.SafeMarket(marketId, market)
-    return this.SafePosition(map[string]any {
+    return this.SafePosition(map[string]interface{} {
         "info": position,
         "id": nil,
         "symbol": GetValue(market, "symbol"),
@@ -2662,30 +2662,30 @@ func  (this *OxfunCore) ParsePosition(position any, optionalArgs ...any) any  {
  * @param {string} [params.displayQuantity] for an iceberg order, pass both quantity and displayQuantity fields in the order request
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OxfunCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes23048 := (<-this.LoadMarkets())
             PanicOnError(retRes23048)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "responseType": this.SafeString(params, "responseType", "FULL"),
                 "timestamp": this.SafeInteger(params, "timestamp", this.Milliseconds()),
             }
-            params = this.Omit(params, []any{"responseType", "timestamp"})
-            var recvWindow any = this.SafeInteger(params, "recvWindow")
+            params = this.Omit(params, []interface{}{"responseType", "timestamp"})
+            var recvWindow interface{} = this.SafeInteger(params, "recvWindow")
             if IsTrue(!IsEqual(recvWindow, nil)) {
                 AddElementToObject(request, "recvWindow", recvWindow)
                 params = this.Omit(params, "recvWindow")
             }
-            var orderRequest any = this.CreateOrderRequest(symbol, typeVar, side, amount, price, params)
-            AddElementToObject(request, "orders", []any{orderRequest})
+            var orderRequest interface{} = this.CreateOrderRequest(symbol, typeVar, side, amount, price, params)
+            AddElementToObject(request, "orders", []interface{}{orderRequest})
         
             response:= (<-this.PrivatePostV3OrdersPlace(request))
             PanicOnError(response)
@@ -2805,8 +2805,8 @@ func  (this *OxfunCore) CreateOrder(symbol any, typeVar any, side any, amount an
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "data", []any{})
-            var order any = this.SafeDict(data, 0, map[string]any {})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
+            var order interface{} = this.SafeDict(data, 0, map[string]interface{} {})
         
             ch <- this.ParseOrder(order)
             return nil
@@ -2826,29 +2826,29 @@ func  (this *OxfunCore) CreateOrder(symbol any, typeVar any, side any, amount an
  * @param {string} [params.responseType] *for all orders* FULL or ACK
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OxfunCore) CreateOrders(orders any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) CreateOrders(orders interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes24528 := (<-this.LoadMarkets())
             PanicOnError(retRes24528)
-            var ordersRequests any = []any{}
+            var ordersRequests interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(orders)); i++ {
-                var rawOrder any = GetValue(orders, i)
-                var symbol any = this.SafeString(rawOrder, "symbol")
-                var typeVar any = this.SafeString(rawOrder, "type")
-                var side any = this.SafeString(rawOrder, "side")
-                var amount any = this.SafeNumber(rawOrder, "amount")
-                var price any = this.SafeNumber(rawOrder, "price")
-                var orderParams any = this.SafeDict(rawOrder, "params", map[string]any {})
-                var orderRequest any = this.CreateOrderRequest(symbol, typeVar, side, amount, price, orderParams)
+                var rawOrder interface{} = GetValue(orders, i)
+                var symbol interface{} = this.SafeString(rawOrder, "symbol")
+                var typeVar interface{} = this.SafeString(rawOrder, "type")
+                var side interface{} = this.SafeString(rawOrder, "side")
+                var amount interface{} = this.SafeNumber(rawOrder, "amount")
+                var price interface{} = this.SafeNumber(rawOrder, "price")
+                var orderParams interface{} = this.SafeDict(rawOrder, "params", map[string]interface{} {})
+                var orderRequest interface{} = this.CreateOrderRequest(symbol, typeVar, side, amount, price, orderParams)
                 AppendToArray(&ordersRequests, orderRequest)
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "responseType": "FULL",
                 "timestamp": this.Milliseconds(),
                 "orders": ordersRequests,
@@ -2856,7 +2856,7 @@ func  (this *OxfunCore) CreateOrders(orders any, optionalArgs ...any) <- chan an
         
             response:= (<-this.PrivatePostV3OrdersPlace(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseOrders(data)
             return nil
@@ -2864,7 +2864,7 @@ func  (this *OxfunCore) CreateOrders(orders any, optionalArgs ...any) <- chan an
             }()
             return ch
         }
-func  (this *OxfunCore) CreateOrderRequest(symbol any, typeVar any, side any, amount any, optionalArgs ...any) any  {
+func  (this *OxfunCore) CreateOrderRequest(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) interface{}  {
     /**
     * @param {string} symbol unified symbol of the market to create an order in
     * @param {string} type 'market', 'limit', 'STOP_LIMIT' or 'STOP_MARKET'
@@ -2883,23 +2883,23 @@ func  (this *OxfunCore) CreateOrderRequest(symbol any, typeVar any, side any, am
     */
     price := GetArg(optionalArgs, 0, nil)
     _ = price
-    params := GetArg(optionalArgs, 1, map[string]any {})
+    params := GetArg(optionalArgs, 1, map[string]interface{} {})
     _ = params
-    var market any = this.Market(symbol)
-    var request any = map[string]any {
+    var market interface{} = this.Market(symbol)
+    var request interface{} = map[string]interface{} {
         "marketCode": GetValue(market, "id"),
         "side": ToUpper(side),
         "source": 1000,
     }
-    var cost any = this.SafeString2(params, "cost", "amount")
+    var cost interface{} = this.SafeString2(params, "cost", "amount")
     if IsTrue(!IsEqual(cost, nil)) {
         AddElementToObject(request, "amount", cost) // todo costToPrecision
-        params = this.Omit(params, []any{"cost", "amount"})
+        params = this.Omit(params, []interface{}{"cost", "amount"})
     } else {
         AddElementToObject(request, "quantity", amount) // todo amountToPrecision
     }
-    var triggerPrice any = this.SafeString2(params, "triggerPrice", "stopPrice")
-    var orderType any = ToUpper(typeVar)
+    var triggerPrice interface{} = this.SafeString2(params, "triggerPrice", "stopPrice")
+    var orderType interface{} = ToUpper(typeVar)
     if IsTrue(!IsEqual(triggerPrice, nil)) {
         if IsTrue(IsEqual(orderType, "MARKET")) {
             orderType = "STOP_MARKET"
@@ -2907,7 +2907,7 @@ func  (this *OxfunCore) CreateOrderRequest(symbol any, typeVar any, side any, am
             orderType = "STOP_LIMIT"
         }
         AddElementToObject(request, "stopPrice", triggerPrice) // todo priceToPrecision
-        params = this.Omit(params, []any{"triggerPrice", "stopPrice"})
+        params = this.Omit(params, []interface{}{"triggerPrice", "stopPrice"})
     }
     AddElementToObject(request, "orderType", orderType)
     if IsTrue(IsEqual(orderType, "STOP_LIMIT")) {
@@ -2915,16 +2915,16 @@ func  (this *OxfunCore) CreateOrderRequest(symbol any, typeVar any, side any, am
     } else if IsTrue(!IsEqual(price, nil)) {
         AddElementToObject(request, "price", price) // todo priceToPrecision
     }
-    var postOnly any = nil
-    var isMarketOrder any = IsTrue((IsEqual(orderType, "MARKET"))) || IsTrue((IsEqual(orderType, "STOP_MARKET")))
+    var postOnly interface{} = nil
+    var isMarketOrder interface{} = IsTrue((IsEqual(orderType, "MARKET"))) || IsTrue((IsEqual(orderType, "STOP_MARKET")))
     postOnlyparamsVariable := this.HandlePostOnly(isMarketOrder, false, params);
     postOnly = GetValue(postOnlyparamsVariable,0);
     params = GetValue(postOnlyparamsVariable,1)
-    var timeInForce any = this.SafeStringUpper(params, "timeInForce")
+    var timeInForce interface{} = this.SafeStringUpper(params, "timeInForce")
     if IsTrue(IsTrue(postOnly) && IsTrue((!IsEqual(timeInForce, "MAKER_ONLY_REPRICE")))) {
         AddElementToObject(request, "timeInForce", "MAKER_ONLY")
     }
-    var selfTradePrevention any = nil
+    var selfTradePrevention interface{} = nil
     selfTradePreventionparamsVariable := this.HandleOptionAndParams(params, "createOrder", "selfTradePrevention");
     selfTradePrevention = GetValue(selfTradePreventionparamsVariable,0);
     params = GetValue(selfTradePreventionparamsVariable,1)
@@ -2943,21 +2943,21 @@ func  (this *OxfunCore) CreateOrderRequest(symbol any, typeVar any, side any, am
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OxfunCore) CreateMarketBuyOrderWithCost(symbol any, cost any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) CreateMarketBuyOrderWithCost(symbol interface{}, cost interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes25488 := (<-this.LoadMarkets())
             PanicOnError(retRes25488)
-            var market any = this.Market(symbol)
+            var market interface{} = this.Market(symbol)
             if !IsTrue(GetValue(market, "spot")) {
                 panic(NotSupported(Add(this.Id, " createMarketBuyOrderWithCost() supports spot orders only")))
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "cost": cost,
             }
         
@@ -2980,19 +2980,19 @@ func  (this *OxfunCore) CreateMarketBuyOrderWithCost(symbol any, cost any, optio
  * @param {int} [params.clientOrderId] the client order id of the order
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OxfunCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes25718 := (<-this.LoadMarkets())
             PanicOnError(retRes25718)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "orderId": id,
             }
         
@@ -3021,7 +3021,7 @@ func  (this *OxfunCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
             //         }
             //     }
             //
-            var data any = this.SafeDict(response, "data", map[string]any {})
+            var data interface{} = this.SafeDict(response, "data", map[string]interface{} {})
         
             ch <- this.ParseOrder(data)
             return nil
@@ -3042,9 +3042,9 @@ func  (this *OxfunCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
  * @param {int} [params.clientOrderId] the client order id of the order
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OxfunCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -3053,20 +3053,20 @@ func  (this *OxfunCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes26178 := (<-this.LoadMarkets())
             PanicOnError(retRes26178)
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
             }
         
             response:= (<-this.PrivateGetV3OrdersWorking(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseOrders(data, market, since, limit)
             return nil
@@ -3088,38 +3088,38 @@ func  (this *OxfunCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {string} [params.responseType] 'FULL' or 'ACK'
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OxfunCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " cancelOrder() requires a symbol argument")))
             }
-            var market any = this.Market(symbol)
-            var marketId any = GetValue(market, "id")
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var marketId interface{} = GetValue(market, "id")
+            var request interface{} = map[string]interface{} {
                 "timestamp": this.Milliseconds(),
                 "responseType": "FULL",
             }
-            var orderRequest any = map[string]any {
+            var orderRequest interface{} = map[string]interface{} {
                 "marketCode": marketId,
                 "orderId": id,
             }
-            var clientOrderId any = this.SafeInteger(params, "clientOrderId")
+            var clientOrderId interface{} = this.SafeInteger(params, "clientOrderId")
             if IsTrue(!IsEqual(clientOrderId, nil)) {
                 AddElementToObject(orderRequest, "clientOrderId", clientOrderId)
             }
-            AddElementToObject(request, "orders", []any{orderRequest})
+            AddElementToObject(request, "orders", []interface{}{orderRequest})
         
             response:= (<-this.PrivateDeleteV3OrdersCancel(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeList(response, "data", []any{})
-            var order any = this.SafeDict(data, 0, map[string]any {})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
+            var order interface{} = this.SafeDict(data, 0, map[string]interface{} {})
         
             ch <- this.ParseOrder(order)
             return nil
@@ -3136,18 +3136,18 @@ func  (this *OxfunCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} response from exchange
  */
-func  (this *OxfunCore) CancelAllOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) CancelAllOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var request any = map[string]any {}
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(symbol, nil)) {
-                var market any = this.Market(symbol)
+                var market interface{} = this.Market(symbol)
                 AddElementToObject(request, "marketCode", GetValue(market, "id"))
             }
             //
@@ -3165,7 +3165,7 @@ func  (this *OxfunCore) CancelAllOrders(optionalArgs ...any) <- chan any {
             response:= (<-this.PrivateDeleteV3OrdersCancelAll(this.Extend(request, params)))
             PanicOnError(response)
         
-            ch <- []any{this.SafeOrder(map[string]any {
+            ch <- []interface{}{this.SafeOrder(map[string]interface{} {
             "info": response,
         })}
             return nil
@@ -3186,14 +3186,14 @@ func  (this *OxfunCore) CancelAllOrders(optionalArgs ...any) <- chan any {
  * @param {string} [params.responseType] 'FULL' or 'ACK'
  * @returns {object} an list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *OxfunCore) CancelOrders(ids any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *OxfunCore) CancelOrders(ids interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " cancelOrders() requires a symbol argument")))
@@ -3201,15 +3201,15 @@ func  (this *OxfunCore) CancelOrders(ids any, optionalArgs ...any) <- chan any {
         
             retRes27148 := (<-this.LoadMarkets())
             PanicOnError(retRes27148)
-            var market any = this.Market(symbol)
-            var marketId any = GetValue(market, "id")
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var marketId interface{} = GetValue(market, "id")
+            var request interface{} = map[string]interface{} {
                 "timestamp": this.Milliseconds(),
                 "responseType": "FULL",
             }
-            var orders any = []any{}
+            var orders interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(ids)); i++ {
-                var order any = map[string]any {
+                var order interface{} = map[string]interface{} {
                     "marketCode": marketId,
                     "orderId": GetValue(ids, i),
                 }
@@ -3219,7 +3219,7 @@ func  (this *OxfunCore) CancelOrders(ids any, optionalArgs ...any) <- chan any {
         
             response:= (<-this.PrivateDeleteV3OrdersCancel(this.Extend(request, params)))
             PanicOnError(response)
-            var data any = this.SafeList(response, "data", []any{})
+            var data interface{} = this.SafeList(response, "data", []interface{}{})
         
             ch <- this.ParseOrders(data, market)
             return nil
@@ -3227,7 +3227,7 @@ func  (this *OxfunCore) CancelOrders(ids any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *OxfunCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *OxfunCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // accepted market order responseType FULL
     //     {
@@ -3341,24 +3341,24 @@ func  (this *OxfunCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(order, "marketCode")
+    var marketId interface{} = this.SafeString(order, "marketCode")
     market = this.SafeMarket(marketId, market)
-    var timestamp any = this.SafeInteger(order, "createdAt")
-    var fee any = nil
-    var feeCurrency any = this.SafeString(order, "feeInstrumentId")
+    var timestamp interface{} = this.SafeInteger(order, "createdAt")
+    var fee interface{} = nil
+    var feeCurrency interface{} = this.SafeString(order, "feeInstrumentId")
     if IsTrue(!IsEqual(feeCurrency, nil)) {
-        fee = map[string]any {
+        fee = map[string]interface{} {
             "currency": this.SafeCurrencyCode(feeCurrency),
             "cost": this.SafeNumber(order, "fees"),
         }
     }
-    var status any = this.SafeString(order, "status")
-    var code any = this.SafeInteger(order, "code") // rejected orders have code of the error
+    var status interface{} = this.SafeString(order, "status")
+    var code interface{} = this.SafeInteger(order, "code") // rejected orders have code of the error
     if IsTrue(!IsEqual(code, nil)) {
         status = "rejected"
     }
-    var triggerPrice any = this.SafeString(order, "stopPrice")
-    return this.SafeOrder(map[string]any {
+    var triggerPrice interface{} = this.SafeString(order, "stopPrice")
+    return this.SafeOrder(map[string]interface{} {
         "id": this.SafeString(order, "orderId"),
         "clientOrderId": this.SafeString(order, "clientOrderId"),
         "timestamp": timestamp,
@@ -3370,7 +3370,7 @@ func  (this *OxfunCore) ParseOrder(order any, optionalArgs ...any) any  {
         "type": this.ParseOrderType(this.SafeString(order, "orderType")),
         "timeInForce": this.ParseOrderTimeInForce(this.SafeString(order, "timeInForce")),
         "side": this.SafeStringLower(order, "side"),
-        "price": this.SafeStringN(order, []any{"price", "matchPrice", "limitPrice"}),
+        "price": this.SafeStringN(order, []interface{}{"price", "matchPrice", "limitPrice"}),
         "average": nil,
         "amount": this.SafeString2(order, "totalQuantity", "quantity"),
         "filled": this.SafeString2(order, "cumulativeMatchedQuantity", "matchQuantity"),
@@ -3383,8 +3383,8 @@ func  (this *OxfunCore) ParseOrder(order any, optionalArgs ...any) any  {
         "info": order,
     }, market)
 }
-func  (this *OxfunCore) ParseOrderStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *OxfunCore) ParseOrderStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "OPEN": "open",
         "PARTIALLY_FILLED": "open",
         "PARTIAL_FILL": "open",
@@ -3399,8 +3399,8 @@ func  (this *OxfunCore) ParseOrderStatus(status any) any  {
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *OxfunCore) ParseOrderType(typeVar any) any  {
-    var types any = map[string]any {
+func  (this *OxfunCore) ParseOrderType(typeVar interface{}) interface{}  {
+    var types interface{} = map[string]interface{} {
         "LIMIT": "limit",
         "STOP_LIMIT": "limit",
         "MARKET": "market",
@@ -3408,8 +3408,8 @@ func  (this *OxfunCore) ParseOrderType(typeVar any) any  {
     }
     return this.SafeString(types, typeVar, typeVar)
 }
-func  (this *OxfunCore) ParseOrderTimeInForce(typeVar any) any  {
-    var types any = map[string]any {
+func  (this *OxfunCore) ParseOrderTimeInForce(typeVar interface{}) interface{}  {
+    var types interface{} = map[string]interface{} {
         "GTC": "GTC",
         "IOC": "IOC",
         "FOK": "FOK",
@@ -3418,20 +3418,20 @@ func  (this *OxfunCore) ParseOrderTimeInForce(typeVar any) any  {
     }
     return this.SafeString(types, typeVar, typeVar)
 }
-func  (this *OxfunCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *OxfunCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var baseUrl any = GetValue(GetValue(this.Urls, "api"), api)
-    var url any = Add(Add(baseUrl, "/"), path)
-    var queryString any = ""
+    var baseUrl interface{} = GetValue(GetValue(this.Urls, "api"), api)
+    var url interface{} = Add(Add(baseUrl, "/"), path)
+    var queryString interface{} = ""
     if IsTrue(IsEqual(method, "GET")) {
         queryString = this.Urlencode(params)
         if IsTrue(!IsEqual(GetLength(queryString), 0)) {
@@ -3440,19 +3440,19 @@ func  (this *OxfunCore) Sign(path any, optionalArgs ...any) any  {
     }
     if IsTrue(IsEqual(api, "private")) {
         this.CheckRequiredCredentials()
-        var timestamp any = this.Milliseconds()
-        var isoDatetime any = this.Iso8601(timestamp)
-        var datetimeParts any = Split(isoDatetime, ".")
-        var datetime any = GetValue(datetimeParts, 0)
-        var nonce any = this.Nonce()
-        var urlParts any = Split(baseUrl, "//")
+        var timestamp interface{} = this.Milliseconds()
+        var isoDatetime interface{} = this.Iso8601(timestamp)
+        var datetimeParts interface{} = Split(isoDatetime, ".")
+        var datetime interface{} = GetValue(datetimeParts, 0)
+        var nonce interface{} = this.Nonce()
+        var urlParts interface{} = Split(baseUrl, "//")
         if IsTrue(IsTrue((IsEqual(method, "POST"))) || IsTrue((IsEqual(method, "DELETE")))) {
             body = this.Json(params)
             queryString = body
         }
-        var msgString any = Add(Add(Add(Add(Add(Add(Add(Add(Add(Add(datetime, "\n"), ToString(nonce)), "\n"), method), "\n"), GetValue(urlParts, 1)), "\n/"), path), "\n"), queryString)
-        var signature any = this.Hmac(this.Encode(msgString), this.Encode(this.Secret), sha256, "base64")
-        headers = map[string]any {
+        var msgString interface{} = Add(Add(Add(Add(Add(Add(Add(Add(Add(Add(datetime, "\n"), ToString(nonce)), "\n"), method), "\n"), GetValue(urlParts, 1)), "\n/"), path), "\n"), queryString)
+        var signature interface{} = this.Hmac(this.Encode(msgString), this.Encode(this.Secret), sha256, "base64")
+        headers = map[string]interface{} {
             "Content-Type": "application/json",
             "AccessKey": this.ApiKey,
             "Timestamp": datetime,
@@ -3460,20 +3460,20 @@ func  (this *OxfunCore) Sign(path any, optionalArgs ...any) any  {
             "Nonce": ToString(nonce),
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *OxfunCore) HandleErrors(code any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *OxfunCore) HandleErrors(code interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil
     }
     if IsTrue(!IsEqual(code, 200)) {
-        var responseCode any = this.SafeString(response, "code", nil)
-        var feedback any = Add(Add(this.Id, " "), body)
+        var responseCode interface{} = this.SafeString(response, "code", nil)
+        var feedback interface{} = Add(Add(this.Id, " "), body)
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), body, feedback)
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), responseCode, feedback)
         panic(ExchangeError(feedback))
@@ -3482,8 +3482,8 @@ func  (this *OxfunCore) HandleErrors(code any, reason any, url any, method any, 
 }
 
 
-func (this *OxfunCore) Init(userConfig map[string]any) {
+func (this *OxfunCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

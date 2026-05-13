@@ -5,7 +5,7 @@
 add margin
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [margin structure](https://docs.ccxt.com/?id=add-margin-structure)
+**Returns**: <code>object</code> - a [margin structure](https://docs.ccxt.com/#/?id=add-margin-structure)
 
 
 | Param | Type | Required | Description |
@@ -34,7 +34,6 @@ add margin
 * [mexc](/exchanges/mexc.md#addmargin)
 * [okx](/exchanges/okx.md#addmargin)
 * [poloniex](/exchanges/poloniex.md#addmargin)
-* [weex](/exchanges/weex.md#addmargin)
 * [woo](/exchanges/woo.md#addmargin)
 * [xt](/exchanges/xt.md#addmargin)
 * [zebpayfutures](/exchanges/zebpayfutures.md#addmargin)
@@ -213,7 +212,6 @@ cancel all open orders in a market
 * [phemex](/exchanges/phemex.md#cancelallorders)
 * [poloniex](/exchanges/poloniex.md#cancelallorders)
 * [toobit](/exchanges/toobit.md#cancelallorders)
-* [weex](/exchanges/weex.md#cancelallorders)
 * [whitebit](/exchanges/whitebit.md#cancelallorders)
 * [woo](/exchanges/woo.md#cancelallorders)
 * [woofipro](/exchanges/woofipro.md#cancelallorders)
@@ -349,7 +347,7 @@ helper method for cancelling contract orders
 cancels an open order
 
 **Kind**: instance   
-**Returns**: <code>object</code> - An [order structure](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - An [order structure](https://docs.ccxt.com/#/?id=order-structure)
 
 
 | Param | Type | Required | Description |
@@ -449,7 +447,6 @@ cancels an open order
 * [toobit](/exchanges/toobit.md#cancelorder)
 * [upbit](/exchanges/upbit.md#cancelorder)
 * [wavesexchange](/exchanges/wavesexchange.md#cancelorder)
-* [weex](/exchanges/weex.md#cancelorder)
 * [whitebit](/exchanges/whitebit.md#cancelorder)
 * [woo](/exchanges/woo.md#cancelorder)
 * [woofipro](/exchanges/woofipro.md#cancelorder)
@@ -498,7 +495,7 @@ cancel multiple orders
 cancel multiple orders
 
 **Kind**: instance   
-**Returns**: <code>Array&lt;Order&gt;</code> - an list of [order structures](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>Array&lt;Order&gt;</code> - an list of [order structures](https://docs.ccxt.com/#/?id=order-structure)
 
 
 | Param | Type | Required | Description |
@@ -545,7 +542,6 @@ cancel multiple orders
 * [oxfun](/exchanges/oxfun.md#cancelorders)
 * [pacifica](/exchanges/pacifica.md#cancelorders)
 * [toobit](/exchanges/toobit.md#cancelorders)
-* [weex](/exchanges/weex.md#cancelorders)
 * [woofipro](/exchanges/woofipro.md#cancelorders)
 * [xt](/exchanges/xt.md#cancelorders)
 * [zebpay](/exchanges/zebpay.md#cancelorders)
@@ -682,7 +678,7 @@ helper method for cancelling uta orders
 | params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
 | params.accountMode | <code>string</code> | No | 'unified' or 'classic' (default is 'unified') |
 | params.clientOrderId | <code>string</code> | No | client order id, required if id is not provided |
-| params.marginMode | <code>string</code> | No | 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin) |
+| params.marginMode | <code>string</code> | No | 'cross' or 'isolated', required if fetching a margin order |
 
 ##### Supported exchanges
 * [cexc](/exchanges/cexc.md#cancelutaorder)
@@ -708,7 +704,6 @@ closes all open positions for a market type
 ##### Supported exchanges
 * [bitget](/exchanges/bitget.md#closeallpositions)
 * [delta](/exchanges/delta.md#closeallpositions)
-* [weex](/exchanges/weex.md#closeallpositions)
 
 ---
 
@@ -742,7 +737,6 @@ closes open positions for a market
 * [hitbtc](/exchanges/hitbtc.md#closeposition)
 * [kucoin](/exchanges/kucoin.md#closeposition)
 * [okx](/exchanges/okx.md#closeposition)
-* [weex](/exchanges/weex.md#closeposition)
 * [zebpay](/exchanges/zebpay.md#closeposition)
 
 ---
@@ -830,7 +824,6 @@ helper method for creating contract orders
 ##### Supported exchanges
 * [cexc](/exchanges/cexc.md#createcontractorder)
 * [kucoin](/exchanges/kucoin.md#createcontractorder)
-* [weex](/exchanges/weex.md#createcontractorder)
 
 ---
 
@@ -1071,7 +1064,7 @@ create a market sell order by providing the symbol and cost
 create a trade order
 
 **Kind**: instance   
-**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/#/?id=order-structure)
 
 
 | Param | Type | Required | Description |
@@ -1178,7 +1171,6 @@ create a trade order
 * [toobit](/exchanges/toobit.md#createorder)
 * [upbit](/exchanges/upbit.md#createorder)
 * [wavesexchange](/exchanges/wavesexchange.md#createorder)
-* [weex](/exchanges/weex.md#createorder)
 * [whitebit](/exchanges/whitebit.md#createorder)
 * [woo](/exchanges/woo.md#createorder)
 * [woofipro](/exchanges/woofipro.md#createorder)
@@ -1230,7 +1222,7 @@ create a trade order
 create a list of trade orders
 
 **Kind**: instance   
-**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/#/?id=order-structure)
 
 
 | Param | Type | Required | Description |
@@ -1353,7 +1345,6 @@ helper method for creating spot orders
 * [cexc](/exchanges/cexc.md#createspotorder)
 * [hashkey](/exchanges/hashkey.md#createspotorder)
 * [kucoin](/exchanges/kucoin.md#createspotorder)
-* [weex](/exchanges/weex.md#createspotorder)
 
 ---
 
@@ -1924,7 +1915,7 @@ fetches all option contracts greeks, financial metrics used to measure the facto
 query for balance and get the amount of funds available for trading or funds locked in positions
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [balance structure](https://docs.ccxt.com/?id=balance-structure)
+**Returns**: <code>object</code> - a [balance structure](https://docs.ccxt.com/#/?id=balance-structure)
 
 
 | Param | Type | Required | Description |
@@ -2025,7 +2016,6 @@ query for balance and get the amount of funds available for trading or funds loc
 * [toobit](/exchanges/toobit.md#fetchbalance)
 * [upbit](/exchanges/upbit.md#fetchbalance)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchbalance)
-* [weex](/exchanges/weex.md#fetchbalance)
 * [whitebit](/exchanges/whitebit.md#fetchbalance)
 * [woo](/exchanges/woo.md#fetchbalance)
 * [woofipro](/exchanges/woofipro.md#fetchbalance)
@@ -2077,7 +2067,6 @@ fetches the bid and ask price and volume for multiple markets
 | params.subType | <code>string</code> | No | "linear" or "inverse" |
 
 ##### Supported exchanges
-* [aster](/exchanges/aster.md#fetchbidsasks)
 * [binance](/exchanges/binance.md#fetchbidsasks)
 * [bitrue](/exchanges/bitrue.md#fetchbidsasks)
 * [bybit](/exchanges/bybit.md#fetchbidsasks)
@@ -2087,7 +2076,6 @@ fetches the bid and ask price and volume for multiple markets
 * [mexc](/exchanges/mexc.md#fetchbidsasks)
 * [tokocrypto](/exchanges/tokocrypto.md#fetchbidsasks)
 * [toobit](/exchanges/toobit.md#fetchbidsasks)
-* [weex](/exchanges/weex.md#fetchbidsasks)
 * [xt](/exchanges/xt.md#fetchbidsasks)
 
 ---
@@ -2207,7 +2195,6 @@ fetches information on multiple canceled orders made by the user
 * [hashkey](/exchanges/hashkey.md#fetchcanceledandclosedorders)
 * [hyperliquid](/exchanges/hyperliquid.md#fetchcanceledandclosedorders)
 * [pacifica](/exchanges/pacifica.md#fetchcanceledandclosedorders)
-* [weex](/exchanges/weex.md#fetchcanceledandclosedorders)
 
 ---
 
@@ -2249,7 +2236,6 @@ fetches information on multiple canceled orders made by the user
 * [okx](/exchanges/okx.md#fetchcanceledorders)
 * [pacifica](/exchanges/pacifica.md#fetchcanceledorders)
 * [upbit](/exchanges/upbit.md#fetchcanceledorders)
-* [weex](/exchanges/weex.md#fetchcanceledorders)
 * [xt](/exchanges/xt.md#fetchcanceledorders)
 
 ---
@@ -2352,7 +2338,6 @@ fetches information on multiple closed orders made by the user
 * [toobit](/exchanges/toobit.md#fetchclosedorders)
 * [upbit](/exchanges/upbit.md#fetchclosedorders)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchclosedorders)
-* [weex](/exchanges/weex.md#fetchclosedorders)
 * [whitebit](/exchanges/whitebit.md#fetchclosedorders)
 * [woo](/exchanges/woo.md#fetchclosedorders)
 * [woofipro](/exchanges/woofipro.md#fetchclosedorders)
@@ -2637,9 +2622,7 @@ fetch the rate of interest to borrow a currency for margin trading
 * [binance](/exchanges/binance.md#fetchcrossborrowrate)
 * [bitget](/exchanges/bitget.md#fetchcrossborrowrate)
 * [bybit](/exchanges/bybit.md#fetchcrossborrowrate)
-* [cexc](/exchanges/cexc.md#fetchcrossborrowrate)
 * [digifinex](/exchanges/digifinex.md#fetchcrossborrowrate)
-* [kucoin](/exchanges/kucoin.md#fetchcrossborrowrate)
 * [okx](/exchanges/okx.md#fetchcrossborrowrate)
 * [whitebit](/exchanges/whitebit.md#fetchcrossborrowrate)
 
@@ -2738,7 +2721,6 @@ fetches all available currencies on an exchange
 * [phemex](/exchanges/phemex.md#fetchcurrencies)
 * [poloniex](/exchanges/poloniex.md#fetchcurrencies)
 * [toobit](/exchanges/toobit.md#fetchcurrencies)
-* [weex](/exchanges/weex.md#fetchcurrencies)
 * [whitebit](/exchanges/whitebit.md#fetchcurrencies)
 * [woo](/exchanges/woo.md#fetchcurrencies)
 * [woofipro](/exchanges/woofipro.md#fetchcurrencies)
@@ -2875,7 +2857,7 @@ fetch the deposit address for a currency associated with this account
 fetch deposit addresses for multiple currencies (when available)
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a dictionary of [address structures](https://docs.ccxt.com/?id=address-structure) indexed by currency code
+**Returns**: <code>object</code> - a dictionary of [address structures](https://docs.ccxt.com/#/?id=address-structure) indexed by currency code
 
 
 | Param | Type | Required | Description |
@@ -3287,7 +3269,7 @@ fetch the current funding rate interval
 fetch the funding rate interval for multiple markets
 
 **Kind**: instance   
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [funding rate structures](https://docs.ccxt.com/?id=funding-rate-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [funding rate structures](https://docs.ccxt.com/#/?id=funding-rate-structure)
 
 
 | Param | Type | Required | Description |
@@ -3327,7 +3309,7 @@ fetch the deposit and withdrawal limits for a currency
 fetch the current funding rate
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [funding rate structure](https://docs.ccxt.com/?id=funding-rate-structure)
+**Returns**: <code>object</code> - a [funding rate structure](https://docs.ccxt.com/#/?id=funding-rate-structure)
 
 
 | Param | Type | Required | Description |
@@ -3432,7 +3414,6 @@ fetches historical funding rate prices
 * [paradex](/exchanges/paradex.md#fetchfundingratehistory)
 * [phemex](/exchanges/phemex.md#fetchfundingratehistory)
 * [toobit](/exchanges/toobit.md#fetchfundingratehistory)
-* [weex](/exchanges/weex.md#fetchfundingratehistory)
 * [whitebit](/exchanges/whitebit.md#fetchfundingratehistory)
 * [woo](/exchanges/woo.md#fetchfundingratehistory)
 * [woofipro](/exchanges/woofipro.md#fetchfundingratehistory)
@@ -3479,7 +3460,6 @@ fetch the funding rate for multiple markets
 * [oxfun](/exchanges/oxfun.md#fetchfundingrates)
 * [pacifica](/exchanges/pacifica.md#fetchfundingrates)
 * [toobit](/exchanges/toobit.md#fetchfundingrates)
-* [weex](/exchanges/weex.md#fetchfundingrates)
 * [whitebit](/exchanges/whitebit.md#fetchfundingrates)
 * [woo](/exchanges/woo.md#fetchfundingrates)
 * [woofipro](/exchanges/woofipro.md#fetchfundingrates)
@@ -3610,7 +3590,6 @@ fetches the last price for multiple markets
 | params.subType | <code>string</code> | No | "linear" or "inverse" |
 
 ##### Supported exchanges
-* [aster](/exchanges/aster.md#fetchlastprices)
 * [binance](/exchanges/binance.md#fetchlastprices)
 * [hashkey](/exchanges/hashkey.md#fetchlastprices)
 * [htx](/exchanges/htx.md#fetchlastprices)
@@ -3624,7 +3603,7 @@ fetches the last price for multiple markets
 fetch the history of changes, actions done by the user or operations that altered the balance of the user
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ledger structure](https://docs.ccxt.com/?id=ledger)
+**Returns**: <code>object</code> - a [ledger structure](https://docs.ccxt.com/#/?id=ledger)
 
 
 | Param | Type | Required | Description |
@@ -3670,7 +3649,6 @@ fetch the history of changes, actions done by the user or operations that altere
 * [okx](/exchanges/okx.md#fetchledger)
 * [pacifica](/exchanges/pacifica.md#fetchledger)
 * [toobit](/exchanges/toobit.md#fetchledger)
-* [weex](/exchanges/weex.md#fetchledger)
 * [woo](/exchanges/woo.md#fetchledger)
 * [woofipro](/exchanges/woofipro.md#fetchledger)
 * [xt](/exchanges/xt.md#fetchledger)
@@ -3734,7 +3712,6 @@ fetch the set leverage for a market
 * [paradex](/exchanges/paradex.md#fetchleverage)
 * [poloniex](/exchanges/poloniex.md#fetchleverage)
 * [toobit](/exchanges/toobit.md#fetchleverage)
-* [weex](/exchanges/weex.md#fetchleverage)
 * [woo](/exchanges/woo.md#fetchleverage)
 * [woofipro](/exchanges/woofipro.md#fetchleverage)
 * [zebpay](/exchanges/zebpay.md#fetchleverage)
@@ -3798,7 +3775,6 @@ fetch the set leverage for all contract markets
 * [gate](/exchanges/gate.md#fetchleverages)
 * [grvt](/exchanges/grvt.md#fetchleverages)
 * [krakenfutures](/exchanges/krakenfutures.md#fetchleverages)
-* [weex](/exchanges/weex.md#fetchleverages)
 * [zebpay](/exchanges/zebpay.md#fetchleverages)
 
 ---
@@ -3863,7 +3839,7 @@ fetches the long short ratio history for a unified market symbol
 fetches the history of margin added or reduced from contract isolated positions
 
 **Kind**: instance   
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [margin structures](https://docs.ccxt.com/?id=margin-loan-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [margin structures](https://docs.ccxt.com/#/?id=margin-loan-structure)
 
 
 | Param | Type | Required | Description |
@@ -3910,7 +3886,6 @@ fetches the margin mode of a specific symbol
 * [kucoin](/exchanges/kucoin.md#fetchmarginmode)
 * [pacifica](/exchanges/pacifica.md#fetchmarginmode)
 * [paradex](/exchanges/paradex.md#fetchmarginmode)
-* [weex](/exchanges/weex.md#fetchmarginmode)
 
 ---
 
@@ -3934,7 +3909,6 @@ fetches the set margin mode of the user
 * [binance](/exchanges/binance.md#fetchmarginmodes)
 * [grvt](/exchanges/grvt.md#fetchmarginmodes)
 * [hitbtc](/exchanges/hitbtc.md#fetchmarginmodes)
-* [weex](/exchanges/weex.md#fetchmarginmodes)
 
 ---
 
@@ -4117,7 +4091,6 @@ retrieves data on all markets for woo
 * [toobit](/exchanges/toobit.md#fetchmarkets)
 * [upbit](/exchanges/upbit.md#fetchmarkets)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchmarkets)
-* [weex](/exchanges/weex.md#fetchmarkets)
 * [whitebit](/exchanges/whitebit.md#fetchmarkets)
 * [woo](/exchanges/woo.md#fetchmarkets)
 * [woofipro](/exchanges/woofipro.md#fetchmarkets)
@@ -4375,7 +4348,6 @@ fetch all trades made by the user
 * [tokocrypto](/exchanges/tokocrypto.md#fetchmytrades)
 * [toobit](/exchanges/toobit.md#fetchmytrades)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchmytrades)
-* [weex](/exchanges/weex.md#fetchmytrades)
 * [whitebit](/exchanges/whitebit.md#fetchmytrades)
 * [woo](/exchanges/woo.md#fetchmytrades)
 * [woofipro](/exchanges/woofipro.md#fetchmytrades)
@@ -4427,7 +4399,7 @@ fetch all trades made by the user
 | params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
 | params.until | <code>int</code> | No | the latest time in ms to fetch entries for |
 | params.accountMode | <code>string</code> | No | 'unified' or 'classic', defaults to 'unified' |
-| params.marginMode | <code>string</code> | No | 'cross' or 'isolated', only for margin trades (unified accountMode support only cross margin) |
+| params.marginMode | <code>string</code> | No | 'cross' or 'isolated', only for margin trades |
 | params.side | <code>string</code> | No | 'BUY' or 'SELL' (both if not provided) |
 | params.paginate | <code>boolean</code> | No | default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params) |
 
@@ -4532,7 +4504,6 @@ fetches historical candlestick data containing the open, high, low, and close pr
 * [toobit](/exchanges/toobit.md#fetchohlcv)
 * [upbit](/exchanges/upbit.md#fetchohlcv)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchohlcv)
-* [weex](/exchanges/weex.md#fetchohlcv)
 * [whitebit](/exchanges/whitebit.md#fetchohlcv)
 * [woo](/exchanges/woo.md#fetchohlcv)
 * [woofipro](/exchanges/woofipro.md#fetchohlcv)
@@ -4604,7 +4575,6 @@ retrieves the open interest of a contract trading pair
 * [pacifica](/exchanges/pacifica.md#fetchopeninterest)
 * [paradex](/exchanges/paradex.md#fetchopeninterest)
 * [phemex](/exchanges/phemex.md#fetchopeninterest)
-* [weex](/exchanges/weex.md#fetchopeninterest)
 
 ---
 
@@ -4672,7 +4642,7 @@ Retrieves the open interest for a list of symbols
 fetch an open order by the id
 
 **Kind**: instance   
-**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/#/?id=order-structure)
 
 
 | Param | Type | Required | Description |
@@ -4701,7 +4671,7 @@ fetch an open order by the id
 fetch all unfilled currently open orders
 
 **Kind**: instance   
-**Returns**: <code>Array&lt;Order&gt;</code> - a list of [order structures](https://docs.ccxt.com/?id=order-structure)
+**Returns**: <code>Array&lt;Order&gt;</code> - a list of [order structures](https://docs.ccxt.com/#/?id=order-structure)
 
 
 | Param | Type | Required | Description |
@@ -4803,7 +4773,6 @@ fetch all unfilled currently open orders
 * [toobit](/exchanges/toobit.md#fetchopenorders)
 * [upbit](/exchanges/upbit.md#fetchopenorders)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchopenorders)
-* [weex](/exchanges/weex.md#fetchopenorders)
 * [whitebit](/exchanges/whitebit.md#fetchopenorders)
 * [woo](/exchanges/woo.md#fetchopenorders)
 * [woofipro](/exchanges/woofipro.md#fetchopenorders)
@@ -4998,7 +4967,6 @@ fetches information on an order made by the user
 * [toobit](/exchanges/toobit.md#fetchorder)
 * [upbit](/exchanges/upbit.md#fetchorder)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchorder)
-* [weex](/exchanges/weex.md#fetchorder)
 * [whitebit](/exchanges/whitebit.md#fetchorder)
 * [woo](/exchanges/woo.md#fetchorder)
 * [woofipro](/exchanges/woofipro.md#fetchorder)
@@ -5014,7 +4982,7 @@ fetches information on an order made by the user
 fetches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
 
 **Kind**: instance   
-**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/?id=order-book-structure) indexed by market symbols
+**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/#/?id=order-book-structure) indexed by market symbols
 
 
 | Param | Type | Required | Description |
@@ -5114,7 +5082,6 @@ fetches information on open orders with bid (buy) and ask (sell) prices, volumes
 * [toobit](/exchanges/toobit.md#fetchorderbook)
 * [upbit](/exchanges/upbit.md#fetchorderbook)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchorderbook)
-* [weex](/exchanges/weex.md#fetchorderbook)
 * [whitebit](/exchanges/whitebit.md#fetchorderbook)
 * [woo](/exchanges/woo.md#fetchorderbook)
 * [woofipro](/exchanges/woofipro.md#fetchorderbook)
@@ -5237,7 +5204,6 @@ fetch all the trades made from a single order
 * [onetrading](/exchanges/onetrading.md#fetchordertrades)
 * [p2b](/exchanges/p2b.md#fetchordertrades)
 * [poloniex](/exchanges/poloniex.md#fetchordertrades)
-* [weex](/exchanges/weex.md#fetchordertrades)
 * [whitebit](/exchanges/whitebit.md#fetchordertrades)
 * [woo](/exchanges/woo.md#fetchordertrades)
 * [woofipro](/exchanges/woofipro.md#fetchordertrades)
@@ -5335,7 +5301,6 @@ fetches information on multiple orders made by the user
 * [tokocrypto](/exchanges/tokocrypto.md#fetchorders)
 * [toobit](/exchanges/toobit.md#fetchorders)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchorders)
-* [weex](/exchanges/weex.md#fetchorders)
 * [whitebit](/exchanges/whitebit.md#fetchorders)
 * [woo](/exchanges/woo.md#fetchorders)
 * [woofipro](/exchanges/woofipro.md#fetchorders)
@@ -5486,7 +5451,7 @@ fetch all the portfolios
 fetch data on an open position
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [position structure](https://docs.ccxt.com/?id=position-structure)
+**Returns**: <code>object</code> - a [position structure](https://docs.ccxt.com/#/?id=position-structure)
 
 
 | Param | Type | Required | Description |
@@ -5523,7 +5488,6 @@ fetch data on an open position
 * [okx](/exchanges/okx.md#fetchposition)
 * [pacifica](/exchanges/pacifica.md#fetchposition)
 * [paradex](/exchanges/paradex.md#fetchposition)
-* [weex](/exchanges/weex.md#fetchposition)
 * [whitebit](/exchanges/whitebit.md#fetchposition)
 * [woo](/exchanges/woo.md#fetchposition)
 * [woofipro](/exchanges/woofipro.md#fetchposition)
@@ -5573,7 +5537,6 @@ fetches historical positions
 * [bingx](/exchanges/bingx.md#fetchpositionhistory)
 * [bydfi](/exchanges/bydfi.md#fetchpositionhistory)
 * [coinex](/exchanges/coinex.md#fetchpositionhistory)
-* [phemex](/exchanges/phemex.md#fetchpositionhistory)
 * [whitebit](/exchanges/whitebit.md#fetchpositionhistory)
 
 ---
@@ -5604,7 +5567,6 @@ fetchs the position mode, hedged or one way, hedged for aster is set identically
 * [mexc](/exchanges/mexc.md#fetchpositionmode)
 * [okx](/exchanges/okx.md#fetchpositionmode)
 * [poloniex](/exchanges/poloniex.md#fetchpositionmode)
-* [weex](/exchanges/weex.md#fetchpositionmode)
 
 ---
 
@@ -5633,7 +5595,7 @@ fetch data on an open position
 fetch all open positions
 
 **Kind**: instance   
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [position structure](https://docs.ccxt.com/?id=position-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [position structure](https://docs.ccxt.com/#/?id=position-structure)
 
 
 | Param | Type | Required | Description |
@@ -5691,7 +5653,6 @@ fetch all open positions
 * [phemex](/exchanges/phemex.md#fetchpositions)
 * [poloniex](/exchanges/poloniex.md#fetchpositions)
 * [toobit](/exchanges/toobit.md#fetchpositions)
-* [weex](/exchanges/weex.md#fetchpositions)
 * [whitebit](/exchanges/whitebit.md#fetchpositions)
 * [woo](/exchanges/woo.md#fetchpositions)
 * [woofipro](/exchanges/woofipro.md#fetchpositions)
@@ -5748,7 +5709,6 @@ fetch all open positions for specific symbol
 * [deepcoin](/exchanges/deepcoin.md#fetchpositionsforsymbol)
 * [hashkey](/exchanges/hashkey.md#fetchpositionsforsymbol)
 * [okx](/exchanges/okx.md#fetchpositionsforsymbol)
-* [weex](/exchanges/weex.md#fetchpositionsforsymbol)
 
 ---
 
@@ -5773,7 +5733,6 @@ fetches historical positions
 
 ##### Supported exchanges
 * [bitget](/exchanges/bitget.md#fetchpositionshistory)
-* [blofin](/exchanges/blofin.md#fetchpositionshistory)
 * [bybit](/exchanges/bybit.md#fetchpositionshistory)
 * [bydfi](/exchanges/bydfi.md#fetchpositionshistory)
 * [cexc](/exchanges/cexc.md#fetchpositionshistory)
@@ -5964,7 +5923,6 @@ the latest known information on the availability of the exchange API
 * [okx](/exchanges/okx.md#fetchstatus)
 * [paradex](/exchanges/paradex.md#fetchstatus)
 * [toobit](/exchanges/toobit.md#fetchstatus)
-* [weex](/exchanges/weex.md#fetchstatus)
 * [whitebit](/exchanges/whitebit.md#fetchstatus)
 * [woo](/exchanges/woo.md#fetchstatus)
 * [woofipro](/exchanges/woofipro.md#fetchstatus)
@@ -5997,7 +5955,7 @@ retrieves data on all swap markets for hyperliquid
 fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 
 | Param | Type | Required | Description |
@@ -6210,7 +6168,6 @@ fetches price tickers for multiple markets, statistical information calculated o
 * [toobit](/exchanges/toobit.md#fetchtickers)
 * [upbit](/exchanges/upbit.md#fetchtickers)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchtickers)
-* [weex](/exchanges/weex.md#fetchtickers)
 * [whitebit](/exchanges/whitebit.md#fetchtickers)
 * [xt](/exchanges/xt.md#fetchtickers)
 * [yobit](/exchanges/yobit.md#fetchtickers)
@@ -6281,7 +6238,6 @@ fetches the current integer timestamp in milliseconds from the exchange server
 * [poloniex](/exchanges/poloniex.md#fetchtime)
 * [tokocrypto](/exchanges/tokocrypto.md#fetchtime)
 * [toobit](/exchanges/toobit.md#fetchtime)
-* [weex](/exchanges/weex.md#fetchtime)
 * [whitebit](/exchanges/whitebit.md#fetchtime)
 * [woo](/exchanges/woo.md#fetchtime)
 * [woofipro](/exchanges/woofipro.md#fetchtime)
@@ -6296,7 +6252,7 @@ fetches the current integer timestamp in milliseconds from the exchange server
 get the list of most recent trades for a particular symbol
 
 **Kind**: instance   
-**Returns**: <code>Array&lt;Trade&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=public-trades)
+**Returns**: <code>Array&lt;Trade&gt;</code> - a list of [trade structures](https://docs.ccxt.com/#/?id=public-trades)
 
 
 | Param | Type | Required | Description |
@@ -6396,7 +6352,6 @@ get the list of most recent trades for a particular symbol
 * [toobit](/exchanges/toobit.md#fetchtrades)
 * [upbit](/exchanges/upbit.md#fetchtrades)
 * [wavesexchange](/exchanges/wavesexchange.md#fetchtrades)
-* [weex](/exchanges/weex.md#fetchtrades)
 * [whitebit](/exchanges/whitebit.md#fetchtrades)
 * [woo](/exchanges/woo.md#fetchtrades)
 * [woofipro](/exchanges/woofipro.md#fetchtrades)
@@ -6437,7 +6392,7 @@ fetch all trades made by the user
 fetch the trading fees for a market
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [fee structure](https://docs.ccxt.com/?id=fee-structure)
+**Returns**: <code>object</code> - a [fee structure](https://docs.ccxt.com/#/?id=fee-structure)
 
 
 | Param | Type | Required | Description |
@@ -6475,7 +6430,6 @@ fetch the trading fees for a market
 * [okx](/exchanges/okx.md#fetchtradingfee)
 * [pacifica](/exchanges/pacifica.md#fetchtradingfee)
 * [upbit](/exchanges/upbit.md#fetchtradingfee)
-* [weex](/exchanges/weex.md#fetchtradingfee)
 * [woo](/exchanges/woo.md#fetchtradingfee)
 * [zebpay](/exchanges/zebpay.md#fetchtradingfee)
 
@@ -6713,7 +6667,6 @@ fetch a history of internal transfers made on an account
 * [oxfun](/exchanges/oxfun.md#fetchtransfers)
 * [paradex](/exchanges/paradex.md#fetchtransfers)
 * [phemex](/exchanges/phemex.md#fetchtransfers)
-* [weex](/exchanges/weex.md#fetchtransfers)
 * [woo](/exchanges/woo.md#fetchtransfers)
 
 ---
@@ -6750,7 +6703,7 @@ helper method for fetching balance with unified trading account (uta) endpoint
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
 | params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
-| params.type | <code>string</code> | No | 'unified', 'spot', 'funding', 'cross', 'isolated' or 'swap' (default is 'unified') |
+| params.type | <code>string</code> | No | 'spot', 'unified', 'funding', 'cross', 'isolated' or 'swap' (default is 'spot') |
 | params.marginMode | <code>string</code> | No | 'cross' or 'isolated', margin type for fetching margin balance, only applicable if type is margin (default is cross) |
 
 ##### Supported exchanges
@@ -6775,7 +6728,7 @@ fetch uta order
 | params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
 | params.accountMode | <code>string</code> | No | 'unified' or 'classic' (default is 'unified') |
 | params.clientOrderId | <code>string</code> | No | client order id, required if id is not provided |
-| params.marginMode | <code>string</code> | No | 'cross' or 'isolated', required if fetching a margin order (unified accountMode supports only cross margin) |
+| params.marginMode | <code>string</code> | No | 'cross' or 'isolated', required if fetching a margin order |
 
 ##### Supported exchanges
 * [cexc](/exchanges/cexc.md#fetchutaorder)
@@ -6802,7 +6755,6 @@ helper method for fetching orders by status with uta endpoint
 | params.until | <code>int</code> | No | End time in ms |
 | params.side | <code>string</code> | No | *closed orders only* 'BUY' or 'SELL' |
 | params.accountMode | <code>string</code> | No | 'unified' or 'classic' (default is unified) |
-| params.marginMode | <code>string</code> | No | 'cross' or 'isolated', only for margin orders (unified accountMode supports only cross margin) |
 | params.paginate | <code>boolean</code> | No | default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params) |
 
 ##### Supported exchanges
@@ -7104,7 +7056,7 @@ redeem gift code
 remove margin from a position
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [margin structure](https://docs.ccxt.com/?id=reduce-margin-structure)
+**Returns**: <code>object</code> - a [margin structure](https://docs.ccxt.com/#/?id=reduce-margin-structure)
 
 
 | Param | Type | Required | Description |
@@ -7131,7 +7083,6 @@ remove margin from a position
 * [mexc](/exchanges/mexc.md#reducemargin)
 * [okx](/exchanges/okx.md#reducemargin)
 * [poloniex](/exchanges/poloniex.md#reducemargin)
-* [weex](/exchanges/weex.md#reducemargin)
 * [woo](/exchanges/woo.md#reducemargin)
 * [xt](/exchanges/xt.md#reducemargin)
 * [zebpayfutures](/exchanges/zebpayfutures.md#reducemargin)
@@ -7330,7 +7281,6 @@ set the level of leverage for a market
 * [phemex](/exchanges/phemex.md#setleverage)
 * [poloniex](/exchanges/poloniex.md#setleverage)
 * [toobit](/exchanges/toobit.md#setleverage)
-* [weex](/exchanges/weex.md#setleverage)
 * [whitebit](/exchanges/whitebit.md#setleverage)
 * [woo](/exchanges/woo.md#setleverage)
 * [woofipro](/exchanges/woofipro.md#setleverage)
@@ -7401,7 +7351,6 @@ set margin mode to 'cross' or 'isolated'
 * [paradex](/exchanges/paradex.md#setmarginmode)
 * [phemex](/exchanges/phemex.md#setmarginmode)
 * [toobit](/exchanges/toobit.md#setmarginmode)
-* [weex](/exchanges/weex.md#setmarginmode)
 * [xt](/exchanges/xt.md#setmarginmode)
 
 ---
@@ -7438,7 +7387,6 @@ set hedged to true or false for a market
 * [okx](/exchanges/okx.md#setpositionmode)
 * [phemex](/exchanges/phemex.md#setpositionmode)
 * [poloniex](/exchanges/poloniex.md#setpositionmode)
-* [weex](/exchanges/weex.md#setpositionmode)
 * [woo](/exchanges/woo.md#setpositionmode)
 
 ---
@@ -7494,7 +7442,6 @@ sign in, must be called prior to using other authenticated methods
 | params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
 
 ##### Supported exchanges
-* [aster](/exchanges/aster.md#signin)
 * [bullish](/exchanges/bullish.md#signin)
 * [grvt](/exchanges/grvt.md#signin)
 * [ndax](/exchanges/ndax.md#signin)
@@ -7526,7 +7473,7 @@ Helper to sign some transaction bytes and return a generic transaction execution
 transfer currency internally between wallets on the same account
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [transfer structure](https://docs.ccxt.com/?id=transfer-structure)
+**Returns**: <code>object</code> - a [transfer structure](https://docs.ccxt.com/#/?id=transfer-structure)
 
 
 | Param | Type | Required | Description |
@@ -7663,31 +7610,13 @@ transfer currency internally between wallets on the same account with uta endpoi
 
 ---
 
-<a name="unWatchBalance" id="unwatchbalance"></a>
-
-## unWatchBalance
-unWatches balance
-
-**Kind**: instance   
-**Returns**: <code>object</code> - status of the unwatch request
-
-
-| Param | Type | Required | Description |
-| --- | --- | --- | --- |
-| params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
-
-##### Supported exchanges
-* [hyperliquid](/exchanges/hyperliquid.md#unwatchbalance)
-
----
-
 <a name="unWatchBidsAsks" id="unwatchbidsasks"></a>
 
 ## unWatchBidsAsks
 unWatches best bid & ask for symbols
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 
 | Param | Type | Required | Description |
@@ -7699,7 +7628,6 @@ unWatches best bid & ask for symbols
 * [aster](/exchanges/aster.md#unwatchbidsasks)
 * [backpack](/exchanges/backpack.md#unwatchbidsasks)
 * [mexc](/exchanges/mexc.md#unwatchbidsasks)
-* [weex](/exchanges/weex.md#unwatchbidsasks)
 * [woo](/exchanges/woo.md#unwatchbidsasks)
 
 ---
@@ -7729,7 +7657,7 @@ unWatches the current funding rate for a symbol
 unWatches a mark price for a specific market
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 
 | Param | Type | Required | Description |
@@ -7751,7 +7679,7 @@ unWatches a mark price for a specific market
 watches the mark price for all markets
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 
 | Param | Type | Required | Description |
@@ -7788,7 +7716,6 @@ unWatches information on multiple trades made by the user
 * [hyperliquid](/exchanges/hyperliquid.md#unwatchmytrades)
 * [lighter](/exchanges/lighter.md#unwatchmytrades)
 * [pacifica](/exchanges/pacifica.md#unwatchmytrades)
-* [weex](/exchanges/weex.md#unwatchmytrades)
 
 ---
 
@@ -7817,16 +7744,16 @@ unWatches historical candlestick data containing the open, high, low, and close 
 * [bitmart](/exchanges/bitmart.md#unwatchohlcv)
 * [bybit](/exchanges/bybit.md#unwatchohlcv)
 * [bydfi](/exchanges/bydfi.md#unwatchohlcv)
-* [kucoin](/exchanges/kucoin.md#unwatchohlcv)
+* [cexc](/exchanges/cexc.md#unwatchohlcv)
 * [cryptocom](/exchanges/cryptocom.md#unwatchohlcv)
 * [deepcoin](/exchanges/deepcoin.md#unwatchohlcv)
 * [dydx](/exchanges/dydx.md#unwatchohlcv)
 * [htx](/exchanges/htx.md#unwatchohlcv)
 * [hyperliquid](/exchanges/hyperliquid.md#unwatchohlcv)
+* [kucoin](/exchanges/kucoin.md#unwatchohlcv)
 * [mexc](/exchanges/mexc.md#unwatchohlcv)
 * [okx](/exchanges/okx.md#unwatchohlcv)
 * [pacifica](/exchanges/pacifica.md#unwatchohlcv)
-* [weex](/exchanges/weex.md#unwatchohlcv)
 * [woo](/exchanges/woo.md#unwatchohlcv)
 
 ---
@@ -7852,7 +7779,6 @@ unWatches historical candlestick data containing the open, high, low, and close 
 * [bybit](/exchanges/bybit.md#unwatchohlcvforsymbols)
 * [bydfi](/exchanges/bydfi.md#unwatchohlcvforsymbols)
 * [okx](/exchanges/okx.md#unwatchohlcvforsymbols)
-* [weex](/exchanges/weex.md#unwatchohlcvforsymbols)
 
 ---
 
@@ -7862,7 +7788,7 @@ unWatches historical candlestick data containing the open, high, low, and close 
 unsubscribe from the orderbook channel
 
 **Kind**: instance   
-**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/?id=order-book-structure) indexed by market symbols
+**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/#/?id=order-book-structure) indexed by market symbols
 
 
 | Param | Type | Required | Description |
@@ -7880,7 +7806,7 @@ unsubscribe from the orderbook channel
 * [bitmart](/exchanges/bitmart.md#unwatchorderbook)
 * [bybit](/exchanges/bybit.md#unwatchorderbook)
 * [bydfi](/exchanges/bydfi.md#unwatchorderbook)
-* [kucoin](/exchanges/kucoin.md#unwatchorderbook)
+* [cexc](/exchanges/cexc.md#unwatchorderbook)
 * [cryptocom](/exchanges/cryptocom.md#unwatchorderbook)
 * [deepcoin](/exchanges/deepcoin.md#unwatchorderbook)
 * [derive](/exchanges/derive.md#unwatchorderbook)
@@ -7888,11 +7814,11 @@ unsubscribe from the orderbook channel
 * [gate](/exchanges/gate.md#unwatchorderbook)
 * [htx](/exchanges/htx.md#unwatchorderbook)
 * [hyperliquid](/exchanges/hyperliquid.md#unwatchorderbook)
+* [kucoin](/exchanges/kucoin.md#unwatchorderbook)
 * [lighter](/exchanges/lighter.md#unwatchorderbook)
 * [mexc](/exchanges/mexc.md#unwatchorderbook)
 * [okx](/exchanges/okx.md#unwatchorderbook)
 * [pacifica](/exchanges/pacifica.md#unwatchorderbook)
-* [weex](/exchanges/weex.md#unwatchorderbook)
 * [woo](/exchanges/woo.md#unwatchorderbook)
 
 ---
@@ -7903,7 +7829,7 @@ unsubscribe from the orderbook channel
 unsubscribe from the orderbook channel
 
 **Kind**: instance   
-**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/?id=order-book-structure) indexed by market symbols
+**Returns**: <code>object</code> - A dictionary of [order book structures](https://docs.ccxt.com/#/?id=order-book-structure) indexed by market symbols
 
 
 | Param | Type | Required | Description |
@@ -7919,10 +7845,10 @@ unsubscribe from the orderbook channel
 * [bitmart](/exchanges/bitmart.md#unwatchorderbookforsymbols)
 * [bybit](/exchanges/bybit.md#unwatchorderbookforsymbols)
 * [bydfi](/exchanges/bydfi.md#unwatchorderbookforsymbols)
-* [kucoin](/exchanges/kucoin.md#unwatchorderbookforsymbols)
+* [cexc](/exchanges/cexc.md#unwatchorderbookforsymbols)
 * [cryptocom](/exchanges/cryptocom.md#unwatchorderbookforsymbols)
+* [kucoin](/exchanges/kucoin.md#unwatchorderbookforsymbols)
 * [okx](/exchanges/okx.md#unwatchorderbookforsymbols)
-* [weex](/exchanges/weex.md#unwatchorderbookforsymbols)
 
 ---
 
@@ -7945,9 +7871,7 @@ unWatches information on multiple orders made by the user
 * [bitmart](/exchanges/bitmart.md#unwatchorders)
 * [bybit](/exchanges/bybit.md#unwatchorders)
 * [hyperliquid](/exchanges/hyperliquid.md#unwatchorders)
-* [lighter](/exchanges/lighter.md#unwatchorders)
 * [pacifica](/exchanges/pacifica.md#unwatchorders)
-* [weex](/exchanges/weex.md#unwatchorders)
 
 ---
 
@@ -7969,8 +7893,6 @@ unWatches from the stream channel
 * [backpack](/exchanges/backpack.md#unwatchpositions)
 * [bitmart](/exchanges/bitmart.md#unwatchpositions)
 * [bybit](/exchanges/bybit.md#unwatchpositions)
-* [hyperliquid](/exchanges/hyperliquid.md#unwatchpositions)
-* [weex](/exchanges/weex.md#unwatchpositions)
 
 ---
 
@@ -7980,7 +7902,7 @@ unWatches from the stream channel
 unWatches a price ticker
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 
 | Param | Type | Required | Description |
@@ -7998,14 +7920,14 @@ unWatches a price ticker
 * [bitmart](/exchanges/bitmart.md#unwatchticker)
 * [bybit](/exchanges/bybit.md#unwatchticker)
 * [bydfi](/exchanges/bydfi.md#unwatchticker)
-* [kucoin](/exchanges/kucoin.md#unwatchticker)
+* [cexc](/exchanges/cexc.md#unwatchticker)
 * [cryptocom](/exchanges/cryptocom.md#unwatchticker)
 * [deepcoin](/exchanges/deepcoin.md#unwatchticker)
 * [htx](/exchanges/htx.md#unwatchticker)
+* [kucoin](/exchanges/kucoin.md#unwatchticker)
 * [lighter](/exchanges/lighter.md#unwatchticker)
 * [mexc](/exchanges/mexc.md#unwatchticker)
 * [okx](/exchanges/okx.md#unwatchticker)
-* [weex](/exchanges/weex.md#unwatchticker)
 * [woo](/exchanges/woo.md#unwatchticker)
 
 ---
@@ -8016,7 +7938,7 @@ unWatches a price ticker
 unWatches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 
 | Param | Type | Required | Description |
@@ -8037,7 +7959,6 @@ unWatches a price ticker, a statistical calculation with the information calcula
 * [mexc](/exchanges/mexc.md#unwatchtickers)
 * [okx](/exchanges/okx.md#unwatchtickers)
 * [pacifica](/exchanges/pacifica.md#unwatchtickers)
-* [weex](/exchanges/weex.md#unwatchtickers)
 * [woo](/exchanges/woo.md#unwatchtickers)
 
 ---
@@ -8048,7 +7969,7 @@ unWatches a price ticker, a statistical calculation with the information calcula
 unsubscribe from the trades channel
 
 **Kind**: instance   
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=trade-structure)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/#/?id=trade-structure)
 
 
 | Param | Type | Required | Description |
@@ -8065,7 +7986,7 @@ unsubscribe from the trades channel
 * [bitget](/exchanges/bitget.md#unwatchtrades)
 * [bitmart](/exchanges/bitmart.md#unwatchtrades)
 * [bybit](/exchanges/bybit.md#unwatchtrades)
-* [kucoin](/exchanges/kucoin.md#unwatchtrades)
+* [cexc](/exchanges/cexc.md#unwatchtrades)
 * [cryptocom](/exchanges/cryptocom.md#unwatchtrades)
 * [deepcoin](/exchanges/deepcoin.md#unwatchtrades)
 * [derive](/exchanges/derive.md#unwatchtrades)
@@ -8073,11 +7994,11 @@ unsubscribe from the trades channel
 * [gate](/exchanges/gate.md#unwatchtrades)
 * [htx](/exchanges/htx.md#unwatchtrades)
 * [hyperliquid](/exchanges/hyperliquid.md#unwatchtrades)
+* [kucoin](/exchanges/kucoin.md#unwatchtrades)
 * [lighter](/exchanges/lighter.md#unwatchtrades)
 * [mexc](/exchanges/mexc.md#unwatchtrades)
 * [okx](/exchanges/okx.md#unwatchtrades)
 * [pacifica](/exchanges/pacifica.md#unwatchtrades)
-* [weex](/exchanges/weex.md#unwatchtrades)
 * [woo](/exchanges/woo.md#unwatchtrades)
 
 ---
@@ -8088,7 +8009,7 @@ unsubscribe from the trades channel
 unsubscribe from the trades channel
 
 **Kind**: instance   
-**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/?id=public-trades)
+**Returns**: <code>Array&lt;object&gt;</code> - a list of [trade structures](https://docs.ccxt.com/#/?id=public-trades)
 
 
 | Param | Type | Required | Description |
@@ -8102,11 +8023,11 @@ unsubscribe from the trades channel
 * [binance](/exchanges/binance.md#unwatchtradesforsymbols)
 * [bitmart](/exchanges/bitmart.md#unwatchtradesforsymbols)
 * [bybit](/exchanges/bybit.md#unwatchtradesforsymbols)
-* [kucoin](/exchanges/kucoin.md#unwatchtradesforsymbols)
+* [cexc](/exchanges/cexc.md#unwatchtradesforsymbols)
 * [cryptocom](/exchanges/cryptocom.md#unwatchtradesforsymbols)
 * [gate](/exchanges/gate.md#unwatchtradesforsymbols)
+* [kucoin](/exchanges/kucoin.md#unwatchtradesforsymbols)
 * [okx](/exchanges/okx.md#unwatchtradesforsymbols)
-* [weex](/exchanges/weex.md#unwatchtradesforsymbols)
 
 ---
 
@@ -8180,7 +8101,7 @@ watch balance and get the amount of funds available for trading or funds locked 
 * [bybit](/exchanges/bybit.md#watchbalance)
 * [bydfi](/exchanges/bydfi.md#watchbalance)
 * [cex](/exchanges/cex.md#watchbalance)
-* [kucoin](/exchanges/kucoin.md#watchbalance)
+* [cexc](/exchanges/cexc.md#watchbalance)
 * [coinex](/exchanges/coinex.md#watchbalance)
 * [cryptocom](/exchanges/cryptocom.md#watchbalance)
 * [deribit](/exchanges/deribit.md#watchbalance)
@@ -8189,9 +8110,8 @@ watch balance and get the amount of funds available for trading or funds locked 
 * [hashkey](/exchanges/hashkey.md#watchbalance)
 * [hollaex](/exchanges/hollaex.md#watchbalance)
 * [htx](/exchanges/htx.md#watchbalance)
-* [hyperliquid](/exchanges/hyperliquid.md#watchbalance)
+* [kucoin](/exchanges/kucoin.md#watchbalance)
 * [lbank](/exchanges/lbank.md#watchbalance)
-* [lighter](/exchanges/lighter.md#watchbalance)
 * [mexc](/exchanges/mexc.md#watchbalance)
 * [modetrade](/exchanges/modetrade.md#watchbalance)
 * [okx](/exchanges/okx.md#watchbalance)
@@ -8200,7 +8120,6 @@ watch balance and get the amount of funds available for trading or funds locked 
 * [phemex](/exchanges/phemex.md#watchbalance)
 * [toobit](/exchanges/toobit.md#watchbalance)
 * [upbit](/exchanges/upbit.md#watchbalance)
-* [weex](/exchanges/weex.md#watchbalance)
 * [whitebit](/exchanges/whitebit.md#watchbalance)
 * [woo](/exchanges/woo.md#watchbalance)
 * [woofipro](/exchanges/woofipro.md#watchbalance)
@@ -8213,7 +8132,7 @@ watch balance and get the amount of funds available for trading or funds locked 
 watches best bid & ask for symbols
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 
 | Param | Type | Required | Description |
@@ -8230,17 +8149,17 @@ watches best bid & ask for symbols
 * [bitvavo](/exchanges/bitvavo.md#watchbidsasks)
 * [blofin](/exchanges/blofin.md#watchbidsasks)
 * [bybit](/exchanges/bybit.md#watchbidsasks)
-* [kucoin](/exchanges/kucoin.md#watchbidsasks)
+* [cexc](/exchanges/cexc.md#watchbidsasks)
 * [coinex](/exchanges/coinex.md#watchbidsasks)
 * [cryptocom](/exchanges/cryptocom.md#watchbidsasks)
 * [deribit](/exchanges/deribit.md#watchbidsasks)
 * [gate](/exchanges/gate.md#watchbidsasks)
 * [gemini](/exchanges/gemini.md#watchbidsasks)
+* [kucoin](/exchanges/kucoin.md#watchbidsasks)
 * [mexc](/exchanges/mexc.md#watchbidsasks)
 * [modetrade](/exchanges/modetrade.md#watchbidsasks)
 * [okx](/exchanges/okx.md#watchbidsasks)
 * [oxfun](/exchanges/oxfun.md#watchbidsasks)
-* [weex](/exchanges/weex.md#watchbidsasks)
 * [woo](/exchanges/woo.md#watchbidsasks)
 * [woofipro](/exchanges/woofipro.md#watchbidsasks)
 
@@ -8342,7 +8261,7 @@ watch the public liquidations of a trading pair
 watches a mark price for a specific market
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 
 | Param | Type | Required | Description |
@@ -8365,7 +8284,7 @@ watches a mark price for a specific market
 watches the mark price for all markets
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
+**Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/#/?id=ticker-structure)
 
 
 | Param | Type | Required | Description |
@@ -8458,7 +8377,7 @@ watches information on multiple trades made by the user
 * [bullish](/exchanges/bullish.md#watchmytrades)
 * [bybit](/exchanges/bybit.md#watchmytrades)
 * [cex](/exchanges/cex.md#watchmytrades)
-* [kucoin](/exchanges/kucoin.md#watchmytrades)
+* [cexc](/exchanges/cexc.md#watchmytrades)
 * [coinbaseexchange](/exchanges/coinbaseexchange.md#watchmytrades)
 * [coinex](/exchanges/coinex.md#watchmytrades)
 * [cryptocom](/exchanges/cryptocom.md#watchmytrades)
@@ -8472,6 +8391,7 @@ watches information on multiple trades made by the user
 * [hollaex](/exchanges/hollaex.md#watchmytrades)
 * [htx](/exchanges/htx.md#watchmytrades)
 * [hyperliquid](/exchanges/hyperliquid.md#watchmytrades)
+* [kucoin](/exchanges/kucoin.md#watchmytrades)
 * [lighter](/exchanges/lighter.md#watchmytrades)
 * [mexc](/exchanges/mexc.md#watchmytrades)
 * [modetrade](/exchanges/modetrade.md#watchmytrades)
@@ -8481,7 +8401,6 @@ watches information on multiple trades made by the user
 * [phemex](/exchanges/phemex.md#watchmytrades)
 * [toobit](/exchanges/toobit.md#watchmytrades)
 * [upbit](/exchanges/upbit.md#watchmytrades)
-* [weex](/exchanges/weex.md#watchmytrades)
 * [whitebit](/exchanges/whitebit.md#watchmytrades)
 * [woo](/exchanges/woo.md#watchmytrades)
 * [woofipro](/exchanges/woofipro.md#watchmytrades)
@@ -8546,7 +8465,7 @@ watches historical candlestick data containing the open, high, low, and close pr
 * [bybit](/exchanges/bybit.md#watchohlcv)
 * [bydfi](/exchanges/bydfi.md#watchohlcv)
 * [cex](/exchanges/cex.md#watchohlcv)
-* [kucoin](/exchanges/kucoin.md#watchohlcv)
+* [cexc](/exchanges/cexc.md#watchohlcv)
 * [cryptocom](/exchanges/cryptocom.md#watchohlcv)
 * [deepcoin](/exchanges/deepcoin.md#watchohlcv)
 * [deribit](/exchanges/deribit.md#watchohlcv)
@@ -8557,6 +8476,7 @@ watches historical candlestick data containing the open, high, low, and close pr
 * [hashkey](/exchanges/hashkey.md#watchohlcv)
 * [htx](/exchanges/htx.md#watchohlcv)
 * [hyperliquid](/exchanges/hyperliquid.md#watchohlcv)
+* [kucoin](/exchanges/kucoin.md#watchohlcv)
 * [lbank](/exchanges/lbank.md#watchohlcv)
 * [mexc](/exchanges/mexc.md#watchohlcv)
 * [modetrade](/exchanges/modetrade.md#watchohlcv)
@@ -8568,7 +8488,6 @@ watches historical candlestick data containing the open, high, low, and close pr
 * [phemex](/exchanges/phemex.md#watchohlcv)
 * [toobit](/exchanges/toobit.md#watchohlcv)
 * [upbit](/exchanges/upbit.md#watchohlcv)
-* [weex](/exchanges/weex.md#watchohlcv)
 * [whitebit](/exchanges/whitebit.md#watchohlcv)
 * [woo](/exchanges/woo.md#watchohlcv)
 * [woofipro](/exchanges/woofipro.md#watchohlcv)
@@ -8604,7 +8523,6 @@ watches historical candlestick data containing the open, high, low, and close pr
 * [okx](/exchanges/okx.md#watchohlcvforsymbols)
 * [oxfun](/exchanges/oxfun.md#watchohlcvforsymbols)
 * [toobit](/exchanges/toobit.md#watchohlcvforsymbols)
-* [weex](/exchanges/weex.md#watchohlcvforsymbols)
 
 ---
 
@@ -8647,7 +8565,7 @@ watches information on open orders with bid (buy) and ask (sell) prices, volumes
 * [bybit](/exchanges/bybit.md#watchorderbook)
 * [bydfi](/exchanges/bydfi.md#watchorderbook)
 * [cex](/exchanges/cex.md#watchorderbook)
-* [kucoin](/exchanges/kucoin.md#watchorderbook)
+* [cexc](/exchanges/cexc.md#watchorderbook)
 * [coinbaseexchange](/exchanges/coinbaseexchange.md#watchorderbook)
 * [coincheck](/exchanges/coincheck.md#watchorderbook)
 * [coinex](/exchanges/coinex.md#watchorderbook)
@@ -8666,6 +8584,7 @@ watches information on open orders with bid (buy) and ask (sell) prices, volumes
 * [htx](/exchanges/htx.md#watchorderbook)
 * [hyperliquid](/exchanges/hyperliquid.md#watchorderbook)
 * [independentreserve](/exchanges/independentreserve.md#watchorderbook)
+* [kucoin](/exchanges/kucoin.md#watchorderbook)
 * [lbank](/exchanges/lbank.md#watchorderbook)
 * [lighter](/exchanges/lighter.md#watchorderbook)
 * [luno](/exchanges/luno.md#watchorderbook)
@@ -8679,7 +8598,6 @@ watches information on open orders with bid (buy) and ask (sell) prices, volumes
 * [phemex](/exchanges/phemex.md#watchorderbook)
 * [toobit](/exchanges/toobit.md#watchorderbook)
 * [upbit](/exchanges/upbit.md#watchorderbook)
-* [weex](/exchanges/weex.md#watchorderbook)
 * [whitebit](/exchanges/whitebit.md#watchorderbook)
 * [woo](/exchanges/woo.md#watchorderbook)
 * [woofipro](/exchanges/woofipro.md#watchorderbook)
@@ -8712,17 +8630,17 @@ watches information on open orders with bid (buy) and ask (sell) prices, volumes
 * [blofin](/exchanges/blofin.md#watchorderbookforsymbols)
 * [bybit](/exchanges/bybit.md#watchorderbookforsymbols)
 * [bydfi](/exchanges/bydfi.md#watchorderbookforsymbols)
-* [kucoin](/exchanges/kucoin.md#watchorderbookforsymbols)
+* [cexc](/exchanges/cexc.md#watchorderbookforsymbols)
 * [coinbaseexchange](/exchanges/coinbaseexchange.md#watchorderbookforsymbols)
 * [coinex](/exchanges/coinex.md#watchorderbookforsymbols)
 * [cryptocom](/exchanges/cryptocom.md#watchorderbookforsymbols)
 * [deribit](/exchanges/deribit.md#watchorderbookforsymbols)
 * [gemini](/exchanges/gemini.md#watchorderbookforsymbols)
 * [grvt](/exchanges/grvt.md#watchorderbookforsymbols)
+* [kucoin](/exchanges/kucoin.md#watchorderbookforsymbols)
 * [okx](/exchanges/okx.md#watchorderbookforsymbols)
 * [oxfun](/exchanges/oxfun.md#watchorderbookforsymbols)
 * [toobit](/exchanges/toobit.md#watchorderbookforsymbols)
-* [weex](/exchanges/weex.md#watchorderbookforsymbols)
 
 ---
 
@@ -8764,7 +8682,7 @@ watches information on multiple orders made by the user
 * [bybit](/exchanges/bybit.md#watchorders)
 * [bydfi](/exchanges/bydfi.md#watchorders)
 * [cex](/exchanges/cex.md#watchorders)
-* [kucoin](/exchanges/kucoin.md#watchorders)
+* [cexc](/exchanges/cexc.md#watchorders)
 * [coinbaseexchange](/exchanges/coinbaseexchange.md#watchorders)
 * [coinex](/exchanges/coinex.md#watchorders)
 * [cryptocom](/exchanges/cryptocom.md#watchorders)
@@ -8778,6 +8696,7 @@ watches information on multiple orders made by the user
 * [hollaex](/exchanges/hollaex.md#watchorders)
 * [htx](/exchanges/htx.md#watchorders)
 * [hyperliquid](/exchanges/hyperliquid.md#watchorders)
+* [kucoin](/exchanges/kucoin.md#watchorders)
 * [lbank](/exchanges/lbank.md#watchorders)
 * [mexc](/exchanges/mexc.md#watchorders)
 * [modetrade](/exchanges/modetrade.md#watchorders)
@@ -8788,7 +8707,6 @@ watches information on multiple orders made by the user
 * [phemex](/exchanges/phemex.md#watchorders)
 * [toobit](/exchanges/toobit.md#watchorders)
 * [upbit](/exchanges/upbit.md#watchorders)
-* [weex](/exchanges/weex.md#watchorders)
 * [whitebit](/exchanges/whitebit.md#watchorders)
 * [woo](/exchanges/woo.md#watchorders)
 * [woofipro](/exchanges/woofipro.md#watchorders)
@@ -8834,6 +8752,7 @@ watch open positions for a specific symbol
 | params | <code>object</code> | extra parameters specific to the exchange API endpoint |
 
 ##### Supported exchanges
+* [cexc](/exchanges/cexc.md#watchposition)
 * [kucoin](/exchanges/kucoin.md#watchposition)
 
 ---
@@ -8868,19 +8787,16 @@ watch all open positions
 * [bullish](/exchanges/bullish.md#watchpositions)
 * [bybit](/exchanges/bybit.md#watchpositions)
 * [bydfi](/exchanges/bydfi.md#watchpositions)
-* [kucoin](/exchanges/kucoin.md#watchpositions)
 * [cryptocom](/exchanges/cryptocom.md#watchpositions)
 * [deepcoin](/exchanges/deepcoin.md#watchpositions)
 * [gate](/exchanges/gate.md#watchpositions)
 * [grvt](/exchanges/grvt.md#watchpositions)
 * [hashkey](/exchanges/hashkey.md#watchpositions)
 * [htx](/exchanges/htx.md#watchpositions)
-* [hyperliquid](/exchanges/hyperliquid.md#watchpositions)
 * [modetrade](/exchanges/modetrade.md#watchpositions)
 * [okx](/exchanges/okx.md#watchpositions)
 * [oxfun](/exchanges/oxfun.md#watchpositions)
 * [toobit](/exchanges/toobit.md#watchpositions)
-* [weex](/exchanges/weex.md#watchpositions)
 * [woo](/exchanges/woo.md#watchpositions)
 * [woofipro](/exchanges/woofipro.md#watchpositions)
 
@@ -8922,7 +8838,7 @@ watches a price ticker, a statistical calculation with the information calculate
 * [bybit](/exchanges/bybit.md#watchticker)
 * [bydfi](/exchanges/bydfi.md#watchticker)
 * [cex](/exchanges/cex.md#watchticker)
-* [kucoin](/exchanges/kucoin.md#watchticker)
+* [cexc](/exchanges/cexc.md#watchticker)
 * [coinbaseexchange](/exchanges/coinbaseexchange.md#watchticker)
 * [coinex](/exchanges/coinex.md#watchticker)
 * [coinone](/exchanges/coinone.md#watchticker)
@@ -8936,6 +8852,7 @@ watches a price ticker, a statistical calculation with the information calculate
 * [hahskey](/exchanges/hahskey.md#watchticker)
 * [htx](/exchanges/htx.md#watchticker)
 * [hyperliquid](/exchanges/hyperliquid.md#watchticker)
+* [kucoin](/exchanges/kucoin.md#watchticker)
 * [lbank](/exchanges/lbank.md#watchticker)
 * [lighter](/exchanges/lighter.md#watchticker)
 * [mexc](/exchanges/mexc.md#watchticker)
@@ -8948,7 +8865,6 @@ watches a price ticker, a statistical calculation with the information calculate
 * [phemex](/exchanges/phemex.md#watchticker)
 * [toobit](/exchanges/toobit.md#watchticker)
 * [upbit](/exchanges/upbit.md#watchticker)
-* [weex](/exchanges/weex.md#watchticker)
 * [whitebit](/exchanges/whitebit.md#watchticker)
 * [woo](/exchanges/woo.md#watchticker)
 * [woofipro](/exchanges/woofipro.md#watchticker)
@@ -8983,7 +8899,7 @@ watches a price ticker, a statistical calculation with the information calculate
 * [bybit](/exchanges/bybit.md#watchtickers)
 * [bydfi](/exchanges/bydfi.md#watchtickers)
 * [cex](/exchanges/cex.md#watchtickers)
-* [kucoin](/exchanges/kucoin.md#watchtickers)
+* [cexc](/exchanges/cexc.md#watchtickers)
 * [coinbaseexchange](/exchanges/coinbaseexchange.md#watchtickers)
 * [coinex](/exchanges/coinex.md#watchtickers)
 * [cryptocom](/exchanges/cryptocom.md#watchtickers)
@@ -8992,6 +8908,7 @@ watches a price ticker, a statistical calculation with the information calculate
 * [gate](/exchanges/gate.md#watchtickers)
 * [grvt](/exchanges/grvt.md#watchtickers)
 * [hyperliquid](/exchanges/hyperliquid.md#watchtickers)
+* [kucoin](/exchanges/kucoin.md#watchtickers)
 * [lighter](/exchanges/lighter.md#watchtickers)
 * [mexc](/exchanges/mexc.md#watchtickers)
 * [modetrade](/exchanges/modetrade.md#watchtickers)
@@ -9002,7 +8919,6 @@ watches a price ticker, a statistical calculation with the information calculate
 * [phemex](/exchanges/phemex.md#watchtickers)
 * [toobit](/exchanges/toobit.md#watchtickers)
 * [upbit](/exchanges/upbit.md#watchtickers)
-* [weex](/exchanges/weex.md#watchtickers)
 * [whitebit](/exchanges/whitebit.md#watchtickers)
 * [woo](/exchanges/woo.md#watchtickers)
 * [woofipro](/exchanges/woofipro.md#watchtickers)
@@ -9048,7 +8964,7 @@ watches information on multiple trades made in a market
 * [bullish](/exchanges/bullish.md#watchtrades)
 * [bybit](/exchanges/bybit.md#watchtrades)
 * [cex](/exchanges/cex.md#watchtrades)
-* [kucoin](/exchanges/kucoin.md#watchtrades)
+* [cexc](/exchanges/cexc.md#watchtrades)
 * [coinbaseexchange](/exchanges/coinbaseexchange.md#watchtrades)
 * [coincheck](/exchanges/coincheck.md#watchtrades)
 * [coinex](/exchanges/coinex.md#watchtrades)
@@ -9067,6 +8983,7 @@ watches information on multiple trades made in a market
 * [htx](/exchanges/htx.md#watchtrades)
 * [hyperliquid](/exchanges/hyperliquid.md#watchtrades)
 * [independentreserve](/exchanges/independentreserve.md#watchtrades)
+* [kucoin](/exchanges/kucoin.md#watchtrades)
 * [lbank](/exchanges/lbank.md#watchtrades)
 * [lighter](/exchanges/lighter.md#watchtrades)
 * [luno](/exchanges/luno.md#watchtrades)
@@ -9079,7 +8996,6 @@ watches information on multiple trades made in a market
 * [phemex](/exchanges/phemex.md#watchtrades)
 * [toobit](/exchanges/toobit.md#watchtrades)
 * [upbit](/exchanges/upbit.md#watchtrades)
-* [weex](/exchanges/weex.md#watchtrades)
 * [whitebit](/exchanges/whitebit.md#watchtrades)
 * [woo](/exchanges/woo.md#watchtrades)
 * [woofipro](/exchanges/woofipro.md#watchtrades)
@@ -9113,7 +9029,7 @@ get the list of most recent trades for a list of symbols
 * [bitmex](/exchanges/bitmex.md#watchtradesforsymbols)
 * [blofin](/exchanges/blofin.md#watchtradesforsymbols)
 * [bybit](/exchanges/bybit.md#watchtradesforsymbols)
-* [kucoin](/exchanges/kucoin.md#watchtradesforsymbols)
+* [cexc](/exchanges/cexc.md#watchtradesforsymbols)
 * [coinbase](/exchanges/coinbase.md#watchtradesforsymbols)
 * [coinex](/exchanges/coinex.md#watchtradesforsymbols)
 * [cryptocom](/exchanges/cryptocom.md#watchtradesforsymbols)
@@ -9121,11 +9037,11 @@ get the list of most recent trades for a list of symbols
 * [gate](/exchanges/gate.md#watchtradesforsymbols)
 * [gemini](/exchanges/gemini.md#watchtradesforsymbols)
 * [grvt](/exchanges/grvt.md#watchtradesforsymbols)
+* [kucoin](/exchanges/kucoin.md#watchtradesforsymbols)
 * [okx](/exchanges/okx.md#watchtradesforsymbols)
 * [oxfun](/exchanges/oxfun.md#watchtradesforsymbols)
 * [toobit](/exchanges/toobit.md#watchtradesforsymbols)
 * [upbit](/exchanges/upbit.md#watchtradesforsymbols)
-* [weex](/exchanges/weex.md#watchtradesforsymbols)
 
 ---
 
@@ -9135,7 +9051,7 @@ get the list of most recent trades for a list of symbols
 make a withdrawal
 
 **Kind**: instance   
-**Returns**: <code>object</code> - a [transaction structure](https://docs.ccxt.com/?id=transaction-structure)
+**Returns**: <code>object</code> - a [transaction structure](https://docs.ccxt.com/#/?id=transaction-structure)
 
 
 | Param | Type | Required | Description |

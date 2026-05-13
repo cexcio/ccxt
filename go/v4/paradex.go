@@ -15,17 +15,17 @@ func NewParadexCore() *ParadexCore {
     return p
 }
 
-func  (this *ParadexCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *ParadexCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "paradex",
         "name": "Paradex",
-        "countries": []any{},
+        "countries": []interface{}{},
         "version": "v1",
         "rateLimit": 50,
         "certified": false,
         "pro": true,
         "dex": true,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": false,
             "margin": false,
@@ -119,7 +119,7 @@ func  (this *ParadexCore) Describe() any  {
             "transfer": false,
             "withdraw": false,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": 1,
             "3m": 3,
             "5m": 5,
@@ -128,12 +128,12 @@ func  (this *ParadexCore) Describe() any  {
             "1h": 60,
         },
         "hostname": "paradex.trade",
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/user-attachments/assets/84628770-784e-4ec4-a759-ec2fbb2244ea",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "v1": "https://api.prod.{hostname}/v1",
             },
-            "test": map[string]any {
+            "test": map[string]interface{} {
                 "v1": "https://api.testnet.{hostname}/v1",
             },
             "www": "https://www.paradex.trade/",
@@ -141,9 +141,9 @@ func  (this *ParadexCore) Describe() any  {
             "fees": "https://docs.paradex.trade/getting-started/trading-fees",
             "referral": "https://app.paradex.trade/r/ccxt24",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "bbo/{market}": 1,
                     "funding/data": 1,
                     "markets": 1,
@@ -165,8 +165,8 @@ func  (this *ParadexCore) Describe() any  {
                     "vaults/transfers": 1,
                 },
             },
-            "private": map[string]any {
-                "get": map[string]any {
+            "private": map[string]interface{} {
+                "get": map[string]interface{} {
                     "account": 1,
                     "account/info": 1,
                     "account/history": 1,
@@ -193,7 +193,7 @@ func  (this *ParadexCore) Describe() any  {
                     "algo/orders/{algo_id}": 1,
                     "vaults/account-summary": 1,
                 },
-                "post": map[string]any {
+                "post": map[string]interface{} {
                     "account/margin/{market}": 1,
                     "account/profile/max_slippage": 1,
                     "account/profile/referral_code": 1,
@@ -205,10 +205,10 @@ func  (this *ParadexCore) Describe() any  {
                     "algo/orders": 1,
                     "vaults": 1,
                 },
-                "put": map[string]any {
+                "put": map[string]interface{} {
                     "orders/{order_id}": 1,
                 },
-                "delete": map[string]any {
+                "delete": map[string]interface{} {
                     "orders": 1,
                     "orders/by_client_id/{client_id}": 1,
                     "orders/{order_id}": 1,
@@ -216,24 +216,24 @@ func  (this *ParadexCore) Describe() any  {
                 },
             },
         },
-        "fees": map[string]any {
-            "swap": map[string]any {
+        "fees": map[string]interface{} {
+            "swap": map[string]interface{} {
                 "taker": this.ParseNumber("0.0002"),
                 "maker": this.ParseNumber("0.0002"),
             },
-            "spot": map[string]any {
+            "spot": map[string]interface{} {
                 "taker": this.ParseNumber("0.0002"),
                 "maker": this.ParseNumber("0.0002"),
             },
         },
-        "requiredCredentials": map[string]any {
+        "requiredCredentials": map[string]interface{} {
             "apiKey": false,
             "secret": false,
             "walletAddress": true,
             "privateKey": true,
         },
-        "exceptions": map[string]any {
-            "exact": map[string]any {
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {
                 "VALIDATION_ERROR": AuthenticationError,
                 "BINDING_ERROR": OperationRejected,
                 "INTERNAL_ERROR": ExchangeError,
@@ -291,21 +291,21 @@ func  (this *ParadexCore) Describe() any  {
                 "40111": AuthenticationError,
                 "40112": PermissionDenied,
             },
-            "broad": map[string]any {
+            "broad": map[string]interface{} {
                 "missing or malformed jwt": AuthenticationError,
             },
         },
         "precisionMode": TICK_SIZE,
-        "commonCurrencies": map[string]any {},
-        "options": map[string]any {
+        "commonCurrencies": map[string]interface{} {},
+        "options": map[string]interface{} {
             "paradexAccount": nil,
             "broker": "CCXT",
         },
-        "features": map[string]any {
+        "features": map[string]interface{} {
             "spot": nil,
-            "forSwap": map[string]any {
+            "forSwap": map[string]interface{} {
                 "sandbox": true,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": true,
                     "triggerDirection": true,
@@ -313,7 +313,7 @@ func  (this *ParadexCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": false,
                         "PO": true,
@@ -328,27 +328,27 @@ func  (this *ParadexCore) Describe() any  {
                     "iceberg": false,
                 },
                 "createOrders": nil,
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": 100000,
                     "untilDays": 100000,
                     "symbolRequired": false,
                 },
-                "fetchOrder": map[string]any {
+                "fetchOrder": map[string]interface{} {
                     "marginMode": false,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "trigger": false,
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOrders": map[string]any {
+                "fetchOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": 100000,
@@ -358,17 +358,17 @@ func  (this *ParadexCore) Describe() any  {
                     "symbolRequired": false,
                 },
                 "fetchClosedOrders": nil,
-                "fetchOHLCV": map[string]any {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": nil,
                 },
             },
-            "swap": map[string]any {
-                "linear": map[string]any {
+            "swap": map[string]interface{} {
+                "linear": map[string]interface{} {
                     "extends": "forSwap",
                 },
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
@@ -383,12 +383,12 @@ func  (this *ParadexCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func  (this *ParadexCore) FetchTime(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchTime(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetSystemTime(params))
@@ -413,12 +413,12 @@ func  (this *ParadexCore) FetchTime(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [status structure]{@link https://docs.ccxt.com/?id=exchange-status-structure}
  */
-func  (this *ParadexCore) FetchStatus(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchStatus(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetSystemState(params))
@@ -428,9 +428,9 @@ func  (this *ParadexCore) FetchStatus(optionalArgs ...any) <- chan any {
             //         "status": "ok"
             //     }
             //
-            var status any = this.SafeString(response, "status")
+            var status interface{} = this.SafeString(response, "status")
         
-            ch <- map[string]any {
+            ch <- map[string]interface{} {
                 "status": Ternary(IsTrue((IsEqual(status, "ok"))), "ok", "maintenance"),
                 "updated": nil,
                 "eta": nil,
@@ -450,12 +450,12 @@ func  (this *ParadexCore) FetchStatus(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *ParadexCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetMarkets(params))
@@ -493,7 +493,7 @@ func  (this *ParadexCore) FetchMarkets(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "results")
+            var data interface{} = this.SafeList(response, "results")
         
             ch <- this.ParseMarkets(data)
             return nil
@@ -501,7 +501,7 @@ func  (this *ParadexCore) FetchMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ParadexCore) ParseMarket(market any) any  {
+func  (this *ParadexCore) ParseMarket(market interface{}) interface{}  {
     //
     //     {
     //         "symbol": "BODEN-USD-PERP",
@@ -578,34 +578,31 @@ func  (this *ParadexCore) ParseMarket(market any) any  {
     //     ]
     //  }
     //
-    var assetKind any = this.SafeString(market, "asset_kind")
-    var isOptionPerpetual any =     (IsEqual(assetKind, "PERP_OPTION"))
-    var isOptionDelivery any =     (IsEqual(assetKind, "OPTION"))
-    var isOption any = IsTrue(isOptionPerpetual) || IsTrue(isOptionDelivery)
-    var typeVar any = Ternary(IsTrue((isOption)), "option", "swap")
-    var isSwap any =     (IsEqual(typeVar, "swap"))
-    var marketId any = this.SafeString(market, "symbol")
-    var quoteId any = this.SafeString(market, "quote_currency")
-    var baseId any = this.SafeString(market, "base_currency")
-    var quote any = this.SafeCurrencyCode(quoteId)
-    var base any = this.SafeCurrencyCode(baseId)
-    var settleId any = this.SafeString(market, "settlement_currency")
-    var settle any = this.SafeCurrencyCode(settleId)
-    var symbol any = Add(Add(Add(Add(base, "/"), quote), ":"), settle)
-    var expiry any = this.SafeInteger(market, "expiry_at")
-    var optionType any = this.SafeString(market, "option_type")
-    var strikePrice any = this.SafeString(market, "strike_price")
-    var takerFee any = this.ParseNumber("0.0003")
-    var makerFee any = this.ParseNumber("-0.00005")
+    var assetKind interface{} = this.SafeString(market, "asset_kind")
+    var isOption interface{} =     (IsEqual(assetKind, "PERP_OPTION"))
+    var typeVar interface{} = Ternary(IsTrue((isOption)), "option", "swap")
+    var isSwap interface{} =     (IsEqual(typeVar, "swap"))
+    var marketId interface{} = this.SafeString(market, "symbol")
+    var quoteId interface{} = this.SafeString(market, "quote_currency")
+    var baseId interface{} = this.SafeString(market, "base_currency")
+    var quote interface{} = this.SafeCurrencyCode(quoteId)
+    var base interface{} = this.SafeCurrencyCode(baseId)
+    var settleId interface{} = this.SafeString(market, "settlement_currency")
+    var settle interface{} = this.SafeCurrencyCode(settleId)
+    var symbol interface{} = Add(Add(Add(Add(base, "/"), quote), ":"), settle)
+    var expiry interface{} = this.SafeInteger(market, "expiry_at")
+    var optionType interface{} = this.SafeString(market, "option_type")
+    var strikePrice interface{} = this.SafeString(market, "strike_price")
+    var takerFee interface{} = this.ParseNumber("0.0003")
+    var makerFee interface{} = this.ParseNumber("-0.00005")
     if IsTrue(isOption) {
-        var optionTypeSuffix any = Ternary(IsTrue((IsEqual(optionType, "CALL"))), "C", "P")
-        var deliveryValue any = Ternary(IsTrue((IsEqual(expiry, 0))), "", Add(this.Yymmdd(expiry), "-"))
-        symbol = Add(Add(Add(Add(Add(symbol, "-"), deliveryValue), strikePrice), "-"), optionTypeSuffix)
+        var optionTypeSuffix interface{} = Ternary(IsTrue((IsEqual(optionType, "CALL"))), "C", "P")
+        symbol = Add(Add(Add(Add(symbol, "-"), strikePrice), "-"), optionTypeSuffix)
         makerFee = this.ParseNumber("0.0003")
     } else {
         expiry = nil
     }
-    return this.SafeMarketStructure(map[string]any {
+    return this.SafeMarketStructure(map[string]interface{} {
         "id": marketId,
         "symbol": symbol,
         "base": base,
@@ -631,24 +628,24 @@ func  (this *ParadexCore) ParseMarket(market any) any  {
         "expiryDatetime": Ternary(IsTrue((IsEqual(expiry, 0))), nil, this.Iso8601(expiry)),
         "strike": this.ParseNumber(strikePrice),
         "optionType": this.SafeStringLower(market, "option_type"),
-        "precision": map[string]any {
+        "precision": map[string]interface{} {
             "amount": this.SafeNumber(market, "order_size_increment"),
             "price": this.SafeNumber(market, "price_tick_size"),
         },
-        "limits": map[string]any {
-            "leverage": map[string]any {
+        "limits": map[string]interface{} {
+            "leverage": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "amount": map[string]any {
+            "amount": map[string]interface{} {
                 "min": nil,
                 "max": this.SafeNumber(market, "max_order_size"),
             },
-            "price": map[string]any {
+            "price": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "cost": map[string]any {
+            "cost": map[string]interface{} {
                 "min": this.SafeNumber(market, "min_notional"),
                 "max": nil,
             },
@@ -671,9 +668,9 @@ func  (this *ParadexCore) ParseMarket(market any) any  {
  * @param {string} [params.price] "last", "mark", "index", default is "last"
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *ParadexCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -682,24 +679,24 @@ func  (this *ParadexCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan an
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
-            retRes6448 := (<-this.LoadMarkets())
-            PanicOnError(retRes6448)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            retRes6418 := (<-this.LoadMarkets())
+            PanicOnError(retRes6418)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "resolution": this.SafeString(this.Timeframes, timeframe, timeframe),
                 "symbol": GetValue(market, "id"),
             }
-            var now any = this.Milliseconds()
-            var duration any = this.ParseTimeframe(timeframe)
-            var until any = this.SafeInteger2(params, "until", "till", now)
-            var price any = this.SafeString(params, "price")
+            var now interface{} = this.Milliseconds()
+            var duration interface{} = this.ParseTimeframe(timeframe)
+            var until interface{} = this.SafeInteger2(params, "until", "till", now)
+            var price interface{} = this.SafeString(params, "price")
             if IsTrue(!IsEqual(price, nil)) {
                 AddElementToObject(request, "price_kind", price)
             }
-            params = this.Omit(params, []any{"until", "till", "price"})
+            params = this.Omit(params, []interface{}{"until", "till", "price"})
             if IsTrue(!IsEqual(since, nil)) {
                 AddElementToObject(request, "start_at", since)
                 if IsTrue(!IsEqual(limit, nil)) {
@@ -732,7 +729,7 @@ func  (this *ParadexCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan an
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "results", []any{})
+            var data interface{} = this.SafeList(response, "results", []interface{}{})
         
             ch <- this.ParseOHLCVs(data, market, timeframe, since, limit)
             return nil
@@ -740,7 +737,7 @@ func  (this *ParadexCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan an
             }()
             return ch
         }
-func  (this *ParadexCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseOHLCV(ohlcv interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     [
     //         1720071900000,
@@ -753,7 +750,7 @@ func  (this *ParadexCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    return []any{this.SafeInteger(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 5)}
+    return []interface{}{this.SafeInteger(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 5)}
 }
 /**
  * @method
@@ -764,20 +761,20 @@ func  (this *ParadexCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *ParadexCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
-            retRes7238 := (<-this.LoadMarkets())
-            PanicOnError(retRes7238)
+            retRes7208 := (<-this.LoadMarkets())
+            PanicOnError(retRes7208)
             symbols = this.MarketSymbols(symbols)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "market": "ALL",
             }
         
@@ -804,7 +801,7 @@ func  (this *ParadexCore) FetchTickers(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "results", []any{})
+            var data interface{} = this.SafeList(response, "results", []interface{}{})
         
             ch <- this.ParseTickers(data, symbols)
             return nil
@@ -821,18 +818,18 @@ func  (this *ParadexCore) FetchTickers(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *ParadexCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            retRes7648 := (<-this.LoadMarkets())
-            PanicOnError(retRes7648)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            retRes7618 := (<-this.LoadMarkets())
+            PanicOnError(retRes7618)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
         
@@ -859,8 +856,8 @@ func  (this *ParadexCore) FetchTicker(symbol any, optionalArgs ...any) <- chan a
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "results", []any{})
-            var ticker any = this.SafeDict(data, 0, map[string]any {})
+            var data interface{} = this.SafeList(response, "results", []interface{}{})
+            var ticker interface{} = this.SafeDict(data, 0, map[string]interface{} {})
         
             ch <- this.ParseTicker(ticker, market)
             return nil
@@ -868,7 +865,7 @@ func  (this *ParadexCore) FetchTicker(symbol any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *ParadexCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "symbol": "BTC-USD-PERP",
@@ -888,16 +885,16 @@ func  (this *ParadexCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var percentage any = this.SafeString(ticker, "price_change_rate_24h")
+    var percentage interface{} = this.SafeString(ticker, "price_change_rate_24h")
     if IsTrue(!IsEqual(percentage, nil)) {
         percentage = Precise.StringMul(percentage, "100")
     }
-    var last any = this.SafeString(ticker, "last_traded_price")
-    var marketId any = this.SafeString(ticker, "symbol")
+    var last interface{} = this.SafeString(ticker, "last_traded_price")
+    var marketId interface{} = this.SafeString(ticker, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var timestamp any = this.SafeInteger(ticker, "created_at")
-    return this.SafeTicker(map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var timestamp interface{} = this.SafeInteger(ticker, "created_at")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": symbol,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -931,20 +928,20 @@ func  (this *ParadexCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *ParadexCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
-            retRes8598 := (<-this.LoadMarkets())
-            PanicOnError(retRes8598)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            retRes8568 := (<-this.LoadMarkets())
+            PanicOnError(retRes8568)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
         
@@ -972,8 +969,8 @@ func  (this *ParadexCore) FetchOrderBook(symbol any, optionalArgs ...any) <- cha
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "depth", limit)
             }
-            var timestamp any = this.SafeInteger(response, "last_updated_at")
-            var orderbook any = this.ParseOrderBook(response, GetValue(market, "symbol"), timestamp)
+            var timestamp interface{} = this.SafeInteger(response, "last_updated_at")
+            var orderbook interface{} = this.ParseOrderBook(response, GetValue(market, "symbol"), timestamp)
             AddElementToObject(orderbook, "nonce", this.SafeInteger(response, "seq_no"))
         
             ch <- orderbook
@@ -995,33 +992,33 @@ func  (this *ParadexCore) FetchOrderBook(symbol any, optionalArgs ...any) <- cha
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *ParadexCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
-            retRes9058 := (<-this.LoadMarkets())
-            PanicOnError(retRes9058)
-            var paginate any = false
+            retRes9028 := (<-this.LoadMarkets())
+            PanicOnError(retRes9028)
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchTrades", "paginate");
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
             if IsTrue(paginate) {
         
-                    retRes90919 :=  (<-this.FetchPaginatedCallCursor("fetchTrades", symbol, since, limit, params, "next", "cursor", nil, 100))
-                    PanicOnError(retRes90919)
-                    ch <- retRes90919
+                    retRes90619 :=  (<-this.FetchPaginatedCallCursor("fetchTrades", symbol, since, limit, params, "next", "cursor", nil, 100))
+                    PanicOnError(retRes90619)
+                    ch <- retRes90619
                     return nil
             }
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -1053,7 +1050,7 @@ func  (this *ParadexCore) FetchTrades(symbol any, optionalArgs ...any) <- chan a
             //         ]
             //     }
             //
-            var trades any = this.SafeList(response, "results", []any{})
+            var trades interface{} = this.SafeList(response, "results", []interface{}{})
             for i := 0; IsLessThan(i, GetArrayLength(trades)); i++ {
                 AddElementToObject(GetValue(trades, i), "next", this.SafeString(response, "next"))
             }
@@ -1064,7 +1061,7 @@ func  (this *ParadexCore) FetchTrades(symbol any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *ParadexCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTrades (public)
     //
@@ -1098,19 +1095,19 @@ func  (this *ParadexCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(trade, "market")
+    var marketId interface{} = this.SafeString(trade, "market")
     market = this.SafeMarket(marketId, market)
-    var id any = this.SafeString(trade, "id")
-    var timestamp any = this.SafeInteger(trade, "created_at")
-    var priceString any = this.SafeString(trade, "price")
-    var amountString any = this.SafeString(trade, "size")
-    var side any = this.SafeStringLower(trade, "side")
-    var liability any = this.SafeStringLower(trade, "liquidity", "taker")
-    var isTaker any = IsEqual(liability, "taker")
-    var takerOrMaker any = Ternary(IsTrue((isTaker)), "taker", "maker")
-    var currencyId any = this.SafeString(trade, "fee_currency")
-    var code any = this.SafeCurrencyCode(currencyId)
-    return this.SafeTrade(map[string]any {
+    var id interface{} = this.SafeString(trade, "id")
+    var timestamp interface{} = this.SafeInteger(trade, "created_at")
+    var priceString interface{} = this.SafeString(trade, "price")
+    var amountString interface{} = this.SafeString(trade, "size")
+    var side interface{} = this.SafeStringLower(trade, "side")
+    var liability interface{} = this.SafeStringLower(trade, "liquidity", "taker")
+    var isTaker interface{} = IsEqual(liability, "taker")
+    var takerOrMaker interface{} = Ternary(IsTrue((isTaker)), "taker", "maker")
+    var currencyId interface{} = this.SafeString(trade, "fee_currency")
+    var code interface{} = this.SafeCurrencyCode(currencyId)
+    return this.SafeTrade(map[string]interface{} {
         "info": trade,
         "id": id,
         "order": this.SafeString(trade, "order_id"),
@@ -1123,7 +1120,7 @@ func  (this *ParadexCore) ParseTrade(trade any, optionalArgs ...any) any  {
         "price": priceString,
         "amount": amountString,
         "cost": nil,
-        "fee": map[string]any {
+        "fee": map[string]interface{} {
             "cost": this.SafeString(trade, "fee"),
             "currency": code,
             "rate": nil,
@@ -1139,21 +1136,21 @@ func  (this *ParadexCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] exchange specific parameters
  * @returns {object} an open interest structure{@link https://docs.ccxt.com/?id=open-interest-structure}
  */
-func  (this *ParadexCore) FetchOpenInterest(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchOpenInterest(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            retRes10228 := (<-this.LoadMarkets())
-            PanicOnError(retRes10228)
-            var market any = this.Market(symbol)
+            retRes10198 := (<-this.LoadMarkets())
+            PanicOnError(retRes10198)
+            var market interface{} = this.Market(symbol)
             if !IsTrue(GetValue(market, "contract")) {
                 panic(BadRequest(Add(this.Id, " fetchOpenInterest() supports contract markets only")))
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
         
@@ -1180,8 +1177,8 @@ func  (this *ParadexCore) FetchOpenInterest(symbol any, optionalArgs ...any) <- 
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "results", []any{})
-            var interest any = this.SafeDict(data, 0, map[string]any {})
+            var data interface{} = this.SafeList(response, "results", []interface{}{})
+            var interest interface{} = this.SafeDict(data, 0, map[string]interface{} {})
         
             ch <- this.ParseOpenInterest(interest, market)
             return nil
@@ -1189,7 +1186,7 @@ func  (this *ParadexCore) FetchOpenInterest(symbol any, optionalArgs ...any) <- 
             }()
             return ch
         }
-func  (this *ParadexCore) ParseOpenInterest(interest any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseOpenInterest(interest interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "symbol": "BTC-USD-PERP",
@@ -1209,11 +1206,11 @@ func  (this *ParadexCore) ParseOpenInterest(interest any, optionalArgs ...any) a
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeInteger(interest, "created_at")
-    var marketId any = this.SafeString(interest, "symbol")
+    var timestamp interface{} = this.SafeInteger(interest, "created_at")
+    var marketId interface{} = this.SafeString(interest, "symbol")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    return this.SafeOpenInterest(map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    return this.SafeOpenInterest(map[string]interface{} {
         "symbol": symbol,
         "openInterestAmount": this.SafeString(interest, "open_interest"),
         "openInterestValue": nil,
@@ -1222,25 +1219,25 @@ func  (this *ParadexCore) ParseOpenInterest(interest any, optionalArgs ...any) a
         "info": interest,
     }, market)
 }
-func  (this *ParadexCore) HashMessage(message any) any  {
+func  (this *ParadexCore) HashMessage(message interface{}) interface{}  {
     return Add("0x", this.Hash(message, keccak, "hex"))
 }
-func  (this *ParadexCore) SignHash(hash any, privateKey any) any  {
-    var signature any = Ecdsa(Slice(hash, OpNeg(64), nil), Slice(privateKey, OpNeg(64), nil), secp256k1, nil)
-    var r any = GetValue(signature, "r")
-    var s any = GetValue(signature, "s")
-    var v any = this.IntToBase16(this.Sum(27, GetValue(signature, "v")))
+func  (this *ParadexCore) SignHash(hash interface{}, privateKey interface{}) interface{}  {
+    var signature interface{} = Ecdsa(Slice(hash, OpNeg(64), nil), Slice(privateKey, OpNeg(64), nil), secp256k1, nil)
+    var r interface{} = GetValue(signature, "r")
+    var s interface{} = GetValue(signature, "s")
+    var v interface{} = this.IntToBase16(this.Sum(27, GetValue(signature, "v")))
     return Add(Add(Add("0x", PadStart(r, 64, "0")), PadStart(s, 64, "0")), v)
 }
-func  (this *ParadexCore) SignMessage(message any, privateKey any) any  {
+func  (this *ParadexCore) SignMessage(message interface{}, privateKey interface{}) interface{}  {
     return this.SignHash(this.HashMessage(message), Slice(privateKey, OpNeg(64), nil))
 }
-func  (this *ParadexCore) GetSystemConfig() <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) GetSystemConfig() <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                var cachedConfig any = this.SafeDict(this.Options, "systemConfig")
+                var cachedConfig interface{} = this.SafeDict(this.Options, "systemConfig")
         if IsTrue(!IsEqual(cachedConfig, nil)) {
         
             ch <- cachedConfig
@@ -1285,9 +1282,9 @@ func  (this *ParadexCore) GetSystemConfig() <- chan any {
             }()
             return ch
         }
-func  (this *ParadexCore) PrepareParadexDomain(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) PrepareParadexDomain(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     l1 := GetArg(optionalArgs, 0, false)
@@ -1296,7 +1293,7 @@ func  (this *ParadexCore) PrepareParadexDomain(optionalArgs ...any) <- chan any 
             systemConfig:= (<-this.GetSystemConfig())
             PanicOnError(systemConfig)
             if IsTrue(IsEqual(l1, true)) {
-                var l1D any = map[string]any {
+                var l1D interface{} = map[string]interface{} {
                     "name": "Paradex",
                     "chainId": GetValue(systemConfig, "l1_chain_id"),
                     "version": "1",
@@ -1305,7 +1302,7 @@ func  (this *ParadexCore) PrepareParadexDomain(optionalArgs ...any) <- chan any 
                 ch <- l1D
                 return nil
             }
-            var domain any = map[string]any {
+            var domain interface{} = map[string]interface{} {
                 "name": "Paradex",
                 "chainId": GetValue(systemConfig, "starknet_chain_id"),
                 "version": 1,
@@ -1317,12 +1314,12 @@ func  (this *ParadexCore) PrepareParadexDomain(optionalArgs ...any) <- chan any 
             }()
             return ch
         }
-func  (this *ParadexCore) RetrieveAccount() <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) RetrieveAccount() <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                var cachedAccount any = this.SafeDict(this.Options, "paradexAccount")
+                var cachedAccount interface{} = this.SafeDict(this.Options, "paradexAccount")
         if IsTrue(!IsEqual(cachedAccount, nil)) {
         
             ch <- cachedAccount
@@ -1335,18 +1332,18 @@ func  (this *ParadexCore) RetrieveAccount() <- chan any {
         
         domain:= (<-this.PrepareParadexDomain(true))
         PanicOnError(domain)
-        var messageTypes any = map[string]any {
-            "Constant": []any{map[string]any {
+        var messageTypes interface{} = map[string]interface{} {
+            "Constant": []interface{}{map[string]interface{} {
             "name": "action",
             "type": "string",
         }},
         }
-        var message any = map[string]any {
+        var message interface{} = map[string]interface{} {
             "action": "STARK Key",
         }
-        var msg any = this.EthEncodeStructuredData(domain, messageTypes, message)
-        var signature any = this.SignMessage(msg, this.PrivateKey)
-        var account any = this.RetrieveStarkAccount(signature, GetValue(systemConfig, "paraclear_account_hash"), GetValue(systemConfig, "paraclear_account_proxy_hash"))
+        var msg interface{} = this.EthEncodeStructuredData(domain, messageTypes, message)
+        var signature interface{} = this.SignMessage(msg, this.PrivateKey)
+        var account interface{} = this.RetrieveStarkAccount(signature, GetValue(systemConfig, "paraclear_account_hash"), GetValue(systemConfig, "paraclear_account_proxy_hash"))
         AddElementToObject(this.Options, "paradexAccount", account)
         
         ch <- account
@@ -1355,30 +1352,30 @@ func  (this *ParadexCore) RetrieveAccount() <- chan any {
             }()
             return ch
         }
-func  (this *ParadexCore) Onboarding(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) Onboarding(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             account:= (<-this.RetrieveAccount())
             PanicOnError(account)
-            var req any = map[string]any {
+            var req interface{} = map[string]interface{} {
                 "action": "Onboarding",
             }
         
             domain:= (<-this.PrepareParadexDomain())
             PanicOnError(domain)
-            var messageTypes any = map[string]any {
-                "Constant": []any{map[string]any {
+            var messageTypes interface{} = map[string]interface{} {
+                "Constant": []interface{}{map[string]interface{} {
             "name": "action",
             "type": "felt",
         }},
             }
-            var msg any = this.StarknetEncodeStructuredData(domain, messageTypes, req, GetValue(account, "address"))
-            var signature any = this.StarknetSign(msg, GetValue(account, "privateKey"))
+            var msg interface{} = this.StarknetEncodeStructuredData(domain, messageTypes, req, GetValue(account, "address"))
+            var signature interface{} = this.StarknetSign(msg, GetValue(account, "privateKey"))
             AddElementToObject(params, "signature", signature)
             AddElementToObject(params, "account", GetValue(account, "address"))
             AddElementToObject(params, "public_key", GetValue(account, "publicKey"))
@@ -1392,17 +1389,17 @@ func  (this *ParadexCore) Onboarding(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ParadexCore) AuthenticateRest(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) AuthenticateRest(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var cachedToken any = this.SafeString(this.Options, "authToken")
-            var now any = this.Nonce()
+            var cachedToken interface{} = this.SafeString(this.Options, "authToken")
+            var now interface{} = this.Nonce()
             if IsTrue(!IsEqual(cachedToken, nil)) {
-                var cachedExpires any = this.SafeInteger(this.Options, "expires")
+                var cachedExpires interface{} = this.SafeInteger(this.Options, "expires")
                 if IsTrue(IsLessThan(now, cachedExpires)) {
         
                     ch <- cachedToken
@@ -1413,8 +1410,8 @@ func  (this *ParadexCore) AuthenticateRest(optionalArgs ...any) <- chan any {
             account:= (<-this.RetrieveAccount())
             PanicOnError(account)
             // https://docs.paradex.trade/api-reference/general-information/authentication
-            var expires any = Add(now, 180)
-            var req any = map[string]any {
+            var expires interface{} = Add(now, 180)
+            var req interface{} = map[string]interface{} {
                 "method": "POST",
                 "path": "/v1/auth",
                 "body": "",
@@ -1424,26 +1421,26 @@ func  (this *ParadexCore) AuthenticateRest(optionalArgs ...any) <- chan any {
         
             domain:= (<-this.PrepareParadexDomain())
             PanicOnError(domain)
-            var messageTypes any = map[string]any {
-                "Request": []any{map[string]any {
+            var messageTypes interface{} = map[string]interface{} {
+                "Request": []interface{}{map[string]interface{} {
             "name": "method",
             "type": "felt",
-        }, map[string]any {
+        }, map[string]interface{} {
             "name": "path",
             "type": "felt",
-        }, map[string]any {
+        }, map[string]interface{} {
             "name": "body",
             "type": "felt",
-        }, map[string]any {
+        }, map[string]interface{} {
             "name": "timestamp",
             "type": "felt",
-        }, map[string]any {
+        }, map[string]interface{} {
             "name": "expiration",
             "type": "felt",
         }},
             }
-            var msg any = this.StarknetEncodeStructuredData(domain, messageTypes, req, GetValue(account, "address"))
-            var signature any = this.StarknetSign(msg, GetValue(account, "privateKey"))
+            var msg interface{} = this.StarknetEncodeStructuredData(domain, messageTypes, req, GetValue(account, "address"))
+            var signature interface{} = this.StarknetSign(msg, GetValue(account, "privateKey"))
             AddElementToObject(params, "signature", signature)
             AddElementToObject(params, "account", GetValue(account, "address"))
             AddElementToObject(params, "timestamp", GetValue(req, "timestamp"))
@@ -1456,7 +1453,7 @@ func  (this *ParadexCore) AuthenticateRest(optionalArgs ...any) <- chan any {
             //     jwt_token: "ooooccxtooootoooootheoooomoonooooo"
             // }
             //
-            var token any = this.SafeString(response, "jwt_token")
+            var token interface{} = this.SafeString(response, "jwt_token")
             AddElementToObject(this.Options, "authToken", token)
             AddElementToObject(this.Options, "expires", expires)
         
@@ -1466,7 +1463,7 @@ func  (this *ParadexCore) AuthenticateRest(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ParadexCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // {
     //     "account": "0x4638e3041366aa71720be63e32e53e1223316c7f0d56f7aa617542ed1e7512x",
@@ -1497,17 +1494,17 @@ func  (this *ParadexCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeInteger(order, "created_at")
-    var orderId any = this.SafeString(order, "id")
-    var clientOrderId any = this.OmitZero(this.SafeString(order, "client_id"))
-    var marketId any = this.SafeString(order, "market")
+    var timestamp interface{} = this.SafeInteger(order, "created_at")
+    var orderId interface{} = this.SafeString(order, "id")
+    var clientOrderId interface{} = this.OmitZero(this.SafeString(order, "client_id"))
+    var marketId interface{} = this.SafeString(order, "market")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var price any = this.SafeString(order, "price")
-    var amount any = this.SafeString(order, "size")
-    var orderType any = this.SafeString(order, "type")
-    var cancelReason any = this.SafeString(order, "cancel_reason")
-    var status any = this.SafeString(order, "status")
+    var symbol interface{} = GetValue(market, "symbol")
+    var price interface{} = this.SafeString(order, "price")
+    var amount interface{} = this.SafeString(order, "size")
+    var orderType interface{} = this.SafeString(order, "type")
+    var cancelReason interface{} = this.SafeString(order, "cancel_reason")
+    var status interface{} = this.SafeString(order, "status")
     if IsTrue(!IsEqual(cancelReason, nil)) {
         if IsTrue(IsTrue(IsEqual(cancelReason, "NOT_ENOUGH_MARGIN")) || IsTrue(IsEqual(cancelReason, "ORDER_EXCEEDS_POSITION_LIMIT"))) {
             status = "rejected"
@@ -1515,16 +1512,16 @@ func  (this *ParadexCore) ParseOrder(order any, optionalArgs ...any) any  {
             status = "canceled"
         }
     }
-    var side any = this.SafeStringLower(order, "side")
-    var average any = this.OmitZero(this.SafeString(order, "avg_fill_price"))
-    var remaining any = this.OmitZero(this.SafeString(order, "remaining_size"))
-    var lastUpdateTimestamp any = this.SafeInteger(order, "last_updated_at")
-    var flags any = this.SafeList(order, "flags", []any{})
-    var reduceOnly any = nil
+    var side interface{} = this.SafeStringLower(order, "side")
+    var average interface{} = this.OmitZero(this.SafeString(order, "avg_fill_price"))
+    var remaining interface{} = this.OmitZero(this.SafeString(order, "remaining_size"))
+    var lastUpdateTimestamp interface{} = this.SafeInteger(order, "last_updated_at")
+    var flags interface{} = this.SafeList(order, "flags", []interface{}{})
+    var reduceOnly interface{} = nil
     if IsTrue(InOp(flags, "REDUCE_ONLY")) {
         reduceOnly = true
     }
-    return this.SafeOrder(map[string]any {
+    return this.SafeOrder(map[string]interface{} {
         "id": orderId,
         "clientOrderId": clientOrderId,
         "timestamp": timestamp,
@@ -1548,24 +1545,24 @@ func  (this *ParadexCore) ParseOrder(order any, optionalArgs ...any) any  {
         "remaining": remaining,
         "cost": nil,
         "trades": nil,
-        "fee": map[string]any {
+        "fee": map[string]interface{} {
             "cost": nil,
             "currency": nil,
         },
         "info": order,
     }, market)
 }
-func  (this *ParadexCore) ParseTimeInForce(timeInForce any) any  {
-    var timeInForces any = map[string]any {
+func  (this *ParadexCore) ParseTimeInForce(timeInForce interface{}) interface{}  {
+    var timeInForces interface{} = map[string]interface{} {
         "IOC": "IOC",
         "GTC": "GTC",
         "POST_ONLY": "PO",
     }
     return this.SafeString(timeInForces, timeInForce, nil)
 }
-func  (this *ParadexCore) ParseOrderStatus(status any) any  {
+func  (this *ParadexCore) ParseOrderStatus(status interface{}) interface{}  {
     if IsTrue(!IsEqual(status, nil)) {
-        var statuses any = map[string]any {
+        var statuses interface{} = map[string]interface{} {
             "NEW": "open",
             "UNTRIGGERED": "open",
             "OPEN": "open",
@@ -1575,8 +1572,8 @@ func  (this *ParadexCore) ParseOrderStatus(status any) any  {
     }
     return status
 }
-func  (this *ParadexCore) ParseOrderType(typeVar any) any  {
-    var types any = map[string]any {
+func  (this *ParadexCore) ParseOrderType(typeVar interface{}) interface{}  {
+    var types interface{} = map[string]interface{} {
         "LIMIT": "limit",
         "MARKET": "market",
         "STOP_LIMIT": "limit",
@@ -1584,7 +1581,7 @@ func  (this *ParadexCore) ParseOrderType(typeVar any) any  {
     }
     return this.SafeStringLower(types, typeVar, typeVar)
 }
-func  (this *ParadexCore) ScaleNumber(num any) any  {
+func  (this *ParadexCore) ScaleNumber(num interface{}) interface{}  {
     return Precise.StringMul(num, "100000000")
 }
 /**
@@ -1608,39 +1605,39 @@ func  (this *ParadexCore) ScaleNumber(num any) any  {
  * @param {string} [params.clientOrderId] a unique id for the order
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ParadexCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
-            retRes14018 := (<-this.AuthenticateRest())
-            PanicOnError(retRes14018)
+            retRes13988 := (<-this.AuthenticateRest())
+            PanicOnError(retRes13988)
         
-            retRes14028 := (<-this.LoadMarkets())
-            PanicOnError(retRes14028)
-            var market any = this.Market(symbol)
-            var reduceOnly any = this.SafeBool2(params, "reduceOnly", "reduce_only")
-            var orderType any = ToUpper(typeVar)
-            var orderSide any = ToUpper(side)
-            var request any = map[string]any {
+            retRes13998 := (<-this.LoadMarkets())
+            PanicOnError(retRes13998)
+            var market interface{} = this.Market(symbol)
+            var reduceOnly interface{} = this.SafeBool2(params, "reduceOnly", "reduce_only")
+            var orderType interface{} = ToUpper(typeVar)
+            var orderSide interface{} = ToUpper(side)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
                 "side": orderSide,
                 "type": orderType,
             }
-            var triggerPrice any = this.SafeString2(params, "triggerPrice", "stopPrice")
-            var stopLossPrice any = this.SafeString(params, "stopLossPrice")
-            var takeProfitPrice any = this.SafeString(params, "takeProfitPrice")
-            var isMarket any = IsEqual(orderType, "MARKET")
-            var isTakeProfitOrder any =     (!IsEqual(takeProfitPrice, nil))
-            var isStopLossOrder any =     (!IsEqual(stopLossPrice, nil))
-            var isStopOrder any = IsTrue(IsTrue((!IsEqual(triggerPrice, nil))) || IsTrue(isTakeProfitOrder)) || IsTrue(isStopLossOrder)
-            var timeInForce any = this.SafeStringUpper(params, "timeInForce")
-            var postOnly any = this.IsPostOnly(isMarket, nil, params)
+            var triggerPrice interface{} = this.SafeString2(params, "triggerPrice", "stopPrice")
+            var stopLossPrice interface{} = this.SafeString(params, "stopLossPrice")
+            var takeProfitPrice interface{} = this.SafeString(params, "takeProfitPrice")
+            var isMarket interface{} = IsEqual(orderType, "MARKET")
+            var isTakeProfitOrder interface{} =     (!IsEqual(takeProfitPrice, nil))
+            var isStopLossOrder interface{} =     (!IsEqual(stopLossPrice, nil))
+            var isStopOrder interface{} = IsTrue(IsTrue((!IsEqual(triggerPrice, nil))) || IsTrue(isTakeProfitOrder)) || IsTrue(isStopLossOrder)
+            var timeInForce interface{} = this.SafeStringUpper(params, "timeInForce")
+            var postOnly interface{} = this.IsPostOnly(isMarket, nil, params)
             if !IsTrue(isMarket) {
                 if IsTrue(postOnly) {
                     AddElementToObject(request, "instruction", "POST_ONLY")
@@ -1651,12 +1648,12 @@ func  (this *ParadexCore) CreateOrder(symbol any, typeVar any, side any, amount 
             if IsTrue(!IsEqual(price, nil)) {
                 AddElementToObject(request, "price", this.PriceToPrecision(symbol, price))
             }
-            var clientOrderId any = this.SafeStringN(params, []any{"clOrdID", "clientOrderId", "client_order_id"})
+            var clientOrderId interface{} = this.SafeStringN(params, []interface{}{"clOrdID", "clientOrderId", "client_order_id"})
             if IsTrue(!IsEqual(clientOrderId, nil)) {
                 AddElementToObject(request, "client_id", clientOrderId)
             }
-            var sizeString any = "0"
-            var stopPrice any = nil
+            var sizeString interface{} = "0"
+            var stopPrice interface{} = nil
             if IsTrue(isStopOrder) {
                 // flags: Reduce_Only must be provided for TPSL orders.
                 if IsTrue(isMarket) {
@@ -1696,14 +1693,14 @@ func  (this *ParadexCore) CreateOrder(symbol any, typeVar any, side any, amount 
             }
             AddElementToObject(request, "size", sizeString)
             if IsTrue(reduceOnly) {
-                AddElementToObject(request, "flags", []any{"REDUCE_ONLY"})
+                AddElementToObject(request, "flags", []interface{}{"REDUCE_ONLY"})
             }
-            params = this.Omit(params, []any{"reduceOnly", "reduce_only", "clOrdID", "clientOrderId", "client_order_id", "postOnly", "timeInForce", "stopPrice", "triggerPrice", "stopLossPrice", "takeProfitPrice"})
+            params = this.Omit(params, []interface{}{"reduceOnly", "reduce_only", "clOrdID", "clientOrderId", "client_order_id", "postOnly", "timeInForce", "stopPrice", "triggerPrice", "stopLossPrice", "takeProfitPrice"})
         
             account:= (<-this.RetrieveAccount())
             PanicOnError(account)
-            var now any = this.Nonce()
-            var orderReq any = map[string]any {
+            var now interface{} = this.Nonce()
+            var orderReq interface{} = map[string]interface{} {
                 "timestamp": Multiply(now, 1000),
                 "market": this.StringToBase16(GetValue(request, "market")),
                 "side": Ternary(IsTrue((IsEqual(orderSide, "BUY"))), "1", "2"),
@@ -1714,29 +1711,29 @@ func  (this *ParadexCore) CreateOrder(symbol any, typeVar any, side any, amount 
         
             domain:= (<-this.PrepareParadexDomain())
             PanicOnError(domain)
-            var messageTypes any = map[string]any {
-                "Order": []any{map[string]any {
+            var messageTypes interface{} = map[string]interface{} {
+                "Order": []interface{}{map[string]interface{} {
             "name": "timestamp",
             "type": "felt",
-        }, map[string]any {
+        }, map[string]interface{} {
             "name": "market",
             "type": "felt",
-        }, map[string]any {
+        }, map[string]interface{} {
             "name": "side",
             "type": "felt",
-        }, map[string]any {
+        }, map[string]interface{} {
             "name": "orderType",
             "type": "felt",
-        }, map[string]any {
+        }, map[string]interface{} {
             "name": "size",
             "type": "felt",
-        }, map[string]any {
+        }, map[string]interface{} {
             "name": "price",
             "type": "felt",
         }},
             }
-            var msg any = this.StarknetEncodeStructuredData(domain, messageTypes, orderReq, GetValue(account, "address"))
-            var signature any = this.StarknetSign(msg, GetValue(account, "privateKey"))
+            var msg interface{} = this.StarknetEncodeStructuredData(domain, messageTypes, orderReq, GetValue(account, "address"))
+            var signature interface{} = this.StarknetSign(msg, GetValue(account, "privateKey"))
             AddElementToObject(request, "signature", signature)
             AddElementToObject(request, "signature_timestamp", GetValue(orderReq, "timestamp"))
         
@@ -1770,7 +1767,7 @@ func  (this *ParadexCore) CreateOrder(symbol any, typeVar any, side any, amount 
             //     "type": "MARKET"
             // }
             //
-            var order any = this.ParseOrder(response, market)
+            var order interface{} = this.ParseOrder(response, market)
         
             ch <- order
             return nil
@@ -1790,24 +1787,24 @@ func  (this *ParadexCore) CreateOrder(symbol any, typeVar any, side any, amount 
  * @param {string} [params.clientOrderId] a unique id for the order
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ParadexCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
-            retRes15528 := (<-this.AuthenticateRest())
-            PanicOnError(retRes15528)
+            retRes15498 := (<-this.AuthenticateRest())
+            PanicOnError(retRes15498)
         
-            retRes15538 := (<-this.LoadMarkets())
-            PanicOnError(retRes15538)
-            var request any = map[string]any {}
-            var clientOrderId any = this.SafeStringN(params, []any{"clOrdID", "clientOrderId", "client_order_id"})
-            var response any = nil
+            retRes15508 := (<-this.LoadMarkets())
+            PanicOnError(retRes15508)
+            var request interface{} = map[string]interface{} {}
+            var clientOrderId interface{} = this.SafeStringN(params, []interface{}{"clOrdID", "clientOrderId", "client_order_id"})
+            var response interface{} = nil
             if IsTrue(!IsEqual(clientOrderId, nil)) {
                 AddElementToObject(request, "client_id", clientOrderId)
                 
@@ -1838,26 +1835,26 @@ func  (this *ParadexCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ParadexCore) CancelAllOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) CancelAllOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " cancelAllOrders() requires a symbol argument")))
             }
         
-            retRes15838 := (<-this.AuthenticateRest())
-            PanicOnError(retRes15838)
+            retRes15808 := (<-this.AuthenticateRest())
+            PanicOnError(retRes15808)
         
-            retRes15848 := (<-this.LoadMarkets())
-            PanicOnError(retRes15848)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            retRes15818 := (<-this.LoadMarkets())
+            PanicOnError(retRes15818)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
         
@@ -1867,7 +1864,7 @@ func  (this *ParadexCore) CancelAllOrders(optionalArgs ...any) <- chan any {
                 //
             // if success, no response...
             //
-        ch <- []any{this.SafeOrder(map[string]any {
+        ch <- []interface{}{this.SafeOrder(map[string]interface{} {
             "info": response,
         })}
             return nil
@@ -1887,25 +1884,25 @@ func  (this *ParadexCore) CancelAllOrders(optionalArgs ...any) <- chan any {
  * @param {string} [params.clientOrderId] a unique id for the order
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ParadexCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
-            retRes16098 := (<-this.AuthenticateRest())
-            PanicOnError(retRes16098)
+            retRes16068 := (<-this.AuthenticateRest())
+            PanicOnError(retRes16068)
         
-            retRes16108 := (<-this.LoadMarkets())
-            PanicOnError(retRes16108)
-            var request any = map[string]any {}
-            var clientOrderId any = this.SafeStringN(params, []any{"clOrdID", "clientOrderId", "client_order_id"})
-            params = this.Omit(params, []any{"clOrdID", "clientOrderId", "client_order_id"})
-            var response any = nil
+            retRes16078 := (<-this.LoadMarkets())
+            PanicOnError(retRes16078)
+            var request interface{} = map[string]interface{} {}
+            var clientOrderId interface{} = this.SafeStringN(params, []interface{}{"clOrdID", "clientOrderId", "client_order_id"})
+            params = this.Omit(params, []interface{}{"clOrdID", "clientOrderId", "client_order_id"})
+            var response interface{} = nil
             if IsTrue(!IsEqual(clientOrderId, nil)) {
                 AddElementToObject(request, "client_id", clientOrderId)
                 
@@ -1964,9 +1961,9 @@ func  (this *ParadexCore) FetchOrder(id any, optionalArgs ...any) <- chan any {
  * @param {int} params.until timestamp in ms of the latest order to fetch
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ParadexCore) FetchOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1975,27 +1972,27 @@ func  (this *ParadexCore) FetchOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
-            retRes16668 := (<-this.AuthenticateRest())
-            PanicOnError(retRes16668)
+            retRes16638 := (<-this.AuthenticateRest())
+            PanicOnError(retRes16638)
         
-            retRes16678 := (<-this.LoadMarkets())
-            PanicOnError(retRes16678)
-            var paginate any = false
+            retRes16648 := (<-this.LoadMarkets())
+            PanicOnError(retRes16648)
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchOrders", "paginate");
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
             if IsTrue(paginate) {
         
-                    retRes167119 :=  (<-this.FetchPaginatedCallCursor("fetchOrders", symbol, since, limit, params, "next", "cursor", nil, 50))
-                    PanicOnError(retRes167119)
-                    ch <- retRes167119
+                    retRes166819 :=  (<-this.FetchPaginatedCallCursor("fetchOrders", symbol, since, limit, params, "next", "cursor", nil, 50))
+                    PanicOnError(retRes166819)
+                    ch <- retRes166819
                     return nil
             }
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "market", GetValue(market, "id"))
@@ -2046,11 +2043,11 @@ func  (this *ParadexCore) FetchOrders(optionalArgs ...any) <- chan any {
             //     ]
             //   }
             //
-            var orders any = this.SafeList(response, "results", []any{})
-            var paginationCursor any = this.SafeString(response, "next")
-            var ordersLength any =     GetArrayLength(orders)
+            var orders interface{} = this.SafeList(response, "results", []interface{}{})
+            var paginationCursor interface{} = this.SafeString(response, "next")
+            var ordersLength interface{} =     GetArrayLength(orders)
             if IsTrue(IsTrue((!IsEqual(paginationCursor, nil))) && IsTrue((IsGreaterThan(ordersLength, 0)))) {
-                var first any = GetValue(orders, 0)
+                var first interface{} = GetValue(orders, 0)
                 AddElementToObject(first, "next", paginationCursor)
                 AddElementToObject(orders, 0, first)
             }
@@ -2072,9 +2069,9 @@ func  (this *ParadexCore) FetchOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *ParadexCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2083,16 +2080,16 @@ func  (this *ParadexCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
-            retRes17448 := (<-this.AuthenticateRest())
-            PanicOnError(retRes17448)
+            retRes17418 := (<-this.AuthenticateRest())
+            PanicOnError(retRes17418)
         
-            retRes17458 := (<-this.LoadMarkets())
-            PanicOnError(retRes17458)
-            var request any = map[string]any {}
-            var market any = nil
+            retRes17428 := (<-this.LoadMarkets())
+            PanicOnError(retRes17428)
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "market", GetValue(market, "id"))
@@ -2132,7 +2129,7 @@ func  (this *ParadexCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             //     ]
             //   }
             //
-            var orders any = this.SafeList(response, "results", []any{})
+            var orders interface{} = this.SafeList(response, "results", []interface{}{})
         
             ch <- this.ParseOrders(orders, market, since, limit)
             return nil
@@ -2148,19 +2145,19 @@ func  (this *ParadexCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *ParadexCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            retRes17988 := (<-this.AuthenticateRest())
-            PanicOnError(retRes17988)
+            retRes17958 := (<-this.AuthenticateRest())
+            PanicOnError(retRes17958)
         
-            retRes17998 := (<-this.LoadMarkets())
-            PanicOnError(retRes17998)
+            retRes17968 := (<-this.LoadMarkets())
+            PanicOnError(retRes17968)
         
             response:= (<-this.PrivateGetBalance())
             PanicOnError(response)
@@ -2175,7 +2172,7 @@ func  (this *ParadexCore) FetchBalance(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "results", []any{})
+            var data interface{} = this.SafeList(response, "results", []interface{}{})
         
             ch <- this.ParseBalance(data)
             return nil
@@ -2183,15 +2180,15 @@ func  (this *ParadexCore) FetchBalance(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ParadexCore) ParseBalance(response any) any  {
-    var result any = map[string]any {
+func  (this *ParadexCore) ParseBalance(response interface{}) interface{}  {
+    var result interface{} = map[string]interface{} {
         "info": response,
     }
     for i := 0; IsLessThan(i, GetArrayLength(response)); i++ {
-        var balance any = this.SafeDict(response, i, map[string]any {})
-        var currencyId any = this.SafeString(balance, "token")
-        var code any = this.SafeCurrencyCode(currencyId)
-        var account any = this.Account()
+        var balance interface{} = this.SafeDict(response, i, map[string]interface{} {})
+        var currencyId interface{} = this.SafeString(balance, "token")
+        var code interface{} = this.SafeCurrencyCode(currencyId)
+        var account interface{} = this.Account()
         AddElementToObject(account, "total", this.SafeString(balance, "size"))
         AddElementToObject(result, code, account)
     }
@@ -2210,9 +2207,9 @@ func  (this *ParadexCore) ParseBalance(response any) any  {
  * @param {int} [params.until] the latest time in ms to fetch entries for
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *ParadexCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -2221,27 +2218,27 @@ func  (this *ParadexCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
-            retRes18438 := (<-this.AuthenticateRest())
-            PanicOnError(retRes18438)
+            retRes18408 := (<-this.AuthenticateRest())
+            PanicOnError(retRes18408)
         
-            retRes18448 := (<-this.LoadMarkets())
-            PanicOnError(retRes18448)
-            var paginate any = false
+            retRes18418 := (<-this.LoadMarkets())
+            PanicOnError(retRes18418)
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchMyTrades", "paginate");
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
             if IsTrue(paginate) {
         
-                    retRes184819 :=  (<-this.FetchPaginatedCallCursor("fetchMyTrades", symbol, since, limit, params, "next", "cursor", nil, 100))
-                    PanicOnError(retRes184819)
-                    ch <- retRes184819
+                    retRes184519 :=  (<-this.FetchPaginatedCallCursor("fetchMyTrades", symbol, since, limit, params, "next", "cursor", nil, 100))
+                    PanicOnError(retRes184519)
+                    ch <- retRes184519
                     return nil
             }
-            var request any = map[string]any {}
-            var market any = nil
+            var request interface{} = map[string]interface{} {}
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
                 AddElementToObject(request, "market", GetValue(market, "id"))
@@ -2281,7 +2278,7 @@ func  (this *ParadexCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var trades any = this.SafeList(response, "results", []any{})
+            var trades interface{} = this.SafeList(response, "results", []interface{}{})
             for i := 0; IsLessThan(i, GetArrayLength(trades)); i++ {
                 AddElementToObject(GetValue(trades, i), "next", this.SafeString(response, "next"))
             }
@@ -2301,25 +2298,25 @@ func  (this *ParadexCore) FetchMyTrades(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
-func  (this *ParadexCore) FetchPosition(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchPosition(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            retRes19048 := (<-this.AuthenticateRest())
-            PanicOnError(retRes19048)
+            retRes19018 := (<-this.AuthenticateRest())
+            PanicOnError(retRes19018)
         
-            retRes19058 := (<-this.LoadMarkets())
-            PanicOnError(retRes19058)
-            var market any = this.Market(symbol)
+            retRes19028 := (<-this.LoadMarkets())
+            PanicOnError(retRes19028)
+            var market interface{} = this.Market(symbol)
         
-            positions:= (<-this.FetchPositions([]any{GetValue(market, "symbol")}, params))
+            positions:= (<-this.FetchPositions([]interface{}{GetValue(market, "symbol")}, params))
             PanicOnError(positions)
         
-            ch <- this.SafeDict(positions, 0, map[string]any {})
+            ch <- this.SafeDict(positions, 0, map[string]interface{} {})
             return nil
         
             }()
@@ -2334,21 +2331,21 @@ func  (this *ParadexCore) FetchPosition(symbol any, optionalArgs ...any) <- chan
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
-func  (this *ParadexCore) FetchPositions(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchPositions(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
-            retRes19218 := (<-this.AuthenticateRest())
-            PanicOnError(retRes19218)
+            retRes19188 := (<-this.AuthenticateRest())
+            PanicOnError(retRes19188)
         
-            retRes19228 := (<-this.LoadMarkets())
-            PanicOnError(retRes19228)
+            retRes19198 := (<-this.LoadMarkets())
+            PanicOnError(retRes19198)
             symbols = this.MarketSymbols(symbols)
         
             response:= (<-this.PrivateGetPositions())
@@ -2378,7 +2375,7 @@ func  (this *ParadexCore) FetchPositions(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "results", []any{})
+            var data interface{} = this.SafeList(response, "results", []interface{}{})
         
             ch <- this.ParsePositions(data, symbols)
             return nil
@@ -2386,7 +2383,7 @@ func  (this *ParadexCore) FetchPositions(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ParadexCore) ParsePosition(position any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParsePosition(position interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "id": "0x49ddd7a564c978f6e4089ff8355b56a42b7e2d48ba282cb5aad60f04bea0ec3-BTC-USD-PERP",
@@ -2410,16 +2407,16 @@ func  (this *ParadexCore) ParsePosition(position any, optionalArgs ...any) any  
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(position, "market")
+    var marketId interface{} = this.SafeString(position, "market")
     market = this.SafeMarket(marketId, market)
-    var symbol any = GetValue(market, "symbol")
-    var side any = this.SafeStringLower(position, "side")
-    var quantity any = this.SafeString(position, "size")
+    var symbol interface{} = GetValue(market, "symbol")
+    var side interface{} = this.SafeStringLower(position, "side")
+    var quantity interface{} = this.SafeString(position, "size")
     if IsTrue(!IsEqual(side, "long")) {
         quantity = Precise.StringMul("-1", quantity)
     }
-    var timestamp any = this.SafeInteger(position, "time")
-    return this.SafePosition(map[string]any {
+    var timestamp interface{} = this.SafeInteger(position, "time")
+    return this.SafePosition(map[string]interface{} {
         "info": position,
         "id": this.SafeString(position, "id"),
         "symbol": symbol,
@@ -2457,27 +2454,27 @@ func  (this *ParadexCore) ParsePosition(position any, optionalArgs ...any) any  
  * @param {int} [params.until] timestamp in ms of the latest liquidation
  * @returns {object} an array of [liquidation structures]{@link https://docs.ccxt.com/?id=liquidation-structure}
  */
-func  (this *ParadexCore) FetchLiquidations(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchLiquidations(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
-            retRes20258 := (<-this.AuthenticateRest())
-            PanicOnError(retRes20258)
-            var request any = map[string]any {}
+            retRes20228 := (<-this.AuthenticateRest())
+            PanicOnError(retRes20228)
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(since, nil)) {
                 AddElementToObject(request, "from", since)
             } else {
                 AddElementToObject(request, "from", 1)
             }
-            var market any = this.Market(symbol)
+            var market interface{} = this.Market(symbol)
             requestparamsVariable := this.HandleUntilOption("to", request, params);
             request = GetValue(requestparamsVariable,0);
             params = GetValue(requestparamsVariable,1)
@@ -2494,7 +2491,7 @@ func  (this *ParadexCore) FetchLiquidations(symbol any, optionalArgs ...any) <- 
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "results", []any{})
+            var data interface{} = this.SafeList(response, "results", []interface{}{})
         
             ch <- this.ParseLiquidations(data, market, since, limit)
             return nil
@@ -2502,7 +2499,7 @@ func  (this *ParadexCore) FetchLiquidations(symbol any, optionalArgs ...any) <- 
             }()
             return ch
         }
-func  (this *ParadexCore) ParseLiquidation(liquidation any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseLiquidation(liquidation interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "created_at": 1697213130097,
@@ -2511,8 +2508,8 @@ func  (this *ParadexCore) ParseLiquidation(liquidation any, optionalArgs ...any)
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeInteger(liquidation, "created_at")
-    return this.SafeLiquidation(map[string]any {
+    var timestamp interface{} = this.SafeInteger(liquidation, "created_at")
+    return this.SafeLiquidation(map[string]interface{} {
         "info": liquidation,
         "symbol": nil,
         "contracts": nil,
@@ -2538,9 +2535,9 @@ func  (this *ParadexCore) ParseLiquidation(liquidation any, optionalArgs ...any)
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {object[]} a list of [transaction structures]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *ParadexCore) FetchDeposits(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchDeposits(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -2549,26 +2546,26 @@ func  (this *ParadexCore) FetchDeposits(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
-            retRes20858 := (<-this.AuthenticateRest())
-            PanicOnError(retRes20858)
+            retRes20828 := (<-this.AuthenticateRest())
+            PanicOnError(retRes20828)
         
-            retRes20868 := (<-this.LoadMarkets())
-            PanicOnError(retRes20868)
-            var paginate any = false
+            retRes20838 := (<-this.LoadMarkets())
+            PanicOnError(retRes20838)
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchDeposits", "paginate");
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
             if IsTrue(paginate) {
         
-                    retRes209019 :=  (<-this.FetchPaginatedCallCursor("fetchDeposits", code, since, limit, params, "next", "cursor", nil, 100))
-                    PanicOnError(retRes209019)
-                    ch <- retRes209019
+                    retRes208719 :=  (<-this.FetchPaginatedCallCursor("fetchDeposits", code, since, limit, params, "next", "cursor", nil, 100))
+                    PanicOnError(retRes208719)
+                    ch <- retRes208719
                     return nil
             }
-            var request any = map[string]any {}
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "page_size", limit)
             }
@@ -2602,10 +2599,10 @@ func  (this *ParadexCore) FetchDeposits(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var rows any = this.SafeList(response, "results", []any{})
-            var deposits any = []any{}
+            var rows interface{} = this.SafeList(response, "results", []interface{}{})
+            var deposits interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(rows)); i++ {
-                var row any = GetValue(rows, i)
+                var row interface{} = GetValue(rows, i)
                 if IsTrue(IsEqual(GetValue(row, "kind"), "DEPOSIT")) {
                     AppendToArray(&deposits, row)
                 }
@@ -2630,9 +2627,9 @@ func  (this *ParadexCore) FetchDeposits(optionalArgs ...any) <- chan any {
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns {object[]} a list of [transaction structures]{@link https://docs.ccxt.com/?id=transaction-structure}
  */
-func  (this *ParadexCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchWithdrawals(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     code := GetArg(optionalArgs, 0, nil)
@@ -2641,26 +2638,26 @@ func  (this *ParadexCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
-            retRes21478 := (<-this.AuthenticateRest())
-            PanicOnError(retRes21478)
+            retRes21448 := (<-this.AuthenticateRest())
+            PanicOnError(retRes21448)
         
-            retRes21488 := (<-this.LoadMarkets())
-            PanicOnError(retRes21488)
-            var paginate any = false
+            retRes21458 := (<-this.LoadMarkets())
+            PanicOnError(retRes21458)
+            var paginate interface{} = false
             paginateparamsVariable := this.HandleOptionAndParams(params, "fetchWithdrawals", "paginate");
             paginate = GetValue(paginateparamsVariable,0);
             params = GetValue(paginateparamsVariable,1)
             if IsTrue(paginate) {
         
-                    retRes215219 :=  (<-this.FetchPaginatedCallCursor("fetchWithdrawals", code, since, limit, params, "next", "cursor", nil, 100))
-                    PanicOnError(retRes215219)
-                    ch <- retRes215219
+                    retRes214919 :=  (<-this.FetchPaginatedCallCursor("fetchWithdrawals", code, since, limit, params, "next", "cursor", nil, 100))
+                    PanicOnError(retRes214919)
+                    ch <- retRes214919
                     return nil
             }
-            var request any = map[string]any {}
+            var request interface{} = map[string]interface{} {}
             if IsTrue(!IsEqual(limit, nil)) {
                 AddElementToObject(request, "page_size", limit)
             }
@@ -2694,10 +2691,10 @@ func  (this *ParadexCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var rows any = this.SafeList(response, "results", []any{})
-            var deposits any = []any{}
+            var rows interface{} = this.SafeList(response, "results", []interface{}{})
+            var deposits interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(rows)); i++ {
-                var row any = GetValue(rows, i)
+                var row interface{} = GetValue(rows, i)
                 if IsTrue(IsEqual(GetValue(row, "kind"), "WITHDRAWAL")) {
                     AppendToArray(&deposits, row)
                 }
@@ -2709,7 +2706,7 @@ func  (this *ParadexCore) FetchWithdrawals(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ParadexCore) ParseTransaction(transaction any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseTransaction(transaction interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchDeposits & fetchWithdrawals
     //
@@ -2729,18 +2726,18 @@ func  (this *ParadexCore) ParseTransaction(transaction any, optionalArgs ...any)
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var id any = this.SafeString(transaction, "id")
-    var address any = this.SafeString(transaction, "account")
-    var txid any = this.SafeString(transaction, "txn_hash")
-    var currencyId any = this.SafeString(transaction, "token")
-    var code any = this.SafeCurrencyCode(currencyId, currency)
-    var timestamp any = this.SafeInteger(transaction, "created_at")
-    var updated any = this.SafeInteger(transaction, "last_updated_at")
-    var typeVar any = this.SafeString(transaction, "kind")
+    var id interface{} = this.SafeString(transaction, "id")
+    var address interface{} = this.SafeString(transaction, "account")
+    var txid interface{} = this.SafeString(transaction, "txn_hash")
+    var currencyId interface{} = this.SafeString(transaction, "token")
+    var code interface{} = this.SafeCurrencyCode(currencyId, currency)
+    var timestamp interface{} = this.SafeInteger(transaction, "created_at")
+    var updated interface{} = this.SafeInteger(transaction, "last_updated_at")
+    var typeVar interface{} = this.SafeString(transaction, "kind")
     typeVar = Ternary(IsTrue((IsEqual(typeVar, "DEPOSIT"))), "deposit", "withdrawal")
-    var status any = this.ParseTransactionStatus(this.SafeString(transaction, "status"))
-    var amount any = this.SafeNumber(transaction, "amount")
-    return map[string]any {
+    var status interface{} = this.ParseTransactionStatus(this.SafeString(transaction, "status"))
+    var amount interface{} = this.SafeNumber(transaction, "amount")
+    return map[string]interface{} {
         "info": transaction,
         "id": id,
         "txid": txid,
@@ -2763,8 +2760,8 @@ func  (this *ParadexCore) ParseTransaction(transaction any, optionalArgs ...any)
         "fee": nil,
     }
 }
-func  (this *ParadexCore) ParseTransactionStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *ParadexCore) ParseTransactionStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "PENDING": "pending",
         "AVAILABLE": "pending",
         "COMPLETED": "ok",
@@ -2781,21 +2778,21 @@ func  (this *ParadexCore) ParseTransactionStatus(status any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [margin mode structure]{@link https://docs.ccxt.com/?id=margin-mode-structure}
  */
-func  (this *ParadexCore) FetchMarginMode(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchMarginMode(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            retRes22688 := (<-this.AuthenticateRest())
-            PanicOnError(retRes22688)
+            retRes22658 := (<-this.AuthenticateRest())
+            PanicOnError(retRes22658)
         
-            retRes22698 := (<-this.LoadMarkets())
-            PanicOnError(retRes22698)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            retRes22668 := (<-this.LoadMarkets())
+            PanicOnError(retRes22668)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
         
@@ -2813,7 +2810,7 @@ func  (this *ParadexCore) FetchMarginMode(symbol any, optionalArgs ...any) <- ch
             //     ]
             // }
             //
-            var configs any = this.SafeList(response, "configs")
+            var configs interface{} = this.SafeList(response, "configs")
         
             ch <- this.ParseMarginMode(this.SafeDict(configs, 0), market)
             return nil
@@ -2821,13 +2818,13 @@ func  (this *ParadexCore) FetchMarginMode(symbol any, optionalArgs ...any) <- ch
             }()
             return ch
         }
-func  (this *ParadexCore) ParseMarginMode(rawMarginMode any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseMarginMode(rawMarginMode interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(rawMarginMode, "market")
+    var marketId interface{} = this.SafeString(rawMarginMode, "market")
     market = this.SafeMarket(marketId, market)
-    var marginMode any = this.SafeStringLower(rawMarginMode, "margin_type")
-    return map[string]any {
+    var marginMode interface{} = this.SafeStringLower(rawMarginMode, "margin_type")
+    return map[string]interface{} {
         "info": rawMarginMode,
         "symbol": GetValue(market, "symbol"),
         "marginMode": marginMode,
@@ -2844,36 +2841,36 @@ func  (this *ParadexCore) ParseMarginMode(rawMarginMode any, optionalArgs ...any
  * @param {float} [params.leverage] the rate of leverage
  * @returns {object} response from the exchange
  */
-func  (this *ParadexCore) SetMarginMode(marginMode any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) SetMarginMode(marginMode interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             this.CheckRequiredArgument("setMarginMode", symbol, "symbol")
         
-            retRes23158 := (<-this.AuthenticateRest())
-            PanicOnError(retRes23158)
+            retRes23128 := (<-this.AuthenticateRest())
+            PanicOnError(retRes23128)
         
-            retRes23168 := (<-this.LoadMarkets())
-            PanicOnError(retRes23168)
-            var market any = this.Market(symbol)
-            var leverage any = nil
+            retRes23138 := (<-this.LoadMarkets())
+            PanicOnError(retRes23138)
+            var market interface{} = this.Market(symbol)
+            var leverage interface{} = nil
             leverageparamsVariable := this.HandleOptionAndParams(params, "setMarginMode", "leverage", 1);
             leverage = GetValue(leverageparamsVariable,0);
             params = GetValue(leverageparamsVariable,1)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
                 "leverage": leverage,
                 "margin_type": this.EncodeMarginMode(marginMode),
             }
         
-                retRes232515 :=  (<-this.PrivatePostAccountMarginMarket(this.Extend(request, params)))
-                PanicOnError(retRes232515)
-                ch <- retRes232515
+                retRes232215 :=  (<-this.PrivatePostAccountMarginMarket(this.Extend(request, params)))
+                PanicOnError(retRes232215)
+                ch <- retRes232215
                 return nil
         
             }()
@@ -2888,21 +2885,21 @@ func  (this *ParadexCore) SetMarginMode(marginMode any, optionalArgs ...any) <- 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [leverage structure]{@link https://docs.ccxt.com/?id=leverage-structure}
  */
-func  (this *ParadexCore) FetchLeverage(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchLeverage(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            retRes23388 := (<-this.AuthenticateRest())
-            PanicOnError(retRes23388)
+            retRes23358 := (<-this.AuthenticateRest())
+            PanicOnError(retRes23358)
         
-            retRes23398 := (<-this.LoadMarkets())
-            PanicOnError(retRes23398)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            retRes23368 := (<-this.LoadMarkets())
+            PanicOnError(retRes23368)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
         
@@ -2920,7 +2917,7 @@ func  (this *ParadexCore) FetchLeverage(symbol any, optionalArgs ...any) <- chan
             //     ]
             // }
             //
-            var configs any = this.SafeList(response, "configs")
+            var configs interface{} = this.SafeList(response, "configs")
         
             ch <- this.ParseLeverage(this.SafeDict(configs, 0), market)
             return nil
@@ -2928,13 +2925,13 @@ func  (this *ParadexCore) FetchLeverage(symbol any, optionalArgs ...any) <- chan
             }()
             return ch
         }
-func  (this *ParadexCore) ParseLeverage(leverage any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseLeverage(leverage interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(leverage, "market")
+    var marketId interface{} = this.SafeString(leverage, "market")
     market = this.SafeMarket(marketId, market)
-    var marginMode any = this.SafeStringLower(leverage, "margin_type")
-    return map[string]any {
+    var marginMode interface{} = this.SafeStringLower(leverage, "margin_type")
+    return map[string]interface{} {
         "info": leverage,
         "symbol": this.SafeSymbol(marketId, market),
         "marginMode": marginMode,
@@ -2942,8 +2939,8 @@ func  (this *ParadexCore) ParseLeverage(leverage any, optionalArgs ...any) any  
         "shortLeverage": this.SafeInteger(leverage, "leverage"),
     }
 }
-func  (this *ParadexCore) EncodeMarginMode(mode any) any  {
-    var modes any = map[string]any {
+func  (this *ParadexCore) EncodeMarginMode(mode interface{}) interface{}  {
+    var modes interface{} = map[string]interface{} {
         "cross": "CROSS",
         "isolated": "ISOLATED",
     }
@@ -2960,36 +2957,36 @@ func  (this *ParadexCore) EncodeMarginMode(mode any) any  {
  * @param {string} [params.marginMode] 'cross' or 'isolated'
  * @returns {object} response from the exchange
  */
-func  (this *ParadexCore) SetLeverage(leverage any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) SetLeverage(leverage interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             this.CheckRequiredArgument("setLeverage", symbol, "symbol")
         
-            retRes23958 := (<-this.AuthenticateRest())
-            PanicOnError(retRes23958)
+            retRes23928 := (<-this.AuthenticateRest())
+            PanicOnError(retRes23928)
         
-            retRes23968 := (<-this.LoadMarkets())
-            PanicOnError(retRes23968)
-            var market any = this.Market(symbol)
-            var marginMode any = nil
+            retRes23938 := (<-this.LoadMarkets())
+            PanicOnError(retRes23938)
+            var market interface{} = this.Market(symbol)
+            var marginMode interface{} = nil
             marginModeparamsVariable := this.HandleMarginModeAndParams("setLeverage", params, "cross");
             marginMode = GetValue(marginModeparamsVariable,0);
             params = GetValue(marginModeparamsVariable,1)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
                 "leverage": leverage,
                 "margin_type": this.EncodeMarginMode(marginMode),
             }
         
-                retRes240515 :=  (<-this.PrivatePostAccountMarginMarket(this.Extend(request, params)))
-                PanicOnError(retRes240515)
-                ch <- retRes240515
+                retRes240215 :=  (<-this.PrivatePostAccountMarginMarket(this.Extend(request, params)))
+                PanicOnError(retRes240215)
+                ch <- retRes240215
                 return nil
         
             }()
@@ -3004,18 +3001,18 @@ func  (this *ParadexCore) SetLeverage(leverage any, optionalArgs ...any) <- chan
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [greeks structure]{@link https://docs.ccxt.com/?id=greeks-structure}
  */
-func  (this *ParadexCore) FetchGreeks(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchGreeks(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            retRes24188 := (<-this.LoadMarkets())
-            PanicOnError(retRes24188)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            retRes24158 := (<-this.LoadMarkets())
+            PanicOnError(retRes24158)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
         
@@ -3055,8 +3052,8 @@ func  (this *ParadexCore) FetchGreeks(symbol any, optionalArgs ...any) <- chan a
             //         ]
             //     }
             //
-            var data any = this.SafeList(response, "results", []any{})
-            var greeks any = this.SafeDict(data, 0, map[string]any {})
+            var data interface{} = this.SafeList(response, "results", []interface{}{})
+            var greeks interface{} = this.SafeDict(data, 0, map[string]interface{} {})
         
             ch <- this.ParseGreeks(greeks, market)
             return nil
@@ -3073,20 +3070,20 @@ func  (this *ParadexCore) FetchGreeks(symbol any, optionalArgs ...any) <- chan a
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [greeks structure]{@link https://docs.ccxt.com/?id=greeks-structure}
  */
-func  (this *ParadexCore) FetchAllGreeks(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchAllGreeks(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
-            retRes24738 := (<-this.LoadMarkets())
-            PanicOnError(retRes24738)
+            retRes24708 := (<-this.LoadMarkets())
+            PanicOnError(retRes24708)
             symbols = this.MarketSymbols(symbols, nil, true, true, true)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "market": "ALL",
             }
         
@@ -3126,7 +3123,7 @@ func  (this *ParadexCore) FetchAllGreeks(optionalArgs ...any) <- chan any {
             //         ]
             //     }
             //
-            var results any = this.SafeList(response, "results", []any{})
+            var results interface{} = this.SafeList(response, "results", []interface{}{})
         
             ch <- this.ParseAllGreeks(results, symbols)
             return nil
@@ -3134,7 +3131,7 @@ func  (this *ParadexCore) FetchAllGreeks(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *ParadexCore) ParseGreeks(greeks any, optionalArgs ...any) any  {
+func  (this *ParadexCore) ParseGreeks(greeks interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "symbol": "BTC-USD-114000-P",
@@ -3167,12 +3164,12 @@ func  (this *ParadexCore) ParseGreeks(greeks any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var marketId any = this.SafeString(greeks, "symbol")
+    var marketId interface{} = this.SafeString(greeks, "symbol")
     market = this.SafeMarket(marketId, market, nil, "option")
-    var symbol any = GetValue(market, "symbol")
-    var timestamp any = this.SafeInteger(greeks, "created_at")
-    var greeksData any = this.SafeDict(greeks, "greeks", map[string]any {})
-    return map[string]any {
+    var symbol interface{} = GetValue(market, "symbol")
+    var timestamp interface{} = this.SafeInteger(greeks, "created_at")
+    var greeksData interface{} = this.SafeDict(greeks, "greeks", map[string]interface{} {})
+    return map[string]interface{} {
         "symbol": symbol,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -3208,9 +3205,9 @@ func  (this *ParadexCore) ParseGreeks(greeks any, optionalArgs ...any) any  {
  * @param {int} [params.until] timestamp in ms of the latest funding rate to fetch
  * @returns {object[]} a list of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-history-structure}
  */
-func  (this *ParadexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *ParadexCore) FetchFundingRateHistory(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -3219,16 +3216,16 @@ func  (this *ParadexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan a
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchFundingRateHistory() requires a symbol argument")))
             }
         
-            retRes25948 := (<-this.LoadMarkets())
-            PanicOnError(retRes25948)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            retRes25918 := (<-this.LoadMarkets())
+            PanicOnError(retRes25918)
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -3239,7 +3236,7 @@ func  (this *ParadexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan a
             if IsTrue(!IsEqual(since, nil)) {
                 AddElementToObject(request, "start_at", since)
             }
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             if IsTrue(!IsEqual(until, nil)) {
                 params = this.Omit(params, "until")
                 AddElementToObject(request, "end_at", until)
@@ -3264,13 +3261,13 @@ func  (this *ParadexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan a
             //     ]
             // }
             //
-            var results any = this.SafeList(response, "results", []any{})
-            var rates any = []any{}
+            var results interface{} = this.SafeList(response, "results", []interface{}{})
+            var rates interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(results)); i++ {
-                var rate any = GetValue(results, i)
-                var timestamp any = this.SafeInteger(rate, "created_at")
-                var datetime any = this.Iso8601(timestamp)
-                AppendToArray(&rates, map[string]any {
+                var rate interface{} = GetValue(results, i)
+                var timestamp interface{} = this.SafeInteger(rate, "created_at")
+                var datetime interface{} = this.Iso8601(timestamp)
+                AppendToArray(&rates, map[string]interface{} {
                     "info": rate,
                     "symbol": GetValue(market, "symbol"),
                     "fundingRate": this.SafeNumber(rate, "funding_rate"),
@@ -3278,7 +3275,7 @@ func  (this *ParadexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan a
                     "datetime": datetime,
                 })
             }
-            var sorted any = this.SortBy(rates, "timestamp")
+            var sorted interface{} = this.SortBy(rates, "timestamp")
         
             ch <- this.FilterBySymbolSinceLimit(sorted, GetValue(market, "symbol"), since, limit)
             return nil
@@ -3286,25 +3283,25 @@ func  (this *ParadexCore) FetchFundingRateHistory(optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *ParadexCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *ParadexCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = Add(Add(this.ImplodeHostname(GetValue(GetValue(this.Urls, "api"), this.Version)), "/"), this.ImplodeParams(path, params))
-    var query any = this.Omit(params, this.ExtractParams(path))
+    var url interface{} = Add(Add(this.ImplodeHostname(GetValue(GetValue(this.Urls, "api"), this.Version)), "/"), this.ImplodeParams(path, params))
+    var query interface{} = this.Omit(params, this.ExtractParams(path))
     if IsTrue(IsEqual(api, "public")) {
         if IsTrue(GetArrayLength(ObjectKeys(query))) {
             url = Add(url, Add("?", this.Urlencode(query)))
         }
     } else if IsTrue(IsEqual(api, "private")) {
-        headers = map[string]any {
+        headers = map[string]interface{} {
             "Accept": "application/json",
             "PARADEX-PARTNER": this.SafeString(this.Options, "broker", "CCXT"),
         }
@@ -3320,11 +3317,11 @@ func  (this *ParadexCore) Sign(path any, optionalArgs ...any) any  {
             AddElementToObject(headers, "PARADEX-STARKNET-SIGNATURE", GetValue(query, "signature"))
             AddElementToObject(headers, "PARADEX-TIMESTAMP", ToString(this.Nonce()))
             AddElementToObject(headers, "Content-Type", "application/json")
-            body = this.Json(map[string]any {
+            body = this.Json(map[string]interface{} {
                 "public_key": GetValue(query, "public_key"),
             })
         } else {
-            var token any = GetValue(this.Options, "authToken")
+            var token interface{} = GetValue(this.Options, "authToken")
             AddElementToObject(headers, "Authorization", Add("Bearer ", token))
             if IsTrue(IsEqual(method, "POST")) {
                 AddElementToObject(headers, "Content-Type", "application/json")
@@ -3334,14 +3331,14 @@ func  (this *ParadexCore) Sign(path any, optionalArgs ...any) any  {
             }
         }
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *ParadexCore) HandleErrors(httpCode any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *ParadexCore) HandleErrors(httpCode interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if !IsTrue(response) {
         return nil  // fallback to default error handler
     }
@@ -3352,9 +3349,9 @@ func  (this *ParadexCore) HandleErrors(httpCode any, reason any, url any, method
     //         "message": "User has never called /onboarding endpoint"
     //     }
     //
-    var errorCode any = this.SafeString(response, "error")
+    var errorCode interface{} = this.SafeString(response, "error")
     if IsTrue(!IsEqual(errorCode, nil)) {
-        var feedback any = Add(Add(this.Id, " "), body)
+        var feedback interface{} = Add(Add(this.Id, " "), body)
         this.ThrowBroadlyMatchedException(GetValue(this.Exceptions, "broad"), body, feedback)
         this.ThrowExactlyMatchedException(GetValue(this.Exceptions, "exact"), errorCode, feedback)
         panic(ExchangeError(feedback))
@@ -3363,8 +3360,8 @@ func  (this *ParadexCore) HandleErrors(httpCode any, reason any, url any, method
 }
 
 
-func (this *ParadexCore) Init(userConfig map[string]any) {
+func (this *ParadexCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

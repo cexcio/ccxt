@@ -1306,8 +1306,7 @@ public partial class blofin : Exchange
         marginMode = ((IList<object>)marginModeparametersVariable)[0];
         parameters = ((IList<object>)marginModeparametersVariable)[1];
         ((IDictionary<string,object>)request)["marginMode"] = marginMode;
-        object triggerPriceAny = this.safeStringN(parameters, new List<object>() {"triggerPrice", "stopLossPrice", "takeProfitPrice"});
-        object triggerPriceSlTp = this.safeString2(parameters, "stopLossPrice", "takeProfitPrice");
+        object triggerPrice = this.safeString(parameters, "triggerPrice");
         object timeInForce = this.safeString(parameters, "timeInForce", "GTC");
         object isHedged = this.safeBool(parameters, "hedged", false);
         if (isTrue(isHedged))
@@ -1323,7 +1322,7 @@ public partial class blofin : Exchange
             ((IDictionary<string,object>)request)["orderType"] = "market";
         } else
         {
-            object key = ((bool) isTrue((!isEqual(triggerPriceAny, null)))) ? "orderPrice" : "price";
+            object key = ((bool) isTrue((!isEqual(triggerPrice, null)))) ? "orderPrice" : "price";
             ((IDictionary<string,object>)request)[(string)key] = this.priceToPrecision(symbol, price);
         }
         object postOnly = false;
@@ -1355,19 +1354,14 @@ public partial class blofin : Exchange
                 object tpPrice = this.safeString(takeProfit, "price", "-1");
                 ((IDictionary<string,object>)request)["tpOrderPrice"] = this.priceToPrecision(symbol, tpPrice);
             }
-        } else if (isTrue(!isEqual(triggerPriceAny, null)))
+        } else if (isTrue(!isEqual(triggerPrice, null)))
         {
             ((IDictionary<string,object>)request)["orderType"] = "trigger";
-            ((IDictionary<string,object>)request)["triggerPrice"] = this.priceToPrecision(symbol, triggerPriceAny);
+            ((IDictionary<string,object>)request)["triggerPrice"] = this.priceToPrecision(symbol, triggerPrice);
             if (isTrue(isMarketOrder))
             {
                 ((IDictionary<string,object>)request)["orderPrice"] = "-1";
             }
-            if (isTrue(!isEqual(triggerPriceSlTp, null)))
-            {
-                ((IDictionary<string,object>)request)["reduceOnly"] = true;
-            }
-            parameters = this.omit(parameters, new List<object>() {"stopLossPrice", "takeProfitPrice", "triggerPrice"});
         }
         return this.extend(request, parameters);
     }
@@ -1551,22 +1545,29 @@ public partial class blofin : Exchange
         parameters ??= new Dictionary<string, object>();
         await this.loadMarkets();
         object market = this.market(symbol);
+        object tpsl = this.safeBool(parameters, "tpsl", false);
+        parameters = this.omit(parameters, "tpsl");
+        object method = null;
+        var methodparametersVariable = this.handleOptionAndParams(parameters, "createOrder", "method", "privatePostTradeOrder");
+        method = ((IList<object>)methodparametersVariable)[0];
+        parameters = ((IList<object>)methodparametersVariable)[1];
         object isStopLossPriceDefined = !isEqual(this.safeString(parameters, "stopLossPrice"), null);
         object isTakeProfitPriceDefined = !isEqual(this.safeString(parameters, "takeProfitPrice"), null);
-        object isTriggerOrder = !isEqual(this.safeString(parameters, "triggerPrice"), null);
-        object isCombinedSlTp = (isTrue(isStopLossPriceDefined) && isTrue(isTakeProfitPriceDefined));
-        object isSlOrTp = isTrue(isStopLossPriceDefined) || isTrue(isTakeProfitPriceDefined);
+        object hasTriggerPrice = !isEqual(this.safeString(parameters, "triggerPrice"), null);
+        object isType2Order = (isTrue(isStopLossPriceDefined) || isTrue(isTakeProfitPriceDefined));
         object response = null;
         object reduceOnly = this.safeBool(parameters, "reduceOnly");
         if (isTrue(!isEqual(reduceOnly, null)))
         {
             ((IDictionary<string,object>)parameters)["reduceOnly"] = ((bool) isTrue(reduceOnly)) ? "true" : "false";
         }
-        if (isTrue(isCombinedSlTp))
+        object isTpslOrder = isTrue(isTrue(tpsl) || isTrue((isEqual(method, "privatePostTradeOrderTpsl")))) || isTrue(isType2Order);
+        object isTriggerOrder = isTrue(hasTriggerPrice) || isTrue((isEqual(method, "privatePostTradeOrderAlgo")));
+        if (isTrue(isTpslOrder))
         {
             object tpslRequest = this.createTpslOrderRequest(symbol, type, side, amount, price, parameters);
             response = await this.privatePostTradeOrderTpsl(tpslRequest);
-        } else if (isTrue(isTrue(isTriggerOrder) || isTrue(isSlOrTp)))
+        } else if (isTrue(isTriggerOrder))
         {
             object triggerRequest = this.createOrderRequest(symbol, type, side, amount, price, parameters);
             response = await this.privatePostTradeOrderAlgo(triggerRequest);
@@ -1575,7 +1576,7 @@ public partial class blofin : Exchange
             object request = this.createOrderRequest(symbol, type, side, amount, price, parameters);
             response = await this.privatePostTradeOrder(request);
         }
-        if (isTrue(isTrue(isTrue(isCombinedSlTp) || isTrue(isSlOrTp)) || isTrue(isTriggerOrder)))
+        if (isTrue(isTrue(isTpslOrder) || isTrue(isTriggerOrder)))
         {
             object dataDict = this.safeDict(response, "data", new Dictionary<string, object>() {});
             return this.parseOrder(dataDict, market);
@@ -1592,18 +1593,12 @@ public partial class blofin : Exchange
     {
         parameters ??= new Dictionary<string, object>();
         object market = this.market(symbol);
-        object hedged = this.safeBool(parameters, "hedged", false);
-        object positionSide = "net";
-        if (isTrue(hedged))
-        {
-            positionSide = ((bool) isTrue((isEqual(side, "buy")))) ? "short" : "long";
-        }
+        object positionSide = this.safeString(parameters, "positionSide", "net");
         object request = new Dictionary<string, object>() {
             { "instId", getValue(market, "id") },
             { "side", side },
             { "positionSide", positionSide },
             { "brokerId", this.safeString(this.options, "brokerId", "ec6dd3a7dd982d0b") },
-            { "reduceOnly", this.safeBool(parameters, "reduceOnly", true) },
         };
         if (isTrue(!isEqual(amount, null)))
         {
@@ -1619,15 +1614,26 @@ public partial class blofin : Exchange
         if (isTrue(!isEqual(stopLossPrice, null)))
         {
             ((IDictionary<string,object>)request)["slTriggerPrice"] = this.priceToPrecision(symbol, stopLossPrice);
-            ((IDictionary<string,object>)request)["slOrderPrice"] = ((bool) isTrue((isEqual(type, "market")))) ? "-1" : this.priceToPrecision(symbol, price);
-        }
-        if (isTrue(!isEqual(takeProfitPrice, null)))
+            if (isTrue(isEqual(type, "market")))
+            {
+                ((IDictionary<string,object>)request)["slOrderPrice"] = "-1";
+            } else
+            {
+                ((IDictionary<string,object>)request)["slOrderPrice"] = this.priceToPrecision(symbol, price);
+            }
+        } else if (isTrue(!isEqual(takeProfitPrice, null)))
         {
             ((IDictionary<string,object>)request)["tpTriggerPrice"] = this.priceToPrecision(symbol, takeProfitPrice);
-            ((IDictionary<string,object>)request)["tpOrderPrice"] = ((bool) isTrue((isEqual(type, "market")))) ? "-1" : this.priceToPrecision(symbol, price);
+            if (isTrue(isEqual(type, "market")))
+            {
+                ((IDictionary<string,object>)request)["tpOrderPrice"] = "-1";
+            } else
+            {
+                ((IDictionary<string,object>)request)["tpOrderPrice"] = this.priceToPrecision(symbol, price);
+            }
         }
         ((IDictionary<string,object>)request)["marginMode"] = marginMode;
-        parameters = this.omit(parameters, new List<object>() {"stopLossPrice", "takeProfitPrice", "reduceOnly", "hedged"});
+        parameters = this.omit(parameters, new List<object>() {"stopLossPrice", "takeProfitPrice"});
         return this.extend(request, parameters);
     }
 
@@ -2362,79 +2368,6 @@ public partial class blofin : Exchange
         return this.filterByArrayPositions(result, "symbol", symbols, false);
     }
 
-    /**
-     * @method
-     * @name blofin#fetchPositionsHistory
-     * @description fetches historical positions
-     * @see https://docs.blofin.com/index.html#get-positions-history
-     * @param {string[]} [symbols] unified contract symbols
-     * @param {int} [since] timestamp in ms of the earliest position to fetch, default=3 months ago, max range for params["until"] - since is 3 months
-     * @param {int} [limit] the maximum amount of records to fetch, default=20, max=100
-     * @param {object} params extra parameters specific to the exchange api endpoint
-     * @param {int} [params.until] timestamp in ms of the latest position to fetch, max range for params["until"] - since is 3 months
-     * @param {string} [params.productType] USDT-FUTURES (default), COIN-FUTURES, USDC-FUTURES, SUSDT-FUTURES, SCOIN-FUTURES, or SUSDC-FUTURES
-     * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
-     * @returns {object[]} a list of [position structures]{@link https://docs.ccxt.com/?id=position-structure}
-     */
-    public async override Task<object> fetchPositionsHistory(object symbols = null, object since = null, object limit = null, object parameters = null)
-    {
-        parameters ??= new Dictionary<string, object>();
-        await this.loadMarkets();
-        object request = new Dictionary<string, object>() {};
-        object market = null;
-        if (isTrue(!isEqual(symbols, null)))
-        {
-            object symbolsLength = getArrayLength(symbols);
-            if (isTrue(isEqual(symbolsLength, 0)))
-            {
-                market = this.market(getValue(symbols, 0));
-                ((IDictionary<string,object>)request)["instId"] = getValue(market, "id");
-            }
-        }
-        if (isTrue(!isEqual(limit, null)))
-        {
-            ((IDictionary<string,object>)request)["limit"] = mathMin(limit, 100);
-        }
-        if (isTrue(!isEqual(since, null)))
-        {
-            ((IDictionary<string,object>)request)["begin"] = since;
-        }
-        var requestparametersVariable = this.handleUntilOption("end", request, parameters);
-        request = ((IList<object>)requestparametersVariable)[0];
-        parameters = ((IList<object>)requestparametersVariable)[1];
-        object response = await this.privateGetAccountPositionsHistory(this.extend(request, parameters));
-        //
-        //    {
-        //        "code": "0",
-        //        "msg": "success",
-        //        "data": [
-        //            {
-        //                "historyId": "110307402",
-        //                "positionId": "1000000722711",
-        //                "instId": "BTC-USDT",
-        //                "instType": "SWAP",
-        //                "marginMode": "cross",
-        //                "positionSide": "net",
-        //                "closePositions": "0.0006",
-        //                "maxPositions": "0.0006",
-        //                "liquidationPositions": "0",
-        //                "openAveragePrice": "81550.1",
-        //                "closeAveragePrice": "81550",
-        //                "createTime": "1777995583329",
-        //                "updateTime": "1777995588333",
-        //                "leverage": "50",
-        //                "realizedPnl": "-0.058776036",
-        //                "realizedPnlRatio": "-0.060061275216094155",
-        //                "fee": "-0.058716036"
-        //            },
-        //        ]
-        //    }
-        //
-        object data = this.safeList(response, "data", new List<object>() {});
-        object positions = this.parsePositions(data, symbols, parameters);
-        return this.filterBySinceLimit(positions, since, limit);
-    }
-
     public override object parsePosition(object position, object market = null)
     {
         //
@@ -2462,29 +2395,6 @@ public partial class blofin : Exchange
         //         createTime: '1707235776528',
         //         updateTime: '1707235776528'
         //     }
-        //
-        //
-        //    positions-history
-        //
-        //            {
-        //                "positionId": "1000000722711",
-        //                "instId": "BTC-USDT",
-        //                "instType": "SWAP",
-        //                "marginMode": "cross",
-        //                "positionSide": "net",
-        //                "createTime": "1777995583329",
-        //                "updateTime": "1777995588333",
-        //                "leverage": "50",
-        //                "realizedPnl": "-0.058776036",
-        //                "realizedPnlRatio": "-0.060061275216094155",
-        //                "fee": "-0.058716036"
-        //                "historyId": "110307402",
-        //                "closePositions": "0.0006",
-        //                "maxPositions": "0.0006",
-        //                "liquidationPositions": "0",
-        //                "openAveragePrice": "81550.1",
-        //                "closeAveragePrice": "81550",
-        //            },
         //
         object marketId = this.safeString(position, "instId");
         market = this.safeMarket(marketId, market);
@@ -2521,7 +2431,7 @@ public partial class blofin : Exchange
         object notional = this.parseNumber(notionalString);
         object marginMode = this.safeString(position, "marginMode");
         object initialMarginString = null;
-        object entryPriceString = this.safeString2(position, "averagePrice", "openAveragePrice");
+        object entryPriceString = this.safeString(position, "averagePrice");
         object unrealizedPnlString = this.safeString(position, "unrealizedPnl");
         object leverageString = this.safeString(position, "leverage");
         object initialMarginPercentage = null;
@@ -2560,9 +2470,7 @@ public partial class blofin : Exchange
             { "marginMode", marginMode },
             { "liquidationPrice", liquidationPrice },
             { "entryPrice", this.parseNumber(entryPriceString) },
-            { "exitPrice", this.safeNumber(position, "closeAveragePrice") },
             { "unrealizedPnl", this.parseNumber(unrealizedPnlString) },
-            { "realizedPnl", this.safeNumber(position, "realizedPnl") },
             { "percentage", percentage },
             { "contracts", contracts },
             { "contractSize", contractSize },

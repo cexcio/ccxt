@@ -15,17 +15,17 @@ func NewAftermathCore() *AftermathCore {
     return p
 }
 
-func  (this *AftermathCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *AftermathCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "aftermath",
         "name": "AftermathFinance",
-        "countries": []any{},
+        "countries": []interface{}{},
         "version": "v1",
         "rateLimit": 50,
         "certified": false,
         "pro": true,
         "dex": true,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": false,
             "margin": false,
@@ -66,7 +66,7 @@ func  (this *AftermathCore) Describe() any  {
             "transfer": true,
             "withdraw": true,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": "1m",
             "3m": "3m",
             "5m": "5m",
@@ -82,31 +82,31 @@ func  (this *AftermathCore) Describe() any  {
             "1w": "1w",
             "1M": "1M",
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://github.com/user-attachments/assets/70e5ae86-2f3a-4755-976b-aedb9d3c2807",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "rest": "https://aftermath.finance/api/ccxt",
             },
-            "test": map[string]any {
+            "test": map[string]interface{} {
                 "rest": "https://testnet.aftermath.finance/api/ccxt",
             },
             "docs": "https://docs.aftermath.finance",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "markets": 1,
                     "currencies": 1,
                 },
-                "post": map[string]any {
+                "post": map[string]interface{} {
                     "ticker": 1,
                     "orderbook": 1,
                     "trades": 1,
                     "OHLCV": 1,
                 },
             },
-            "private": map[string]any {
-                "post": map[string]any {
+            "private": map[string]interface{} {
+                "post": map[string]interface{} {
                     "accounts": 1,
                     "balance": 1,
                     "myPendingOrders": 1,
@@ -130,26 +130,26 @@ func  (this *AftermathCore) Describe() any  {
                 },
             },
         },
-        "requiredCredentials": map[string]any {
+        "requiredCredentials": map[string]interface{} {
             "apiKey": false,
             "secret": false,
             "walletAddress": true,
             "privateKey": true,
         },
         "precisionMode": TICK_SIZE,
-        "options": map[string]any {
+        "options": map[string]interface{} {
             "defaultType": "swap",
             "sandboxMode": false,
         },
-        "exceptions": map[string]any {
-            "exact": map[string]any {},
-            "broad": map[string]any {},
+        "exceptions": map[string]interface{} {
+            "exact": map[string]interface{} {},
+            "broad": map[string]interface{} {},
         },
-        "features": map[string]any {
-            "default": map[string]any {
+        "features": map[string]interface{} {
+            "default": map[string]interface{} {
                 "sandbox": true,
-                "createOrder": map[string]any {
-                    "timeInForce": map[string]any {
+                "createOrder": map[string]interface{} {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": true,
                         "PO": true,
@@ -174,17 +174,17 @@ func  (this *AftermathCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an associative dictionary of currencies
  */
-func  (this *AftermathCore) FetchCurrencies(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchCurrencies(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetCurrencies(params))
             PanicOnError(response)
-            var currencies any = this.ParseCurrencies(response)
+            var currencies interface{} = this.ParseCurrencies(response)
         
                 //
             // {
@@ -210,8 +210,8 @@ func  (this *AftermathCore) FetchCurrencies(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *AftermathCore) ParseCurrency(rawCurrency any) any  {
-    return this.SafeCurrencyStructure(map[string]any {
+func  (this *AftermathCore) ParseCurrency(rawCurrency interface{}) interface{}  {
+    return this.SafeCurrencyStructure(map[string]interface{} {
         "id": this.SafeString(rawCurrency, "id"),
         "code": this.SafeString(rawCurrency, "code"),
         "name": this.SafeString(rawCurrency, "name"),
@@ -231,12 +231,12 @@ func  (this *AftermathCore) ParseCurrency(rawCurrency any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *AftermathCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetMarkets(params))
@@ -294,7 +294,7 @@ func  (this *AftermathCore) FetchMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *AftermathCore) ParseMarket(market any) any  {
+func  (this *AftermathCore) ParseMarket(market interface{}) interface{}  {
     //
     //     {
     //         "id": "0x49bd40cc7880bd358465116157f0271c25d23361b94eace9a25dc2019b449bfc",
@@ -339,9 +339,9 @@ func  (this *AftermathCore) ParseMarket(market any) any  {
     //         "subType": "linear"
     //     }
     //
-    var precision any = this.SafeDict(market, "precision")
-    var limits any = this.SafeDict(market, "limits")
-    return this.SafeMarketStructure(map[string]any {
+    var precision interface{} = this.SafeDict(market, "precision")
+    var limits interface{} = this.SafeDict(market, "limits")
+    return this.SafeMarketStructure(map[string]interface{} {
         "id": this.SafeString(market, "id"),
         "symbol": this.SafeString(market, "symbol"),
         "base": this.SafeString(market, "base"),
@@ -370,24 +370,24 @@ func  (this *AftermathCore) ParseMarket(market any) any  {
         "optionType": nil,
         "taker": this.SafeNumber(market, "taker"),
         "maker": this.SafeNumber(market, "maker"),
-        "precision": map[string]any {
+        "precision": map[string]interface{} {
             "amount": this.SafeNumber(precision, "amount"),
             "price": this.SafeNumber(precision, "price"),
         },
-        "limits": map[string]any {
-            "leverage": map[string]any {
+        "limits": map[string]interface{} {
+            "leverage": map[string]interface{} {
                 "min": nil,
                 "max": this.SafeNumber(GetValue(limits, "leverage"), "max"),
             },
-            "amount": map[string]any {
+            "amount": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "price": map[string]any {
+            "price": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "cost": map[string]any {
+            "cost": map[string]interface{} {
                 "min": this.SafeNumber(GetValue(limits, "cost"), "min"),
                 "max": nil,
             },
@@ -404,19 +404,19 @@ func  (this *AftermathCore) ParseMarket(market any) any  {
  * @description fetch the trading fees for a market
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} a [fee structure]{@link https://docs.ccxt.com/?id=fee-structure}
+ * @returns {object} a [fee structure]{@link https://docs.ccxt.com/#/?id=fee-structure}
  */
-func  (this *AftermathCore) FetchTradingFee(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchTradingFee(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes3798 := (<-this.LoadMarkets())
             PanicOnError(retRes3798)
-            var market any = this.Market(symbol)
+            var market interface{} = this.Market(symbol)
         
             ch <- this.ParseTradingFee(market)
             return nil
@@ -424,11 +424,11 @@ func  (this *AftermathCore) FetchTradingFee(symbol any, optionalArgs ...any) <- 
             }()
             return ch
         }
-func  (this *AftermathCore) ParseTradingFee(optionalArgs ...any) any  {
+func  (this *AftermathCore) ParseTradingFee(optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var symbol any = this.SafeString(market, "symbol")
-    return map[string]any {
+    var symbol interface{} = this.SafeString(market, "symbol")
+    return map[string]interface{} {
         "info": market,
         "symbol": symbol,
         "maker": this.SafeNumber(market, "maker"),
@@ -444,20 +444,20 @@ func  (this *AftermathCore) ParseTradingFee(optionalArgs ...any) any  {
  * @description fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
  * @param {string} symbol unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
+ * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/#/?id=ticker-structure}
  */
-func  (this *AftermathCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes4068 := (<-this.LoadMarkets())
             PanicOnError(retRes4068)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "chId": GetValue(market, "id"),
             }
         
@@ -494,11 +494,11 @@ func  (this *AftermathCore) FetchTicker(symbol any, optionalArgs ...any) <- chan
             }()
             return ch
         }
-func  (this *AftermathCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *AftermathCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeInteger(ticker, "timestamp")
-    return this.SafeTicker(map[string]any {
+    var timestamp interface{} = this.SafeInteger(ticker, "timestamp")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": this.SafeString(ticker, "symbol"),
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -531,23 +531,23 @@ func  (this *AftermathCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {string} symbol unified symbol of the market to fetch the order book for
  * @param {int} [limit] the maximum amount of order book entries to return
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
+ * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/#/?id=order-book-structure} indexed by market symbols
  */
-func  (this *AftermathCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes4788 := (<-this.LoadMarkets())
             PanicOnError(retRes4788)
-            var market any = this.Market(symbol)
-            var chId any = this.SafeString(market, "id")
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var chId interface{} = this.SafeString(market, "id")
+            var request interface{} = map[string]interface{} {
                 "chId": chId,
             }
         
@@ -566,8 +566,8 @@ func  (this *AftermathCore) FetchOrderBook(symbol any, optionalArgs ...any) <- c
             //     "symbol":"BTC/USD:USDC"
             // }
             //
-            var timestamp any = this.SafeInteger(response, "timestamp")
-            var orderbook any = this.ParseOrderBook(response, symbol, timestamp)
+            var timestamp interface{} = this.SafeInteger(response, "timestamp")
+            var orderbook interface{} = this.ParseOrderBook(response, symbol, timestamp)
             AddElementToObject(orderbook, "nonce", this.SafeInteger(response, "nonce"))
         
             ch <- orderbook
@@ -586,25 +586,25 @@ func  (this *AftermathCore) FetchOrderBook(symbol any, optionalArgs ...any) <- c
  * @param {int} [limit] the maximum amount of trades to fetch
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {int} [params.until] the latest time in ms to fetch trades for
- * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
+ * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/#/?id=public-trades}
  */
-func  (this *AftermathCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes5178 := (<-this.LoadMarkets())
             PanicOnError(retRes5178)
-            var market any = this.Market(symbol)
-            var chId any = this.SafeString(market, "id")
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var chId interface{} = this.SafeString(market, "id")
+            var request interface{} = map[string]interface{} {
                 "chId": chId,
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -628,7 +628,7 @@ func  (this *AftermathCore) FetchTrades(symbol any, optionalArgs ...any) <- chan
             //         "nextCursor": 573
             //     }
             //
-            var data any = this.SafeList(response, "trades", []any{})
+            var data interface{} = this.SafeList(response, "trades", []interface{}{})
         
             ch <- this.ParseTrades(data, market, since, limit)
             return nil
@@ -636,10 +636,10 @@ func  (this *AftermathCore) FetchTrades(symbol any, optionalArgs ...any) <- chan
             }()
             return ch
         }
-func  (this *AftermathCore) ParseTrade(rawTrade any, optionalArgs ...any) any  {
+func  (this *AftermathCore) ParseTrade(rawTrade interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var trade any = this.SafeTrade(this.Extend(map[string]any {
+    var trade interface{} = this.SafeTrade(this.Extend(map[string]interface{} {
         "info": rawTrade,
     }, rawTrade))
     AddElementToObject(trade, "id", "")
@@ -660,9 +660,9 @@ func  (this *AftermathCore) ParseTrade(rawTrade any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *AftermathCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -671,14 +671,14 @@ func  (this *AftermathCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes5688 := (<-this.LoadMarkets())
             PanicOnError(retRes5688)
-            var market any = this.Market(symbol)
-            var chId any = this.SafeString(market, "id")
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var chId interface{} = this.SafeString(market, "id")
+            var request interface{} = map[string]interface{} {
                 "chId": chId,
                 "timeframe": timeframe,
             }
@@ -717,20 +717,20 @@ func  (this *AftermathCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan 
  * @description query for balance and get the amount of funds available for trading or funds locked in positions
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.account] account object ID, required
- * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
+ * @returns {object} a [balance structure]{@link https://docs.ccxt.com/#/?id=balance-structure}
  */
-func  (this *AftermathCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
-            var account any = nil
+            var account interface{} = nil
             accountparamsVariable := this.HandleOptionAndParams(params, "fetchBalance", "account");
             account = GetValue(accountparamsVariable,0);
             params = GetValue(accountparamsVariable,1)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "account": account,
             }
             if IsTrue(IsEqual(account, nil)) {
@@ -758,22 +758,22 @@ func  (this *AftermathCore) FetchBalance(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *AftermathCore) ParseBalance(response any) any  {
-    var result any = map[string]any {
+func  (this *AftermathCore) ParseBalance(response interface{}) interface{}  {
+    var result interface{} = map[string]interface{} {
         "info": response,
     }
-    var balances any = this.SafeDict(response, "balances", []any{})
-    var currencies any = ObjectKeys(balances)
+    var balances interface{} = this.SafeDict(response, "balances", []interface{}{})
+    var currencies interface{} = ObjectKeys(balances)
     for i := 0; IsLessThan(i, GetArrayLength(currencies)); i++ {
-        var code any = GetValue(currencies, i)
-        var balance any = GetValue(balances, code)
-        var account any = this.Account()
+        var code interface{} = GetValue(currencies, i)
+        var balance interface{} = GetValue(balances, code)
+        var account interface{} = this.Account()
         AddElementToObject(account, "free", this.SafeString(balance, "free"))
         AddElementToObject(account, "used", this.SafeString(balance, "used"))
         AddElementToObject(account, "total", this.SafeString(balance, "total"))
         AddElementToObject(result, code, account)
     }
-    var timestamp any = this.SafeInteger(response, "timestamp")
+    var timestamp interface{} = this.SafeInteger(response, "timestamp")
     AddElementToObject(result, "timestamp", timestamp)
     AddElementToObject(result, "datetime", this.Iso8601(timestamp))
     return this.SafeBalance(result)
@@ -786,17 +786,17 @@ func  (this *AftermathCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Array} a list of [account structures]{@link https://github.com/ccxt/ccxt/wiki/Manual#accounts}
  */
-func  (this *AftermathCore) FetchAccounts(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchAccounts(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes6618 := (<-this.LoadMarkets())
             PanicOnError(retRes6618)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "address": this.WalletAddress,
             }
         
@@ -819,8 +819,8 @@ func  (this *AftermathCore) FetchAccounts(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *AftermathCore) ParseAccount(account any) any  {
-    return map[string]any {
+func  (this *AftermathCore) ParseAccount(account interface{}) interface{}  {
+    return map[string]interface{} {
         "id": this.SafeString(account, "id"),
         "type": this.SafeString(account, "type"),
         "code": this.SafeString(account, "code"),
@@ -837,11 +837,11 @@ func  (this *AftermathCore) ParseAccount(account any) any  {
  * @param {int} [limit] the maximum number of  open orders structures to retrieve
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {int} [params.accountNumber] account number to query orders for, required
- * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
+ * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/#/?id=order-structure}
  */
-func  (this *AftermathCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -850,20 +850,20 @@ func  (this *AftermathCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes7018 := (<-this.LoadMarkets())
             PanicOnError(retRes7018)
-            var market any = this.Market(symbol)
-            var accountNumber any = nil
+            var market interface{} = this.Market(symbol)
+            var accountNumber interface{} = nil
             accountNumberparamsVariable := this.HandleOptionAndParams(params, "fetchOpenOrders", "accountNumber");
             accountNumber = GetValue(accountNumberparamsVariable,0);
             params = GetValue(accountNumberparamsVariable,1)
             if IsTrue(IsEqual(accountNumber, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOpenOrders() requires an accountNumber parameter in params")))
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "chId": this.SafeString(market, "id"),
                 "accountNumber": accountNumber,
             }
@@ -905,20 +905,20 @@ func  (this *AftermathCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {string} symbol unified market symbol of the market the position is held in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {int} [params.accountNumber] account number to query positions for, required
- * @returns {object} a [position structure]{@link https://docs.ccxt.com/?id=position-structure}
+ * @returns {object} a [position structure]{@link https://docs.ccxt.com/#/?id=position-structure}
  */
-func  (this *AftermathCore) FetchPosition(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchPosition(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
-            positions:= (<-this.FetchPositions([]any{symbol}, params))
+            positions:= (<-this.FetchPositions([]interface{}{symbol}, params))
             PanicOnError(positions)
         
-            ch <- this.SafeDict(positions, 0, map[string]any {})
+            ch <- this.SafeDict(positions, 0, map[string]interface{} {})
             return nil
         
             }()
@@ -932,28 +932,28 @@ func  (this *AftermathCore) FetchPosition(symbol any, optionalArgs ...any) <- ch
  * @param {string[]} symbols list of unified market symbols
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {int} [params.accountNumber] account number to query positions for, required
- * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/?id=position-structure}
+ * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/#/?id=position-structure}
  */
-func  (this *AftermathCore) FetchPositions(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) FetchPositions(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes7628 := (<-this.LoadMarkets())
             PanicOnError(retRes7628)
-            var accountNumber any = nil
+            var accountNumber interface{} = nil
             accountNumberparamsVariable := this.HandleOptionAndParams(params, "fetchPositions", "accountNumber");
             accountNumber = GetValue(accountNumberparamsVariable,0);
             params = GetValue(accountNumberparamsVariable,1)
             if IsTrue(IsEqual(accountNumber, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchPositions() requires an accountNumber parameter in params")))
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "accountNumber": accountNumber,
             }
         
@@ -991,19 +991,19 @@ func  (this *AftermathCore) FetchPositions(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *AftermathCore) ParsePosition(position any, optionalArgs ...any) any  {
+func  (this *AftermathCore) ParsePosition(position interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
     return this.SafePosition(position)
 }
-func  (this *AftermathCore) ParseCreateEditOrderArgs(id any, symbol any, typeVar any, side any, amount any, optionalArgs ...any) any  {
+func  (this *AftermathCore) ParseCreateEditOrderArgs(id interface{}, symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) interface{}  {
     price := GetArg(optionalArgs, 0, nil)
     _ = price
-    params := GetArg(optionalArgs, 1, map[string]any {})
+    params := GetArg(optionalArgs, 1, map[string]interface{} {})
     _ = params
-    var market any = this.Market(symbol)
+    var market interface{} = this.Market(symbol)
     symbol = GetValue(market, "symbol")
-    var order any = map[string]any {
+    var order interface{} = map[string]interface{} {
         "symbol": symbol,
         "type": typeVar,
         "side": side,
@@ -1030,27 +1030,27 @@ func  (this *AftermathCore) ParseCreateEditOrderArgs(id any, symbol any, typeVar
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {bool} [params.reduceOnly] true or false whether the order is reduce-only
  * @param {Account} [params.account] account id to use, required
- * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
+ * @returns {object} an [order structure]{@link https://docs.ccxt.com/#/?id=order-structure}
  */
-func  (this *AftermathCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes8388 := (<-this.LoadMarkets())
             PanicOnError(retRes8388)
-            var account any = nil
+            var account interface{} = nil
             accountparamsVariable := this.HandleOptionAndParams(params, "createOrder", "account");
             account = GetValue(accountparamsVariable,0);
             params = GetValue(accountparamsVariable,1)
-            var order any = this.ParseCreateEditOrderArgs(nil, symbol, typeVar, side, amount, price, params)
+            var order interface{} = this.ParseCreateEditOrderArgs(nil, symbol, typeVar, side, amount, price, params)
         
-            orders:= (<-this.CreateOrders([]any{order}, map[string]any {
+            orders:= (<-this.CreateOrders([]interface{}{order}, map[string]interface{} {
             "account": account,
         }))
             PanicOnError(orders)
@@ -1070,27 +1070,27 @@ func  (this *AftermathCore) CreateOrder(symbol any, typeVar any, side any, amoun
  * @param {Array} orders list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {Account} [params.account] account id to use, required
- * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
+ * @returns {object} an [order structure]{@link https://docs.ccxt.com/#/?id=order-structure}
  */
-func  (this *AftermathCore) CreateOrders(orders any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) CreateOrders(orders interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes8588 := (<-this.LoadMarkets())
             PanicOnError(retRes8588)
-            var ordersRequest any = []any{}
+            var ordersRequest interface{} = []interface{}{}
             for i := 0; IsLessThan(i, GetArrayLength(orders)); i++ {
-                var order any = this.Clone(GetValue(orders, i))
-                var symbol any = this.SafeString(order, "symbol")
-                var market any = this.Market(symbol)
-                var price any = this.SafeString(order, "price")
-                var amount any = this.SafeString(order, "amount")
-                var orderParams any = this.SafeDict(order, "params", map[string]any {})
-                var reduceOnly any = this.SafeBool(orderParams, "reduceOnly")
+                var order interface{} = this.Clone(GetValue(orders, i))
+                var symbol interface{} = this.SafeString(order, "symbol")
+                var market interface{} = this.Market(symbol)
+                var price interface{} = this.SafeString(order, "price")
+                var amount interface{} = this.SafeString(order, "amount")
+                var orderParams interface{} = this.SafeDict(order, "params", map[string]interface{} {})
+                var reduceOnly interface{} = this.SafeBool(orderParams, "reduceOnly")
                 if IsTrue(!IsEqual(reduceOnly, nil)) {
                     AddElementToObject(order, "reduceOnly", reduceOnly)
                 }
@@ -1103,13 +1103,13 @@ func  (this *AftermathCore) CreateOrders(orders any, optionalArgs ...any) <- cha
                 AddElementToObject(order, "amount", this.ParseToNumeric(this.AmountToPrecision(symbol, amount)))
                 AppendToArray(&ordersRequest, order)
             }
-            var account any = nil
+            var account interface{} = nil
             accountparamsVariable := this.HandleOptionAndParams(params, "createOrders", "account");
             account = GetValue(accountparamsVariable,0);
             params = GetValue(accountparamsVariable,1)
-            var txRequest any = map[string]any {
+            var txRequest interface{} = map[string]interface{} {
                 "accountId": account,
-                "metadata": map[string]any {
+                "metadata": map[string]interface{} {
                     "sender": this.WalletAddress,
                 },
                 "orders": ordersRequest,
@@ -1118,7 +1118,7 @@ func  (this *AftermathCore) CreateOrders(orders any, optionalArgs ...any) <- cha
         
             tx:= (<-this.PrivatePostBuildCreateOrders(this.Extend(txRequest, params)))
             PanicOnError(tx)
-            var request any = this.SignTxEd25519(tx)
+            var request interface{} = this.SignTxEd25519(tx)
         
             response:= (<-this.PrivatePostSubmitCreateOrders(request))
             PanicOnError(response)
@@ -1159,19 +1159,19 @@ func  (this *AftermathCore) CreateOrders(orders any, optionalArgs ...any) <- cha
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market the order was made in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
+ * @returns {object} An [order structure]{@link https://docs.ccxt.com/#/?id=order-structure}
  */
-func  (this *AftermathCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
-            orders:= (<-this.CancelOrders([]any{id}, symbol, params))
+            orders:= (<-this.CancelOrders([]interface{}{id}, symbol, params))
             PanicOnError(orders)
         
             ch <- this.SafeDict(orders, 0)
@@ -1190,28 +1190,28 @@ func  (this *AftermathCore) CancelOrder(id any, optionalArgs ...any) <- chan any
  * @param {string} [symbol] unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {Account} [params.account] account to cancel orders for, required
- * @returns {Order[]} an list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
+ * @returns {Order[]} an list of [order structures]{@link https://docs.ccxt.com/#/?id=order-structure}
  */
-func  (this *AftermathCore) CancelOrders(ids any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) CancelOrders(ids interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes9468 := (<-this.LoadMarkets())
             PanicOnError(retRes9468)
-            var market any = this.Market(symbol)
-            var account any = nil
+            var market interface{} = this.Market(symbol)
+            var account interface{} = nil
             accountparamsVariable := this.HandleOptionAndParams(params, "cancelOrders", "account");
             account = GetValue(accountparamsVariable,0);
             params = GetValue(accountparamsVariable,1)
-            var txRequest any = map[string]any {
+            var txRequest interface{} = map[string]interface{} {
                 "accountId": account,
-                "metadata": map[string]any {
+                "metadata": map[string]interface{} {
                     "sender": this.WalletAddress,
                 },
                 "chId": GetValue(market, "id"),
@@ -1220,7 +1220,7 @@ func  (this *AftermathCore) CancelOrders(ids any, optionalArgs ...any) <- chan a
         
             tx:= (<-this.PrivatePostBuildCancelOrders(txRequest))
             PanicOnError(tx)
-            var request any = this.SignTxEd25519(tx)
+            var request interface{} = this.SignTxEd25519(tx)
         
             response:= (<-this.PrivatePostSubmitCancelOrders(request))
             PanicOnError(response)
@@ -1251,20 +1251,20 @@ func  (this *AftermathCore) CancelOrders(ids any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *AftermathCore) CreateAccount(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) CreateAccount(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes9858 := (<-this.LoadMarkets())
             PanicOnError(retRes9858)
-            var market any = this.Market(symbol)
-            var settleId any = GetValue(market, "settleId")
-            var txRequest any = map[string]any {
-                "metadata": map[string]any {
+            var market interface{} = this.Market(symbol)
+            var settleId interface{} = GetValue(market, "settleId")
+            var txRequest interface{} = map[string]interface{} {
+                "metadata": map[string]interface{} {
                     "sender": this.WalletAddress,
                 },
                 "settleId": settleId,
@@ -1272,7 +1272,7 @@ func  (this *AftermathCore) CreateAccount(symbol any, optionalArgs ...any) <- ch
         
             tx:= (<-this.PrivatePostBuildCreateAccount(txRequest))
             PanicOnError(tx)
-            var request any = this.SignTxEd25519(tx)
+            var request interface{} = this.SignTxEd25519(tx)
         
             response:= (<-this.PrivatePostSubmitCreateAccount(request))
             PanicOnError(response)
@@ -1309,35 +1309,35 @@ func  (this *AftermathCore) CreateAccount(symbol any, optionalArgs ...any) <- ch
  * @param {float} amount amount of margin to add
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {Account} [params.account] account id to use, required
- * @returns {object} a [margin structure]{@link https://docs.ccxt.com/?id=add-margin-structure}
+ * @returns {object} a [margin structure]{@link https://docs.ccxt.com/#/?id=add-margin-structure}
  */
-func  (this *AftermathCore) AddMargin(symbol any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) AddMargin(symbol interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes10298 := (<-this.LoadMarkets())
             PanicOnError(retRes10298)
-            var market any = this.Market(symbol)
-            var account any = nil
+            var market interface{} = this.Market(symbol)
+            var account interface{} = nil
             accountparamsVariable := this.HandleOptionAndParams2(params, "addMargin", "account", "accountId");
             account = GetValue(accountparamsVariable,0);
             params = GetValue(accountparamsVariable,1)
-            var txRequest any = map[string]any {
+            var txRequest interface{} = map[string]interface{} {
                 "accountId": account,
                 "chId": GetValue(market, "id"),
                 "amount": this.ParseToNumeric(this.AmountToPrecision(symbol, amount)),
-                "metadata": map[string]any {
+                "metadata": map[string]interface{} {
                     "sender": this.WalletAddress,
                 },
             }
         
             tx:= (<-this.PrivatePostBuildAllocate(txRequest))
             PanicOnError(tx)
-            var request any = this.SignTxEd25519(tx)
+            var request interface{} = this.SignTxEd25519(tx)
         
             response:= (<-this.PrivatePostSubmitAllocate(request))
             PanicOnError(response)
@@ -1375,35 +1375,35 @@ func  (this *AftermathCore) AddMargin(symbol any, amount any, optionalArgs ...an
  * @param {float} amount amount of margin to remove
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {Account} [params.account] account id to use, required
- * @returns {object} a [margin structure]{@link https://docs.ccxt.com/?id=reduce-margin-structure}
+ * @returns {object} a [margin structure]{@link https://docs.ccxt.com/#/?id=reduce-margin-structure}
  */
-func  (this *AftermathCore) ReduceMargin(symbol any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) ReduceMargin(symbol interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes10778 := (<-this.LoadMarkets())
             PanicOnError(retRes10778)
-            var market any = this.Market(symbol)
-            var account any = nil
+            var market interface{} = this.Market(symbol)
+            var account interface{} = nil
             accountparamsVariable := this.HandleOptionAndParams2(params, "reduceMargin", "account", "accountId");
             account = GetValue(accountparamsVariable,0);
             params = GetValue(accountparamsVariable,1)
-            var txRequest any = map[string]any {
+            var txRequest interface{} = map[string]interface{} {
                 "accountId": account,
                 "chId": GetValue(market, "id"),
                 "amount": this.ParseToNumeric(this.AmountToPrecision(symbol, amount)),
-                "metadata": map[string]any {
+                "metadata": map[string]interface{} {
                     "sender": this.WalletAddress,
                 },
             }
         
             tx:= (<-this.PrivatePostBuildDeallocate(txRequest))
             PanicOnError(tx)
-            var request any = this.SignTxEd25519(tx)
+            var request interface{} = this.SignTxEd25519(tx)
         
             response:= (<-this.PrivatePostSubmitDeallocate(request))
             PanicOnError(response)
@@ -1442,21 +1442,21 @@ func  (this *AftermathCore) ReduceMargin(symbol any, amount any, optionalArgs ..
  * @param {string} fromAccount account to transfer from
  * @param {string} toAccount account to transfer to
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} a [transfer structure]{@link https://docs.ccxt.com/?id=transfer-structure}
+ * @returns {object} a [transfer structure]{@link https://docs.ccxt.com/#/?id=transfer-structure}
  */
-func  (this *AftermathCore) Transfer(code any, amount any, fromAccount any, toAccount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) Transfer(code interface{}, amount interface{}, fromAccount interface{}, toAccount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes11268 := (<-this.LoadMarkets())
             PanicOnError(retRes11268)
-            var currency any = this.Currency(code)
-            var txRequest any = map[string]any {
-                "metadata": map[string]any {
+            var currency interface{} = this.Currency(code)
+            var txRequest interface{} = map[string]interface{} {
+                "metadata": map[string]interface{} {
                     "sender": this.WalletAddress,
                 },
                 "accountId": toAccount,
@@ -1465,7 +1465,7 @@ func  (this *AftermathCore) Transfer(code any, amount any, fromAccount any, toAc
         
             tx:= (<-this.PrivatePostBuildDeposit(txRequest))
             PanicOnError(tx)
-            var request any = this.SignTxEd25519(tx)
+            var request interface{} = this.SignTxEd25519(tx)
         
             response:= (<-this.PrivatePostSubmitDeposit(request))
             PanicOnError(response)
@@ -1479,7 +1479,7 @@ func  (this *AftermathCore) Transfer(code any, amount any, fromAccount any, toAc
             //     "collateral": 1.0
             // }
             //
-        ch <- this.Extend(this.ParseTransfer(response, currency), map[string]any {
+        ch <- this.Extend(this.ParseTransfer(response, currency), map[string]interface{} {
                 "fromAccount": this.WalletAddress,
                 "toAccount": toAccount,
                 "amount": amount,
@@ -1489,11 +1489,11 @@ func  (this *AftermathCore) Transfer(code any, amount any, fromAccount any, toAc
             }()
             return ch
         }
-func  (this *AftermathCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
+func  (this *AftermathCore) ParseTransfer(transfer interface{}, optionalArgs ...interface{}) interface{}  {
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var currencyId any = this.SafeString(transfer, "code")
-    return map[string]any {
+    var currencyId interface{} = this.SafeString(transfer, "code")
+    return map[string]interface{} {
         "info": transfer,
         "id": this.SafeString(transfer, "id"),
         "timestamp": nil,
@@ -1517,31 +1517,31 @@ func  (this *AftermathCore) ParseTransfer(transfer any, optionalArgs ...any) any
  * @param {string} tag
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {Account} [params.account] account id to use, required
- * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/?id=transaction-structure}
+ * @returns {object} a [transaction structure]{@link https://docs.ccxt.com/#/?id=transaction-structure}
  */
-func  (this *AftermathCore) Withdraw(code any, amount any, address any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) Withdraw(code interface{}, amount interface{}, address interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     tag := GetArg(optionalArgs, 0, nil)
             _ = tag
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes11848 := (<-this.LoadMarkets())
             PanicOnError(retRes11848)
-            var currency any = this.Currency(code)
-            var account any = nil
+            var currency interface{} = this.Currency(code)
+            var account interface{} = nil
             accountparamsVariable := this.HandleOptionAndParams(params, "withdraw", "account");
             account = GetValue(accountparamsVariable,0);
             params = GetValue(accountparamsVariable,1)
             if IsTrue(IsEqual(account, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " withdraw() requires a account parameter in params")))
             }
-            var txRequest any = map[string]any {
+            var txRequest interface{} = map[string]interface{} {
                 "accountId": account,
-                "metadata": map[string]any {
+                "metadata": map[string]interface{} {
                     "sender": this.WalletAddress,
                 },
                 "amount": amount,
@@ -1549,7 +1549,7 @@ func  (this *AftermathCore) Withdraw(code any, amount any, address any, optional
         
             tx:= (<-this.PrivatePostBuildWithdraw(txRequest))
             PanicOnError(tx)
-            var request any = this.SignTxEd25519(tx)
+            var request interface{} = this.SignTxEd25519(tx)
         
             response:= (<-this.PrivatePostSubmitWithdraw(request))
             PanicOnError(response)
@@ -1563,7 +1563,7 @@ func  (this *AftermathCore) Withdraw(code any, amount any, address any, optional
             //     "collateral": 39.0
             // }
             //
-        ch <- this.Extend(this.ParseTransaction(response, currency), map[string]any {
+        ch <- this.Extend(this.ParseTransaction(response, currency), map[string]interface{} {
                 "addressFrom": account,
                 "amount": amount,
             })
@@ -1572,10 +1572,10 @@ func  (this *AftermathCore) Withdraw(code any, amount any, address any, optional
             }()
             return ch
         }
-func  (this *AftermathCore) ParseTransaction(transaction any, optionalArgs ...any) any  {
+func  (this *AftermathCore) ParseTransaction(transaction interface{}, optionalArgs ...interface{}) interface{}  {
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    return map[string]any {
+    return map[string]interface{} {
         "info": transaction,
         "id": this.SafeString(transaction, "id"),
         "txid": this.SafeString(transaction, "tx_id"),
@@ -1610,14 +1610,14 @@ func  (this *AftermathCore) ParseTransaction(transaction any, optionalArgs ...an
  * @param {Account} [params.account] account id to use, required
  * @returns {object} response from the exchange
  */
-func  (this *AftermathCore) SetLeverage(leverage any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *AftermathCore) SetLeverage(leverage interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " setLeverage() requires a symbol argument")))
@@ -1625,23 +1625,23 @@ func  (this *AftermathCore) SetLeverage(leverage any, optionalArgs ...any) <- ch
         
             retRes12578 := (<-this.LoadMarkets())
             PanicOnError(retRes12578)
-            var market any = this.Market(symbol)
-            var account any = nil
+            var market interface{} = this.Market(symbol)
+            var account interface{} = nil
             accountparamsVariable := this.HandleOptionAndParams2(params, "setLeverage", "account", "accountId");
             account = GetValue(accountparamsVariable,0);
             params = GetValue(accountparamsVariable,1)
-            var txRequest any = map[string]any {
+            var txRequest interface{} = map[string]interface{} {
                 "accountId": account,
                 "chId": GetValue(market, "id"),
                 "leverage": leverage,
-                "metadata": map[string]any {
+                "metadata": map[string]interface{} {
                     "sender": this.WalletAddress,
                 },
             }
         
             tx:= (<-this.PrivatePostBuildSetLeverage(txRequest))
             PanicOnError(tx)
-            var request any = this.SignTxEd25519(tx)
+            var request interface{} = this.SignTxEd25519(tx)
         
             response:= (<-this.PrivatePostSubmitSetLeverage(request))
             PanicOnError(response)
@@ -1680,34 +1680,34 @@ func  (this *AftermathCore) SetLeverage(leverage any, optionalArgs ...any) <- ch
  * @param {object} [tx] transaction bytes and the signing digest for them
  * @returns {object} the input transaction bytes and the signed digest
  */
-func  (this *AftermathCore) SignTxEd25519(tx any) any  {
+func  (this *AftermathCore) SignTxEd25519(tx interface{}) interface{}  {
     if IsTrue(IsGreaterThanOrEqual(GetIndexOf(this.PrivateKey, "suiprivkey"), 0)) {
         panic(NotSupported(Add(this.Id, " only support hex encoding private key, please transform bech32 encoding private key")))
     }
-    var signingDigest any = this.SafeString(tx, "signingDigest")
-    var digest any = this.Base64ToBinary(signingDigest)
-    var privateKey any = this.Base16ToBinary(this.PrivateKey)
-    var signature any = Eddsa(digest, privateKey, ed25519)
-    var hexPublicKey any = this.SafeString(this.Options, "publicKey")
+    var signingDigest interface{} = this.SafeString(tx, "signingDigest")
+    var digest interface{} = this.Base64ToBinary(signingDigest)
+    var privateKey interface{} = this.Base16ToBinary(this.PrivateKey)
+    var signature interface{} = Eddsa(digest, privateKey, ed25519)
+    var hexPublicKey interface{} = this.SafeString(this.Options, "publicKey")
     if IsTrue(IsEqual(hexPublicKey, nil)) {
         panic(ArgumentsRequired(Add(this.Id, " requires hex encoding public key in options")))
     }
-    var publicKey any = this.Base16ToBinary(hexPublicKey)
-    var suiSignature any = this.BinaryConcat(this.Base16ToBinary("00"), this.BinaryConcat(this.Base64ToBinary(signature), publicKey))
-    var base64Sig any = this.BinaryToBase64(suiSignature)
-    var transactionBytes any = this.SafeString(tx, "transactionBytes")
-    var signatures any = []any{base64Sig}
-    return map[string]any {
+    var publicKey interface{} = this.Base16ToBinary(hexPublicKey)
+    var suiSignature interface{} = this.BinaryConcat(this.Base16ToBinary("00"), this.BinaryConcat(this.Base64ToBinary(signature), publicKey))
+    var base64Sig interface{} = this.BinaryToBase64(suiSignature)
+    var transactionBytes interface{} = this.SafeString(tx, "transactionBytes")
+    var signatures interface{} = []interface{}{base64Sig}
+    return map[string]interface{} {
         "transactionBytes": transactionBytes,
         "signatures": signatures,
     }
 }
-func  (this *AftermathCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *AftermathCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
     return this.SafeOrder(order, market)
 }
-func  (this *AftermathCore) HandleErrors(httpCode any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *AftermathCore) HandleErrors(httpCode interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if !IsTrue(response) {
         return nil  // fallback to default error handler
     }
@@ -1720,28 +1720,28 @@ func  (this *AftermathCore) HandleErrors(httpCode any, reason any, url any, meth
     }
     return nil
 }
-func  (this *AftermathCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *AftermathCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "POST")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = Add(Add(GetValue(GetValue(this.Urls, "api"), "rest"), "/"), path)
+    var url interface{} = Add(Add(GetValue(GetValue(this.Urls, "api"), "rest"), "/"), path)
     if IsTrue(IsEqual(api, "private")) {
         this.CheckRequiredCredentials()
     }
     if IsTrue(IsEqual(method, "POST")) {
-        headers = map[string]any {
+        headers = map[string]interface{} {
             "Content-Type": "application/json",
         }
         body = this.Json(params)
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
@@ -1750,8 +1750,8 @@ func  (this *AftermathCore) Sign(path any, optionalArgs ...any) any  {
 }
 
 
-func (this *AftermathCore) Init(userConfig map[string]any) {
+func (this *AftermathCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

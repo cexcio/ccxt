@@ -23,11 +23,11 @@ function example() {
         $symbol = 'BTC/USDT';
         $timeframe = '1m';
         while (true) {
-            $ohlcv = \React\Async\await($binance->watch_ohlcv($symbol, $timeframe));
+            $ohlcv = Async\await($binance->watch_ohlcv($symbol, $timeframe));
             var_dump($ohlcv);
         }
     }) ();
 }
 
 
-\React\Async\await(example());
+Async\await(example());

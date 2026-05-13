@@ -28,9 +28,9 @@ function example() {
             'secret' => 'MY_SECRET',
         ));
         $exchange->set_sandbox_mode(true);
-        \React\Async\await($exchange->load_markets());
+        Async\await($exchange->load_markets());
         $exchange->verbose = true; // uncomment for debugging purposes if necessary
-        $orders = \React\Async\await($exchange->create_orders([array(
+        $orders = Async\await($exchange->create_orders([array(
     'symbol' => 'LTC/USDT:USDT',
     'type' => 'limit',
     'side' => 'buy',
@@ -47,6 +47,6 @@ function example() {
 }
 
 
-\React\Async\await(example());
+Async\await(example());
  
 ```

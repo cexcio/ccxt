@@ -29,8 +29,8 @@ type WSClient struct {
 	*Client
 
 	ConnectionStarted int64
-	Protocols         any
-	Options           map[string]any
+	Protocols         interface{}
+	Options           interface{}
 	StartedConnecting bool
 	ProxyUrl          string
 
@@ -38,7 +38,7 @@ type WSClient struct {
 }
 
 // NewWSClient dials the given URL and starts the read-loop.
-func NewWSClient(url string, onMessageCallback func(client any, err any), onErrorCallback func(client any, err any), onCloseCallback func(client any, err any), onConnectedCallback func(client any, err any), proxyUrl string, config ...map[string]any) *WSClient {
+func NewWSClient(url string, onMessageCallback func(client interface{}, err interface{}), onErrorCallback func(client interface{}, err interface{}), onCloseCallback func(client interface{}, err interface{}), onConnectedCallback func(client interface{}, err interface{}), proxyUrl string, config ...map[string]interface{}) *WSClient {
 	// Call NewClient to do exactly the same initialization
 	client := NewClient(url, onMessageCallback, onErrorCallback, onCloseCallback, onConnectedCallback, config...)
 
@@ -48,17 +48,6 @@ func NewWSClient(url string, onMessageCallback func(client any, err any), onErro
 		ProxyUrl: proxyUrl,
 	}
 	wsClient.StartedConnecting = false
-
-	if len(config) > 0 {
-		opt, ok := config[0]["options"]
-		if ok {
-			if options, ok := opt.(map[string]any); ok {
-				wsClient.Options = options
-			}
-		} else {
-			wsClient.Options = config[0]
-		}
-	}
 
 	return wsClient
 }
@@ -89,19 +78,6 @@ func (this *WSClient) CreateConnection() error {
 	if this.Protocols != nil {
 		if protocols, ok := this.Protocols.([]string); ok {
 			headers.Set("Sec-WebSocket-Protocol", strings.Join(protocols, ", "))
-		}
-	}
-
-	// read from options headers if present
-	if this.Options != nil {
-		if headersOption, ok := this.Options["headers"]; ok {
-			if headersMap, ok := headersOption.(map[string]any); ok {
-				for key, value := range headersMap {
-					if strValue, ok := value.(string); ok {
-						headers.Set(key, strValue)
-					}
-				}
-			}
 		}
 	}
 
@@ -200,7 +176,7 @@ func (this *WSClient) IsOpen() bool {
 	return this.Connection != nil
 }
 
-func (this *WSClient) ResetConnection(err any) {
+func (this *WSClient) ResetConnection(err interface{}) {
 	this.ClearConnectionTimeout()
 	this.ClearPingInterval()
 	this.Reject(err)
@@ -254,12 +230,12 @@ func (this *WSClient) OnPingInterval() {
 				err := RequestTimeout("Connection to " + this.Url + " timed out due to a ping-pong keepalive missing on time")
 				this.OnError(err)
 			} else {
-				var message any
+				var message interface{}
 				if this.Ping != nil {
-					if pingFunc, ok := this.Ping.(func(*WSClient) any); ok {
+					if pingFunc, ok := this.Ping.(func(*WSClient) interface{}); ok {
 						message = pingFunc(this)
 					}
-					if pingFunc, ok := this.Ping.(func(any) any); ok { // todo: type Ping() function properly inside derived files
+					if pingFunc, ok := this.Ping.(func(interface{}) interface{}); ok { // todo: type Ping() function properly inside derived files
 						message = pingFunc(this)
 					}
 				}
@@ -315,23 +291,23 @@ func (this *WSClient) Close() *Future {
 	return this.Disconnected.(*Future)
 }
 
-func (this *WSClient) Resolve(data any, subHash any) any {
+func (this *WSClient) Resolve(data interface{}, subHash interface{}) interface{} {
 	return this.Client.Resolve(data, subHash)
 }
 
-func (this *WSClient) Future(messageHash any) <-chan any {
+func (this *WSClient) Future(messageHash interface{}) <-chan interface{} {
 	return this.Client.Future(messageHash)
 }
 
-func (this *WSClient) Reject(err any, messageHash ...any) {
+func (this *WSClient) Reject(err interface{}, messageHash ...interface{}) {
 	this.Client.Reject(err, messageHash...)
 }
 
-func (this *WSClient) Send(message any) <-chan any {
+func (this *WSClient) Send(message interface{}) <-chan interface{} {
 	return this.Client.Send(message)
 }
 
-func (this *WSClient) Reset(err any) {
+func (this *WSClient) Reset(err interface{}) {
 	this.Client.Reset(err)
 }
 
@@ -351,21 +327,21 @@ func (this *WSClient) GetUrl() string {
 	return this.Client.GetUrl()
 }
 
-func (this *WSClient) GetSubscriptions() map[string]any {
+func (this *WSClient) GetSubscriptions() map[string]interface{} {
 	return this.Client.GetSubscriptions()
 }
-func (this *WSClient) GetLastPong() any {
+func (this *WSClient) GetLastPong() interface{} {
 	return this.Client.GetLastPong()
 }
-func (this *WSClient) SetLastPong(lastPong any) {
+func (this *WSClient) SetLastPong(lastPong interface{}) {
 	this.Client.SetLastPong(lastPong)
 }
-func (this *WSClient) GetKeepAlive() any {
+func (this *WSClient) GetKeepAlive() interface{} {
 	return this.Client.GetKeepAlive()
 }
-func (this *WSClient) SetKeepAlive(keepAlive any) {
+func (this *WSClient) SetKeepAlive(keepAlive interface{}) {
 	this.Client.SetKeepAlive(keepAlive)
 }
-func (this *WSClient) GetFutures() map[string]any {
+func (this *WSClient) GetFutures() map[string]interface{} {
 	return this.Client.GetFutures()
 }

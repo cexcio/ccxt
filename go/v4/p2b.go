@@ -15,15 +15,15 @@ func NewP2bCore() *P2bCore {
     return p
 }
 
-func  (this *P2bCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *P2bCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "p2b",
         "name": "p2b",
-        "countries": []any{"LT"},
+        "countries": []interface{}{"LT"},
         "rateLimit": 100,
         "version": "v2",
         "pro": true,
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": nil,
             "spot": true,
             "margin": false,
@@ -140,16 +140,16 @@ func  (this *P2bCore) Describe() any  {
             "transfer": false,
             "withdraw": false,
         },
-        "timeframes": map[string]any {
+        "timeframes": map[string]interface{} {
             "1m": "1m",
             "1h": "1h",
             "1d": "1d",
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "extension": ".json",
             "referral": "https://p2pb2b.com?referral=ee784c53",
             "logo": "https://github.com/ccxt/ccxt/assets/43336371/8da13a80-1f0a-49be-bb90-ff8b25164755",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "public": "https://api.p2pb2b.com/api/v2/public",
                 "private": "https://api.p2pb2b.com/api/v2",
             },
@@ -157,9 +157,9 @@ func  (this *P2bCore) Describe() any  {
             "doc": "https://github.com/P2B-team/p2b-api-docs/blob/master/api-doc.md",
             "fees": "https://p2pb2b.com/fee-schedule/",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": map[string]any {
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": map[string]interface{} {
                     "markets": 1,
                     "market": 1,
                     "tickers": 1,
@@ -170,8 +170,8 @@ func  (this *P2bCore) Describe() any  {
                     "market/kline": 1,
                 },
             },
-            "private": map[string]any {
-                "post": map[string]any {
+            "private": map[string]interface{} {
+                "post": map[string]interface{} {
                     "account/balances": 1,
                     "account/balance": 1,
                     "order/new": 1,
@@ -185,18 +185,18 @@ func  (this *P2bCore) Describe() any  {
                 },
             },
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "tierBased": true,
                 "percentage": true,
-                "taker": []any{[]any{this.ParseNumber("0"), this.ParseNumber("0.2")}, []any{this.ParseNumber("1"), this.ParseNumber("0.19")}, []any{this.ParseNumber("5"), this.ParseNumber("0.18")}, []any{this.ParseNumber("10"), this.ParseNumber("0.17")}, []any{this.ParseNumber("25"), this.ParseNumber("0.16")}, []any{this.ParseNumber("75"), this.ParseNumber("0.15")}, []any{this.ParseNumber("100"), this.ParseNumber("0.14")}, []any{this.ParseNumber("150"), this.ParseNumber("0.13")}, []any{this.ParseNumber("300"), this.ParseNumber("0.12")}, []any{this.ParseNumber("450"), this.ParseNumber("0.11")}, []any{this.ParseNumber("500"), this.ParseNumber("0.1")}},
-                "maker": []any{[]any{this.ParseNumber("0"), this.ParseNumber("0.2")}, []any{this.ParseNumber("1"), this.ParseNumber("0.18")}, []any{this.ParseNumber("5"), this.ParseNumber("0.16")}, []any{this.ParseNumber("10"), this.ParseNumber("0.14")}, []any{this.ParseNumber("25"), this.ParseNumber("0.12")}, []any{this.ParseNumber("75"), this.ParseNumber("0.1")}, []any{this.ParseNumber("100"), this.ParseNumber("0.08")}, []any{this.ParseNumber("150"), this.ParseNumber("0.06")}, []any{this.ParseNumber("300"), this.ParseNumber("0.04")}, []any{this.ParseNumber("450"), this.ParseNumber("0.02")}, []any{this.ParseNumber("500"), this.ParseNumber("0.01")}},
+                "taker": []interface{}{[]interface{}{this.ParseNumber("0"), this.ParseNumber("0.2")}, []interface{}{this.ParseNumber("1"), this.ParseNumber("0.19")}, []interface{}{this.ParseNumber("5"), this.ParseNumber("0.18")}, []interface{}{this.ParseNumber("10"), this.ParseNumber("0.17")}, []interface{}{this.ParseNumber("25"), this.ParseNumber("0.16")}, []interface{}{this.ParseNumber("75"), this.ParseNumber("0.15")}, []interface{}{this.ParseNumber("100"), this.ParseNumber("0.14")}, []interface{}{this.ParseNumber("150"), this.ParseNumber("0.13")}, []interface{}{this.ParseNumber("300"), this.ParseNumber("0.12")}, []interface{}{this.ParseNumber("450"), this.ParseNumber("0.11")}, []interface{}{this.ParseNumber("500"), this.ParseNumber("0.1")}},
+                "maker": []interface{}{[]interface{}{this.ParseNumber("0"), this.ParseNumber("0.2")}, []interface{}{this.ParseNumber("1"), this.ParseNumber("0.18")}, []interface{}{this.ParseNumber("5"), this.ParseNumber("0.16")}, []interface{}{this.ParseNumber("10"), this.ParseNumber("0.14")}, []interface{}{this.ParseNumber("25"), this.ParseNumber("0.12")}, []interface{}{this.ParseNumber("75"), this.ParseNumber("0.1")}, []interface{}{this.ParseNumber("100"), this.ParseNumber("0.08")}, []interface{}{this.ParseNumber("150"), this.ParseNumber("0.06")}, []interface{}{this.ParseNumber("300"), this.ParseNumber("0.04")}, []interface{}{this.ParseNumber("450"), this.ParseNumber("0.02")}, []interface{}{this.ParseNumber("500"), this.ParseNumber("0.01")}},
             },
         },
-        "features": map[string]any {
-            "spot": map[string]any {
+        "features": map[string]interface{} {
+            "spot": map[string]interface{} {
                 "sandbox": false,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": false,
                     "triggerDirection": false,
@@ -204,7 +204,7 @@ func  (this *P2bCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": true,
                         "FOK": true,
                         "PO": true,
@@ -219,7 +219,7 @@ func  (this *P2bCore) Describe() any  {
                     "iceberg": false,
                 },
                 "createOrders": nil,
-                "fetchMyTrades": map[string]any {
+                "fetchMyTrades": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": 100000,
@@ -227,7 +227,7 @@ func  (this *P2bCore) Describe() any  {
                     "symbolRequired": true,
                 },
                 "fetchOrder": nil,
-                "fetchOpenOrders": map[string]any {
+                "fetchOpenOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "trigger": false,
@@ -235,7 +235,7 @@ func  (this *P2bCore) Describe() any  {
                     "symbolRequired": true,
                 },
                 "fetchOrders": nil,
-                "fetchClosedOrders": map[string]any {
+                "fetchClosedOrders": map[string]interface{} {
                     "marginMode": false,
                     "limit": 100,
                     "daysBack": 100000,
@@ -245,22 +245,22 @@ func  (this *P2bCore) Describe() any  {
                     "trailing": false,
                     "symbolRequired": false,
                 },
-                "fetchOHLCV": map[string]any {
+                "fetchOHLCV": map[string]interface{} {
                     "limit": 500,
                 },
             },
-            "swap": map[string]any {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
         },
-        "commonCurrencies": map[string]any {},
+        "commonCurrencies": map[string]interface{} {},
         "precisionMode": TICK_SIZE,
-        "exceptions": map[string]any {
+        "exceptions": map[string]interface{} {
             "1001": AuthenticationError,
             "1002": AuthenticationError,
             "1003": AuthenticationError,
@@ -303,7 +303,7 @@ func  (this *P2bCore) Describe() any  {
             "4001": ExchangeNotAvailable,
             "6010": InsufficientFunds,
         },
-        "options": map[string]any {},
+        "options": map[string]interface{} {},
     })
 }
 /**
@@ -314,12 +314,12 @@ func  (this *P2bCore) Describe() any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} an array of objects representing market data
  */
-func  (this *P2bCore) FetchMarkets(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchMarkets(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             response:= (<-this.PublicGetMarkets(params))
@@ -353,7 +353,7 @@ func  (this *P2bCore) FetchMarkets(optionalArgs ...any) <- chan any {
             //        ]
             //    }
             //
-            var markets any = this.SafeValue(response, "result", []any{})
+            var markets interface{} = this.SafeValue(response, "result", []interface{}{})
         
             ch <- this.ParseMarkets(markets)
             return nil
@@ -361,16 +361,16 @@ func  (this *P2bCore) FetchMarkets(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *P2bCore) ParseMarket(market any) any  {
-    var marketId any = this.SafeString(market, "name")
-    var baseId any = this.SafeString(market, "stock")
-    var quoteId any = this.SafeString(market, "money")
-    var base any = this.SafeCurrencyCode(baseId)
-    var quote any = this.SafeCurrencyCode(quoteId)
-    var limits any = this.SafeValue(market, "limits")
-    var maxAmount any = this.SafeString(limits, "max_amount")
-    var maxPrice any = this.SafeString(limits, "max_price")
-    return map[string]any {
+func  (this *P2bCore) ParseMarket(market interface{}) interface{}  {
+    var marketId interface{} = this.SafeString(market, "name")
+    var baseId interface{} = this.SafeString(market, "stock")
+    var quoteId interface{} = this.SafeString(market, "money")
+    var base interface{} = this.SafeCurrencyCode(baseId)
+    var quote interface{} = this.SafeCurrencyCode(quoteId)
+    var limits interface{} = this.SafeValue(market, "limits")
+    var maxAmount interface{} = this.SafeString(limits, "max_amount")
+    var maxPrice interface{} = this.SafeString(limits, "max_price")
+    return map[string]interface{} {
         "id": marketId,
         "symbol": Add(Add(base, "/"), quote),
         "base": base,
@@ -394,24 +394,24 @@ func  (this *P2bCore) ParseMarket(market any) any  {
         "expiryDatetime": nil,
         "strike": nil,
         "optionType": nil,
-        "precision": map[string]any {
+        "precision": map[string]interface{} {
             "amount": this.SafeNumber(limits, "step_size"),
             "price": this.SafeNumber(limits, "tick_size"),
         },
-        "limits": map[string]any {
-            "leverage": map[string]any {
+        "limits": map[string]interface{} {
+            "leverage": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
-            "amount": map[string]any {
+            "amount": map[string]interface{} {
                 "min": this.SafeNumber(limits, "min_amount"),
                 "max": this.ParseNumber(this.OmitZero(maxAmount)),
             },
-            "price": map[string]any {
+            "price": map[string]interface{} {
                 "min": this.SafeNumber(limits, "min_price"),
                 "max": this.ParseNumber(this.OmitZero(maxPrice)),
             },
-            "cost": map[string]any {
+            "cost": map[string]interface{} {
                 "min": nil,
                 "max": nil,
             },
@@ -429,14 +429,14 @@ func  (this *P2bCore) ParseMarket(market any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *P2bCore) FetchTickers(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchTickers(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbols := GetArg(optionalArgs, 0, nil)
             _ = symbols
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes4478 := (<-this.LoadMarkets())
@@ -469,7 +469,7 @@ func  (this *P2bCore) FetchTickers(optionalArgs ...any) <- chan any {
             //        current_time: '1699252644.487566'
             //    }
             //
-            var result any = this.SafeValue(response, "result", map[string]any {})
+            var result interface{} = this.SafeValue(response, "result", map[string]interface{} {})
         
             ch <- this.ParseTickers(result, symbols)
             return nil
@@ -486,18 +486,18 @@ func  (this *P2bCore) FetchTickers(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *P2bCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes4888 := (<-this.LoadMarkets())
             PanicOnError(retRes4888)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
         
@@ -523,10 +523,10 @@ func  (this *P2bCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
             //        current_time: '1699252958.859391'
             //    }
             //
-            var result any = this.SafeValue(response, "result", map[string]any {})
-            var timestamp any = this.SafeIntegerProduct(response, "cache_time", 1000)
+            var result interface{} = this.SafeValue(response, "result", map[string]interface{} {})
+            var timestamp interface{} = this.SafeIntegerProduct(response, "cache_time", 1000)
         
-            ch <- this.Extend(map[string]any {
+            ch <- this.Extend(map[string]interface{} {
                 "timestamp": timestamp,
                 "datetime": this.Iso8601(timestamp),
             }, this.ParseTicker(result, market))
@@ -535,7 +535,7 @@ func  (this *P2bCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *P2bCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *P2bCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // parseTickers
     //
@@ -569,12 +569,12 @@ func  (this *P2bCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeIntegerProduct(ticker, "at", 1000)
+    var timestamp interface{} = this.SafeIntegerProduct(ticker, "at", 1000)
     if IsTrue(InOp(ticker, "ticker")) {
         ticker = this.SafeValue(ticker, "ticker")
     }
-    var last any = this.SafeString(ticker, "last")
-    return this.SafeTicker(map[string]any {
+    var last interface{} = this.SafeString(ticker, "last")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": this.SafeString(market, "symbol"),
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -610,20 +610,20 @@ func  (this *P2bCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {string} [params.interval] 0 (default), 0.00000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *P2bCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes5978 := (<-this.LoadMarkets())
             PanicOnError(retRes5978)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -657,8 +657,8 @@ func  (this *P2bCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan an
             //        "current_time": 1698733470.469274
             //    }
             //
-            var result any = this.SafeValue(response, "result", map[string]any {})
-            var timestamp any = this.SafeIntegerProduct(response, "current_time", 1000)
+            var result interface{} = this.SafeValue(response, "result", map[string]interface{} {})
+            var timestamp interface{} = this.SafeIntegerProduct(response, "current_time", 1000)
         
             ch <- this.ParseOrderBook(result, GetValue(market, "symbol"), timestamp, "bids", "asks", 0, 1)
             return nil
@@ -678,26 +678,26 @@ func  (this *P2bCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan an
  * @param {int} params.lastId order id
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *P2bCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes6498 := (<-this.LoadMarkets())
             PanicOnError(retRes6498)
-            var lastId any = this.SafeInteger(params, "lastId")
+            var lastId interface{} = this.SafeInteger(params, "lastId")
             if IsTrue(IsEqual(lastId, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchTrades () requires an extra parameter params[\"lastId\"]")))
             }
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
                 "lastId": lastId,
             }
@@ -726,7 +726,7 @@ func  (this *P2bCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
             //        current_time: '1699255571.413828'
             //    }
             //
-            var result any = this.SafeList(response, "result", []any{})
+            var result interface{} = this.SafeList(response, "result", []interface{}{})
         
             ch <- this.ParseTrades(result, market, since, limit)
             return nil
@@ -734,7 +734,7 @@ func  (this *P2bCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *P2bCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *P2bCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // fetchTrades
     //
@@ -777,14 +777,14 @@ func  (this *P2bCore) ParseTrade(trade any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeIntegerProduct2(trade, "time", "deal_time", 1000)
-    var takerOrMaker any = this.SafeString(trade, "role")
+    var timestamp interface{} = this.SafeIntegerProduct2(trade, "time", "deal_time", 1000)
+    var takerOrMaker interface{} = this.SafeString(trade, "role")
     if IsTrue(IsEqual(takerOrMaker, "1")) {
         takerOrMaker = "maker"
     } else if IsTrue(IsEqual(takerOrMaker, "2")) {
         takerOrMaker = "taker"
     }
-    return this.SafeTrade(map[string]any {
+    return this.SafeTrade(map[string]interface{} {
         "info": trade,
         "id": this.SafeString2(trade, "id", "deal_id"),
         "timestamp": timestamp,
@@ -797,7 +797,7 @@ func  (this *P2bCore) ParseTrade(trade any, optionalArgs ...any) any  {
         "price": this.SafeString(trade, "price"),
         "amount": this.SafeString(trade, "amount"),
         "cost": this.SafeString(trade, "deal"),
-        "fee": map[string]any {
+        "fee": map[string]interface{} {
             "currency": GetValue(market, "quote"),
             "cost": this.SafeString2(trade, "fee", "deal_fee"),
         },
@@ -816,9 +816,9 @@ func  (this *P2bCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {int} [params.offset] default=0, with this value the last candles are returned
  * @returns {int[][]} A list of candles ordered as timestamp, open, high, low, close, volume
  */
-func  (this *P2bCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchOHLCV(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     timeframe := GetArg(optionalArgs, 0, "1m")
@@ -827,13 +827,13 @@ func  (this *P2bCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes7688 := (<-this.LoadMarkets())
             PanicOnError(retRes7688)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
                 "interval": timeframe,
             }
@@ -865,7 +865,7 @@ func  (this *P2bCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
             //        current_time: '1699256375.030494'
             //    }
             //
-            var result any = this.SafeList(response, "result", []any{})
+            var result interface{} = this.SafeList(response, "result", []interface{}{})
         
             ch <- this.ParseOHLCVs(result, market, timeframe, since, limit)
             return nil
@@ -873,7 +873,7 @@ func  (this *P2bCore) FetchOHLCV(symbol any, optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *P2bCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
+func  (this *P2bCore) ParseOHLCV(ohlcv interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //    [
     //        1699253400,       // Kline open time
@@ -888,7 +888,7 @@ func  (this *P2bCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    return []any{this.SafeIntegerProduct(ohlcv, 0, 1000), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 5)}
+    return []interface{}{this.SafeIntegerProduct(ohlcv, 0, 1000), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 5)}
 }
 /**
  * @method
@@ -898,12 +898,12 @@ func  (this *P2bCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *P2bCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes8368 := (<-this.LoadMarkets())
@@ -928,7 +928,7 @@ func  (this *P2bCore) FetchBalance(optionalArgs ...any) <- chan any {
             //        }
             //    }
             //
-            var result any = this.SafeValue(response, "result", map[string]any {})
+            var result interface{} = this.SafeValue(response, "result", map[string]interface{} {})
         
             ch <- this.ParseBalance(result)
             return nil
@@ -936,7 +936,7 @@ func  (this *P2bCore) FetchBalance(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *P2bCore) ParseBalance(response any) any  {
+func  (this *P2bCore) ParseBalance(response interface{}) interface{}  {
     //
     //    {
     //        "USDT": {
@@ -949,17 +949,17 @@ func  (this *P2bCore) ParseBalance(response any) any  {
     //        }
     //    }
     //
-    var result any = map[string]any {
+    var result interface{} = map[string]interface{} {
         "info": response,
     }
-    var keys any = ObjectKeys(response)
+    var keys interface{} = ObjectKeys(response)
     for i := 0; IsLessThan(i, GetArrayLength(keys)); i++ {
-        var currencyId any = GetValue(keys, i)
-        var balance any = GetValue(response, currencyId)
-        var code any = this.SafeCurrencyCode(currencyId)
-        var used any = this.SafeString(balance, "freeze")
-        var available any = this.SafeString(balance, "available")
-        var account any = map[string]any {
+        var currencyId interface{} = GetValue(keys, i)
+        var balance interface{} = GetValue(response, currencyId)
+        var code interface{} = this.SafeCurrencyCode(currencyId)
+        var used interface{} = this.SafeString(balance, "freeze")
+        var available interface{} = this.SafeString(balance, "available")
+        var account interface{} = map[string]interface{} {
             "free": available,
             "used": used,
         }
@@ -980,14 +980,14 @@ func  (this *P2bCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *P2bCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes9058 := (<-this.LoadMarkets())
@@ -995,8 +995,8 @@ func  (this *P2bCore) CreateOrder(symbol any, typeVar any, side any, amount any,
             if IsTrue(IsEqual(typeVar, "market")) {
                 panic(BadRequest(Add(this.Id, " createOrder () can only accept orders with type \"limit\"")))
             }
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
                 "side": side,
                 "amount": this.AmountToPrecision(symbol, amount),
@@ -1027,7 +1027,7 @@ func  (this *P2bCore) CreateOrder(symbol any, typeVar any, side any, amount any,
             //        }
             //    }
             //
-            var result any = this.SafeDict(response, "result")
+            var result interface{} = this.SafeDict(response, "result")
         
             ch <- this.ParseOrder(result, market)
             return nil
@@ -1045,14 +1045,14 @@ func  (this *P2bCore) CreateOrder(symbol any, typeVar any, side any, amount any,
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *P2bCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " cancelOrder() requires a symbol argument")))
@@ -1060,8 +1060,8 @@ func  (this *P2bCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
         
             retRes9578 := (<-this.LoadMarkets())
             PanicOnError(retRes9578)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
                 "orderId": id,
             }
@@ -1090,7 +1090,7 @@ func  (this *P2bCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
             //        }
             //    }
             //
-            var result any = this.SafeDict(response, "result")
+            var result interface{} = this.SafeDict(response, "result")
         
             ch <- this.ParseOrder(result)
             return nil
@@ -1112,9 +1112,9 @@ func  (this *P2bCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
  * @param {int} [params.offset] 0-10000, default=0
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *P2bCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchOpenOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1123,7 +1123,7 @@ func  (this *P2bCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchOpenOrders () requires the symbol argument")))
@@ -1131,8 +1131,8 @@ func  (this *P2bCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
         
             retRes10088 := (<-this.LoadMarkets())
             PanicOnError(retRes10088)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -1166,7 +1166,7 @@ func  (this *P2bCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
             //        ]
             //    }
             //
-            var result any = this.SafeList(response, "result", []any{})
+            var result interface{} = this.SafeList(response, "result", []interface{}{})
         
             ch <- this.ParseOrders(result, market, since, limit)
             return nil
@@ -1189,9 +1189,9 @@ func  (this *P2bCore) FetchOpenOrders(optionalArgs ...any) <- chan any {
  * @param {int} [params.offset] 0-10000, default=0
  * @returns {object[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=trade-structure}
  */
-func  (this *P2bCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchOrderTrades(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1200,13 +1200,13 @@ func  (this *P2bCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan any 
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes10628 := (<-this.LoadMarkets())
             PanicOnError(retRes10628)
-            var market any = this.SafeMarket(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.SafeMarket(symbol)
+            var request interface{} = map[string]interface{} {
                 "orderId": id,
             }
             if IsTrue(!IsEqual(limit, nil)) {
@@ -1238,8 +1238,8 @@ func  (this *P2bCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan any 
             //        }
             //    }
             //
-            var result any = this.SafeValue(response, "result", map[string]any {})
-            var records any = this.SafeList(result, "records", []any{})
+            var result interface{} = this.SafeValue(response, "result", map[string]interface{} {})
+            var records interface{} = this.SafeList(result, "records", []interface{}{})
         
             ch <- this.ParseTrades(records, market, since, limit)
             return nil
@@ -1262,9 +1262,9 @@ func  (this *P2bCore) FetchOrderTrades(id any, optionalArgs ...any) <- chan any 
  * @param {int} [params.offset] 0-10000, default=0
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *P2bCore) FetchMyTrades(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchMyTrades(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1273,7 +1273,7 @@ func  (this *P2bCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
             if IsTrue(IsEqual(symbol, nil)) {
                 panic(ArgumentsRequired(Add(this.Id, " fetchMyTrades() requires a symbol argument")))
@@ -1281,7 +1281,7 @@ func  (this *P2bCore) FetchMyTrades(optionalArgs ...any) <- chan any {
         
             retRes11188 := (<-this.LoadMarkets())
             PanicOnError(retRes11188)
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             params = this.Omit(params, "until")
             if IsTrue(IsEqual(until, nil)) {
                 if IsTrue(IsEqual(since, nil)) {
@@ -1296,8 +1296,8 @@ func  (this *P2bCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             if IsTrue(IsGreaterThan((Subtract(until, since)), 86400000)) {
                 panic(BadRequest(Add(this.Id, " fetchMyTrades () the time between since and params[\"until\"] cannot be greater than 24 hours")))
             }
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "market": GetValue(market, "id"),
                 "startTime": this.ParseToInt(Divide(since, 1000)),
                 "endTime": this.ParseToInt(Divide(until, 1000)),
@@ -1334,8 +1334,8 @@ func  (this *P2bCore) FetchMyTrades(optionalArgs ...any) <- chan any {
             //        }
             //    }
             //
-            var result any = this.SafeValue(response, "result", map[string]any {})
-            var deals any = this.SafeList(result, "deals", []any{})
+            var result interface{} = this.SafeValue(response, "result", map[string]interface{} {})
+            var deals interface{} = this.SafeList(result, "deals", []interface{}{})
         
             ch <- this.ParseTrades(deals, market, since, limit)
             return nil
@@ -1358,9 +1358,9 @@ func  (this *P2bCore) FetchMyTrades(optionalArgs ...any) <- chan any {
  * @param {int} [params.offset] 0-10000, default=0
  * @returns {Order[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *P2bCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *P2bCore) FetchClosedOrders(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
@@ -1369,14 +1369,14 @@ func  (this *P2bCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
             _ = since
             limit := GetArg(optionalArgs, 2, nil)
             _ = limit
-            params := GetArg(optionalArgs, 3, map[string]any {})
+            params := GetArg(optionalArgs, 3, map[string]interface{} {})
             _ = params
         
             retRes11918 := (<-this.LoadMarkets())
             PanicOnError(retRes11918)
-            var until any = this.SafeInteger(params, "until")
+            var until interface{} = this.SafeInteger(params, "until")
             params = this.Omit(params, "until")
-            var market any = nil
+            var market interface{} = nil
             if IsTrue(!IsEqual(symbol, nil)) {
                 market = this.Market(symbol)
             }
@@ -1393,7 +1393,7 @@ func  (this *P2bCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
             if IsTrue(IsGreaterThan((Subtract(until, since)), 86400000)) {
                 panic(BadRequest(Add(this.Id, " fetchClosedOrders () the time between since and params[\"until\"] cannot be greater than 24 hours")))
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "startTime": this.ParseToInt(Divide(since, 1000)),
                 "endTime": this.ParseToInt(Divide(until, 1000)),
             }
@@ -1432,13 +1432,13 @@ func  (this *P2bCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
             //        }
             //    }
             //
-            var result any = this.SafeValue(response, "result")
-            var orders any = []any{}
-            var keys any = ObjectKeys(result)
+            var result interface{} = this.SafeValue(response, "result")
+            var orders interface{} = []interface{}{}
+            var keys interface{} = ObjectKeys(result)
             for i := 0; IsLessThan(i, GetArrayLength(keys)); i++ {
-                var marketId any = GetValue(keys, i)
-                var marketOrders any = GetValue(result, marketId)
-                var parsedOrders any = this.ParseOrders(marketOrders, market, since, limit)
+                var marketId interface{} = GetValue(keys, i)
+                var marketOrders interface{} = GetValue(result, marketId)
+                var parsedOrders interface{} = this.ParseOrders(marketOrders, market, since, limit)
                 orders = this.ArrayConcat(orders, parsedOrders)
             }
         
@@ -1448,7 +1448,7 @@ func  (this *P2bCore) FetchClosedOrders(optionalArgs ...any) <- chan any {
             }()
             return ch
         }
-func  (this *P2bCore) ParseOrder(order any, optionalArgs ...any) any  {
+func  (this *P2bCore) ParseOrder(order interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // cancelOrder, fetchOpenOrders, createOrder
     //
@@ -1488,10 +1488,10 @@ func  (this *P2bCore) ParseOrder(order any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeIntegerProduct2(order, "timestamp", "ctime", 1000)
-    var marketId any = this.SafeString(order, "market")
+    var timestamp interface{} = this.SafeIntegerProduct2(order, "timestamp", "ctime", 1000)
+    var marketId interface{} = this.SafeString(order, "market")
     market = this.SafeMarket(marketId, market)
-    return this.SafeOrder(map[string]any {
+    return this.SafeOrder(map[string]interface{} {
         "info": order,
         "id": this.SafeString2(order, "id", "orderId"),
         "clientOrderId": nil,
@@ -1511,25 +1511,25 @@ func  (this *P2bCore) ParseOrder(order any, optionalArgs ...any) any  {
         "filled": this.SafeString(order, "dealStock"),
         "remaining": this.SafeString(order, "left"),
         "status": nil,
-        "fee": map[string]any {
+        "fee": map[string]interface{} {
             "currency": GetValue(market, "quote"),
             "cost": this.SafeString(order, "dealFee"),
         },
         "trades": nil,
     }, market)
 }
-func  (this *P2bCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *P2bCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = Add(Add(GetValue(GetValue(this.Urls, "api"), api), "/"), this.ImplodeParams(path, params))
+    var url interface{} = Add(Add(GetValue(GetValue(this.Urls, "api"), api), "/"), this.ImplodeParams(path, params))
     params = this.Omit(params, this.ExtractParams(path))
     if IsTrue(IsEqual(method, "GET")) {
         if IsTrue(GetArrayLength(ObjectKeys(params))) {
@@ -1539,8 +1539,8 @@ func  (this *P2bCore) Sign(path any, optionalArgs ...any) any  {
     if IsTrue(IsEqual(api, "private")) {
         AddElementToObject(params, "request", Add("/api/v2/", path))
         AddElementToObject(params, "nonce", ToString(this.Nonce()))
-        var payload any = this.StringToBase64(this.Json(params)) // Body json encoded in base64
-        headers = map[string]any {
+        var payload interface{} = this.StringToBase64(this.Json(params)) // Body json encoded in base64
+        headers = map[string]interface{} {
             "Content-Type": "application/json",
             "X-TXC-APIKEY": this.ApiKey,
             "X-TXC-PAYLOAD": payload,
@@ -1548,29 +1548,29 @@ func  (this *P2bCore) Sign(path any, optionalArgs ...any) any  {
         }
         body = this.Json(params)
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *P2bCore) HandleErrors(code any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *P2bCore) HandleErrors(code interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil
     }
     if IsTrue(IsEqual(code, 400)) {
-        var error any = this.SafeValue(response, "error")
-        var errorCode any = this.SafeString(error, "code")
-        var feedback any = Add(Add(this.Id, " "), this.Json(response))
+        var error interface{} = this.SafeValue(response, "error")
+        var errorCode interface{} = this.SafeString(error, "code")
+        var feedback interface{} = Add(Add(this.Id, " "), this.Json(response))
         this.ThrowExactlyMatchedException(this.Exceptions, errorCode, feedback)
     }
     return nil
 }
 
 
-func (this *P2bCore) Init(userConfig map[string]any) {
+func (this *P2bCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

@@ -774,14 +774,18 @@ export default class upbit extends Exchange {
     async fetchTickers(symbols = undefined, params = {}) {
         await this.loadMarkets();
         symbols = this.marketSymbols(symbols);
-        const ids = (symbols !== undefined) ? this.marketIds(symbols) : this.ids;
-        const promises = [];
-        const queries = this.idsQueryStrings(ids, 6400); // seems upbit server limitations
-        for (let i = 0; i < queries.length; i++) {
-            const idsQuery = queries[i];
-            promises.push(this.publicGetTicker({ 'markets': idsQuery }));
+        let ids = undefined;
+        if (symbols === undefined) {
+            ids = this.ids.join(',');
         }
-        const responses = await Promise.all(promises);
+        else {
+            ids = this.marketIds(symbols);
+            ids = ids.join(',');
+        }
+        const request = {
+            'markets': ids,
+        };
+        const response = await this.publicGetTicker(this.extend(request, params));
         //
         //     [ {                market: "BTC-ETH",
         //                    "trade_date": "20181122",
@@ -810,27 +814,13 @@ export default class upbit extends Exchange {
         //           "lowest_52_week_date": "2017-12-08",
         //                     "timestamp":  1542883543813  } ]
         //
-        const concated = this.arraysConcat(responses);
-        return this.parseTickers(concated, symbols);
-    }
-    idsQueryStrings(ids, maxQueryLength) {
-        let idsString = '';
-        const queries = [];
-        for (let i = 0; i < ids.length; i++) {
-            const id = ids[i];
-            if (idsString !== '') {
-                idsString = idsString + ',';
-            }
-            idsString = idsString + id;
-            if (idsString.length >= maxQueryLength) {
-                queries.push(idsString);
-                idsString = '';
-            }
+        const result = {};
+        for (let t = 0; t < response.length; t++) {
+            const ticker = this.parseTicker(response[t]);
+            const symbol = ticker['symbol'];
+            result[symbol] = ticker;
         }
-        if (idsString !== '') {
-            queries.push(idsString);
-        }
-        return queries;
+        return this.filterByArrayTickers(result, 'symbol', symbols);
     }
     /**
      * @method

@@ -14,7 +14,7 @@ function test_sign_in($exchange, $skipped_properties) {
     return Async\async(function () use ($exchange, $skipped_properties) {
         $method = 'signIn';
         if ($exchange->has[$method]) {
-            \React\Async\await($exchange->sign_in());
+            Async\await($exchange->sign_in());
         }
         return true;
     }) ();

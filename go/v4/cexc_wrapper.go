@@ -6,7 +6,7 @@ type Cexc struct {
    exchangeTyped *ExchangeTyped
 }
 
-func NewCexc(userConfig map[string]any) *Cexc {
+func NewCexc(userConfig map[string]interface{}) *Cexc {
    p := NewCexcCore()
    p.Init(userConfig)
    return &Cexc{
@@ -31,12 +31,12 @@ func NewCexcFromCore(core *CexcCore) *Cexc {
  * @method
  * @name cexc#fetchTime
  * @description fetches the current integer timestamp in milliseconds from the exchange server
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-server-time
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-server-time
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-server-time
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-server-time
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {int} the current integer timestamp in milliseconds from the exchange server
  */
-func (this *Cexc) FetchTime(params ...any) ( int64, error) {
+func (this *Cexc) FetchTime(params ...interface{}) ( int64, error) {
     res := <- this.Core.FetchTime(params...)
     if IsError(res) {
         return -1, CreateReturnError(res)
@@ -47,41 +47,41 @@ func (this *Cexc) FetchTime(params ...any) ( int64, error) {
  * @method
  * @name cexc#fetchStatus
  * @description the latest known information on the availability of the exchange API
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-service-status
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-service-status
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-service-status
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-service-status
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-service-status
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-service-status
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.type] spot or swap
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
  * @param {string} [params.tradeType] *uta only* set to SPOT or FUTURES
  * @returns {object} a [status structure]{@link https://docs.ccxt.com/?id=exchange-status-structure}
  */
-func (this *Cexc) FetchStatus(params ...any) (map[string]any, error) {
+func (this *Cexc) FetchStatus(params ...interface{}) (map[string]interface{}, error) {
     res := <- this.Core.FetchStatus(params...)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
  * @name cexc#fetchMarkets
  * @description retrieves data on all markets for kucoin
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-symbols
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-symbol
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-all-symbols
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-symbols
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-symbol
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-symbols
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
  * @returns {object[]} an array of objects representing market data
  */
-func (this *Cexc) FetchMarkets(params ...any) ([]MarketInterface, error) {
+func (this *Cexc) FetchMarkets(params ...interface{}) ([]MarketInterface, error) {
     res := <- this.Core.FetchMarkets(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
     }
     return NewMarketInterfaceArray(res), nil
 }
-func (this *Cexc) FetchContractMarkets(params ...any) ([]MarketInterface, error) {
+func (this *Cexc) FetchContractMarkets(params ...interface{}) ([]MarketInterface, error) {
     res := <- this.Core.FetchContractMarkets(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -92,13 +92,13 @@ func (this *Cexc) FetchContractMarkets(params ...any) ([]MarketInterface, error)
  * @method
  * @name cexc#fetchCurrencies
  * @description fetches all available currencies on an exchange
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-currencies
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-currencies
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-currencies
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-currencies
  * @param {object} params extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
  * @returns {object} an associative dictionary of currencies
  */
-func (this *Cexc) FetchCurrencies(params ...any) (Currencies, error) {
+func (this *Cexc) FetchCurrencies(params ...interface{}) (Currencies, error) {
     res := <- this.Core.FetchCurrencies(params...)
     if IsError(res) {
         return Currencies{}, CreateReturnError(res)
@@ -109,12 +109,12 @@ func (this *Cexc) FetchCurrencies(params ...any) (Currencies, error) {
  * @method
  * @name cexc#fetchAccounts
  * @description fetch all the accounts associated with a profile
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-list-spot
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-list-spot
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
  * @returns {object} a dictionary of [account structures]{@link https://docs.ccxt.com/?id=account-structure} indexed by the account type
  */
-func (this *Cexc) FetchAccounts(params ...any) ([]Account, error) {
+func (this *Cexc) FetchAccounts(params ...interface{}) ([]Account, error) {
     res := <- this.Core.FetchAccounts(params...)
     if IsError(res) {
         return nil, CreateReturnError(res)
@@ -130,7 +130,7 @@ func (this *Cexc) FetchAccounts(params ...any) ([]Account, error) {
  * @param {object} params extra parameters specific to the exchange API endpoint
  * @returns {object} a [fee structure]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func (this *Cexc) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]any, error) {
+func (this *Cexc) FetchTransactionFee(code string, options ...FetchTransactionFeeOptions) (map[string]interface{}, error) {
 
     opts := FetchTransactionFeeOptionsStruct{}
 
@@ -138,27 +138,27 @@ func (this *Cexc) FetchTransactionFee(code string, options ...FetchTransactionFe
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchTransactionFee(code, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
  * @name cexc#fetchDepositWithdrawFee
  * @description fetch the fee for deposits and withdrawals
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/get-withdrawal-quotas
+ * @see https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-quotas
  * @param {string} code unified currency code
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.network] The chain of currency. This only apply for multi-chain currency, and there is no need for single chain currency; you can query the chain through the response of the GET /api/v2/currencies/{currency} interface
  * @returns {object} a [fee structure]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func (this *Cexc) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]any, error) {
+func (this *Cexc) FetchDepositWithdrawFee(code string, options ...FetchDepositWithdrawFeeOptions) (map[string]interface{}, error) {
 
     opts := FetchDepositWithdrawFeeOptionsStruct{}
 
@@ -166,23 +166,23 @@ func (this *Cexc) FetchDepositWithdrawFee(code string, options ...FetchDepositWi
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchDepositWithdrawFee(code, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return (res).(map[string]any), nil
+    return (res).(map[string]interface{}), nil
 }
 /**
  * @method
  * @name cexc#fetchTickers
  * @description fetches price tickers for multiple markets, statistical information calculated over the past 24 hours for each market
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-all-tickers
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-all-tickers
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-ticker
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-all-tickers
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-all-tickers
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-ticker
  * @param {string[]|undefined} [symbols] unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
@@ -198,12 +198,12 @@ func (this *Cexc) FetchTickers(options ...FetchTickersOptions) (Tickers, error) 
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -221,12 +221,12 @@ func (this *Cexc) FetchContractTickers(options ...FetchContractTickersOptions) (
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -240,7 +240,7 @@ func (this *Cexc) FetchContractTickers(options ...FetchContractTickersOptions) (
  * @method
  * @name cexc#fetchMarkPrices
  * @description fetches the mark price for multiple markets
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/market-data/get-mark-price-list
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-list
  * @param {string[]} [symbols] unified symbols of the markets to fetch the ticker for, all market tickers are returned if not assigned
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [ticker structures]{@link https://docs.ccxt.com/?id=ticker-structure}
@@ -253,12 +253,12 @@ func (this *Cexc) FetchMarkPrices(options ...FetchMarkPricesOptions) (Tickers, e
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -272,9 +272,9 @@ func (this *Cexc) FetchMarkPrices(options ...FetchMarkPricesOptions) (Tickers, e
  * @method
  * @name cexc#fetchTicker
  * @description fetches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-24hr-stats
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-ticker
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-ticker
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-24hr-stats
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-ticker
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-ticker
  * @param {string} symbol unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
@@ -288,7 +288,7 @@ func (this *Cexc) FetchTicker(symbol string, options ...FetchTickerOptions) (Tic
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -302,8 +302,8 @@ func (this *Cexc) FetchTicker(symbol string, options ...FetchTickerOptions) (Tic
  * @method
  * @name cexc#fetchMarkPrice
  * @description fetches the mark price for a specific market
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/market-data/get-mark-price-detail
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-mark-price
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/market-data/get-mark-price-detail
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-mark-price
  * @param {string} symbol unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
@@ -316,7 +316,7 @@ func (this *Cexc) FetchMarkPrice(symbol string, options ...FetchMarkPriceOptions
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -330,9 +330,9 @@ func (this *Cexc) FetchMarkPrice(symbol string, options ...FetchMarkPriceOptions
  * @method
  * @name cexc#fetchOHLCV
  * @description fetches historical candlestick data containing the open, high, low, and close price, and the volume of a market
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-klines
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-klines
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-klines
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-klines
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-klines
  * @param {string} symbol unified symbol of the market to fetch OHLCV data for
  * @param {string} timeframe the length of time each candle represents
  * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -350,22 +350,22 @@ func (this *Cexc) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) ([]OHL
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -380,7 +380,7 @@ func (this *Cexc) FetchOHLCV(symbol string, options ...FetchOHLCVOptions) ([]OHL
  * @ignore
  * @name cexc#fetchSpotOHLCV
  * @description helper method for fetchOHLCV
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-klines
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-klines
  * @param {string} symbol unified symbol of the market to fetch OHLCV data for
  * @param {string} timeframe the length of time each candle represents
  * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -396,22 +396,22 @@ func (this *Cexc) FetchSpotOHLCV(symbol string, options ...FetchSpotOHLCVOptions
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -426,7 +426,7 @@ func (this *Cexc) FetchSpotOHLCV(symbol string, options ...FetchSpotOHLCVOptions
  * @ignore
  * @name cexc#fetchContractOHLCV
  * @description helper method for fetchOHLCV
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-klines
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-klines
  * @param {string} symbol unified symbol of the market to fetch OHLCV data for
  * @param {string} timeframe the length of time each candle represents
  * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -442,22 +442,22 @@ func (this *Cexc) FetchContractOHLCV(symbol string, options ...FetchContractOHLC
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -470,7 +470,7 @@ func (this *Cexc) FetchContractOHLCV(symbol string, options ...FetchContractOHLC
 /**
  * @method
  * @name cexc#createDepositAddress
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/add-deposit-address-v3
+ * @see https://www.kucoin.com/docs-new/rest/account-info/deposit/add-deposit-address-v3
  * @description create a currency deposit address
  * @param {string} code unified currency code of the currency for the deposit address
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -485,7 +485,7 @@ func (this *Cexc) CreateDepositAddress(code string, options ...CreateDepositAddr
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -499,8 +499,8 @@ func (this *Cexc) CreateDepositAddress(code string, options ...CreateDepositAddr
  * @method
  * @name cexc#fetchDepositAddress
  * @description fetch the deposit address for a currency associated with this account
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-address-v3/en
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-deposit-address
+ * @see https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3/en
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-deposit-address
  * @param {string} code unified currency code
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.network] the blockchain network name
@@ -516,7 +516,7 @@ func (this *Cexc) FetchDepositAddress(code string, options ...FetchDepositAddres
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -530,7 +530,7 @@ func (this *Cexc) FetchDepositAddress(code string, options ...FetchDepositAddres
  * @method
  * @name cexc#fetchContractDepositAddress
  * @description fetch the deposit address for a currency associated with this account
- * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-deposit-address
+ * @see https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-address
  * @param {string} code unified currency code
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [address structure]{@link https://docs.ccxt.com/?id=address-structure}
@@ -543,7 +543,7 @@ func (this *Cexc) FetchContractDepositAddress(code string, options ...FetchContr
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -556,8 +556,8 @@ func (this *Cexc) FetchContractDepositAddress(code string, options ...FetchContr
 /**
  * @method
  * @name cexc#fetchDepositAddressesByNetwork
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-address-v3/en
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-deposit-address
+ * @see https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-address-v3/en
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-deposit-address
  * @description fetch the deposit address for a currency associated with this account
  * @param {string} code unified currency code
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -572,7 +572,7 @@ func (this *Cexc) FetchDepositAddressesByNetwork(code string, options ...FetchDe
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -586,10 +586,10 @@ func (this *Cexc) FetchDepositAddressesByNetwork(code string, options ...FetchDe
  * @method
  * @name cexc#fetchOrderBook
  * @description fetches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-part-orderbook
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-full-orderbook
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-part-orderbook
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-orderbook
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-part-orderbook
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-full-orderbook
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-part-orderbook
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-orderbook
  * @param {string} symbol unified symbol of the market to fetch the order book for
  * @param {int} [limit] the maximum amount of order book entries to return
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -604,12 +604,12 @@ func (this *Cexc) FetchOrderBook(symbol string, options ...FetchOrderBookOptions
         opt(&opts)
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -623,17 +623,17 @@ func (this *Cexc) FetchOrderBook(symbol string, options ...FetchOrderBookOptions
  * @method
  * @name cexc#createOrder
  * @description Create an order on the exchange
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-sync
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order-test
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-stop-order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-order-test
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/add-stop-order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order-test
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-take-profit-and-stop-loss-order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/place-order
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-sync
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order-test
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-stop-order
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-order-test
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/add-stop-order
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order-test
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-take-profit-and-stop-loss-order
+ * @see https://www.kucoin.com/docs-new/rest/ua/place-order
  * @param {string} symbol Unified CCXT market symbol
  * @param {string} type 'limit' or 'market'
  * @param {string} side 'buy' or 'sell'
@@ -652,12 +652,12 @@ func (this *Cexc) CreateOrder(symbol string, typeVar string, side string, amount
         opt(&opts)
     }
 
-    var price any = nil
+    var price interface{} = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -671,8 +671,8 @@ func (this *Cexc) CreateOrder(symbol string, typeVar string, side string, amount
  * @method
  * @name cexc#createMarketOrderWithCost
  * @description create a market order by providing the symbol, side and cost
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
  * @param {string} symbol unified symbol of the market to create an order in
  * @param {string} side 'buy' or 'sell'
  * @param {float} cost how much you want to trade in units of the quote currency
@@ -687,7 +687,7 @@ func (this *Cexc) CreateMarketOrderWithCost(symbol string, side string, cost flo
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -701,8 +701,8 @@ func (this *Cexc) CreateMarketOrderWithCost(symbol string, side string, cost flo
  * @method
  * @name cexc#createMarketBuyOrderWithCost
  * @description create a market buy order by providing the symbol and cost
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
  * @param {string} symbol unified symbol of the market to create an order in
  * @param {float} cost how much you want to trade in units of the quote currency
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -716,7 +716,7 @@ func (this *Cexc) CreateMarketBuyOrderWithCost(symbol string, cost float64, opti
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -730,8 +730,8 @@ func (this *Cexc) CreateMarketBuyOrderWithCost(symbol string, cost float64, opti
  * @method
  * @name cexc#createMarketSellOrderWithCost
  * @description create a market sell order by providing the symbol and cost
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/add-order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/add-order
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/add-order
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/add-order
  * @param {string} symbol unified symbol of the market to create an order in
  * @param {float} cost how much you want to trade in units of the quote currency
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -745,7 +745,7 @@ func (this *Cexc) CreateMarketSellOrderWithCost(symbol string, cost float64, opt
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -759,8 +759,8 @@ func (this *Cexc) CreateMarketSellOrderWithCost(symbol string, cost float64, opt
  * @method
  * @name cexc#createOrders
  * @description create a list of trade orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders-sync
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders-sync
  * @param {Array} orders list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
  * @param {object} [params]  extra parameters specific to the exchange API endpoint
  * Check createSpotOrders() and createContractOrders() for more details on the extra parameters that can be used in params
@@ -774,7 +774,7 @@ func (this *Cexc) CreateOrders(orders []OrderRequest, options ...CreateOrdersOpt
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -788,9 +788,9 @@ func (this *Cexc) CreateOrders(orders []OrderRequest, options ...CreateOrdersOpt
  * @method
  * @name cexc#createSpotOrders
  * @description helper method for creating spot orders in batch
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-add-orders-sync
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/batch-add-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-add-orders-sync
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/batch-add-orders
  * @param {Array} orders list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
  * @param {object} [params]  extra parameters specific to the exchange API endpoint
  * @param {bool} [params.hf] false, // true for hf orders
@@ -805,7 +805,7 @@ func (this *Cexc) CreateSpotOrders(orders []OrderRequest, options ...CreateSpotO
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -819,7 +819,7 @@ func (this *Cexc) CreateSpotOrders(orders []OrderRequest, options ...CreateSpotO
  * @method
  * @name cexc#createContractOrders
  * @description helper method for creating contract orders in batch
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/batch-add-orders
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/batch-add-orders
  * @param {Array} orders list of orders to create, each object should contain the parameters required by createOrder, namely symbol, type, side, amount, price and params
  * @param {object} [params]  extra parameters specific to the exchange API endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
@@ -832,7 +832,7 @@ func (this *Cexc) CreateContractOrders(orders []OrderRequest, options ...CreateC
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -845,8 +845,8 @@ func (this *Cexc) CreateContractOrders(orders []OrderRequest, options ...CreateC
 /**
  * @method
  * @name cexc#editOrder
- * @description edit an order, cexccurrently only supports the modification of HF orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/modify-order
+ * @description edit an order, kucoin currently only supports the modification of HF orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/modify-order
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market to create an order in
  * @param {string} type not used
@@ -865,17 +865,17 @@ func (this *Cexc) EditOrder(id string, symbol string, typeVar string, side strin
         opt(&opts)
     }
 
-    var amount any = nil
+    var amount interface{} = nil
     if opts.Amount != nil {
         amount = *opts.Amount
     }
 
-    var price any = nil
+    var price interface{} = nil
     if opts.Price != nil {
         price = *opts.Price
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -889,19 +889,19 @@ func (this *Cexc) EditOrder(id string, symbol string, typeVar string, side strin
  * @method
  * @name cexc#cancelOrder
  * @description cancels an open order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld-sync
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid-sync
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/cancel-order
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld-sync
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid-sync
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/ua/cancel-order
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market the order was made in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -919,12 +919,12 @@ func (this *Cexc) CancelOrder(id string, options ...CancelOrderOptions) (Order, 
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -938,16 +938,16 @@ func (this *Cexc) CancelOrder(id string, options ...CancelOrderOptions) (Order, 
  * @method
  * @name cexc#cancelSpotOrder
  * @description helper method for cancelling spot orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-orderld-sync
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-order-by-clientoid-sync
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-stop-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-orderld-sync
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-order-by-clientoid-sync
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-stop-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-stop-order-by-clientoid
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market the order was made in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -965,12 +965,12 @@ func (this *Cexc) CancelSpotOrder(id string, options ...CancelSpotOrderOptions) 
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -984,8 +984,8 @@ func (this *Cexc) CancelSpotOrder(id string, options ...CancelSpotOrderOptions) 
  * @method
  * @name cexc#cancelContractOrder
  * @description helper method for cancelling contract orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-order-by-clientoid
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market the order was made in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -1000,12 +1000,12 @@ func (this *Cexc) CancelContractOrder(id string, options ...CancelContractOrderO
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1019,14 +1019,14 @@ func (this *Cexc) CancelContractOrder(id string, options ...CancelContractOrderO
  * @method
  * @name cexc#cancelAllOrders
  * @description cancel all open orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders-by-symbol
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-cancel-stop-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-all-orders-by-symbol
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/batch-cancel-stop-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-stop-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-symbol
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders-by-symbol
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-cancel-stop-orders
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-all-orders-by-symbol
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/batch-cancel-stop-orders
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-orders
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-stop-orders
+ * @see https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-symbol
  * @param {string} symbol unified market symbol, only orders in the market of this symbol are cancelled when symbol is not undefined
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.type] 'spot' or 'swap', used if symbol is not provided (default is 'spot')
@@ -1043,12 +1043,12 @@ func (this *Cexc) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Order, e
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1062,11 +1062,11 @@ func (this *Cexc) CancelAllOrders(options ...CancelAllOrdersOptions) ([]Order, e
  * @method
  * @name cexc#cancelAllSpotOrders
  * @description helper method for cancelling all spot orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders-by-symbol
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/cancel-all-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/batch-cancel-stop-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/cancel-all-orders-by-symbol
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/batch-cancel-stop-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders-by-symbol
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/cancel-all-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/batch-cancel-stop-orders
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/cancel-all-orders-by-symbol
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/batch-cancel-stop-orders
  * @param {string} symbol unified market symbol, only orders in the market of this symbol are cancelled when symbol is not undefined
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {bool} [params.trigger] *invalid for isolated margin* true if cancelling all stop orders
@@ -1083,12 +1083,12 @@ func (this *Cexc) CancelAllSpotOrders(options ...CancelAllSpotOrdersOptions) ([]
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1102,8 +1102,8 @@ func (this *Cexc) CancelAllSpotOrders(options ...CancelAllSpotOrdersOptions) ([]
  * @method
  * @name cexc#cancelAllContractOrders
  * @description helper method for cancelling all contract orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/cancel-all-stop-orders
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-orders
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/cancel-all-stop-orders
  * @param {string} symbol unified market symbol, only orders in the market of this symbol are cancelled when symbol is not undefined
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {object} [params.trigger] When true, all the trigger orders will be cancelled
@@ -1117,12 +1117,12 @@ func (this *Cexc) CancelAllContractOrders(options ...CancelAllContractOrdersOpti
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1136,16 +1136,16 @@ func (this *Cexc) CancelAllContractOrders(options ...CancelAllContractOrdersOpti
  * @method
  * @name cexc#fetchOrdersByStatus
  * @description fetches a list of orders placed on the exchange
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-open-order-list
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-order-history
  * @param {string} status 'active' or 'closed', only 'active' is valid for stop orders
  * @param {string} symbol unified symbol for the market to retrieve orders from
  * @param {int} [since] timestamp in ms of the earliest order to retrieve
@@ -1155,7 +1155,7 @@ func (this *Cexc) CancelAllContractOrders(options ...CancelAllContractOrdersOpti
  * Check fetchSpotOrdersByStatus(), fetchContractOrdersByStatus() and fetchUtaOrdersByStatus() for more details on the extra parameters that can be used in params
  * @returns An [array of order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func (this *Cexc) FetchOrdersByStatus(status any, options ...FetchOrdersByStatusOptions) ([]Order, error) {
+func (this *Cexc) FetchOrdersByStatus(status interface{}, options ...FetchOrdersByStatusOptions) ([]Order, error) {
 
     opts := FetchOrdersByStatusOptionsStruct{}
 
@@ -1163,22 +1163,22 @@ func (this *Cexc) FetchOrdersByStatus(status any, options ...FetchOrdersByStatus
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1192,12 +1192,12 @@ func (this *Cexc) FetchOrdersByStatus(status any, options ...FetchOrdersByStatus
  * @method
  * @name cexc#fetchSpotOrdersByStatus
  * @description fetch a list of spot orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list
  * @param {string} status *not used for stop orders* 'open' or 'closed'
  * @param {string} symbol unified market symbol
  * @param {int} [since] timestamp in ms of the earliest order
@@ -1214,7 +1214,7 @@ func (this *Cexc) FetchOrdersByStatus(status any, options ...FetchOrdersByStatus
  * @param {string} [params.marginMode] 'cross' or 'isolated', only for margin orders
  * @returns An [array of order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func (this *Cexc) FetchSpotOrdersByStatus(status any, options ...FetchSpotOrdersByStatusOptions) ([]Order, error) {
+func (this *Cexc) FetchSpotOrdersByStatus(status interface{}, options ...FetchSpotOrdersByStatusOptions) ([]Order, error) {
 
     opts := FetchSpotOrdersByStatusOptionsStruct{}
 
@@ -1222,22 +1222,22 @@ func (this *Cexc) FetchSpotOrdersByStatus(status any, options ...FetchSpotOrders
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1251,8 +1251,8 @@ func (this *Cexc) FetchSpotOrdersByStatus(status any, options ...FetchSpotOrders
  * @method
  * @name cexc#fetchContractOrdersByStatus
  * @description fetches a list of contract orders placed on the exchange
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
  * @param {string} status 'active' or 'closed', only 'active' is valid for stop orders
  * @param {string} symbol unified symbol for the market to retrieve orders from
  * @param {int} [since] timestamp in ms of the earliest order to retrieve
@@ -1265,7 +1265,7 @@ func (this *Cexc) FetchSpotOrdersByStatus(status any, options ...FetchSpotOrders
  * @param {boolean} [params.paginate] default false, when true will automatically paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-params)
  * @returns An [array of order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func (this *Cexc) FetchContractOrdersByStatus(status any, options ...FetchContractOrdersByStatusOptions) ([]Order, error) {
+func (this *Cexc) FetchContractOrdersByStatus(status interface{}, options ...FetchContractOrdersByStatusOptions) ([]Order, error) {
 
     opts := FetchContractOrdersByStatusOptionsStruct{}
 
@@ -1273,22 +1273,22 @@ func (this *Cexc) FetchContractOrdersByStatus(status any, options ...FetchContra
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1302,13 +1302,13 @@ func (this *Cexc) FetchContractOrdersByStatus(status any, options ...FetchContra
  * @method
  * @name cexc#fetchClosedOrders
  * @description fetches information on multiple closed orders made by the user
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-closed-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-history
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-closed-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-order-history
  * @param {string} symbol unified market symbol of the market orders were made in
  * @param {int} [since] the earliest time in ms to fetch orders for
  * @param {int} [limit] the maximum number of order structures to retrieve
@@ -1330,22 +1330,22 @@ func (this *Cexc) FetchClosedOrders(options ...FetchClosedOrdersOptions) ([]Orde
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1359,14 +1359,14 @@ func (this *Cexc) FetchClosedOrders(options ...FetchClosedOrdersOptions) ([]Orde
  * @method
  * @name cexc#fetchOpenOrders
  * @description fetch all unfilled currently open orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-open-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-orders-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-stop-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-open-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-closed-orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-open-order-list
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-open-orders
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-orders-list
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-list
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-stop-order-list
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-open-orders
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-closed-orders
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-list
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-open-order-list
  * @param {string} symbol unified market symbol
  * @param {int} [since] the earliest time in ms to fetch open orders for
  * @param {int} [limit] the maximum number of  open orders structures to retrieve
@@ -1390,22 +1390,22 @@ func (this *Cexc) FetchOpenOrders(options ...FetchOpenOrdersOptions) ([]Order, e
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1419,17 +1419,17 @@ func (this *Cexc) FetchOpenOrders(options ...FetchOpenOrdersOptions) ([]Order, e
  * @method
  * @name cexc#fetchOrder
  * @description fetches information on an order made by the user
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/get-stop-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/get-stop-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-order-details
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/get-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/get-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-order-details
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market the order was made in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -1446,12 +1446,12 @@ func (this *Cexc) FetchOrder(id string, options ...FetchOrderOptions) (Order, er
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1465,14 +1465,14 @@ func (this *Cexc) FetchOrder(id string, options ...FetchOrderOptions) (Order, er
  * @method
  * @name cexc#fetchSpotOrder
  * @description fetch a spot order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-stop-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/get-stop-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-order-by-clientoid
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-stop-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/get-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-stop-order-by-clientoid
  * @param {string} id Order id
  * @param {string} symbol not sent to exchange except for trigger orders with clientOid, but used internally by CCXT to filter
  * @param {object} [params] exchange specific parameters
@@ -1490,12 +1490,12 @@ func (this *Cexc) FetchSpotOrder(id string, options ...FetchSpotOrderOptions) (O
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1509,8 +1509,8 @@ func (this *Cexc) FetchSpotOrder(id string, options ...FetchSpotOrderOptions) (O
  * @method
  * @name cexc#fetchContractOrder
  * @description fetc contract order
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-order-by-orderld
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/get-stop-order-by-clientoid
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-order-by-orderld
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/get-stop-order-by-clientoid
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market the order was made in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -1524,12 +1524,12 @@ func (this *Cexc) FetchContractOrder(id string, options ...FetchContractOrderOpt
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1544,9 +1544,9 @@ func (this *Cexc) FetchContractOrder(id string, options ...FetchContractOrderOpt
  * @name cexc#fetchOrderTrades
  * @description fetch all the trades made from a single order
  * @see https://docs.kucoin.com/#list-fills
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-trade-history
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-trade-history
  * @param {string} id order id
  * @param {string} symbol unified market symbol
  * @param {int} [since] the earliest time in ms to fetch trades for
@@ -1564,22 +1564,22 @@ func (this *Cexc) FetchOrderTrades(id string, options ...FetchOrderTradesOptions
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1592,9 +1592,9 @@ func (this *Cexc) FetchOrderTrades(id string, options ...FetchOrderTradesOptions
 /**
  * @method
  * @name cexc#fetchMyTrades
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-trade-history
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-trade-history
  * @description fetch all trades made by the user
  * @param {string} symbol unified market symbol
  * @param {int} [since] the earliest time in ms to fetch trades for
@@ -1613,22 +1613,22 @@ func (this *Cexc) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade, error
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1641,8 +1641,8 @@ func (this *Cexc) FetchMyTrades(options ...FetchMyTradesOptions) ([]Trade, error
 /**
  * @method
  * @name cexc#fetchMySpotTrades
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/orders/get-trade-history
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/orders/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/orders/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/orders/get-trade-history
  * @description fetch all spot trades made by the user
  * @param {string} symbol unified market symbol
  * @param {int} [since] the earliest time in ms to fetch trades for
@@ -1662,22 +1662,22 @@ func (this *Cexc) FetchMySpotTrades(options ...FetchMySpotTradesOptions) ([]Trad
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1690,7 +1690,7 @@ func (this *Cexc) FetchMySpotTrades(options ...FetchMySpotTradesOptions) ([]Trad
 /**
  * @method
  * @name cexc#fetchMyContractTrades
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/orders/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/orders/get-trade-history
  * @description fetch all contract trades made by the user
  * @param {string} symbol unified market symbol
  * @param {int} [since] the earliest time in ms to fetch trades for
@@ -1708,22 +1708,22 @@ func (this *Cexc) FetchMyContractTrades(options ...FetchMyContractTradesOptions)
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1737,9 +1737,9 @@ func (this *Cexc) FetchMyContractTrades(options ...FetchMyContractTradesOptions)
  * @method
  * @name cexc#fetchTrades
  * @description get the list of most recent trades for a particular symbol
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/spot-trading/market-data/get-trade-history
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-trades
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/market-data/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/spot-trading/market-data/get-trade-history
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-trades
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/market-data/get-trade-history
  * @param {string} symbol unified symbol of the market to fetch trades for
  * @param {int} [since] timestamp in ms of the earliest trade to fetch
  * @param {int} [limit] the maximum amount of trades to fetch
@@ -1755,17 +1755,17 @@ func (this *Cexc) FetchTrades(symbol string, options ...FetchTradesOptions) ([]T
         opt(&opts)
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1779,9 +1779,9 @@ func (this *Cexc) FetchTrades(symbol string, options ...FetchTradesOptions) ([]T
  * @method
  * @name cexc#fetchTradingFee
  * @description fetch the trading fees for a market
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/trade-fee/get-actual-fee-spot-margin
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/trade-fee/get-actual-fee-futures
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-actual-fee
+ * @see https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-spot-margin
+ * @see https://www.kucoin.com/docs-new/rest/account-info/trade-fee/get-actual-fee-futures
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-actual-fee
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta) endpoint, defaults to false
@@ -1795,7 +1795,7 @@ func (this *Cexc) FetchTradingFee(symbol string, options ...FetchTradingFeeOptio
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1809,7 +1809,7 @@ func (this *Cexc) FetchTradingFee(symbol string, options ...FetchTradingFeeOptio
  * @method
  * @name cexc#withdraw
  * @description make a withdrawal
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/withdraw-v3
+ * @see https://www.kucoin.com/docs-new/rest/account-info/withdrawals/withdraw-v3
  * @param {string} code unified currency code
  * @param {float} amount the amount to withdraw
  * @param {string} address the address to withdraw to
@@ -1825,12 +1825,12 @@ func (this *Cexc) Withdraw(code string, amount float64, address string, options 
         opt(&opts)
     }
 
-    var tag any = nil
+    var tag interface{} = nil
     if opts.Tag != nil {
         tag = *opts.Tag
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1844,9 +1844,9 @@ func (this *Cexc) Withdraw(code string, amount float64, address string, options 
  * @method
  * @name cexc#fetchDeposits
  * @description fetch all deposits made to an account
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/deposit/get-deposit-history
- * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-deposit-list
- * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/deposit/get-v1-historical-deposits-list
+ * @see https://www.kucoin.com/docs-new/rest/account-info/deposit/get-deposit-history
+ * @see https://www.kucoin.com/docs/rest/funding/deposit/get-deposit-list
+ * @see https://www.kucoin.com/docs/rest/funding/deposit/get-v1-historical-deposits-list
  * @param {string} code unified currency code
  * @param {int} [since] the earliest time in ms to fetch deposits for
  * @param {int} [limit] the maximum number of deposits structures to retrieve
@@ -1864,22 +1864,22 @@ func (this *Cexc) FetchDeposits(options ...FetchDepositsOptions) ([]Transaction,
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1907,22 +1907,22 @@ func (this *Cexc) FetchContractDeposits(options ...FetchContractDepositsOptions)
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1936,9 +1936,9 @@ func (this *Cexc) FetchContractDeposits(options ...FetchContractDepositsOptions)
  * @method
  * @name cexc#fetchWithdrawals
  * @description fetch all withdrawals made from an account
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/withdrawals/get-withdrawal-history
- * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/withdrawals/get-withdrawals-list
- * @see https://exchange-broker.cexc.io/api/v1/documentation/rest/funding/withdrawals/get-v1-historical-withdrawals-list
+ * @see https://www.kucoin.com/docs-new/rest/account-info/withdrawals/get-withdrawal-history
+ * @see https://www.kucoin.com/docs/rest/funding/withdrawals/get-withdrawals-list
+ * @see https://www.kucoin.com/docs/rest/funding/withdrawals/get-v1-historical-withdrawals-list
  * @param {string} code unified currency code
  * @param {int} [since] the earliest time in ms to fetch withdrawals for
  * @param {int} [limit] the maximum number of withdrawals structures to retrieve
@@ -1956,22 +1956,22 @@ func (this *Cexc) FetchWithdrawals(options ...FetchWithdrawalsOptions) ([]Transa
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -1999,22 +1999,22 @@ func (this *Cexc) FetchContractWithdrawals(options ...FetchContractWithdrawalsOp
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2028,12 +2028,12 @@ func (this *Cexc) FetchContractWithdrawals(options ...FetchContractWithdrawalsOp
  * @method
  * @name cexc#fetchBalance
  * @description query for balance and get the amount of funds available for trading or funds locked in orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-detail-spot
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-cross-margin
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-isolated-margin
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-futures
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-uta
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-currency-assets-classic
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-detail-spot
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-uta
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-account-currency-assets-classic
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {object} [params.marginMode] 'cross' or 'isolated', margin type for fetching margin balance
  * @param {object} [params.type] extra parameters specific to the exchange API endpoint
@@ -2041,7 +2041,7 @@ func (this *Cexc) FetchContractWithdrawals(options ...FetchContractWithdrawalsOp
  * @param {boolean} [params.uta] set to true for the unified trading account (uta) endpoint, defaults to false
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func (this *Cexc) FetchBalance(params ...any) (Balances, error) {
+func (this *Cexc) FetchBalance(params ...interface{}) (Balances, error) {
     res := <- this.Core.FetchBalance(params...)
     if IsError(res) {
         return Balances{}, CreateReturnError(res)
@@ -2052,12 +2052,12 @@ func (this *Cexc) FetchBalance(params ...any) (Balances, error) {
  * @method
  * @name cexc#fetchContractBalance
  * @description query for balance and get the amount of funds available for trading or funds locked in orders
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-futures
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-futures
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {object} [params.code] the unified currency code to fetch the balance for, if not provided, the default .options['fetchBalance']['code'] will be used
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func (this *Cexc) FetchContractBalance(params ...any) (Balances, error) {
+func (this *Cexc) FetchContractBalance(params ...interface{}) (Balances, error) {
     res := <- this.Core.FetchContractBalance(params...)
     if IsError(res) {
         return Balances{}, CreateReturnError(res)
@@ -2068,8 +2068,8 @@ func (this *Cexc) FetchContractBalance(params ...any) (Balances, error) {
  * @method
  * @name cexc#transfer
  * @description transfer currency internally between wallets on the same account
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/transfer/flex-transfer?lang=en_US&
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/flex-transfer
+ * @see https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer?lang=en_US&
+ * @see https://www.kucoin.com/docs-new/rest/ua/flex-transfer
  * @param {string} code unified currency code
  * @param {float} amount amount to transfer
  * @param {string} fromAccount account to transfer from
@@ -2087,7 +2087,7 @@ func (this *Cexc) Transfer(code string, amount float64, fromAccount string, toAc
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2101,7 +2101,7 @@ func (this *Cexc) Transfer(code string, amount float64, fromAccount string, toAc
  * @method
  * @name cexc#transferClassic
  * @description transfer currency internally between wallets on the same account with classic endpoints
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/transfer/flex-transfer?lang=en_US&
+ * @see https://www.kucoin.com/docs-new/rest/account-info/transfer/flex-transfer?lang=en_US&
  * @param {string} code unified currency code
  * @param {float} amount amount to transfer
  * @param {string} fromAccount account to transfer from
@@ -2120,7 +2120,7 @@ func (this *Cexc) TransferClassic(code string, amount float64, fromAccount strin
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2134,11 +2134,11 @@ func (this *Cexc) TransferClassic(code string, amount float64, fromAccount strin
  * @method
  * @name cexc#fetchLedger
  * @description fetch the history of changes, actions done by the user or operations that altered the balance of the user
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-spot-margin
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-tradehf
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-marginhf
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-futures
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-account-ledger
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-tradehf
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-marginhf
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-futures
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-account-ledger
  * @param {string} [code] unified currency code, default is undefined
  * @param {int} [since] timestamp in ms of the earliest ledger entry, default is undefined
  * @param {int} [limit] max number of ledger entries to return, default is undefined
@@ -2158,22 +2158,22 @@ func (this *Cexc) FetchLedger(options ...FetchLedgerOptions) ([]LedgerEntry, err
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2187,8 +2187,8 @@ func (this *Cexc) FetchLedger(options ...FetchLedgerOptions) ([]LedgerEntry, err
  * @method
  * @name cexc#fetchBorrowInterest
  * @description fetch the interest owed by the user for borrowing currency for margin trading
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-cross-margin
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-isolated-margin
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-cross-margin
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-isolated-margin
  * @param {string} [code] unified currency code
  * @param {string} [symbol] unified market symbol, required for isolated margin
  * @param {int} [since] the earliest time in ms to fetch borrrow interest for
@@ -2205,27 +2205,27 @@ func (this *Cexc) FetchBorrowInterest(options ...FetchBorrowInterestOptions) ([]
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2239,7 +2239,7 @@ func (this *Cexc) FetchBorrowInterest(options ...FetchBorrowInterestOptions) ([]
  * @method
  * @name cexc#fetchBorrowRateHistories
  * @description retrieves a history of a multiple currencies borrow interest rate at specific time slots, returns all currencies if no symbols passed, default is undefined
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/get-interest-history
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-interest-history
  * @param {string[]|undefined} codes list of unified currency codes, default is undefined
  * @param {int} [since] timestamp in ms of the earliest borrowRate, default is undefined
  * @param {int} [limit] max number of borrow rate prices to return, default is undefined
@@ -2248,7 +2248,7 @@ func (this *Cexc) FetchBorrowInterest(options ...FetchBorrowInterestOptions) ([]
  * @param {int} [params.until] the latest time in ms to fetch entries for
  * @returns {object} a dictionary of [borrow rate structures]{@link https://docs.ccxt.com/?id=borrow-rate-structure} indexed by the market symbol
  */
-func (this *Cexc) FetchBorrowRateHistories(options ...FetchBorrowRateHistoriesOptions) (map[string]any, error) {
+func (this *Cexc) FetchBorrowRateHistories(options ...FetchBorrowRateHistoriesOptions) (map[string]interface{}, error) {
 
     opts := FetchBorrowRateHistoriesOptionsStruct{}
 
@@ -2256,36 +2256,36 @@ func (this *Cexc) FetchBorrowRateHistories(options ...FetchBorrowRateHistoriesOp
         opt(&opts)
     }
 
-    var codes any = nil
+    var codes interface{} = nil
     if opts.Codes != nil {
         codes = *opts.Codes
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchBorrowRateHistories(codes, since, limit, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
  * @name cexc#fetchBorrowRateHistory
  * @description retrieves a history of a currencies borrow interest rate at specific time slots
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/get-interest-history
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/get-interest-history
  * @param {string} code unified currency code
  * @param {int} [since] timestamp for the earliest borrow rate
  * @param {int} [limit] the maximum number of [borrow rate structures]{@link https://docs.ccxt.com/?id=borrow-rate-structure} to retrieve
@@ -2294,7 +2294,7 @@ func (this *Cexc) FetchBorrowRateHistories(options ...FetchBorrowRateHistoriesOp
  * @param {int} [params.until] the latest time in ms to fetch entries for
  * @returns {object[]} an array of [borrow rate structures]{@link https://docs.ccxt.com/?id=borrow-rate-structure}
  */
-func (this *Cexc) FetchBorrowRateHistory(code string, options ...FetchBorrowRateHistoryOptions) (map[string]any, error) {
+func (this *Cexc) FetchBorrowRateHistory(code string, options ...FetchBorrowRateHistoryOptions) (map[string]interface{}, error) {
 
     opts := FetchBorrowRateHistoryOptionsStruct{}
 
@@ -2302,52 +2302,25 @@ func (this *Cexc) FetchBorrowRateHistory(code string, options ...FetchBorrowRate
         opt(&opts)
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchBorrowRateHistory(code, since, limit, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
-}
-/**
- * @method
- * @name cexc#fetchCrossBorrowRate
- * @description fetch the rate of interest to borrow a currency for margin trading
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-borrowing-rates-and-limits
- * @param {string} code unified currency code
- * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @returns {object} a [borrow rate structure]{@link https://docs.ccxt.com/?id=borrow-rate-structure}
- */
-func (this *Cexc) FetchCrossBorrowRate(code string, options ...FetchCrossBorrowRateOptions) (CrossBorrowRate, error) {
-
-    opts := FetchCrossBorrowRateOptionsStruct{}
-
-    for _, opt := range options {
-        opt(&opts)
-    }
-
-    var params any = nil
-    if opts.Params != nil {
-        params = *opts.Params
-    }
-    res := <- this.Core.FetchCrossBorrowRate(code, params)
-    if IsError(res) {
-        return CrossBorrowRate{}, CreateReturnError(res)
-    }
-    return NewCrossBorrowRate(res), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
@@ -2358,7 +2331,7 @@ func (this *Cexc) FetchCrossBorrowRate(code string, options ...FetchCrossBorrowR
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a list of [fee structures]{@link https://docs.ccxt.com/?id=fee-structure}
  */
-func (this *Cexc) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]any, error) {
+func (this *Cexc) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOptions) (map[string]interface{}, error) {
 
     opts := FetchDepositWithdrawFeesOptionsStruct{}
 
@@ -2366,26 +2339,26 @@ func (this *Cexc) FetchDepositWithdrawFees(options ...FetchDepositWithdrawFeesOp
         opt(&opts)
     }
 
-    var codes any = nil
+    var codes interface{} = nil
     if opts.Codes != nil {
         codes = *opts.Codes
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchDepositWithdrawFees(codes, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return (res).(map[string]any), nil
+    return (res).(map[string]interface{}), nil
 }
 /**
  * @method
  * @name cexc#fetchLeverage
  * @description fetch the set leverage for a market
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-cross-margin-leverage
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-cross-margin-leverage
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [leverage structure]{@link https://docs.ccxt.com/?id=leverage-structure}
@@ -2398,7 +2371,7 @@ func (this *Cexc) FetchLeverage(symbol string, options ...FetchLeverageOptions) 
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2412,19 +2385,16 @@ func (this *Cexc) FetchLeverage(symbol string, options ...FetchLeverageOptions) 
  * @method
  * @name cexc#setLeverage
  * @description set the level of leverage for a market
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/margin-trading/debit/modify-leverage // margin
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/modify-cross-margin-leverage // contract
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-cross-margin-leverage-uta // margin uta
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/modify-leverage-uta // contract uta
+ * @see https://www.kucoin.com/docs-new/rest/margin-trading/debit/modify-leverage
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/modify-cross-margin-leverage
+ * @see https://www.kucoin.com/docs-new/rest/ua/modify-leverage-uta
  * @param {int } [leverage] New leverage multiplier. Must be greater than 1 and up to two decimal places, and cannot be less than the user's current debt leverage or greater than the system's maximum leverage
  * @param {string} [symbol] unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @param {boolean} [params.uta] set to true for the unified trading account (uta)
- * @param {string} [params.marginMode] *spot non-uta only* 'cross' or 'isolated' default is 'cross'
- * @param {string} [params.code] *uta margin only* the unified currency code for the margin to set the leverage for
+ * @param {boolean} [params.uta] *contract markets only* set to true for the unified trading account (uta)
  * @returns {object} response from the exchange
  */
-func (this *Cexc) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]any, error) {
+func (this *Cexc) SetLeverage(leverage int64, options ...SetLeverageOptions) (map[string]interface{}, error) {
 
     opts := SetLeverageOptionsStruct{}
 
@@ -2432,27 +2402,26 @@ func (this *Cexc) SetLeverage(leverage int64, options ...SetLeverageOptions) (ma
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetLeverage(leverage, symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
  * @name cexc#fetchFundingInterval
  * @description fetch the current funding rate interval
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-current-funding-rate
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-current-funding-rate
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [funding rate structure]{@link https://docs.ccxt.com/?id=funding-rate-structure}
@@ -2465,7 +2434,7 @@ func (this *Cexc) FetchFundingInterval(symbol string, options ...FetchFundingInt
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2479,8 +2448,8 @@ func (this *Cexc) FetchFundingInterval(symbol string, options ...FetchFundingInt
  * @method
  * @name cexc#fetchFundingRate
  * @description fetch the current funding rate
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-current-funding-rate
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-current-funding-rate
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-current-funding-rate
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-current-funding-rate
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta)
@@ -2494,7 +2463,7 @@ func (this *Cexc) FetchFundingRate(symbol string, options ...FetchFundingRateOpt
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2508,8 +2477,8 @@ func (this *Cexc) FetchFundingRate(symbol string, options ...FetchFundingRateOpt
  * @method
  * @name cexc#fetchFundingRateHistory
  * @description fetches historical funding rate prices
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-public-funding-history
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-history-funding-rate
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-public-funding-history
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-history-funding-rate
  * @param {string} symbol unified symbol of the market to fetch the funding rate history for
  * @param {int} [since] not used by kucuoinfutures
  * @param {int} [limit] the maximum amount of [funding rate structures]{@link https://docs.ccxt.com/?id=funding-rate-history-structure} to fetch
@@ -2526,22 +2495,22 @@ func (this *Cexc) FetchFundingRateHistory(options ...FetchFundingRateHistoryOpti
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2555,12 +2524,11 @@ func (this *Cexc) FetchFundingRateHistory(options ...FetchFundingRateHistoryOpti
  * @method
  * @name cexc#fetchFundingHistory
  * @description fetch the history of funding payments paid and received on this account
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/funding-fees/get-private-funding-history
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/funding-fees/get-private-funding-history
  * @param {string} symbol unified market symbol
  * @param {int} [since] the earliest time in ms to fetch funding history for
  * @param {int} [limit] the maximum number of funding history structures to retrieve
  * @param {object} [params] extra parameters specific to the exchange API endpoint
- * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
  * @returns {object} a [funding history structure]{@link https://docs.ccxt.com/?id=funding-history-structure}
  */
 func (this *Cexc) FetchFundingHistory(options ...FetchFundingHistoryOptions) ([]FundingHistory, error) {
@@ -2571,22 +2539,22 @@ func (this *Cexc) FetchFundingHistory(options ...FetchFundingHistoryOptions) ([]
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2599,14 +2567,12 @@ func (this *Cexc) FetchFundingHistory(options ...FetchFundingHistoryOptions) ([]
 /**
  * @method
  * @name cexc#fetchPosition
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-details
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-list-uta
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-details
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta
  * @description fetch data on an open position
  * @param {string} symbol unified market symbol of the market the position is held in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
- * @param {integer} [params.pageSize] *uta only* page size for the uta endpoint (default 50, max 200)
- * @param {integer} [params.pageNumber] *uta only* page number for the uta endpoint (default 1)
  * @returns {object} a [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
 func (this *Cexc) FetchPosition(symbol string, options ...FetchPositionOptions) (Position, error) {
@@ -2617,7 +2583,7 @@ func (this *Cexc) FetchPosition(symbol string, options ...FetchPositionOptions) 
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2631,13 +2597,11 @@ func (this *Cexc) FetchPosition(symbol string, options ...FetchPositionOptions) 
  * @method
  * @name cexc#fetchPositions
  * @description fetch all open positions
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-list
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-list-uta
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-list
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-position-list-uta
  * @param {string[]|undefined} symbols list of unified market symbols
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), defaults to false
- * @param {integer} [params.pageSize] *uta only* page size for the uta endpoint (default 50, max 200)
- * @param {integer} [params.pageNumber] *uta only* page number for the uta endpoint (default 1)
  * @returns {object[]} a list of [position structure]{@link https://docs.ccxt.com/?id=position-structure}
  */
 func (this *Cexc) FetchPositions(options ...FetchPositionsOptions) ([]Position, error) {
@@ -2648,12 +2612,12 @@ func (this *Cexc) FetchPositions(options ...FetchPositionsOptions) ([]Position, 
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2667,8 +2631,8 @@ func (this *Cexc) FetchPositions(options ...FetchPositionsOptions) ([]Position, 
  * @method
  * @name cexc#fetchPositionsHistory
  * @description fetches historical positions
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-positions-history
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-history-uta
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-positions-history
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-position-history-uta
  * @param {string[]} [symbols] list of unified market symbols
  * @param {int} [since] the earliest time in ms to fetch position history for
  * @param {int} [limit] the maximum number of entries to retrieve
@@ -2686,22 +2650,22 @@ func (this *Cexc) FetchPositionsHistory(options ...FetchPositionsHistoryOptions)
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2715,15 +2679,15 @@ func (this *Cexc) FetchPositionsHistory(options ...FetchPositionsHistoryOptions)
  * @method
  * @name cexc#cancelOrders
  * @description cancel multiple orders for contract markets
- * @see https://exchange-broker.cexc.io/api/v1/documentation3470241e0
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/batch-cancel-order-by-id
+ * @see https://www.kucoin.com/docs-new/3470241e0
+ * @see https://www.kucoin.com/docs-new/rest/ua/batch-cancel-order-by-id
  * @param {string[]} ids order ids
  * @param {string} symbol unified symbol of the market the order was made in
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string[]} [params.clientOrderIds] client order ids
  * @param {boolean} [params.uta] set to true to use the unified trading account (uta) endpoint, defaults to false for the contract orders
  * @param {string} [params.accountMode] *for uta endpoint only* 'unified' or 'classic' (default is 'unified')
- * @param {string} [params.marginMode] *for margin orders only* 'cross' or 'isolated' (unified accountMode supports cross margin only)
+ * @param {string} [params.marginMode] *for margin orders only* 'cross' or 'isolated'
  * @returns {object} an list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
  */
 func (this *Cexc) CancelOrders(ids []string, options ...CancelOrdersOptions) ([]Order, error) {
@@ -2734,12 +2698,12 @@ func (this *Cexc) CancelOrders(ids []string, options ...CancelOrdersOptions) ([]
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2753,7 +2717,7 @@ func (this *Cexc) CancelOrders(ids []string, options ...CancelOrdersOptions) ([]
  * @method
  * @name cexc#fetchMarginMode
  * @description fetches the margin mode of a trading pair
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-margin-mode
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-margin-mode
  * @param {string} symbol unified symbol of the market to fetch the margin mode for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [margin mode structure]{@link https://docs.ccxt.com/?id=margin-mode-structure}
@@ -2766,7 +2730,7 @@ func (this *Cexc) FetchMarginMode(symbol string, options ...FetchMarginModeOptio
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2780,13 +2744,13 @@ func (this *Cexc) FetchMarginMode(symbol string, options ...FetchMarginModeOptio
  * @method
  * @name cexc#setMarginMode
  * @description set margin mode to 'cross' or 'isolated'
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/switch-margin-mode
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-margin-mode
  * @param {string} marginMode 'cross' or 'isolated'
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} response from the exchange
  */
-func (this *Cexc) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]any, error) {
+func (this *Cexc) SetMarginMode(marginMode string, options ...SetMarginModeOptions) (map[string]interface{}, error) {
 
     opts := SetMarginModeOptionsStruct{}
 
@@ -2794,32 +2758,32 @@ func (this *Cexc) SetMarginMode(marginMode string, options ...SetMarginModeOptio
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetMarginMode(marginMode, symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
  * @name cexc#setPositionMode
  * @description set hedged to true or false for a market
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/switch-position-mode
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/switch-position-mode
  * @param {bool} hedged set to true to use two way position
  * @param {string} [symbol] not used by bybit setPositionMode ()
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a response from the exchange
  */
-func (this *Cexc) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]any, error) {
+func (this *Cexc) SetPositionMode(hedged bool, options ...SetPositionModeOptions) (map[string]interface{}, error) {
 
     opts := SetPositionModeOptionsStruct{}
 
@@ -2827,31 +2791,31 @@ func (this *Cexc) SetPositionMode(hedged bool, options ...SetPositionModeOptions
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.SetPositionMode(hedged, symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
  * @name cexc#fetchPositionMode
  * @description fetchs the position mode, hedged or one way
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-position-mode
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-position-mode
  * @param {string} [symbol] unified symbol of the market to fetch the position mode for (not used in blofin fetchPositionMode)
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an object detailing whether the market is in hedged or one-way mode
  */
-func (this *Cexc) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]any, error) {
+func (this *Cexc) FetchPositionMode(options ...FetchPositionModeOptions) (map[string]interface{}, error) {
 
     opts := FetchPositionModeOptionsStruct{}
 
@@ -2859,26 +2823,26 @@ func (this *Cexc) FetchPositionMode(options ...FetchPositionModeOptions) (map[st
         opt(&opts)
     }
 
-    var symbol any = nil
+    var symbol interface{} = nil
     if opts.Symbol != nil {
         symbol = *opts.Symbol
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
     res := <- this.Core.FetchPositionMode(symbol, params)
     if IsError(res) {
-        return map[string]any{}, CreateReturnError(res)
+        return map[string]interface{}{}, CreateReturnError(res)
     }
-    return res.(map[string]any), nil
+    return res.(map[string]interface{}), nil
 }
 /**
  * @method
  * @name cexc#fetchMarketLeverageTiers
  * @description retrieve information on the maximum leverage, and maintenance margin for trades of varying trade sizes for a single market
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/futures-trading/positions/get-isolated-margin-risk-limit
+ * @see https://www.kucoin.com/docs-new/rest/futures-trading/positions/get-isolated-margin-risk-limit
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true to fetch leverage tiers for unified trading account instead of futures account (default is false)
@@ -2892,7 +2856,7 @@ func (this *Cexc) FetchMarketLeverageTiers(symbol string, options ...FetchMarket
         opt(&opts)
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2906,7 +2870,7 @@ func (this *Cexc) FetchMarketLeverageTiers(symbol string, options ...FetchMarket
  * @method
  * @name cexc#fetchLeverageTiers
  * @description retrieve information on the maximum leverage, and maintenance margin for trades of varying trade sizes
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-position-tiers
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-position-tiers
  * @param {string[]} symbols list of unified market symbols
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a dictionary of [leverage tiers structures]{@link https://docs.ccxt.com/?id=leverage-tiers-structure}, indexed by market symbols
@@ -2919,12 +2883,12 @@ func (this *Cexc) FetchLeverageTiers(options ...FetchLeverageTiersOptions) (Leve
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2938,7 +2902,7 @@ func (this *Cexc) FetchLeverageTiers(options ...FetchLeverageTiersOptions) (Leve
  * @method
  * @name cexc#fetchOpenInterests
  * @description Retrieves the open interest for a list of symbols
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-futures-open-interset
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset
  * @param {string[]} [symbols] Unified CCXT market symbol
  * @param {object} [params] exchange specific parameters
  * @returns {object} an open interest structure{@link https://docs.ccxt.com/?id=open-interest-structure}
@@ -2951,12 +2915,12 @@ func (this *Cexc) FetchOpenInterests(options ...FetchOpenInterestsOptions) (Open
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -2970,7 +2934,7 @@ func (this *Cexc) FetchOpenInterests(options ...FetchOpenInterestsOptions) (Open
  * @method
  * @name cexc#fetchOpenInterestHistory
  * @description Retrieves the open interest history of a currency
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/ua/get-futures-open-interset
+ * @see https://www.kucoin.com/docs-new/rest/ua/get-futures-open-interset
  * @param {string} symbol Unified CCXT market symbol
  * @param {string} timeframe '5m', '15m', '30m', '1h', '4h' or '1d'
  * @param {int} [since] the time(ms) of the earliest record to retrieve as a unix timestamp
@@ -2988,22 +2952,22 @@ func (this *Cexc) FetchOpenInterestHistory(symbol string, options ...FetchOpenIn
         opt(&opts)
     }
 
-    var timeframe any = nil
+    var timeframe interface{} = nil
     if opts.Timeframe != nil {
         timeframe = *opts.Timeframe
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -3017,7 +2981,7 @@ func (this *Cexc) FetchOpenInterestHistory(symbol string, options ...FetchOpenIn
  * @method
  * @name cexc#fetchTransfers
  * @description fetch a history of internal transfers made on an account
- * @see https://exchange-broker.cexc.io/api/v1/documentationrest/account-info/account-funding/get-account-ledgers-spot-margin
+ * @see https://www.kucoin.com/docs-new/rest/account-info/account-funding/get-account-ledgers-spot-margin
  * @param {string} [code] unified currency code of the currency transferred
  * @param {int} [since] the earliest time in ms to fetch transfers for
  * @param {int} [limit] the maximum number of transfer structures to retrieve
@@ -3034,22 +2998,22 @@ func (this *Cexc) FetchTransfers(options ...FetchTransfersOptions) ([]TransferEn
         opt(&opts)
     }
 
-    var code any = nil
+    var code interface{} = nil
     if opts.Code != nil {
         code = *opts.Code
     }
 
-    var since any = nil
+    var since interface{} = nil
     if opts.Since != nil {
         since = *opts.Since
     }
 
-    var limit any = nil
+    var limit interface{} = nil
     if opts.Limit != nil {
         limit = *opts.Limit
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -3067,12 +3031,12 @@ func (this *Cexc) FetchPositionsADLRank(options ...FetchPositionsADLRankOptions)
         opt(&opts)
     }
 
-    var symbols any = nil
+    var symbols interface{} = nil
     if opts.Symbols != nil {
         symbols = *opts.Symbols
     }
 
-    var params any = nil
+    var params interface{} = nil
     if opts.Params != nil {
         params = *opts.Params
     }
@@ -3084,9 +3048,9 @@ func (this *Cexc) FetchPositionsADLRank(options ...FetchPositionsADLRankOptions)
 }
 // missing typed methods from base
 //nolint
-func (this *Cexc) LoadMarkets(params ...any) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
+func (this *Cexc) LoadMarkets(params ...interface{}) (map[string]MarketInterface, error) { return this.exchangeTyped.LoadMarkets(params...) }
 func (this *Cexc) CancelOrdersWithClientOrderIds(clientOrderIds []string, options ...CancelOrdersWithClientOrderIdsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersWithClientOrderIds(clientOrderIds, options...)}
-func (this *Cexc) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]any, error) {return this.exchangeTyped.CancelAllOrdersAfter(timeout, options...)}
+func (this *Cexc) CancelAllOrdersAfter(timeout int64, options ...CancelAllOrdersAfterOptions) (map[string]interface{}, error) {return this.exchangeTyped.CancelAllOrdersAfter(timeout, options...)}
 func (this *Cexc) CancelOrderWithClientOrderId(clientOrderId string, options ...CancelOrderWithClientOrderIdOptions) (Order, error) {return this.exchangeTyped.CancelOrderWithClientOrderId(clientOrderId, options...)}
 func (this *Cexc) CancelOrdersForSymbols(orders []CancellationRequest, options ...CancelOrdersForSymbolsOptions) ([]Order, error) {return this.exchangeTyped.CancelOrdersForSymbols(orders, options...)}
 func (this *Cexc) CreateConvertTrade(id string, fromCode string, toCode string, options ...CreateConvertTradeOptions) (Conversion, error) {return this.exchangeTyped.CreateConvertTrade(id, fromCode, toCode, options...)}
@@ -3114,22 +3078,23 @@ func (this *Cexc) EditOrderWithClientOrderId(clientOrderId string, symbol string
 func (this *Cexc) EditOrders(orders []OrderRequest, options ...EditOrdersOptions) ([]Order, error) {return this.exchangeTyped.EditOrders(orders, options...)}
 func (this *Cexc) FetchAllGreeks(options ...FetchAllGreeksOptions) ([]Greeks, error) {return this.exchangeTyped.FetchAllGreeks(options...)}
 func (this *Cexc) FetchBidsAsks(options ...FetchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.FetchBidsAsks(options...)}
-func (this *Cexc) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]any, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
+func (this *Cexc) FetchBorrowRate(code string, amount float64, options ...FetchBorrowRateOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchBorrowRate(code, amount, options...)}
 func (this *Cexc) FetchCanceledAndClosedOrders(options ...FetchCanceledAndClosedOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchCanceledAndClosedOrders(options...)}
-func (this *Cexc) FetchConvertCurrencies(params ...any) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
+func (this *Cexc) FetchConvertCurrencies(params ...interface{}) (Currencies, error) {return this.exchangeTyped.FetchConvertCurrencies(params...)}
 func (this *Cexc) FetchConvertQuote(fromCode string, toCode string, options ...FetchConvertQuoteOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertQuote(fromCode, toCode, options...)}
 func (this *Cexc) FetchConvertTrade(id string, options ...FetchConvertTradeOptions) (Conversion, error) {return this.exchangeTyped.FetchConvertTrade(id, options...)}
 func (this *Cexc) FetchConvertTradeHistory(options ...FetchConvertTradeHistoryOptions) ([]Conversion, error) {return this.exchangeTyped.FetchConvertTradeHistory(options...)}
-func (this *Cexc) FetchCrossBorrowRates(params ...any) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
+func (this *Cexc) FetchCrossBorrowRate(code string, options ...FetchCrossBorrowRateOptions) (CrossBorrowRate, error) {return this.exchangeTyped.FetchCrossBorrowRate(code, options...)}
+func (this *Cexc) FetchCrossBorrowRates(params ...interface{}) (CrossBorrowRates, error) {return this.exchangeTyped.FetchCrossBorrowRates(params...)}
 func (this *Cexc) FetchDepositAddresses(options ...FetchDepositAddressesOptions) ([]DepositAddress, error) {return this.exchangeTyped.FetchDepositAddresses(options...)}
 func (this *Cexc) FetchDepositsWithdrawals(options ...FetchDepositsWithdrawalsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchDepositsWithdrawals(options...)}
-func (this *Cexc) FetchFreeBalance(params ...any) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
+func (this *Cexc) FetchFreeBalance(params ...interface{}) (Balance, error) {return this.exchangeTyped.FetchFreeBalance(params...)}
 func (this *Cexc) FetchFundingIntervals(options ...FetchFundingIntervalsOptions) (FundingRates, error) {return this.exchangeTyped.FetchFundingIntervals(options...)}
 func (this *Cexc) FetchFundingRates(options ...FetchFundingRatesOptions) (FundingRates, error) {return this.exchangeTyped.FetchFundingRates(options...)}
 func (this *Cexc) FetchGreeks(symbol string, options ...FetchGreeksOptions) (Greeks, error) {return this.exchangeTyped.FetchGreeks(symbol, options...)}
 func (this *Cexc) FetchIndexOHLCV(symbol string, options ...FetchIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchIndexOHLCV(symbol, options...)}
 func (this *Cexc) FetchIsolatedBorrowRate(symbol string, options ...FetchIsolatedBorrowRateOptions) (IsolatedBorrowRate, error) {return this.exchangeTyped.FetchIsolatedBorrowRate(symbol, options...)}
-func (this *Cexc) FetchIsolatedBorrowRates(params ...any) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
+func (this *Cexc) FetchIsolatedBorrowRates(params ...interface{}) (IsolatedBorrowRates, error) {return this.exchangeTyped.FetchIsolatedBorrowRates(params...)}
 func (this *Cexc) FetchLastPrices(options ...FetchLastPricesOptions) (LastPrices, error) {return this.exchangeTyped.FetchLastPrices(options...)}
 func (this *Cexc) FetchLedgerEntry(id string, options ...FetchLedgerEntryOptions) (LedgerEntry, error) {return this.exchangeTyped.FetchLedgerEntry(id, options...)}
 func (this *Cexc) FetchLeverages(options ...FetchLeveragesOptions) (Leverages, error) {return this.exchangeTyped.FetchLeverages(options...)}
@@ -3147,14 +3112,14 @@ func (this *Cexc) FetchOrderWithClientOrderId(clientOrderId string, options ...F
 func (this *Cexc) FetchOrderBooks(options ...FetchOrderBooksOptions) (OrderBooks, error) {return this.exchangeTyped.FetchOrderBooks(options...)}
 func (this *Cexc) FetchOrders(options ...FetchOrdersOptions) ([]Order, error) {return this.exchangeTyped.FetchOrders(options...)}
 func (this *Cexc) FetchOrderStatus(id string, options ...FetchOrderStatusOptions) (string, error) {return this.exchangeTyped.FetchOrderStatus(id, options...)}
-func (this *Cexc) FetchPaymentMethods(params ...any) (map[string]any, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
+func (this *Cexc) FetchPaymentMethods(params ...interface{}) (map[string]interface{}, error) {return this.exchangeTyped.FetchPaymentMethods(params...)}
 func (this *Cexc) FetchPositionHistory(symbol string, options ...FetchPositionHistoryOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionHistory(symbol, options...)}
 func (this *Cexc) FetchPositionsForSymbol(symbol string, options ...FetchPositionsForSymbolOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsForSymbol(symbol, options...)}
 func (this *Cexc) FetchPositionsRisk(options ...FetchPositionsRiskOptions) ([]Position, error) {return this.exchangeTyped.FetchPositionsRisk(options...)}
 func (this *Cexc) FetchPremiumIndexOHLCV(symbol string, options ...FetchPremiumIndexOHLCVOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchPremiumIndexOHLCV(symbol, options...)}
-func (this *Cexc) FetchTradingFees(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
-func (this *Cexc) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]any, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
-func (this *Cexc) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]any, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
+func (this *Cexc) FetchTradingFees(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFees(params...)}
+func (this *Cexc) FetchTradingLimits(options ...FetchTradingLimitsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTradingLimits(options...)}
+func (this *Cexc) FetchTransactionFees(options ...FetchTransactionFeesOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchTransactionFees(options...)}
 func (this *Cexc) FetchTransactions(options ...FetchTransactionsOptions) ([]Transaction, error) {return this.exchangeTyped.FetchTransactions(options...)}
 func (this *Cexc) FetchTransfer(id string, options ...FetchTransferOptions) (TransferEntry, error) {return this.exchangeTyped.FetchTransfer(id, options...)}
 func (this *Cexc) SetMargin(symbol string, amount float64, options ...SetMarginOptions) (MarginModification, error) {return this.exchangeTyped.SetMargin(symbol, amount, options...)}
@@ -3182,9 +3147,9 @@ func (this *Cexc) CreateTrailingAmountOrderWs(symbol string, typeVar string, sid
 func (this *Cexc) CreateTrailingPercentOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTrailingPercentOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTrailingPercentOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Cexc) CreateTriggerOrderWs(symbol string, typeVar string, side string, amount float64, options ...CreateTriggerOrderWsOptions) (Order, error) {return this.exchangeTyped.CreateTriggerOrderWs(symbol, typeVar, side, amount, options...)}
 func (this *Cexc) EditOrderWs(id string, symbol string, typeVar string, side string, options ...EditOrderWsOptions) (Order, error) {return this.exchangeTyped.EditOrderWs(id, symbol, typeVar, side, options...)}
-func (this *Cexc) FetchBalanceWs(params ...any) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
+func (this *Cexc) FetchBalanceWs(params ...interface{}) (Balances, error) {return this.exchangeTyped.FetchBalanceWs(params...)}
 func (this *Cexc) FetchClosedOrdersWs(options ...FetchClosedOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchClosedOrdersWs(options...)}
-func (this *Cexc) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
+func (this *Cexc) FetchDepositsWs(options ...FetchDepositsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchDepositsWs(options...)}
 func (this *Cexc) FetchMyTradesWs(options ...FetchMyTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchMyTradesWs(options...)}
 func (this *Cexc) FetchOHLCVWs(symbol string, options ...FetchOHLCVWsOptions) ([]OHLCV, error) {return this.exchangeTyped.FetchOHLCVWs(symbol, options...)}
 func (this *Cexc) FetchOpenOrdersWs(options ...FetchOpenOrdersWsOptions) ([]Order, error) {return this.exchangeTyped.FetchOpenOrdersWs(options...)}
@@ -3198,20 +3163,20 @@ func (this *Cexc) FetchPositionWs(symbol string, options ...FetchPositionWsOptio
 func (this *Cexc) FetchTickersWs(options ...FetchTickersWsOptions) (Tickers, error) {return this.exchangeTyped.FetchTickersWs(options...)}
 func (this *Cexc) FetchTickerWs(symbol string, options ...FetchTickerWsOptions) (Ticker, error) {return this.exchangeTyped.FetchTickerWs(symbol, options...)}
 func (this *Cexc) FetchTradesWs(symbol string, options ...FetchTradesWsOptions) ([]Trade, error) {return this.exchangeTyped.FetchTradesWs(symbol, options...)}
-func (this *Cexc) FetchTradingFeesWs(params ...any) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
-func (this *Cexc) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]any, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
-func (this *Cexc) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (any, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
-func (this *Cexc) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (any, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
-func (this *Cexc) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
-func (this *Cexc) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
-func (this *Cexc) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
-func (this *Cexc) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
-func (this *Cexc) UnWatchOrders(options ...UnWatchOrdersOptions) (any, error) {return this.exchangeTyped.UnWatchOrders(options...)}
-func (this *Cexc) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (any, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
-func (this *Cexc) UnWatchTickers(options ...UnWatchTickersOptions) (any, error) {return this.exchangeTyped.UnWatchTickers(options...)}
-func (this *Cexc) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (any, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
-func (this *Cexc) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (any, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
-func (this *Cexc) WatchBalance(params ...any) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
+func (this *Cexc) FetchTradingFeesWs(params ...interface{}) (TradingFees, error) {return this.exchangeTyped.FetchTradingFeesWs(params...)}
+func (this *Cexc) FetchWithdrawalsWs(options ...FetchWithdrawalsWsOptions) (map[string]interface{}, error) {return this.exchangeTyped.FetchWithdrawalsWs(options...)}
+func (this *Cexc) UnWatchBidsAsks(options ...UnWatchBidsAsksOptions) (interface{}, error) {return this.exchangeTyped.UnWatchBidsAsks(options...)}
+func (this *Cexc) UnWatchMyTrades(options ...UnWatchMyTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchMyTrades(options...)}
+func (this *Cexc) UnWatchOHLCV(symbol string, options ...UnWatchOHLCVOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCV(symbol, options...)}
+func (this *Cexc) UnWatchOHLCVForSymbols(symbolsAndTimeframes [][]string, options ...UnWatchOHLCVForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOHLCVForSymbols(symbolsAndTimeframes, options...)}
+func (this *Cexc) UnWatchOrderBook(symbol string, options ...UnWatchOrderBookOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBook(symbol, options...)}
+func (this *Cexc) UnWatchOrderBookForSymbols(symbols []string, options ...UnWatchOrderBookForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrderBookForSymbols(symbols, options...)}
+func (this *Cexc) UnWatchOrders(options ...UnWatchOrdersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchOrders(options...)}
+func (this *Cexc) UnWatchTicker(symbol string, options ...UnWatchTickerOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTicker(symbol, options...)}
+func (this *Cexc) UnWatchTickers(options ...UnWatchTickersOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTickers(options...)}
+func (this *Cexc) UnWatchTrades(symbol string, options ...UnWatchTradesOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTrades(symbol, options...)}
+func (this *Cexc) UnWatchTradesForSymbols(symbols []string, options ...UnWatchTradesForSymbolsOptions) (interface{}, error) {return this.exchangeTyped.UnWatchTradesForSymbols(symbols, options...)}
+func (this *Cexc) WatchBalance(params ...interface{}) (Balances, error) {return this.exchangeTyped.WatchBalance(params...)}
 func (this *Cexc) WatchBidsAsks(options ...WatchBidsAsksOptions) (Tickers, error) {return this.exchangeTyped.WatchBidsAsks(options...)}
 func (this *Cexc) WatchLiquidations(symbol string, options ...WatchLiquidationsOptions) ([]Liquidation, error) {return this.exchangeTyped.WatchLiquidations(symbol, options...)}
 func (this *Cexc) WatchMarkPrice(symbol string, options ...WatchMarkPriceOptions) (Ticker, error) {return this.exchangeTyped.WatchMarkPrice(symbol, options...)}

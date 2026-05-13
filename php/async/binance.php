@@ -1501,7 +1501,6 @@ class binance extends Exchange {
                     'BUSD' => 'USD',
                 ),
                 'defaultWithdrawPrecision' => 0.00000001,
-                'defaultFiatWithdrawPrecision' => 0.01,
             ),
             'features' => array(
                 'spot' => array(
@@ -3066,33 +3065,29 @@ class binance extends Exchange {
                 //        ]
                 //    }
                 //
-                //     some coins (e.g. ETH, BIGTIME, SONIC, etc) return extra fields under $network $entry
-                //
-                //                "specialTips" => "",
-                //                "specialWithdrawTips" => "",
-                //                "withdrawInternalMin" => "0",
-                //                "contractAddressUrl" => "https://etherscan.io/address/",
-                //                "contractAddress" => "0x64bc2ca1be492be7185faa2c8835d9b824c8a194"
-                //
                 $entry = $responseCurrencies[$i];
                 $id = $this->safe_string($entry, 'coin');
                 $name = $this->safe_string($entry, 'name');
                 $code = $this->safe_currency_code($id);
                 $isFiat = $this->safe_bool($entry, 'isLegalMoney');
+                $minPrecision = null;
+                $isWithdrawEnabled = true;
+                $isDepositEnabled = true;
                 $networkList = $this->safe_list($entry, 'networkList', array());
                 $fees = array();
                 $fee = null;
                 $networks = array();
-                $isETF = false;
                 for ($j = 0; $j < count($networkList); $j++) {
                     $networkItem = $networkList[$j];
                     $network = $this->safe_string($networkItem, 'network');
                     $networkCode = $this->network_id_to_code($network, $code);
-                    $isETF = ($network === 'ETF'); // ETF currencies (e.g. BTCUP, ETHDOWN) have only 1 "network" $entry and are deterministic to set
+                    $isETF = ($network === 'ETF'); // e.g. BTCUP, ETHDOWN
                     // $name = $this->safe_string($networkItem, 'name');
                     $withdrawFee = $this->safe_number($networkItem, 'withdrawFee');
                     $depositEnable = $this->safe_bool($networkItem, 'depositEnable');
                     $withdrawEnable = $this->safe_bool($networkItem, 'withdrawEnable');
+                    $isDepositEnabled = $isDepositEnabled || $depositEnable;
+                    $isWithdrawEnabled = $isWithdrawEnabled || $withdrawEnable;
                     $fees[$network] = $withdrawFee;
                     $isDefault = $this->safe_bool($networkItem, 'isDefault');
                     if ($isDefault || ($fee === null)) {
@@ -3102,16 +3097,26 @@ class binance extends Exchange {
                     // if ($isDefault) {
                     //     $this->options['defaultNetworkCodesForCurrencies'][$code] = $networkCode;
                     // }
-                    $withdrawPrecision = $this->omit_zero($this->safe_string_2($networkItem, 'withdrawIntegerMultiple', 'withdrawInternalMin'));
-                    // zero values happen only on fiat or leveraged(ETF) tokens => https://t.me/binance_api_english/393075
-                    if ($withdrawPrecision === null && $isFiat) {
-                        $withdrawPrecision = $this->safe_string($this->options, 'defaultFiatWithdrawPrecision');
+                    $precisionTick = $this->safe_string($networkItem, 'withdrawIntegerMultiple');
+                    $withdrawPrecision = $precisionTick;
+                    // avoid zero values, which are mostly from fiat or leveraged tokens or some abandoned coins : https://github.com/ccxt/ccxt/pull/14902#issuecomment-1271636731
+                    if (!Precise::string_eq($precisionTick, '0')) {
+                        $minPrecision = ($minPrecision === null) ? $precisionTick : Precise::string_min($minPrecision, $precisionTick);
+                    } else {
+                        if (!$isFiat && !$isETF) {
+                            // non-fiat and non-ETF currency, there are many cases when precision is set to zero (probably bug, we've reported to binance already)
+                            // in such cases, we can set default precision of 8 (which is in UI for such coins)
+                            $withdrawPrecision = $this->omit_zero($this->safe_string($networkItem, 'withdrawInternalMin'));
+                            if ($withdrawPrecision === null) {
+                                $withdrawPrecision = $this->safe_string($this->options, 'defaultWithdrawPrecision');
+                            }
+                        }
                     }
                     $networks[$networkCode] = array(
                         'info' => $networkItem,
                         'id' => $network,
                         'network' => $networkCode,
-                        'active' => null,
+                        'active' => $depositEnable && $withdrawEnable,
                         'deposit' => $depositEnable,
                         'withdraw' => $withdrawEnable,
                         'fee' => $withdrawFee,
@@ -3128,15 +3133,8 @@ class binance extends Exchange {
                         ),
                     );
                 }
-                $type = null;
-                if ($isETF) {
-                    $type = 'other';
-                } elseif ($isFiat) {
-                    $type = 'fiat';
-                } else {
-                    $type = 'crypto';
-                }
                 $trading = $this->safe_bool($entry, 'trading');
+                $active = ($isWithdrawEnabled && $isDepositEnabled && $trading);
                 $marginEntry = $this->safe_dict($marginablesById, $id, array());
                 //
                 //     {
@@ -3148,22 +3146,22 @@ class binance extends Exchange {
                 //         userMinRepay => "0",
                 //     }
                 //
-                $result[$code] = $this->safe_currency_structure(array(
+                $result[$code] = array(
                     'id' => $id,
                     'name' => $name,
                     'code' => $code,
-                    'type' => $type,
-                    'precision' => null,
+                    'type' => $isFiat ? 'fiat' : 'crypto',
+                    'precision' => $this->parse_number($minPrecision),
                     'info' => $entry,
-                    'active' => $trading,
-                    'deposit' => null,
-                    'withdraw' => null,
+                    'active' => $active,
+                    'deposit' => $isDepositEnabled,
+                    'withdraw' => $isWithdrawEnabled,
                     'networks' => $networks,
-                    'fee' => null,
+                    'fee' => $fee,
                     'fees' => $fees,
-                    'limits' => null,
+                    'limits' => $this->limits,
                     'margin' => $this->safe_bool($marginEntry, 'isBorrowable'),
-                ));
+                );
             }
             return $result;
         }) ();
@@ -5719,26 +5717,15 @@ class binance extends Exchange {
         return $this->safe_string($statuses, $status, $status);
     }
 
-    public function parse_order_type_by_market(?string $type, ?string $marketType) {
-        $types = array();
-        if (($marketType !== null) && $marketType === 'spot') {
-            $types = array(
-                'limit_maker' => 'limit',
-                'stop_loss_limit' => 'limit',
-                'stop_loss' => 'market',
-                'take_profit_limit' => 'limit',
-                'take_profit' => 'market',
-            );
-        } else {
-            $types = array(
-                'limit_maker' => 'limit',
-                'stop' => 'limit',
-                'stop_market' => 'market',
-                'take_profit' => 'limit',
-                'take_profit_market' => 'market',
-                'trailing_stop_market' => 'market',
-            );
-        }
+    public function parse_order_type(?string $type) {
+        $types = array(
+            'limit_maker' => 'limit',
+            'stop' => 'limit',
+            'stop_market' => 'market',
+            'take_profit' => 'limit',
+            'take_profit_market' => 'market',
+            'trailing_stop_market' => 'market',
+        );
         return $this->safe_string($types, $type, $type);
     }
 
@@ -6326,7 +6313,7 @@ class binance extends Exchange {
             'lastTradeTimestamp' => $lastTradeTimestamp,
             'lastUpdateTimestamp' => $lastUpdateTimestamp,
             'symbol' => $symbol,
-            'type' => $this->parse_order_type_by_market($type, $marketType),
+            'type' => $this->parse_order_type($type),
             'timeInForce' => $timeInForce,
             'postOnly' => $postOnly,
             'reduceOnly' => $this->safe_bool($order, 'reduceOnly'),

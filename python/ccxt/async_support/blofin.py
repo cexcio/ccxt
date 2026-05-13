@@ -1223,8 +1223,7 @@ class blofin(Exchange, ImplicitAPI):
         marginMode = None
         marginMode, params = self.handle_margin_mode_and_params('createOrder', params, 'cross')
         request['marginMode'] = marginMode
-        triggerPriceAny = self.safe_string_n(params, ['triggerPrice', 'stopLossPrice', 'takeProfitPrice'])
-        triggerPriceSlTp = self.safe_string_2(params, 'stopLossPrice', 'takeProfitPrice')
+        triggerPrice = self.safe_string(params, 'triggerPrice')
         timeInForce = self.safe_string(params, 'timeInForce', 'GTC')
         isHedged = self.safe_bool(params, 'hedged', False)
         if isHedged:
@@ -1236,7 +1235,7 @@ class blofin(Exchange, ImplicitAPI):
         if isMarketOrder or marketIOC:
             request['orderType'] = 'market'
         else:
-            key = 'orderPrice' if (triggerPriceAny is not None) else 'price'
+            key = 'orderPrice' if (triggerPrice is not None) else 'price'
             request[key] = self.price_to_precision(symbol, price)
         postOnly = False
         postOnly, params = self.handle_post_only(isMarketOrder, type == 'post_only', params)
@@ -1258,14 +1257,11 @@ class blofin(Exchange, ImplicitAPI):
                 request['tpTriggerPrice'] = self.price_to_precision(symbol, tpTriggerPrice)
                 tpPrice = self.safe_string(takeProfit, 'price', '-1')
                 request['tpOrderPrice'] = self.price_to_precision(symbol, tpPrice)
-        elif triggerPriceAny is not None:
+        elif triggerPrice is not None:
             request['orderType'] = 'trigger'
-            request['triggerPrice'] = self.price_to_precision(symbol, triggerPriceAny)
+            request['triggerPrice'] = self.price_to_precision(symbol, triggerPrice)
             if isMarketOrder:
                 request['orderPrice'] = '-1'
-            if triggerPriceSlTp is not None:
-                request['reduceOnly'] = True
-            params = self.omit(params, ['stopLossPrice', 'takeProfitPrice', 'triggerPrice'])
         return self.extend(request, params)
 
     def parse_order_status(self, status: Str):
@@ -1430,25 +1426,30 @@ class blofin(Exchange, ImplicitAPI):
         """
         await self.load_markets()
         market = self.market(symbol)
+        tpsl = self.safe_bool(params, 'tpsl', False)
+        params = self.omit(params, 'tpsl')
+        method = None
+        method, params = self.handle_option_and_params(params, 'createOrder', 'method', 'privatePostTradeOrder')
         isStopLossPriceDefined = self.safe_string(params, 'stopLossPrice') is not None
         isTakeProfitPriceDefined = self.safe_string(params, 'takeProfitPrice') is not None
-        isTriggerOrder = self.safe_string(params, 'triggerPrice') is not None
-        isCombinedSlTp = (isStopLossPriceDefined and isTakeProfitPriceDefined)
-        isSlOrTp = isStopLossPriceDefined or isTakeProfitPriceDefined
+        hasTriggerPrice = self.safe_string(params, 'triggerPrice') is not None
+        isType2Order = (isStopLossPriceDefined or isTakeProfitPriceDefined)
         response = None
         reduceOnly = self.safe_bool(params, 'reduceOnly')
         if reduceOnly is not None:
             params['reduceOnly'] = 'true' if reduceOnly else 'false'
-        if isCombinedSlTp:
+        isTpslOrder = tpsl or (method == 'privatePostTradeOrderTpsl') or isType2Order
+        isTriggerOrder = hasTriggerPrice or (method == 'privatePostTradeOrderAlgo')
+        if isTpslOrder:
             tpslRequest = self.create_tpsl_order_request(symbol, type, side, amount, price, params)
             response = await self.privatePostTradeOrderTpsl(tpslRequest)
-        elif isTriggerOrder or isSlOrTp:
+        elif isTriggerOrder:
             triggerRequest = self.create_order_request(symbol, type, side, amount, price, params)
             response = await self.privatePostTradeOrderAlgo(triggerRequest)
         else:
             request = self.create_order_request(symbol, type, side, amount, price, params)
             response = await self.privatePostTradeOrder(request)
-        if isCombinedSlTp or isSlOrTp or isTriggerOrder:
+        if isTpslOrder or isTriggerOrder:
             dataDict = self.safe_dict(response, 'data', {})
             return self.parse_order(dataDict, market)
         data = self.safe_list(response, 'data', [])
@@ -1460,16 +1461,12 @@ class blofin(Exchange, ImplicitAPI):
 
     def create_tpsl_order_request(self, symbol: str, type: OrderType, side: OrderSide, amount: Num = None, price: Num = None, params={}):
         market = self.market(symbol)
-        hedged = self.safe_bool(params, 'hedged', False)
-        positionSide = 'net'
-        if hedged:
-            positionSide = 'short' if (side == 'buy') else 'long'
+        positionSide = self.safe_string(params, 'positionSide', 'net')
         request: dict = {
             'instId': market['id'],
             'side': side,
             'positionSide': positionSide,
             'brokerId': self.safe_string(self.options, 'brokerId', 'ec6dd3a7dd982d0b'),
-            'reduceOnly': self.safe_bool(params, 'reduceOnly', True),  # self is TP &  SL protective order, so it should be reduceOnly by default
         }
         if amount is not None:
             request['size'] = self.amount_to_precision(symbol, amount)
@@ -1480,12 +1477,18 @@ class blofin(Exchange, ImplicitAPI):
         takeProfitPrice = self.safe_string(params, 'takeProfitPrice')
         if stopLossPrice is not None:
             request['slTriggerPrice'] = self.price_to_precision(symbol, stopLossPrice)
-            request['slOrderPrice'] = '-1' if (type == 'market') else self.price_to_precision(symbol, price)
-        if takeProfitPrice is not None:
+            if type == 'market':
+                request['slOrderPrice'] = '-1'
+            else:
+                request['slOrderPrice'] = self.price_to_precision(symbol, price)
+        elif takeProfitPrice is not None:
             request['tpTriggerPrice'] = self.price_to_precision(symbol, takeProfitPrice)
-            request['tpOrderPrice'] = '-1' if (type == 'market') else self.price_to_precision(symbol, price)
+            if type == 'market':
+                request['tpOrderPrice'] = '-1'
+            else:
+                request['tpOrderPrice'] = self.price_to_precision(symbol, price)
         request['marginMode'] = marginMode
-        params = self.omit(params, ['stopLossPrice', 'takeProfitPrice', 'reduceOnly', 'hedged'])
+        params = self.omit(params, ['stopLossPrice', 'takeProfitPrice'])
         return self.extend(request, params)
 
     async def cancel_order(self, id: str, symbol: Str = None, params={}):
@@ -2069,66 +2072,6 @@ class blofin(Exchange, ImplicitAPI):
         result = self.parse_positions(data)
         return self.filter_by_array_positions(result, 'symbol', symbols, False)
 
-    async def fetch_positions_history(self, symbols: Strings = None, since: Int = None, limit: Int = None, params={}) -> List[Position]:
-        """
-        fetches historical positions
-
-        https://docs.blofin.com/index.html#get-positions-history
-
-        :param str[] [symbols]: unified contract symbols
-        :param int [since]: timestamp in ms of the earliest position to fetch, default=3 months ago, max range for params["until"] - since is 3 months
-        :param int [limit]: the maximum amount of records to fetch, default=20, max=100
-        :param dict params: extra parameters specific to the exchange api endpoint
-        :param int [params.until]: timestamp in ms of the latest position to fetch, max range for params["until"] - since is 3 months
-        :param str [params.productType]: USDT-FUTURES(default), COIN-FUTURES, USDC-FUTURES, SUSDT-FUTURES, SCOIN-FUTURES, or SUSDC-FUTURES
-        :param boolean [params.uta]: set to True for the unified trading account(uta), defaults to False
-        :returns dict[]: a list of `position structures <https://docs.ccxt.com/?id=position-structure>`
-        """
-        await self.load_markets()
-        request: dict = {}
-        market = None
-        if symbols is not None:
-            symbolsLength = len(symbols)
-            if symbolsLength == 0:
-                market = self.market(symbols[0])
-                request['instId'] = market['id']
-        if limit is not None:
-            request['limit'] = min(limit, 100)
-        if since is not None:
-            request['begin'] = since
-        request, params = self.handle_until_option('end', request, params)
-        response = await self.privateGetAccountPositionsHistory(self.extend(request, params))
-        #
-        #    {
-        #        "code": "0",
-        #        "msg": "success",
-        #        "data": [
-        #            {
-        #                "historyId": "110307402",
-        #                "positionId": "1000000722711",
-        #                "instId": "BTC-USDT",
-        #                "instType": "SWAP",
-        #                "marginMode": "cross",
-        #                "positionSide": "net",
-        #                "closePositions": "0.0006",
-        #                "maxPositions": "0.0006",
-        #                "liquidationPositions": "0",
-        #                "openAveragePrice": "81550.1",
-        #                "closeAveragePrice": "81550",
-        #                "createTime": "1777995583329",
-        #                "updateTime": "1777995588333",
-        #                "leverage": "50",
-        #                "realizedPnl": "-0.058776036",
-        #                "realizedPnlRatio": "-0.060061275216094155",
-        #                "fee": "-0.058716036"
-        #            },
-        #        ]
-        #    }
-        #
-        data = self.safe_list(response, 'data', [])
-        positions = self.parse_positions(data, symbols, params)
-        return self.filter_by_since_limit(positions, since, limit)
-
     def parse_position(self, position: dict, market: Market = None):
         #
         # response similar for REST & WS
@@ -2156,29 +2099,6 @@ class blofin(Exchange, ImplicitAPI):
         #         updateTime: '1707235776528'
         #     }
         #
-        #
-        #    positions-history
-        #
-        #            {
-        #                "positionId": "1000000722711",
-        #                "instId": "BTC-USDT",
-        #                "instType": "SWAP",
-        #                "marginMode": "cross",
-        #                "positionSide": "net",
-        #                "createTime": "1777995583329",
-        #                "updateTime": "1777995588333",
-        #                "leverage": "50",
-        #                "realizedPnl": "-0.058776036",
-        #                "realizedPnlRatio": "-0.060061275216094155",
-        #                "fee": "-0.058716036"
-        #                "historyId": "110307402",
-        #                "closePositions": "0.0006",
-        #                "maxPositions": "0.0006",
-        #                "liquidationPositions": "0",
-        #                "openAveragePrice": "81550.1",
-        #                "closeAveragePrice": "81550",
-        #            },
-        #
         marketId = self.safe_string(position, 'instId')
         market = self.safe_market(marketId, market)
         symbol = market['symbol']
@@ -2204,7 +2124,7 @@ class blofin(Exchange, ImplicitAPI):
         notional = self.parse_number(notionalString)
         marginMode = self.safe_string(position, 'marginMode')
         initialMarginString = None
-        entryPriceString = self.safe_string_2(position, 'averagePrice', 'openAveragePrice')
+        entryPriceString = self.safe_string(position, 'averagePrice')
         unrealizedPnlString = self.safe_string(position, 'unrealizedPnl')
         leverageString = self.safe_string(position, 'leverage')
         initialMarginPercentage = None
@@ -2237,9 +2157,7 @@ class blofin(Exchange, ImplicitAPI):
             'marginMode': marginMode,
             'liquidationPrice': liquidationPrice,
             'entryPrice': self.parse_number(entryPriceString),
-            'exitPrice': self.safe_number(position, 'closeAveragePrice'),
             'unrealizedPnl': self.parse_number(unrealizedPnlString),
-            'realizedPnl': self.safe_number(position, 'realizedPnl'),
             'percentage': percentage,
             'contracts': contracts,
             'contractSize': contractSize,

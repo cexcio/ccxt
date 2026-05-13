@@ -514,7 +514,6 @@ public partial class kraken : Exchange
                     { "EFunding:No funding method", typeof(BadRequest) },
                     { "EFunding:Unknown asset", typeof(BadSymbol) },
                     { "EService:Market in post_only mode", typeof(OnMaintenance) },
-                    { "EService:Market in cancel_only mode", typeof(OnMaintenance) },
                     { "EGeneral:Too many requests", typeof(DDoSProtection) },
                     { "ETrade:User Locked", typeof(AccountSuspended) },
                 } },
@@ -609,11 +608,6 @@ public partial class kraken : Exchange
         for (object i = 0; isLessThan(i, getArrayLength(keys)); postFixIncrement(ref i))
         {
             object id = getValue(keys, i);
-            object isSynthetic = false;
-            if (isTrue(isGreaterThanOrEqual(getIndexOf(id, ":BTNL"), 0)))
-            {
-                isSynthetic = true;
-            }
             object market = getValue(markets, id);
             object baseIdRaw = this.safeString(market, "base");
             object quoteIdRaw = this.safeString(market, "quote");
@@ -655,11 +649,10 @@ public partial class kraken : Exchange
             }
             object status = this.safeString(market, "status");
             object isActive = isEqual(status, "online");
-            object symbol = ((bool) isTrue((!isTrue(isSynthetic)))) ? (add(add(bs, "/"), quote)) : id;
             ((IList<object>)result).Add(new Dictionary<string, object>() {
                 { "id", id },
                 { "wsId", this.safeString(market, "wsname") },
-                { "symbol", symbol },
+                { "symbol", add(add(bs, "/"), quote) },
                 { "base", bs },
                 { "quote", quote },
                 { "settle", null },

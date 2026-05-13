@@ -20,7 +20,6 @@ class lighter extends Exchange {
             'certified' => false,
             'pro' => true,
             'dex' => true,
-            'quoteJsonNumbers' => false,
             'has' => array(
                 'CORS' => null,
                 'spot' => false,
@@ -244,7 +243,6 @@ class lighter extends Exchange {
             ),
             'exceptions' => array(
                 'exact' => array(
-                    '21146' => '\\ccxt\\ExchangeError', // system account cannot be an integrator
                     '21500' => '\\ccxt\\ExchangeError', // transaction not found
                     '21501' => '\\ccxt\\ExchangeError', // invalid tx info
                     '21502' => '\\ccxt\\ExchangeError', // marshal tx failed
@@ -339,16 +337,11 @@ class lighter extends Exchange {
             'commonCurrencies' => array(),
             'options' => array(
                 'defaultType' => 'swap',
-                'builderFee' => true,
                 'chainId' => 304,
                 'accountIndex' => null,
                 'apiKeyIndex' => null,
-                'lighterPrivateKey' => null,
                 'wasmExecPath' => null, // [JS Only] users should set the path to wasm_exec.js. It can be downloaded here https://github.com/ccxt/lighter-wasm
                 'libraryPath' => null, // users should set the path to the lighter signing library. It can be downloaded here https://github.com/elliottech/lighter-python/tree/main/lighter/signers, GO users don't need it
-                'integratorAccountIndex' => 718718,
-                'integratorMakerFee' => 1000,
-                'integratorTakerFee' => 1000,
                 'authDeadlineExpiry' => 28800, // 8h validity for auth tokens
                 'authDeadlineMinimumRemaining' => 60,
             ),
@@ -374,68 +367,16 @@ class lighter extends Exchange {
         ));
     }
 
-    public function load_account($chainId, $privateKey, string $apiKeyIndex, string $accountIndex, $params = array ()) {
-        $this->init_auth_object($accountIndex, $apiKeyIndex);
-        $cachedAuths = $this->safe_dict($this->options['auths'][$accountIndex], $apiKeyIndex);
-        $signer = $this->safe_value($cachedAuths, 'signer');
+    public function load_account($chainId, $privateKey, $apiKeyIndex, $accountIndex, $params = array ()) {
+        $signer = $this->safe_dict($this->options, 'signer');
         if ($signer !== null) {
             return $signer;
         }
         $libraryPath = null;
         list($libraryPath, $params) = $this->handle_option_and_params($params, 'loadAccount', 'libraryPath');
-        $lighterPrivateKeyIsSet = ($privateKey !== null) && ($privateKey !== '');
-        if ($lighterPrivateKeyIsSet && ($libraryPath !== null) && ($apiKeyIndex !== null) && ($accountIndex !== null)) {
-            // load lighter library, and create lighter client
-            $signer = $this->load_lighter_library($libraryPath, $chainId, $privateKey, $this->parse_to_int($apiKeyIndex), $this->parse_to_int($accountIndex), true);
-            $this->options['auths'][$accountIndex][$apiKeyIndex]['signer'] = $signer;
-            return $signer;
-        }
-        $privateKeyIsSet = ($this->privateKey !== null) && ($this->privateKey !== '');
-        if ($privateKeyIsSet && ($apiKeyIndex !== null) && ($accountIndex !== null)) {
-            if (strlen($this->privateKey) > 66) {
-                throw new NotSupported($this->id . ' after the latest update (v4.5.50), CCXT now expects the l1 private key to be provided in the credentials. Please check for more details => https://github.com/ccxt/ccxt/wiki/FAQ#how-to-use-the-lighter-exchange-in-ccxt');
-            }
-            // load lighter library without creating lighter client
-            $signer = $this->load_lighter_library($libraryPath, $chainId, '', $this->parse_to_int($apiKeyIndex), $this->parse_to_int($accountIndex), false);
-            $this->options['auths'][$accountIndex][$apiKeyIndex]['signer'] = $signer;
-            $res = $this->change_api_key();
-            $this->handle_builder_fee_approval($this->parse_to_int($accountIndex), $this->parse_to_int($apiKeyIndex));
-            return $res;
-        }
+        $signer = $this->load_lighter_library($libraryPath, $chainId, $privateKey, $apiKeyIndex, $accountIndex);
+        $this->options['signer'] = $signer;
         return $signer;
-    }
-
-    public function init_auth_object(string $strAccountIndex, string $strApiKeyIndex) {
-        if (!(is_array($this->options) && array_key_exists('auths', $this->options))) {
-            $this->options['auths'] = array();
-        }
-        if (!(is_array($this->options['auths']) && array_key_exists($strAccountIndex, $this->options['auths']))) {
-            $this->options['auths'][$strAccountIndex] = array();
-        }
-        if (!(is_array($this->options['auths'][$strAccountIndex]) && array_key_exists($strApiKeyIndex, $this->options['auths'][$strAccountIndex]))) {
-            $this->options['auths'][$strAccountIndex][$strApiKeyIndex] = array(
-                'signer' => null,
-                'lighterPrivateKey' => null,
-                'deadline' => null,
-                'token' => null,
-            );
-        }
-    }
-
-    public function get_lighter_private_key(string $strAccountIndex, string $strApiKeyIndex) {
-        if (!(is_array($this->options) && array_key_exists('auths', $this->options))) {
-            return null;
-        }
-        if (!(is_array($this->options['auths']) && array_key_exists($strAccountIndex, $this->options['auths']))) {
-            return null;
-        }
-        if (!(is_array($this->options['auths'][$strAccountIndex]) && array_key_exists($strApiKeyIndex, $this->options['auths'][$strAccountIndex]))) {
-            return null;
-        }
-        if (!(is_array($this->options['auths'][$strAccountIndex][$strApiKeyIndex]) && array_key_exists('lighterPrivateKey', $this->options['auths'][$strAccountIndex][$strApiKeyIndex]))) {
-            return null;
-        }
-        return $this->options['auths'][$strAccountIndex][$strApiKeyIndex]['lighterPrivateKey'];
     }
 
     public function pre_load_lighter_library($params = array ()) {
@@ -444,49 +385,32 @@ class lighter extends Exchange {
          * @param $params
          * @return {boolean} true if the $signer was loaded, false otherwise
          */
-        $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'loadAccount', 'apiKeyIndex', 'api_key_index');
-        $accountIndex = null;
-        list($accountIndex, $params) = $this->handle_account_index($params, 'loadAccount', 'accountIndex', 'account_index');
-        if ($accountIndex === null) {
-            throw new ArgumentsRequired($this->id . ' requires $accountIndex or account_index');
-        }
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $this->init_auth_object($strAccountIndex, $strApiKeyIndex);
-        $signer = $this->safe_dict($this->options['auths'][$strAccountIndex][$strApiKeyIndex], 'signer');
+        $signer = $this->safe_dict($this->options, 'signer');
         if ($signer !== null) {
             return true;
         }
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex);
-        $this->handle_builder_fee_approval($accountIndex, $apiKeyIndex);
-        return ($signer !== null);
-    }
-
-    public function handle_api_key_index(array $params, string $methodName1, string $optionName1, string $optionName2, $defaultValue = null): array {
+        $libraryPath = null;
+        list($libraryPath, $params) = $this->handle_option_and_params($params, 'loadAccount', 'libraryPath');
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, $methodName1, $optionName1, $optionName2, $defaultValue);
-        if (($apiKeyIndex === null) || ($apiKeyIndex < 4) || ($apiKeyIndex > 254)) {
-            // $apiKeyIndex = $this->rand_number(2);
-            $apiKeyIndex = 254;
-            $this->options['apiKeyIndex'] = $apiKeyIndex; // default to a value to avoid overriding other keys
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'loadAccount', 'apiKeyIndex', 'api_key_index');
+        $accountIndex = null;
+        list($accountIndex, $params) = $this->handle_option_and_params_2($params, 'loadAccount', 'accountIndex', 'account_index');
+        $privateKeyIsSet = ($this->privateKey !== null) && ($this->privateKey !== '');
+        if ($privateKeyIsSet && ($libraryPath !== null) && ($apiKeyIndex !== null) && ($accountIndex !== null)) {
+            $signer = $this->load_lighter_library($libraryPath, $this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex);
+            $this->options['signer'] = $signer;
+            return true;
         }
-        return array( $this->parse_to_int($apiKeyIndex), $params );
+        return false;
     }
 
-    public function handle_account_index(array $params, string $methodName1, string $optionName1, string $optionName2, $defaultValue = null): array {
+    public function handle_account_index(array $params, string $methodName1, string $optionName1, string $optionName2, $defaultValue = null) {
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_option_and_params_2($params, $methodName1, $optionName1, $optionName2, $defaultValue);
         if ($accountIndex === null) {
             $walletAddress = $this->walletAddress;
-            if ($this->privateKey !== null) {
-                if (strlen($this->privateKey) > 66) {
-                    throw new NotSupported($this->id . ' after the latest update (v4.5.50), CCXT now expects the l1 private key to be provided in the credentials. Please check for more details => https://github.com/ccxt/ccxt/wiki/FAQ#how-to-use-the-lighter-exchange-in-ccxt');
-                }
-                $walletAddress = $this->eth_get_address_from_private_key($this->privateKey);
-            }
             if ($walletAddress === null || $walletAddress === '') {
-                throw new ArgumentsRequired($this->id . ' ' . $methodName1 . '() requires an ' . $optionName1 . '/' . $optionName2 . ' parameter or $walletAddress to fetch $accountIndex-> Alternatively set privateKey in credentials to enable automatic $walletAddress detection.');
+                throw new ArgumentsRequired($this->id . ' ' . $methodName1 . '() requires an ' . $optionName1 . '/' . $optionName2 . ' parameter or $walletAddress to fetch accountIndex');
             }
             $res = $this->publicGetAccountsByL1Address (array( 'l1_address' => $walletAddress ));
             //
@@ -527,18 +451,19 @@ class lighter extends Exchange {
 
     public function create_sub_account(string $name, $params = array ()) {
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'createSubAccount', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'createSubAccount', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' createSubAccount() requires an $apiKeyIndex parameter');
+        }
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'createSubAccount', 'accountIndex', 'account_index');
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $params);
+        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex);
         $signRaw = array(
             'nonce' => $nonce,
             'api_key_index' => $apiKeyIndex,
             'account_index' => $accountIndex,
         );
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         list($txType, $txInfo) = $this->lighter_sign_create_sub_account($signer, $this->extend($signRaw, $params));
         $request = array(
             'tx_type' => $txType,
@@ -549,15 +474,15 @@ class lighter extends Exchange {
 
     public function create_auth($params = array ()) {
         // don't omit [$accountIndex, $apiKeyIndex], $request may need them
-        $apiKeyIndex = $this->safe_string_2($params, 'apiKeyIndex', 'api_key_index');
+        $apiKeyIndex = $this->safe_integer_2($params, 'apiKeyIndex', 'api_key_index');
         if ($apiKeyIndex === null) {
             $res = $this->handle_option_and_params_2(array(), 'createAuth', 'apiKeyIndex', 'api_key_index');
-            $apiKeyIndex = $this->safe_string($res, 0);
+            $apiKeyIndex = $this->safe_integer($res, 0);
         }
-        $accountIndex = $this->safe_string_2($params, 'accountIndex', 'account_index');
+        $accountIndex = $this->safe_integer_2($params, 'accountIndex', 'account_index');
         if ($accountIndex === null) {
             $res = $this->handle_option_and_params_2(array(), 'createAuth', 'accountIndex', 'account_index');
-            $accountIndex = $this->safe_string($res, 0);
+            $accountIndex = $this->safe_integer($res, 0);
         }
         $auths = $this->safe_dict($this->options, 'auths');
         $accountAuths = $this->safe_dict($auths, $accountIndex);
@@ -572,12 +497,20 @@ class lighter extends Exchange {
         $deadline = $this->seconds() . $this->safe_integer($this->options, 'authDeadlineExpiry');
         $request = array(
             'deadline' => $deadline,
-            'api_key_index' => $this->parse_to_int($apiKeyIndex),
-            'account_index' => $this->parse_to_int($accountIndex),
+            'api_key_index' => $apiKeyIndex,
+            'account_index' => $accountIndex,
         );
-        $token = $this->lighter_create_auth_token($this->options['auths'][$accountIndex][$apiKeyIndex]['signer'], $request);
-        $this->options['auths'][$accountIndex][$apiKeyIndex]['deadline'] = $deadline;
-        $this->options['auths'][$accountIndex][$apiKeyIndex]['token'] = $token;
+        $token = $this->lighter_create_auth_token($this->safe_value($this->options, 'signer'), $request);
+        if (!(is_array($this->options) && array_key_exists('auths', $this->options))) {
+            $this->options['auths'] = array();
+        }
+        if (!(is_array($this->options['auths']) && array_key_exists($accountIndex, $this->options['auths']))) {
+            $this->options['auths'][$accountIndex] = array();
+        }
+        $this->options['auths'][$accountIndex][$apiKeyIndex] = array(
+            'deadline' => $deadline,
+            'token' => $token,
+        );
         return $token;
     }
 
@@ -597,109 +530,6 @@ class lighter extends Exchange {
             $r = Precise::string_mul($r, $n);
         }
         return $r;
-    }
-
-    public function hash_message(string $message) {
-        $binaryMessage = $this->encode($message);
-        $binaryMessageLength = $this->binary_length($binaryMessage);
-        $x19 = $this->base16_to_binary('19');
-        $newline = $this->base16_to_binary('0a');
-        $prefix = $this->binary_concat($x19, $this->encode('Ethereum Signed Message:'), $newline, $this->encode($this->number_to_string($binaryMessageLength)));
-        return '0x' . $this->hash($this->binary_concat($prefix, $binaryMessage), 'keccak', 'hex');
-    }
-
-    public function sign_hash($hash, $privateKey) {
-        $this->check_required_credentials();
-        $signature = $this->ecdsa(mb_substr($hash, -64), mb_substr($privateKey, -64), 'secp256k1', null);
-        $r = $signature['r'];
-        $s = $signature['s'];
-        $v = $this->int_to_base16($this->sum(27, $signature['v']));
-        return '0x' . str_pad($r, 64, '0', STR_PAD_LEFT) . str_pad($s, 64, '0', STR_PAD_LEFT) . $v;
-    }
-
-    public function sign_l1_and_prepare_tx_info($txInfo, $message, $privateKey) {
-        $hashMessage = $this->hash_message($message);
-        $signature = $this->sign_hash($hashMessage, $privateKey);
-        $decTxInfo = $this->parse_json($txInfo);
-        $decTxInfo['L1Sig'] = $signature;
-        return $this->json($decTxInfo);
-    }
-
-    public function handle_builder_fee_approval(float $accountIndex, float $apiKeyIndex) {
-        $buildFee = $this->safe_bool($this->options, 'builderFee', true);
-        if (!$buildFee) {
-            return false;
-        }
-        $approvedBuilderFee = $this->safe_bool($this->options, 'approvedBuilderFee', false);
-        if ($approvedBuilderFee) {
-            return true;
-        }
-        try {
-            $builder = $this->safe_integer($this->options, 'integratorAccountIndex', 718718);
-            $takerFeeRate = $this->safe_integer($this->options, 'integratorTakerFee', 1000);
-            $makerFeeRate = $this->safe_integer($this->options, 'integratorMakerFee', 1000);
-            $this->approve_builder_fee($builder, $takerFeeRate, $makerFeeRate, $accountIndex, $apiKeyIndex);
-            $this->options['approvedBuilderFee'] = true;
-        } catch (Exception $e) {
-            $this->options['builderFee'] = false;
-        }
-        return true;
-    }
-
-    public function approve_builder_fee(float $builder, float $takerFeeRate, float $makerFeeRate, float $accountIndex, float $apiKeyIndex, array $params = array ()) {
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $this->extend($params, array( 'skipNonce' => false )));
-        $expiry = $this->milliseconds() + 365 * 864000;
-        $signRaw = array(
-            'integrator_account_index' => $builder,
-            'integrator_taker_fee' => $takerFeeRate,
-            'integrator_maker_fee' => $makerFeeRate,
-            'approval_expiry' => $expiry,
-            'nonce' => $nonce,
-            'api_key_index' => $apiKeyIndex,
-            'account_index' => $accountIndex,
-        );
-        list($txType, $txInfo, $messageToSign) = $this->lighter_sign_approve_integrator($signer, $this->extend($signRaw, $params));
-        $newTxInfo = $this->sign_l1_and_prepare_tx_info($txInfo, $messageToSign, $this->privateKey);
-        $request = array(
-            'tx_type' => $txType,
-            'tx_info' => $newTxInfo,
-        );
-        $response = $this->publicPostSendTx ($request);
-        return $response;
-    }
-
-    public function change_api_key(array $params = array ()) {
-        $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'changeApiKey', 'apiKeyIndex', 'api_key_index');
-        $accountIndex = null;
-        list($accountIndex, $params) = $this->handle_account_index($params, 'changeApiKey', 'accountIndex', 'account_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signerNotLoad = $this->options['auths'][$strAccountIndex][$strApiKeyIndex]['signer'];
-        list($privateKey, $publicKey) = $this->lighter_generate_api_key($signerNotLoad);
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $this->extend($params, array( 'skipNonce' => false )));
-        $signRaw = array(
-            'pubkey' => $this->encode($publicKey),
-            'nonce' => $nonce,
-            'api_key_index' => $apiKeyIndex,
-            'account_index' => $accountIndex,
-        );
-        // create lighter client
-        $signer = $this->lighter_create_client($signerNotLoad, $this->options['chainId'], $privateKey, $apiKeyIndex, $accountIndex);
-        list($txType, $txInfo, $messageToSign) = $this->lighter_sign_change_pubkey($signer, $this->extend($signRaw, $params));
-        $newTxInfo = $this->sign_l1_and_prepare_tx_info($txInfo, $messageToSign, $this->privateKey);
-        $request = array(
-            'tx_type' => $txType,
-            'tx_info' => $newTxInfo,
-        );
-        $this->publicPostSendTx ($request);
-        $this->options['auths'][$strAccountIndex][$strApiKeyIndex]['lighterPrivateKey'] = $privateKey;
-        $this->options['auths'][$strAccountIndex][$strApiKeyIndex]['signer'] = $signer; // reassign $signer in go
-        $this->handle_builder_fee_approval($accountIndex, $apiKeyIndex);
-        return $signer;
     }
 
     public function set_sandbox_mode(bool $enable) {
@@ -738,13 +568,14 @@ class lighter extends Exchange {
         $apiKeyIndex = null;
         $accountIndex = null;
         $orderExpiry = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'createOrder', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params($params, 'createOrder', 'apiKeyIndex', 255);
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' createOrder() requires an $apiKeyIndex parameter');
+        }
         list($accountIndex, $params) = $this->handle_option_and_params_2($params, 'createOrder', 'accountIndex', 'account_index');
         list($nonce, $params) = $this->handle_option_and_params($params, 'createOrder', 'nonce');
         list($orderExpiry, $params) = $this->handle_option_and_params($params, 'createOrder', 'orderExpiry', 0);
-        if ($nonce !== null) {
-            $request['nonce'] = $nonce;
-        }
+        $request['nonce'] = $nonce;
         $request['api_key_index'] = $apiKeyIndex;
         $request['account_index'] = $this->parse_to_int($accountIndex);
         $triggerPrice = $this->safe_string_2($params, 'triggerPrice', 'stopPrice');
@@ -822,11 +653,6 @@ class lighter extends Exchange {
         $request['base_amount'] = $this->parse_to_int(Precise::string_mul($amountStr, $amountScale));
         $request['avg_execution_price'] = $this->parse_to_int(Precise::string_mul($priceStr, $priceScale));
         $request['trigger_price'] = $this->parse_to_int(Precise::string_mul($triggerPriceStr, $priceScale));
-        if ($this->safe_bool($this->options, 'builderFee', true)) {
-            $request['integrator_account_index'] = $this->options['integratorAccountIndex'];
-            $request['integrator_taker_fee'] = $this->options['integratorTakerFee'];
-            $request['integrator_maker_fee'] = $this->options['integratorMakerFee'];
-        }
         $orders = array();
         $orders[] = $this->extend($request, $params);
         if ($hasStopLoss || $hasTakeProfit) {
@@ -876,12 +702,6 @@ class lighter extends Exchange {
         if ($nonceInOptions !== null) {
             return $nonceInOptions;
         }
-        // avoid $skipNonce for l1 operations
-        $skipNonce = true;
-        list($skipNonce, $params) = $this->handle_option_and_params($params, 'fetchNonce', 'skipNonce', true);
-        if ($skipNonce) {
-            return $this->milliseconds();
-        }
         $response = $this->publicGetNextNonce (array( 'account_index' => $accountIndex, 'api_key_index' => $apiKeyIndex ));
         return $this->safe_integer($response, 'nonce');
     }
@@ -920,14 +740,16 @@ class lighter extends Exchange {
         if ($totalOrderRequests > 0) {
             $order = $orderRequests[0];
             $apiKeyIndex = $order['api_key_index'];
+            if ($order['nonce'] === null) {
+                $nonceInOptions = $this->safe_integer($this->options, 'nonce');
+                if ($nonceInOptions !== null) {
+                    $order['nonce'] = $nonceInOptions;
+                } else {
+                    $order['nonce'] = $this->fetch_nonce($accountIndex, $apiKeyIndex);
+                }
+            }
         }
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
-        // the nonce could be updated
-        if ($this->safe_integer($order, 'nonce') === null) {
-            $order['nonce'] = $this->fetch_nonce($accountIndex, $apiKeyIndex);
-        }
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         $txType = null;
         $txInfo = null;
         if ($totalOrderRequests < 2) {
@@ -940,11 +762,6 @@ class lighter extends Exchange {
                 'api_key_index' => $apiKeyIndex,
                 'account_index' => $accountIndex,
             );
-            if ($this->safe_bool($this->options, 'builderFee', true)) {
-                $signingPayload['integrator_account_index'] = $order['integrator_account_index'];
-                $signingPayload['integrator_taker_fee'] = $order['integrator_taker_fee'];
-                $signingPayload['integrator_maker_fee'] = $order['integrator_maker_fee'];
-            }
             list($txType, $txInfo) = $this->lighter_sign_create_grouped_orders($signer, $signingPayload);
         }
         $request = array(
@@ -977,16 +794,17 @@ class lighter extends Exchange {
          * @param {string} [$params->apiKeyIndex] api key index
          * @return {array} an ~@link https://docs.ccxt.com/?$id=order-structure order structure~
          */
-        $this->load_markets();
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'editOrder', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'editOrder', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' editOrder() requires an $apiKeyIndex parameter');
+        }
+        $this->load_markets();
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'editOrder', 'accountIndex', 'account_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
         $market = $this->market($symbol);
         $marketInfo = $this->safe_dict($market, 'info');
+        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex);
         $amountScale = $this->pow('10', $marketInfo['size_decimals']);
         $priceScale = $this->pow('10', $marketInfo['price_decimals']);
         $triggerPrice = $this->safe_string_n($params, array( 'stopPrice', 'triggerPrice', 'stopLossPrice', 'takeProfitPrice' ));
@@ -1000,7 +818,6 @@ class lighter extends Exchange {
         } else {
             $amountStr = $this->amount_to_precision($symbol, $amount);
         }
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $params);
         $signRaw = array(
             'market_index' => $this->parse_to_int($market['id']),
             'index' => $this->parse_to_int($id),
@@ -1010,10 +827,8 @@ class lighter extends Exchange {
             'nonce' => $nonce,
             'api_key_index' => $apiKeyIndex,
             'account_index' => $accountIndex,
-            'integrator_account_index' => $this->options['integratorAccountIndex'],
-            'integrator_taker_fee' => $this->options['integratorTakerFee'],
-            'integrator_maker_fee' => $this->options['integratorMakerFee'],
         );
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         list($txType, $txInfo) = $this->lighter_sign_modify_order($signer, $this->extend($signRaw, $params));
         $request = array(
             'tx_type' => $txType,
@@ -1030,7 +845,7 @@ class lighter extends Exchange {
          * @see https://apidocs.lighter.xyz/reference/status
          *
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
-         * @return {array} a ~@link https://docs.ccxt.com/?id=exchange-$status-structure $status structure~
+         * @return {array} a ~@link https://docs.ccxt.com/#/?id=exchange-$status-structure $status structure~
          */
         $response = $this->rootGet ($params);
         //
@@ -1252,9 +1067,7 @@ class lighter extends Exchange {
          * @return {array} an associative dictionary of currencies
          */
         $response = $this->publicGetAssetDetails ($params);
-        if ($this->check_required_credentials(false)) {
-            $this->pre_load_lighter_library();
-        }
+        $this->pre_load_lighter_library();
         //
         //     {
         //         "code" => 200,
@@ -1323,7 +1136,7 @@ class lighter extends Exchange {
          * @param {string} $symbol unified $symbol of the $market to fetch the order book for
          * @param {int} [$limit] the maximum amount of order book entries to return
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
-         * @return {array} A dictionary of ~@link https://docs.ccxt.com/?id=order-book-structure order book structures~ indexed by $market symbols
+         * @return {array} A dictionary of ~@link https://docs.ccxt.com/#/?id=order-book-structure order book structures~ indexed by $market symbols
          */
         if ($symbol === null) {
             throw new ArgumentsRequired($this->id . ' fetchOrderBook() requires a $symbol argument');
@@ -1350,7 +1163,7 @@ class lighter extends Exchange {
         //                 "initial_base_amount" => "0.2000",
         //                 "remaining_base_amount" => "0.2000",
         //                 "price" => "3430.00",
-        //                 "order_expiry" => 1765419046808
+        //                 "order_expiry" => 1765419046807
         //             }
         //         ),
         //         "total_bids" => 1,
@@ -1477,7 +1290,7 @@ class lighter extends Exchange {
          *
          * @param {string} $symbol unified $symbol of the $market to fetch the ticker for
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
-         * @return {array} a ~@link https://docs.ccxt.com/?id=ticker-structure ticker structure~
+         * @return {array} a ~@link https://docs.ccxt.com/#/?id=ticker-structure ticker structure~
          */
         if ($symbol === null) {
             throw new ArgumentsRequired($this->id . ' fetchTicker() requires a $symbol argument');
@@ -1547,7 +1360,7 @@ class lighter extends Exchange {
          *
          * @param {string[]|null} $symbols unified $symbols of the markets to fetch the ticker for, all market $tickers are returned if not assigned
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
-         * @return {array} a dictionary of ~@link https://docs.ccxt.com/?id=ticker-structure ticker structures~
+         * @return {array} a dictionary of ~@link https://docs.ccxt.com/#/?id=ticker-structure ticker structures~
          */
         $this->load_markets();
         $symbols = $this->market_symbols($symbols);
@@ -1702,7 +1515,7 @@ class lighter extends Exchange {
          *
          * @param {string[]} [$symbols] list of unified market $symbols
          * @param {array} [$params] extra parameters specific to the $exchange API endpoint
-         * @return {array[]} a list of ~@link https://docs.ccxt.com/?id=funding-rate-structure funding rate structures~
+         * @return {array[]} a list of ~@link https://docs.ccxt.com/#/?id=funding-rate-structure funding rate structures~
          */
         $this->load_markets();
         $response = $this->publicGetFundingRates ($this->extend($params));
@@ -1739,7 +1552,6 @@ class lighter extends Exchange {
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
          * @param {string} [$params->by] fetch $balance by 'index' or 'l1_address', defaults to 'index'
          * @param {string} [$params->value] fetch $balance value, $account index or l1 address
-         * @param {string} [$params->type] 'spot', 'swap', default is 'swap'
          * @return {array} a ~@link https://docs.ccxt.com/?id=$balance-structure $balance structure~
          */
         $this->load_markets();
@@ -1812,11 +1624,9 @@ class lighter extends Exchange {
                     $result[$code] = $balance;
                 }
             } else {
-                $perpBalance = $this->safe_dict($result, 'USDC', $this->account());
-                $perpUSDCTotal = $this->safe_string($account, 'collateral');
-                $perpUSDCFree = $this->safe_string($account, 'available_balance');
-                $perpBalance['total'] = Precise::string_add($perpBalance['total'], $perpUSDCTotal);
-                $perpBalance['free'] = Precise::string_add($perpBalance['free'], $perpUSDCFree);
+                $perpUSDC = $this->safe_string($account, 'collateral');
+                $perpBalance = $this->safe_dict($result, 'USDC(PERP)', $this->account());
+                $perpBalance['total'] = Precise::string_add($perpBalance['total'], $perpUSDC);
                 $result['USDC'] = $perpBalance;
             }
         }
@@ -2096,10 +1906,11 @@ class lighter extends Exchange {
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'fetchOpenOrders', 'accountIndex', 'account_index');
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'fetchOpenOrders', 'apiKeyIndex', 'api_key_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'fetchOpenOrders', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' fetchOpenOrders() requires an $apiKeyIndex parameter');
+        }
+        $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         $market = $this->market($symbol);
         $request = array(
             'market_id' => $market['id'],
@@ -2172,10 +1983,11 @@ class lighter extends Exchange {
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'fetchClosedOrders', 'accountIndex', 'account_index');
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'fetchClosedOrders', 'apiKeyIndex', 'api_key_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'fetchClosedOrders', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' fetchClosedOrders() requires an $apiKeyIndex parameter');
+        }
+        $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         $market = $this->market($symbol);
         $request = array(
             'market_id' => $market['id'],
@@ -2433,16 +2245,16 @@ class lighter extends Exchange {
          * @param {string} [$params->memo] hex encoding $memo
          * @return {array} a ~@link https://docs.ccxt.com/?id=transfer-structure transfer structure~
          */
-        $this->load_markets();
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'transfer', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'transfer', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' transfer() requires an $apiKeyIndex parameter');
+        }
+        $this->load_markets();
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'transfer', 'accountIndex', 'account_index');
         $toAccountIndex = null;
         list($toAccountIndex, $params) = $this->handle_option_and_params_2($params, 'transfer', 'toAccountIndex', 'to_account_index', $accountIndex);
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
         $currency = $this->currency($code);
         if ($currency['code'] === 'USDC') {
             $amount = $this->parse_to_int(Precise::string_mul($this->pow('10', '6'), $this->currency_to_precision($code, $amount)));
@@ -2453,9 +2265,9 @@ class lighter extends Exchange {
         }
         $fromRouteType = ($fromAccount === 'perp') ? 0 : 1; // 0 => perp, 1 => spot
         $toRouteType = ($toAccount === 'perp') ? 0 : 1;
+        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex);
         $memo = $this->safe_string($params, 'memo', '0x000000000000000000000000000000');
         $params = $this->omit($params, array( 'memo' ));
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $params);
         $signRaw = array(
             'to_account_index' => $toAccountIndex,
             'asset_index' => $this->parse_to_int($currency['id']),
@@ -2468,6 +2280,7 @@ class lighter extends Exchange {
             'api_key_index' => $apiKeyIndex,
             'account_index' => $accountIndex,
         );
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         list($txType, $txInfo) = $this->lighter_sign_transfer($signer, $this->extend($signRaw, $params));
         $request = array(
             'tx_type' => $txType,
@@ -2491,7 +2304,6 @@ class lighter extends Exchange {
          * @param {boolean} [$params->paginate] default false, when true will automatically $paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-$params)
          * @return {array[]} a list of ~@link https://docs.ccxt.com/?id=transfer-structure transfer structures~
          */
-        $this->load_markets();
         $paginate = false;
         list($paginate, $params) = $this->handle_option_and_params($params, 'fetchTransfers', 'paginate');
         if ($paginate) {
@@ -2503,10 +2315,11 @@ class lighter extends Exchange {
             'account_index' => $accountIndex,
         );
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'fetchTransfers', 'apiKeyIndex', 'api_key_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'fetchTransfers', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' fetchTransfers() requires an $apiKeyIndex parameter');
+        }
+        $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         $currency = null;
         if ($code !== null) {
             $currency = $this->currency($code);
@@ -2595,7 +2408,6 @@ class lighter extends Exchange {
          * @param {boolean} [$params->paginate] default false, when true will automatically $paginate by calling this endpoint multiple times. See in the docs all the [availble parameters](https://github.com/ccxt/ccxt/wiki/Manual#pagination-$params)
          * @return {array[]} a list of ~@link https://docs.ccxt.com/?id=transaction-structure transaction structures~
          */
-        $this->load_markets();
         $paginate = false;
         list($paginate, $params) = $this->handle_option_and_params($params, 'fetchDeposits', 'paginate');
         if ($paginate) {
@@ -2606,6 +2418,7 @@ class lighter extends Exchange {
         if ($address === null) {
             throw new ArgumentsRequired($this->id . ' fetchDeposits() requires an $address parameter');
         }
+        $this->load_markets();
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'fetchDeposits', 'accountIndex', 'account_index');
         $request = array(
@@ -2613,10 +2426,11 @@ class lighter extends Exchange {
             'l1_address' => $address,
         );
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'fetchDeposits', 'apiKeyIndex', 'api_key_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'fetchDeposits', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' fetchDeposits() requires an $apiKeyIndex parameter');
+        }
+        $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         $currency = null;
         if ($code !== null) {
             $currency = $this->currency($code);
@@ -2674,10 +2488,11 @@ class lighter extends Exchange {
             'account_index' => $accountIndex,
         );
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'fetchWithdrawals', 'apiKeyIndex', 'api_key_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'fetchWithdrawals', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' fetchWithdrawals() requires an $apiKeyIndex parameter');
+        }
+        $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         $currency = null;
         if ($code !== null) {
             $currency = $this->currency($code);
@@ -2787,14 +2602,14 @@ class lighter extends Exchange {
          * @param {int} [$params->routeType] wallet type, 0 => perp, 1 => spot, default is 0
          * @return {array} a ~@link https://docs.ccxt.com/?id=transaction-structure transaction structure~
          */
-        $this->load_markets();
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'withdraw', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'withdraw', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' withdraw() requires an $apiKeyIndex parameter');
+        }
+        $this->load_markets();
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'withdraw', 'accountIndex', 'account_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
         $currency = $this->currency($code);
         if ($currency['code'] === 'USDC') {
             $amount = $this->parse_to_int(Precise::string_mul($this->pow('10', '6'), $this->currency_to_precision($code, $amount)));
@@ -2805,7 +2620,7 @@ class lighter extends Exchange {
         }
         $routeType = $this->safe_integer($params, 'routeType', 0); // 0 => perp, 1 => spot
         $params = $this->omit($params, 'routeType');
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $params);
+        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex);
         $signRaw = array(
             'asset_index' => $this->parse_to_int($currency['id']),
             'route_type' => $routeType,
@@ -2814,6 +2629,7 @@ class lighter extends Exchange {
             'api_key_index' => $apiKeyIndex,
             'account_index' => $accountIndex,
         );
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         list($txType, $txInfo) = $this->lighter_sign_withdraw($signer, $this->extend($signRaw, $params));
         $request = array(
             'tx_type' => $txType,
@@ -2847,10 +2663,11 @@ class lighter extends Exchange {
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'fetchMyTrades', 'accountIndex', 'account_index');
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'fetchMyTrades', 'apiKeyIndex', 'api_key_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'fetchMyTrades', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' fetchMyTrades() requires an $apiKeyIndex parameter');
+        }
+        $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         $request = array(
             'sort_by' => 'timestamp',
             'limit' => 100,
@@ -3025,22 +2842,22 @@ class lighter extends Exchange {
     }
 
     public function modify_leverage_and_margin_mode(int $leverage, string $marginMode, ?string $symbol = null, $params = array ()) {
-        $this->load_markets();
         if (($marginMode !== 'cross') && ($marginMode !== 'isolated')) {
             throw new BadRequest($this->id . ' modifyLeverageAndMarginMode() requires a $marginMode parameter that must be either cross or isolated');
         }
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'modifyLeverageAndMarginMode', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'modifyLeverageAndMarginMode', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' modifyLeverageAndMarginMode() requires an $apiKeyIndex parameter');
+        }
         if ($symbol === null) {
             throw new ArgumentsRequired($this->id . ' modifyLeverageAndMarginMode() requires a $symbol argument');
         }
+        $this->load_markets();
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'modifyLeverageAndMarginMode', 'accountIndex', 'account_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
         $market = $this->market($symbol);
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $params);
+        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex);
         $signRaw = array(
             'market_index' => $this->parse_to_int($market['id']),
             'initial_margin_fraction' => $this->parse_to_int(10000 / $leverage),
@@ -3049,6 +2866,7 @@ class lighter extends Exchange {
             'api_key_index' => $apiKeyIndex,
             'account_index' => $accountIndex,
         );
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         list($txType, $txInfo) = $this->lighter_sign_update_leverage($signer, $this->extend($signRaw, $params));
         $request = array(
             'tx_type' => $txType,
@@ -3067,21 +2885,21 @@ class lighter extends Exchange {
          * @param {string} [$params->apiKeyIndex] api key index
          * @return {array} an ~@link https://docs.ccxt.com/?$id=order-structure order structure~
          */
-        $this->load_markets();
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'cancelOrder', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'cancelOrder', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' cancelOrder() requires an $apiKeyIndex parameter');
+        }
         if ($symbol === null) {
             throw new ArgumentsRequired($this->id . ' cancelOrder() requires a $symbol argument');
         }
-        $market = $this->market($symbol);
         $clientOrderId = $this->safe_string_2($params, 'client_order_index', 'clientOrderId');
         $params = $this->omit($params, array( 'client_order_index', 'clientOrderId' ));
+        $this->load_markets();
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'cancelOrder', 'accountIndex', 'account_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $params);
+        $market = $this->market($symbol);
+        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex);
         $signRaw = array(
             'market_index' => $this->parse_to_int($market['id']),
             'nonce' => $nonce,
@@ -3095,6 +2913,7 @@ class lighter extends Exchange {
         } else {
             throw new ArgumentsRequired($this->id . ' cancelOrder requires order $id or client order id');
         }
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         list($txType, $txInfo) = $this->lighter_sign_cancel_order($signer, $this->extend($signRaw, $params));
         $request = array(
             'tx_type' => $txType,
@@ -3113,14 +2932,13 @@ class lighter extends Exchange {
          * @param {string} [$params->apiKeyIndex] api key index
          * @return {array[]} a list of ~@link https://docs.ccxt.com/?id=order-structure order structures~
          */
-        $this->load_markets();
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'cancelAllOrders', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'cancelAllOrders', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' cancelAllOrders() requires an $apiKeyIndex parameter');
+        }
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'cancelAllOrders', 'accountIndex', 'account_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
         $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $params);
         $signRaw = array(
             'time_in_force' => 0, // 0 => IMMEDIATE 1 => SCHEDULED 2 => ABORT
@@ -3129,6 +2947,7 @@ class lighter extends Exchange {
             'api_key_index' => $apiKeyIndex,
             'account_index' => $accountIndex,
         );
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         list($txType, $txInfo) = $this->lighter_sign_cancel_all_orders($signer, $this->extend($signRaw, $params));
         $request = array(
             'tx_type' => $txType,
@@ -3145,18 +2964,17 @@ class lighter extends Exchange {
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
          * @return {array} the api result
          */
-        $this->load_markets();
         if (($timeout < 300000) || ($timeout > 1296000000)) {
             throw new BadRequest($this->id . ' $timeout should be between 5 minutes and 15 days.');
         }
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'cancelOrder', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'cancelOrder', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' cancelAllOrdersAfter() requires an $apiKeyIndex parameter');
+        }
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'cancelAllOrdersAfter', 'accountIndex', 'account_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $params);
+        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex);
         $signRaw = array(
             'time_in_force' => 1, // 0 => IMMEDIATE 1 => SCHEDULED 2 => ABORT
             'time' => $this->milliseconds() . $timeout, // if time_in_force is not IMMEDIATE, set the timestamp_ms here
@@ -3164,6 +2982,7 @@ class lighter extends Exchange {
             'api_key_index' => $apiKeyIndex,
             'account_index' => $accountIndex,
         );
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         list($txType, $txInfo) = $this->lighter_sign_cancel_all_orders($signer, $this->extend($signRaw, $params));
         $request = array(
             'tx_type' => $txType,
@@ -3211,9 +3030,11 @@ class lighter extends Exchange {
          * @param {string} [$params->apiKeyIndex] api key index
          * @return {array} A ~@link https://docs.ccxt.com/?id=add-margin-structure margin structure~
          */
-        $this->load_markets();
         $apiKeyIndex = null;
-        list($apiKeyIndex, $params) = $this->handle_api_key_index($params, 'setMargin', 'apiKeyIndex', 'api_key_index');
+        list($apiKeyIndex, $params) = $this->handle_option_and_params_2($params, 'setMargin', 'apiKeyIndex', 'api_key_index');
+        if ($apiKeyIndex === null) {
+            throw new ArgumentsRequired($this->id . ' setMargin() requires an $apiKeyIndex parameter');
+        }
         $direction = $this->safe_integer($params, 'direction'); // 1 increase margin 0 decrease margin
         if ($direction === null) {
             throw new ArgumentsRequired($this->id . ' setMargin() requires a $direction parameter either 1 (increase margin) or 0 (decrease margin)');
@@ -3224,13 +3045,11 @@ class lighter extends Exchange {
         if ($symbol === null) {
             throw new ArgumentsRequired($this->id . ' setMargin() requires a $symbol argument');
         }
+        $this->load_markets();
         $accountIndex = null;
         list($accountIndex, $params) = $this->handle_account_index($params, 'setMargin', 'accountIndex', 'account_index');
-        $strAccountIndex = $this->number_to_string($accountIndex);
-        $strApiKeyIndex = $this->number_to_string($apiKeyIndex);
-        $signer = $this->load_account($this->options['chainId'], $this->get_lighter_private_key($strAccountIndex, $strApiKeyIndex), $strApiKeyIndex, $strAccountIndex, $params);
         $market = $this->market($symbol);
-        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex, $params);
+        $nonce = $this->fetch_nonce($accountIndex, $apiKeyIndex);
         $signRaw = array(
             'market_index' => $this->parse_to_int($market['id']),
             'usdc_amount' => $this->parse_to_int(Precise::string_mul($this->pow('10', '6'), $this->currency_to_precision('USDC', $amount))),
@@ -3239,6 +3058,7 @@ class lighter extends Exchange {
             'api_key_index' => $apiKeyIndex,
             'account_index' => $accountIndex,
         );
+        $signer = $this->load_account($this->options['chainId'], $this->privateKey, $apiKeyIndex, $accountIndex, $params);
         list($txType, $txInfo) = $this->lighter_sign_update_margin($signer, $this->extend($signRaw, $params));
         $request = array(
             'tx_type' => $txType,

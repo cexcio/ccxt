@@ -249,7 +249,7 @@ class binance extends binance$1["default"] {
         return baseUrl;
     }
     getFutureWsCategory(channel) {
-        if (channel === 'depth' || channel === 'rpiDepth' || channel === 'bookTicker' || channel === 'trade') {
+        if (channel === 'depth' || channel === 'rpiDepth' || channel === 'bookTicker' || channel === 'trade' || channel === 'aggTrade') {
             return 'public';
         }
         return 'market';
@@ -3516,9 +3516,6 @@ class binance extends binance$1["default"] {
      * @returns {object[]} a list of [order structures]{@link https://docs.ccxt.com/?id=order-structure}
      */
     async cancelAllOrdersWs(symbol = undefined, params = {}) {
-        if (symbol === undefined) {
-            throw new errors.ArgumentsRequired(this.id + ' cancelAllOrdersWs() requires a symbol argument');
-        }
         await this.loadMarkets();
         const market = this.market(symbol);
         const type = this.getMarketType('cancelAllOrdersWs', market, params);
@@ -3919,7 +3916,7 @@ class binance extends binance$1["default"] {
             'datetime': this.iso8601(timestamp),
             'lastTradeTimestamp': lastTradeTimestamp,
             'lastUpdateTimestamp': lastUpdateTimestamp,
-            'type': this.parseOrderTypeByMarket(this.safeStringLower(order, 'o'), marketType),
+            'type': this.parseOrderType(this.safeStringLower(order, 'o')),
             'timeInForce': timeInForce,
             'postOnly': undefined,
             'reduceOnly': this.safeBool(order, 'R'),

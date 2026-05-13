@@ -15,14 +15,14 @@ func NewPaymiumCore() *PaymiumCore {
     return p
 }
 
-func  (this *PaymiumCore) Describe() any  {
-    return this.DeepExtend(this.Exchange.Describe(), map[string]any {
+func  (this *PaymiumCore) Describe() interface{}  {
+    return this.DeepExtend(this.Exchange.Describe(), map[string]interface{} {
         "id": "paymium",
         "name": "Paymium",
-        "countries": []any{"FR", "EU"},
+        "countries": []interface{}{"FR", "EU"},
         "rateLimit": 2000,
         "version": "v1",
-        "has": map[string]any {
+        "has": map[string]interface{} {
             "CORS": true,
             "spot": true,
             "margin": nil,
@@ -51,28 +51,28 @@ func  (this *PaymiumCore) Describe() any  {
             "fetchTradingFees": false,
             "transfer": true,
         },
-        "urls": map[string]any {
+        "urls": map[string]interface{} {
             "logo": "https://user-images.githubusercontent.com/51840849/87153930-f0f02200-c2c0-11ea-9c0a-40337375ae89.jpg",
-            "api": map[string]any {
+            "api": map[string]interface{} {
                 "rest": "https://paymium.com/api",
             },
             "www": "https://www.paymium.com",
             "fees": "https://www.paymium.com/page/help/fees",
-            "doc": []any{"https://github.com/Paymium/api-documentation", "https://www.paymium.com/page/developers", "https://paymium.github.io/api-documentation/"},
+            "doc": []interface{}{"https://github.com/Paymium/api-documentation", "https://www.paymium.com/page/developers", "https://paymium.github.io/api-documentation/"},
             "referral": "https://www.paymium.com/page/sign-up?referral=eDAzPoRQFMvaAB8sf-qj",
         },
-        "api": map[string]any {
-            "public": map[string]any {
-                "get": []any{"countries", "currencies", "data/{currency}/ticker", "data/{currency}/trades", "data/{currency}/depth", "bitcoin_charts/{id}/trades", "bitcoin_charts/{id}/depth"},
+        "api": map[string]interface{} {
+            "public": map[string]interface{} {
+                "get": []interface{}{"countries", "currencies", "data/{currency}/ticker", "data/{currency}/trades", "data/{currency}/depth", "bitcoin_charts/{id}/trades", "bitcoin_charts/{id}/depth"},
             },
-            "private": map[string]any {
-                "get": []any{"user", "user/addresses", "user/addresses/{address}", "user/orders", "user/orders/{uuid}", "user/price_alerts", "merchant/get_payment/{uuid}"},
-                "post": []any{"user/addresses", "user/orders", "user/withdrawals", "user/email_transfers", "user/payment_requests", "user/price_alerts", "merchant/create_payment"},
-                "delete": []any{"user/orders/{uuid}", "user/orders/{uuid}/cancel", "user/price_alerts/{id}"},
+            "private": map[string]interface{} {
+                "get": []interface{}{"user", "user/addresses", "user/addresses/{address}", "user/orders", "user/orders/{uuid}", "user/price_alerts", "merchant/get_payment/{uuid}"},
+                "post": []interface{}{"user/addresses", "user/orders", "user/withdrawals", "user/email_transfers", "user/payment_requests", "user/price_alerts", "merchant/create_payment"},
+                "delete": []interface{}{"user/orders/{uuid}", "user/orders/{uuid}/cancel", "user/price_alerts/{id}"},
             },
         },
-        "markets": map[string]any {
-            "BTC/EUR": this.SafeMarketStructure(map[string]any {
+        "markets": map[string]interface{} {
+            "BTC/EUR": this.SafeMarketStructure(map[string]interface{} {
                 "id": "eur",
                 "symbol": "BTC/EUR",
                 "base": "BTC",
@@ -83,17 +83,17 @@ func  (this *PaymiumCore) Describe() any  {
                 "spot": true,
             }),
         },
-        "fees": map[string]any {
-            "trading": map[string]any {
+        "fees": map[string]interface{} {
+            "trading": map[string]interface{} {
                 "maker": this.ParseNumber("-0.001"),
                 "taker": this.ParseNumber("0.005"),
             },
         },
         "precisionMode": TICK_SIZE,
-        "features": map[string]any {
-            "spot": map[string]any {
+        "features": map[string]interface{} {
+            "spot": map[string]interface{} {
                 "sandbox": false,
-                "createOrder": map[string]any {
+                "createOrder": map[string]interface{} {
                     "marginMode": false,
                     "triggerPrice": false,
                     "triggerDirection": false,
@@ -101,7 +101,7 @@ func  (this *PaymiumCore) Describe() any  {
                     "stopLossPrice": false,
                     "takeProfitPrice": false,
                     "attachedStopLossTakeProfit": nil,
-                    "timeInForce": map[string]any {
+                    "timeInForce": map[string]interface{} {
                         "IOC": false,
                         "FOK": false,
                         "PO": false,
@@ -123,30 +123,30 @@ func  (this *PaymiumCore) Describe() any  {
                 "fetchClosedOrders": nil,
                 "fetchOHLCV": nil,
             },
-            "swap": map[string]any {
+            "swap": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
-            "future": map[string]any {
+            "future": map[string]interface{} {
                 "linear": nil,
                 "inverse": nil,
             },
         },
     })
 }
-func  (this *PaymiumCore) ParseBalance(response any) any  {
-    var result any = map[string]any {
+func  (this *PaymiumCore) ParseBalance(response interface{}) interface{}  {
+    var result interface{} = map[string]interface{} {
         "info": response,
     }
-    var currencies any = ObjectKeys(this.Currencies)
+    var currencies interface{} = ObjectKeys(this.Currencies)
     for i := 0; IsLessThan(i, GetArrayLength(currencies)); i++ {
-        var code any = GetValue(currencies, i)
-        var currency any = this.Currency(code)
-        var currencyId any = GetValue(currency, "id")
-        var free any = Add("balance_", currencyId)
+        var code interface{} = GetValue(currencies, i)
+        var currency interface{} = this.Currency(code)
+        var currencyId interface{} = GetValue(currency, "id")
+        var free interface{} = Add("balance_", currencyId)
         if IsTrue(InOp(response, free)) {
-            var account any = this.Account()
-            var used any = Add("locked_", currencyId)
+            var account interface{} = this.Account()
+            var used interface{} = Add("locked_", currencyId)
             AddElementToObject(account, "free", this.SafeString(response, free))
             AddElementToObject(account, "used", this.SafeString(response, used))
             AddElementToObject(result, code, account)
@@ -162,12 +162,12 @@ func  (this *PaymiumCore) ParseBalance(response any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [balance structure]{@link https://docs.ccxt.com/?id=balance-structure}
  */
-func  (this *PaymiumCore) FetchBalance(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) FetchBalance(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes1888 := (<-this.LoadMarkets())
@@ -192,20 +192,20 @@ func  (this *PaymiumCore) FetchBalance(optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} A dictionary of [order book structures]{@link https://docs.ccxt.com/?id=order-book-structure} indexed by market symbols
  */
-func  (this *PaymiumCore) FetchOrderBook(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) FetchOrderBook(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     limit := GetArg(optionalArgs, 0, nil)
             _ = limit
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes2048 := (<-this.LoadMarkets())
             PanicOnError(retRes2048)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(market, "id"),
             }
         
@@ -218,7 +218,7 @@ func  (this *PaymiumCore) FetchOrderBook(symbol any, optionalArgs ...any) <- cha
             }()
             return ch
         }
-func  (this *PaymiumCore) ParseTicker(ticker any, optionalArgs ...any) any  {
+func  (this *PaymiumCore) ParseTicker(ticker interface{}, optionalArgs ...interface{}) interface{}  {
     //
     // {
     //     "high":"33740.82",
@@ -239,13 +239,13 @@ func  (this *PaymiumCore) ParseTicker(ticker any, optionalArgs ...any) any  {
     //
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var symbol any = this.SafeSymbol(nil, market)
-    var timestamp any = this.SafeTimestamp(ticker, "at")
-    var vwap any = this.SafeString(ticker, "vwap")
-    var baseVolume any = this.SafeString(ticker, "volume")
-    var quoteVolume any = Precise.StringMul(baseVolume, vwap)
-    var last any = this.SafeString(ticker, "price")
-    return this.SafeTicker(map[string]any {
+    var symbol interface{} = this.SafeSymbol(nil, market)
+    var timestamp interface{} = this.SafeTimestamp(ticker, "at")
+    var vwap interface{} = this.SafeString(ticker, "vwap")
+    var baseVolume interface{} = this.SafeString(ticker, "volume")
+    var quoteVolume interface{} = Precise.StringMul(baseVolume, vwap)
+    var last interface{} = this.SafeString(ticker, "price")
+    return this.SafeTicker(map[string]interface{} {
         "symbol": symbol,
         "timestamp": timestamp,
         "datetime": this.Iso8601(timestamp),
@@ -277,18 +277,18 @@ func  (this *PaymiumCore) ParseTicker(ticker any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
  */
-func  (this *PaymiumCore) FetchTicker(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) FetchTicker(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes2728 := (<-this.LoadMarkets())
             PanicOnError(retRes2728)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(market, "id"),
             }
         
@@ -319,17 +319,17 @@ func  (this *PaymiumCore) FetchTicker(symbol any, optionalArgs ...any) <- chan a
             }()
             return ch
         }
-func  (this *PaymiumCore) ParseTrade(trade any, optionalArgs ...any) any  {
+func  (this *PaymiumCore) ParseTrade(trade interface{}, optionalArgs ...interface{}) interface{}  {
     market := GetArg(optionalArgs, 0, nil)
     _ = market
-    var timestamp any = this.SafeTimestamp(trade, "created_at_int")
-    var id any = this.SafeString(trade, "uuid")
+    var timestamp interface{} = this.SafeTimestamp(trade, "created_at_int")
+    var id interface{} = this.SafeString(trade, "uuid")
     market = this.SafeMarket(nil, market)
-    var side any = this.SafeString(trade, "side")
-    var price any = this.SafeString(trade, "price")
-    var amountField any = Add("traded_", ToLower(GetValue(market, "base")))
-    var amount any = this.SafeString(trade, amountField)
-    return this.SafeTrade(map[string]any {
+    var side interface{} = this.SafeString(trade, "side")
+    var price interface{} = this.SafeString(trade, "price")
+    var amountField interface{} = Add("traded_", ToLower(GetValue(market, "base")))
+    var amount interface{} = this.SafeString(trade, amountField)
+    return this.SafeTrade(map[string]interface{} {
         "info": trade,
         "id": id,
         "order": nil,
@@ -356,22 +356,22 @@ func  (this *PaymiumCore) ParseTrade(trade any, optionalArgs ...any) any  {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {Trade[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
  */
-func  (this *PaymiumCore) FetchTrades(symbol any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) FetchTrades(symbol interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     since := GetArg(optionalArgs, 0, nil)
             _ = since
             limit := GetArg(optionalArgs, 1, nil)
             _ = limit
-            params := GetArg(optionalArgs, 2, map[string]any {})
+            params := GetArg(optionalArgs, 2, map[string]interface{} {})
             _ = params
         
             retRes3368 := (<-this.LoadMarkets())
             PanicOnError(retRes3368)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(market, "id"),
             }
         
@@ -393,12 +393,12 @@ func  (this *PaymiumCore) FetchTrades(symbol any, optionalArgs ...any) <- chan a
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [address structure]{@link https://docs.ccxt.com/?id=address-structure}
  */
-func  (this *PaymiumCore) CreateDepositAddress(code any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) CreateDepositAddress(code interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes3558 := (<-this.LoadMarkets())
@@ -430,17 +430,17 @@ func  (this *PaymiumCore) CreateDepositAddress(code any, optionalArgs ...any) <-
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [address structure]{@link https://docs.ccxt.com/?id=address-structure}
  */
-func  (this *PaymiumCore) FetchDepositAddress(code any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) FetchDepositAddress(code interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes3788 := (<-this.LoadMarkets())
             PanicOnError(retRes3788)
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "address": code,
             }
         
@@ -470,14 +470,14 @@ func  (this *PaymiumCore) FetchDepositAddress(code any, optionalArgs ...any) <- 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a list of [address structures]{@link https://docs.ccxt.com/?id=address-structure}
  */
-func  (this *PaymiumCore) FetchDepositAddresses(optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) FetchDepositAddresses(optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     codes := GetArg(optionalArgs, 0, nil)
             _ = codes
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes4048 := (<-this.LoadMarkets())
@@ -502,7 +502,7 @@ func  (this *PaymiumCore) FetchDepositAddresses(optionalArgs ...any) <- chan any
             }()
             return ch
         }
-func  (this *PaymiumCore) ParseDepositAddress(depositAddress any, optionalArgs ...any) any  {
+func  (this *PaymiumCore) ParseDepositAddress(depositAddress interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "address": "1HdjGr6WCTcnmW1tNNsHX7fh4Jr5C2PeKe",
@@ -513,9 +513,9 @@ func  (this *PaymiumCore) ParseDepositAddress(depositAddress any, optionalArgs .
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var address any = this.SafeString(depositAddress, "address")
-    var currencyId any = this.SafeString(depositAddress, "currency")
-    return map[string]any {
+    var address interface{} = this.SafeString(depositAddress, "address")
+    var currencyId interface{} = this.SafeString(depositAddress, "currency")
+    return map[string]interface{} {
         "info": depositAddress,
         "currency": this.SafeCurrencyCode(currencyId, currency),
         "network": nil,
@@ -536,20 +536,20 @@ func  (this *PaymiumCore) ParseDepositAddress(depositAddress any, optionalArgs .
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} an [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PaymiumCore) CreateOrder(symbol any, typeVar any, side any, amount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) CreateOrder(symbol interface{}, typeVar interface{}, side interface{}, amount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     price := GetArg(optionalArgs, 0, nil)
             _ = price
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
         
             retRes4538 := (<-this.LoadMarkets())
             PanicOnError(retRes4538)
-            var market any = this.Market(symbol)
-            var request any = map[string]any {
+            var market interface{} = this.Market(symbol)
+            var request interface{} = map[string]interface{} {
                 "type": Add(this.Capitalize(typeVar), "Order"),
                 "currency": GetValue(market, "id"),
                 "direction": side,
@@ -562,7 +562,7 @@ func  (this *PaymiumCore) CreateOrder(symbol any, typeVar any, side any, amount 
             response:= (<-this.PrivatePostUserOrders(this.Extend(request, params)))
             PanicOnError(response)
         
-            ch <- this.SafeOrder(map[string]any {
+            ch <- this.SafeOrder(map[string]interface{} {
                 "info": response,
                 "id": GetValue(response, "uuid"),
             }, market)
@@ -581,23 +581,23 @@ func  (this *PaymiumCore) CreateOrder(symbol any, typeVar any, side any, amount 
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} An [order structure]{@link https://docs.ccxt.com/?id=order-structure}
  */
-func  (this *PaymiumCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) CancelOrder(id interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
                     symbol := GetArg(optionalArgs, 0, nil)
             _ = symbol
-            params := GetArg(optionalArgs, 1, map[string]any {})
+            params := GetArg(optionalArgs, 1, map[string]interface{} {})
             _ = params
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "uuid": id,
             }
         
             response:= (<-this.PrivateDeleteUserOrdersUuidCancel(this.Extend(request, params)))
             PanicOnError(response)
         
-            ch <- this.SafeOrder(map[string]any {
+            ch <- this.SafeOrder(map[string]interface{} {
                 "info": response,
             })
             return nil
@@ -617,24 +617,24 @@ func  (this *PaymiumCore) CancelOrder(id any, optionalArgs ...any) <- chan any {
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [transfer structure]{@link https://docs.ccxt.com/?id=transfer-structure}
  */
-func  (this *PaymiumCore) Transfer(code any, amount any, fromAccount any, toAccount any, optionalArgs ...any) <- chan any {
-            ch := make(chan any)
-            go func() any {
+func  (this *PaymiumCore) Transfer(code interface{}, amount interface{}, fromAccount interface{}, toAccount interface{}, optionalArgs ...interface{}) <- chan interface{} {
+            ch := make(chan interface{})
+            go func() interface{} {
                 defer close(ch)
                 defer ReturnPanicError(ch)
-                    params := GetArg(optionalArgs, 0, map[string]any {})
+                    params := GetArg(optionalArgs, 0, map[string]interface{} {})
             _ = params
         
             retRes5048 := (<-this.LoadMarkets())
             PanicOnError(retRes5048)
-            var currency any = this.Currency(code)
+            var currency interface{} = this.Currency(code)
             if IsTrue(IsLessThan(GetIndexOf(toAccount, "@"), 0)) {
                 panic(ExchangeError(Add(this.Id, " transfer() only allows transfers to an email address")))
             }
             if IsTrue(IsTrue(!IsEqual(code, "BTC")) && IsTrue(!IsEqual(code, "EUR"))) {
                 panic(ExchangeError(Add(this.Id, " transfer() only allows BTC or EUR")))
             }
-            var request any = map[string]any {
+            var request interface{} = map[string]interface{} {
                 "currency": GetValue(currency, "id"),
                 "amount": this.CurrencyToPrecision(code, amount),
                 "email": toAccount,
@@ -681,7 +681,7 @@ func  (this *PaymiumCore) Transfer(code any, amount any, fromAccount any, toAcco
             }()
             return ch
         }
-func  (this *PaymiumCore) ParseTransfer(transfer any, optionalArgs ...any) any  {
+func  (this *PaymiumCore) ParseTransfer(transfer interface{}, optionalArgs ...interface{}) interface{}  {
     //
     //     {
     //         "uuid": "968f4580-e26c-4ad8-8bcd-874d23d55296",
@@ -716,13 +716,13 @@ func  (this *PaymiumCore) ParseTransfer(transfer any, optionalArgs ...any) any  
     //
     currency := GetArg(optionalArgs, 0, nil)
     _ = currency
-    var currencyId any = this.SafeString(transfer, "currency")
-    var updatedAt any = this.SafeString(transfer, "updated_at")
-    var timetstamp any = this.ParseDate(updatedAt)
-    var accountOperations any = this.SafeValue(transfer, "account_operations")
-    var firstOperation any = this.SafeValue(accountOperations, 0, map[string]any {})
-    var status any = this.SafeString(transfer, "state")
-    return map[string]any {
+    var currencyId interface{} = this.SafeString(transfer, "currency")
+    var updatedAt interface{} = this.SafeString(transfer, "updated_at")
+    var timetstamp interface{} = this.ParseDate(updatedAt)
+    var accountOperations interface{} = this.SafeValue(transfer, "account_operations")
+    var firstOperation interface{} = this.SafeValue(accountOperations, 0, map[string]interface{} {})
+    var status interface{} = this.SafeString(transfer, "state")
+    return map[string]interface{} {
         "info": transfer,
         "id": this.SafeString(transfer, "uuid"),
         "timestamp": timetstamp,
@@ -734,34 +734,34 @@ func  (this *PaymiumCore) ParseTransfer(transfer any, optionalArgs ...any) any  
         "status": this.ParseTransferStatus(status),
     }
 }
-func  (this *PaymiumCore) ParseTransferStatus(status any) any  {
-    var statuses any = map[string]any {
+func  (this *PaymiumCore) ParseTransferStatus(status interface{}) interface{}  {
+    var statuses interface{} = map[string]interface{} {
         "executed": "ok",
     }
     return this.SafeString(statuses, status, status)
 }
-func  (this *PaymiumCore) Sign(path any, optionalArgs ...any) any  {
+func  (this *PaymiumCore) Sign(path interface{}, optionalArgs ...interface{}) interface{}  {
     api := GetArg(optionalArgs, 0, "public")
     _ = api
     method := GetArg(optionalArgs, 1, "GET")
     _ = method
-    params := GetArg(optionalArgs, 2, map[string]any {})
+    params := GetArg(optionalArgs, 2, map[string]interface{} {})
     _ = params
     headers := GetArg(optionalArgs, 3, nil)
     _ = headers
     body := GetArg(optionalArgs, 4, nil)
     _ = body
-    var url any = Add(Add(Add(Add(GetValue(GetValue(this.Urls, "api"), "rest"), "/"), this.Version), "/"), this.ImplodeParams(path, params))
-    var query any = this.Omit(params, this.ExtractParams(path))
+    var url interface{} = Add(Add(Add(Add(GetValue(GetValue(this.Urls, "api"), "rest"), "/"), this.Version), "/"), this.ImplodeParams(path, params))
+    var query interface{} = this.Omit(params, this.ExtractParams(path))
     if IsTrue(IsEqual(api, "public")) {
         if IsTrue(GetArrayLength(ObjectKeys(query))) {
             url = Add(url, Add("?", this.Urlencode(query)))
         }
     } else {
         this.CheckRequiredCredentials()
-        var nonce any = ToString(this.Nonce())
-        var auth any = Add(nonce, url)
-        headers = map[string]any {
+        var nonce interface{} = ToString(this.Nonce())
+        var auth interface{} = Add(nonce, url)
+        headers = map[string]interface{} {
             "Api-Key": this.ApiKey,
             "Api-Nonce": nonce,
         }
@@ -773,25 +773,25 @@ func  (this *PaymiumCore) Sign(path any, optionalArgs ...any) any  {
             }
         } else {
             if IsTrue(GetArrayLength(ObjectKeys(query))) {
-                var queryString any = this.Urlencode(query)
+                var queryString interface{} = this.Urlencode(query)
                 auth = Add(auth, queryString)
                 url = Add(url, Add("?", queryString))
             }
         }
         AddElementToObject(headers, "Api-Signature", this.Hmac(this.Encode(auth), this.Encode(this.Secret), sha256))
     }
-    return map[string]any {
+    return map[string]interface{} {
         "url": url,
         "method": method,
         "body": body,
         "headers": headers,
     }
 }
-func  (this *PaymiumCore) HandleErrors(httpCode any, reason any, url any, method any, headers any, body any, response any, requestHeaders any, requestBody any) any  {
+func  (this *PaymiumCore) HandleErrors(httpCode interface{}, reason interface{}, url interface{}, method interface{}, headers interface{}, body interface{}, response interface{}, requestHeaders interface{}, requestBody interface{}) interface{}  {
     if IsTrue(IsEqual(response, nil)) {
         return nil
     }
-    var errors any = this.SafeValue(response, "errors")
+    var errors interface{} = this.SafeValue(response, "errors")
     if IsTrue(!IsEqual(errors, nil)) {
         panic(ExchangeError(Add(Add(this.Id, " "), this.Json(response))))
     }
@@ -799,8 +799,8 @@ func  (this *PaymiumCore) HandleErrors(httpCode any, reason any, url any, method
 }
 
 
-func (this *PaymiumCore) Init(userConfig map[string]any) {
+func (this *PaymiumCore) Init(userConfig map[string]interface{}) {
     this.Exchange = Exchange{}
     this.Exchange.DerivedExchange = this
-    this.Exchange.InitParent(userConfig, this.Describe().(map[string]any), this)
+    this.Exchange.InitParent(userConfig, this.Describe().(map[string]interface{}), this)
 }

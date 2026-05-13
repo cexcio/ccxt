@@ -769,7 +769,7 @@ public partial class coinbase : ccxt.coinbase
             object currentTrades = this.safeList(currentEvent, "trades");
             for (object j = 0; isLessThan(j, getArrayLength(currentTrades)); postFixIncrement(ref j))
             {
-                object item = getValue(currentTrades, j);
+                object item = getValue(currentTrades, i);
                 callDynamically(tradesArray, "append", new object[] {this.parseTrade(item)});
             }
         }

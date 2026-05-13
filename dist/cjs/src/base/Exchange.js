@@ -107,6 +107,7 @@ class Exchange {
         this.validateClientSsl = false;
         this.timeout = 10000; // milliseconds
         this.verbose = false;
+        this.twofa = undefined; // two-factor authentication (2-FA)
         this.balance = {};
         this.liquidations = undefined;
         this.orderbooks = {};
@@ -134,10 +135,10 @@ class Exchange {
         this.markets = undefined;
         this.features = undefined;
         this.status = undefined;
-        this.rateLimit = 2000; // milliseconds
+        this.rateLimit = undefined; // milliseconds
         this.tokenBucket = undefined;
         this.throttler = undefined;
-        this.enableRateLimit = true;
+        this.enableRateLimit = undefined;
         this.rollingWindowSize = 0.0; // set to 0.0 to use leaky bucket rate limiter
         this.rateLimiterAlgorithm = 'leakyBucket';
         this.httpExceptions = undefined;
@@ -161,8 +162,10 @@ class Exchange {
         this.exceptions = {};
         this.timeframes = {};
         this.version = undefined;
+        this.marketsByAltname = undefined;
         this.name = undefined;
         this.targetAccount = undefined;
+        this.stablePairs = {};
         this.httpProxyAgentModule = undefined;
         this.httpsProxyAgentModule = undefined;
         this.socksProxyAgentModule = undefined;
@@ -696,7 +699,7 @@ class Exchange {
             if (typeof userAgent === 'string') {
                 headers = this.extend({ 'User-Agent': userAgent }, headers);
             }
-            else if (this.isDictionary(userAgent) && ('User-Agent' in userAgent)) {
+            else if ((typeof userAgent === 'object') && ('User-Agent' in userAgent)) {
                 headers = this.extend(userAgent, headers);
             }
         }
@@ -1607,7 +1610,7 @@ class Exchange {
     unlockId() {
         return undefined; // c# stub
     }
-    async loadLighterLibrary(libraryPath, chainId, privateKey, apiKeyIndex, accountIndex, createClient = false) {
+    async loadLighterLibrary(libraryPath, chainId, privateKey, apiKeyIndex, accountIndex) {
         // wasmExecPathExample: '/opt/homebrew/opt/go/libexec/lib/wasm/wasm_exec.js';
         // libraryPath eg: '/Users/cjg/Git/lighter-go/lighter.wasm';
         if (libraryPath === undefined || libraryPath === '') {
@@ -1627,16 +1630,11 @@ class Exchange {
         const bytes = new Uint8Array(readFile(libraryPath, null)); // it should point to lighter.wasm
         const { instance } = await WebAssembly.instantiate(bytes, go.importObject);
         go.run(instance);
-        if (createClient) {
-            this.lighterCreateClient(undefined, chainId, privateKey, apiKeyIndex, accountIndex);
-        }
-        return {}; // empty object we will read it from globalThis
-    }
-    lighterCreateClient(signer, chainId, privateKey, apiKeyIndex, accountIndex) {
+        // createCLient
         const url = this.implodeHostname(this.urls['api']['public']);
         const res = globalThis.CreateClient(url, privateKey, chainId, apiKeyIndex, accountIndex);
         this.checkLighterSignedError(res);
-        return signer;
+        return {}; // empty object we will read it from globalThis
     }
     // eslint-disable-next-line no-unused-vars
     lighterSignCreateGroupedOrders(signer, request) {
@@ -1657,15 +1655,13 @@ class Exchange {
                 'OrderExpiry': order['order_expiry'],
             });
         }
-        const res = globalThis.SignCreateGroupedOrders(request['grouping_type'], ordersArr, orders.length, 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']);
+        const res = globalThis.SignCreateGroupedOrders(request['grouping_type'], ordersArr, orders.length, request['nonce'], request['api_key_index'], request['account_index']);
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
     }
     // eslint-disable-next-line no-unused-vars
     lighterSignCreateOrder(signer, request) {
-        const res = (globalThis.SignCreateOrder(parseInt(request['market_index']), request['client_order_index'], request['base_amount'], request['avg_execution_price'], request['is_ask'], request['order_type'], request['time_in_force'], request['reduce_only'], request['trigger_price'], request['order_expiry'], request['integrator_account_index'], request['integrator_taker_fee'], request['integrator_maker_fee'], 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']));
+        const res = (globalThis.SignCreateOrder(parseInt(request['market_index']), request['client_order_index'], request['base_amount'], request['avg_execution_price'], request['is_ask'], request['order_type'], request['time_in_force'], request['reduce_only'], request['trigger_price'], request['order_expiry'], request['nonce'], request['api_key_index'], request['account_index']));
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
     }
@@ -1675,45 +1671,38 @@ class Exchange {
         }
     }
     lighterSignCancelOrder(signer, request) {
-        const res = (globalThis.SignCancelOrder(request['market_index'], request['order_index'], 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']));
+        const res = (globalThis.SignCancelOrder(request['market_index'], request['order_index'], request['nonce'], request['api_key_index'], request['account_index']));
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
     }
     lighterSignWithdraw(signer, request) {
-        const res = (globalThis.SignWithdraw(request['asset_index'], request['route_type'], request['amount'], 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']));
+        const res = (globalThis.SignWithdraw(request['asset_index'], request['route_type'], request['amount'], request['nonce'], request['api_key_index'], request['account_index']));
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
     }
     // eslint-disable-next-line no-unused-vars
     lighterSignCreateSubAccount(signer, request) {
-        const res = (globalThis.SignCreateSubAccount(1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']));
+        const res = (globalThis.SignCreateSubAccount(request['nonce'], request['api_key_index'], request['account_index']));
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
     }
     lighterSignCancelAllOrders(signer, request) {
-        const res = (globalThis.SignCancelAllOrders(request['time_in_force'], request['time'], 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']));
+        const res = (globalThis.SignCancelAllOrders(request['time_in_force'], request['time'], request['nonce'], request['api_key_index'], request['account_index']));
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
     }
     lighterSignModifyOrder(signer, request) {
-        const res = (globalThis.SignModifyOrder(request['market_index'], request['index'], request['base_amount'], request['price'], request['trigger_price'], request['integrator_account_index'], request['integrator_taker_fee'], request['integrator_maker_fee'], 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']));
+        const res = (globalThis.SignModifyOrder(request['market_index'], request['index'], request['base_amount'], request['price'], request['trigger_price'], request['nonce'], request['api_key_index'], request['account_index']));
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
     }
     lighterSignTransfer(signer, request) {
-        const res = globalThis.SignTransfer(request['to_account_index'], request['asset_index'], request['from_route_type'], request['to_route_type'], request['amount'], request['usdc_fee'], request['memo'], 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']);
+        const res = globalThis.SignTransfer(request['to_account_index'], request['asset_index'], request['from_route_type'], request['to_route_type'], request['amount'], request['usdc_fee'], request['memo'], request['nonce'], request['api_key_index'], request['account_index']);
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
     }
     lighterSignUpdateLeverage(signer, request) {
-        const res = (globalThis.SignUpdateLeverage(request['market_index'], request['initial_margin_fraction'], request['margin_mode'], 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']));
+        const res = (globalThis.SignUpdateLeverage(request['market_index'], request['initial_margin_fraction'], request['margin_mode'], request['nonce'], request['api_key_index'], request['account_index']));
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
     }
@@ -1723,30 +1712,9 @@ class Exchange {
         return res.authToken;
     }
     lighterSignUpdateMargin(signer, request) {
-        const res = globalThis.SignUpdateMargin(request['market_index'], request['usdc_amount'], request['direction'], 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']);
+        const res = globalThis.SignUpdateMargin(request['market_index'], request['usdc_amount'], request['direction'], request['nonce'], request['api_key_index'], request['account_index']);
         this.checkLighterSignedError(res);
         return [res.txType, res.txInfo];
-    }
-    // eslint-disable-next-line no-unused-vars
-    lighterSignApproveIntegrator(signer, request) {
-        const res = globalThis.SignApproveIntegrator(request['integrator_account_index'], request['integrator_taker_fee'], request['integrator_maker_fee'], request['integrator_taker_fee'], request['integrator_maker_fee'], request['approval_expiry'], 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']);
-        this.checkLighterSignedError(res);
-        return [res.txType, res.txInfo, res.messageToSign];
-    }
-    // eslint-disable-next-line no-unused-vars
-    lighterGenerateApiKey(signer) {
-        const res = globalThis.GenerateAPIKey();
-        this.checkLighterSignedError(res);
-        return [res.privateKey, res.publicKey];
-    }
-    // eslint-disable-next-line no-unused-vars
-    lighterSignChangePubkey(signer, request) {
-        const res = globalThis.SignChangePubKey(Buffer.from(request['pubkey']).toString(), 1, // skip nonce
-        request['nonce'], request['api_key_index'], request['account_index']);
-        this.checkLighterSignedError(res);
-        return [res.txType, res.txInfo, res.messageToSign];
     }
     /* eslint-enable */
     // ------------------------------------------------------------------------
@@ -1790,16 +1758,15 @@ class Exchange {
     // METHODS BELOW THIS LINE ARE TRANSPILED FROM TYPESCRIPT
     describe() {
         return {
-            'id': this.id,
-            'name': this.name,
-            'countries': this.countries,
-            'enableRateLimit': this.enableRateLimit,
-            'rateLimit': this.rateLimit,
-            'rateLimiterAlgorithm': this.rateLimiterAlgorithm,
+            'id': undefined,
+            'name': undefined,
+            'countries': undefined,
+            'enableRateLimit': true,
+            'rateLimit': 2000,
             'timeout': this.timeout,
-            'certified': this.certified,
-            'pro': this.pro,
-            'alias': this.alias,
+            'certified': false,
+            'pro': false,
+            'alias': false,
             'dex': false,
             'has': {
                 'publicAPI': true,
@@ -2045,12 +2012,9 @@ class Exchange {
             'urls': {
                 'logo': undefined,
                 'api': undefined,
-                'test': undefined,
                 'www': undefined,
                 'doc': undefined,
-                'api_management': undefined,
                 'fees': undefined,
-                'referral': undefined,
             },
             'api': undefined,
             'requiredCredentials': {
@@ -2087,7 +2051,6 @@ class Exchange {
                 'updated': undefined,
                 'eta': undefined,
                 'url': undefined,
-                'info': undefined,
             },
             'exceptions': undefined,
             'httpExceptions': {
@@ -2178,7 +2141,7 @@ class Exchange {
         if (value === undefined) {
             return defaultValue;
         }
-        if (this.isDictionary(value)) {
+        if ((typeof value === 'object') && !Array.isArray(value)) {
             return value;
         }
         return defaultValue;
@@ -2194,7 +2157,7 @@ class Exchange {
         if (value === undefined) {
             return defaultValue;
         }
-        if (this.isDictionary(value)) {
+        if ((typeof value === 'object') && !Array.isArray(value)) {
             return value;
         }
         return defaultValue;
@@ -2223,9 +2186,6 @@ class Exchange {
             return value;
         }
         return defaultValue;
-    }
-    isDictionary(value) {
-        return (value !== undefined) && (typeof value === 'object') && !Array.isArray(value);
     }
     safeList2(dictionaryOrList, key1, key2, defaultValue = undefined) {
         /**
@@ -3070,7 +3030,7 @@ class Exchange {
          * @name exchange#featureValue
          * @description this method is a very deterministic to help users to know what feature is supported by the exchange
          * @param {string} [symbol] unified symbol
-         * @param {string} [methodName] view currently supported methods: https://docs.ccxt.com/README?id=features
+         * @param {string} [methodName] view currently supported methods: https://docs.ccxt.com/#/README?id=features
          * @param {string} [paramName] unified param value, like: `triggerPrice`, `stopLoss.triggerPrice` (check docs for supported param names)
          * @param {object} [defaultValue] return default value if no result found
          * @returns {object} returns feature value
@@ -3085,7 +3045,7 @@ class Exchange {
          * @description this method is a very deterministic to help users to know what feature is supported by the exchange
          * @param {string} [marketType] supported only: "spot", "swap", "future"
          * @param {string} [subType] supported only: "linear", "inverse"
-         * @param {string} [methodName] view currently supported methods: https://docs.ccxt.com/README?id=features
+         * @param {string} [methodName] view currently supported methods: https://docs.ccxt.com/#/README?id=features
          * @param {string} [paramName] unified param value (check docs for supported param names)
          * @param {object} [defaultValue] return default value if no result found
          * @returns {object} returns feature value
@@ -5979,7 +5939,7 @@ class Exchange {
         if (triggerPrice === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' createTriggerOrder() requires a triggerPrice argument');
         }
-        params = this.extend(params, { 'triggerPrice': triggerPrice });
+        params['triggerPrice'] = triggerPrice;
         if (this.has['createTriggerOrder']) {
             return await this.createOrder(symbol, type, side, amount, price, params);
         }
@@ -6002,7 +5962,7 @@ class Exchange {
         if (triggerPrice === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' createTriggerOrderWs() requires a triggerPrice argument');
         }
-        params = this.extend(params, { 'triggerPrice': triggerPrice });
+        params['triggerPrice'] = triggerPrice;
         if (this.has['createTriggerOrderWs']) {
             return await this.createOrderWs(symbol, type, side, amount, price, params);
         }
@@ -6025,7 +5985,7 @@ class Exchange {
         if (stopLossPrice === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' createStopLossOrder() requires a stopLossPrice argument');
         }
-        params = this.extend(params, { 'stopLossPrice': stopLossPrice });
+        params['stopLossPrice'] = stopLossPrice;
         if (this.has['createStopLossOrder']) {
             return await this.createOrder(symbol, type, side, amount, price, params);
         }
@@ -6048,7 +6008,7 @@ class Exchange {
         if (stopLossPrice === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' createStopLossOrderWs() requires a stopLossPrice argument');
         }
-        params = this.extend(params, { 'stopLossPrice': stopLossPrice });
+        params['stopLossPrice'] = stopLossPrice;
         if (this.has['createStopLossOrderWs']) {
             return await this.createOrderWs(symbol, type, side, amount, price, params);
         }
@@ -6071,7 +6031,7 @@ class Exchange {
         if (takeProfitPrice === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' createTakeProfitOrder() requires a takeProfitPrice argument');
         }
-        params = this.extend(params, { 'takeProfitPrice': takeProfitPrice });
+        params['takeProfitPrice'] = takeProfitPrice;
         if (this.has['createTakeProfitOrder']) {
             return await this.createOrder(symbol, type, side, amount, price, params);
         }
@@ -6094,7 +6054,7 @@ class Exchange {
         if (takeProfitPrice === undefined) {
             throw new errors.ArgumentsRequired(this.id + ' createTakeProfitOrderWs() requires a takeProfitPrice argument');
         }
-        params = this.extend(params, { 'takeProfitPrice': takeProfitPrice });
+        params['takeProfitPrice'] = takeProfitPrice;
         if (this.has['createTakeProfitOrderWs']) {
             return await this.createOrderWs(symbol, type, side, amount, price, params);
         }
@@ -6519,7 +6479,7 @@ class Exchange {
         return false;
     }
     handleWithdrawTagAndParams(tag, params) {
-        if (this.isDictionary(tag)) {
+        if ((tag !== undefined) && (typeof tag === 'object')) {
             params = this.extend(tag, params);
             tag = undefined;
         }
@@ -6572,7 +6532,7 @@ class Exchange {
             return undefined;
         }
         const market = this.market(symbol);
-        return this.decimalToPrecision(cost, TRUNCATE, this.safeString2(market['precision'], 'cost', 'price'), this.precisionMode, this.paddingMode);
+        return this.decimalToPrecision(cost, TRUNCATE, market['precision']['price'], this.precisionMode, this.paddingMode);
     }
     priceToPrecision(symbol, price) {
         if (price === undefined) {
@@ -8374,9 +8334,6 @@ class Exchange {
             return (ms / second) + 's';
         }
         return '';
-    }
-    async isUTAEnabled(params = {}) {
-        return false; // stub
     }
 }
 

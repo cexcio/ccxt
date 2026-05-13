@@ -719,6 +719,7 @@ class gate extends gate$1["default"] {
                 'MPH': 'MORPHER',
                 'POINT': 'GATEPOINT',
                 'RAI': 'RAIREFLEXINDEX',
+                'RED': 'RedLang',
                 'SBTC': 'SUPERBITCOIN',
                 'TNC': 'TRINITYNETWORKCREDIT',
                 'VAI': 'VAIOT',
@@ -1731,10 +1732,6 @@ class gate extends gate$1["default"] {
                 const maxMultiplier = Precise["default"].stringAdd('1', priceDeviate);
                 const minPrice = Precise["default"].stringMul(minMultiplier, markPrice);
                 const maxPrice = Precise["default"].stringMul(maxMultiplier, markPrice);
-                let createdTs = this.safeTimestamp(market, 'create_time');
-                if (createdTs === 0) {
-                    createdTs = undefined;
-                }
                 result.push({
                     'id': id,
                     'symbol': symbol,
@@ -1783,7 +1780,7 @@ class gate extends gate$1["default"] {
                             'max': undefined,
                         },
                     },
-                    'created': createdTs,
+                    'created': this.safeTimestamp(market, 'create_time'),
                     'info': market,
                 });
             }

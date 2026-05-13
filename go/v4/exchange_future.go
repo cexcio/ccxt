@@ -10,17 +10,17 @@ import (
 //	- use the channel returned by Await() (or the struct itself) to receive the value
 
 type GetsLimit interface {
-	GetLimit(symbol any, limit any) any
+	GetLimit(symbol interface{}, limit interface{}) interface{}
 }
 
 // used when a value does not implement GetsLimit
 // returns the caller-supplied limit unchanged
-type NoopLimit struct{ Val any }
+type NoopLimit struct{ Val interface{} }
 
-func (n NoopLimit) GetLimit(symbol any, limit any) any { return limit }
+func (n NoopLimit) GetLimit(symbol interface{}, limit interface{}) interface{} { return limit }
 
 // converts arbitrary values to the GetsLimit interface expected by Future.Resolve
-func ToGetsLimit(v any) GetsLimit {
+func ToGetsLimit(v interface{}) GetsLimit {
 	if gl, ok := v.(GetsLimit); ok {
 		//If the value already implements GetsLimit it is returned verbatim
 		return gl
@@ -29,12 +29,12 @@ func ToGetsLimit(v any) GetsLimit {
 }
 
 type Future struct {
-	result        chan any
-	err           chan any
-	subscribers   []chan any
+	result        chan interface{}
+	err           chan interface{}
+	subscribers   []chan interface{}
 	resolved      bool
-	resolvedValue any
-	resolvedError any
+	resolvedValue interface{}
+	resolvedError interface{}
 	mu            sync.Mutex
 	once          sync.Once
 	subscribersMu sync.Mutex
@@ -43,14 +43,14 @@ type Future struct {
 // Create new Future
 func NewFuture() *Future {
 	return &Future{
-		result: make(chan any, 1),
-		err:    make(chan any, 1),
+		result: make(chan interface{}, 1),
+		err:    make(chan interface{}, 1),
 	}
 }
 
 // Resolve asynchronously with a value
-func (f *Future) Resolve(args ...any) {
-	var value any
+func (f *Future) Resolve(args ...interface{}) {
+	var value interface{}
 	if len(args) == 0 {
 		value = nil
 	} else {
@@ -79,7 +79,7 @@ func (f *Future) Resolve(args ...any) {
 		f.subscribersMu.Lock()
 		// Notify all subscribers
 		for _, sub := range f.subscribers {
-			func(sub chan any) {
+			func(sub chan interface{}) {
 				defer func() {
 					if r := recover(); r != nil {
 						// Channel is closed, but that's okay since we're using sync.Once
@@ -98,7 +98,7 @@ func (f *Future) Resolve(args ...any) {
 }
 
 // Reject asynchronously with an error
-func (f *Future) Reject(reason any) {
+func (f *Future) Reject(reason interface{}) {
 	f.once.Do(func() {
 		f.mu.Lock()
 		f.resolved = true
@@ -122,7 +122,7 @@ func (f *Future) Reject(reason any) {
 		// Notify all subscribers
 		f.subscribersMu.Lock()
 		for _, sub := range f.subscribers {
-			func(sub chan any) {
+			func(sub chan interface{}) {
 				defer func() {
 					if r := recover(); r != nil {
 						// Channel is closed, but that's okay since we're using sync.Once
@@ -142,8 +142,8 @@ func (f *Future) Reject(reason any) {
 
 // // Await blocks until either result or error is received
 // // Returns the resolved value (which could be an error)
-// func (f *Future) Await() <-chan any {
-// 	ch := make(chan any)
+// func (f *Future) Await() <-chan interface{} {
+// 	ch := make(chan interface{})
 
 // 	go func() {
 // 		defer close(ch)
@@ -181,7 +181,7 @@ func (f *Future) Reject(reason any) {
 // 		resCh, errCh := f.result, f.err
 // 		// f.mu.Unlock()
 
-// 		var out any
+// 		var out interface{}
 // 		select {
 // 		case out = <-resCh:
 // 		case out = <-errCh:
@@ -210,8 +210,8 @@ func (f *Future) Reject(reason any) {
 // 	return ch
 // }
 
-func (f *Future) Await() <-chan any {
-	ch := make(chan any, 1)
+func (f *Future) Await() <-chan interface{} {
+	ch := make(chan interface{}, 1)
 	f.mu.Lock()
 	if f.resolved {
 		// Already resolved, return cached value immediately
@@ -226,7 +226,7 @@ func (f *Future) Await() <-chan any {
 	f.mu.Unlock()
 	f.subscribersMu.Lock()
 	if f.subscribers == nil {
-		f.subscribers = make([]chan any, 0)
+		f.subscribers = make([]chan interface{}, 0)
 	}
 	f.subscribers = append(f.subscribers, ch)
 	f.subscribersMu.Unlock()
@@ -258,9 +258,9 @@ func (f *Future) Await() <-chan any {
 	return ch
 }
 
-// Wrap an existing channel that returns (any, error) into Future
+// Wrap an existing channel that returns (interface{}, error) into Future
 func WrapFuture(ch <-chan struct {
-	val any
+	val interface{}
 	err error
 }) *Future {
 	f := NewFuture()
