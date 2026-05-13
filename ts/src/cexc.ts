@@ -150,7 +150,7 @@ export default class cexc extends Exchange {
             'requiredCredentials': {
                 'apiKey': true,
                 'secret': true,
-                'password': true,
+                'password': false,
             },
             'api': {
                 // level VIP0

@@ -154,7 +154,7 @@ class cexc extends Exchange {
             'requiredCredentials' => array(
                 'apiKey' => true,
                 'secret' => true,
-                'password' => true,
+                'password' => false,
             ),
             'api' => array(
                 // level VIP0

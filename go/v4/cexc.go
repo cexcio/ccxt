@@ -148,7 +148,7 @@ func  (this *CexcCore) Describe() interface{}  {
         "requiredCredentials": map[string]interface{} {
             "apiKey": true,
             "secret": true,
-            "password": true,
+            "password": false,
         },
         "api": map[string]interface{} {
             "public": map[string]interface{} {

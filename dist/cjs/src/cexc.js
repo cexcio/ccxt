@@ -150,7 +150,7 @@ class cexc extends kucoin["default"] {
             'requiredCredentials': {
                 'apiKey': true,
                 'secret': true,
-                'password': true,
+                'password': false,
             },
             'api': {
                 // level VIP0

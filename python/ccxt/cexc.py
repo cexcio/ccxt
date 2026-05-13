@@ -168,7 +168,7 @@ class cexc(Exchange, ImplicitAPI):
             'requiredCredentials': {
                 'apiKey': True,
                 'secret': True,
-                'password': True,
+                'password': False,
             },
             'api': {
                 # level VIP0
