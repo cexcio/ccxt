@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var kucoin = require('./abstract/kucoin.js');
+var cexc$1 = require('./abstract/cexc.js');
 var errors = require('./base/errors.js');
 var Precise = require('./base/Precise.js');
 var number = require('./base/functions/number.js');
@@ -14,7 +14,7 @@ var sha256 = require('./static_dependencies/noble-hashes/sha256.js');
  * @class cexc
  * @augments Exchange
  */
-class cexc extends kucoin["default"] {
+class cexc extends cexc$1["default"] {
     describe() {
         return this.deepExtend(super.describe(), {
             'id': 'cexc',
