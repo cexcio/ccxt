@@ -11340,20 +11340,20 @@ class cexc extends Exchange {
             $this->check_required_credentials();
             $timestamp = (string) $this->nonce();
             $headers = $this->extend(array(
-                'KC-API-KEY-VERSION' => '2',
-                'KC-API-KEY' => $this->apiKey,
-                'KC-API-TIMESTAMP' => $timestamp,
+                'CEXC-API-KEY-VERSION' => '2',
+                'CEXC-API-KEY' => $this->apiKey,
+                'CEXC-API-TIMESTAMP' => $timestamp,
             ), $headers);
-            $apiKeyVersion = $this->safe_string($headers, 'KC-API-KEY-VERSION');
+            $apiKeyVersion = $this->safe_string($headers, 'CEXC-API-KEY-VERSION');
             if ($apiKeyVersion === '2') {
                 $passphrase = $this->hmac($this->encode($this->password), $this->encode($this->secret), 'sha256', 'base64');
-                $headers['KC-API-PASSPHRASE'] = $passphrase;
+                $headers['CEXC-API-PASSPHRASE'] = $passphrase;
             } else {
-                $headers['KC-API-PASSPHRASE'] = $this->password;
+                $headers['CEXC-API-PASSPHRASE'] = $this->password;
             }
             $payload = $timestamp . $method . $endpoint . $endpart;
             $signature = $this->hmac($this->encode($payload), $this->encode($this->secret), 'sha256', 'base64');
-            $headers['KC-API-SIGN'] = $signature;
+            $headers['CEXC-API-SIGN'] = $signature;
             $partner = $this->safe_dict($this->options, 'partner', array());
             $isUtaFuturePrivate = $isUtaPrivate && ($tradeType === 'FUTURES');
             $isFuturePartner = $isFuturePrivate || $isUtaFuturePrivate;
@@ -11363,14 +11363,14 @@ class cexc extends Exchange {
             if (($partnerId !== null) && ($partnerSecret !== null)) {
                 $partnerPayload = $timestamp . $partnerId . $this->apiKey;
                 $partnerSignature = $this->hmac($this->encode($partnerPayload), $this->encode($partnerSecret), 'sha256', 'base64');
-                $headers['KC-API-PARTNER-SIGN'] = $partnerSignature;
-                $headers['KC-API-PARTNER'] = $partnerId;
-                $headers['KC-API-PARTNER-VERIFY'] = 'true';
+                $headers['CEXC-API-PARTNER-SIGN'] = $partnerSignature;
+                $headers['CEXC-API-PARTNER'] = $partnerId;
+                $headers['CEXC-API-PARTNER-VERIFY'] = 'true';
             }
             if ($isBroker) {
                 $brokerName = $this->safe_string($partner, 'name');
                 if ($brokerName !== null) {
-                    $headers['KC-BROKER-NAME'] = $brokerName;
+                    $headers['CEXC-BROKER-NAME'] = $brokerName;
                 }
             }
         }

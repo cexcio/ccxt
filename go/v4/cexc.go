@@ -12974,20 +12974,20 @@ func  (this *CexcCore) Sign(path interface{}, optionalArgs ...interface{}) inter
         this.CheckRequiredCredentials()
         var timestamp interface{} = ToString(this.Nonce())
         headers = this.Extend(map[string]interface{} {
-            "KC-API-KEY-VERSION": "2",
-            "KC-API-KEY": this.ApiKey,
-            "KC-API-TIMESTAMP": timestamp,
+            "CEXC-API-KEY-VERSION": "2",
+            "CEXC-API-KEY": this.ApiKey,
+            "CEXC-API-TIMESTAMP": timestamp,
         }, headers)
-        var apiKeyVersion interface{} = this.SafeString(headers, "KC-API-KEY-VERSION")
+        var apiKeyVersion interface{} = this.SafeString(headers, "CEXC-API-KEY-VERSION")
         if IsTrue(IsEqual(apiKeyVersion, "2")) {
             var passphrase interface{} = this.Hmac(this.Encode(this.Password), this.Encode(this.Secret), sha256, "base64")
-            AddElementToObject(headers, "KC-API-PASSPHRASE", passphrase)
+            AddElementToObject(headers, "CEXC-API-PASSPHRASE", passphrase)
         } else {
-            AddElementToObject(headers, "KC-API-PASSPHRASE", this.Password)
+            AddElementToObject(headers, "CEXC-API-PASSPHRASE", this.Password)
         }
         var payload interface{} = Add(Add(Add(timestamp, method), endpoint), endpart)
         var signature interface{} = this.Hmac(this.Encode(payload), this.Encode(this.Secret), sha256, "base64")
-        AddElementToObject(headers, "KC-API-SIGN", signature)
+        AddElementToObject(headers, "CEXC-API-SIGN", signature)
         var partner interface{} = this.SafeDict(this.Options, "partner", map[string]interface{} {})
         var isUtaFuturePrivate interface{} = IsTrue(isUtaPrivate) && IsTrue((IsEqual(tradeType, "FUTURES")))
         var isFuturePartner interface{} = IsTrue(isFuturePrivate) || IsTrue(isUtaFuturePrivate)
@@ -12997,14 +12997,14 @@ func  (this *CexcCore) Sign(path interface{}, optionalArgs ...interface{}) inter
         if IsTrue(IsTrue((!IsEqual(partnerId, nil))) && IsTrue((!IsEqual(partnerSecret, nil)))) {
             var partnerPayload interface{} = Add(Add(timestamp, partnerId), this.ApiKey)
             var partnerSignature interface{} = this.Hmac(this.Encode(partnerPayload), this.Encode(partnerSecret), sha256, "base64")
-            AddElementToObject(headers, "KC-API-PARTNER-SIGN", partnerSignature)
-            AddElementToObject(headers, "KC-API-PARTNER", partnerId)
-            AddElementToObject(headers, "KC-API-PARTNER-VERIFY", "true")
+            AddElementToObject(headers, "CEXC-API-PARTNER-SIGN", partnerSignature)
+            AddElementToObject(headers, "CEXC-API-PARTNER", partnerId)
+            AddElementToObject(headers, "CEXC-API-PARTNER-VERIFY", "true")
         }
         if IsTrue(isBroker) {
             var brokerName interface{} = this.SafeString(partner, "name")
             if IsTrue(!IsEqual(brokerName, nil)) {
-                AddElementToObject(headers, "KC-BROKER-NAME", brokerName)
+                AddElementToObject(headers, "CEXC-BROKER-NAME", brokerName)
             }
         }
     }
