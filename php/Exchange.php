@@ -381,6 +381,7 @@ class Exchange {
         'bybit',
         'bydfi',
         'cex',
+        'cexc',
         'coinbase',
         'coinbaseadvanced',
         'coinbaseexchange',

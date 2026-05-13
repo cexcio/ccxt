@@ -483,6 +483,7 @@ function exportSupportedAndCertifiedExchanges (exchanges, { allExchangesPaths, c
         'binanceusdm',
         'binancecoinm',
         'bybit',
+        'cexc',
         'okx',
         'gate',
         'kucoin',
