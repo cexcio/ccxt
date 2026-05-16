@@ -5,3 +5,4 @@ node_modules
 vendor
 *.swp
 *.pyc
+graphify-out

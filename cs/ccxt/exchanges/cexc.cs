@@ -121,25 +121,25 @@ public partial class cexc : Exchange
             } },
             { "urls", new Dictionary<string, object>() {
                 { "logo", "https://user-images.githubusercontent.com/51840849/87295558-132aaf80-c50e-11ea-9801-a2fb0c57c799.jpg" },
-                { "referral", "https://exchange-broker.cexc.io/api/v1/auth/signup?rcode=E5wkqe" },
+                { "referral", "https://dkr.cexc.io/broker/api/v1/auth/signup?rcode=E5wkqe" },
                 { "api", new Dictionary<string, object>() {
-                    { "public", "https://exchange-broker.cexc.io" },
-                    { "private", "https://exchange-broker.cexc.io" },
-                    { "futuresPrivate", "https://exchange-broker.cexc.io" },
-                    { "futuresPublic", "https://exchange-broker.cexc.io" },
-                    { "webExchange", "https://exchange-broker.cexc.io/_api" },
-                    { "broker", "https://exchange-broker.cexc.io" },
-                    { "earn", "https://exchange-broker.cexc.io" },
-                    { "uta", "https://exchange-broker.cexc.io" },
-                    { "utaPrivate", "https://exchange-broker.cexc.io" },
+                    { "public", "https://dkr.cexc.io/broker" },
+                    { "private", "https://dkr.cexc.io/broker" },
+                    { "futuresPrivate", "https://dkr.cexc.io/broker" },
+                    { "futuresPublic", "https://dkr.cexc.io/broker" },
+                    { "webExchange", "https://dkr.cexc.io/broker/_api" },
+                    { "broker", "https://dkr.cexc.io/broker" },
+                    { "earn", "https://dkr.cexc.io/broker" },
+                    { "uta", "https://dkr.cexc.io/broker" },
+                    { "utaPrivate", "https://dkr.cexc.io/broker" },
                 } },
-                { "www", "https://exchange-broker.cexc.io" },
-                { "doc", new List<object>() {"https://exchange-broker.cexc.io/api/v1/documentation"} },
+                { "www", "https://dkr.cexc.io/broker" },
+                { "doc", new List<object>() {"https://dkr.cexc.io/broker/api/v1/documentation"} },
             } },
             { "requiredCredentials", new Dictionary<string, object>() {
                 { "apiKey", true },
                 { "secret", true },
-                { "password", true },
+                { "password", false },
             } },
             { "api", new Dictionary<string, object>() {
                 { "public", new Dictionary<string, object>() {
@@ -11795,22 +11795,22 @@ public partial class cexc : Exchange
             this.checkRequiredCredentials();
             object timestamp = ((object)this.nonce()).ToString();
             headers = this.extend(new Dictionary<string, object>() {
-                { "KC-API-KEY-VERSION", "2" },
-                { "KC-API-KEY", this.apiKey },
-                { "KC-API-TIMESTAMP", timestamp },
+                { "CEXC-API-KEY-VERSION", "2" },
+                { "CEXC-API-KEY", this.apiKey },
+                { "CEXC-API-TIMESTAMP", timestamp },
             }, headers);
-            object apiKeyVersion = this.safeString(headers, "KC-API-KEY-VERSION");
+            object apiKeyVersion = this.safeString(headers, "CEXC-API-KEY-VERSION");
             if (isTrue(isEqual(apiKeyVersion, "2")))
             {
                 object passphrase = this.hmac(this.encode(this.password), this.encode(this.secret), sha256, "base64");
-                ((IDictionary<string,object>)headers)["KC-API-PASSPHRASE"] = passphrase;
+                ((IDictionary<string,object>)headers)["CEXC-API-PASSPHRASE"] = passphrase;
             } else
             {
-                ((IDictionary<string,object>)headers)["KC-API-PASSPHRASE"] = this.password;
+                ((IDictionary<string,object>)headers)["CEXC-API-PASSPHRASE"] = this.password;
             }
             object payload = add(add(add(timestamp, method), endpoint), endpart);
             object signature = this.hmac(this.encode(payload), this.encode(this.secret), sha256, "base64");
-            ((IDictionary<string,object>)headers)["KC-API-SIGN"] = signature;
+            ((IDictionary<string,object>)headers)["CEXC-API-SIGN"] = signature;
             object partner = this.safeDict(this.options, "partner", new Dictionary<string, object>() {});
             object isUtaFuturePrivate = isTrue(isUtaPrivate) && isTrue((isEqual(tradeType, "FUTURES")));
             object isFuturePartner = isTrue(isFuturePrivate) || isTrue(isUtaFuturePrivate);
@@ -11821,16 +11821,16 @@ public partial class cexc : Exchange
             {
                 object partnerPayload = add(add(timestamp, partnerId), this.apiKey);
                 object partnerSignature = this.hmac(this.encode(partnerPayload), this.encode(partnerSecret), sha256, "base64");
-                ((IDictionary<string,object>)headers)["KC-API-PARTNER-SIGN"] = partnerSignature;
-                ((IDictionary<string,object>)headers)["KC-API-PARTNER"] = partnerId;
-                ((IDictionary<string,object>)headers)["KC-API-PARTNER-VERIFY"] = "true";
+                ((IDictionary<string,object>)headers)["CEXC-API-PARTNER-SIGN"] = partnerSignature;
+                ((IDictionary<string,object>)headers)["CEXC-API-PARTNER"] = partnerId;
+                ((IDictionary<string,object>)headers)["CEXC-API-PARTNER-VERIFY"] = "true";
             }
             if (isTrue(isBroker))
             {
                 object brokerName = this.safeString(partner, "name");
                 if (isTrue(!isEqual(brokerName, null)))
                 {
-                    ((IDictionary<string,object>)headers)["KC-BROKER-NAME"] = brokerName;
+                    ((IDictionary<string,object>)headers)["CEXC-BROKER-NAME"] = brokerName;
                 }
             }
         }

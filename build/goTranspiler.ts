@@ -78,7 +78,7 @@ let goTests: string[] = [];
 const goWsTests: string[] = [];
 
 const imports = [
-    'import ccxt "github.com/ccxt/ccxt/go/v4"'
+    'import ccxt "github.com/cexcio/ccxt/go/v4"'
 ];
 
 const VIRTUAL_BASE_METHODS: { [key: string]: boolean} = {
@@ -779,7 +779,7 @@ class NewTranspiler {
         const values = [
             // "using ccxt;",
             namespace,
-            ws ? 'import ccxt "github.com/ccxt/ccxt/go/v4"' : '',
+            ws ? 'import ccxt "github.com/cexcio/ccxt/go/v4"' : '',
             // 'import "helpers"'
         ]
         return values;
@@ -1717,7 +1717,7 @@ ${caseStatements.join('\n')}
 `;
         const file = [
             `package ccxt${ws ? 'pro' : ''}`,
-            ws ? 'import ccxt "github.com/ccxt/ccxt/go/v4"' : '',
+            ws ? 'import ccxt "github.com/cexcio/ccxt/go/v4"' : '',
             this.createGeneratedHeader().join('\n'),
             '',
             functionDecl,
@@ -1809,7 +1809,7 @@ ${caseStatements.join('\n')}
             'package ccxtpro',
             'import (',
             '   "strings"',
-            '   ccxt "github.com/ccxt/ccxt/go/v4"',
+            '   ccxt "github.com/cexcio/ccxt/go/v4"',
             ')',
             '',
             this.createGeneratedHeader().join('\n'),
@@ -1976,7 +1976,7 @@ ${caseStatements.join('\n')}
 
         const file = [
             ws ? 'package ccxtpro' : 'package ccxt',
-            ws ? 'import ccxt "github.com/ccxt/ccxt/go/v4"' : '',
+            ws ? 'import ccxt "github.com/cexcio/ccxt/go/v4"' : '',
             this.createGeneratedHeader().join('\n'),
             ''
         ];
@@ -2422,7 +2422,7 @@ func (this *${className}) Init(userConfig map[string]interface{}) {
 
             const file = [
                 'package base',
-                testName.indexOf('tests.init') === -1 ? 'import ccxt "github.com/ccxt/ccxt/go/v4"' : '',
+                testName.indexOf('tests.init') === -1 ? 'import ccxt "github.com/cexcio/ccxt/go/v4"' : '',
                 '',
                 this.createGeneratedHeader().join('\n'),
                 content,
@@ -2461,7 +2461,7 @@ func (this *${className}) Init(userConfig map[string]interface{}) {
 
         const file = [
             'package base',
-            'import ccxt "github.com/ccxt/ccxt/go/v4"',
+            'import ccxt "github.com/cexcio/ccxt/go/v4"',
             '',
             this.createGeneratedHeader().join('\n'),
             contentIndentend,
@@ -2579,7 +2579,7 @@ func (this *${className}) Init(userConfig map[string]interface{}) {
 
             contentIndentend = this.regexAll (contentIndentend, regexes);
             const namespace = 'package base';
-            let imports = 'import "github.com/ccxt/ccxt/go/v4"';
+            let imports = 'import "github.com/cexcio/ccxt/go/v4"';
             const fmtImport = contentIndentend.indexOf('fmt.Println') > -1 ? 'import "fmt"' : '';
             imports = [imports, fmtImport].filter(x => x).join('\n');
             const fileHeaders = [
@@ -2683,7 +2683,7 @@ func (this *${className}) Init(userConfig map[string]interface{}) {
 
         const output: string[] = [
             'package ccxtpro',
-            'import ccxt "github.com/ccxt/ccxt/go/v4"',
+            'import ccxt "github.com/cexcio/ccxt/go/v4"',
             '',
             ...this.createGeneratedHeader(),
             '',
