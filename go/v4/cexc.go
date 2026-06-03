@@ -130,20 +130,20 @@ func  (this *CexcCore) Describe() interface{}  {
         },
         "urls": map[string]interface{} {
             "logo": "https://user-images.githubusercontent.com/51840849/87295558-132aaf80-c50e-11ea-9801-a2fb0c57c799.jpg",
-            "referral": "https://dkr.cexc.io/broker/api/v1/auth/signup?rcode=E5wkqe",
+            "referral": "https://exchange-broker.cexc.io/api/v1/auth/signup?rcode=E5wkqe",
             "api": map[string]interface{} {
-                "public": "https://dkr.cexc.io/broker",
-                "private": "https://dkr.cexc.io/broker",
-                "futuresPrivate": "https://dkr.cexc.io/broker",
-                "futuresPublic": "https://dkr.cexc.io/broker",
-                "webExchange": "https://dkr.cexc.io/broker/_api",
-                "broker": "https://dkr.cexc.io/broker",
-                "earn": "https://dkr.cexc.io/broker",
-                "uta": "https://dkr.cexc.io/broker",
-                "utaPrivate": "https://dkr.cexc.io/broker",
+                "public": "https://exchange-broker.cexc.io",
+                "private": "https://exchange-broker.cexc.io",
+                "futuresPrivate": "https://exchange-broker.cexc.io",
+                "futuresPublic": "https://exchange-broker.cexc.io",
+                "webExchange": "https://exchange-broker.cexc.io/_api",
+                "broker": "https://exchange-broker.cexc.io",
+                "earn": "https://exchange-broker.cexc.io",
+                "uta": "https://exchange-broker.cexc.io",
+                "utaPrivate": "https://exchange-broker.cexc.io",
             },
-            "www": "https://dkr.cexc.io/broker",
-            "doc": []interface{}{"https://dkr.cexc.io/broker/api/v1/documentation"},
+            "www": "https://exchange-broker.cexc.io",
+            "doc": []interface{}{"https://exchange-broker.cexc.io/api/v1/documentation"},
         },
         "requiredCredentials": map[string]interface{} {
             "apiKey": true,
@@ -8361,7 +8361,9 @@ func  (this *CexcCore) Withdraw(code interface{}, amount interface{}, address in
             if IsTrue(!IsEqual(networkCode, nil)) {
                 AddElementToObject(request, "chain", ToLower(this.NetworkCodeToId(networkCode, GetValue(currency, "code"))))
             }
-            AddElementToObject(request, "amount", ParseFloat(this.CurrencyToPrecision(code, amount, networkCode)))
+            // amount must be a string per the broker's withdraw API (PostAPIV3WithdrawalsRequest.amount
+            // is a required string); ParseFloat serializes a JSON number which the broker rejects (400).
+            AddElementToObject(request, "amount", this.CurrencyToPrecision(code, amount, networkCode))
             var includeFee interface{} = nil
             includeFeeparamsVariable := this.HandleOptionAndParams(params, "withdraw", "includeFee", false);
             includeFee = GetValue(includeFeeparamsVariable,0);
