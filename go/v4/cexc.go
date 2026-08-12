@@ -2385,7 +2385,7 @@ func (this *CexcCore) FetchContractMarkets(optionalArgs ...any) <-chan any {
 		//            "lastTradePrice": 4545.4500000000,
 		//            "nextFundingRateTime": 25481884,
 		//            "maxLeverage": 100,
-		//            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Cexc", "Poloniex", "Hitbtc" ],
+		//            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ],
 		//            "premiumsSymbol1M": ".ETHUSDTMPI",
 		//            "premiumsSymbol8H": ".ETHUSDTMPI8H",
 		//            "fundingBaseSymbol1M": ".ETHINT",
@@ -2567,7 +2567,7 @@ func (this *CexcCore) FetchUTAMarkets(optionalArgs ...any) <-chan any {
 		//                     "takerFeeRate": "0.00060",
 		//                     "settlementFeeRate": null,
 		//                     "maxLeverage": 125,
-		//                     "indexSourceExchanges": ["okex","binance","cexc","bybit","bitmart","gateio"],
+		//                     "indexSourceExchanges": ["okex","binance","kucoin","bybit","bitmart","gateio"],
 		//                     "k": "490.0",
 		//                     "m": "300.0",
 		//                     "f": "1.3",
@@ -2858,7 +2858,7 @@ func (this *CexcCore) ParseCurrency(currency any) any {
 			})
 		}
 	}
-	// cexc has determined 'fiat' currencies with below logic
+	// kucoin has determined 'fiat' currencies with below logic
 	var rawPrecision any = this.SafeString(entry, "precision")
 	var precision any = this.ParseNumber(this.ParsePrecision(rawPrecision))
 	var isFiat any = IsEqual(chainsLength, 0)
@@ -3624,7 +3624,7 @@ func (this *CexcCore) FetchContractTickers(optionalArgs ...any) <-chan any {
 		//            "lastTradePrice": 4545.4500000000,
 		//            "nextFundingRateTime": 25481884,
 		//            "maxLeverage": 100,
-		//            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Cexc", "Poloniex", "Hitbtc" ],
+		//            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ],
 		//            "premiumsSymbol1M": ".ETHUSDTMPI",
 		//            "premiumsSymbol8H": ".ETHUSDTMPI8H",
 		//            "fundingBaseSymbol1M": ".ETHINT",
@@ -3884,10 +3884,10 @@ func (this *CexcCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any {
 	_ = market
 	var timestampString any = this.SafeString(ohlcv, 0)
 	if IsTrue(IsTrue(!IsEqual(timestampString, nil)) && IsTrue(IsLessThanOrEqual(GetLength(timestampString), 10))) {
-		// cexc spot and uta return seconds timestamps
+		// kucoin spot and uta return seconds timestamps
 		return []any{this.SafeTimestamp(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 5)}
 	} else {
-		// cexc futures return milliseconds timestamps
+		// kucoin futures return milliseconds timestamps
 		return []any{this.SafeInteger(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 5)}
 	}
 }
@@ -4433,7 +4433,7 @@ func (this *CexcCore) FetchContractDepositAddress(code any, optionalArgs ...any)
 		//        "code": "200000",
 		//        "data": {
 		//            "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",//Deposit address
-		//            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to Cexc Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
+		//            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to KuCoin Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
 		//        }
 		//    }
 		//
@@ -5016,7 +5016,7 @@ func (this *CexcCore) CreateSpotOrderRequest(symbol any, typeVar any, side any, 
 	if IsTrue(IsEqual(typeVar, "market")) {
 		if IsTrue(!IsEqual(quoteAmount, nil)) {
 			params = this.Omit(params, []any{"cost", "funds"})
-			// cexc uses base precision even for quote values
+			// kucoin uses base precision even for quote values
 			costString = this.MarketOrderAmountToPrecision(symbol, quoteAmount)
 			AddElementToObject(request, "funds", costString)
 		} else {
@@ -5891,7 +5891,7 @@ func (this *CexcCore) CreateContractOrders(orders any, optionalArgs ...any) <-ch
 /**
  * @method
  * @name cexc#editOrder
- * @description edit an order, cexc currently only supports the modification of HF orders
+ * @description edit an order, kucoin currently only supports the modification of HF orders
  * @see https://exchange-broker.cexc.io/docs-new/rest/spot-trading/orders/modify-order
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market to create an order in
@@ -7997,7 +7997,7 @@ func (this *CexcCore) ParseSpotOrder(order any, optionalArgs ...any) any {
 	//        "tags": "partner:ccxt",
 	//        "relatedNo": null,
 	//        "orderTime": 1674146316994000028,
-	//        "domainId": "cexc",
+	//        "domainId": "kucoin",
 	//        "tradeSource": "USER",
 	//        "tradeType": "MARGIN_TRADE",
 	//        "feeCurrency": "USDT",
@@ -10859,7 +10859,7 @@ func (this *CexcCore) ParseLedgerEntryType(typeVar any) any {
 		"Withdrawal":                            "transaction",
 		"Transfer":                              "transfer",
 		"Trade_Exchange":                        "trade",
-		"Cexc Bonus":                            "bonus",
+		"KuCoin Bonus":                          "bonus",
 		"Referral Bonus":                        "referral",
 		"Rewards":                               "bonus",
 		"Airdrop/Fork":                          "airdrop",
@@ -13831,7 +13831,7 @@ func (this *CexcCore) FetchPositionMode(optionalArgs ...any) <-chan any {
  * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order
  * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order-test
  * @param {string} symbol Unified CCXT market symbol
- * @param {string} side not used by cexc closePositions
+ * @param {string} side not used by kucoin closePositions
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.clientOrderId] client order id of the order
  * @returns {object[]} [A list of position structures]{@link https://docs.ccxt.com/?id=position-structure}
@@ -14297,7 +14297,7 @@ func (this *CexcCore) IsUTAEnabled(optionalArgs ...any) <-chan any {
 }
 func (this *CexcCore) Sign(path any, optionalArgs ...any) any {
 	//
-	// the v2 URL is https://openapi-v2.cexc.com/api/v1/endpoint
+	// the v2 URL is https://openapi-v2.exchange-broker.cexc.io/api/v1/endpoint
 	//                                ↑                 ↑
 	//                                ↑                 ↑
 	//
@@ -14357,21 +14357,21 @@ func (this *CexcCore) Sign(path any, optionalArgs ...any) any {
 		this.CheckRequiredCredentials()
 		var timestamp any = ToString(this.Nonce())
 		headers = this.Extend(map[string]any{
-			"KC-API-KEY-VERSION": "2",
-			"KC-API-KEY":         this.ApiKey,
-			"KC-API-TIMESTAMP":   timestamp,
+			"CEXC-API-KEY-VERSION": "2",
+			"CEXC-API-KEY":         this.ApiKey,
+			"CEXC-API-TIMESTAMP":   timestamp,
 		}, headers)
 		headers = Ternary(IsTrue((IsEqual(headers, nil))), map[string]any{}, headers)
-		var apiKeyVersion any = this.SafeString(headers, "KC-API-KEY-VERSION")
+		var apiKeyVersion any = this.SafeString(headers, "CEXC-API-KEY-VERSION")
 		if IsTrue(IsEqual(apiKeyVersion, "2")) {
 			var passphrase any = this.Hmac(this.Encode(this.Password), this.Encode(this.Secret), sha256, "base64")
-			AddElementToObject(headers, "KC-API-PASSPHRASE", passphrase)
+			AddElementToObject(headers, "CEXC-API-PASSPHRASE", passphrase)
 		} else {
-			AddElementToObject(headers, "KC-API-PASSPHRASE", this.Password)
+			AddElementToObject(headers, "CEXC-API-PASSPHRASE", this.Password)
 		}
 		var payload any = Add(Add(Add(timestamp, method), endpoint), endpart)
 		var signature any = this.Hmac(this.Encode(payload), this.Encode(this.Secret), sha256, "base64")
-		AddElementToObject(headers, "KC-API-SIGN", signature)
+		AddElementToObject(headers, "CEXC-API-SIGN", signature)
 		var partner any = this.SafeDict(this.Options, "partner", map[string]any{})
 		var isUtaFuturePrivate any = IsTrue(isUtaPrivate) && IsTrue((IsEqual(tradeType, "FUTURES")))
 		var isFuturePartner any = IsTrue(isFuturePrivate) || IsTrue(isUtaFuturePrivate)
@@ -14381,14 +14381,14 @@ func (this *CexcCore) Sign(path any, optionalArgs ...any) any {
 		if IsTrue(IsTrue((!IsEqual(partnerId, nil))) && IsTrue((!IsEqual(partnerSecret, nil)))) {
 			var partnerPayload any = Add(Add(timestamp, partnerId), this.ApiKey)
 			var partnerSignature any = this.Hmac(this.Encode(partnerPayload), this.Encode(partnerSecret), sha256, "base64")
-			AddElementToObject(headers, "KC-API-PARTNER-SIGN", partnerSignature)
-			AddElementToObject(headers, "KC-API-PARTNER", partnerId)
-			AddElementToObject(headers, "KC-API-PARTNER-VERIFY", "true")
+			AddElementToObject(headers, "CEXC-API-PARTNER-SIGN", partnerSignature)
+			AddElementToObject(headers, "CEXC-API-PARTNER", partnerId)
+			AddElementToObject(headers, "CEXC-API-PARTNER-VERIFY", "true")
 		}
 		if IsTrue(isBroker) {
 			var brokerName any = this.SafeString(partner, "name")
 			if IsTrue(!IsEqual(brokerName, nil)) {
-				AddElementToObject(headers, "KC-BROKER-NAME", brokerName)
+				AddElementToObject(headers, "CEXC-BROKER-NAME", brokerName)
 			}
 		}
 	}

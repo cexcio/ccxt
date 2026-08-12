@@ -504,7 +504,7 @@ class testMainClass {
         }
         // todo - not yet ready in other langs too
         // promises.push (testThrottle ());
-        $results = ($promises);
+        $results = \React\($promises);
         // now count which test-methods retuned `false` from "testSafe" and dump that info below
         $failed_methods = [];
         for ($i = 0; $i < count($test_names); $i++) {
@@ -1672,14 +1672,14 @@ class testMainClass {
                 // 'parsedResponses' asserts one result per successive watch
                 // resolution (e.g. an order going from open to closed)
                 $promises = [$this->watch_and_assert_sequence($exchange, $method, $input, $skip_keys, $expected_results), $this->inject_ws_messages($exchange, $url, $messages)];
-                ($promises);
+                \React\($promises);
                 $this->assert_ws_sent_messages($exchange, $url, $data);
             } else {
                 // 'parsedResponse' asserts the final state after every frame
                 // was replayed — live structures like orderbooks keep updating
                 // after the first resolution, so serialize only at the end
                 $promises = [call_exchange_method_dynamically($exchange, $method, $input), $this->inject_ws_messages($exchange, $url, $messages)];
-                $results = ($promises);
+                $results = \React\($promises);
                 $unified_result = json_parse(json_stringify($results[0]));
                 $this->assert_static_response_output($exchange, $skip_keys, $unified_result, $data['parsedResponse']);
                 $this->assert_ws_sent_messages($exchange, $url, $data);
@@ -2099,7 +2099,7 @@ class testMainClass {
             }
         }
         try {
-            ($promises);
+            \React\($promises);
         } catch(\Throwable $e) {
             if ($type === 'request') {
                 $this->request_tests_failed = true;
@@ -2146,7 +2146,7 @@ class testMainClass {
         //  --- Init of brokerId tests functions-----------------------------------------
         //  -----------------------------------------------------------------------------
         $promises = [$this->test_binance(), $this->test_okx(), $this->test_cryptocom(), $this->test_bybit(), $this->test_kucoin(), $this->test_kucoinfutures(), $this->test_bitget(), $this->test_mexc(), $this->test_htx(), $this->test_woo(), $this->test_coinex(), $this->test_bingx(), $this->test_phemex(), $this->test_blofin(), $this->test_coinbaseinternational(), $this->test_coinbase_advanced(), $this->test_woofi_pro(), $this->test_xt(), $this->test_paradex(), $this->test_hashkey(), $this->test_cryptomus(), $this->test_derive(), $this->test_mode_trade(), $this->test_backpack(), $this->test_toobit(), $this->test_weex(), $this->test_foxbit()];
-        ($promises);
+        \React\($promises);
         $success_message = '[' . $this->lang . '][TEST_SUCCESS] brokerId tests passed.';
         dump('[INFO]' . $success_message);
         exit_script(0);

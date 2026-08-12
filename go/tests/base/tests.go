@@ -2367,7 +2367,7 @@ func (this *testMainClass) TestExchangeWsStatically(exchangeName any, exchangeDa
 	}()
 	return ch
 }
-func (this *testMainClass) InitOfflineExchange(exchangeName any, optionalArgs ...any) ccxt.ICoreExchange {
+func (this *testMainClass) InitOfflineExchange(exchangeName any, optionalArgs ...any) any {
 	// prediction exchanges load their outcome markets from an event -> markets -> outcomes
 	// fixture (static/events/<id>.json) instead of the markets/currencies fixtures. this is the
 	// standard prediction path (kalshi/limitless/myriad/polymarket/hyperliquid all ship one) and

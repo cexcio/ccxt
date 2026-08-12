@@ -561,13 +561,13 @@ class Transpiler {
 
     getPHPSyncRegexes () {
         return [
-            [ /(?:\\React\\)?Async\\await\((?:\\React\\)?Promise\\all\((.+)\)\)/g, '$1' ], // remove line entirely
-            [ /(?:\\React\\)?Promise\\all\((.+)\)/g, '$1' ], // remove line entirely
+            [ /Async\\await\(Promise\\all\((.+)\)\)/g, '$1' ], // remove line entirely
+            [ /Promise\\all\((.+)\)/g, '$1' ], // remove line entirely
             // delete await, the following regex does not pick up multiline await calls
-            [ /\\?\b(?:React\\)?Async\\await\((.+)\);/g, '$1;' ],
+            [ /\bAsync\\await\((.+)\);/g, '$1;' ],
             // hence the following regex is added with a dotAll modifier 's'
             // and a non greedy match for the calls not picked up by the previous regex
-            [ /\\?\b(?:React\\)?Async\\await\((.+?)\);/gs, '$1;' ],
+            [ /\bAsync\\await\((.+?)\);/gs, '$1;' ],
             [ /\byield(?: from)?\s+/g, '' ], // delete yield from
         ]
     }
@@ -3012,7 +3012,7 @@ class Transpiler {
             let bodyPhpAsync = phpReform (phpAsync);
             overwriteSafe (files.phpFileAsync, bodyPhpAsync);
             let bodyPhpSync = phpReform (php);
-            bodyPhpSync = bodyPhpSync.replace (/(?:\\React\\)?Promise\\all/g, '');
+            bodyPhpSync = bodyPhpSync.replace (/Promise\\all/g, '');
             overwriteSafe (files.phpFileSync, bodyPhpSync);
         }
     }

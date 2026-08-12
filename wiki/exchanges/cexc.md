@@ -918,7 +918,7 @@ cexc.createContractOrders (orders, params?)
 <a name="editOrder" id="editorder"></a>
 
 ### editOrder{docsify-ignore}
-edit an order, cexc currently only supports the modification of HF orders
+edit an order, kucoin currently only supports the modification of HF orders
 
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - an [order structure](https://docs.ccxt.com/?id=order-structure)
@@ -2724,7 +2724,7 @@ closes open positions for a market
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
 | symbol | <code>string</code> | Yes | Unified CCXT market symbol |
-| side | <code>string</code> | Yes | not used by cexc closePositions |
+| side | <code>string</code> | Yes | not used by kucoin closePositions |
 | params | <code>object</code> | No | extra parameters specific to the exchange API endpoint |
 | params.clientOrderId | <code>string</code> | No | client order id of the order |
 
@@ -2900,9 +2900,9 @@ watches a price ticker, a statistical calculation with the information calculate
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470063w0
-- https://exchange-broker.cexc.io/docs-new/3470081w0
-- https://exchange-broker.cexc.io/docs-new/3470222w0
+- https://www.kucoin.com/docs-new/3470063w0
+- https://www.kucoin.com/docs-new/3470081w0
+- https://www.kucoin.com/docs-new/3470222w0
 
 
 | Param | Type | Required | Description |
@@ -2927,9 +2927,9 @@ unWatches a price ticker, a statistical calculation with the information calcula
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470063w0
-- https://exchange-broker.cexc.io/docs-new/3470081w0
-- https://exchange-broker.cexc.io/docs-new/3470222w0
+- https://www.kucoin.com/docs-new/3470063w0
+- https://www.kucoin.com/docs-new/3470081w0
+- https://www.kucoin.com/docs-new/3470222w0
 
 
 | Param | Type | Required | Description |
@@ -2954,10 +2954,10 @@ watches a price ticker, a statistical calculation with the information calculate
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470063w0
-- https://exchange-broker.cexc.io/docs-new/3470064w0
-- https://exchange-broker.cexc.io/docs-new/3470081w0
-- https://exchange-broker.cexc.io/docs-new/3470222w0
+- https://www.kucoin.com/docs-new/3470063w0
+- https://www.kucoin.com/docs-new/3470064w0
+- https://www.kucoin.com/docs-new/3470081w0
+- https://www.kucoin.com/docs-new/3470222w0
 
 
 | Param | Type | Required | Description |
@@ -2983,8 +2983,8 @@ watches best bid & ask for symbols
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470067w0
-- https://exchange-broker.cexc.io/docs-new/3470080w0
+- https://www.kucoin.com/docs-new/3470067w0
+- https://www.kucoin.com/docs-new/3470080w0
 
 
 | Param | Type | Required | Description |
@@ -3008,9 +3008,9 @@ watches historical candlestick data containing the open, high, low, and close pr
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470071w0
-- https://exchange-broker.cexc.io/docs-new/3470086w0
-- https://exchange-broker.cexc.io/docs-new/3470223w0
+- https://www.kucoin.com/docs-new/3470071w0
+- https://www.kucoin.com/docs-new/3470086w0
+- https://www.kucoin.com/docs-new/3470223w0
 
 
 | Param | Type | Required | Description |
@@ -3038,9 +3038,9 @@ unWatches historical candlestick data containing the open, high, low, and close 
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470071w0
-- https://exchange-broker.cexc.io/docs-new/3470086w0
-- https://exchange-broker.cexc.io/docs-new/3470223w0
+- https://www.kucoin.com/docs-new/3470071w0
+- https://www.kucoin.com/docs-new/3470086w0
+- https://www.kucoin.com/docs-new/3470223w0
 
 
 | Param | Type | Required | Description |
@@ -3066,9 +3066,9 @@ get the list of most recent trades for a particular symbol
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470072w0
-- https://exchange-broker.cexc.io/docs-new/3470084w0
-- https://exchange-broker.cexc.io/docs-new/3470224w0
+- https://www.kucoin.com/docs-new/3470072w0
+- https://www.kucoin.com/docs-new/3470084w0
+- https://www.kucoin.com/docs-new/3470224w0
 
 
 | Param | Type | Required | Description |
@@ -3095,8 +3095,8 @@ get the list of most recent trades for a particular symbol
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470072w0
-- https://exchange-broker.cexc.io/docs-new/3470084w0
+- https://www.kucoin.com/docs-new/3470072w0
+- https://www.kucoin.com/docs-new/3470084w0
 
 
 | Param | Type | Required | Description |
@@ -3122,8 +3122,8 @@ unWatches trades stream
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470072w0
-- https://exchange-broker.cexc.io/docs-new/3470084w0
+- https://www.kucoin.com/docs-new/3470072w0
+- https://www.kucoin.com/docs-new/3470084w0
 
 
 | Param | Type | Required | Description |
@@ -3147,9 +3147,9 @@ unWatches trades stream
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470072w0
-- https://exchange-broker.cexc.io/docs-new/3470084w0
-- https://exchange-broker.cexc.io/docs-new/3470224w0
+- https://www.kucoin.com/docs-new/3470072w0
+- https://www.kucoin.com/docs-new/3470084w0
+- https://www.kucoin.com/docs-new/3470224w0
 
 
 | Param | Type | Required | Description |
@@ -3174,13 +3174,13 @@ watches information on open orders with bid (buy) and ask (sell) prices, volumes
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
-- https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
-- https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
-- https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
-- https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
-- https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
-- https://exchange-broker.cexc.io/docs-new/3470221w0 // uta
+- https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+- https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+- https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+- https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+- https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+- https://www.kucoin.com/docs-new/3470082w0 // futures incremental
+- https://www.kucoin.com/docs-new/3470221w0 // uta
 
 
 | Param | Type | Required | Description |
@@ -3207,13 +3207,13 @@ unWatches information on open orders with bid (buy) and ask (sell) prices, volum
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
-- https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
-- https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
-- https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
-- https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
-- https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
-- https://exchange-broker.cexc.io/docs-new/3470221w0 // uta
+- https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+- https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+- https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+- https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+- https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+- https://www.kucoin.com/docs-new/3470082w0 // futures incremental
+- https://www.kucoin.com/docs-new/3470221w0 // uta
 
 
 | Param | Type | Required | Description |
@@ -3239,13 +3239,13 @@ watches information on open orders with bid (buy) and ask (sell) prices, volumes
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
-- https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
-- https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
-- https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
-- https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
-- https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
-- https://exchange-broker.cexc.io/docs-new/3470221w0 // uta
+- https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+- https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+- https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+- https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+- https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+- https://www.kucoin.com/docs-new/3470082w0 // futures incremental
+- https://www.kucoin.com/docs-new/3470221w0 // uta
 
 
 | Param | Type | Required | Description |
@@ -3270,12 +3270,12 @@ unWatches information on open orders with bid (buy) and ask (sell) prices, volum
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
-- https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
-- https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
-- https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
-- https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
-- https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
+- https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+- https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+- https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+- https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+- https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+- https://www.kucoin.com/docs-new/3470082w0 // futures incremental
 
 
 | Param | Type | Required | Description |
@@ -3300,11 +3300,11 @@ watches information on multiple orders made by the user
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470074w0 // spot regular orders
-- https://exchange-broker.cexc.io/docs-new/3470139w0 // spot trigger orders
-- https://exchange-broker.cexc.io/docs-new/3470090w0 // contract regular orders
-- https://exchange-broker.cexc.io/docs-new/3470091w0 // contract trigger orders
-- https://exchange-broker.cexc.io/docs-new/3470228w0 // uta orders
+- https://www.kucoin.com/docs-new/3470074w0 // spot regular orders
+- https://www.kucoin.com/docs-new/3470139w0 // spot trigger orders
+- https://www.kucoin.com/docs-new/3470090w0 // contract regular orders
+- https://www.kucoin.com/docs-new/3470091w0 // contract trigger orders
+- https://www.kucoin.com/docs-new/3470228w0 // uta orders
 
 
 | Param | Type | Required | Description |
@@ -3333,9 +3333,9 @@ watches information on multiple trades made by the user on spot
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470074w0
-- https://exchange-broker.cexc.io/docs-new/3470090w0
-- https://exchange-broker.cexc.io/docs-new/3470264w0
+- https://www.kucoin.com/docs-new/3470074w0
+- https://www.kucoin.com/docs-new/3470090w0
+- https://www.kucoin.com/docs-new/3470264w0
 
 
 | Param | Type | Required | Description |
@@ -3363,9 +3363,9 @@ watch balance and get the amount of funds available for trading or funds locked 
 
 **See**
 
-- https://exchange-broker.cexc.io/docs-new/3470075w0 // spot balance
-- https://exchange-broker.cexc.io/docs-new/3470092w0 // contract balance
-- https://exchange-broker.cexc.io/docs-new/3470231w0 // uta balance
+- https://www.kucoin.com/docs-new/3470075w0 // spot balance
+- https://www.kucoin.com/docs-new/3470092w0 // contract balance
+- https://www.kucoin.com/docs-new/3470231w0 // uta balance
 
 
 | Param | Type | Required | Description |
@@ -3388,7 +3388,7 @@ watch open positions for a specific symbol
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [position structure](https://docs.ccxt.com/en/latest/manual.html#position-structure)
 
-**See**: https://exchange-broker.cexc.io/docs-new/3470093w0  
+**See**: https://www.kucoin.com/docs-new/3470093w0  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -3409,7 +3409,7 @@ watch all open positions
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>Array&lt;object&gt;</code> - a list of [position structure](https://docs.ccxt.com/en/latest/manual.html#position-structure)
 
-**See**: https://exchange-broker.cexc.io/docs-new/3470233w0  
+**See**: https://www.kucoin.com/docs-new/3470233w0  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -3433,7 +3433,7 @@ watch the current funding rate
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [funding rate structure](https://docs.ccxt.com/?id=funding-rate-structure)
 
-**See**: https://exchange-broker.cexc.io/docs-new/3470270w0  
+**See**: https://www.kucoin.com/docs-new/3470270w0  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -3454,7 +3454,7 @@ unWatches the current funding rate for a symbol
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [funding rate structure](https://docs.ccxt.com/?id=funding-rate-structure)
 
-**See**: https://exchange-broker.cexc.io/docs-new/3470270w0  
+**See**: https://www.kucoin.com/docs-new/3470270w0  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -3475,7 +3475,7 @@ watches a mark price for a specific market
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
 
-**See**: https://exchange-broker.cexc.io/docs-new/3470272w0  
+**See**: https://www.kucoin.com/docs-new/3470272w0  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -3496,7 +3496,7 @@ unWatches a mark price for a specific market
 **Kind**: instance method of [<code>cexc</code>](#cexc)  
 **Returns**: <code>object</code> - a [ticker structure](https://docs.ccxt.com/?id=ticker-structure)
 
-**See**: https://exchange-broker.cexc.io/docs-new/3470272w0  
+**See**: https://www.kucoin.com/docs-new/3470272w0  
 
 | Param | Type | Required | Description |
 | --- | --- | --- | --- |
