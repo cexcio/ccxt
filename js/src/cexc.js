@@ -1118,7 +1118,7 @@ export default class cexc extends Exchange {
                     'HECO': 'heco',
                     'HRC20': 'heco',
                     'MATIC': 'matic',
-                    'KCC': 'kcc', // cexc community chain
+                    'KCC': 'kcc', // kucoin community chain
                     'SOL': 'sol',
                     'ALGO': 'algo',
                     'EOS': 'eos',
@@ -1266,7 +1266,7 @@ export default class cexc extends Exchange {
                     // 'VELAS': 'vlx', // vlxevm is different
                     // // 'terra' luna lunc TBD
                     // 'DIGITALBITS': 'xdb',
-                    // // fra is fra-emv on cexc
+                    // // fra is fra-emv on kucoin
                     // 'PASTEL': 'psl',
                     // // sysevm
                     // 'CONCORDIUM': 'ccd',
@@ -1307,7 +1307,7 @@ export default class cexc extends Exchange {
                     // 'ENECUUM': 'enq',
                     // 'HAVEN': 'xhv',
                     // 'CHAINX': 'pcx',
-                    // // 'FLUXOLD': 'zel', // zel seems old chain (with uppercase FLUX in cexc UI and with id 'zel')
+                    // // 'FLUXOLD': 'zel', // zel seems old chain (with uppercase FLUX in kucoin UI and with id 'zel')
                     // 'BUMO': 'bu',
                     // 'DEEPONION': 'onion',
                     // 'ULORD': 'ut',
@@ -1896,7 +1896,7 @@ export default class cexc extends Exchange {
         //            "lastTradePrice": 4545.4500000000,
         //            "nextFundingRateTime": 25481884,
         //            "maxLeverage": 100,
-        //            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Cexc", "Poloniex", "Hitbtc" ],
+        //            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ],
         //            "premiumsSymbol1M": ".ETHUSDTMPI",
         //            "premiumsSymbol8H": ".ETHUSDTMPI8H",
         //            "fundingBaseSymbol1M": ".ETHINT",
@@ -2063,7 +2063,7 @@ export default class cexc extends Exchange {
         //                     "takerFeeRate": "0.00060",
         //                     "settlementFeeRate": null,
         //                     "maxLeverage": 125,
-        //                     "indexSourceExchanges": ["okex","binance","cexc","bybit","bitmart","gateio"],
+        //                     "indexSourceExchanges": ["okex","binance","kucoin","bybit","bitmart","gateio"],
         //                     "k": "490.0",
         //                     "m": "300.0",
         //                     "f": "1.3",
@@ -2348,7 +2348,7 @@ export default class cexc extends Exchange {
                 };
             }
         }
-        // cexc has determined 'fiat' currencies with below logic
+        // kucoin has determined 'fiat' currencies with below logic
         const rawPrecision = this.safeString(entry, 'precision');
         const precision = this.parseNumber(this.parsePrecision(rawPrecision));
         const isFiat = chainsLength === 0;
@@ -3065,7 +3065,7 @@ export default class cexc extends Exchange {
         //            "lastTradePrice": 4545.4500000000,
         //            "nextFundingRateTime": 25481884,
         //            "maxLeverage": 100,
-        //            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Cexc", "Poloniex", "Hitbtc" ],
+        //            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ],
         //            "premiumsSymbol1M": ".ETHUSDTMPI",
         //            "premiumsSymbol8H": ".ETHUSDTMPI8H",
         //            "fundingBaseSymbol1M": ".ETHINT",
@@ -3257,7 +3257,7 @@ export default class cexc extends Exchange {
         //
         const timestampString = this.safeString(ohlcv, 0);
         if (timestampString !== undefined && timestampString.length <= 10) {
-            // cexc spot and uta return seconds timestamps
+            // kucoin spot and uta return seconds timestamps
             return [
                 this.safeTimestamp(ohlcv, 0),
                 this.safeNumber(ohlcv, 1),
@@ -3268,7 +3268,7 @@ export default class cexc extends Exchange {
             ];
         }
         else {
-            // cexc futures return milliseconds timestamps
+            // kucoin futures return milliseconds timestamps
             return [
                 this.safeInteger(ohlcv, 0),
                 this.safeNumber(ohlcv, 1),
@@ -3649,7 +3649,7 @@ export default class cexc extends Exchange {
         //        "code": "200000",
         //        "data": {
         //            "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",//Deposit address
-        //            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to Cexc Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
+        //            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to KuCoin Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
         //        }
         //    }
         //
@@ -4127,7 +4127,7 @@ export default class cexc extends Exchange {
         if (type === 'market') {
             if (quoteAmount !== undefined) {
                 params = this.omit(params, ['cost', 'funds']);
-                // cexc uses base precision even for quote values
+                // kucoin uses base precision even for quote values
                 costString = this.marketOrderAmountToPrecision(symbol, quoteAmount);
                 request['funds'] = costString;
             }
@@ -4867,7 +4867,7 @@ export default class cexc extends Exchange {
     /**
      * @method
      * @name cexc#editOrder
-     * @description edit an order, cexc currently only supports the modification of HF orders
+     * @description edit an order, kucoin currently only supports the modification of HF orders
      * @see https://exchange-broker.cexc.io/docs-new/rest/spot-trading/orders/modify-order
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market to create an order in
@@ -6516,7 +6516,7 @@ export default class cexc extends Exchange {
         //        "tags": "partner:ccxt",
         //        "relatedNo": null,
         //        "orderTime": 1674146316994000028,
-        //        "domainId": "cexc",
+        //        "domainId": "kucoin",
         //        "tradeSource": "USER",
         //        "tradeType": "MARGIN_TRADE",
         //        "feeCurrency": "USDT",
@@ -8899,7 +8899,7 @@ export default class cexc extends Exchange {
             'Transfer': 'transfer', // Transfer
             'Trade_Exchange': 'trade', // Trade
             // 'Vote for Coin': 'Vote for Coin', // Vote for Coin
-            'Cexc Bonus': 'bonus', // Cexc Bonus
+            'KuCoin Bonus': 'bonus', // KuCoin Bonus
             'Referral Bonus': 'referral', // Referral Bonus
             'Rewards': 'bonus', // Activities Rewards
             // 'Distribution': 'Distribution', // Distribution, such as get GAS by holding NEO
@@ -11333,7 +11333,7 @@ export default class cexc extends Exchange {
      * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order
      * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order-test
      * @param {string} symbol Unified CCXT market symbol
-     * @param {string} side not used by cexc closePositions
+     * @param {string} side not used by kucoin closePositions
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.clientOrderId] client order id of the order
      * @returns {object[]} [A list of position structures]{@link https://docs.ccxt.com/?id=position-structure}
@@ -11672,7 +11672,7 @@ export default class cexc extends Exchange {
     }
     sign(path, api = 'public', method = 'GET', params = {}, headers = undefined, body = undefined) {
         //
-        // the v2 URL is https://openapi-v2.cexc.com/api/v1/endpoint
+        // the v2 URL is https://openapi-v2.exchange-broker.cexc.io/api/v1/endpoint
         //                                ↑                 ↑
         //                                ↑                 ↑
         //
@@ -11723,22 +11723,22 @@ export default class cexc extends Exchange {
             this.checkRequiredCredentials();
             const timestamp = this.nonce().toString();
             headers = this.extend({
-                'KC-API-KEY-VERSION': '2',
-                'KC-API-KEY': this.apiKey,
-                'KC-API-TIMESTAMP': timestamp,
+                'CEXC-API-KEY-VERSION': '2',
+                'CEXC-API-KEY': this.apiKey,
+                'CEXC-API-TIMESTAMP': timestamp,
             }, headers);
             headers = (headers === undefined) ? {} : headers;
-            const apiKeyVersion = this.safeString(headers, 'KC-API-KEY-VERSION');
+            const apiKeyVersion = this.safeString(headers, 'CEXC-API-KEY-VERSION');
             if (apiKeyVersion === '2') {
                 const passphrase = this.hmac(this.encode(this.password), this.encode(this.secret), sha256, 'base64');
-                headers['KC-API-PASSPHRASE'] = passphrase;
+                headers['CEXC-API-PASSPHRASE'] = passphrase;
             }
             else {
-                headers['KC-API-PASSPHRASE'] = this.password;
+                headers['CEXC-API-PASSPHRASE'] = this.password;
             }
             const payload = timestamp + method + endpoint + endpart;
             const signature = this.hmac(this.encode(payload), this.encode(this.secret), sha256, 'base64');
-            headers['KC-API-SIGN'] = signature;
+            headers['CEXC-API-SIGN'] = signature;
             let partner = this.safeDict(this.options, 'partner', {});
             const isUtaFuturePrivate = isUtaPrivate && (tradeType === 'FUTURES');
             const isFuturePartner = isFuturePrivate || isUtaFuturePrivate;
@@ -11748,14 +11748,14 @@ export default class cexc extends Exchange {
             if ((partnerId !== undefined) && (partnerSecret !== undefined)) {
                 const partnerPayload = timestamp + partnerId + this.apiKey;
                 const partnerSignature = this.hmac(this.encode(partnerPayload), this.encode(partnerSecret), sha256, 'base64');
-                headers['KC-API-PARTNER-SIGN'] = partnerSignature;
-                headers['KC-API-PARTNER'] = partnerId;
-                headers['KC-API-PARTNER-VERIFY'] = 'true';
+                headers['CEXC-API-PARTNER-SIGN'] = partnerSignature;
+                headers['CEXC-API-PARTNER'] = partnerId;
+                headers['CEXC-API-PARTNER-VERIFY'] = 'true';
             }
             if (isBroker) {
                 const brokerName = this.safeString(partner, 'name');
                 if (brokerName !== undefined) {
-                    headers['KC-BROKER-NAME'] = brokerName;
+                    headers['CEXC-BROKER-NAME'] = brokerName;
                 }
             }
         }

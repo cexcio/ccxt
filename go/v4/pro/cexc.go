@@ -496,9 +496,9 @@ func (this *CexcCore) UnSubscribeMultiple(url any, messageHashes any, topic any,
  * @method
  * @name cexc#watchTicker
  * @description watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
- * @see https://exchange-broker.cexc.io/docs-new/3470063w0
- * @see https://exchange-broker.cexc.io/docs-new/3470081w0
- * @see https://exchange-broker.cexc.io/docs-new/3470222w0
+ * @see https://www.kucoin.com/docs-new/3470063w0
+ * @see https://www.kucoin.com/docs-new/3470081w0
+ * @see https://www.kucoin.com/docs-new/3470222w0
  * @param {string} symbol unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), default is false
@@ -559,9 +559,9 @@ func (this *CexcCore) WatchTicker(symbol any, optionalArgs ...any) <-chan any {
  * @method
  * @name cexc#unWatchTicker
  * @description unWatches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
- * @see https://exchange-broker.cexc.io/docs-new/3470063w0
- * @see https://exchange-broker.cexc.io/docs-new/3470081w0
- * @see https://exchange-broker.cexc.io/docs-new/3470222w0
+ * @see https://www.kucoin.com/docs-new/3470063w0
+ * @see https://www.kucoin.com/docs-new/3470081w0
+ * @see https://www.kucoin.com/docs-new/3470222w0
  * @param {string} symbol unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), default is false
@@ -635,10 +635,10 @@ func (this *CexcCore) UnWatchTicker(symbol any, optionalArgs ...any) <-chan any 
 /**
  * @method
  * @name cexc#watchTickers
- * @see https://exchange-broker.cexc.io/docs-new/3470063w0
- * @see https://exchange-broker.cexc.io/docs-new/3470064w0
- * @see https://exchange-broker.cexc.io/docs-new/3470081w0
- * @see https://exchange-broker.cexc.io/docs-new/3470222w0
+ * @see https://www.kucoin.com/docs-new/3470063w0
+ * @see https://www.kucoin.com/docs-new/3470064w0
+ * @see https://www.kucoin.com/docs-new/3470081w0
+ * @see https://www.kucoin.com/docs-new/3470222w0
  * @description watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
  * @param {string[]} symbols unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -1019,8 +1019,8 @@ func (this *CexcCore) ParseWsUtaTicker(ticker any, optionalArgs ...any) any {
 /**
  * @method
  * @name cexc#watchBidsAsks
- * @see https://exchange-broker.cexc.io/docs-new/3470067w0
- * @see https://exchange-broker.cexc.io/docs-new/3470080w0
+ * @see https://www.kucoin.com/docs-new/3470067w0
+ * @see https://www.kucoin.com/docs-new/3470080w0
  * @description watches best bid & ask for symbols
  * @param {string[]} symbols unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -1193,9 +1193,9 @@ func (this *CexcCore) ParseWsBidAsk(ticker any, optionalArgs ...any) any {
  * @method
  * @name cexc#watchOHLCV
  * @description watches historical candlestick data containing the open, high, low, and close price, and the volume of a market
- * @see https://exchange-broker.cexc.io/docs-new/3470071w0
- * @see https://exchange-broker.cexc.io/docs-new/3470086w0
- * @see https://exchange-broker.cexc.io/docs-new/3470223w0
+ * @see https://www.kucoin.com/docs-new/3470071w0
+ * @see https://www.kucoin.com/docs-new/3470086w0
+ * @see https://www.kucoin.com/docs-new/3470223w0
  * @param {string} symbol unified symbol of the market to fetch ccxt.OHLCV data for
  * @param {string} timeframe the length of time each candle represents
  * @param {int} [since] timestamp in ms of the earliest candle to fetch
@@ -1270,9 +1270,9 @@ func (this *CexcCore) WatchOHLCV(symbol any, optionalArgs ...any) <-chan any {
  * @method
  * @name cexc#unWatchOHLCV
  * @description unWatches historical candlestick data containing the open, high, low, and close price, and the volume of a market
- * @see https://exchange-broker.cexc.io/docs-new/3470071w0
- * @see https://exchange-broker.cexc.io/docs-new/3470086w0
- * @see https://exchange-broker.cexc.io/docs-new/3470223w0
+ * @see https://www.kucoin.com/docs-new/3470071w0
+ * @see https://www.kucoin.com/docs-new/3470086w0
+ * @see https://www.kucoin.com/docs-new/3470223w0
  * @param {string} symbol unified symbol of the market to fetch ccxt.OHLCV data for
  * @param {string} timeframe the length of time each candle represents
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -1380,7 +1380,7 @@ func (this *CexcCore) HandleOHLCV(client any, message any) {
 	//                "81.38",
 	//                "81.38",
 	//                "81.38",
-	//                "61.0", - Note value 5 is incorrect and will be fixed in subsequent versions of cexc
+	//                "61.0", - Note value 5 is incorrect and will be fixed in subsequent versions of kucoin
 	//                "61"
 	//            ],
 	//            "time":1715470994801
@@ -1407,7 +1407,7 @@ func (this *CexcCore) HandleOHLCV(client any, message any) {
 		ccxt.AddElementToObject(ccxt.GetValue(this.Ohlcvs, symbol), timeframe, stored)
 	}
 	var isContractMarket any = (ccxt.IsGreaterThanOrEqual(ccxt.GetIndexOf(topic, "contractMarket"), 0))
-	var baseVolumeIndex any = ccxt.Ternary(ccxt.IsTrue(isContractMarket), 6, 5) // Note value 5 is incorrect and will be fixed in subsequent versions of cexc
+	var baseVolumeIndex any = ccxt.Ternary(ccxt.IsTrue(isContractMarket), 6, 5) // Note value 5 is incorrect and will be fixed in subsequent versions of kucoin
 	var parsed any = []any{this.SafeTimestamp(candles, 0), this.SafeNumber(candles, 1), this.SafeNumber(candles, 3), this.SafeNumber(candles, 4), this.SafeNumber(candles, 2), this.SafeNumber(candles, baseVolumeIndex)}
 	stored.(ccxt.Appender).Append(parsed)
 	client.(ccxt.ClientInterface).Resolve(stored, messageHash)
@@ -1455,9 +1455,9 @@ func (this *CexcCore) HandleUtaOHLCV(client any, message any) {
  * @method
  * @name cexc#watchTrades
  * @description get the list of most recent trades for a particular symbol
- * @see https://exchange-broker.cexc.io/docs-new/3470072w0
- * @see https://exchange-broker.cexc.io/docs-new/3470084w0
- * @see https://exchange-broker.cexc.io/docs-new/3470224w0
+ * @see https://www.kucoin.com/docs-new/3470072w0
+ * @see https://www.kucoin.com/docs-new/3470084w0
+ * @see https://www.kucoin.com/docs-new/3470224w0
  * @param {string} symbol unified symbol of the market to fetch trades for
  * @param {int} [since] timestamp in ms of the earliest trade to fetch
  * @param {int} [limit] the maximum amount of trades to fetch
@@ -1514,8 +1514,8 @@ func (this *CexcCore) WatchTrades(symbol any, optionalArgs ...any) <-chan any {
  * @method
  * @name cexc#watchTradesForSymbols
  * @description get the list of most recent trades for a particular symbol
- * @see https://exchange-broker.cexc.io/docs-new/3470072w0
- * @see https://exchange-broker.cexc.io/docs-new/3470084w0
+ * @see https://www.kucoin.com/docs-new/3470072w0
+ * @see https://www.kucoin.com/docs-new/3470084w0
  * @param {string[]} symbols
  * @param {int} [since] timestamp in ms of the earliest trade to fetch
  * @param {int} [limit] the maximum amount of trades to fetch
@@ -1582,8 +1582,8 @@ func (this *CexcCore) WatchTradesForSymbols(symbols any, optionalArgs ...any) <-
  * @method
  * @name cexc#unWatchTradesForSymbols
  * @description unWatches trades stream
- * @see https://exchange-broker.cexc.io/docs-new/3470072w0
- * @see https://exchange-broker.cexc.io/docs-new/3470084w0
+ * @see https://www.kucoin.com/docs-new/3470072w0
+ * @see https://www.kucoin.com/docs-new/3470084w0
  * @param {string} symbols
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object[]} a list of [trade structures]{@link https://docs.ccxt.com/?id=public-trades}
@@ -1645,9 +1645,9 @@ func (this *CexcCore) UnWatchTradesForSymbols(symbols any, optionalArgs ...any) 
  * @method
  * @name cexc#unWatchTrades
  * @description unWatches trades stream
- * @see https://exchange-broker.cexc.io/docs-new/3470072w0
- * @see https://exchange-broker.cexc.io/docs-new/3470084w0
- * @see https://exchange-broker.cexc.io/docs-new/3470224w0
+ * @see https://www.kucoin.com/docs-new/3470072w0
+ * @see https://www.kucoin.com/docs-new/3470084w0
+ * @see https://www.kucoin.com/docs-new/3470224w0
  * @param {string} symbol unified symbol of the market to fetch trades for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta), default is false
@@ -1821,13 +1821,13 @@ func (this *CexcCore) ParseWsUtaTrade(trade any, optionalArgs ...any) any {
 /**
  * @method
  * @name cexc#watchOrderBook
- * @see https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
- * @see https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
- * @see https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
- * @see https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
- * @see https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
- * @see https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
- * @see https://exchange-broker.cexc.io/docs-new/3470221w0 // uta
+ * @see https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+ * @see https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+ * @see https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+ * @see https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+ * @see https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+ * @see https://www.kucoin.com/docs-new/3470082w0 // futures incremental
+ * @see https://www.kucoin.com/docs-new/3470221w0 // uta
  * @description watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
  * @param {string} symbol unified symbol of the market to fetch the order book for
  * @param {int} [limit] the maximum amount of order book entries to return
@@ -1907,13 +1907,13 @@ func (this *CexcCore) WatchOrderBook(symbol any, optionalArgs ...any) <-chan any
 /**
  * @method
  * @name cexc#unWatchOrderBook
- * @see https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
- * @see https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
- * @see https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
- * @see https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
- * @see https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
- * @see https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
- * @see https://exchange-broker.cexc.io/docs-new/3470221w0 // uta
+ * @see https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+ * @see https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+ * @see https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+ * @see https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+ * @see https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+ * @see https://www.kucoin.com/docs-new/3470082w0 // futures incremental
+ * @see https://www.kucoin.com/docs-new/3470221w0 // uta
  * @description unWatches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
  * @param {string} symbol unified symbol of the market to fetch the order book for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -1974,13 +1974,13 @@ func (this *CexcCore) UnWatchOrderBook(symbol any, optionalArgs ...any) <-chan a
 /**
  * @method
  * @name cexc#watchOrderBookForSymbols
- * @see https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
- * @see https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
- * @see https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
- * @see https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
- * @see https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
- * @see https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
- * @see https://exchange-broker.cexc.io/docs-new/3470221w0 // uta
+ * @see https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+ * @see https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+ * @see https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+ * @see https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+ * @see https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+ * @see https://www.kucoin.com/docs-new/3470082w0 // futures incremental
+ * @see https://www.kucoin.com/docs-new/3470221w0 // uta
  * @description watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
  * @param {string[]} symbols unified array of symbols
  * @param {int} [limit] the maximum amount of order book entries to return
@@ -2061,12 +2061,12 @@ func (this *CexcCore) WatchOrderBookForSymbols(symbols any, optionalArgs ...any)
 /**
  * @method
  * @name cexc#unWatchOrderBookForSymbols
- * @see https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
- * @see https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
- * @see https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
- * @see https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
- * @see https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
- * @see https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
+ * @see https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+ * @see https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+ * @see https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+ * @see https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+ * @see https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+ * @see https://www.kucoin.com/docs-new/3470082w0 // futures incremental
  * @description unWatches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
  * @param {string[]} symbols unified array of symbols
  * @param {object} [params] extra parameters specific to the exchange API endpoint
@@ -2435,11 +2435,11 @@ func (this *CexcCore) HandleSystemStatus(client any, message any) any {
  * @method
  * @name cexc#watchOrders
  * @description watches information on multiple orders made by the user
- * @see https://exchange-broker.cexc.io/docs-new/3470074w0 // spot regular orders
- * @see https://exchange-broker.cexc.io/docs-new/3470139w0 // spot trigger orders
- * @see https://exchange-broker.cexc.io/docs-new/3470090w0 // contract regular orders
- * @see https://exchange-broker.cexc.io/docs-new/3470091w0 // contract trigger orders
- * @see https://exchange-broker.cexc.io/docs-new/3470228w0 // uta orders
+ * @see https://www.kucoin.com/docs-new/3470074w0 // spot regular orders
+ * @see https://www.kucoin.com/docs-new/3470139w0 // spot trigger orders
+ * @see https://www.kucoin.com/docs-new/3470090w0 // contract regular orders
+ * @see https://www.kucoin.com/docs-new/3470091w0 // contract trigger orders
+ * @see https://www.kucoin.com/docs-new/3470228w0 // uta orders
  * @param {string} symbol unified market symbol of the market orders were made in
  * @param {int} [since] the earliest time in ms to fetch orders for
  * @param {int} [limit] the maximum number of order structures to retrieve
@@ -2890,9 +2890,9 @@ func (this *CexcCore) HandleUtaOrder(client any, message any) {
  * @method
  * @name cexc#watchMyTrades
  * @description watches information on multiple trades made by the user on spot
- * @see https://exchange-broker.cexc.io/docs-new/3470074w0
- * @see https://exchange-broker.cexc.io/docs-new/3470090w0
- * @see https://exchange-broker.cexc.io/docs-new/3470264w0
+ * @see https://www.kucoin.com/docs-new/3470074w0
+ * @see https://www.kucoin.com/docs-new/3470090w0
+ * @see https://www.kucoin.com/docs-new/3470264w0
  * @param {string} symbol unified market symbol of the market trades were made in
  * @param {int} [since] the earliest time in ms to fetch trades for
  * @param {int} [limit] the maximum number of trade structures to retrieve
@@ -3149,9 +3149,9 @@ func (this *CexcCore) ParseWsTrade(trade any, optionalArgs ...any) any {
  * @method
  * @name cexc#watchBalance
  * @description watch balance and get the amount of funds available for trading or funds locked in orders
- * @see https://exchange-broker.cexc.io/docs-new/3470075w0 // spot balance
- * @see https://exchange-broker.cexc.io/docs-new/3470092w0 // contract balance
- * @see https://exchange-broker.cexc.io/docs-new/3470231w0 // uta balance
+ * @see https://www.kucoin.com/docs-new/3470075w0 // spot balance
+ * @see https://www.kucoin.com/docs-new/3470092w0 // contract balance
+ * @see https://www.kucoin.com/docs-new/3470231w0 // uta balance
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {boolean} [params.uta] set to true for the unified trading account (uta)
  * @param {string} [params.type] *classic (non-uta) account only* 'spot' or 'swap' (default is 'spot')
@@ -3430,7 +3430,7 @@ func (this *CexcCore) HandleUtaBalance(client any, message any) {
  * @method
  * @name cexc#watchPosition
  * @description watch open positions for a specific symbol
- * @see https://exchange-broker.cexc.io/docs-new/3470093w0
+ * @see https://www.kucoin.com/docs-new/3470093w0
  * @param {string|undefined} symbol unified market symbol
  * @param {object} params extra parameters specific to the exchange API endpoint
  * @returns {object} a [position structure]{@link https://docs.ccxt.com/en/latest/manual.html#position-structure}
@@ -3487,7 +3487,7 @@ func (this *CexcCore) WatchPosition(optionalArgs ...any) <-chan any {
 /**
  * @method
  * @name cexc#watchPositions
- * @see https://exchange-broker.cexc.io/docs-new/3470233w0
+ * @see https://www.kucoin.com/docs-new/3470233w0
  * @description watch all open positions
  * @param {string[]} [symbols] list of unified market symbols
  * @param {int} [since] the earliest time in ms to fetch positions for
@@ -3879,7 +3879,7 @@ func (this *CexcCore) ParseWsUtaPosition(position any, optionalArgs ...any) any 
  * @method
  * @name cexc#watchFundingRate
  * @description watch the current funding rate
- * @see https://exchange-broker.cexc.io/docs-new/3470270w0
+ * @see https://www.kucoin.com/docs-new/3470270w0
  * @param {string} symbol unified market symbol
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [funding rate structure]{@link https://docs.ccxt.com/?id=funding-rate-structure}
@@ -3913,7 +3913,7 @@ func (this *CexcCore) WatchFundingRate(symbol any, optionalArgs ...any) <-chan a
  * @method
  * @name cexc#unWatchFundingRate
  * @description unWatches the current funding rate for a symbol
- * @see https://exchange-broker.cexc.io/docs-new/3470270w0
+ * @see https://www.kucoin.com/docs-new/3470270w0
  * @param {string} symbol unified symbol of the market
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [funding rate structure]{@link https://docs.ccxt.com/?id=funding-rate-structure}
@@ -4019,7 +4019,7 @@ func (this *CexcCore) ParseWsFundingRate(data any, optionalArgs ...any) any {
  * @method
  * @name cexc#watchMarkPrice
  * @description watches a mark price for a specific market
- * @see https://exchange-broker.cexc.io/docs-new/3470272w0
+ * @see https://www.kucoin.com/docs-new/3470272w0
  * @param {string} symbol unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
@@ -4053,7 +4053,7 @@ func (this *CexcCore) WatchMarkPrice(symbol any, optionalArgs ...any) <-chan any
  * @method
  * @name cexc#unWatchMarkPrice
  * @description unWatches a mark price for a specific market
- * @see https://exchange-broker.cexc.io/docs-new/3470272w0
+ * @see https://www.kucoin.com/docs-new/3470272w0
  * @param {string} symbol unified symbol of the market to fetch the ticker for
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @returns {object} a [ticker structure]{@link https://docs.ccxt.com/?id=ticker-structure}
@@ -4178,7 +4178,7 @@ func (this *CexcCore) HandleSubject(client any, message any) {
 	}
 }
 func (this *CexcCore) Ping(client any) any {
-	// cexc does not support built-in ws protocol-level ping-pong
+	// kucoin does not support built-in ws protocol-level ping-pong
 	// instead it requires a custom json-based text ping-pong
 	// https://exchange-broker.cexc.io/api/v1/documentation/#ping
 	var id any = ccxt.ToString(this.RequestId())

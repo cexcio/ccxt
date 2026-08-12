@@ -175,7 +175,7 @@ public partial class BaseExchange
     public Int64? safeIntegerProduct(object obj, object key, object multiplier = null, object defaultValue = null)
     {
         multiplier ??= 1;
-        var result = safeValueN(obj, new List<object> { key });
+        var result = safeValueN(obj, new List<object> { key }, defaultValue);
         Int64? convertedDefaultValue = (defaultValue == null) ? null : Convert.ToInt64(defaultValue);
         if (result == null)
         {

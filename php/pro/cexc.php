@@ -92,7 +92,7 @@ class cexc extends \ccxt\async\cexc {
                 ),
             ),
             'streaming' => array(
-                // cexc does not support built-in ws protocol-level ping-pong
+                // kucoin does not support built-in ws protocol-level ping-pong
                 // instead it requires a custom json-based text ping-pong
                 // https://exchange-broker.cexc.io/api/v1/documentation/#ping
                 'ping' => array($this, 'ping'),
@@ -373,9 +373,9 @@ class cexc extends \ccxt\async\cexc {
         /**
          * watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific $market
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470063w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470081w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470222w0
+         * @see https://www.kucoin.com/docs-new/3470063w0
+         * @see https://www.kucoin.com/docs-new/3470081w0
+         * @see https://www.kucoin.com/docs-new/3470222w0
          *
          * @param {string} $symbol unified $symbol of the $market to fetch the ticker for
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -415,9 +415,9 @@ class cexc extends \ccxt\async\cexc {
         /**
          * unWatches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific $market
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470063w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470081w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470222w0
+         * @see https://www.kucoin.com/docs-new/3470063w0
+         * @see https://www.kucoin.com/docs-new/3470081w0
+         * @see https://www.kucoin.com/docs-new/3470222w0
          *
          * @param {string} $symbol unified $symbol of the $market to fetch the ticker for
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -470,10 +470,10 @@ class cexc extends \ccxt\async\cexc {
     private function do_watch_tickers(?array $symbols = null, $params = array()) {
         /**
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470063w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470064w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470081w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470222w0
+         * @see https://www.kucoin.com/docs-new/3470063w0
+         * @see https://www.kucoin.com/docs-new/3470064w0
+         * @see https://www.kucoin.com/docs-new/3470081w0
+         * @see https://www.kucoin.com/docs-new/3470222w0
          *
          * watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
          * @param {string[]} $symbols unified $symbol of the $market to fetch the ticker for
@@ -804,8 +804,8 @@ class cexc extends \ccxt\async\cexc {
     private function do_watch_bids_asks(?array $symbols = null, $params = array()) {
         /**
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470067w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470080w0
+         * @see https://www.kucoin.com/docs-new/3470067w0
+         * @see https://www.kucoin.com/docs-new/3470080w0
          *
          * watches best bid & ask for $symbols
          * @param {string[]} $symbols unified symbol of the market to fetch the $ticker for
@@ -949,9 +949,9 @@ class cexc extends \ccxt\async\cexc {
         /**
          * watches historical candlestick data containing the open, high, low, and close price, and the volume of a $market
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470071w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470086w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470223w0
+         * @see https://www.kucoin.com/docs-new/3470071w0
+         * @see https://www.kucoin.com/docs-new/3470086w0
+         * @see https://www.kucoin.com/docs-new/3470223w0
          *
          * @param {string} $symbol unified $symbol of the $market to fetch OHLCV data for
          * @param {string} $timeframe the length of time each candle represents
@@ -1003,9 +1003,9 @@ class cexc extends \ccxt\async\cexc {
         /**
          * unWatches historical candlestick data containing the open, high, low, and close price, and the volume of a $market
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470071w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470086w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470223w0
+         * @see https://www.kucoin.com/docs-new/3470071w0
+         * @see https://www.kucoin.com/docs-new/3470086w0
+         * @see https://www.kucoin.com/docs-new/3470223w0
          *
          * @param {string} $symbol unified $symbol of the $market to fetch OHLCV data for
          * @param {string} $timeframe the length of time each candle represents
@@ -1089,7 +1089,7 @@ class cexc extends \ccxt\async\cexc {
         //                "81.38",
         //                "81.38",
         //                "81.38",
-        //                "61.0", - Note value 5 is incorrect and will be fixed in subsequent versions of cexc
+        //                "61.0", - Note value 5 is incorrect and will be fixed in subsequent versions of kucoin
         //                "61"
         //            ),
         //            "time":1715470994801
@@ -1116,7 +1116,7 @@ class cexc extends \ccxt\async\cexc {
             $this->ohlcvs[$symbol][$timeframe] = $stored;
         }
         $isContractMarket = (mb_strpos($topic, 'contractMarket') !== false);
-        $baseVolumeIndex = $isContractMarket ? 6 : 5; // Note value 5 is incorrect and will be fixed in subsequent versions of cexc
+        $baseVolumeIndex = $isContractMarket ? 6 : 5; // Note value 5 is incorrect and will be fixed in subsequent versions of kucoin
         $parsed = array(
             $this->safe_timestamp($candles, 0),
             $this->safe_number($candles, 1),
@@ -1183,9 +1183,9 @@ class cexc extends \ccxt\async\cexc {
         /**
          * get the list of most recent $trades for a particular $symbol
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470072w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470084w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470224w0
+         * @see https://www.kucoin.com/docs-new/3470072w0
+         * @see https://www.kucoin.com/docs-new/3470084w0
+         * @see https://www.kucoin.com/docs-new/3470224w0
          *
          * @param {string} $symbol unified $symbol of the $market to fetch $trades for
          * @param {int} [$since] timestamp in ms of the earliest trade to fetch
@@ -1221,8 +1221,8 @@ class cexc extends \ccxt\async\cexc {
         /**
          * get the list of most recent $trades for a particular $symbol
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470072w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470084w0
+         * @see https://www.kucoin.com/docs-new/3470072w0
+         * @see https://www.kucoin.com/docs-new/3470084w0
          *
          * @param {string[]} $symbols
          * @param {int} [$since] timestamp in ms of the earliest trade to fetch
@@ -1272,8 +1272,8 @@ class cexc extends \ccxt\async\cexc {
         /**
          * unWatches trades stream
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470072w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470084w0
+         * @see https://www.kucoin.com/docs-new/3470072w0
+         * @see https://www.kucoin.com/docs-new/3470084w0
          *
          * @param {string} $symbols
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -1322,9 +1322,9 @@ class cexc extends \ccxt\async\cexc {
         /**
          * unWatches trades stream
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470072w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470084w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470224w0
+         * @see https://www.kucoin.com/docs-new/3470072w0
+         * @see https://www.kucoin.com/docs-new/3470084w0
+         * @see https://www.kucoin.com/docs-new/3470224w0
          *
          * @param {string} $symbol unified $symbol of the $market to fetch trades for
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -1482,13 +1482,13 @@ class cexc extends \ccxt\async\cexc {
     private function do_watch_order_book(string $symbol, ?int $limit = null, $params = array()) {
         /**
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
-         * @see https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
-         * @see https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
-         * @see https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
-         * @see https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
-         * @see https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
-         * @see https://exchange-broker.cexc.io/docs-new/3470221w0 // $uta
+         * @see https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+         * @see https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+         * @see https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+         * @see https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+         * @see https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+         * @see https://www.kucoin.com/docs-new/3470082w0 // futures incremental
+         * @see https://www.kucoin.com/docs-new/3470221w0 // $uta
          *
          * watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
          * @param {string} $symbol unified $symbol of the $market to fetch the order book for
@@ -1547,13 +1547,13 @@ class cexc extends \ccxt\async\cexc {
     private function do_un_watch_order_book(string $symbol, $params = array()) {
         /**
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
-         * @see https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
-         * @see https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
-         * @see https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
-         * @see https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
-         * @see https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
-         * @see https://exchange-broker.cexc.io/docs-new/3470221w0 // $uta
+         * @see https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+         * @see https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+         * @see https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+         * @see https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+         * @see https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+         * @see https://www.kucoin.com/docs-new/3470082w0 // futures incremental
+         * @see https://www.kucoin.com/docs-new/3470221w0 // $uta
          *
          * unWatches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
          * @param {string} $symbol unified $symbol of the $market to fetch the order book for
@@ -1595,13 +1595,13 @@ class cexc extends \ccxt\async\cexc {
     private function do_watch_order_book_for_symbols(array $symbols, ?int $limit = null, $params = array()) {
         /**
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
-         * @see https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
-         * @see https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
-         * @see https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
-         * @see https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
-         * @see https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
-         * @see https://exchange-broker.cexc.io/docs-new/3470221w0 // uta
+         * @see https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+         * @see https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+         * @see https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+         * @see https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+         * @see https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+         * @see https://www.kucoin.com/docs-new/3470082w0 // futures incremental
+         * @see https://www.kucoin.com/docs-new/3470221w0 // uta
          *
          * watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
          * @param {string[]} $symbols unified array of $symbols
@@ -1665,12 +1665,12 @@ class cexc extends \ccxt\async\cexc {
     private function do_un_watch_order_book_for_symbols(array $symbols, $params = array()) {
         /**
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470069w0 // spot level 5
-         * @see https://exchange-broker.cexc.io/docs-new/3470070w0 // spot level 50
-         * @see https://exchange-broker.cexc.io/docs-new/3470068w0 // spot incremental
-         * @see https://exchange-broker.cexc.io/docs-new/3470083w0 // futures level 5
-         * @see https://exchange-broker.cexc.io/docs-new/3470097w0 // futures level 50
-         * @see https://exchange-broker.cexc.io/docs-new/3470082w0 // futures incremental
+         * @see https://www.kucoin.com/docs-new/3470069w0 // spot level 5
+         * @see https://www.kucoin.com/docs-new/3470070w0 // spot level 50
+         * @see https://www.kucoin.com/docs-new/3470068w0 // spot incremental
+         * @see https://www.kucoin.com/docs-new/3470083w0 // futures level 5
+         * @see https://www.kucoin.com/docs-new/3470097w0 // futures level 50
+         * @see https://www.kucoin.com/docs-new/3470082w0 // futures incremental
          *
          * unWatches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
          * @param {string[]} $symbols unified array of $symbols
@@ -2036,11 +2036,11 @@ class cexc extends \ccxt\async\cexc {
         /**
          * watches information on multiple $orders made by the user
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470074w0 // spot regular $orders
-         * @see https://exchange-broker.cexc.io/docs-new/3470139w0 // spot $trigger $orders
-         * @see https://exchange-broker.cexc.io/docs-new/3470090w0 // contract regular $orders
-         * @see https://exchange-broker.cexc.io/docs-new/3470091w0 // contract $trigger $orders
-         * @see https://exchange-broker.cexc.io/docs-new/3470228w0 // $uta $orders
+         * @see https://www.kucoin.com/docs-new/3470074w0 // spot regular $orders
+         * @see https://www.kucoin.com/docs-new/3470139w0 // spot $trigger $orders
+         * @see https://www.kucoin.com/docs-new/3470090w0 // contract regular $orders
+         * @see https://www.kucoin.com/docs-new/3470091w0 // contract $trigger $orders
+         * @see https://www.kucoin.com/docs-new/3470228w0 // $uta $orders
          *
          * @param {string} $symbol unified $market $symbol of the $market $orders were made in
          * @param {int} [$since] the earliest time in ms to fetch $orders for
@@ -2466,9 +2466,9 @@ class cexc extends \ccxt\async\cexc {
         /**
          * watches information on multiple $trades made by the user on spot
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470074w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470090w0
-         * @see https://exchange-broker.cexc.io/docs-new/3470264w0
+         * @see https://www.kucoin.com/docs-new/3470074w0
+         * @see https://www.kucoin.com/docs-new/3470090w0
+         * @see https://www.kucoin.com/docs-new/3470264w0
          *
          * @param {string} $symbol unified $market $symbol of the $market $trades were made in
          * @param {int} [$since] the earliest time in ms to fetch $trades for
@@ -2698,9 +2698,9 @@ class cexc extends \ccxt\async\cexc {
         /**
          * watch balance and get the amount of funds available for trading or funds locked in orders
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470075w0 // spot balance
-         * @see https://exchange-broker.cexc.io/docs-new/3470092w0 // contract balance
-         * @see https://exchange-broker.cexc.io/docs-new/3470231w0 // $uta balance
+         * @see https://www.kucoin.com/docs-new/3470075w0 // spot balance
+         * @see https://www.kucoin.com/docs-new/3470092w0 // contract balance
+         * @see https://www.kucoin.com/docs-new/3470231w0 // $uta balance
          *
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
          * @param {boolean} [$params->uta] set to true for the unified trading account ($uta)
@@ -2953,7 +2953,7 @@ class cexc extends \ccxt\async\cexc {
         /**
          * watch open positions for a specific $symbol
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470093w0
+         * @see https://www.kucoin.com/docs-new/3470093w0
          *
          * @param {string|null} $symbol unified $market $symbol
          * @param {array} $params extra parameters specific to the exchange API endpoint
@@ -2991,7 +2991,7 @@ class cexc extends \ccxt\async\cexc {
     private function do_watch_positions(?array $symbols = null, ?int $since = null, ?int $limit = null, $params = array()) {
         /**
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470233w0
+         * @see https://www.kucoin.com/docs-new/3470233w0
          *
          * watch all open positions
          * @param {string[]} [$symbols] list of unified market $symbols
@@ -3348,7 +3348,7 @@ class cexc extends \ccxt\async\cexc {
         /**
          * watch the current funding rate
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470270w0
+         * @see https://www.kucoin.com/docs-new/3470270w0
          *
          * @param {string} $symbol unified market $symbol
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -3371,7 +3371,7 @@ class cexc extends \ccxt\async\cexc {
         /**
          * unWatches the current funding rate for a $symbol
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470270w0
+         * @see https://www.kucoin.com/docs-new/3470270w0
          *
          * @param {string} $symbol unified $symbol of the market
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -3466,7 +3466,7 @@ class cexc extends \ccxt\async\cexc {
         /**
          * watches a mark price for a specific market
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470272w0
+         * @see https://www.kucoin.com/docs-new/3470272w0
          *
          * @param {string} $symbol unified $symbol of the market to fetch the ticker for
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -3489,7 +3489,7 @@ class cexc extends \ccxt\async\cexc {
         /**
          * unWatches a mark price for a specific market
          *
-         * @see https://exchange-broker.cexc.io/docs-new/3470272w0
+         * @see https://www.kucoin.com/docs-new/3470272w0
          *
          * @param {string} $symbol unified $symbol of the market to fetch the ticker for
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
@@ -3603,7 +3603,7 @@ class cexc extends \ccxt\async\cexc {
     }
 
     public function ping(Client $client) {
-        // cexc does not support built-in ws protocol-level ping-pong
+        // kucoin does not support built-in ws protocol-level ping-pong
         // instead it requires a custom json-based text ping-pong
         // https://exchange-broker.cexc.io/api/v1/documentation/#ping
         $id = (string) $this->request_id();
