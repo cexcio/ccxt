@@ -153,6 +153,10 @@ func DynamicallyCreateInstance(exchangeId string, exchangeArgs map[string]any) (
 		cexItf := NewCexCore()
 		cexItf.Init(exchangeArgs)
 		return cexItf, true
+	case "cexc":
+		cexcItf := NewCexcCore()
+		cexcItf.Init(exchangeArgs)
+		return cexcItf, true
 	case "coinbase":
 		coinbaseItf := NewCoinbaseCore()
 		coinbaseItf.Init(exchangeArgs)

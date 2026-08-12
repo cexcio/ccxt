@@ -100,6 +100,7 @@ from ccxt.async_support.bybit import bybit                                      
 from ccxt.async_support.bybiteu import bybiteu                                  # noqa: F401
 from ccxt.async_support.bydfi import bydfi                                      # noqa: F401
 from ccxt.async_support.cex import cex                                          # noqa: F401
+from ccxt.async_support.cexc import cexc                                        # noqa: F401
 from ccxt.async_support.coinbase import coinbase                                # noqa: F401
 from ccxt.async_support.coinbaseexchange import coinbaseexchange                # noqa: F401
 from ccxt.async_support.coinbaseinternational import coinbaseinternational      # noqa: F401
@@ -205,6 +206,7 @@ exchanges = [
     'bybiteu',
     'bydfi',
     'cex',
+    'cexc',
     'coinbase',
     'coinbaseexchange',
     'coinbaseinternational',

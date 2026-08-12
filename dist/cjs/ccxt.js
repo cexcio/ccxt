@@ -45,6 +45,7 @@ var bybit = require('./src/bybit.js');
 var bybiteu = require('./src/bybiteu.js');
 var bydfi = require('./src/bydfi.js');
 var cex = require('./src/cex.js');
+var cexc = require('./src/cexc.js');
 var coinbase = require('./src/coinbase.js');
 var coinbaseexchange = require('./src/coinbaseexchange.js');
 var coinbaseinternational = require('./src/coinbaseinternational.js');
@@ -138,6 +139,7 @@ var bybit$1 = require('./src/pro/bybit.js');
 var bybiteu$1 = require('./src/pro/bybiteu.js');
 var bydfi$1 = require('./src/pro/bydfi.js');
 var cex$1 = require('./src/pro/cex.js');
+var cexc$1 = require('./src/pro/cexc.js');
 var coinbase$1 = require('./src/pro/coinbase.js');
 var coinbaseexchange$1 = require('./src/pro/coinbaseexchange.js');
 var coinbaseinternational$1 = require('./src/pro/coinbaseinternational.js');
@@ -237,6 +239,7 @@ const exchanges = {
     'bybiteu': bybiteu["default"],
     'bydfi': bydfi["default"],
     'cex': cex["default"],
+    'cexc': cexc["default"],
     'coinbase': coinbase["default"],
     'coinbaseexchange': coinbaseexchange["default"],
     'coinbaseinternational': coinbaseinternational["default"],
@@ -332,6 +335,7 @@ const pro = {
     'bybiteu': bybiteu$1["default"],
     'bydfi': bydfi$1["default"],
     'cex': cex$1["default"],
+    'cexc': cexc$1["default"],
     'coinbase': coinbase$1["default"],
     'coinbaseexchange': coinbaseexchange$1["default"],
     'coinbaseinternational': coinbaseinternational$1["default"],
@@ -487,6 +491,7 @@ exports.bybit = bybit["default"];
 exports.bybiteu = bybiteu["default"];
 exports.bydfi = bydfi["default"];
 exports.cex = cex["default"];
+exports.cexc = cexc["default"];
 exports.coinbase = coinbase["default"];
 exports.coinbaseexchange = coinbaseexchange["default"];
 exports.coinbaseinternational = coinbaseinternational["default"];

@@ -376,6 +376,7 @@ class BaseExchange {
         'bybiteu',
         'bydfi',
         'cex',
+        'cexc',
         'coinbase',
         'coinbaseexchange',
         'coinbaseinternational',
