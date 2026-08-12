@@ -120,6 +120,7 @@ from ccxt.bybit import bybit                                          # noqa: F4
 from ccxt.bybiteu import bybiteu                                      # noqa: F401
 from ccxt.bydfi import bydfi                                          # noqa: F401
 from ccxt.cex import cex                                              # noqa: F401
+from ccxt.cexc import cexc                                            # noqa: F401
 from ccxt.coinbase import coinbase                                    # noqa: F401
 from ccxt.coinbaseexchange import coinbaseexchange                    # noqa: F401
 from ccxt.coinbaseinternational import coinbaseinternational          # noqa: F401
@@ -225,6 +226,7 @@ exchanges = [
     'bybiteu',
     'bydfi',
     'cex',
+    'cexc',
     'coinbase',
     'coinbaseexchange',
     'coinbaseinternational',
