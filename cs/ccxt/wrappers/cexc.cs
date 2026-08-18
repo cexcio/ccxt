@@ -1226,7 +1226,7 @@ public partial class cexc
         return ((IList<object>)res).Select(item => new Order(item)).ToList<Order>();
     }
     /// <summary>
-    /// edit an order, kucoin currently only supports the modification of HF orders
+    /// edit an order, cexc currently only supports the modification of HF orders
     /// </summary>
     /// <remarks>
     /// See <see href="https://exchange-broker.cexc.io/docs-new/rest/spot-trading/orders/modify-order"/>  <br/>

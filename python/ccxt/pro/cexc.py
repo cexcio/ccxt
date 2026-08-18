@@ -91,7 +91,7 @@ class cexc(ccxt.async_support.cexc):
                 },
             },
             'streaming': {
-                # kucoin does not support built-in ws protocol-level ping-pong
+                # cexc does not support built-in ws protocol-level ping-pong
                 # instead it requires a custom json-based text ping-pong
                 # https://exchange-broker.cexc.io/api/v1/documentation/#ping
                 'ping': self.ping,
@@ -303,9 +303,9 @@ class cexc(ccxt.async_support.cexc):
         """
         watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
 
-        https://www.kucoin.com/docs-new/3470063w0
-        https://www.kucoin.com/docs-new/3470081w0
-        https://www.kucoin.com/docs-new/3470222w0
+        https://exchange-broker.cexc.io/docs-new/3470063w0
+        https://exchange-broker.cexc.io/docs-new/3470081w0
+        https://exchange-broker.cexc.io/docs-new/3470222w0
 
         :param str symbol: unified symbol of the market to fetch the ticker for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -337,9 +337,9 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
 
-        https://www.kucoin.com/docs-new/3470063w0
-        https://www.kucoin.com/docs-new/3470081w0
-        https://www.kucoin.com/docs-new/3470222w0
+        https://exchange-broker.cexc.io/docs-new/3470063w0
+        https://exchange-broker.cexc.io/docs-new/3470081w0
+        https://exchange-broker.cexc.io/docs-new/3470222w0
 
         :param str symbol: unified symbol of the market to fetch the ticker for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -384,10 +384,10 @@ class cexc(ccxt.async_support.cexc):
     async def watch_tickers(self, symbols: Strings = None, params={}) -> Tickers:
         """
 
-        https://www.kucoin.com/docs-new/3470063w0
-        https://www.kucoin.com/docs-new/3470064w0
-        https://www.kucoin.com/docs-new/3470081w0
-        https://www.kucoin.com/docs-new/3470222w0
+        https://exchange-broker.cexc.io/docs-new/3470063w0
+        https://exchange-broker.cexc.io/docs-new/3470064w0
+        https://exchange-broker.cexc.io/docs-new/3470081w0
+        https://exchange-broker.cexc.io/docs-new/3470222w0
 
         watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
         :param str[] symbols: unified symbol of the market to fetch the ticker for
@@ -683,8 +683,8 @@ class cexc(ccxt.async_support.cexc):
     async def watch_bids_asks(self, symbols: Strings = None, params={}) -> Tickers:
         """
 
-        https://www.kucoin.com/docs-new/3470067w0
-        https://www.kucoin.com/docs-new/3470080w0
+        https://exchange-broker.cexc.io/docs-new/3470067w0
+        https://exchange-broker.cexc.io/docs-new/3470080w0
 
         watches best bid & ask for symbols
         :param str[] symbols: unified symbol of the market to fetch the ticker for
@@ -809,9 +809,9 @@ class cexc(ccxt.async_support.cexc):
         """
         watches historical candlestick data containing the open, high, low, and close price, and the volume of a market
 
-        https://www.kucoin.com/docs-new/3470071w0
-        https://www.kucoin.com/docs-new/3470086w0
-        https://www.kucoin.com/docs-new/3470223w0
+        https://exchange-broker.cexc.io/docs-new/3470071w0
+        https://exchange-broker.cexc.io/docs-new/3470086w0
+        https://exchange-broker.cexc.io/docs-new/3470223w0
 
         :param str symbol: unified symbol of the market to fetch OHLCV data for
         :param str timeframe: the length of time each candle represents
@@ -854,9 +854,9 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches historical candlestick data containing the open, high, low, and close price, and the volume of a market
 
-        https://www.kucoin.com/docs-new/3470071w0
-        https://www.kucoin.com/docs-new/3470086w0
-        https://www.kucoin.com/docs-new/3470223w0
+        https://exchange-broker.cexc.io/docs-new/3470071w0
+        https://exchange-broker.cexc.io/docs-new/3470086w0
+        https://exchange-broker.cexc.io/docs-new/3470223w0
 
         :param str symbol: unified symbol of the market to fetch OHLCV data for
         :param str timeframe: the length of time each candle represents
@@ -936,7 +936,7 @@ class cexc(ccxt.async_support.cexc):
         #                "81.38",
         #                "81.38",
         #                "81.38",
-        #                "61.0", - Note value 5 is incorrect and will be fixed in subsequent versions of kucoin
+        #                "61.0", - Note value 5 is incorrect and will be fixed in subsequent versions of cexc
         #                "61"
         #            ],
         #            "time":1715470994801
@@ -962,7 +962,7 @@ class cexc(ccxt.async_support.cexc):
             stored = ArrayCacheByTimestamp(limit)
             self.ohlcvs[symbol][timeframe] = stored
         isContractMarket = (topic.find('contractMarket') >= 0)
-        baseVolumeIndex = 6 if isContractMarket else 5  # Note value 5 is incorrect and will be fixed in subsequent versions of kucoin
+        baseVolumeIndex = 6 if isContractMarket else 5  # Note value 5 is incorrect and will be fixed in subsequent versions of cexc
         parsed = [
             self.safe_timestamp(candles, 0),
             self.safe_number(candles, 1),
@@ -1022,9 +1022,9 @@ class cexc(ccxt.async_support.cexc):
         """
         get the list of most recent trades for a particular symbol
 
-        https://www.kucoin.com/docs-new/3470072w0
-        https://www.kucoin.com/docs-new/3470084w0
-        https://www.kucoin.com/docs-new/3470224w0
+        https://exchange-broker.cexc.io/docs-new/3470072w0
+        https://exchange-broker.cexc.io/docs-new/3470084w0
+        https://exchange-broker.cexc.io/docs-new/3470224w0
 
         :param str symbol: unified symbol of the market to fetch trades for
         :param int [since]: timestamp in ms of the earliest trade to fetch
@@ -1053,8 +1053,8 @@ class cexc(ccxt.async_support.cexc):
         """
         get the list of most recent trades for a particular symbol
 
-        https://www.kucoin.com/docs-new/3470072w0
-        https://www.kucoin.com/docs-new/3470084w0
+        https://exchange-broker.cexc.io/docs-new/3470072w0
+        https://exchange-broker.cexc.io/docs-new/3470084w0
 
         :param str[] symbols:
         :param int [since]: timestamp in ms of the earliest trade to fetch
@@ -1094,8 +1094,8 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches trades stream
 
-        https://www.kucoin.com/docs-new/3470072w0
-        https://www.kucoin.com/docs-new/3470084w0
+        https://exchange-broker.cexc.io/docs-new/3470072w0
+        https://exchange-broker.cexc.io/docs-new/3470084w0
 
         :param str symbols:
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -1136,9 +1136,9 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches trades stream
 
-        https://www.kucoin.com/docs-new/3470072w0
-        https://www.kucoin.com/docs-new/3470084w0
-        https://www.kucoin.com/docs-new/3470224w0
+        https://exchange-broker.cexc.io/docs-new/3470072w0
+        https://exchange-broker.cexc.io/docs-new/3470084w0
+        https://exchange-broker.cexc.io/docs-new/3470224w0
 
         :param str symbol: unified symbol of the market to fetch trades for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -1284,13 +1284,13 @@ class cexc(ccxt.async_support.cexc):
     async def watch_order_book(self, symbol: str, limit: Int = None, params={}) -> OrderBook:
         """
 
-        https://www.kucoin.com/docs-new/3470069w0  # spot level 5
-        https://www.kucoin.com/docs-new/3470070w0  # spot level 50
-        https://www.kucoin.com/docs-new/3470068w0  # spot incremental
-        https://www.kucoin.com/docs-new/3470083w0  # futures level 5
-        https://www.kucoin.com/docs-new/3470097w0  # futures level 50
-        https://www.kucoin.com/docs-new/3470082w0  # futures incremental
-        https://www.kucoin.com/docs-new/3470221w0  # uta
+        https://exchange-broker.cexc.io/docs-new/3470069w0  # spot level 5
+        https://exchange-broker.cexc.io/docs-new/3470070w0  # spot level 50
+        https://exchange-broker.cexc.io/docs-new/3470068w0  # spot incremental
+        https://exchange-broker.cexc.io/docs-new/3470083w0  # futures level 5
+        https://exchange-broker.cexc.io/docs-new/3470097w0  # futures level 50
+        https://exchange-broker.cexc.io/docs-new/3470082w0  # futures incremental
+        https://exchange-broker.cexc.io/docs-new/3470221w0  # uta
 
         watches information on open orders with bid(buy) and ask(sell) prices, volumes and other data
         :param str symbol: unified symbol of the market to fetch the order book for
@@ -1342,13 +1342,13 @@ class cexc(ccxt.async_support.cexc):
     async def un_watch_order_book(self, symbol: str, params={}) -> Any:
         """
 
-        https://www.kucoin.com/docs-new/3470069w0  # spot level 5
-        https://www.kucoin.com/docs-new/3470070w0  # spot level 50
-        https://www.kucoin.com/docs-new/3470068w0  # spot incremental
-        https://www.kucoin.com/docs-new/3470083w0  # futures level 5
-        https://www.kucoin.com/docs-new/3470097w0  # futures level 50
-        https://www.kucoin.com/docs-new/3470082w0  # futures incremental
-        https://www.kucoin.com/docs-new/3470221w0  # uta
+        https://exchange-broker.cexc.io/docs-new/3470069w0  # spot level 5
+        https://exchange-broker.cexc.io/docs-new/3470070w0  # spot level 50
+        https://exchange-broker.cexc.io/docs-new/3470068w0  # spot incremental
+        https://exchange-broker.cexc.io/docs-new/3470083w0  # futures level 5
+        https://exchange-broker.cexc.io/docs-new/3470097w0  # futures level 50
+        https://exchange-broker.cexc.io/docs-new/3470082w0  # futures incremental
+        https://exchange-broker.cexc.io/docs-new/3470221w0  # uta
 
         unWatches information on open orders with bid(buy) and ask(sell) prices, volumes and other data
         :param str symbol: unified symbol of the market to fetch the order book for
@@ -1384,13 +1384,13 @@ class cexc(ccxt.async_support.cexc):
     async def watch_order_book_for_symbols(self, symbols: List[str], limit: Int = None, params={}) -> OrderBook:
         """
 
-        https://www.kucoin.com/docs-new/3470069w0  # spot level 5
-        https://www.kucoin.com/docs-new/3470070w0  # spot level 50
-        https://www.kucoin.com/docs-new/3470068w0  # spot incremental
-        https://www.kucoin.com/docs-new/3470083w0  # futures level 5
-        https://www.kucoin.com/docs-new/3470097w0  # futures level 50
-        https://www.kucoin.com/docs-new/3470082w0  # futures incremental
-        https://www.kucoin.com/docs-new/3470221w0  # uta
+        https://exchange-broker.cexc.io/docs-new/3470069w0  # spot level 5
+        https://exchange-broker.cexc.io/docs-new/3470070w0  # spot level 50
+        https://exchange-broker.cexc.io/docs-new/3470068w0  # spot incremental
+        https://exchange-broker.cexc.io/docs-new/3470083w0  # futures level 5
+        https://exchange-broker.cexc.io/docs-new/3470097w0  # futures level 50
+        https://exchange-broker.cexc.io/docs-new/3470082w0  # futures incremental
+        https://exchange-broker.cexc.io/docs-new/3470221w0  # uta
 
         watches information on open orders with bid(buy) and ask(sell) prices, volumes and other data
         :param str[] symbols: unified array of symbols
@@ -1440,12 +1440,12 @@ class cexc(ccxt.async_support.cexc):
     async def un_watch_order_book_for_symbols(self, symbols: List[str], params={}) -> Any:
         """
 
-        https://www.kucoin.com/docs-new/3470069w0  # spot level 5
-        https://www.kucoin.com/docs-new/3470070w0  # spot level 50
-        https://www.kucoin.com/docs-new/3470068w0  # spot incremental
-        https://www.kucoin.com/docs-new/3470083w0  # futures level 5
-        https://www.kucoin.com/docs-new/3470097w0  # futures level 50
-        https://www.kucoin.com/docs-new/3470082w0  # futures incremental
+        https://exchange-broker.cexc.io/docs-new/3470069w0  # spot level 5
+        https://exchange-broker.cexc.io/docs-new/3470070w0  # spot level 50
+        https://exchange-broker.cexc.io/docs-new/3470068w0  # spot incremental
+        https://exchange-broker.cexc.io/docs-new/3470083w0  # futures level 5
+        https://exchange-broker.cexc.io/docs-new/3470097w0  # futures level 50
+        https://exchange-broker.cexc.io/docs-new/3470082w0  # futures incremental
 
         unWatches information on open orders with bid(buy) and ask(sell) prices, volumes and other data
         :param str[] symbols: unified array of symbols
@@ -1765,11 +1765,11 @@ class cexc(ccxt.async_support.cexc):
         """
         watches information on multiple orders made by the user
 
-        https://www.kucoin.com/docs-new/3470074w0  # spot regular orders
-        https://www.kucoin.com/docs-new/3470139w0  # spot trigger orders
-        https://www.kucoin.com/docs-new/3470090w0  # contract regular orders
-        https://www.kucoin.com/docs-new/3470091w0  # contract trigger orders
-        https://www.kucoin.com/docs-new/3470228w0  # uta orders
+        https://exchange-broker.cexc.io/docs-new/3470074w0  # spot regular orders
+        https://exchange-broker.cexc.io/docs-new/3470139w0  # spot trigger orders
+        https://exchange-broker.cexc.io/docs-new/3470090w0  # contract regular orders
+        https://exchange-broker.cexc.io/docs-new/3470091w0  # contract trigger orders
+        https://exchange-broker.cexc.io/docs-new/3470228w0  # uta orders
 
         :param str symbol: unified market symbol of the market orders were made in
         :param int [since]: the earliest time in ms to fetch orders for
@@ -2165,9 +2165,9 @@ class cexc(ccxt.async_support.cexc):
         """
         watches information on multiple trades made by the user on spot
 
-        https://www.kucoin.com/docs-new/3470074w0
-        https://www.kucoin.com/docs-new/3470090w0
-        https://www.kucoin.com/docs-new/3470264w0
+        https://exchange-broker.cexc.io/docs-new/3470074w0
+        https://exchange-broker.cexc.io/docs-new/3470090w0
+        https://exchange-broker.cexc.io/docs-new/3470264w0
 
         :param str symbol: unified market symbol of the market trades were made in
         :param int [since]: the earliest time in ms to fetch trades for
@@ -2379,9 +2379,9 @@ class cexc(ccxt.async_support.cexc):
         """
         watch balance and get the amount of funds available for trading or funds locked in orders
 
-        https://www.kucoin.com/docs-new/3470075w0  # spot balance
-        https://www.kucoin.com/docs-new/3470092w0  # contract balance
-        https://www.kucoin.com/docs-new/3470231w0  # uta balance
+        https://exchange-broker.cexc.io/docs-new/3470075w0  # spot balance
+        https://exchange-broker.cexc.io/docs-new/3470092w0  # contract balance
+        https://exchange-broker.cexc.io/docs-new/3470231w0  # uta balance
 
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param boolean [params.uta]: set to True for the unified trading account(uta)
@@ -2604,7 +2604,7 @@ class cexc(ccxt.async_support.cexc):
         """
         watch open positions for a specific symbol
 
-        https://www.kucoin.com/docs-new/3470093w0
+        https://exchange-broker.cexc.io/docs-new/3470093w0
 
         :param str|None symbol: unified market symbol
         :param dict params: extra parameters specific to the exchange API endpoint
@@ -2634,7 +2634,7 @@ class cexc(ccxt.async_support.cexc):
     async def watch_positions(self, symbols: Strings = None, since: Int = None, limit: Int = None, params={}) -> List[Position]:
         """
 
-        https://www.kucoin.com/docs-new/3470233w0
+        https://exchange-broker.cexc.io/docs-new/3470233w0
 
         watch all open positions
         :param str[] [symbols]: list of unified market symbols
@@ -2950,7 +2950,7 @@ class cexc(ccxt.async_support.cexc):
         """
         watch the current funding rate
 
-        https://www.kucoin.com/docs-new/3470270w0
+        https://exchange-broker.cexc.io/docs-new/3470270w0
 
         :param str symbol: unified market symbol
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -2967,7 +2967,7 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches the current funding rate for a symbol
 
-        https://www.kucoin.com/docs-new/3470270w0
+        https://exchange-broker.cexc.io/docs-new/3470270w0
 
         :param str symbol: unified symbol of the market
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -3053,7 +3053,7 @@ class cexc(ccxt.async_support.cexc):
         """
         watches a mark price for a specific market
 
-        https://www.kucoin.com/docs-new/3470272w0
+        https://exchange-broker.cexc.io/docs-new/3470272w0
 
         :param str symbol: unified symbol of the market to fetch the ticker for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -3070,7 +3070,7 @@ class cexc(ccxt.async_support.cexc):
         """
         unWatches a mark price for a specific market
 
-        https://www.kucoin.com/docs-new/3470272w0
+        https://exchange-broker.cexc.io/docs-new/3470272w0
 
         :param str symbol: unified symbol of the market to fetch the ticker for
         :param dict [params]: extra parameters specific to the exchange API endpoint
@@ -3179,7 +3179,7 @@ class cexc(ccxt.async_support.cexc):
             method(client, message)
 
     def ping(self, client: Client):
-        # kucoin does not support built-in ws protocol-level ping-pong
+        # cexc does not support built-in ws protocol-level ping-pong
         # instead it requires a custom json-based text ping-pong
         # https://exchange-broker.cexc.io/api/v1/documentation/#ping
         id = str(self.request_id())
@@ -3239,7 +3239,7 @@ class cexc(ccxt.async_support.cexc):
             self.handle_subscription_status(client, message)
 
     def get_message_hash(self, elementName: str, symbol: Str = None):
-        # method from kucoinfutures
+        # method from futures
         # elementName can be 'ticker', 'bidask', ...
         if symbol is not None:
             return elementName + ':' + symbol

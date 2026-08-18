@@ -2385,7 +2385,7 @@ func (this *CexcCore) FetchContractMarkets(optionalArgs ...any) <-chan any {
 		//            "lastTradePrice": 4545.4500000000,
 		//            "nextFundingRateTime": 25481884,
 		//            "maxLeverage": 100,
-		//            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ],
+		//            "sourceExchanges":  [ "huobi", "Okex", "Binance", "cexc", "Poloniex", "Hitbtc" ],
 		//            "premiumsSymbol1M": ".ETHUSDTMPI",
 		//            "premiumsSymbol8H": ".ETHUSDTMPI8H",
 		//            "fundingBaseSymbol1M": ".ETHINT",
@@ -2567,7 +2567,7 @@ func (this *CexcCore) FetchUTAMarkets(optionalArgs ...any) <-chan any {
 		//                     "takerFeeRate": "0.00060",
 		//                     "settlementFeeRate": null,
 		//                     "maxLeverage": 125,
-		//                     "indexSourceExchanges": ["okex","binance","kucoin","bybit","bitmart","gateio"],
+		//                     "indexSourceExchanges": ["okex","binance","cexc","bybit","bitmart","gateio"],
 		//                     "k": "490.0",
 		//                     "m": "300.0",
 		//                     "f": "1.3",
@@ -2858,7 +2858,7 @@ func (this *CexcCore) ParseCurrency(currency any) any {
 			})
 		}
 	}
-	// kucoin has determined 'fiat' currencies with below logic
+	// cexc has determined 'fiat' currencies with below logic
 	var rawPrecision any = this.SafeString(entry, "precision")
 	var precision any = this.ParseNumber(this.ParsePrecision(rawPrecision))
 	var isFiat any = IsEqual(chainsLength, 0)
@@ -3624,7 +3624,7 @@ func (this *CexcCore) FetchContractTickers(optionalArgs ...any) <-chan any {
 		//            "lastTradePrice": 4545.4500000000,
 		//            "nextFundingRateTime": 25481884,
 		//            "maxLeverage": 100,
-		//            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ],
+		//            "sourceExchanges":  [ "huobi", "Okex", "Binance", "cexc", "Poloniex", "Hitbtc" ],
 		//            "premiumsSymbol1M": ".ETHUSDTMPI",
 		//            "premiumsSymbol8H": ".ETHUSDTMPI8H",
 		//            "fundingBaseSymbol1M": ".ETHINT",
@@ -3884,10 +3884,10 @@ func (this *CexcCore) ParseOHLCV(ohlcv any, optionalArgs ...any) any {
 	_ = market
 	var timestampString any = this.SafeString(ohlcv, 0)
 	if IsTrue(IsTrue(!IsEqual(timestampString, nil)) && IsTrue(IsLessThanOrEqual(GetLength(timestampString), 10))) {
-		// kucoin spot and uta return seconds timestamps
+		// cexc spot and uta return seconds timestamps
 		return []any{this.SafeTimestamp(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 5)}
 	} else {
-		// kucoin futures return milliseconds timestamps
+		// cexc futures return milliseconds timestamps
 		return []any{this.SafeInteger(ohlcv, 0), this.SafeNumber(ohlcv, 1), this.SafeNumber(ohlcv, 2), this.SafeNumber(ohlcv, 3), this.SafeNumber(ohlcv, 4), this.SafeNumber(ohlcv, 5)}
 	}
 }
@@ -4433,7 +4433,7 @@ func (this *CexcCore) FetchContractDepositAddress(code any, optionalArgs ...any)
 		//        "code": "200000",
 		//        "data": {
 		//            "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",//Deposit address
-		//            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to KuCoin Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
+		//            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to Cexc Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
 		//        }
 		//    }
 		//
@@ -5016,7 +5016,7 @@ func (this *CexcCore) CreateSpotOrderRequest(symbol any, typeVar any, side any, 
 	if IsTrue(IsEqual(typeVar, "market")) {
 		if IsTrue(!IsEqual(quoteAmount, nil)) {
 			params = this.Omit(params, []any{"cost", "funds"})
-			// kucoin uses base precision even for quote values
+			// cexc uses base precision even for quote values
 			costString = this.MarketOrderAmountToPrecision(symbol, quoteAmount)
 			AddElementToObject(request, "funds", costString)
 		} else {
@@ -5891,7 +5891,7 @@ func (this *CexcCore) CreateContractOrders(orders any, optionalArgs ...any) <-ch
 /**
  * @method
  * @name cexc#editOrder
- * @description edit an order, kucoin currently only supports the modification of HF orders
+ * @description edit an order, cexc currently only supports the modification of HF orders
  * @see https://exchange-broker.cexc.io/docs-new/rest/spot-trading/orders/modify-order
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market to create an order in
@@ -7997,7 +7997,7 @@ func (this *CexcCore) ParseSpotOrder(order any, optionalArgs ...any) any {
 	//        "tags": "partner:ccxt",
 	//        "relatedNo": null,
 	//        "orderTime": 1674146316994000028,
-	//        "domainId": "kucoin",
+	//        "domainId": "cexc",
 	//        "tradeSource": "USER",
 	//        "tradeType": "MARGIN_TRADE",
 	//        "feeCurrency": "USDT",
@@ -10767,7 +10767,7 @@ func (this *CexcCore) ParseTransfer(transfer any, optionalArgs ...any) any {
 	//         "recAccountType": "MAIN",
 	//         "recTag": "DEFAULT",
 	//         "recRemark": '',
-	//         "recSystem": "KUCOIN",
+	//         "recSystem": "CEXC",
 	//         "status": "PROCESSING",
 	//         "currency": "XBT",
 	//         "amount": "0.00001",
@@ -10859,7 +10859,7 @@ func (this *CexcCore) ParseLedgerEntryType(typeVar any) any {
 		"Withdrawal":                            "transaction",
 		"Transfer":                              "transfer",
 		"Trade_Exchange":                        "trade",
-		"KuCoin Bonus":                          "bonus",
+		"Cexc Bonus":                            "bonus",
 		"Referral Bonus":                        "referral",
 		"Rewards":                               "bonus",
 		"Airdrop/Fork":                          "airdrop",
@@ -13831,7 +13831,7 @@ func (this *CexcCore) FetchPositionMode(optionalArgs ...any) <-chan any {
  * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order
  * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order-test
  * @param {string} symbol Unified CCXT market symbol
- * @param {string} side not used by kucoin closePositions
+ * @param {string} side not used by cexc closePositions
  * @param {object} [params] extra parameters specific to the exchange API endpoint
  * @param {string} [params.clientOrderId] client order id of the order
  * @returns {object[]} [A list of position structures]{@link https://docs.ccxt.com/?id=position-structure}
