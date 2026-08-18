@@ -920,7 +920,7 @@ class cexc(Exchange, ImplicitAPI):
                 'timeDifference': 0,  # the difference between system clock and exchange clock
                 'adjustForTimeDifference': False,  # controls the adjustment logic upon instantiation
                 'fetchCurrencies': {
-                    'brokenCurrencies': ['00', 'OPEN_ERROR', 'HUF', 'BDT'],  # skip buggy entries: https://t.me/KuCoin_API/217798
+                    'brokenCurrencies': ['00', 'OPEN_ERROR', 'HUF', 'BDT'],  # skip buggy entries: https://exchange-broker.cexc.io/docs-new
                 },
                 'fetchMarkets': {
                     'types': ['spot', 'swap', 'future', 'contract'],
@@ -1136,7 +1136,7 @@ class cexc(Exchange, ImplicitAPI):
                     'HECO': 'heco',
                     'HRC20': 'heco',
                     'MATIC': 'matic',
-                    'KCC': 'kcc',  # kucoin community chain
+                    'KCC': 'kcc',  # KCC chain
                     'SOL': 'sol',
                     'ALGO': 'algo',
                     'EOS': 'eos',
@@ -1284,7 +1284,7 @@ class cexc(Exchange, ImplicitAPI):
                     # 'VELAS': 'vlx',  # vlxevm is different
                     #  # 'terra' luna lunc TBD
                     # 'DIGITALBITS': 'xdb',
-                    #  # fra is fra-emv on kucoin
+                    #  # fra is fra-emv on cexc
                     # 'PASTEL': 'psl',
                     #  # sysevm
                     # 'CONCORDIUM': 'ccd',
@@ -1325,7 +1325,7 @@ class cexc(Exchange, ImplicitAPI):
                     # 'ENECUUM': 'enq',
                     # 'HAVEN': 'xhv',
                     # 'CHAINX': 'pcx',
-                    #  # 'FLUXOLD': 'zel',  # zel seems old chain(with uppercase FLUX in kucoin UI and with id 'zel')
+                    #  # 'FLUXOLD': 'zel',  # zel seems old chain(with uppercase FLUX in cexc UI and with id 'zel')
                     # 'BUMO': 'bu',
                     # 'DEEPONION': 'onion',
                     # 'ULORD': 'ut',
@@ -1894,7 +1894,7 @@ class cexc(Exchange, ImplicitAPI):
         #            "lastTradePrice": 4545.4500000000,
         #            "nextFundingRateTime": 25481884,
         #            "maxLeverage": 100,
-        #            "sourceExchanges":  ["huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc"],
+        #            "sourceExchanges":  ["huobi", "Okex", "Binance", "cexc", "Poloniex", "Hitbtc"],
         #            "premiumsSymbol1M": ".ETHUSDTMPI",
         #            "premiumsSymbol8H": ".ETHUSDTMPI8H",
         #            "fundingBaseSymbol1M": ".ETHINT",
@@ -2056,7 +2056,7 @@ class cexc(Exchange, ImplicitAPI):
         #                     "takerFeeRate": "0.00060",
         #                     "settlementFeeRate": null,
         #                     "maxLeverage": 125,
-        #                     "indexSourceExchanges": ["okex","binance","kucoin","bybit","bitmart","gateio"],
+        #                     "indexSourceExchanges": ["okex","binance","cexc","bybit","bitmart","gateio"],
         #                     "k": "490.0",
         #                     "m": "300.0",
         #                     "f": "1.3",
@@ -2323,7 +2323,7 @@ class cexc(Exchange, ImplicitAPI):
                         },
                     },
                 }
-        # kucoin has determined 'fiat' currencies with below logic
+        # cexc has determined 'fiat' currencies with below logic
         rawPrecision = self.safe_string(entry, 'precision')
         precision = self.parse_number(self.parse_precision(rawPrecision))
         isFiat = chainsLength == 0
@@ -3012,7 +3012,7 @@ class cexc(Exchange, ImplicitAPI):
         #            "lastTradePrice": 4545.4500000000,
         #            "nextFundingRateTime": 25481884,
         #            "maxLeverage": 100,
-        #            "sourceExchanges":  ["huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc"],
+        #            "sourceExchanges":  ["huobi", "Okex", "Binance", "cexc", "Poloniex", "Hitbtc"],
         #            "premiumsSymbol1M": ".ETHUSDTMPI",
         #            "premiumsSymbol8H": ".ETHUSDTMPI8H",
         #            "fundingBaseSymbol1M": ".ETHINT",
@@ -3196,7 +3196,7 @@ class cexc(Exchange, ImplicitAPI):
         #
         timestampString = self.safe_string(ohlcv, 0)
         if timestampString is not None and len(timestampString) <= 10:
-            # kucoin spot and uta return seconds timestamps
+            # cexc spot and uta return seconds timestamps
             return [
                 self.safe_timestamp(ohlcv, 0),
                 self.safe_number(ohlcv, 1),
@@ -3206,7 +3206,7 @@ class cexc(Exchange, ImplicitAPI):
                 self.safe_number(ohlcv, 5),
             ]
         else:
-            # kucoin futures return milliseconds timestamps
+            # cexc futures return milliseconds timestamps
             return [
                 self.safe_integer(ohlcv, 0),
                 self.safe_number(ohlcv, 1),
@@ -3551,7 +3551,7 @@ class cexc(Exchange, ImplicitAPI):
         #        "code": "200000",
         #        "data": {
         #            "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",//Deposit address
-        #            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to KuCoin Futures and if the token to be  #transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent  #to the address you specified.
+        #            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to Cexc Futures and if the token to be  #transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent  #to the address you specified.
         #        }
         #    }
         #
@@ -3976,7 +3976,7 @@ class cexc(Exchange, ImplicitAPI):
         if type == 'market':
             if quoteAmount is not None:
                 params = self.omit(params, ['cost', 'funds'])
-                # kucoin uses base precision even for quote values
+                # cexc uses base precision even for quote values
                 costString = self.market_order_amount_to_precision(symbol, quoteAmount)
                 request['funds'] = costString
             else:
@@ -4612,7 +4612,7 @@ class cexc(Exchange, ImplicitAPI):
 
     async def edit_order(self, id: str, symbol: str, type: OrderType, side: OrderSide, amount: Num = None, price: Num = None, params={}):
         """
-        edit an order, kucoin currently only supports the modification of HF orders
+        edit an order, cexc currently only supports the modification of HF orders
 
         https://exchange-broker.cexc.io/docs-new/rest/spot-trading/orders/modify-order
 
@@ -6088,7 +6088,7 @@ class cexc(Exchange, ImplicitAPI):
         #        "tags": "partner:ccxt",
         #        "relatedNo": null,
         #        "orderTime": 1674146316994000028,
-        #        "domainId": "kucoin",
+        #        "domainId": "cexc",
         #        "tradeSource": "USER",
         #        "tradeType": "MARGIN_TRADE",
         #        "feeCurrency": "USDT",
@@ -8196,7 +8196,7 @@ class cexc(Exchange, ImplicitAPI):
         #         "recAccountType": "MAIN",
         #         "recTag": "DEFAULT",
         #         "recRemark": '',
-        #         "recSystem": "KUCOIN",
+        #         "recSystem": "CEXC",
         #         "status": "PROCESSING",
         #         "currency": "XBT",
         #         "amount": "0.00001",
@@ -8284,7 +8284,7 @@ class cexc(Exchange, ImplicitAPI):
             'Transfer': 'transfer',  # Transfer
             'Trade_Exchange': 'trade',  # Trade
             # 'Vote for Coin': 'Vote for Coin',  # Vote for Coin
-            'KuCoin Bonus': 'bonus',  # KuCoin Bonus
+            'Cexc Bonus': 'bonus',  # Cexc Bonus
             'Referral Bonus': 'referral',  # Referral Bonus
             'Rewards': 'bonus',  # Activities Rewards
             # 'Distribution': 'Distribution',  # Distribution, such GAS by holding NEO
@@ -8531,7 +8531,7 @@ class cexc(Exchange, ImplicitAPI):
         request = {
             # 'currency': currency['id'],  # can choose up to 10, if not provided returns for all currencies by default
             # 'direction': 'in',  # 'out'
-            # 'bizType': 'DEPOSIT',  # DEPOSIT, WITHDRAW, TRANSFER, SUB_TRANSFER,TRADE_EXCHANGE, MARGIN_EXCHANGE, KUCOIN_BONUS(optional)
+            # 'bizType': 'DEPOSIT',  # DEPOSIT, WITHDRAW, TRANSFER, SUB_TRANSFER,TRADE_EXCHANGE, MARGIN_EXCHANGE, CEXC_BONUS(optional)
             # 'startAt': since,
             # 'endAt': exchange.milliseconds(),
         }
@@ -10577,7 +10577,7 @@ class cexc(Exchange, ImplicitAPI):
         https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order-test
 
         :param str symbol: Unified CCXT market symbol
-        :param str side: not used by kucoin closePositions
+        :param str side: not used by cexc closePositions
         :param dict [params]: extra parameters specific to the exchange API endpoint
         :param str [params.clientOrderId]: client order id of the order
         :returns dict[]: `A list of position structures <https://docs.ccxt.com/?id=position-structure>`

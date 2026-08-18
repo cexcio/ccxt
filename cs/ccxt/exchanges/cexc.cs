@@ -2350,7 +2350,7 @@ public partial class cexc : Exchange
         //            "lastTradePrice": 4545.4500000000,
         //            "nextFundingRateTime": 25481884,
         //            "maxLeverage": 100,
-        //            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ],
+        //            "sourceExchanges":  [ "huobi", "Okex", "Binance", "cexc", "Poloniex", "Hitbtc" ],
         //            "premiumsSymbol1M": ".ETHUSDTMPI",
         //            "premiumsSymbol8H": ".ETHUSDTMPI8H",
         //            "fundingBaseSymbol1M": ".ETHINT",
@@ -2529,7 +2529,7 @@ public partial class cexc : Exchange
         //                     "takerFeeRate": "0.00060",
         //                     "settlementFeeRate": null,
         //                     "maxLeverage": 125,
-        //                     "indexSourceExchanges": ["okex","binance","kucoin","bybit","bitmart","gateio"],
+        //                     "indexSourceExchanges": ["okex","binance","cexc","bybit","bitmart","gateio"],
         //                     "k": "490.0",
         //                     "m": "300.0",
         //                     "f": "1.3",
@@ -2806,7 +2806,7 @@ public partial class cexc : Exchange
                 };
             }
         }
-        // kucoin has determined 'fiat' currencies with below logic
+        // cexc has determined 'fiat' currencies with below logic
         object rawPrecision = this.safeString(entry, "precision");
         object precision = this.parseNumber(this.parsePrecision(rawPrecision));
         object isFiat = isEqual(chainsLength, 0);
@@ -3533,7 +3533,7 @@ public partial class cexc : Exchange
         //            "lastTradePrice": 4545.4500000000,
         //            "nextFundingRateTime": 25481884,
         //            "maxLeverage": 100,
-        //            "sourceExchanges":  [ "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ],
+        //            "sourceExchanges":  [ "huobi", "Okex", "Binance", "cexc", "Poloniex", "Hitbtc" ],
         //            "premiumsSymbol1M": ".ETHUSDTMPI",
         //            "premiumsSymbol8H": ".ETHUSDTMPI8H",
         //            "fundingBaseSymbol1M": ".ETHINT",
@@ -3746,11 +3746,11 @@ public partial class cexc : Exchange
         object timestampString = this.safeString(ohlcv, 0);
         if (isTrue(isTrue(!isEqual(timestampString, null)) && isTrue(isLessThanOrEqual(((string)timestampString).Length, 10))))
         {
-            // kucoin spot and uta return seconds timestamps
+            // cexc spot and uta return seconds timestamps
             return new List<object> {this.safeTimestamp(ohlcv, 0), this.safeNumber(ohlcv, 1), this.safeNumber(ohlcv, 3), this.safeNumber(ohlcv, 4), this.safeNumber(ohlcv, 2), this.safeNumber(ohlcv, 5)};
         } else
         {
-            // kucoin futures return milliseconds timestamps
+            // cexc futures return milliseconds timestamps
             return new List<object> {this.safeInteger(ohlcv, 0), this.safeNumber(ohlcv, 1), this.safeNumber(ohlcv, 2), this.safeNumber(ohlcv, 3), this.safeNumber(ohlcv, 4), this.safeNumber(ohlcv, 5)};
         }
     }
@@ -4195,7 +4195,7 @@ public partial class cexc : Exchange
         //        "code": "200000",
         //        "data": {
         //            "address": "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",//Deposit address
-        //            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to KuCoin Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
+        //            "memo": null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to Cexc Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the address you specified.
         //        }
         //    }
         //
@@ -4727,7 +4727,7 @@ public partial class cexc : Exchange
             if (isTrue(!isEqual(quoteAmount, null)))
             {
                 parameters = this.omit(parameters, new List<object>() {"cost", "funds"});
-                // kucoin uses base precision even for quote values
+                // cexc uses base precision even for quote values
                 costString = this.marketOrderAmountToPrecision(symbol, quoteAmount);
                 ((IDictionary<string,object>)request)["funds"] = costString;
             } else
@@ -5583,7 +5583,7 @@ public partial class cexc : Exchange
     /**
      * @method
      * @name cexc#editOrder
-     * @description edit an order, kucoin currently only supports the modification of HF orders
+     * @description edit an order, cexc currently only supports the modification of HF orders
      * @see https://exchange-broker.cexc.io/docs-new/rest/spot-trading/orders/modify-order
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market to create an order in
@@ -7413,7 +7413,7 @@ public partial class cexc : Exchange
         //        "tags": "partner:ccxt",
         //        "relatedNo": null,
         //        "orderTime": 1674146316994000028,
-        //        "domainId": "kucoin",
+        //        "domainId": "cexc",
         //        "tradeSource": "USER",
         //        "tradeType": "MARGIN_TRADE",
         //        "feeCurrency": "USDT",
@@ -9997,7 +9997,7 @@ public partial class cexc : Exchange
         //         "recAccountType": "MAIN",
         //         "recTag": "DEFAULT",
         //         "recRemark": '',
-        //         "recSystem": "KUCOIN",
+        //         "recSystem": "CEXC",
         //         "status": "PROCESSING",
         //         "currency": "XBT",
         //         "amount": "0.00001",
@@ -10096,7 +10096,7 @@ public partial class cexc : Exchange
             { "Withdrawal", "transaction" },
             { "Transfer", "transfer" },
             { "Trade_Exchange", "trade" },
-            { "KuCoin Bonus", "bonus" },
+            { "Cexc Bonus", "bonus" },
             { "Referral Bonus", "referral" },
             { "Rewards", "bonus" },
             { "Airdrop/Fork", "airdrop" },
@@ -12742,7 +12742,7 @@ public partial class cexc : Exchange
      * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order
      * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order-test
      * @param {string} symbol Unified CCXT market symbol
-     * @param {string} side not used by kucoin closePositions
+     * @param {string} side not used by cexc closePositions
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.clientOrderId] client order id of the order
      * @returns {object[]} [A list of position structures]{@link https://docs.ccxt.com/?id=position-structure}

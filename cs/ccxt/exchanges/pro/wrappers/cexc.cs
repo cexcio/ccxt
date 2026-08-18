@@ -10,9 +10,9 @@ public partial class cexc
     /// watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for a specific market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470063w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470081w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470222w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470063w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470081w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470222w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -38,10 +38,10 @@ public partial class cexc
     /// watches a price ticker, a statistical calculation with the information calculated over the past 24 hours for all markets of a specific list
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470063w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470064w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470081w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470222w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470063w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470064w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470081w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470222w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -78,8 +78,8 @@ public partial class cexc
     /// watches best bid & ask for symbols
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470067w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470080w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470067w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470080w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -104,9 +104,9 @@ public partial class cexc
     /// watches historical candlestick data containing the open, high, low, and close price, and the volume of a market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470071w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470086w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470223w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470071w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470086w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470223w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -146,9 +146,9 @@ public partial class cexc
     /// get the list of most recent trades for a particular symbol
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470072w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470084w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470224w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470072w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470084w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470224w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -188,8 +188,8 @@ public partial class cexc
     /// get the list of most recent trades for a particular symbol
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470072w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470084w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470072w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470084w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -223,13 +223,13 @@ public partial class cexc
     /// watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470069w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470070w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470068w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470083w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470097w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470082w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470221w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470069w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470070w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470068w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470083w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470097w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470082w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470221w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>limit</term>
@@ -268,13 +268,13 @@ public partial class cexc
     /// watches information on open orders with bid (buy) and ask (sell) prices, volumes and other data
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470069w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470070w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470068w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470083w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470097w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470082w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470221w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470069w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470070w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470068w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470083w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470097w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470082w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470221w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>limit</term>
@@ -301,11 +301,11 @@ public partial class cexc
     /// watches information on multiple orders made by the user
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470074w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470139w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470090w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470091w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470228w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470074w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470139w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470090w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470091w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470228w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -357,9 +357,9 @@ public partial class cexc
     /// watches information on multiple trades made by the user on spot
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470074w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470090w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470264w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470074w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470090w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470264w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -405,9 +405,9 @@ public partial class cexc
     /// watch balance and get the amount of funds available for trading or funds locked in orders
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470075w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470092w0"/>  <br/>
-    /// See <see href="https://www.kucoin.com/docs-new/3470231w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470075w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470092w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470231w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -439,7 +439,7 @@ public partial class cexc
     /// watch open positions for a specific symbol
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470093w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470093w0"/>  <br/>
     /// <list type="table">
     /// </list>
     /// </remarks>
@@ -453,7 +453,7 @@ public partial class cexc
     /// watch all open positions
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470233w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470233w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>since</term>
@@ -487,7 +487,7 @@ public partial class cexc
     /// watch the current funding rate
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470270w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470270w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>
@@ -507,7 +507,7 @@ public partial class cexc
     /// watches a mark price for a specific market
     /// </summary>
     /// <remarks>
-    /// See <see href="https://www.kucoin.com/docs-new/3470272w0"/>  <br/>
+    /// See <see href="https://exchange-broker.cexc.io/docs-new/3470272w0"/>  <br/>
     /// <list type="table">
     /// <item>
     /// <term>params</term>

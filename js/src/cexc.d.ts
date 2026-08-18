@@ -508,7 +508,7 @@ export default class cexc extends Exchange {
     /**
      * @method
      * @name cexc#editOrder
-     * @description edit an order, kucoin currently only supports the modification of HF orders
+     * @description edit an order, cexc currently only supports the modification of HF orders
      * @see https://exchange-broker.cexc.io/docs-new/rest/spot-trading/orders/modify-order
      * @param {string} id order id
      * @param {string} symbol unified symbol of the market to create an order in
@@ -1543,7 +1543,7 @@ export default class cexc extends Exchange {
      * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order
      * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order-test
      * @param {string} symbol Unified CCXT market symbol
-     * @param {string} side not used by kucoin closePositions
+     * @param {string} side not used by cexc closePositions
      * @param {object} [params] extra parameters specific to the exchange API endpoint
      * @param {string} [params.clientOrderId] client order id of the order
      * @returns {object[]} [A list of position structures]{@link https://docs.ccxt.com/?id=position-structure}

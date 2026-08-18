@@ -895,7 +895,7 @@ class cexc extends Exchange {
                 'timeDifference' => 0, // the difference between system clock and exchange clock
                 'adjustForTimeDifference' => false, // controls the adjustment logic upon instantiation
                 'fetchCurrencies' => array(
-                    'brokenCurrencies' => array( '00', 'OPEN_ERROR', 'HUF', 'BDT' ), // skip buggy entries => https://t.me/KuCoin_API/217798
+                    'brokenCurrencies' => array( '00', 'OPEN_ERROR', 'HUF', 'BDT' ), // skip buggy entries => https://exchange-broker.cexc.io/docs-new
                 ),
                 'fetchMarkets' => array(
                     'types' => array( 'spot', 'swap', 'future', 'contract' ),
@@ -1111,7 +1111,7 @@ class cexc extends Exchange {
                     'HECO' => 'heco',
                     'HRC20' => 'heco',
                     'MATIC' => 'matic',
-                    'KCC' => 'kcc', // kucoin community chain
+                    'KCC' => 'kcc', // KCC chain
                     'SOL' => 'sol',
                     'ALGO' => 'algo',
                     'EOS' => 'eos',
@@ -1259,7 +1259,7 @@ class cexc extends Exchange {
                     // 'VELAS' => 'vlx', // vlxevm is different
                     // // 'terra' luna lunc TBD
                     // 'DIGITALBITS' => 'xdb',
-                    // // fra is fra-emv on kucoin
+                    // // fra is fra-emv on cexc
                     // 'PASTEL' => 'psl',
                     // // sysevm
                     // 'CONCORDIUM' => 'ccd',
@@ -1300,7 +1300,7 @@ class cexc extends Exchange {
                     // 'ENECUUM' => 'enq',
                     // 'HAVEN' => 'xhv',
                     // 'CHAINX' => 'pcx',
-                    // // 'FLUXOLD' => 'zel', // zel seems old chain (with uppercase FLUX in kucoin UI and with id 'zel')
+                    // // 'FLUXOLD' => 'zel', // zel seems old chain (with uppercase FLUX in cexc UI and with id 'zel')
                     // 'BUMO' => 'bu',
                     // 'DEEPONION' => 'onion',
                     // 'ULORD' => 'ut',
@@ -1891,7 +1891,7 @@ class cexc extends Exchange {
         //            "lastTradePrice" => 4545.4500000000,
         //            "nextFundingRateTime" => 25481884,
         //            "maxLeverage" => 100,
-        //            "sourceExchanges" =>  array( "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ),
+        //            "sourceExchanges" =>  array( "huobi", "Okex", "Binance", "cexc", "Poloniex", "Hitbtc" ),
         //            "premiumsSymbol1M" => ".ETHUSDTMPI",
         //            "premiumsSymbol8H" => ".ETHUSDTMPI8H",
         //            "fundingBaseSymbol1M" => ".ETHINT",
@@ -2059,7 +2059,7 @@ class cexc extends Exchange {
         //                     "takerFeeRate" => "0.00060",
         //                     "settlementFeeRate" => null,
         //                     "maxLeverage" => 125,
-        //                     "indexSourceExchanges" => ["okex","binance","kucoin","bybit","bitmart","gateio"],
+        //                     "indexSourceExchanges" => ["okex","binance","cexc","bybit","bitmart","gateio"],
         //                     "k" => "490.0",
         //                     "m" => "300.0",
         //                     "f" => "1.3",
@@ -2343,7 +2343,7 @@ class cexc extends Exchange {
                 );
             }
         }
-        // kucoin has determined 'fiat' currencies with below logic
+        // cexc has determined 'fiat' currencies with below logic
         $rawPrecision = $this->safe_string($entry, 'precision');
         $precision = $this->parse_number($this->parse_precision($rawPrecision));
         $isFiat = $chainsLength === 0;
@@ -3066,7 +3066,7 @@ class cexc extends Exchange {
         //            "lastTradePrice" => 4545.4500000000,
         //            "nextFundingRateTime" => 25481884,
         //            "maxLeverage" => 100,
-        //            "sourceExchanges" =>  array( "huobi", "Okex", "Binance", "Kucoin", "Poloniex", "Hitbtc" ),
+        //            "sourceExchanges" =>  array( "huobi", "Okex", "Binance", "cexc", "Poloniex", "Hitbtc" ),
         //            "premiumsSymbol1M" => ".ETHUSDTMPI",
         //            "premiumsSymbol8H" => ".ETHUSDTMPI8H",
         //            "fundingBaseSymbol1M" => ".ETHINT",
@@ -3259,7 +3259,7 @@ class cexc extends Exchange {
         //
         $timestampString = $this->safe_string($ohlcv, 0);
         if ($timestampString !== null && strlen($timestampString) <= 10) {
-            // kucoin spot and uta return seconds timestamps
+            // cexc spot and uta return seconds timestamps
             return array(
                 $this->safe_timestamp($ohlcv, 0),
                 $this->safe_number($ohlcv, 1),
@@ -3269,7 +3269,7 @@ class cexc extends Exchange {
                 $this->safe_number($ohlcv, 5),
             );
         } else {
-            // kucoin futures return milliseconds timestamps
+            // cexc futures return milliseconds timestamps
             return array(
                 $this->safe_integer($ohlcv, 0),
                 $this->safe_number($ohlcv, 1),
@@ -3649,7 +3649,7 @@ class cexc extends Exchange {
         //        "code" => "200000",
         //        "data" => {
         //            "address" => "0x78d3ad1c0aa1bf068e19c94a2d7b16c9c0fcd8b1",//Deposit $address
-        //            "memo" => null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to KuCoin Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the $address you specified.
+        //            "memo" => null//Address tag. If the returned value is null, it means that the requested token has no memo. If you are to transfer funds from another platform to Cexc Futures and if the token to be //transferred has memo(tag), you need to fill in the memo to ensure the transferred funds will be sent //to the $address you specified.
         //        }
         //    }
         //
@@ -4111,7 +4111,7 @@ class cexc extends Exchange {
         if ($type === 'market') {
             if ($quoteAmount !== null) {
                 $params = $this->omit($params, array( 'cost', 'funds' ));
-                // kucoin uses base precision even for quote values
+                // cexc uses base precision even for quote values
                 $costString = $this->market_order_amount_to_precision($symbol, $quoteAmount);
                 $request['funds'] = $costString;
             } else {
@@ -4836,7 +4836,7 @@ class cexc extends Exchange {
 
     public function edit_order(string $id, string $symbol, string $type, string $side, ?float $amount = null, ?float $price = null, $params = array()) {
         /**
-         * edit an order, kucoin currently only supports the modification of HF orders
+         * edit an order, cexc currently only supports the modification of HF orders
          *
          * @see https://exchange-broker.cexc.io/docs-new/rest/spot-trading/orders/modify-order
          *
@@ -6449,7 +6449,7 @@ class cexc extends Exchange {
         //        "tags" => "partner:ccxt",
         //        "relatedNo" => null,
         //        "orderTime" => 1674146316994000028,
-        //        "domainId" => "kucoin",
+        //        "domainId" => "cexc",
         //        "tradeSource" => "USER",
         //        "tradeType" => "MARGIN_TRADE",
         //        "feeCurrency" => "USDT",
@@ -8732,7 +8732,7 @@ class cexc extends Exchange {
         //         "recAccountType" => "MAIN",
         //         "recTag" => "DEFAULT",
         //         "recRemark" => '',
-        //         "recSystem" => "KUCOIN",
+        //         "recSystem" => "CEXC",
         //         "status" => "PROCESSING",
         //         "currency" => "XBT",
         //         "amount" => "0.00001",
@@ -8825,7 +8825,7 @@ class cexc extends Exchange {
             'Transfer' => 'transfer', // Transfer
             'Trade_Exchange' => 'trade', // Trade
             // 'Vote for Coin' => 'Vote for Coin', // Vote for Coin
-            'KuCoin Bonus' => 'bonus', // KuCoin Bonus
+            'Cexc Bonus' => 'bonus', // Cexc Bonus
             'Referral Bonus' => 'referral', // Referral Bonus
             'Rewards' => 'bonus', // Activities Rewards
             // 'Distribution' => 'Distribution', // Distribution, such GAS by holding NEO
@@ -9089,7 +9089,7 @@ class cexc extends Exchange {
         $request = array(
             // 'currency' => $currency['id'], // can choose up to 10, if not provided returns for all currencies by default
             // 'direction' => 'in', // 'out'
-            // 'bizType' => 'DEPOSIT', // DEPOSIT, WITHDRAW, TRANSFER, SUB_TRANSFER,TRADE_EXCHANGE, MARGIN_EXCHANGE, KUCOIN_BONUS (optional)
+            // 'bizType' => 'DEPOSIT', // DEPOSIT, WITHDRAW, TRANSFER, SUB_TRANSFER,TRADE_EXCHANGE, MARGIN_EXCHANGE, CEXC_BONUS (optional)
             // 'startAt' => $since,
             // 'endAt' => exchange.milliseconds (),
         );
@@ -11270,7 +11270,7 @@ class cexc extends Exchange {
          * @see https://exchange-broker.cexc.io/docs-new/rest/futures-trading/orders/add-order-test
          *
          * @param {string} $symbol Unified CCXT $market $symbol
-         * @param {string} $side not used by kucoin closePositions
+         * @param {string} $side not used by cexc closePositions
          * @param {array} [$params] extra parameters specific to the exchange API endpoint
          * @param {string} [$params->clientOrderId] client order id of the order
          * @return {array[]} ~@link https://docs.ccxt.com/?id=position-structure A list of position structures~

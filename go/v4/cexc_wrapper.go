@@ -870,7 +870,7 @@ func (this *Cexc) CreateContractOrders(orders []OrderRequest, options ...CreateC
 /**
  * @method
  * @name cexc#editOrder
- * @description edit an order, kucoin currently only supports the modification of HF orders
+ * @description edit an order, cexc currently only supports the modification of HF orders
  * @see https://exchange-broker.cexc.io/docs-new/rest/spot-trading/orders/modify-order
  * @param {string} id order id
  * @param {string} symbol unified symbol of the market to create an order in
